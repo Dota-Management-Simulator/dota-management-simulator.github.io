@@ -1,8 +1,8 @@
 # GitHub organization and hosting
 
-Target organization: **Dota-Management-Simulator**, owned by **Jonahbyu**.
-Target public repository: `Dota-Management-Simulator/dota-management-simulator.github.io`.
-Target website: `https://dota-management-simulator.github.io/`.
+Organization: **Dota-Management-Simulator**, owned by **Jonahbyu** (verified active organization owner).
+Public repository: [Dota-Management-Simulator/dota-management-simulator.github.io](https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io).
+Live website: [dota-management-simulator.github.io](https://dota-management-simulator.github.io/).
 
 ## Structure
 
@@ -13,9 +13,9 @@ Target website: `https://dota-management-simulator.github.io/`.
 - `reference/`: preserved earlier prototypes, kept separate from the new app.
 - `scripts/deploy-pages.mjs`: publishes the production build to `gh-pages`.
 
-## First publication
+## Build and publish
 
-Create the **Dota-Management-Simulator** organization while signed in as **Jonahbyu**. Choose GitHub Free. Create the public `dota-management-simulator.github.io` repository, push this source to `main`, then run:
+The organization and public repository are configured. Source lives on `main`; compiled site files live on `gh-pages`. To build and publish updates:
 
 ```sh
 npm ci
@@ -23,7 +23,7 @@ npm test
 npm run deploy
 ```
 
-An organization owner or repository administrator must set **Settings → Pages → Deploy from a branch → gh-pages → / (root)**. The Pages build may take a few minutes. GitHub Free Pages requires a public repository.
+Pages is configured as **Deploy from a branch → gh-pages → / (root)** with HTTPS enforced. The Pages build may take a few minutes after a deployment. GitHub Free Pages requires a public repository.
 
 ## Updating the site
 
@@ -31,4 +31,4 @@ Commit and push source changes to `main`, then run `npm run deploy` from the pro
 
 The app runs entirely in the browser, including its simulation worker. Campaign saves and theme choices stay in the browser that created them; localhost saves do not automatically transfer to the hosted site's different origin.
 
-This document describes the prepared configuration. A successful GitHub Pages build and an HTTP check of the deployed URL are required before reporting publication as complete.
+Initial publication was verified with a successful Pages build, HTTP 200 responses for the page, JavaScript, CSS, favicon and worker, and a hosted-browser campaign and match simulation. Future deployments should also be checked before reporting publication as complete.

@@ -2,6 +2,8 @@
 
 A local, browser-based Dota-inspired management prototype. React + TypeScript + Vite; fictional data is loaded from `src/data/world.json`, separate from the UI and simulation engine.
 
+**[Play the live simulator](https://dota-management-simulator.github.io/)** · [Source repository](https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io)
+
 ## Run
 
 Requires Node.js 20.19+ or 22.12+.
@@ -15,7 +17,7 @@ Open the Local URL printed by Vite. `npm run build` creates `dist/`; `npm run pr
 
 ## Publishing
 
-The prepared GitHub Pages destination is `Dota-Management-Simulator/dota-management-simulator.github.io`. Run `npm run deploy` to build and publish the static app to its `gh-pages` branch. First-time setup and repository organization are described in [GitHub Pages setup](docs/github-pages.md). Hosting uses relative asset URLs and supports the background match worker.
+GitHub Pages publishes from `Dota-Management-Simulator/dota-management-simulator.github.io`. Run `npm run deploy` to build and publish the static app to its `gh-pages` branch. Hosting and repository organization are described in [GitHub Pages setup](docs/github-pages.md). Hosting uses relative asset URLs and supports the background match worker.
 
 ## Implemented scaffold
 
