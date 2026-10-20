@@ -15,7 +15,7 @@ Open the Local URL printed by Vite. `npm run build` creates `dist/`; `npm run pr
 
 ## Publishing
 
-The prepared GitHub Pages destination is `Dota-Team-Manager/dota-team-manager.github.io`. Run `npm run deploy` to build and publish the static app to its `gh-pages` branch. First-time setup and repository organization are described in [GitHub Pages setup](docs/github-pages.md). Hosting uses relative asset URLs and supports the background match worker.
+The prepared GitHub Pages destination is `Dota-Management-Simulator/dota-management-simulator.github.io`. Run `npm run deploy` to build and publish the static app to its `gh-pages` branch. First-time setup and repository organization are described in [GitHub Pages setup](docs/github-pages.md). Hosting uses relative asset URLs and supports the background match worker.
 
 ## Implemented scaffold
 

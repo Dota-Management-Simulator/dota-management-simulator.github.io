@@ -1,8 +1,8 @@
 # GitHub organization and hosting
 
-Target organization: **Dota-Team-Manager**, owned by **Jonahbyu**.
-Target public repository: `Dota-Team-Manager/dota-team-manager.github.io`.
-Target website: `https://dota-team-manager.github.io/`.
+Target organization: **Dota-Management-Simulator**, owned by **Jonahbyu**.
+Target public repository: `Dota-Management-Simulator/dota-management-simulator.github.io`.
+Target website: `https://dota-management-simulator.github.io/`.
 
 ## Structure
 
@@ -15,7 +15,7 @@ Target website: `https://dota-team-manager.github.io/`.
 
 ## First publication
 
-Create the **Dota-Team-Manager** organization while signed in as **Jonahbyu**. Choose GitHub Free. Create the public `dota-team-manager.github.io` repository, push this source to `main`, then run:
+Create the **Dota-Management-Simulator** organization while signed in as **Jonahbyu**. Choose GitHub Free. Create the public `dota-management-simulator.github.io` repository, push this source to `main`, then run:
 
 ```sh
 npm ci

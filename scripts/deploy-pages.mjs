@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url';
 
 // An explicit destination prevents the local parent repository's remote from
 // accidentally receiving this standalone application's deployment.
-const repository = 'https://github.com/Dota-Team-Manager/dota-team-manager.github.io.git';
+const repository = 'https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io.git';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const dist = join(root, 'dist');
 if (!existsSync(join(dist, 'index.html'))) throw new Error('Build the app before deploying.');
@@ -33,7 +33,7 @@ try {
   } else {
     git(['commit', '-m', 'Deploy Aegis Manager to GitHub Pages']);
     git(['push', 'origin', 'gh-pages']);
-    console.log('Build pushed. GitHub Pages URL: https://dota-team-manager.github.io/');
+    console.log('Build pushed. GitHub Pages URL: https://dota-management-simulator.github.io/');
   }
 } finally {
   // Only remove the dedicated temporary checkout that this invocation created.
