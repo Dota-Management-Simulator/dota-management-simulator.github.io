@@ -1,0 +1,447 @@
+/* Appearance is independent of campaign saves. Layout stays shared by both themes. */
+:root {
+  color-scheme: light;
+}
+.theme-toggle {
+  flex-shrink: 0;
+}
+.theme-options {
+  display: flex;
+  gap: 3px;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: var(--bg);
+}
+.theme-options button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #7b8671;
+  font-size: 11px;
+  padding: 7px 10px;
+}
+.theme-options button[aria-pressed="true"] {
+  background: #fff;
+  border-color: #dfe5d5;
+  color: #526647;
+  box-shadow: 0 1px 3px #26331d0a;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #141a16;
+  --ink: #e3e9dd;
+  --muted: #a1ad98;
+  --line: #303a30;
+  --green: #a5bd8b;
+  --gold: #cfb77d;
+  --sidebar: #101611;
+  --surface: #1c241e;
+  --surface-raised: #242e25;
+  --surface-soft: #20291f;
+  color: var(--ink);
+  background: var(--bg);
+}
+:root[data-theme="dark"] body {
+  background: var(--bg);
+  color: var(--ink);
+}
+:root[data-theme="dark"] :is(h1, h2, h3) {
+  color: var(--ink);
+}
+:root[data-theme="dark"] p {
+  color: var(--muted);
+}
+:root[data-theme="dark"] :is(.panel, .modal, .setup-preview, .topbar) {
+  background: var(--surface);
+  border-color: var(--line);
+  box-shadow: none;
+}
+:root[data-theme="dark"] .topbar {
+  background: #182019;
+}
+:root[data-theme="dark"]
+  :is(input, select, .search-field input, .filter-bar > select, .year-stepper) {
+  background: #161e18;
+  color: #d8e2ce;
+  border-color: #3a4635;
+}
+:root[data-theme="dark"] input::placeholder {
+  color: #85927d;
+}
+:root[data-theme="dark"]
+  :is(
+    label,
+    .breadcrumbs strong,
+    .season-pill,
+    .preview-row strong,
+    .player-card-footer > span,
+    .scout-price strong,
+    .settings-row strong
+  ) {
+  color: #becbb0;
+}
+:root[data-theme="dark"]
+  :is(
+    .breadcrumbs,
+    .save-indicator,
+    .field-note,
+    .year-control > span,
+    .preview-row > span,
+    .difficulty > span,
+    .difficulty > small,
+    .metric > div,
+    .metric > small,
+    .section-title p,
+    .player-card-content > p,
+    .player-vital > span,
+    .player-cell small,
+    .mini-player small,
+    .filter-bar > span,
+    .scout-price small,
+    .scout-rating small,
+    .training-effect,
+    .timeline-week > span,
+    .timeline-info p,
+    .meta-hero small,
+    .attribute-scale,
+    .patch-attribute p,
+    .patch-attribute small,
+    .sponsor-requirement,
+    .sponsor-offer > span,
+    .sponsor-offer small,
+    .staff-content > p,
+    .staff-price > span,
+    .transactions > div > span,
+    .results-list small,
+    .results-list > div > span:not(.result-mark),
+    .empty-inline,
+    .app-footer,
+    .setup-bottom > span,
+    .prototype-note,
+    .prototype-note > span:last-child,
+    .settings-row
+  ) {
+  color: var(--muted);
+}
+:root[data-theme="dark"]
+  :is(
+    .eyebrow,
+    .text-link,
+    .icon-button,
+    .mobile-toggle,
+    .player-vital strong,
+    .player-cell strong,
+    .mini-player .rating-value,
+    .energy-cell > span,
+    .scout-rating strong,
+    .timeline-week > strong,
+    .patch-attribute > div:first-child > span,
+    .meta-strength,
+    .profile-stats strong,
+    .profile-stats > div > span,
+    .profile-vitals,
+    .playstyle-list > div > span,
+    .playstyle-list strong,
+    .handbook-item h3,
+    .sim-rewards strong,
+    .result-score,
+    .sim-progress > span,
+    .sim-note,
+    .sim-note p
+  ) {
+  color: #aec393;
+}
+:root[data-theme="dark"] .text-link:hover {
+  color: #dfebce;
+}
+:root[data-theme="dark"] .icon-button:hover {
+  background: #303d2a;
+}
+:root[data-theme="dark"] :is(.manager-avatar, .numbered-title > span) {
+  background: #303b29;
+  color: #c0cfa9;
+  border-color: #465137;
+}
+:root[data-theme="dark"] .button.secondary {
+  background: #263124;
+  color: #c6d4b5;
+  border-color: #42503a;
+}
+:root[data-theme="dark"] .button.secondary:hover:not(:disabled) {
+  background: #34432d;
+  border-color: #62764b;
+}
+:root[data-theme="dark"] .button.primary {
+  background: #77925e;
+  border-color: #77925e;
+  color: #10180d;
+}
+:root[data-theme="dark"] .button.primary:hover:not(:disabled) {
+  background: #93af78;
+  border-color: #93af78;
+}
+:root[data-theme="dark"] .button-time {
+  color: #192412;
+  border-color: #4d653a;
+}
+:root[data-theme="dark"] .button.cream {
+  background: #dad3b8;
+  border-color: #dad3b8;
+  color: #273021;
+}
+:root[data-theme="dark"] .button.cream:hover {
+  background: #efe6ca;
+}
+:root[data-theme="dark"]
+  :is(.era-card, .difficulty, .sim-rewards, .timeline-dot, .patch-version) {
+  background: var(--surface-soft);
+  color: #c0ceb1;
+  border-color: #3b4834;
+}
+:root[data-theme="dark"] :is(.era-card.selected, .difficulty.selected) {
+  background: #2b3824;
+  border-color: #748956;
+  box-shadow: 0 0 0 1px #74895620;
+}
+:root[data-theme="dark"] .difficulty:hover {
+  background: #303e27;
+  border-color: #62734d;
+}
+:root[data-theme="dark"] .difficulty > strong {
+  color: #d5dfc8;
+}
+:root[data-theme="dark"] .difficulty > div {
+  color: #aabd8e;
+}
+:root[data-theme="dark"] .radio-dot {
+  border-color: #62714e;
+}
+:root[data-theme="dark"] .selected .radio-dot {
+  background: #1c241e;
+  border-color: #abc189;
+}
+:root[data-theme="dark"] .year-stepper button {
+  color: #adbf95;
+}
+:root[data-theme="dark"] .year-stepper button:hover:not(:disabled) {
+  background: #303e27;
+}
+:root[data-theme="dark"] .meter {
+  background: #303c29;
+}
+:root[data-theme="dark"] .meter > span {
+  background: #a0b87d;
+}
+:root[data-theme="dark"] .meter.gold > span {
+  background: #c6ae76;
+}
+:root[data-theme="dark"] .badge {
+  background: #2b3526;
+  color: #bdcba7;
+  border-color: #3c4932;
+}
+:root[data-theme="dark"] .badge.gold {
+  background: #3c3422;
+  color: #e0c78e;
+  border-color: #54482e;
+}
+:root[data-theme="dark"] .badge.green {
+  background: #293a25;
+  color: #c0d6a3;
+  border-color: #3e5333;
+}
+:root[data-theme="dark"] .badge.red {
+  background: #3d2c25;
+  color: #e0b5a1;
+  border-color: #583e32;
+}
+:root[data-theme="dark"] .badge.dark {
+  background: #ffffff0d;
+  color: #d8d7be;
+  border-color: #ffffff20;
+}
+:root[data-theme="dark"]
+  :is(.info-strip, .patch-teaser, .staff-benefit, .profile-contract, .alert) {
+  background: #263223;
+  border-color: #3b4a30;
+  color: #a9c18d;
+}
+:root[data-theme="dark"]
+  :is(
+    .info-strip strong,
+    .profile-contract strong,
+    .muted-callout p strong,
+    .little-note p strong
+  ) {
+  color: #c0d3a6;
+}
+:root[data-theme="dark"] :is(.muted-callout, .qualification-banner) {
+  background: #2b2d23;
+  border-color: #414433;
+  color: #b6ba96;
+}
+:root[data-theme="dark"] :is(.qualification-banner strong, .empty-state h3) {
+  color: #d1d4b5;
+}
+:root[data-theme="dark"]
+  :is(
+    .qualification-banner p,
+    .muted-callout p,
+    .little-note p,
+    .profile-contract p,
+    .empty-state p
+  ) {
+  color: #aab59a;
+}
+:root[data-theme="dark"]
+  :is(
+    .alert.warning,
+    .event-emblem,
+    .event-emblem.large,
+    .timeline-event.ti-event .timeline-dot
+  ) {
+  background: #373222;
+  color: #d4bd84;
+  border-color: #51462f;
+}
+:root[data-theme="dark"] .positive {
+  color: #b2cf95 !important;
+}
+:root[data-theme="dark"] :is(.sand) {
+  background: #3d3525;
+  color: #ccb47d;
+}
+:root[data-theme="dark"] :is(.moss) {
+  background: #303e2b;
+  color: #acc78f;
+}
+:root[data-theme="dark"] :is(.lilac) {
+  background: #363044;
+  color: #bbaed1;
+}
+:root[data-theme="dark"] :is(.ocean) {
+  background: #293b41;
+  color: #9dbdc9;
+}
+:root[data-theme="dark"] :is(.clay) {
+  background: #40322b;
+  color: #d0aa94;
+}
+:root[data-theme="dark"] :is(.ember) {
+  background: #443425;
+  color: #d8ad7b;
+}
+:root[data-theme="dark"] .avatar-shape {
+  background: linear-gradient(125deg, #ffffff08, transparent);
+}
+:root[data-theme="dark"] .staff-portrait .badge {
+  background: #161c18a6;
+  border-color: #ffffff12;
+  color: inherit;
+}
+:root[data-theme="dark"] .profile-heading h2 {
+  color: #eef0e3;
+}
+:root[data-theme="dark"] .profile-heading .badge {
+  background: #141a1680;
+  border-color: #ffffff18;
+  color: inherit;
+}
+:root[data-theme="dark"] .profile-heading .avatar {
+  background: #ffffff08;
+}
+:root[data-theme="dark"] .profile-heading p {
+  color: inherit;
+}
+:root[data-theme="dark"] .style-blocks > span {
+  background: #303c29;
+}
+:root[data-theme="dark"] .style-blocks > .filled {
+  background: #a6bb87;
+}
+:root[data-theme="dark"] .mini-player:hover {
+  background: #252f23;
+}
+:root[data-theme="dark"]
+  :is(
+    .mini-player,
+    .activity-items > div,
+    .training-row,
+    .table-head,
+    .scout-row,
+    .patch-attribute,
+    .meta-hero,
+    .transactions > div,
+    .results-list > div,
+    .player-card-footer,
+    .sponsor-requirement,
+    .profile-vitals,
+    .sign-player,
+    .settings-row,
+    .sim-rewards > div + div
+  ) {
+  border-color: var(--line);
+}
+:root[data-theme="dark"]
+  :is(.timeline-event:not(:last-child):after, .preview-rule) {
+  background: var(--line);
+}
+:root[data-theme="dark"] .timeline-event.past .timeline-info h3 {
+  color: #9ead8e;
+}
+:root[data-theme="dark"] .result-mark.win {
+  background: #2d4126;
+  color: #bdd99f;
+}
+:root[data-theme="dark"] .result-mark.loss {
+  background: #422f26;
+  color: #d7b09a;
+}
+:root[data-theme="dark"] .result-mark.neutral {
+  background: #30382b;
+  color: #b5c2a2;
+}
+:root[data-theme="dark"] .modal-backdrop {
+  background: #050a07b0;
+}
+:root[data-theme="dark"] .modal-close {
+  background: #263025e6;
+}
+:root[data-theme="dark"] .sim-matchup .org-mark {
+  background: #2b3923;
+  border-color: #435334;
+  color: #b1c58e;
+}
+:root[data-theme="dark"] .sim-matchup .opponent {
+  background: #3d3027;
+  border-color: #544030;
+  color: #d0af90;
+}
+:root[data-theme="dark"] .season-hero h2 {
+  color: #f0efdc;
+}
+:root[data-theme="dark"] .season-hero p {
+  color: #b6c0a5;
+}
+:root[data-theme="dark"] .theme-options button {
+  color: #a5b696;
+}
+:root[data-theme="dark"] .theme-options button[aria-pressed="true"] {
+  background: #35462d;
+  border-color: #586c43;
+  color: #e0ebd1;
+  box-shadow: none;
+}
+@media (max-width: 600px) {
+  .topbar-actions {
+    gap: 7px;
+  }
+  .theme-toggle {
+    width: 27px;
+  }
+}

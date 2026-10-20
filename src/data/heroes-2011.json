@@ -1,0 +1,375 @@
+{
+  "era": "The International 2011",
+  "source": "https://stats.ru.spectral.gg/lrg2/?league=ti1&mod=heroes",
+  "note": "46 TI1-contested heroes; modern display names. Role preferences, archetypes, and combat numbers are prototype estimates, not historical balance data.",
+  "heroes": [
+    {
+      "id": "anti_mage",
+      "name": "Anti-Mage",
+      "attribute": "Agility",
+      "roles": [0],
+      "ability": "nuke",
+      "ranged": false
+    },
+    {
+      "id": "spectre",
+      "name": "Spectre",
+      "attribute": "Agility",
+      "roles": [0],
+      "ability": "area",
+      "ranged": false
+    },
+    {
+      "id": "mirana",
+      "name": "Mirana",
+      "attribute": "Agility",
+      "roles": [0, 1, 3],
+      "ability": "stun",
+      "ranged": true
+    },
+    {
+      "id": "beastmaster",
+      "name": "Beastmaster",
+      "attribute": "Strength",
+      "roles": [2],
+      "ability": "stun",
+      "ranged": false
+    },
+    {
+      "id": "earthshaker",
+      "name": "Earthshaker",
+      "attribute": "Strength",
+      "roles": [2, 3],
+      "ability": "area",
+      "ranged": false
+    },
+    {
+      "id": "lich",
+      "name": "Lich",
+      "attribute": "Intelligence",
+      "roles": [4],
+      "ability": "area",
+      "ranged": true
+    },
+    {
+      "id": "chen",
+      "name": "Chen",
+      "attribute": "Intelligence",
+      "roles": [3, 4],
+      "ability": "heal",
+      "ranged": true
+    },
+    {
+      "id": "slardar",
+      "name": "Slardar",
+      "attribute": "Strength",
+      "roles": [2],
+      "ability": "stun",
+      "ranged": false
+    },
+    {
+      "id": "ancient_apparition",
+      "name": "Ancient Apparition",
+      "attribute": "Intelligence",
+      "roles": [4],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "natures_prophet",
+      "name": "Nature's Prophet",
+      "attribute": "Intelligence",
+      "roles": [2, 3],
+      "ability": "area",
+      "ranged": true
+    },
+    {
+      "id": "night_stalker",
+      "name": "Night Stalker",
+      "attribute": "Strength",
+      "roles": [1, 2],
+      "ability": "nuke",
+      "ranged": false
+    },
+    {
+      "id": "windranger",
+      "name": "Windranger",
+      "attribute": "Intelligence",
+      "roles": [1, 2, 3],
+      "ability": "stun",
+      "ranged": true
+    },
+    {
+      "id": "enigma",
+      "name": "Enigma",
+      "attribute": "Intelligence",
+      "roles": [2, 3],
+      "ability": "area",
+      "ranged": true
+    },
+    {
+      "id": "weaver",
+      "name": "Weaver",
+      "attribute": "Agility",
+      "roles": [0, 2],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "viper",
+      "name": "Viper",
+      "attribute": "Agility",
+      "roles": [1, 2],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "tidehunter",
+      "name": "Tidehunter",
+      "attribute": "Strength",
+      "roles": [2],
+      "ability": "area",
+      "ranged": false
+    },
+    {
+      "id": "puck",
+      "name": "Puck",
+      "attribute": "Intelligence",
+      "roles": [1],
+      "ability": "area",
+      "ranged": true
+    },
+    {
+      "id": "sand_king",
+      "name": "Sand King",
+      "attribute": "Strength",
+      "roles": [2, 3],
+      "ability": "area",
+      "ranged": false
+    },
+    {
+      "id": "shadow_shaman",
+      "name": "Shadow Shaman",
+      "attribute": "Intelligence",
+      "roles": [3, 4],
+      "ability": "stun",
+      "ranged": true
+    },
+    {
+      "id": "leshrac",
+      "name": "Leshrac",
+      "attribute": "Intelligence",
+      "roles": [1, 3],
+      "ability": "area",
+      "ranged": true
+    },
+    {
+      "id": "pugna",
+      "name": "Pugna",
+      "attribute": "Intelligence",
+      "roles": [1, 3],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "vengeful_spirit",
+      "name": "Vengeful Spirit",
+      "attribute": "Agility",
+      "roles": [3, 4],
+      "ability": "stun",
+      "ranged": true
+    },
+    {
+      "id": "crystal_maiden",
+      "name": "Crystal Maiden",
+      "attribute": "Intelligence",
+      "roles": [4],
+      "ability": "stun",
+      "ranged": true
+    },
+    {
+      "id": "storm_spirit",
+      "name": "Storm Spirit",
+      "attribute": "Intelligence",
+      "roles": [1],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "lion",
+      "name": "Lion",
+      "attribute": "Intelligence",
+      "roles": [3, 4],
+      "ability": "stun",
+      "ranged": true
+    },
+    {
+      "id": "doom",
+      "name": "Doom",
+      "attribute": "Strength",
+      "roles": [2],
+      "ability": "nuke",
+      "ranged": false
+    },
+    {
+      "id": "lina",
+      "name": "Lina",
+      "attribute": "Intelligence",
+      "roles": [1, 3],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "tinker",
+      "name": "Tinker",
+      "attribute": "Intelligence",
+      "roles": [1],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "faceless_void",
+      "name": "Faceless Void",
+      "attribute": "Agility",
+      "roles": [0],
+      "ability": "stun",
+      "ranged": false
+    },
+    {
+      "id": "venomancer",
+      "name": "Venomancer",
+      "attribute": "Agility",
+      "roles": [2, 3, 4],
+      "ability": "area",
+      "ranged": true
+    },
+    {
+      "id": "necrophos",
+      "name": "Necrophos",
+      "attribute": "Intelligence",
+      "roles": [1, 2],
+      "ability": "heal",
+      "ranged": true
+    },
+    {
+      "id": "morphling",
+      "name": "Morphling",
+      "attribute": "Agility",
+      "roles": [0],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "tiny",
+      "name": "Tiny",
+      "attribute": "Strength",
+      "roles": [1, 2],
+      "ability": "stun",
+      "ranged": false
+    },
+    {
+      "id": "witch_doctor",
+      "name": "Witch Doctor",
+      "attribute": "Intelligence",
+      "roles": [4],
+      "ability": "heal",
+      "ranged": true
+    },
+    {
+      "id": "sven",
+      "name": "Sven",
+      "attribute": "Strength",
+      "roles": [0],
+      "ability": "stun",
+      "ranged": false
+    },
+    {
+      "id": "enchantress",
+      "name": "Enchantress",
+      "attribute": "Intelligence",
+      "roles": [3, 4],
+      "ability": "heal",
+      "ranged": true
+    },
+    {
+      "id": "clockwerk",
+      "name": "Clockwerk",
+      "attribute": "Strength",
+      "roles": [2, 3],
+      "ability": "stun",
+      "ranged": false
+    },
+    {
+      "id": "sniper",
+      "name": "Sniper",
+      "attribute": "Agility",
+      "roles": [0, 1],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "razor",
+      "name": "Razor",
+      "attribute": "Agility",
+      "roles": [0, 1],
+      "ability": "area",
+      "ranged": true
+    },
+    {
+      "id": "dazzle",
+      "name": "Dazzle",
+      "attribute": "Intelligence",
+      "roles": [4],
+      "ability": "heal",
+      "ranged": true
+    },
+    {
+      "id": "dark_seer",
+      "name": "Dark Seer",
+      "attribute": "Intelligence",
+      "roles": [2],
+      "ability": "area",
+      "ranged": false
+    },
+    {
+      "id": "drow_ranger",
+      "name": "Drow Ranger",
+      "attribute": "Agility",
+      "roles": [0],
+      "ability": "nuke",
+      "ranged": true
+    },
+    {
+      "id": "axe",
+      "name": "Axe",
+      "attribute": "Strength",
+      "roles": [2],
+      "ability": "area",
+      "ranged": false
+    },
+    {
+      "id": "pudge",
+      "name": "Pudge",
+      "attribute": "Strength",
+      "roles": [1, 2, 3],
+      "ability": "stun",
+      "ranged": false
+    },
+    {
+      "id": "shadow_fiend",
+      "name": "Shadow Fiend",
+      "attribute": "Agility",
+      "roles": [1],
+      "ability": "area",
+      "ranged": true
+    },
+    {
+      "id": "zeus",
+      "name": "Zeus",
+      "attribute": "Intelligence",
+      "roles": [1],
+      "ability": "nuke",
+      "ranged": true
+    }
+  ]
+}

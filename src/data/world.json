@@ -1,0 +1,467 @@
+{
+  "patch": {
+    "id": "prototype-01",
+    "name": "The opening chapter",
+    "version": "P.01",
+    "label": "Illustrative patch · no historical data",
+    "description": "Win your lanes. Control the river. Turn small advantages into early objectives. This environment rewards a coordinated team that knows when to move.",
+    "attributes": [
+      {
+        "key": "tempo",
+        "name": "Game tempo",
+        "value": 72,
+        "low": "Patient",
+        "high": "Fast",
+        "description": "How quickly early advantages turn into pressure."
+      },
+      {
+        "key": "economy",
+        "name": "Farming economy",
+        "value": 58,
+        "low": "Scarce",
+        "high": "Abundant",
+        "description": "The reward for investing time in farming and scaling."
+      },
+      {
+        "key": "laning",
+        "name": "Lane importance",
+        "value": 82,
+        "low": "Forgiving",
+        "high": "Decisive",
+        "description": "How much the opening lanes shape the rest of a game."
+      },
+      {
+        "key": "teamfight",
+        "name": "Teamfight impact",
+        "value": 68,
+        "low": "Pickoffs",
+        "high": "Five-on-five",
+        "description": "The value of coordinated full-team engagements."
+      },
+      {
+        "key": "objectives",
+        "name": "Objective pressure",
+        "value": 76,
+        "low": "Durable",
+        "high": "Vulnerable",
+        "description": "How readily map control converts into towers and objectives."
+      },
+      {
+        "key": "vision",
+        "name": "Vision advantage",
+        "value": 65,
+        "low": "Open map",
+        "high": "Information",
+        "description": "The influence of wards, dewards, and map information."
+      },
+      {
+        "key": "splitpush",
+        "name": "Split-push viability",
+        "value": 42,
+        "low": "Group up",
+        "high": "Spread out",
+        "description": "The effectiveness of applying pressure away from the main team."
+      }
+    ],
+    "heroes": [
+      {
+        "id": "storm_spirit",
+        "name": "Storm Spirit",
+        "role": "Mid",
+        "tags": ["Tempo", "Magic damage"],
+        "strength": 91,
+        "symbol": "flame",
+        "color": "ember"
+      },
+      {
+        "id": "beastmaster",
+        "name": "Beastmaster",
+        "role": "Offlane",
+        "tags": ["Initiation", "Durable"],
+        "strength": 88,
+        "symbol": "tree",
+        "color": "moss"
+      },
+      {
+        "id": "weaver",
+        "name": "Weaver",
+        "role": "Carry",
+        "tags": ["Scaling", "Physical damage"],
+        "strength": 86,
+        "symbol": "moon",
+        "color": "lilac"
+      },
+      {
+        "id": "chen",
+        "name": "Chen",
+        "role": "Hard support",
+        "tags": ["Save", "Teamfight"],
+        "strength": 84,
+        "symbol": "waves",
+        "color": "ocean"
+      },
+      {
+        "id": "earthshaker",
+        "name": "Earthshaker",
+        "role": "Soft support",
+        "tags": ["Roaming", "Catch"],
+        "strength": 82,
+        "symbol": "spark",
+        "color": "sand"
+      }
+    ]
+  },
+  "players": [
+    {
+      "id": "p1",
+      "name": "Kestrel",
+      "firstName": "Elias",
+      "lastName": "Voss",
+      "role": "Carry",
+      "age": 21,
+      "region": "Europe",
+      "wage": 1500,
+      "fee": 10000,
+      "color": "sand",
+      "stats": {
+        "creativity": 72,
+        "stability": 83,
+        "confidence": 76,
+        "stamina": 88,
+        "heroPool": 68,
+        "laning": 84,
+        "teamfights": 78,
+        "farming": 91,
+        "skirmish": 73,
+        "vision": 58,
+        "intuition": 79,
+        "pushing": 85
+      },
+      "playstyles": {
+        "Farming carry": 9,
+        "Tempo carry": 6,
+        "Aggression": 5,
+        "Split pushing": 8,
+        "Teamfight": 7,
+        "Roaming": 2
+      },
+      "happiness": 82,
+      "energy": 94
+    },
+    {
+      "id": "p2",
+      "name": "Solace",
+      "firstName": "Mika",
+      "lastName": "Ren",
+      "role": "Mid",
+      "age": 19,
+      "region": "Europe",
+      "wage": 1400,
+      "fee": 9000,
+      "color": "lilac",
+      "stats": {
+        "creativity": 89,
+        "stability": 65,
+        "confidence": 78,
+        "stamina": 84,
+        "heroPool": 81,
+        "laning": 89,
+        "teamfights": 76,
+        "farming": 81,
+        "skirmish": 88,
+        "vision": 63,
+        "intuition": 77,
+        "pushing": 69
+      },
+      "playstyles": {
+        "Farming carry": 6,
+        "Tempo carry": 9,
+        "Aggression": 9,
+        "Split pushing": 5,
+        "Teamfight": 7,
+        "Roaming": 7
+      },
+      "happiness": 88,
+      "energy": 90
+    },
+    {
+      "id": "p3",
+      "name": "Oak",
+      "firstName": "Anton",
+      "lastName": "Lind",
+      "role": "Offlane",
+      "age": 24,
+      "region": "Europe",
+      "wage": 1200,
+      "fee": 7500,
+      "color": "moss",
+      "stats": {
+        "creativity": 70,
+        "stability": 87,
+        "confidence": 84,
+        "stamina": 78,
+        "heroPool": 66,
+        "laning": 80,
+        "teamfights": 88,
+        "farming": 64,
+        "skirmish": 77,
+        "vision": 75,
+        "intuition": 85,
+        "pushing": 78
+      },
+      "playstyles": {
+        "Farming carry": 3,
+        "Tempo carry": 5,
+        "Aggression": 8,
+        "Split pushing": 6,
+        "Teamfight": 9,
+        "Roaming": 6
+      },
+      "happiness": 80,
+      "energy": 88
+    },
+    {
+      "id": "p4",
+      "name": "Static",
+      "firstName": "Leo",
+      "lastName": "Park",
+      "role": "Soft support",
+      "age": 20,
+      "region": "Europe",
+      "wage": 1000,
+      "fee": 6000,
+      "color": "ocean",
+      "stats": {
+        "creativity": 84,
+        "stability": 71,
+        "confidence": 73,
+        "stamina": 90,
+        "heroPool": 74,
+        "laning": 73,
+        "teamfights": 79,
+        "farming": 48,
+        "skirmish": 87,
+        "vision": 85,
+        "intuition": 81,
+        "pushing": 57
+      },
+      "playstyles": {
+        "Roaming": 9,
+        "Initiation": 8,
+        "Aggression": 9,
+        "Teamfight": 7,
+        "Save support": 4,
+        "Vision control": 8
+      },
+      "happiness": 85,
+      "energy": 93
+    },
+    {
+      "id": "p5",
+      "name": "North",
+      "firstName": "Noah",
+      "lastName": "Falk",
+      "role": "Hard support",
+      "age": 27,
+      "region": "Europe",
+      "wage": 900,
+      "fee": 5000,
+      "color": "clay",
+      "stats": {
+        "creativity": 76,
+        "stability": 91,
+        "confidence": 88,
+        "stamina": 72,
+        "heroPool": 86,
+        "laning": 78,
+        "teamfights": 85,
+        "farming": 42,
+        "skirmish": 70,
+        "vision": 94,
+        "intuition": 92,
+        "pushing": 55
+      },
+      "playstyles": {
+        "Roaming": 5,
+        "Initiation": 5,
+        "Aggression": 4,
+        "Teamfight": 9,
+        "Save support": 9,
+        "Vision control": 10
+      },
+      "happiness": 86,
+      "energy": 86
+    },
+    {
+      "id": "f1",
+      "name": "Vesper",
+      "firstName": "Alex",
+      "lastName": "Vale",
+      "role": "Mid",
+      "age": 18,
+      "region": "North America",
+      "wage": 1100,
+      "fee": 8000,
+      "color": "lilac",
+      "stats": {
+        "creativity": 91,
+        "stability": 60,
+        "confidence": 65,
+        "stamina": 92,
+        "heroPool": 63,
+        "laning": 82,
+        "teamfights": 74,
+        "farming": 79,
+        "skirmish": 85,
+        "vision": 59,
+        "intuition": 71,
+        "pushing": 68
+      },
+      "playstyles": {
+        "Farming carry": 5,
+        "Tempo carry": 9,
+        "Aggression": 9,
+        "Split pushing": 4,
+        "Teamfight": 6,
+        "Roaming": 8
+      },
+      "happiness": 78,
+      "energy": 100
+    },
+    {
+      "id": "f2",
+      "name": "Flint",
+      "firstName": "Owen",
+      "lastName": "Reid",
+      "role": "Offlane",
+      "age": 23,
+      "region": "Europe",
+      "wage": 1050,
+      "fee": 6500,
+      "color": "ember",
+      "stats": {
+        "creativity": 67,
+        "stability": 81,
+        "confidence": 80,
+        "stamina": 85,
+        "heroPool": 70,
+        "laning": 79,
+        "teamfights": 83,
+        "farming": 62,
+        "skirmish": 82,
+        "vision": 73,
+        "intuition": 80,
+        "pushing": 76
+      },
+      "playstyles": {
+        "Aggression": 8,
+        "Initiation": 9,
+        "Split pushing": 5,
+        "Teamfight": 8,
+        "Roaming": 6
+      },
+      "happiness": 81,
+      "energy": 100
+    },
+    {
+      "id": "f3",
+      "name": "Wisp",
+      "firstName": "Kai",
+      "lastName": "Chen",
+      "role": "Soft support",
+      "age": 22,
+      "region": "Southeast Asia",
+      "wage": 800,
+      "fee": 4500,
+      "color": "ocean",
+      "stats": {
+        "creativity": 80,
+        "stability": 74,
+        "confidence": 72,
+        "stamina": 89,
+        "heroPool": 78,
+        "laning": 68,
+        "teamfights": 77,
+        "farming": 46,
+        "skirmish": 81,
+        "vision": 88,
+        "intuition": 86,
+        "pushing": 54
+      },
+      "playstyles": {
+        "Roaming": 8,
+        "Initiation": 6,
+        "Aggression": 7,
+        "Teamfight": 7,
+        "Save support": 8,
+        "Vision control": 9
+      },
+      "happiness": 83,
+      "energy": 100
+    }
+  ],
+  "sponsors": [
+    {
+      "id": "s1",
+      "name": "MONOLITH",
+      "category": "Performance hardware",
+      "symbol": "M",
+      "weekly": 2200,
+      "bonus": 5000,
+      "requirement": 0,
+      "description": "A reliable first partner. Build your name together.",
+      "color": "moss"
+    },
+    {
+      "id": "s2",
+      "name": "PULSE",
+      "category": "Energy & lifestyle",
+      "symbol": "P",
+      "weekly": 3500,
+      "bonus": 8000,
+      "requirement": 20,
+      "description": "For teams starting to make noise on the circuit.",
+      "color": "ember"
+    },
+    {
+      "id": "s3",
+      "name": "ORBIT",
+      "category": "Gaming peripherals",
+      "symbol": "O",
+      "weekly": 5000,
+      "bonus": 12000,
+      "requirement": 50,
+      "description": "A premium partnership for an established contender.",
+      "color": "lilac"
+    }
+  ],
+  "staff": [
+    {
+      "id": "c1",
+      "name": "Morgan Hale",
+      "role": "Head coach",
+      "benefit": "Training gains +1",
+      "weekly": 650,
+      "specialty": "Player development",
+      "color": "sand"
+    },
+    {
+      "id": "c2",
+      "name": "Ari Quinn",
+      "role": "Analyst",
+      "benefit": "Match preparation +2",
+      "weekly": 450,
+      "specialty": "Opponent research",
+      "color": "lilac"
+    },
+    {
+      "id": "c3",
+      "name": "Sam Ellis",
+      "role": "Physical therapist",
+      "benefit": "Weekly recovery +8",
+      "weekly": 400,
+      "specialty": "Recovery & wellbeing",
+      "color": "moss"
+    }
+  ]
+}

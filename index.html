@@ -1,148 +1,36 @@
 <!doctype html>
-<html lang="en"><head><meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Lane Siege: MOBA auto-sim</title>
-<style>
-:root{--bg:#eef1f4;--fg:#14202b;--mut:#5b6b7a;--line:#cfd8e0;--sf:#fff;--c0:#c98a10;--c1:#4a5af0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f171d;--fg:#e6edf2;--mut:#8ea0ae;--line:#25333d;--sf:#16222a;--c0:#f0b84a;--c1:#7d8bff;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0f171d;--fg:#e6edf2;--mut:#8ea0ae;--line:#25333d;--sf:#16222a;--c0:#f0b84a;--c1:#7d8bff;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.45 system-ui,"Segoe UI",Roboto,sans-serif}
-main{max-width:780px;margin:0 auto;padding:16px}
-h1{font-size:26px;margin:0 0 4px;letter-spacing:-.01em}
-p{margin:0 0 12px;color:var(--mut)}
-.bar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:8px 0;font-weight:600;font-variant-numeric:tabular-nums}
-.t0{color:var(--c0)}.t1{color:var(--c1)}
-.ctl{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
-button{font:inherit;background:var(--sf);color:var(--fg);border:1px solid var(--line);border-radius:6px;padding:6px 12px;cursor:pointer}
-button.on{border-color:var(--fg)}
-button:focus-visible{outline:2px solid var(--c1);outline-offset:2px}
-canvas{display:block;width:100%;max-width:100%;aspect-ratio:1;border-radius:8px;border:1px solid var(--line)}
-.ro{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
-.h b{overflow:hidden;text-overflow:ellipsis}
-.h{display:grid;grid-template-columns:170px 34px 40px 1fr;overflow:hidden;white-space:nowrap;align-items:center;gap:6px;font-size:13px;padding:3px 0;border-bottom:1px solid var(--line)}
-.h.x{opacity:.45}
-.hp{height:6px;background:var(--line);border-radius:3px;overflow:hidden}.hp i{display:block;height:100%}
-details{margin-top:16px}summary{cursor:pointer;font-weight:600}
-#pl table,#club table{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0}
-#pl td,#pl th,#club td,#club th{text-align:left;padding:3px 6px;border-bottom:1px solid var(--line)}
-#club caption{text-align:left;font-weight:600;margin-bottom:4px}
-button:disabled{opacity:.45;cursor:default}
-@media (max-width:520px){.ro{grid-template-columns:1fr}}
-</style></head><body><main>
-<h1>Lane Siege</h1>
-<p>Two teams of five auto-battle across three lanes. Heroes farm waves, fight, retreat to heal and push towers until one ancient falls.</p>
-<details open><summary>Club management</summary><div id='club'></div></details>
-<div class="bar"><span class="t0">Ember <span id="k0">0</span></span><span id="tm">0:00</span><span class="t1"><span id="k1">0</span> Tide</span></div>
-<div class="ctl"><button id="bp">Pause</button><button class="sp on" data-s="1">1×</button><button class="sp" data-s="2">2×</button><button class="sp" data-s="4">4×</button><button id="bn">Exhibition match</button></div>
-<canvas id="c" width="800" height="800" aria-label="Battlefield"></canvas>
-<div class="ro"><div id="r0"></div><div id="r1"></div></div>
-<details><summary>All 128 heroes</summary><div id="pl"></div></details>
-</main>
-<script>
-const $=id=>document.getElementById(id),C=$('c'),X=C.getContext('2d'),R=Math.random,D=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y);
-const LN=[[[90,710],[90,90],[710,90]],[[90,710],[250,550],[400,400],[550,250],[710,90]],[[90,710],[710,710],[710,90]]];
-const COL=['#f0b84a','#7d8bff'],NAME=['Ember','Tide'],BASE=[[90,710],[710,90]];
-const ATC={S:'#e5544b',A:'#52c26a',I:'#4aa3ff',U:'#b57cf0'};
-/* ability codes: s=stun, n=nuke, a=area, h=heal. Strength/Agility/Intelligence heroes scale attack damage from their main attribute; Universal heroes scale it from all three. */
-const PRE=['Iron','Stone','Ember','Frost','Storm','Bog','Night','Dusk','Gale','Thorn','Ash','Hex','Rune','Crow','Tide','Bone'];
-const GN={S:[3.3,1.8,1.5],A:[2.2,3.2,1.6],I:[2,1.8,3.2],U:[2.5,2.5,2.5]};
-function rc(u){u.dmg=(u.attr=='U'?10+.7*(u.st+u.ag+u.it):25+u[{S:'st',A:'ag',I:'it'}[u.attr]])*(u.dm||1);u.max=(120+22*u.st)*(u.hm||1)}
-/* maps the role templates onto Dota-like attribute ranges (base Strength tops out near 30) */
-const F=(a,m,v)=>{let s=m[0],g=m[1],i=m[2];if(a=='S'){s=22+(s-26)*.8;g=15;i=15}else if(a=='A'){g=20+(g-35)*.7;s=17+(s-7)*.8;i=15}else if(a=='I'){i=18+(i-20)*.2;s=17+(s-4)*.75;g=15}else{s=17+(s-18)*.6;g=17+(g-18)*.6;i=17+(i-18)*.6}return[s*v,g*v,i*v]};
-/* per role: [str, agi, int, range, rate, speed, ability] */
-const SP={
-S:[36,'Warden Colossus Warlord Reaver Titan Knight Shepherd Crusher',[[33,16,12,42,1,98,'s'],[36,16,12,42,1.1,95,'a'],[31,16,12,42,1,100,'s'],[27,16,12,42,.9,104,'n'],[29,16,12,42,1,100,'a'],[26,16,12,42,1,106,'n'],[34,16,12,42,1,96,'h'],[32,16,12,42,1.1,98,'s']]],
-A:[35,'Archer Prowler Hunter Blade Harrier Skirmisher Fang Ranger',[[8,40,14,170,.9,115,'n'],[10,38,14,42,.8,125,'s'],[7,42,14,160,.9,120,'n'],[9,45,14,42,.8,128,'n'],[11,35,14,150,1,112,'a'],[8,39,14,165,.9,118,'s'],[12,41,14,42,.9,122,'a'],[7,44,14,175,1,116,'n']]],
-I:[34,'Magus Oracle Weaver Priest Sage Witch Druid Scholar',[[5,14,57,150,1.4,108,'n'],[7,14,25,140,1,110,'a'],[5,14,32,150,1.2,112,'s'],[7,14,20,140,.9,112,'h'],[6,14,30,155,1.1,110,'s'],[4,14,52,160,1.3,108,'a'],[8,14,22,140,1,106,'h'],[8,14,47,145,1.2,110,'n']]],
-U:[23,'Wanderer Champion Paragon Vanguard Marshal Adept Seeker Sentinel',[[24,22,20,42,1,106,'s'],[20,24,22,150,.9,112,'n'],[22,20,26,140,1.1,110,'a'],[26,20,18,42,1,102,'h'],[19,26,21,160,1,114,'s'],[21,21,24,145,1.2,110,'a'],[25,23,18,42,.9,108,'n'],[18,22,28,150,1.3,110,'n']]]};
-const ROSTER=[];
-for(const a in SP){const[n,rl,tp]=SP[a],off='SAIU'.indexOf(a)*3,RW=rl.split(' ');for(let i=0;i<n;i++){const r=i%8,t=i>>3,p=(t*5+off+r)%16,m=tp[r],v=.92+((p*7+r*3)%9)/50;{const[s,g,q]=F(a,m,v);ROSTER.push([PRE[p]+' '+RW[r],a,s,g,q,m[3],m[4],m[5],m[6]])}}}
-function hit2(u,t,d){t.hp-=d*(1-.001*(t.it||0));if(t.hp<=0&&!t.dead)die(t,u)}
-function cast(u,t){fl.push({x1:u.x,y1:u.y,x2:t.x,y2:t.y,c:'#fff',t:.3});
- if(u.ab=='n')hit2(u,t,u.dmg*3+u.lv*10);
- else if(u.ab=='s'){t.stun=1.6;hit2(u,t,u.dmg)}
- else if(u.ab=='a'){for(const e of U)if(!e.dead&&e.team!=u.team&&D(e,t)<90)hit2(u,e,u.dmg*1.6)}
- else for(const e of U)if(e.type=='hero'&&!e.dead&&e.team==u.team&&D(e,u)<200)e.hp=Math.min(e.max,e.hp+120+u.lv*15)}
-let U,T,wave,over,kills,fl,spd=1,paused=false;
-const path=(l,t)=>{const p=LN[l].map(a=>a.slice());return t?p.reverse():p};
-function at(l,t){const p=LN[l],L=[];let s=0;for(let i=1;i<p.length;i++){const d=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);L.push(d);s+=d}let r=t*s;for(let i=0;i<L.length;i++){if(r<=L[i]||i==L.length-1){const k=Math.min(1,r/L[i]);return[p[i][0]+(p[i+1][0]-p[i][0])*k,p[i][1]+(p[i+1][1]-p[i][1])*k]}r-=L[i]}}
-function mk(o){const u=Object.assign({cd:0,xp:0,lv:1,dead:false,k:0,d:0,wait:0},o);u.max=u.hp;return u}
-function init(){U=[];wave=2;T=0;over=null;kills=[0,0];fl=[];const pool=ROSTER.slice().sort(()=>R()-.5);
- for(let t=0;t<2;t++){const b=BASE[t];U.push(mk({team:t,type:'base',x:b[0],y:b[1],hp:4500,dmg:0,range:0,rate:1,r:26}));
-  for(let l=0;l<3;l++)for(const f of[.2,.4]){const p=at(l,t?1-f:f);U.push(mk({team:t,type:'tower',x:p[0],y:p[1],hp:1800,dmg:90,range:135,rate:1,r:13}))}
-  const ls=[0,0,1,2,2].sort(()=>R()-.5);
-  pool.splice(0,5).forEach((a,i)=>{const g=GN[a[1]],h=mk({team:t,type:'hero',name:a[0],attr:a[1],st:a[2],ag:a[3],it:a[4],gs:g[0],ga:g[1],gi:g[2],x:b[0]+i*6,y:b[1]-i*6,hp:1,range:a[5],rate:a[6],sp:a[7],ab:a[8],acd:R()*6,lane:ls[i],r:10});if(t==0){const q=CL.pl[i],m=pm(q?q.s:50);h.dm=m*(1+.03*CL.st.c);h.hm=m*(1+.04*CL.st.p);h.px=q?q.n:null}else{h.dm=h.hm=1+.02*CL.w}rc(h);h.hp=h.max;U.push(h)})}}
-function spawn(){for(let t=0;t<2;t++)for(let l=0;l<3;l++){const p=path(l,t);for(let i=0;i<4;i++){const m=i<3;U.push(mk({team:t,type:'creep',x:p[0][0],y:p[0][1],hp:m?220:140,dmg:m?14:18,range:m?22:90,rate:.9,sp:45,r:m?5:4,lane:l,p,i:1,wait:i*.7}))}}}
-function near(u,r){let b=null,bd=r;for(const e of U){if(e.dead||e.team==u.team||e.wait>0)continue;const d=D(u,e)-e.r;if(d<bd){bd=d;b=e}}return b}
-function go(u,x,y,dt){const dx=x-u.x,dy=y-u.y,d=Math.hypot(dx,dy);if(d<1)return;const s=Math.min(d,u.sp*dt);u.x+=dx/d*s;u.y+=dy/d*s}
-function hit(u,t){if(u.cd>0)return;u.cd=u.rate*100/(100+(u.ag||0));const ar=(t.ag||0)/6;t.hp-=u.dmg*(1-.06*ar/(1+.06*ar));if(u.range>60)fl.push({x1:u.x,y1:u.y,x2:t.x,y2:t.y,c:COL[u.team],t:.12});if(t.hp<=0)die(t,u)}
-function xp(h,v){if(h.team==0)v*=1+.06*CL.st.a;h.xp+=v;while(h.xp>=80*h.lv){h.xp-=80*h.lv;h.lv++;h.st+=h.gs;h.ag+=h.ga;h.it+=h.gi;const o=h.max;rc(h);h.hp=Math.min(h.max,h.hp+h.max-o+h.max*.1)}}
-function die(t,k){t.dead=true;t.hp=0;if(t.type=='base'){over=1-t.team;return}
- const v={creep:30,hero:100+t.lv*40,tower:150}[t.type];
- if(t.type=='hero'){t.d++;t.rt=6+t.lv*2;kills[1-t.team]++;if(k.type=='hero')k.k++}
- for(const h of U)if(h.type=='hero'&&!h.dead&&h.team!=t.team&&D(h,t)<350)xp(h,v*(h==k?1:.6))}
-function step(dt){if(over)return;T+=dt;if(T>=wave){wave+=25;spawn()}
- for(const u of U){
-  if(u.dead){if(u.type=='hero'){u.rt-=dt;if(u.rt<=0){u.dead=false;u.hp=u.max;u.x=BASE[u.team][0];u.y=BASE[u.team][1];u.fl=false}}continue}
-  if(u.wait>0){u.wait-=dt;continue}u.cd-=dt;if(u.stun>0){u.stun-=dt;continue}
-  if(u.type=='base')continue;
-  if(u.type=='tower'){let b=null,bs=1e9;for(const e of U){if(e.dead||e.team==u.team||e.wait>0)continue;const d=D(u,e)-e.r;if(d<=u.range){const s=d+(e.type=='hero'?60:0);if(s<bs){bs=s;b=e}}}if(b)hit(u,b);continue}
-  if(u.type=='creep'){const t=near(u,100);if(t){if(D(u,t)-t.r<=u.range)hit(u,t);else go(u,t.x,t.y,dt)}else{const w=u.p[u.i];go(u,w[0],w[1],dt);if(Math.hypot(w[0]-u.x,w[1]-u.y)<8&&u.i<u.p.length-1)u.i++}continue}
-  const h=BASE[u.team],hb={x:h[0],y:h[1]};
-  u.hp=Math.min(u.max,u.hp+(D(u,hb)<100?u.max*.12:2+.1*u.st)*dt);
-  if(u.hp<u.max*.3)u.fl=true;if(u.hp>u.max*.85)u.fl=false;
-  if(u.fl){go(u,h[0],h[1],dt);continue}
-  const t=near(u,u.range+60);
-  if(t){u.acd-=dt;if(u.acd<=0&&D(u,t)<u.range+30){cast(u,t);u.acd=9+R()*3}if(D(u,t)-t.r<=u.range)hit(u,t);else go(u,t.x,t.y,dt);continue}
-  let lead=null,bp=-1;for(const c of U)if(c.type=='creep'&&!c.dead&&c.team==u.team&&c.lane==u.lane&&c.wait<=0){const q=c.i*1000-Math.hypot(c.p[c.i][0]-c.x,c.p[c.i][1]-c.y);if(q>bp){bp=q;lead=c}}
-  if(lead){if(D(u,lead)>50)go(u,lead.x,lead.y,dt)}else{const p=at(u.lane,u.team?.8:.2);go(u,p[0],p[1],dt)}}
- U=U.filter(u=>!u.dead||u.type=='hero'||u.type=='base');
- for(const f of fl)f.t-=dt;fl=fl.filter(f=>f.t>0)}
-function draw(){X.fillStyle='#14201b';X.fillRect(0,0,800,800);X.lineCap='round';X.lineJoin='round';
- for(const p of LN){X.beginPath();p.forEach((a,i)=>i?X.lineTo(a[0],a[1]):X.moveTo(a[0],a[1]));X.lineWidth=64;X.strokeStyle='#22342c';X.stroke()}
- for(const u of U){if(u.dead||u.wait>0)continue;X.fillStyle=COL[u.team];
-  if(u.type=='tower')X.fillRect(u.x-7,u.y-7,14,14);
-  else{X.beginPath();X.arc(u.x,u.y,u.r,0,7);X.fill();
-   if(u.type=='base'){X.strokeStyle='#14201b';X.lineWidth=4;X.stroke()}
-   if(u.type=='hero'){X.strokeStyle=ATC[u.attr];X.lineWidth=3;X.beginPath();X.arc(u.x,u.y,u.r+2,0,7);X.stroke();X.fillStyle='#10171a';X.font='bold 11px system-ui,sans-serif';X.textAlign='center';X.fillText(u.name[0],u.x,u.y+4)}}
-  if(u.hp<u.max||u.type!='creep'){const w=u.type=='creep'?12:u.type=='hero'?24:u.type=='tower'?20:50,y=u.y-u.r-8;X.fillStyle='#000a';X.fillRect(u.x-w/2,y,w,4);X.fillStyle=COL[u.team];X.fillRect(u.x-w/2,y,w*u.hp/u.max,4)}}
- for(const f of fl){X.strokeStyle=f.c;X.lineWidth=2;X.beginPath();X.moveTo(f.x1,f.y1);X.lineTo(f.x2,f.y2);X.stroke()}
- if(over!=null){X.fillStyle='#000b';X.fillRect(0,330,800,140);X.fillStyle=COL[over];X.font='bold 44px system-ui,sans-serif';X.textAlign='center';X.fillText(NAME[over]+' wins',400,418)}}
-function ui(){$('k0').textContent=kills[0];$('k1').textContent=kills[1];const m=Math.floor(T/60),s=Math.floor(T%60);$('tm').textContent=m+':'+String(s).padStart(2,'0');
- for(let t=0;t<2;t++)$('r'+t).innerHTML=U.filter(u=>u.type=='hero'&&u.team==t).map(u=>`<div class="h${u.dead?' x':''}"><b class="t${t}">${u.px?u.px+' / ':''}${u.name}</b><span>Lv ${u.lv}</span><span>${u.k}/${u.d}</span><div class="hp"><i style="width:${100*u.hp/u.max}%;background:${COL[t]}"></i></div></div>`).join('')}
-let last=0,fc=0;
-function loop(ts){const dt=Math.min(.1,(ts-last)/1000);last=ts;if(!paused)for(let i=0;i<spd*3;i++)step(dt/3);draw();if(over!=null&&rk)settle();if(fc++%6==0)ui();requestAnimationFrame(loop)}
-$('bp').onclick=e=>{paused=!paused;e.target.textContent=paused?'Resume':'Pause'};
-$('bn').onclick=()=>{rk=false;init();ui()};
-document.querySelectorAll('.sp').forEach(b=>b.onclick=()=>{spd=+b.dataset.s;document.querySelectorAll('.sp').forEach(x=>x.classList.toggle('on',x==b))});
-(function(){const G={S:'Strength',A:'Agility',I:'Intelligence',U:'Universal'},AB={s:'Stun',n:'Nuke',a:'Area',h:'Heal'};let h='';
-for(const a in G){const L=ROSTER.filter(r=>r[1]==a);h+=`<table><caption style="text-align:left;font-weight:600;color:${ATC[a]}">${G[a]} (${L.length})</caption><tr><th>Hero</th><th>Str</th><th>Agi</th><th>Int</th><th>HP</th><th>Dmg</th><th>Ability</th></tr>`+L.map(r=>{const o={attr:a,st:r[2],ag:r[3],it:r[4]};rc(o);return`<tr><td>${r[0]}</td><td>${r[2].toFixed(0)}</td><td>${r[3].toFixed(0)}</td><td>${r[4].toFixed(0)}</td><td>${Math.round(o.max)}</td><td>${Math.round(o.dmg)}</td><td>${AB[r[8]]}</td></tr>`}).join('')+'</table>'}
-$('pl').innerHTML=h})();
-let rk=false;
-const fmt=n=>(n<0?'-':'')+'$'+Math.round(Math.abs(n)/1000)+'k',wg=s=>Math.round(s*s*3/100)*100,pm=s=>.75+s/200;
-const TG=['Rift','Vex','Kuro','Nova','Sable','Pip','Onyx','Juno','Brisk','Mako','Zed','Fenn','Quill','Rook','Tarn'];
-const gen=n=>Array.from({length:n},()=>{const s=45+(R()*35|0);return{n:TG[R()*15|0]+(R()*99|0),s,w:wg(s)}});
-let CL=null;try{CL=JSON.parse(localStorage.getItem('lane-siege-club'))}catch(e){}
-if(!CL||!CL.pl)CL={money:250000,w:0,l:0,st:{c:0,a:0,p:0},pl:gen(5).map(p=>{p.s=50+(R()*12|0);p.w=wg(p.s);return p}),fa:gen(3)};
-const save=()=>{try{localStorage.setItem('lane-siege-club',JSON.stringify(CL))}catch(e){}};
-function settle(){rk=false;const win=over==0,wage=CL.pl.reduce((s,p)=>s+(p?p.w:0),0)+6000*(CL.st.c+CL.st.a+CL.st.p),inc=(win?120000:25000)+20000;CL.money+=inc-wage;if(win)CL.w++;else CL.l++;CL.log=(win?'Win':'Loss')+': '+fmt(inc)+' income (prize and sponsors), '+fmt(wage)+' wages paid.';CL.fa=gen(3);save();render()}
-function render(){const b=(a,i,t,d)=>`<button data-a='${a}' data-i='${i}'${d?' disabled':''}>${t}</button>`;
- const SN={c:['Coach','+3% team damage per level'],a:['Analyst','+6% XP per level'],p:['Physio','+4% health per level']};
- let h=`<div class='bar'><span>Budget ${fmt(CL.money)}</span><span>Record ${CL.w}-${CL.l}</span></div>`;
- h+='<table><caption>Players</caption><tr><th>Player</th><th>Skill</th><th>Wage per match</th><th></th></tr>'+CL.pl.map((p,i)=>p?`<tr><td>${p.n}</td><td>${p.s}</td><td>${fmt(p.w)}</td><td>${b('train',i,'Train $30k',CL.money<30000||p.s>=95)} ${b('rel',i,'Release')}</td></tr>`:`<tr><td colspan=4>Empty slot ${i+1}: sign a free agent</td></tr>`).join('')+'</table>';
- h+='<table><caption>Free agents</caption>'+CL.fa.map((p,i)=>`<tr><td>${p.n}</td><td>${p.s}</td><td>${fmt(p.w)}</td><td>${b('sign',i,'Sign '+fmt(p.w*2),CL.money<p.w*2||!CL.pl.includes(null))}</td></tr>`).join('')+'</table>';
- h+='<table><caption>Staff</caption>'+Object.keys(SN).map(k=>{const l=CL.st[k],c=80000*(l+1);return`<tr><td>${SN[k][0]} ${l}/3</td><td>${SN[k][1]}</td><td>${l<3?b('up',k,'Upgrade '+fmt(c),CL.money<c):'Max level'}</td></tr>`}).join('')+'</table>';
- h+=`<p>${CL.log||'Win ranked matches to earn prize money and sponsors. Staff wages are $6k per level per match.'}</p>`+b('rank','','Play ranked match',CL.pl.includes(null));
- $('club').innerHTML=h}
-$('club').onclick=e=>{const b=e.target.closest('button');if(!b||b.disabled)return;const a=b.dataset.a,i=b.dataset.i;
- if(a=='train'){const p=CL.pl[i];CL.money-=30000;p.s=Math.min(95,p.s+1+(R()*3|0));p.w=wg(p.s)}
- else if(a=='rel'){CL.money-=CL.pl[i].w;CL.pl[i]=null}
- else if(a=='sign'){const p=CL.fa.splice(i,1)[0],k=CL.pl.indexOf(null);CL.money-=p.w*2;CL.pl[k]=p}
- else if(a=='up'){CL.money-=80000*(CL.st[i]+1);CL.st[i]++}
- else if(a=='rank'){init();rk=true;paused=false;$('bp').textContent='Pause';ui()}
- save();render()};
-render();
-init();requestAnimationFrame(loop);
-</script></body></html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#191c1a" />
+    <script>
+      // Apply the saved theme before the first paint, including campaign setup.
+      try {
+        const savedTheme = localStorage.getItem("aegis-manager-theme");
+        document.documentElement.dataset.theme =
+          savedTheme === "light" || savedTheme === "dark"
+            ? savedTheme
+            : window.matchMedia("(prefers-color-scheme: dark)").matches
+              ? "dark"
+              : "light";
+      } catch {
+        document.documentElement.dataset.theme = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches
+          ? "dark"
+          : "light";
+      }
+    </script>
+    <meta
+      name="description"
+      content="Aegis Manager — a Dota-inspired team management simulator prototype."
+    />
+    <title>Aegis · Team Manager</title>
+    <link rel="icon" type="image/svg+xml" href="%BASE_URL%favicon.svg" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
