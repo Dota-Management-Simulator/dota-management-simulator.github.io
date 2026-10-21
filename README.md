@@ -4,6 +4,10 @@ A local, browser-based Dota-inspired management prototype. React + TypeScript + 
 
 **[Play the live simulator](https://dota-management-simulator.github.io/)** · [Source repository](https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io)
 
+## Project context
+
+Start a new development chat with [AGENTS.md](AGENTS.md). It describes the current build, architecture, saves, simulation rules and deployment workflow. [The roadmap](docs/roadmap.md) preserves the original campaign vision, future systems and unresolved design decisions separately from implemented features.
+
 ## Run
 
 Requires Node.js 20.19+ or 22.12+.

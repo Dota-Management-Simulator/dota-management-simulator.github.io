@@ -1,0 +1,153 @@
+# Product vision and future plans
+
+Context preserved from the user's design discussions and subsequent implementation choices. Last updated **2026-10-21**. This is a design backlog, not an instruction to build all of it or a promised implementation schedule. Start with [AGENTS.md](../AGENTS.md) for the current application and deployment.
+
+## Explicit decisions already made
+
+- Build a browser application with separate files/data/simulation modules, rather than only a standalone HTML file.
+- Begin with a clean management scaffold and dummy players/stats, then incrementally fill in systems. The user likes the current UI.
+- Include campaign setup, difficulty and a starting-era choice; the earliest/classic start is The International in 2011.
+- Use real Dota hero names; keep initial balance values illustrative rather than claiming validated historical stats.
+- Adapt the old lane simulation to determine results, show a watchable simulation, and allow skipping it.
+- Results should show series scores, **K/D/A per hero, levels, and gold and XP graphs over the game**.
+- Use a hero pool appropriate to TI1/2011. The present implementation contains the 46 TI1-contested heroes.
+- Support dark mode and remember the preference.
+- Publish the source publicly under the user's GitHub organization and host on GitHub Pages. The actual organization is **Dota-Management-Simulator**, owned by **Jonahbyu**; the earlier proposed name Dota-Team-Manager was superseded.
+
+The initial request to avoid building was superseded by explicit requests to build the scaffold, add features and publish. It is not an ongoing prohibition. Conversely, the future concepts below are not blanket approval for a wholesale rebuild.
+
+## 1. Campaign: an alternate Dota history
+
+### Requested vision
+
+- Start at TI1 and support progression through TI26, then continue into future seasons with generated players and patches.
+- Each TI ends a season, with tournaments and qualification leading up to it.
+- **Making TI is not guaranteed.** Missing it should be a real, understandable campaign outcome.
+- Historical rosters should be a starting framework. Management changes and different results can produce different TI champions and names on the Aegis.
+- Post-TI roster shuffle is a major management period. Moves should resemble history with chances to diverge as the player's timeline changes.
+
+### Present limits
+
+The selector offers calendar years 2011–2036, but all seasons currently use a compact 18-week/five-event placeholder schedule. Time rolls into a new year, players age, and qualification resets. Historical events, accurate TI numbering, regional formats, actual rosters, transfers, retirement and procedural talent replenishment are not implemented. The shuffle setting only adds a transfer-window log message; it does not simulate historical moves.
+
+### Decisions still needed
+
+- Calendar/season granularity and the intended relationship between start year, TI edition and actual event dates.
+- How faithfully qualification rules change by era versus a simplified unified system.
+- How results, finances, reputation and relationships affect historical transfers, team formation, retirement and future generation.
+- Whether players can start with existing historical organizations, fictional teams, or both.
+
+## 2. Tournament scheduling and preparation
+
+The core tradeoff requested by the user is choosing **which tournaments to enter and when to bootcamp or rest**:
+
+- Play to gain practice, confidence, money, qualification progress and momentum.
+- Rest to recover stamina/readiness.
+- Hide strategies so opponents have less information before important events.
+- Bootcamp to develop skills, hero comfort, coordination or a new playstyle, at a stamina/financial cost.
+- Arrive at qualifiers and TI prepared rather than automatically participating in everything.
+
+Current weekly training/rest, event skips and elapsed-week finances provide a foundation. Team bootcamps, strategy secrecy, opponent scouting knowledge, explicit momentum, and richer fatigue scheduling remain to be designed. Avoid making one preparation option universally optimal.
+
+## 3. Player attributes and development
+
+Preserve the user's intended meanings:
+
+| Attribute | Intended behavior |
+| --- | --- |
+| Creativity | Find ideas outside the meta; enable or multiply unconventional/off-meta hero strategies. The user suggested generating an off-meta opportunity for the manager. |
+| Stability | Consistently perform near the player's level rather than swing wildly. |
+| Confidence | Change how tournament tier/pressure affects stability and other performance. |
+| Stamina | Sustain a dense game schedule; higher-tier matches and bootcamps should be more demanding. |
+| Hero pool | Breadth of heroes a player can play; eventually distinguish amount of comfort from detailed hero proficiency. |
+| Laning | Win lanes even with poor hero matchups. |
+| Teamfights | Execute spells and coordinate full-team fights. |
+| Farming | Collect gold efficiently and create item advantages. |
+| Skirmish | Excel in fights involving fewer than both full teams. |
+| Vision | Place good wards and deward the enemy. |
+| Intuition | Read enemy movements, anticipate danger and survive. |
+| Pushing | Keep waves in useful positions and deal tower damage. |
+| Happiness | Overall morale and satisfaction; paying and treating players well should matter. |
+
+Current profiles display 12 skills on 0–100 scales, plus happiness and energy. Some skills already affect the simplified engine; full distinct behaviors for all attributes are not implemented. Confidence changes after results but does not yet model tournament-tier pressure. The hero-pool number is not yet a per-hero proficiency database. Weekly contracts/payroll exist; detailed negotiation, pay satisfaction and contracts do not.
+
+Future development can include targeted training, teammate effects and bootcamp gains. Exact growth rates, decline/aging, potential and scouting uncertainty require design decisions rather than invented historical facts.
+
+## 4. Playstyles are separate from player skills
+
+The user wants a list of playstyles, rated **1–10** for all players, including historical players such as AdmiralBulldog, Arteezy and BuLba. AI-assisted bulk assessment was proposed for eventually populating ratings, subject to validation.
+
+Examples discussed include farming carry, tempo carry, hard carry, roaming support, disabling support and save support. The current scaffold also shows aggression, initiation, split pushing, teamfight and vision control tendencies.
+
+Players should be able to become more comfortable with a playstyle through teammates, practice and bootcamps. Team fit and preferred strategies should matter separately from mechanical ability. The current ratings are displayed placeholders and do not modify outcomes. The final taxonomy, scoring definitions and development interactions are still open.
+
+## 5. Patches, hero tags and the evolving meta
+
+The user does not want exhaustive patch notes. The idea is **one or two representative major patches per year/era**, attached to specific tournaments, with concise attributes and meta hero lists.
+
+The current seven patch dimensions provide a starting schema:
+
+1. Game tempo — patient scaling versus early pressure.
+2. Farming economy — how rewarding resource accumulation is.
+3. Lane importance — how strongly lanes shape the game.
+4. Teamfight impact — value of full-team engagements versus pickoffs.
+5. Objective pressure — converting map control into towers/objectives.
+6. Vision advantage — the impact of map information.
+7. Split-push viability — applying pressure away from the main team.
+
+Heroes need tags for role and strategic properties, such as initiation, durability, control, saving, pushing, scaling and damage type. A patch changes hero strength and viable playstyles, not just a cosmetic version label. Player comfort and creativity should leave room for successful off-meta picks.
+
+Current patch values, meta ratings, roles and ability archetypes are illustrative. They are displayed but do not affect the lane engine. Only TI1 hero membership is sourced. Additional era release pools, dated patch records, per-tournament patch selection, and simulation/draft integration remain future work.
+
+## 6. Drafting
+
+Requested future direction: the manager drafts against a heuristic AI. The AI should combine general draft principles, patch/meta strength and team coherence.
+
+Potential inputs from the discussion:
+
+- Hero tags and complementary roles/abilities.
+- Cohesive overall strategy and ability to execute it.
+- Meta strength for the event's patch.
+- Player hero proficiency and preferred playstyles.
+- Creativity and off-meta opportunities.
+- Opponent draft and what their composition threatens.
+
+Draft quality should influence real match situations. A pushing composition needs a way to exploit objectives; a pickoff composition needs opportunities to isolate heroes. The current engine auto-selects a unique, position-preferred ten-hero draft from the classic pool. **Interactive drafting, bans and draft-scoring AI are not implemented.** Exact formats and how to expose explanations are still open.
+
+## 7. Matches: current lane engine and future manager orders
+
+### Implemented and explicitly approved
+
+The old lane engine now determines best-of-three results. A map viewer shows the computed series, and the manager can pause, speed up or skip playback without changing the outcome. Per-game hero K/D/A, levels, resource graphs and results history exist. Keep these useful even if the simulation becomes more sophisticated.
+
+### Original long-term tactical idea
+
+- Map state includes positions, vision and towers.
+- Matches unfold in phases/rounds. The manager issues a small number of plays per round, roughly two in the initial idea.
+- Example plays: a top-jungle gank sweep, farming bottom, coordinated pushes, or moving players to create/defend an objective.
+- Execution depends on player stats, enemy stats and the plays each side is attempting.
+- Fight outcomes depend on participating heroes, gold/item advantage, teamfight skill, draft, positioning and other understandable factors.
+- Rounds continue until an Ancient falls.
+
+This is a future design direction, not permission to replace the newly approved auto-battle/skip flow with a large tactical UI immediately. Round duration, play catalog, player allocation, simultaneous-order resolution, information/vision model and how much direct manager control feels good are unresolved.
+
+Good outcome explanations were suggested: show why a play succeeded or failed rather than burying the manager in hidden rolls. Detailed fight logs, actual inventory/items and exact Dota hero spells are not yet built.
+
+## 8. Management and finances
+
+The original summary identified management as the first playable foundation: team/free-agent rosters, training, staff, finance, wages, earnings, sponsors, schedules and standings.
+
+Implemented: signing free agents to replace starters by position, fixed weekly wages, individual training/rest, three staff roles, sponsor offers/bonuses/reputation gates, a ledger, and basic happiness/readiness.
+
+Future work from the vision includes contract/pay decisions, richer morale, staffing effects, sponsor progression and requirements, team development, realistic scouting/roster movement, and preparation costs. Detailed standings, full tournament brackets, negotiations and staff upgrade/career systems are not implemented. Avoid importing the old prototype's flat per-match payouts or direct damage/HP staff bonuses without reconciling them with the new weekly economy and chosen design.
+
+## 9. Suggested next discussions, not an approved sequence
+
+Useful questions for the next feature conversation:
+
+- Should we first improve simulation balance/explanations, campaign scheduling, manual drafting, or the historical data layer?
+- Which systems must use verified history next, and which should stay fictional placeholders?
+- What level of simulation detail is enough for management decisions to feel meaningful?
+- How much historical roster fidelity should remain after the managed timeline diverges?
+
+Engineering possibilities such as save export/import, multiple slots, persisted replays, more modular UI and eventually backend/accounts are **optional proposals**, not user-approved requirements. Do not start those simply because they appear here. No next sprint was agreed after publication.
