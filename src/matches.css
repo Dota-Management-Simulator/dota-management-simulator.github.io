@@ -200,6 +200,11 @@
   font-size: 10px;
   font-weight: 700;
 }
+.match-hero-token img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
 .attr-strength {
   background: #f2e4dc;
   color: #aa7e66;

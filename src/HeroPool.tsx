@@ -2,12 +2,12 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { getHeroPool, heroEra, heroRoles, heroUnlockYear, heroReleases, heroesArrivingIn } from "./heroes";
 
-export default function HeroPool({ year, week }: { year: number; week: number }) {
+export default function HeroPool({ year, week, throughYear }: { year: number; week: number; throughYear?: number }) {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("all");
-  const through = heroUnlockYear(year, week);
+  const through = throughYear ?? heroUnlockYear(year, week);
   const heroes = getHeroPool(year, through);
-  const arriving = week <= 16 ? heroesArrivingIn(year) : [];
+  const arriving = through < year ? heroesArrivingIn(year) : [];
   const filtered = heroes.filter(
     (h) =>
       h.name.toLowerCase().includes(search.toLowerCase()) &&

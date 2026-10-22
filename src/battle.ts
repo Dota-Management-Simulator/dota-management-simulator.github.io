@@ -17,6 +17,8 @@ export interface BattleConfig {
   teams: [string, string];
   players: [BattlePlayer[], BattlePlayer[]];
   bonuses: [number, number];
+  seriesFormat?: { bestOf: 1 | 2 | 3 | 5 | 7; advantage?: [number, number] };
+  captureReplay?: boolean;
 }
 export interface PlayerScore {
   id: string;
@@ -32,6 +34,11 @@ export interface PlayerScore {
   gold: number;
   xp: number;
   lastHits: number;
+  /** Optional for scoreboards saved before performance telemetry existed. */
+  heroDamage?: number;
+  buildingDamage?: number;
+  healing?: number;
+  laneOutcome?: "win" | "draw" | "loss";
 }
 export interface ResourcePoint {
   time: number;
@@ -52,13 +59,16 @@ export interface SeriesSummary {
   engine: "lane-siege-v1";
   seed: number;
   teams: [string, string];
-  winner: Side;
+  winner: Side | null;
+  bestOf?: number;
+  advantage?: [number, number];
   score: [number, number];
   games: GameSummary[];
 }
 export interface ReplayUnit {
   id: number;
   kind: "hero" | "creep" | "tower" | "base";
+  heroId?: string;
   team: Side;
   x: number;
   y: number;
@@ -156,6 +166,10 @@ interface Unit {
   retreat: boolean;
   abilityCd: number;
   contributions: Map<number, number>;
+  heroDamage: number;
+  buildingDamage: number;
+  healing: number;
+  laneOutcome?: PlayerScore["laneOutcome"];
 }
 const distance = (a: { x: number; y: number }, b: { x: number; y: number }) =>
   Math.hypot(a.x - b.x, a.y - b.y);
@@ -173,6 +187,7 @@ export class LaneBattle {
   private nextSample = 0;
   private nextFrame = 0;
   private serial = 0;
+  private lanesMeasured = false;
   private random: () => number;
   constructor(
     public config: BattleConfig,
@@ -269,6 +284,9 @@ export class LaneBattle {
       deaths: 0,
       assists: 0,
       lastHits: 0,
+      heroDamage: 0,
+      buildingDamage: 0,
+      healing: 0,
       strength: 0,
       agility: 0,
       intelligence: 0,
@@ -391,6 +409,12 @@ export class LaneBattle {
   }
   private damage(source: Unit, target: Unit, value: number) {
     if (target.dead || this.winner !== null) return;
+    // Count effective damage, excluding overkill. Telemetry never consumes RNG.
+    const effective = Math.max(0, Math.min(target.hp, value));
+    if (source.kind === "hero") {
+      if (target.kind === "hero") source.heroDamage += effective;
+      if (target.kind === "tower" || target.kind === "base") source.buildingDamage += effective;
+    }
     target.hp -= value;
     if (source.kind === "hero" && target.kind === "hero")
       target.contributions.set(source.id, this.time);
@@ -490,11 +514,13 @@ export class LaneBattle {
           !ally.dead &&
           ally.team === u.team &&
           distance(ally, u) < 200
-        )
+        ) {
+          u.healing += Math.max(0, Math.min(ally.max - ally.hp, (90 + u.level * 12) * execution));
           ally.hp = Math.min(
             ally.max,
             ally.hp + (90 + u.level * 12) * execution,
           );
+        }
     u.abilityCd = 9 + this.random() * 3;
   }
   step() {
@@ -650,6 +676,17 @@ export class LaneBattle {
         this.winner = (1 - loser.team) as Side;
       }
     }
+    if (!this.lanesMeasured && this.time * GAME_CLOCK >= 600) {
+      this.lanesMeasured = true;
+      const heroes = this.units.filter(u => u.kind === "hero");
+      for (const hero of heroes) {
+        const value = (team: Side) => heroes.filter(u => u.team === team && u.lane === hero.lane)
+          .reduce((sum, u) => sum + Math.max(0, u.gold - 600) + u.totalXp, 0);
+        const own = value(hero.team), enemy = value((1 - hero.team) as Side);
+        // Assigned lane totals at 10:00, including both partners in side lanes.
+        hero.laneOutcome = own > enemy * 1.05 ? "win" : enemy > own * 1.05 ? "loss" : "draw";
+      }
+    }
     this.capture(this.winner !== null);
   }
   private resourceTotal(team: Side, key: "gold" | "totalXp") {
@@ -674,6 +711,10 @@ export class LaneBattle {
         gold: Math.round(u.gold),
         xp: Math.round(u.totalXp),
         lastHits: u.lastHits,
+        heroDamage: Math.round(u.heroDamage),
+        buildingDamage: Math.round(u.buildingDamage),
+        healing: Math.round(u.healing),
+        ...(u.laneOutcome ? { laneOutcome: u.laneOutcome } : {}),
       }));
   }
   private capture(final = false) {
@@ -690,7 +731,7 @@ export class LaneBattle {
         });
       this.nextSample = this.time + 5;
     }
-    if (final || this.time >= this.nextFrame) {
+    if (this.config.captureReplay !== false && (final || this.time >= this.nextFrame)) {
       if (this.frames.at(-1)?.time !== time)
         this.frames.push({
           time,
@@ -707,6 +748,7 @@ export class LaneBattle {
               hp: Math.round(u.hp),
               max: Math.round(u.max),
               name: u.hero?.name || u.kind,
+              ...(u.hero ? { heroId: u.hero.id } : {}),
             })),
         });
       this.nextFrame = this.time + 3;
@@ -749,10 +791,24 @@ export function simulateBestOfThree(
   config: BattleConfig,
   onProgress?: (games: number) => void,
 ): SimulatedSeries {
-  const score: [number, number] = [0, 0];
+  return simulateSeries({ ...config, seriesFormat: { bestOf: 3 } }, onProgress);
+}
+
+/** BO2 plays both maps and can draw; odd series stop at the winning score.
+ * Default wins are recorded separately and never fabricate game statistics. */
+export function simulateSeries(
+  config: BattleConfig,
+  onProgress?: (games: number) => void,
+): SimulatedSeries {
+  const { bestOf = 3, advantage = [0, 0] } = config.seriesFormat ?? {};
+  if (![1, 2, 3, 5, 7].includes(bestOf) || advantage.some(n => !Number.isInteger(n) || n < 0) || (bestOf === 2 && advantage.some(Boolean)))
+    throw new Error("Invalid series format");
+  const target = Math.floor(bestOf / 2) + 1;
+  if (Math.max(...advantage) >= target) throw new Error("Invalid starting advantage");
+  const score: [number, number] = [...advantage];
   const games: GameSummary[] = [];
   const frames: ReplayFrame[][] = [];
-  while (Math.max(...score) < 2) {
+  while (bestOf === 2 ? games.length < 2 : Math.max(...score) < target) {
     const battle = new LaneBattle(config, games.length);
     const result = battle.run();
     games.push(result);
@@ -765,7 +821,9 @@ export function simulateBestOfThree(
       engine: "lane-siege-v1",
       seed: config.seed,
       teams: config.teams,
-      winner: score[0] === 2 ? 0 : 1,
+      winner: score[0] === score[1] ? null : score[0] > score[1] ? 0 : 1,
+      bestOf,
+      ...(advantage.some(Boolean) ? { advantage } : {}),
       score,
       games,
     },

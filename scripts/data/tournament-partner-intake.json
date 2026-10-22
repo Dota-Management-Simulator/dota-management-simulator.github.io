@@ -1,0 +1,29 @@
+{
+  "receivedOn": "2026-10-22",
+  "origin": "User-provided research from their business partner; leads, not independently verified historical facts.",
+  "formatSuggestion": {
+    "groups": "BO1, optionally randomized group allocation",
+    "playoffs": "BO3",
+    "final": "BO5",
+    "policy": "Preserve documented historical formats. This suggestion is suitable for an explicitly generated future event; never overwrite known historical series lengths."
+  },
+  "entries": [
+    { "name": "BenQ The Clash 2", "submittedDate": "February 2011", "submittedPoolUSD": 500, "status": "date-corrected-awaiting-full-source", "start": "2011-12-20", "end": "2011-12-21", "note": "Archive lists Tier 3, December 20–21 and USD 500; older wiki has EUR 500. Resolve original currency and distribution before playable import.", "sources": ["https://liquipedia.net/dota2/JoinDOTA", "https://dota2.fandom.com/wiki/BenQ_%27The_Clash_2%27"] },
+    { "name": "BenQ The Clash", "submittedDate": "February 2011", "submittedPoolUSD": 500, "status": "identity-and-date-unverified" },
+    { "name": "Dota 2 Star Championship", "submittedDate": "December 11, 2011", "submittedPoolUSD": 20000, "status": "catalogued", "catalogSource": "https://liquipedia.net/dota2/Dota2_Star_Championship" },
+    { "name": "Dota2Replays Brawl", "submittedDate": "2011", "submittedPoolUSD": 6000, "status": "year-corrected-catalogued", "start": "2012-02-11", "end": "2012-03-11", "sources": ["https://liquipedia.net/dota2/Tier_2_Tournaments/2012-2015"], "note": "Archive indexes 2012; other archives include qualifying dates and report a different total. Preserve source scope rather than merging totals." },
+    { "name": "Dota2Replays Brawl Qualifiers", "submittedDate": "2011", "status": "qualifier-source-pending" },
+    { "name": "DreamHack Winter 2011", "submittedDate": "November 26, 2011", "submittedPoolUSD": 14500, "status": "catalogued", "catalogSource": "https://liquipedia.net/dota2/DreamHack/2011/Winter" },
+    { "name": "Corsair Vengeance Cup", "submittedDate": "2011", "submittedPoolUSD": 10120, "status": "identity-and-year-unverified", "note": "Corsair's official announcement distinguishes its 2012 Vengeance Cup from its prior sponsorship of DreamHack Winter 2011. Do not create a duplicate 2011 tournament.", "sources": ["https://www.corsair.com/newsroom/press-release/corsair_announces_sponsorship_of_dreamhack_dota_2_vengeance_cup"] },
+    { "name": "Electronic Sports World Cup 2011", "submittedDate": "October 25, 2011", "submittedPoolUSD": 22000, "status": "catalogued", "catalogSource": "https://liquipedia.net/dota2/Electronic_Sports_World_Cup/2011" },
+    { "name": "Fnatic PLAY RaidCall Dota 2 Cup 2", "submittedDate": "2011", "submittedPoolUSD": 500, "status": "year-correction-pending-full-source", "note": "Team result records place Cup #2 in May 2012.", "sources": ["https://liquipedia.net/dota2/Moscow_Five/Results"] },
+    { "name": "InsideDOTA Invitational", "submittedDate": "2011", "submittedPoolUSD": 1000, "status": "full-source-pending", "sources": ["https://www.gosugamers.net/news/18496-mtw-reforms"] },
+    { "name": "It's Gosu Monthly Madness", "submittedDate": "2011", "submittedPoolUSD": 1000, "status": "year-corrected-full-source-pending", "note": "Season 1 is recorded in March 2012.", "sources": ["https://liquipedia.net/dota2/It%27s_Gosu_eSports"] },
+    { "name": "Dota 2 Invitational", "submittedDate": "2011", "status": "ambiguous-event-name", "note": "Need an organizer or independent source before identifying this as a separate event." },
+    { "name": "Malaysia Invitational", "submittedDate": "December 18, 2011", "submittedPoolUSD": 10000, "status": "catalogued-rule-corrected", "start": "2011-12-17", "end": "2011-12-18", "catalogSource": "https://liquipedia.net/dota2/Malaysia_Invitational", "note": "BO1 double elimination; BO5 final with a one-game upper-bracket advantage. USD 5,000/3,000/2,000 payouts." },
+    { "name": "Sunday Evening Cup Series Season 1", "submittedDate": "2011", "status": "cross-year-full-source-pending", "note": "Older archive lists December 14, 2011–January 21, 2012, single-elimination playoffs and USD 500 winner-takes-all; contains conflicting third-place text, requiring another source.", "sources": ["https://dota2.fandom.com/wiki/Sunday_Evening_Cup_Series_Season_1"] },
+    { "name": "The Defense", "submittedDate": "2011", "submittedPoolUSD": 10000, "status": "catalogued-currency-corrected", "start": "2011-11-15", "end": "2012-03-04", "catalogSource": "https://liquipedia.net/dota2/The_Defense/Season_1", "note": "Original pool EUR 10,000, with archived USD conversion; two group stages and a default win in the BO5 final." },
+    { "name": "The International 2011", "submittedDate": "August 17–21, 2011", "submittedPoolUSD": 1600000, "status": "catalogued", "catalogSource": "https://liquipedia.net/dota2/The_International/2011" },
+    { "name": "WCG Asian Championships 2011", "submittedDate": "2011", "submittedPoolUSD": 6000, "status": "catalogued-stages-need-review", "catalogSource": "https://liquipedia.net/dota2/WCG_Asian_Championship/2011" }
+  ]
+}

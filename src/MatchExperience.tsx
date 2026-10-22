@@ -21,6 +21,7 @@ import type {
 } from "./battle";
 import type { Result } from "./game";
 import { heroById } from "./heroes";
+import { heroIconFor } from "./hero-icons";
 import TeamBadge from "./TeamBadge";
 import { teamIdForName } from "./team-logos";
 
@@ -29,17 +30,43 @@ const compact = (n: number) =>
   Math.abs(n) >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 function HeroToken({ score }: { score: PlayerScore }) {
   const hero = heroById(score.heroId);
+  const icon = heroIconFor(score.heroId);
+  const [failedPath, setFailedPath] = useState<string>();
   return (
     <span
       className={`match-hero-token attr-${hero?.attribute.toLowerCase() || "agility"}`}
       aria-hidden="true"
     >
-      {score.hero
+      {icon && failedPath !== icon.path ? (
+        <img src={`${import.meta.env.BASE_URL}${icon.path}`} alt="" decoding="async"
+          onError={() => setFailedPath(icon.path)} />
+      ) : score.hero
         .split(" ")
         .map((s) => s[0])
         .slice(0, 2)
         .join("")}
     </span>
+  );
+}
+
+function MapHeroToken({ heroId, name, color }: {
+  heroId?: string; name: string; color: string;
+}) {
+  const icon = heroIconFor(heroId);
+  const [failedPath, setFailedPath] = useState<string>();
+  return (
+    <>
+      <circle r="20" fill="#202d25" stroke={color} strokeWidth="2.5" />
+      {icon && failedPath !== icon.path ? (
+        <image href={`${import.meta.env.BASE_URL}${icon.path}`}
+          x="-16" y="-16" width="32" height="32" preserveAspectRatio="xMidYMid meet"
+          onError={() => setFailedPath(icon.path)} />
+      ) : (
+        <text y="5" textAnchor="middle" fill={color} fontSize="12" fontWeight="700">
+          {name.split(" ").map((word) => word[0]).slice(0, 2).join("")}
+        </text>
+      )}
+    </>
   );
 }
 
@@ -281,10 +308,12 @@ export function SeriesResults({
   result,
   onClose,
   managedTeamId,
+  closeLabel = "Back to management",
 }: {
   result: Result;
   onClose: () => void;
   managedTeamId?: string;
+  closeLabel?: string;
 }) {
   const [selected, setSelected] = useState(0);
   const series = result.series;
@@ -304,14 +333,15 @@ export function SeriesResults({
       </div>
     );
   const game = series.games[Math.min(selected, series.games.length - 1)];
+  const drawn = series.winner === null;
   return (
     <div className="series-results">
       <div className="match-heading">
         <div className="eyebrow">
-          {result.event} · {result.year} · BEST OF THREE
+          {result.event} · {result.year} · BEST OF {series.bestOf ?? 3}
         </div>
         <h2 id="modal-title">
-          {result.won ? "A series to remember." : "A lesson for the next one."}
+          {drawn ? "The series ends level." : result.won ? "A series to remember." : "A lesson for the next one."}
         </h2>
         <div className="series-scoreline">
           <strong><TeamBadge teamId={managedTeamId} name={series.teams[0]} year={result.year} size="small" />{series.teams[0]}</strong>
@@ -324,9 +354,9 @@ export function SeriesResults({
           className={`series-outcome ${result.won ? "series-victory" : "series-defeat"}`}
         >
           <Trophy size={14} />
-          {result.won ? "SERIES VICTORY" : "SERIES DEFEAT"}
+          {drawn ? "SERIES DRAW" : result.won ? "SERIES VICTORY" : "SERIES DEFEAT"}
           <span>
-            +${result.prize.toLocaleString()} · +{result.points} circuit points
+            {result.prize > 0 && `+$${result.prize.toLocaleString()}`}{result.points > 0 && ` · +${result.points} points`}
           </span>
         </div>
       </div>
@@ -375,13 +405,14 @@ export function SeriesResults({
         />
       </div>
       <p className="match-footnote">
+        {series.advantage?.some(Boolean) && `The series began ${series.advantage.join("–")} under the tournament's upper-bracket advantage rule. Only played maps have scoreboards. `}
         Graphs use recorded simulation totals. Positive advantage favors your
         team. Gold includes starting resources, passive income, farm, kills, and
         objectives; item power is abstract. Assists count recent damage
         contributors. Prototype abilities and balance are simplified.
       </p>
       <button className="button primary full" onClick={onClose}>
-        Back to management <ArrowRight size={16} />
+        {closeLabel} <ArrowRight size={16} />
       </button>
     </div>
   );
@@ -521,36 +552,16 @@ function MapReplay({
                 />
               </>
             ) : unit.kind === "hero" ? (
-              <>
-                <circle
-                  r="15"
-                  fill="#202d25"
-                  stroke={color}
-                  strokeWidth="2.5"
-                />
-                <text
-                  y="5"
-                  textAnchor="middle"
-                  fill={color}
-                  fontSize="12"
-                  fontWeight="700"
-                >
-                  {unit.name
-                    .split(" ")
-                    .map((w) => w[0])
-                    .slice(0, 2)
-                    .join("")}
-                </text>
-              </>
+              <MapHeroToken heroId={unit.heroId} name={unit.name} color={color} />
             ) : (
               <circle r="4" fill={color} opacity=".7" />
             )}
             {unit.kind !== "creep" && !dead && (
               <>
-                <rect x="-17" y="-23" width="34" height="3" fill="#101812" />
+                <rect x="-17" y={unit.kind === "hero" ? -28 : -23} width="34" height="3" fill="#101812" />
                 <rect
                   x="-17"
-                  y="-23"
+                  y={unit.kind === "hero" ? -28 : -23}
                   width={34 * Math.max(0, unit.hp / unit.max)}
                   height="3"
                   fill={color}
@@ -642,7 +653,7 @@ export function MatchViewer({
     <div className="match-viewer">
       <div className="watch-heading">
         <div>
-          <div className="eyebrow">LANE SIEGE · EVENT DECIDER</div>
+          <div className="eyebrow">LANE SIEGE · TOURNAMENT SERIES</div>
           <h2 id="modal-title">The team takes the stage.</h2>
         </div>
         <button
@@ -729,8 +740,7 @@ export function MatchViewer({
           ))}
         </div>
         <span>
-          Game {gameIndex + 1} of {simulation.summary.games.length} · Best of
-          three
+          Game {gameIndex + 1} of {simulation.summary.games.length} · {simulation.summary.bestOf === 2 ? "Two-map series" : `Best of ${simulation.summary.bestOf ?? 3}`}
         </span>
         <button className="text-link" onClick={() => setClock(game.duration)}>
           Next result <ArrowRight size={14} />

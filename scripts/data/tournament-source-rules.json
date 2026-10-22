@@ -1,0 +1,2210 @@
+{
+  "attribution": "Liquipedia contributors, CC-BY-SA 3.0. Each source record retains its page URL.",
+  "pages": [
+    {
+      "source": "https://liquipedia.net/dota2/ASUS_Open/2011/Spring",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "x5xYtRT3E6_R01-M001",
+          "container": "x5xYtRT3E6",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1306486800,
+          "date": "2011-05-27",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "x5xYtRT3E6_R01-M002",
+          "container": "x5xYtRT3E6",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1306486800,
+          "date": "2011-05-27"
+        },
+        {
+          "sourceId": "x5xYtRT3E6_R01-M003",
+          "container": "x5xYtRT3E6",
+          "key": "R1M3",
+          "round": "",
+          "timestamp": 1306486800,
+          "date": "2011-05-27"
+        },
+        {
+          "sourceId": "x5xYtRT3E6_R01-M004",
+          "container": "x5xYtRT3E6",
+          "key": "R1M4",
+          "round": "",
+          "timestamp": 1306486800,
+          "date": "2011-05-27"
+        },
+        {
+          "sourceId": "x5xYtRT3E6_R02-M001",
+          "container": "x5xYtRT3E6",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1306494000,
+          "date": "2011-05-27"
+        },
+        {
+          "sourceId": "x5xYtRT3E6_R02-M002",
+          "container": "x5xYtRT3E6",
+          "key": "R2M2",
+          "round": "",
+          "timestamp": 1306494000,
+          "date": "2011-05-27"
+        },
+        {
+          "sourceId": "x5xYtRT3E6_R03-M001",
+          "container": "x5xYtRT3E6",
+          "key": "R3M1",
+          "round": "",
+          "timestamp": 1306587600,
+          "date": "2011-05-28"
+        },
+        {
+          "sourceId": "x5xYtRT3E6_RxMTP",
+          "container": "x5xYtRT3E6",
+          "key": "RxMTP",
+          "round": "",
+          "timestamp": 1306587600,
+          "date": "2011-05-28"
+        }
+      ],
+      "participants": [
+        {
+          "team": "Natus Vincere",
+          "qualification": ""
+        },
+        {
+          "team": "Virus Gaming",
+          "qualification": ""
+        },
+        {
+          "team": "Moscow Five",
+          "qualification": ""
+        },
+        {
+          "team": "The Retry",
+          "qualification": ""
+        },
+        {
+          "team": "Rush",
+          "qualification": ""
+        },
+        {
+          "team": "Game-Zone",
+          "qualification": ""
+        },
+        {
+          "team": "Original Electronics",
+          "qualification": ""
+        },
+        {
+          "team": "DMT",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-05-27",
+        "End Date": "2011-05-28",
+        "Teams": "16",
+        "Type": "Offline"
+      },
+      "nativePool": {
+        "currency": "RUB",
+        "amount": 150000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/CPL_Invitational_2011",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "3gmDiG4NaN_R01-M001",
+          "container": "3gmDiG4NaN",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1344445200,
+          "date": "2012-08-08"
+        },
+        {
+          "sourceId": "3gmDiG4NaN_R01-M002",
+          "container": "3gmDiG4NaN",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1344452400,
+          "date": "2012-08-08"
+        },
+        {
+          "sourceId": "3gmDiG4NaN_R02-M001",
+          "container": "3gmDiG4NaN",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1344456000,
+          "date": "2012-08-08"
+        },
+        {
+          "sourceId": "3gmDiG4NaN_R01-M003",
+          "container": "3gmDiG4NaN",
+          "key": "R1M3",
+          "round": "",
+          "timestamp": 1344441600,
+          "date": "2012-08-08"
+        },
+        {
+          "sourceId": "3gmDiG4NaN_R02-M002",
+          "container": "3gmDiG4NaN",
+          "key": "R2M2",
+          "round": "",
+          "timestamp": 1344517200,
+          "date": "2012-08-09"
+        },
+        {
+          "sourceId": "3gmDiG4NaN_R03-M001",
+          "container": "3gmDiG4NaN",
+          "key": "R3M1",
+          "round": "",
+          "timestamp": 1344550800,
+          "date": "2012-08-09"
+        }
+      ],
+      "participants": [
+        {
+          "team": "TyLoo",
+          "qualification": ""
+        },
+        {
+          "team": "invictus Gaming",
+          "qualification": ""
+        },
+        {
+          "team": "World Elite",
+          "qualification": ""
+        },
+        {
+          "team": "DT^Club",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-08-08",
+        "End Date": "2011-08-09",
+        "Teams": "4",
+        "Type": "Online"
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/China_Telecom_Wuxi_International_eSports_Champions_Cup/2011",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "LFihTcTnA3_R01-M001",
+          "container": "LFihTcTnA3",
+          "key": "R1M1",
+          "round": "",
+          "date": "2011-09-22"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R01-M002",
+          "container": "LFihTcTnA3",
+          "key": "R1M2",
+          "round": "",
+          "date": "2011-09-22"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R01-M003",
+          "container": "LFihTcTnA3",
+          "key": "R1M3",
+          "round": "",
+          "date": "2011-09-22"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R01-M004",
+          "container": "LFihTcTnA3",
+          "key": "R1M4",
+          "round": "",
+          "date": "2011-09-22"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R02-M001",
+          "container": "LFihTcTnA3",
+          "key": "R2M1",
+          "round": "",
+          "date": "2011-09-23"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R02-M002",
+          "container": "LFihTcTnA3",
+          "key": "R2M2",
+          "round": "",
+          "date": "2011-09-23"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R04-M001",
+          "container": "LFihTcTnA3",
+          "key": "R4M1",
+          "round": "",
+          "date": "2011-09-23"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R01-M005",
+          "container": "LFihTcTnA3",
+          "key": "R1M5",
+          "round": "",
+          "date": "2011-09-23"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R01-M006",
+          "container": "LFihTcTnA3",
+          "key": "R1M6",
+          "round": "",
+          "date": "2011-09-22"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R02-M003",
+          "container": "LFihTcTnA3",
+          "key": "R2M3",
+          "round": "",
+          "date": "2011-09-24"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R02-M004",
+          "container": "LFihTcTnA3",
+          "key": "R2M4",
+          "round": "",
+          "date": "2011-09-24"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R03-M001",
+          "container": "LFihTcTnA3",
+          "key": "R3M1",
+          "round": "",
+          "date": "2011-09-24"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R04-M002",
+          "container": "LFihTcTnA3",
+          "key": "R4M2",
+          "round": "",
+          "date": "2011-09-25"
+        },
+        {
+          "sourceId": "LFihTcTnA3_R05-M001",
+          "container": "LFihTcTnA3",
+          "key": "R5M1",
+          "round": "",
+          "date": "2011-09-25"
+        }
+      ],
+      "participants": [
+        {
+          "team": "Team DK",
+          "qualification": ""
+        },
+        {
+          "team": "Invictus Gaming.Y",
+          "qualification": ""
+        },
+        {
+          "team": "LGD",
+          "qualification": ""
+        },
+        {
+          "team": "World Elite",
+          "qualification": ""
+        },
+        {
+          "team": "DT.Love",
+          "qualification": ""
+        },
+        {
+          "team": "Invictus Gaming.Z",
+          "qualification": ""
+        },
+        {
+          "team": "OK.Nirvana.cn",
+          "qualification": ""
+        },
+        {
+          "team": "DT^Club",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-09-20",
+        "End Date": "2011-09-25",
+        "Teams": "18",
+        "Type": "Offline"
+      },
+      "nativePool": {
+        "currency": "CNY",
+        "amount": 60000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/Dota2_Star_Championship",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "sDKm1Ih5Gi_M1",
+          "container": "sDKm1Ih5Gi",
+          "key": "M1",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "sDKm1Ih5Gi_M2",
+          "container": "sDKm1Ih5Gi",
+          "key": "M2",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "sDKm1Ih5Gi_M3",
+          "container": "sDKm1Ih5Gi",
+          "key": "M3",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "sDKm1Ih5Gi_M4",
+          "container": "sDKm1Ih5Gi",
+          "key": "M4",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "sDKm1Ih5Gi_M5",
+          "container": "sDKm1Ih5Gi",
+          "key": "M5",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "sDKm1Ih5Gi_M6",
+          "container": "sDKm1Ih5Gi",
+          "key": "M6",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "Qo8z9ED3Oj_M1",
+          "container": "Qo8z9ED3Oj",
+          "key": "M1",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "Qo8z9ED3Oj_M2",
+          "container": "Qo8z9ED3Oj",
+          "key": "M2",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "Qo8z9ED3Oj_M3",
+          "container": "Qo8z9ED3Oj",
+          "key": "M3",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "Qo8z9ED3Oj_M4",
+          "container": "Qo8z9ED3Oj",
+          "key": "M4",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "Qo8z9ED3Oj_M5",
+          "container": "Qo8z9ED3Oj",
+          "key": "M5",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "AbpzVXtv8H_M1",
+          "container": "AbpzVXtv8H",
+          "key": "M1",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "AbpzVXtv8H_M2",
+          "container": "AbpzVXtv8H",
+          "key": "M2",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "AbpzVXtv8H_M3",
+          "container": "AbpzVXtv8H",
+          "key": "M3",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "AbpzVXtv8H_M4",
+          "container": "AbpzVXtv8H",
+          "key": "M4",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "AbpzVXtv8H_M5",
+          "container": "AbpzVXtv8H",
+          "key": "M5",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "AbpzVXtv8H_M6",
+          "container": "AbpzVXtv8H",
+          "key": "M6",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "I12xXT15dA_M1",
+          "container": "I12xXT15dA",
+          "key": "M1",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "I12xXT15dA_M2",
+          "container": "I12xXT15dA",
+          "key": "M2",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "I12xXT15dA_M3",
+          "container": "I12xXT15dA",
+          "key": "M3",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "I12xXT15dA_M4",
+          "container": "I12xXT15dA",
+          "key": "M4",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "I12xXT15dA_M5",
+          "container": "I12xXT15dA",
+          "key": "M5",
+          "round": "",
+          "date": "2011-12-08"
+        },
+        {
+          "sourceId": "I12xXT15dA_M6",
+          "container": "I12xXT15dA",
+          "key": "M6",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "7IELzRsYnJ_M1",
+          "container": "7IELzRsYnJ",
+          "key": "M1",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "7IELzRsYnJ_M2",
+          "container": "7IELzRsYnJ",
+          "key": "M2",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "7IELzRsYnJ_M3",
+          "container": "7IELzRsYnJ",
+          "key": "M3",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "7IELzRsYnJ_M4",
+          "container": "7IELzRsYnJ",
+          "key": "M4",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "7IELzRsYnJ_M5",
+          "container": "7IELzRsYnJ",
+          "key": "M5",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "7IELzRsYnJ_M6",
+          "container": "7IELzRsYnJ",
+          "key": "M6",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "CinvGCNPnr_M1",
+          "container": "CinvGCNPnr",
+          "key": "M1",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "CinvGCNPnr_M2",
+          "container": "CinvGCNPnr",
+          "key": "M2",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "CinvGCNPnr_M3",
+          "container": "CinvGCNPnr",
+          "key": "M3",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "CinvGCNPnr_M4",
+          "container": "CinvGCNPnr",
+          "key": "M4",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "CinvGCNPnr_M5",
+          "container": "CinvGCNPnr",
+          "key": "M5",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "CinvGCNPnr_M6",
+          "container": "CinvGCNPnr",
+          "key": "M6",
+          "round": "",
+          "date": "2011-12-09"
+        },
+        {
+          "sourceId": "FZ4IdUwIM4_R01-M001",
+          "container": "FZ4IdUwIM4",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1323536400,
+          "date": "2011-12-10"
+        },
+        {
+          "sourceId": "FZ4IdUwIM4_R01-M002",
+          "container": "FZ4IdUwIM4",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1323544500,
+          "date": "2011-12-10"
+        },
+        {
+          "sourceId": "FZ4IdUwIM4_R02-M001",
+          "container": "FZ4IdUwIM4",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1323608400,
+          "date": "2011-12-11"
+        },
+        {
+          "sourceId": "FZ4IdUwIM4_R02-M002",
+          "container": "FZ4IdUwIM4",
+          "key": "R2M2",
+          "round": "",
+          "timestamp": 1323608400,
+          "date": "2011-12-11"
+        },
+        {
+          "sourceId": "FZ4IdUwIM4_R03-M001",
+          "container": "FZ4IdUwIM4",
+          "key": "R3M1",
+          "round": "",
+          "timestamp": 1323626400,
+          "date": "2011-12-11"
+        },
+        {
+          "sourceId": "FZ4IdUwIM4_RxMTP",
+          "container": "FZ4IdUwIM4",
+          "key": "RxMTP",
+          "round": "",
+          "timestamp": 1323619200,
+          "date": "2011-12-11"
+        }
+      ],
+      "participants": [
+        {
+          "team": "Natus Vincere",
+          "qualification": ""
+        },
+        {
+          "team": "The Retry",
+          "qualification": ""
+        },
+        {
+          "team": "Fos Style",
+          "qualification": ""
+        },
+        {
+          "team": "3D",
+          "qualification": ""
+        },
+        {
+          "team": "eSahara",
+          "qualification": ""
+        },
+        {
+          "team": "Team Shakira",
+          "qualification": ""
+        },
+        {
+          "team": "GameZone",
+          "qualification": ""
+        },
+        {
+          "team": "PD",
+          "qualification": ""
+        },
+        {
+          "team": "Lick the Click",
+          "qualification": ""
+        },
+        {
+          "team": "Power Rangers",
+          "qualification": ""
+        },
+        {
+          "team": "STF",
+          "qualification": ""
+        },
+        {
+          "team": "The Elder Gods",
+          "qualification": ""
+        },
+        {
+          "team": "mousesports",
+          "qualification": ""
+        },
+        {
+          "team": "Moscow Five",
+          "qualification": ""
+        },
+        {
+          "team": "iV`aN",
+          "qualification": ""
+        },
+        {
+          "team": "Jamaos Vu",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-12-08",
+        "End Date": "2011-12-11",
+        "Teams": "16",
+        "Type": "Offline"
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/Dota_Master_Tournament/2011",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "P1eAXWOhsh_R01-M001",
+          "container": "P1eAXWOhsh",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1302955200,
+          "date": "2011-04-16"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R01-M002",
+          "container": "P1eAXWOhsh",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1302955200,
+          "date": "2011-04-16"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R01-M003",
+          "container": "P1eAXWOhsh",
+          "key": "R1M3",
+          "round": "",
+          "timestamp": 1302955200,
+          "date": "2011-04-16"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R01-M004",
+          "container": "P1eAXWOhsh",
+          "key": "R1M4",
+          "round": "",
+          "timestamp": 1302955200,
+          "date": "2011-04-16"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R02-M001",
+          "container": "P1eAXWOhsh",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R02-M002",
+          "container": "P1eAXWOhsh",
+          "key": "R2M2",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R04-M001",
+          "container": "P1eAXWOhsh",
+          "key": "R4M1",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R01-M005",
+          "container": "P1eAXWOhsh",
+          "key": "R1M5",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R01-M006",
+          "container": "P1eAXWOhsh",
+          "key": "R1M6",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R02-M003",
+          "container": "P1eAXWOhsh",
+          "key": "R2M3",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R02-M004",
+          "container": "P1eAXWOhsh",
+          "key": "R2M4",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R03-M001",
+          "container": "P1eAXWOhsh",
+          "key": "R3M1",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R04-M002",
+          "container": "P1eAXWOhsh",
+          "key": "R4M2",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        },
+        {
+          "sourceId": "P1eAXWOhsh_R05-M001",
+          "container": "P1eAXWOhsh",
+          "key": "R5M1",
+          "round": "",
+          "timestamp": 1303041600,
+          "date": "2011-04-17"
+        }
+      ],
+      "participants": [
+        {
+          "team": "Catastrophic Cruel Memories",
+          "qualification": ""
+        },
+        {
+          "team": "LGD",
+          "qualification": ""
+        },
+        {
+          "team": "Team DK",
+          "qualification": ""
+        },
+        {
+          "team": "EHOME",
+          "qualification": ""
+        },
+        {
+          "team": "TyLoo",
+          "qualification": ""
+        },
+        {
+          "team": "Nirvana.cn",
+          "qualification": ""
+        },
+        {
+          "team": "World Elite",
+          "qualification": ""
+        },
+        {
+          "team": "EVC",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-04-15",
+        "End Date": "2011-04-17",
+        "Teams": "8",
+        "Type": "Offline"
+      },
+      "nativePool": {
+        "currency": "CNY",
+        "amount": 38000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/DreamHack/2011/Winter",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "6WD1O2IzOn_M1",
+          "container": "6WD1O2IzOn",
+          "key": "M1",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "6WD1O2IzOn_M2",
+          "container": "6WD1O2IzOn",
+          "key": "M2",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "6WD1O2IzOn_M3",
+          "container": "6WD1O2IzOn",
+          "key": "M3",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "6WD1O2IzOn_M4",
+          "container": "6WD1O2IzOn",
+          "key": "M4",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "6WD1O2IzOn_M5",
+          "container": "6WD1O2IzOn",
+          "key": "M5",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "6WD1O2IzOn_M6",
+          "container": "6WD1O2IzOn",
+          "key": "M6",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "8yQpvX4y0U_M1",
+          "container": "8yQpvX4y0U",
+          "key": "M1",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "8yQpvX4y0U_M2",
+          "container": "8yQpvX4y0U",
+          "key": "M2",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "8yQpvX4y0U_M3",
+          "container": "8yQpvX4y0U",
+          "key": "M3",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "8yQpvX4y0U_M4",
+          "container": "8yQpvX4y0U",
+          "key": "M4",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "8yQpvX4y0U_M5",
+          "container": "8yQpvX4y0U",
+          "key": "M5",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "8yQpvX4y0U_M6",
+          "container": "8yQpvX4y0U",
+          "key": "M6",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "b8FIiiBZMt_R01-M001",
+          "container": "b8FIiiBZMt",
+          "key": "R1M1",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "b8FIiiBZMt_R01-M002",
+          "container": "b8FIiiBZMt",
+          "key": "R1M2",
+          "round": "",
+          "date": "2011-11-25"
+        },
+        {
+          "sourceId": "b8FIiiBZMt_R02-M001",
+          "container": "b8FIiiBZMt",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1322326800,
+          "date": "2011-11-26"
+        },
+        {
+          "sourceId": "b8FIiiBZMt_RxMTP",
+          "container": "b8FIiiBZMt",
+          "key": "RxMTP",
+          "round": "",
+          "date": "2011-11-26"
+        }
+      ],
+      "participants": [
+        {
+          "team": "SK Gaming",
+          "qualification": "Invited"
+        },
+        {
+          "team": "Team Shakira",
+          "qualification": "Invited"
+        },
+        {
+          "team": "Fnatic",
+          "qualification": "Invited"
+        },
+        {
+          "team": "BX3 eSports Club",
+          "qualification": "Invited"
+        },
+        {
+          "team": "Wild Honey Badgers",
+          "qualification": "BYOC Qualifier"
+        },
+        {
+          "team": "BlitZ",
+          "qualification": "BYOC Qualifier"
+        },
+        {
+          "team": "Nook1e",
+          "qualification": "BYOC Qualifier"
+        },
+        {
+          "team": "ND9 1",
+          "qualification": "BYOC Qualifier"
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-11-24",
+        "End Date": "2011-11-26",
+        "Teams": "8",
+        "Type": "Offline"
+      },
+      "nativePool": {
+        "currency": "SEK",
+        "amount": 100000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/ESports_Champions_League/2011",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "XqBrMB7PO7_R01-M001",
+          "container": "XqBrMB7PO7",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1325134800,
+          "date": "2011-12-29"
+        },
+        {
+          "sourceId": "XqBrMB7PO7_R01-M002",
+          "container": "XqBrMB7PO7",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1325142000,
+          "date": "2011-12-29"
+        },
+        {
+          "sourceId": "XqBrMB7PO7_R02-M001",
+          "container": "XqBrMB7PO7",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1325228400,
+          "date": "2011-12-30"
+        },
+        {
+          "sourceId": "XqBrMB7PO7_R01-M003",
+          "container": "XqBrMB7PO7",
+          "key": "R1M3",
+          "round": "",
+          "timestamp": 1325134800,
+          "date": "2011-12-29"
+        },
+        {
+          "sourceId": "XqBrMB7PO7_R02-M002",
+          "container": "XqBrMB7PO7",
+          "key": "R2M2",
+          "round": "",
+          "timestamp": 1325239200,
+          "date": "2011-12-30"
+        },
+        {
+          "sourceId": "XqBrMB7PO7_R03-M001",
+          "container": "XqBrMB7PO7",
+          "key": "R3M1",
+          "round": "",
+          "timestamp": 1325311200,
+          "date": "2011-12-31"
+        }
+      ],
+      "participants": [
+        {
+          "team": "Team DK",
+          "qualification": ""
+        },
+        {
+          "team": "Invictus Gaming",
+          "qualification": ""
+        },
+        {
+          "team": "LGD",
+          "qualification": ""
+        },
+        {
+          "team": "PanDarea",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-12-28",
+        "End Date": "2011-12-31",
+        "Teams": "4",
+        "Type": "Offline"
+      },
+      "nativePool": {
+        "currency": "CNY",
+        "amount": 85000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/Electronic_Sports_Thailand_Championship/2011",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "mOSHgMp5UL_R01-M001",
+          "container": "mOSHgMp5UL",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1318161600,
+          "date": "2011-10-09"
+        },
+        {
+          "sourceId": "mOSHgMp5UL_R01-M002",
+          "container": "mOSHgMp5UL",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1318161600,
+          "date": "2011-10-09"
+        },
+        {
+          "sourceId": "mOSHgMp5UL_R02-M001",
+          "container": "mOSHgMp5UL",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1318161600,
+          "date": "2011-10-09"
+        },
+        {
+          "sourceId": "mOSHgMp5UL_RxMTP",
+          "container": "mOSHgMp5UL",
+          "key": "RxMTP",
+          "round": "",
+          "timestamp": 1318161600,
+          "date": "2011-10-09"
+        }
+      ],
+      "participants": [
+        {
+          "team": "Orange Esports",
+          "qualification": ""
+        },
+        {
+          "team": "Neolution E-Sport",
+          "qualification": ""
+        },
+        {
+          "team": "MiTH",
+          "qualification": ""
+        },
+        {
+          "team": "MUFC",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-10-06",
+        "End Date": "2011-10-09",
+        "Teams": "32",
+        "Type": "Offline",
+        "Version": "6.72f"
+      },
+      "nativePool": {
+        "currency": "THB",
+        "amount": 300000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/Electronic_Sports_World_Cup/2011",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "DLkpCthYn9_M1",
+          "container": "DLkpCthYn9",
+          "key": "M1",
+          "round": "",
+          "timestamp": 1319357640,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "DLkpCthYn9_M2",
+          "container": "DLkpCthYn9",
+          "key": "M2",
+          "round": "",
+          "timestamp": 1319358960,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "DLkpCthYn9_M3",
+          "container": "DLkpCthYn9",
+          "key": "M3",
+          "round": "",
+          "timestamp": 1319362020,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "DLkpCthYn9_M4",
+          "container": "DLkpCthYn9",
+          "key": "M4",
+          "round": "",
+          "timestamp": 1319363640,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "DLkpCthYn9_M5",
+          "container": "DLkpCthYn9",
+          "key": "M5",
+          "round": "",
+          "timestamp": 1319369700,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "DLkpCthYn9_M6",
+          "container": "DLkpCthYn9",
+          "key": "M6",
+          "round": "",
+          "timestamp": 1319370300,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "DLkpCthYn9_M7",
+          "container": "DLkpCthYn9",
+          "key": "M7",
+          "round": "",
+          "timestamp": 1319375280,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "DLkpCthYn9_M8",
+          "container": "DLkpCthYn9",
+          "key": "M8",
+          "round": "",
+          "timestamp": 1319377260,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "DLkpCthYn9_M9",
+          "container": "DLkpCthYn9",
+          "key": "M9",
+          "round": "",
+          "timestamp": 1319382600,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "DLkpCthYn9_M10",
+          "container": "DLkpCthYn9",
+          "key": "M10",
+          "round": "",
+          "timestamp": 1319382960,
+          "date": "2011-10-23"
+        },
+        {
+          "sourceId": "NuIF6CileT_M1",
+          "container": "NuIF6CileT",
+          "key": "M1",
+          "round": "",
+          "timestamp": 1319444100,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "NuIF6CileT_M2",
+          "container": "NuIF6CileT",
+          "key": "M2",
+          "round": "",
+          "timestamp": 1319444040,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "NuIF6CileT_M3",
+          "container": "NuIF6CileT",
+          "key": "M3",
+          "round": "",
+          "timestamp": 1319449560,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "NuIF6CileT_M4",
+          "container": "NuIF6CileT",
+          "key": "M4",
+          "round": "",
+          "timestamp": 1319449560,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "NuIF6CileT_M5",
+          "container": "NuIF6CileT",
+          "key": "M5",
+          "round": "",
+          "timestamp": 1319456460,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "NuIF6CileT_M6",
+          "container": "NuIF6CileT",
+          "key": "M6",
+          "round": "",
+          "timestamp": 1319456100,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "NuIF6CileT_M7",
+          "container": "NuIF6CileT",
+          "key": "M7",
+          "round": "",
+          "timestamp": 1319463720,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "NuIF6CileT_M8",
+          "container": "NuIF6CileT",
+          "key": "M8",
+          "round": "",
+          "timestamp": 1319464260,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "NuIF6CileT_M9",
+          "container": "NuIF6CileT",
+          "key": "M9",
+          "round": "",
+          "timestamp": 1319472540,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "NuIF6CileT_M10",
+          "container": "NuIF6CileT",
+          "key": "M10",
+          "round": "",
+          "timestamp": 1319467860,
+          "date": "2011-10-24"
+        },
+        {
+          "sourceId": "my2zLqY9X6_R01-M001",
+          "container": "my2zLqY9X6",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1319529240,
+          "date": "2011-10-25",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "my2zLqY9X6_R01-M002",
+          "container": "my2zLqY9X6",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1319528640,
+          "date": "2011-10-25",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "my2zLqY9X6_R02-M001",
+          "container": "my2zLqY9X6",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1319536740,
+          "date": "2011-10-25",
+          "bestOf": 3
+        },
+        {
+          "sourceId": "my2zLqY9X6_RxMTP",
+          "container": "my2zLqY9X6",
+          "key": "RxMTP",
+          "round": "",
+          "timestamp": 1319535060,
+          "date": "2011-10-25",
+          "bestOf": 1
+        }
+      ],
+      "participants": [
+        {
+          "team": "Natus Vincere",
+          "qualification": ""
+        },
+        {
+          "team": "EHOME",
+          "qualification": ""
+        },
+        {
+          "team": "Orange eSports",
+          "qualification": ""
+        },
+        {
+          "team": "NEXT.kz",
+          "qualification": ""
+        },
+        {
+          "team": "Moscow Five",
+          "qualification": ""
+        },
+        {
+          "team": "Virus Gaming",
+          "qualification": ""
+        },
+        {
+          "team": "Storm Games Clan",
+          "qualification": ""
+        },
+        {
+          "team": "monkeybusiness",
+          "qualification": ""
+        },
+        {
+          "team": "BX3 eSports Club",
+          "qualification": ""
+        },
+        {
+          "team": "GamersLeague",
+          "qualification": ""
+        },
+        {
+          "team": "Lias Gaming",
+          "qualification": ""
+        },
+        {
+          "team": "BLAST Gaming",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-10-23",
+        "End Date": "2011-10-25",
+        "Teams": "12",
+        "Type": "Offline"
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/G-1_Champions_League/Season_1",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "zjltXQi9CM_R01-M001",
+          "container": "zjltXQi9CM",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1310126400,
+          "date": "2011-07-08",
+          "bestOf": 3
+        },
+        {
+          "sourceId": "zjltXQi9CM_R01-M002",
+          "container": "zjltXQi9CM",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1310126400,
+          "date": "2011-07-08"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R01-M003",
+          "container": "zjltXQi9CM",
+          "key": "R1M3",
+          "round": "",
+          "timestamp": 1310126400,
+          "date": "2011-07-08"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R01-M004",
+          "container": "zjltXQi9CM",
+          "key": "R1M4",
+          "round": "",
+          "timestamp": 1310126400,
+          "date": "2011-07-08"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R02-M001",
+          "container": "zjltXQi9CM",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R02-M002",
+          "container": "zjltXQi9CM",
+          "key": "R2M2",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R04-M001",
+          "container": "zjltXQi9CM",
+          "key": "R4M1",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R01-M005",
+          "container": "zjltXQi9CM",
+          "key": "R1M5",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R01-M006",
+          "container": "zjltXQi9CM",
+          "key": "R1M6",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R02-M003",
+          "container": "zjltXQi9CM",
+          "key": "R2M3",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R02-M004",
+          "container": "zjltXQi9CM",
+          "key": "R2M4",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R03-M001",
+          "container": "zjltXQi9CM",
+          "key": "R3M1",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R04-M002",
+          "container": "zjltXQi9CM",
+          "key": "R4M2",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        },
+        {
+          "sourceId": "zjltXQi9CM_R05-M001",
+          "container": "zjltXQi9CM",
+          "key": "R5M1",
+          "round": "",
+          "timestamp": 1310212800,
+          "date": "2011-07-09"
+        }
+      ],
+      "participants": [
+        {
+          "team": "CCM",
+          "qualification": ""
+        },
+        {
+          "team": "EHOME",
+          "qualification": ""
+        },
+        {
+          "team": "LGD",
+          "qualification": ""
+        },
+        {
+          "team": "TyLoo",
+          "qualification": ""
+        },
+        {
+          "team": "Nirvana.cn",
+          "qualification": ""
+        },
+        {
+          "team": "World Elite",
+          "qualification": ""
+        },
+        {
+          "team": "Team DK",
+          "qualification": ""
+        },
+        {
+          "team": "Deity (Chinese team)",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-06-13",
+        "End Date": "2011-07-09",
+        "Teams": "8",
+        "Type": "Online"
+      },
+      "nativePool": {
+        "currency": "CNY",
+        "amount": 50000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/G-1_Champions_League/Season_2",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "asJfWUvmGD_R01-M001",
+          "container": "asJfWUvmGD",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1320580800,
+          "date": "2011-11-06",
+          "bestOf": 3
+        },
+        {
+          "sourceId": "asJfWUvmGD_R01-M002",
+          "container": "asJfWUvmGD",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1320580800,
+          "date": "2011-11-06"
+        },
+        {
+          "sourceId": "asJfWUvmGD_R02-M001",
+          "container": "asJfWUvmGD",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1320580800,
+          "date": "2011-11-06"
+        },
+        {
+          "sourceId": "asJfWUvmGD_RxMTP",
+          "container": "asJfWUvmGD",
+          "key": "RxMTP",
+          "round": "",
+          "timestamp": 1320580800,
+          "date": "2011-11-06"
+        }
+      ],
+      "participants": [
+        {
+          "team": "Team DK",
+          "qualification": ""
+        },
+        {
+          "team": "PanDarea",
+          "qualification": ""
+        },
+        {
+          "team": "OK.Nirvana.cn",
+          "qualification": ""
+        },
+        {
+          "team": "World Elite",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-10-14",
+        "End Date": "2011-11-06",
+        "Teams": "12",
+        "Type": "Online",
+        "Version": "6.72f"
+      },
+      "nativePool": {
+        "currency": "CNY",
+        "amount": 65000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/G-League/2011/1",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "y2j0SIzh17_R01-M001",
+          "container": "y2j0SIzh17",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1309003200,
+          "date": "2011-06-25"
+        },
+        {
+          "sourceId": "y2j0SIzh17_R01-M002",
+          "container": "y2j0SIzh17",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1309003200,
+          "date": "2011-06-25"
+        },
+        {
+          "sourceId": "y2j0SIzh17_R02-M001",
+          "container": "y2j0SIzh17",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1309089600,
+          "date": "2011-06-26"
+        },
+        {
+          "sourceId": "y2j0SIzh17_RxMTP",
+          "container": "y2j0SIzh17",
+          "key": "RxMTP",
+          "round": "",
+          "timestamp": 1309089600,
+          "date": "2011-06-26"
+        }
+      ],
+      "participants": [
+        {
+          "team": "LGD",
+          "qualification": ""
+        },
+        {
+          "team": "Team DK",
+          "qualification": ""
+        },
+        {
+          "team": "TYLOO",
+          "qualification": ""
+        },
+        {
+          "team": "EVC",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-04-28",
+        "End Date": "2011-06-26",
+        "Teams": "8",
+        "Type": "Offline",
+        "Version": "6.71b"
+      },
+      "nativePool": {
+        "currency": "CNY",
+        "amount": 180000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/G-League/2011/2",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "nhzCgRKwXD_R01-M001",
+          "container": "nhzCgRKwXD",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1318680000,
+          "date": "2011-10-15"
+        },
+        {
+          "sourceId": "nhzCgRKwXD_R01-M002",
+          "container": "nhzCgRKwXD",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1318680000,
+          "date": "2011-10-15"
+        },
+        {
+          "sourceId": "nhzCgRKwXD_R02-M001",
+          "container": "nhzCgRKwXD",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1318680000,
+          "date": "2011-10-15"
+        }
+      ],
+      "participants": [
+        {
+          "team": "Team DK",
+          "qualification": ""
+        },
+        {
+          "team": "DT^Club",
+          "qualification": ""
+        },
+        {
+          "team": "Invictus Gaming",
+          "qualification": ""
+        },
+        {
+          "team": "World Elite",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-10-03",
+        "End Date": "2011-10-15",
+        "Teams": "8",
+        "Type": "Offline"
+      },
+      "nativePool": {
+        "currency": "CNY",
+        "amount": 180000.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/I-City_Pro_DotA_Championship/2011",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "tuCtQF9dVf_R01-M001",
+          "container": "tuCtQF9dVf",
+          "key": "R1M1",
+          "round": "",
+          "timestamp": 1301227200,
+          "date": "2011-03-27"
+        },
+        {
+          "sourceId": "tuCtQF9dVf_R01-M002",
+          "container": "tuCtQF9dVf",
+          "key": "R1M2",
+          "round": "",
+          "timestamp": 1301227200,
+          "date": "2011-03-27"
+        },
+        {
+          "sourceId": "tuCtQF9dVf_R01-M003",
+          "container": "tuCtQF9dVf",
+          "key": "R1M3",
+          "round": "",
+          "timestamp": 1301227200,
+          "date": "2011-03-27"
+        },
+        {
+          "sourceId": "tuCtQF9dVf_R01-M004",
+          "container": "tuCtQF9dVf",
+          "key": "R1M4",
+          "round": "",
+          "timestamp": 1301227200,
+          "date": "2011-03-27"
+        },
+        {
+          "sourceId": "tuCtQF9dVf_R02-M001",
+          "container": "tuCtQF9dVf",
+          "key": "R2M1",
+          "round": "",
+          "timestamp": 1301227200,
+          "date": "2011-03-27"
+        },
+        {
+          "sourceId": "tuCtQF9dVf_R02-M002",
+          "container": "tuCtQF9dVf",
+          "key": "R2M2",
+          "round": "",
+          "timestamp": 1301227200,
+          "date": "2011-03-27"
+        },
+        {
+          "sourceId": "tuCtQF9dVf_R03-M001",
+          "container": "tuCtQF9dVf",
+          "key": "R3M1",
+          "round": "",
+          "timestamp": 1301227200,
+          "date": "2011-03-27"
+        },
+        {
+          "sourceId": "tuCtQF9dVf_RxMTP",
+          "container": "tuCtQF9dVf",
+          "key": "RxMTP",
+          "round": "",
+          "timestamp": 1301227200,
+          "date": "2011-03-27"
+        }
+      ],
+      "participants": [
+        {
+          "team": "CCM",
+          "qualification": ""
+        },
+        {
+          "team": "ex-Nirvana.My",
+          "qualification": ""
+        },
+        {
+          "team": "LGD",
+          "qualification": ""
+        },
+        {
+          "team": "Scythe Gaming",
+          "qualification": ""
+        },
+        {
+          "team": "Keydone INC",
+          "qualification": ""
+        },
+        {
+          "team": "iRelax",
+          "qualification": ""
+        },
+        {
+          "team": "Summer Dream",
+          "qualification": ""
+        },
+        {
+          "team": "IGS",
+          "qualification": ""
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-03-25",
+        "End Date": "2011-03-27",
+        "Teams": "32",
+        "Type": "Offline"
+      },
+      "nativePool": {
+        "currency": "MYR",
+        "amount": 23800.0
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/The_International/2011",
+      "reviewedOn": "2026-10-22",
+      "matches": [],
+      "participants": [
+        {
+          "team": "EHOME",
+          "qualification": "invite"
+        },
+        {
+          "team": "GosuGamers",
+          "qualification": "invite"
+        },
+        {
+          "team": "Invictus Gaming",
+          "qualification": "invite"
+        },
+        {
+          "team": "Meet Your Makers",
+          "qualification": "invite"
+        },
+        {
+          "team": "Mineski",
+          "qualification": "invite"
+        },
+        {
+          "team": "MiTH.Trust",
+          "qualification": "invite"
+        },
+        {
+          "team": "Moscow Five",
+          "qualification": "invite"
+        },
+        {
+          "team": "MUFC",
+          "qualification": "invite"
+        },
+        {
+          "team": "Natus Vincere",
+          "qualification": "invite"
+        },
+        {
+          "team": "Next Evolution",
+          "qualification": "invite"
+        },
+        {
+          "team": "OK.Nirvana.CN",
+          "qualification": "invite"
+        },
+        {
+          "team": "OK.Nirvana.Int",
+          "qualification": "invite"
+        },
+        {
+          "team": "Scythe Gaming",
+          "qualification": "invite"
+        },
+        {
+          "team": "Storm Games Clan",
+          "qualification": "invite"
+        },
+        {
+          "team": "TYLOO",
+          "qualification": "invite"
+        },
+        {
+          "team": "Virus Gaming",
+          "qualification": "invite"
+        },
+        {
+          "team": "NORDIC-eSport",
+          "qualification": "invite"
+        }
+      ],
+      "fields": {
+        "Start Date": "2011-08-17",
+        "End Date": "2011-08-21",
+        "Teams": "16",
+        "Type": "Offline",
+        "Version": "6.72d"
+      }
+    },
+    {
+      "source": "https://liquipedia.net/dota2/The_International/2011/Playoffs",
+      "reviewedOn": "2026-10-22",
+      "matches": [
+        {
+          "sourceId": "4pzhhsXdvz_R02-M001",
+          "container": "4pzhhsXdvz",
+          "key": "R2M1",
+          "round": "Upper Bracket R1 (Bo1)",
+          "timestamp": 1313654400,
+          "date": "2011-08-18",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R02-M002",
+          "container": "4pzhhsXdvz",
+          "key": "R2M2",
+          "round": "Upper Bracket R1 (Bo1)",
+          "timestamp": 1313686800,
+          "date": "2011-08-18",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R02-M003",
+          "container": "4pzhhsXdvz",
+          "key": "R2M3",
+          "round": "Upper Bracket R1 (Bo1)",
+          "timestamp": 1313663400,
+          "date": "2011-08-18",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R02-M004",
+          "container": "4pzhhsXdvz",
+          "key": "R2M4",
+          "round": "Upper Bracket R1 (Bo1)",
+          "timestamp": 1313677800,
+          "date": "2011-08-18",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R04-M001",
+          "container": "4pzhhsXdvz",
+          "key": "R4M1",
+          "round": "Upper Bracket R2 (Bo1)",
+          "timestamp": 1313759700,
+          "date": "2011-08-19",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R04-M002",
+          "container": "4pzhhsXdvz",
+          "key": "R4M2",
+          "round": "Upper Bracket R2 (Bo1)",
+          "timestamp": 1313764200,
+          "date": "2011-08-19",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R06-M001",
+          "container": "4pzhhsXdvz",
+          "key": "R6M1",
+          "round": "Upper Bracket Final (Bo3)",
+          "timestamp": 1313841600,
+          "date": "2011-08-20",
+          "bestOf": 3
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R01-M001",
+          "container": "4pzhhsXdvz",
+          "key": "R1M1",
+          "round": "Lower Bracket R1 (Bo1)",
+          "timestamp": 1313658900,
+          "date": "2011-08-18",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R01-M002",
+          "container": "4pzhhsXdvz",
+          "key": "R1M2",
+          "round": "Lower Bracket R1 (Bo1)",
+          "timestamp": 1313673300,
+          "date": "2011-08-18",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R01-M003",
+          "container": "4pzhhsXdvz",
+          "key": "R1M3",
+          "round": "Lower Bracket R1 (Bo1)",
+          "timestamp": 1313682300,
+          "date": "2011-08-18",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R01-M004",
+          "container": "4pzhhsXdvz",
+          "key": "R1M4",
+          "round": "Lower Bracket R1 (Bo1)",
+          "timestamp": 1313668800,
+          "date": "2011-08-18",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R02-M005",
+          "container": "4pzhhsXdvz",
+          "key": "R2M5",
+          "round": "Lower Bracket R2 (Bo1)",
+          "timestamp": 1313740800,
+          "date": "2011-08-19",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R02-M006",
+          "container": "4pzhhsXdvz",
+          "key": "R2M6",
+          "round": "Upper Bracket R1 (Bo1)",
+          "timestamp": 1313745300,
+          "date": "2011-08-19",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R02-M007",
+          "container": "4pzhhsXdvz",
+          "key": "R2M7",
+          "round": "Upper Bracket R1 (Bo1)",
+          "timestamp": 1313749800,
+          "date": "2011-08-19",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R02-M008",
+          "container": "4pzhhsXdvz",
+          "key": "R2M8",
+          "round": "Upper Bracket R1 (Bo1)",
+          "timestamp": 1313755200,
+          "date": "2011-08-19",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R03-M001",
+          "container": "4pzhhsXdvz",
+          "key": "R3M1",
+          "round": "Lower Bracket R3 (Bo1)",
+          "timestamp": 1313768700,
+          "date": "2011-08-19",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R03-M002",
+          "container": "4pzhhsXdvz",
+          "key": "R3M2",
+          "round": "Lower Bracket R3 (Bo1)",
+          "timestamp": 1313827200,
+          "date": "2011-08-20",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R04-M003",
+          "container": "4pzhhsXdvz",
+          "key": "R4M3",
+          "round": "Lower Bracket R4 (Bo1)",
+          "timestamp": 1313831700,
+          "date": "2011-08-20",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R04-M004",
+          "container": "4pzhhsXdvz",
+          "key": "R4M4",
+          "round": "Upper Bracket R2 (Bo1)",
+          "timestamp": 1313838000,
+          "date": "2011-08-20",
+          "bestOf": 1
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R05-M001",
+          "container": "4pzhhsXdvz",
+          "key": "R5M1",
+          "round": "Lower Bracket R5 (Bo3)",
+          "timestamp": 1313854200,
+          "date": "2011-08-20",
+          "bestOf": 3
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R06-M002",
+          "container": "4pzhhsXdvz",
+          "key": "R6M2",
+          "round": "Lower Bracket Final (Bo3)",
+          "timestamp": 1313913600,
+          "date": "2011-08-21",
+          "bestOf": 3
+        },
+        {
+          "sourceId": "4pzhhsXdvz_R07-M001",
+          "container": "4pzhhsXdvz",
+          "key": "R7M1",
+          "round": "Grand Final (Bo5)",
+          "timestamp": 1313924400,
+          "date": "2011-08-21",
+          "bestOf": 5,
+          "advantage": [
+            1,
+            0
+          ]
+        }
+      ],
+      "participants": []
+    }
+  ]
+}

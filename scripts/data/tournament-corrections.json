@@ -1,0 +1,393 @@
+{
+  "reviewedOn": "2026-10-22",
+  "events": {
+    "https://liquipedia.net/dota2/The_International/2014": {
+      "fields": {"Start Date": "2014-07-09"},
+      "excludeBrackets": [0],
+      "format": "Phase Two / Group Stage, July 9–12: sixteen-team single round-robin, all BO1. Top two advance directly to the main-event upper bracket; third through tenth enter the two seeded phase-three gauntlets; bottom six are eliminated. Phase Three, July 13–14: two four-team gauntlets, all BO3. Each opening loser is eliminated; the next two losers enter the main-event lower bracket; the last winner enters the upper bracket. Main Event, July 18–21: eight teams in double elimination; BO3 except BO5 grand final. The July 8 four-team wildcard is a separate qualifying run awarding one group-stage place.",
+      "groups": [{"name":"Phase Two","rows":[{"team":"Vici Gaming"},{"team":"Evil Geniuses"},{"team":"Team DK"},{"team":"Invictus Gaming"},{"team":"Natus Vincere"},{"team":"Cloud9"},{"team":"Team Liquid"},{"team":"Titan"},{"team":"Newbee"},{"team":"LGD Gaming"},{"team":"mousesports"},{"team":"Alliance"},{"team":"Team Empire"},{"team":"Fnatic"},{"team":"Na`Vi North America"},{"team":"Arrow Gaming"}],"games":1,"start":"2014-07-09","end":"2014-07-12","tieBreak":{"boundaries":[2,10],"lowerSeedWins":true,"coinToss":true,"twoTeamBestOf":1}}],
+      "sources": ["https://www.dota2.com.cn/international2014/format/", "https://en.wikipedia.org/wiki/The_International_2014"],
+      "note": "The wildcard is represented separately so its four teams do not turn a sixteen-team group field into nineteen direct entrants. Phase-two pair dates remain estimated within the sourced window. Source page's Bo2 labels on 2–0 knockout results are score-dependent rendering; the organizer specifies BO3."
+    },
+    "https://liquipedia.net/dota2/The_International/2017": {
+      "fields": {"Prize Pool": "$24,687,916 USD"},
+      "poolNote": "The published combined event total includes a separate USD 100,000 All-Star award. Gameplay uses the main championship's USD 24,687,916 pool and archived team-placement awards; it does not give the All-Star money to a club.",
+      "aliases": {"TNC Pro Team": "TNC Predator", "Infamous Gaming": "Infamous", "Chaos Esports Club": "Digital Chaos"},
+      "groups": [
+        {"name":"Group A","rows":[{"team":"Team Liquid"},{"team":"LGD Gaming"},{"team":"Evil Geniuses"},{"team":"TNC Predator"},{"team":"Team Secret"},{"team":"iG.Vitality"},{"team":"Team Empire"},{"team":"Infamous"},{"team":"Fnatic"}],"games":2,"start":"2017-08-02","end":"2017-08-05","tieBreak":{"boundaries":[4,8],"lowerSeedWins":true,"coinToss":true,"twoTeamBestOf":3}},
+        {"name":"Group B","rows":[{"team":"LGD.Forever Young"},{"team":"Newbee"},{"team":"Virtus.pro"},{"team":"Invictus Gaming"},{"team":"OG"},{"team":"Cloud9"},{"team":"Digital Chaos"},{"team":"Execration"},{"team":"HellRaisers"}],"games":2,"start":"2017-08-02","end":"2017-08-05","tieBreak":{"boundaries":[4,8],"lowerSeedWins":true,"coinToss":true,"twoTeamBestOf":3}}
+      ],
+      "sources": ["https://liquipedia.net/dota2/The_International/2017/Group_Stage", "https://www.esportsearnings.com/events/4970-the-international-2017", "https://www.esportsearnings.com/tournaments/24182-the-international-2017-all-star-match"],
+      "note": "Final group order and stage windows recovered. Individual round-robin fixture dates are estimates until their timetable is recovered. The main-event payout sum differs from the combined event headline by the separately awarded All-Star prize."
+    },
+    "https://liquipedia.net/dota2/The_International/2018": {
+      "payouts": [{"from": 7, "to": 8, "usd": 638304}],
+      "sources": ["https://dota2.net/news/23156-itogovyy-prizovoy-fond-vosmogo-the-international-sostavil-25532177", "https://www.dotabuff.com/procircuit/2017-2018"],
+      "note": "The cached 638,333 conflicts with 2.5% of the final pool. Contemporary reporting and the independent tournament ledger give 638,304 per team."
+    },
+    "https://liquipedia.net/dota2/Malaysia_Invitational": {
+      "fixtureRules": [
+        {
+          "teams": [
+            "Orange Esports",
+            "MiTH"
+          ],
+          "bestOf": 5,
+          "advantage": [
+            1,
+            0
+          ]
+        }
+      ],
+      "sources": [
+        "https://dota2.cz/article/dota-2-malaysia-invitational-vyhrali-orange"
+      ],
+      "note": "The December 18 contemporary report describes Orange starting the BO5 final with a default win and playing four actual games."
+    },
+    "https://liquipedia.net/dota2/The_Defense/Season_1": {
+      "aliases": {
+        "DD.Dota": "SK Gaming",
+        "Quantic Gaming": "SK Gaming",
+        "Absolute Legends": "Natural 9",
+        "Western Wolves": "Team Shakira",
+        "Ariana Gaming": "PANZER"
+      },
+      "sources": [
+        "https://liquipedia.net/dota2/Link",
+        "https://liquipedia.net/dota2/ZEN9",
+        "https://liquipedia.net/dota2/Ceb",
+        "https://www.gosugamers.net/news/18534-ariana-gaming-signs-panzer"
+      ],
+      "note": "Event-scoped continuity across sponsor/tag changes during the November 2011–March 2012 tournament. These are not global aliases between organizations."
+    },
+    "https://liquipedia.net/dota2/The_International/2013": {
+      "groups": [
+        {
+          "name": "Group A",
+          "rows": [
+            {
+              "team": "Natus Vincere",
+              "rank": "1"
+            },
+            {
+              "team": "Team DK",
+              "rank": "2"
+            },
+            {
+              "team": "Fnatic",
+              "rank": "3"
+            },
+            {
+              "team": "LGD Gaming",
+              "rank": "4"
+            },
+            {
+              "team": "Team Dignitas",
+              "rank": "5"
+            },
+            {
+              "team": "Team Zenith",
+              "rank": "6"
+            },
+            {
+              "team": "MOUZ",
+              "rank": "7"
+            },
+            {
+              "team": "MUFC",
+              "rank": "8"
+            }
+          ],
+          "games": 2,
+          "start": "2013-08-03",
+          "end": "2013-08-05"
+        },
+        {
+          "name": "Group B",
+          "rows": [
+            {
+              "team": "Alliance",
+              "rank": "1"
+            },
+            {
+              "team": "TongFu",
+              "rank": "2"
+            },
+            {
+              "team": "Orange Esports",
+              "rank": "3"
+            },
+            {
+              "team": "Invictus Gaming",
+              "rank": "4"
+            },
+            {
+              "team": "Team Liquid",
+              "rank": "5"
+            },
+            {
+              "team": "LGD.int",
+              "rank": "6"
+            },
+            {
+              "team": "RattleSnake",
+              "rank": "7"
+            },
+            {
+              "team": "Virtus.pro",
+              "rank": "8"
+            }
+          ],
+          "games": 2,
+          "start": "2013-08-03",
+          "end": "2013-08-05"
+        }
+      ],
+      "sources": [
+        "https://liquipedia.net/dota2/The_International/2013/Group_Stage"
+      ],
+      "note": "Final source group order reconstructs rank slots only. All campaign maps and standings are simulated; unrecovered per-pair dates remain labeled estimates within the verified group-stage window."
+    },
+    "https://liquipedia.net/dota2/The_International/2015": {
+      "groups": [
+        {
+          "name": "Group A",
+          "rows": [
+            {
+              "team": "LGD Gaming",
+              "rank": "1"
+            },
+            {
+              "team": "Team Secret",
+              "rank": "2"
+            },
+            {
+              "team": "compLexity Gaming",
+              "rank": "3"
+            },
+            {
+              "team": "Cloud9",
+              "rank": "4"
+            },
+            {
+              "team": "MVP Phoenix",
+              "rank": "5"
+            },
+            {
+              "team": "Invictus Gaming",
+              "rank": "6"
+            },
+            {
+              "team": "Fnatic",
+              "rank": "7"
+            },
+            {
+              "team": "Natus Vincere",
+              "rank": "8"
+            }
+          ],
+          "games": 2,
+          "start": "2015-07-27",
+          "end": "2015-07-30",
+          "scoring": {
+            "2-0": 3,
+            "1-1": 1,
+            "0-2": 0
+          },
+          "tieBreak": {
+            "boundaries": [
+              4
+            ],
+            "lowerSeedWins": true,
+            "coinToss": true,
+            "twoTeamBestOf": 3
+          }
+        },
+        {
+          "name": "Group B",
+          "rows": [
+            {
+              "team": "Evil Geniuses",
+              "rank": "1"
+            },
+            {
+              "team": "CDEC Gaming",
+              "rank": "2"
+            },
+            {
+              "team": "EHOME",
+              "rank": "3"
+            },
+            {
+              "team": "Team Empire",
+              "rank": "4"
+            },
+            {
+              "team": "Virtus.pro",
+              "rank": "5"
+            },
+            {
+              "team": "Vici Gaming",
+              "rank": "6"
+            },
+            {
+              "team": "Newbee",
+              "rank": "7"
+            },
+            {
+              "team": "MVP HOT6ix",
+              "rank": "8"
+            }
+          ],
+          "games": 2,
+          "start": "2015-07-27",
+          "end": "2015-07-30",
+          "scoring": {
+            "2-0": 3,
+            "1-1": 1,
+            "0-2": 0
+          },
+          "tieBreak": {
+            "boundaries": [
+              4
+            ],
+            "lowerSeedWins": true,
+            "coinToss": true,
+            "twoTeamBestOf": 3
+          }
+        }
+      ],
+      "sources": [
+        "https://liquipedia.net/dota2/The_International/2015/Group_Stage"
+      ],
+      "note": "Final source group order reconstructs rank slots only. All campaign maps and standings are simulated; unrecovered per-pair dates remain labeled estimates within the verified group-stage window."
+    },
+    "https://liquipedia.net/dota2/The_International/2016": {
+      "groups": [
+        {
+          "name": "Group A",
+          "rows": [
+            {
+              "team": "OG",
+              "rank": "1"
+            },
+            {
+              "team": "Evil Geniuses",
+              "rank": "2"
+            },
+            {
+              "team": "Wings Gaming",
+              "rank": "3"
+            },
+            {
+              "team": "Alliance",
+              "rank": "4"
+            },
+            {
+              "team": "TNC Predator",
+              "rank": "5"
+            },
+            {
+              "team": "Natus Vincere",
+              "rank": "6"
+            },
+            {
+              "team": "LGD Gaming",
+              "rank": "7"
+            },
+            {
+              "team": "Escape Gaming",
+              "rank": "8"
+            }
+          ],
+          "games": 2,
+          "start": "2016-08-03",
+          "end": "2016-08-05",
+          "scoring": {
+            "2-0": 2,
+            "1-1": 1,
+            "0-2": 0
+          },
+          "tieBreak": {
+            "boundaries": [
+              4
+            ],
+            "lowerSeedWins": true,
+            "coinToss": true,
+            "twoTeamBestOf": 3
+          }
+        },
+        {
+          "name": "Group B",
+          "rows": [
+            {
+              "team": "EHOME",
+              "rank": "1"
+            },
+            {
+              "team": "Digital Chaos",
+              "rank": "2"
+            },
+            {
+              "team": "Newbee",
+              "rank": "3"
+            },
+            {
+              "team": "MVP Phoenix",
+              "rank": "4"
+            },
+            {
+              "team": "Fnatic",
+              "rank": "5"
+            },
+            {
+              "team": "Team Secret",
+              "rank": "6"
+            },
+            {
+              "team": "Team Liquid",
+              "rank": "7"
+            },
+            {
+              "team": "Vici Gaming Reborn",
+              "rank": "8"
+            }
+          ],
+          "games": 2,
+          "start": "2016-08-03",
+          "end": "2016-08-05",
+          "scoring": {
+            "2-0": 2,
+            "1-1": 1,
+            "0-2": 0
+          },
+          "tieBreak": {
+            "boundaries": [
+              4
+            ],
+            "lowerSeedWins": true,
+            "coinToss": true,
+            "twoTeamBestOf": 3
+          }
+        }
+      ],
+      "sources": [
+        "https://liquipedia.net/dota2/The_International/2016/Group_Stage",
+        "https://ggscore.com/en/dota-2/international-2016"
+      ],
+      "note": "Final source group order reconstructs rank slots only. All campaign maps and standings are simulated; unrecovered per-pair dates remain labeled estimates within the verified group-stage window. The current root prize table has a transposed 5th–6th payout (934,761); 4.5% of the pool and the independent archive both give USD 934,671, whose complete distribution reconciles to USD 20,770,460.",
+      "aliases": {
+        "Chaos Esports Club": "Digital Chaos",
+        "VG.Reborn": "Vici Gaming Reborn",
+        "TNC Pro Team": "TNC Predator"
+      },
+      "payouts": [
+        {
+          "from": 5,
+          "to": 6,
+          "usd": 934671
+        }
+      ]
+    }
+  }
+}

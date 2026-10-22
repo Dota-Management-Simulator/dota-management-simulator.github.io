@@ -4,6 +4,18 @@ import type { BattleConfig, SeriesSummary } from "./battle";
 import { createHistoricalWorld, clubForPlayer, recruitHistoricalPlayer, postTiShuffle, getStartingTeams, customClubNameAvailable, activeClubs } from "./history";
 import type { HistoricalWorld } from "./history";
 import { heroUnlockYear, heroesArrivingIn } from "./heroes";
+import { attributeNames, roundTraining, trainingPlan } from "./training";
+import type { TrainingSchedule } from "./training";
+export type { Training } from "./training";
+import type { Training } from "./training";
+import { assessOffer, campaignWeek, releaseCost, weeklyPractice } from "./contracts";
+import type { ContractOffer, PlayerContract } from "./contracts";
+import { advanceSponsorMarket, initialSponsorships, sponsorBenefits, sponsorSlotsUsed, sponsorshipIncome } from "./sponsors";
+import type { Sponsorships } from "./sponsors";
+import type { HistoricalCalendar } from "./tournament-types";
+import type { OfficeState } from "./office";
+import { playerTournamentLock } from "./tournament-locks";
+import { historicalTournaments, nextTournamentFixture, utcTime } from "./tournaments";
 
 export const ROLES = [
   "Carry",
@@ -14,19 +26,13 @@ export const ROLES = [
 ] as const;
 export type Role = (typeof ROLES)[number];
 export type Difficulty = "Club" | "Contender" | "Legend";
-export type Training =
-  | "Balanced"
-  | "Laning"
-  | "Teamfights"
-  | "Map awareness"
-  | "Hero pool"
-  | "Rest";
 export type Player = Omit<(typeof world.players)[number], "age"> & {
   age: number | null;
   historical?: { aliases: string[]; source: string; date: string; team: string; role: string; roleEvidence: "adapted" };
 };
 export type Page =
   | "overview"
+  | "inbox"
   | "roster"
   | "training"
   | "calendar"
@@ -58,6 +64,7 @@ export interface Result {
   opponent: string;
   score: string;
   series?: SeriesSummary;
+  tournamentId?: string;
 }
 export interface Campaign {
   version: 1;
@@ -71,12 +78,17 @@ export interface Campaign {
   players: Player[];
   roster: string[];
   training: Record<string, Training>;
+  trainingSchedules?: Record<string, TrainingSchedule>;
   sponsorIds: string[];
+  sponsorships?: Sponsorships;
   staffIds: string[];
   results: Result[];
   log: string[];
   transactions: { week: number; year: number; label: string; amount: number }[];
   world?: HistoricalWorld;
+  contracts?: Record<string, PlayerContract>;
+  calendar?: HistoricalCalendar;
+  office?: OfficeState;
 }
 export const DEFAULT_SETTINGS: Settings = {
   team: "Natus Vincere",
@@ -89,20 +101,7 @@ export const DEFAULT_SETTINGS: Settings = {
   historicalTeamId: "navi",
 };
 export const data = world;
-export const statNames: Record<string, string> = {
-  creativity: "Creativity",
-  stability: "Stability",
-  confidence: "Confidence",
-  stamina: "Stamina",
-  heroPool: "Hero pool",
-  laning: "Laning",
-  teamfights: "Teamfights",
-  farming: "Farming",
-  skirmish: "Skirmish",
-  vision: "Vision",
-  intuition: "Intuition",
-  pushing: "Pushing",
-};
+export const statNames: Record<string, string> = attributeNames;
 export const events = [
   {
     id: "open",
@@ -181,10 +180,7 @@ export const weeklyWages = (c: Campaign) =>
   data.staff
     .filter((s) => c.staffIds.includes(s.id))
     .reduce((s, p) => s + p.weekly, 0);
-export const weeklyIncome = (c: Campaign) =>
-  data.sponsors
-    .filter((s) => c.sponsorIds.includes(s.id))
-    .reduce((s, p) => s + p.weekly, 0);
+export const weeklyIncome = sponsorshipIncome;
 export const eventResult = (c: Campaign, id: string) =>
   c.results.find((r) => r.year === c.year && r.eventId === id);
 export const nextEvent = (c: Campaign) =>
@@ -199,7 +195,7 @@ export function createCampaign(settings: Settings): Campaign {
   const historical = createHistoricalWorld(chosen.id, settings.clubMode === "custom" ? name : undefined, settings.year);
   const players = historical.players;
   const state = historical.state;
-  return {
+  const campaign: Campaign = {
     version: 1,
     settings: { ...settings, team: name, region: chosen.region, historicalTeamId: chosen.id },
     year: settings.year,
@@ -223,6 +219,8 @@ export function createCampaign(settings: Settings): Campaign {
     log: [settings.year === 2011 ? "2011 historical world loaded. Regional references retain their original observation dates." : `${settings.year} begins with roster and hero imports through ${state.dataThroughYear}. This season's additions enter after TI.`],
     transactions: [],
   };
+  campaign.sponsorships = initialSponsorships(campaign);
+  return campaign;
 }
 function note(c: Campaign, text: string) {
   c.log = [text, ...c.log].slice(0, 30);
@@ -235,8 +233,15 @@ function transaction(c: Campaign, label: string, amount: number) {
   ].slice(0, 80);
 }
 export function advanceWeek(current: Campaign): Campaign {
+  if (current.calendar) {
+    const now = Date.parse(current.calendar.now);
+    const pending = current.calendar.runs.filter(r => r.state === "playing").map(r => nextTournamentFixture(r)).filter(f => !!f).map(f => utcTime(f!.at));
+    const target = pending.length ? Math.min(now + 604800000, Math.max(now, Math.min(...pending))) : now + 604800000;
+    return advanceCalendarTo(current, new Date(target).toISOString());
+  }
   const c = structuredClone(current);
   reconcileHistoricalImports(c);
+  c.sponsorships ??= initialSponsorships(c);
   for (const e of events.filter(
     (e) => e.week === c.week && !eventResult(c, e.id),
   )) {
@@ -254,38 +259,7 @@ export function advanceWeek(current: Campaign): Campaign {
     });
     note(c, `${e.name} skipped. Your team had the week to prepare.`);
   }
-  transaction(c, "Weekly payroll", -weeklyWages(c));
-  if (weeklyIncome(c)) transaction(c, "Sponsor income", weeklyIncome(c));
-  const coach = c.staffIds.includes("c1") ? 1 : 0;
-  const therapist = c.staffIds.includes("c3") ? 8 : 0;
-  for (const p of teamPlayers(c)) {
-    const plan = c.training[p.id] || "Balanced";
-    const keys =
-      plan === "Laning"
-        ? ["laning", "skirmish"]
-        : plan === "Teamfights"
-          ? ["teamfights", "stability"]
-          : plan === "Map awareness"
-            ? ["vision", "intuition", "pushing"]
-            : plan === "Hero pool"
-              ? ["heroPool", "creativity"]
-              : ["stability", "stamina"];
-    if (plan !== "Rest")
-      for (const key of keys)
-        p.stats[key as keyof Player["stats"]] = clamp(
-          p.stats[key as keyof Player["stats"]] + 1 + coach,
-          0,
-          99,
-        );
-    p.energy = clamp(
-      p.energy +
-        (plan === "Rest" ? 24 : plan === "Balanced" ? 7 : -5) +
-        therapist,
-    );
-    p.happiness = clamp(
-      p.happiness + (c.cash < 0 ? -10 : plan === "Rest" ? 4 : 1),
-    );
-  }
+  applyWeeklyManagement(c);
   c.week++;
   reconcileHistoricalImports(c);
   if (c.week === 17) {
@@ -302,15 +276,66 @@ export function advanceWeek(current: Campaign): Campaign {
     });
     note(c, `${c.year} begins. A new season, a fresh chance at the Aegis.`);
     if (c.settings.shuffle)
-      note(
-        c,
-        "New season ready. Players and heroes through 2026 enter during their annual shuffle; your alternate timeline continues beyond the imported years.",
-      );
-  } else
-    note(
-      c,
-      `Week ${c.week}: training and recovery completed. Payroll settled.`,
+      note(c, "New season ready. Players and heroes through 2026 enter during their annual shuffle; your alternate timeline continues beyond the imported years.");
+  } else note(c, `Week ${c.week}: training and recovery completed. Payroll settled.`);
+  for (const p of teamPlayers(c)) {
+    const contract = c.contracts?.[p.id];
+    if (contract && campaignWeek(c) === contract.expiresAt)
+      note(c, `${p.name}'s fixed contract has ended. Terms continue week to week; renew to remove the weekly 2-point happiness penalty.`);
+  }
+  advanceSponsorMarket(c);
+  return c;
+}
+
+function applyWeeklyManagement(c: Campaign) {
+  transaction(c, "Weekly payroll", -weeklyWages(c));
+  if (weeklyIncome(c)) transaction(c, "Sponsor income", weeklyIncome(c));
+  c.reputation = roundTraining(c.reputation + sponsorBenefits(c).reputation);
+  for (const p of teamPlayers(c)) {
+    const plan = c.training[p.id] || "Balanced";
+    const practice = weeklyPractice(c, p, plan);
+    const focus = trainingPlan(plan);
+    for (const key of focus.stats)
+      p.stats[key] = clamp(roundTraining(p.stats[key] + practice.growth), 0, 99);
+    if (focus.playstyle && p.playstyles[focus.playstyle] != null)
+      p.playstyles[focus.playstyle] = clamp(roundTraining(p.playstyles[focus.playstyle]! + practice.playstyleGrowth), 1, 10);
+    p.energy = clamp(roundTraining(p.energy + practice.energy));
+    p.happiness = clamp(
+      roundTraining(p.happiness + (c.cash < 0 ? -10 : practice.happiness)),
     );
+  }
+}
+
+/** Real elapsed time pays and trains once per seven days, across year changes.
+ * A tournament can only move the clock through its own fixture progression. */
+export function advanceCalendarTo(current: Campaign, at: string, tournamentProgress = false): Campaign {
+  if (!current.calendar) return current;
+  const target = Date.parse(at);
+  if (!Number.isFinite(target) || target <= Date.parse(current.calendar.now)) return current;
+  if (!tournamentProgress) {
+    const next = current.calendar.runs.filter(r => r.state === "playing").map(r => nextTournamentFixture(r)).filter(f => !!f).map(f => utcTime(f!.at));
+    if (next.length && target > Math.max(Date.parse(current.calendar.now), Math.min(...next))) return current;
+  }
+  if (target - Date.parse(current.calendar.now) > 366 * 86400000) throw new Error("Advance the calendar at most one year at a time.");
+  const c = structuredClone(current);
+  const calendar = c.calendar!;
+  const updateDate = (atTime: number) => {
+    calendar.now = new Date(atTime).toISOString();
+    const year = new Date(atTime).getUTCFullYear();
+    if (year > c.year) {
+      for (const player of c.players) if (player.age != null) player.age += year - c.year;
+      c.year = year;
+    }
+    c.week = Math.floor((atTime - Date.UTC(c.year, 0, 1)) / 604800000) + 1;
+  };
+  for (let tick = Date.parse(calendar.origin) + (calendar.paidWeeks + 1) * 604800000; tick <= target; tick += 604800000) {
+    applyWeeklyManagement(c);
+    calendar.paidWeeks++;
+    updateDate(tick);
+    advanceSponsorMarket(c);
+  }
+  updateDate(target);
+  reconcileHistoricalImports(c);
   return c;
 }
 
@@ -318,7 +343,13 @@ export function advanceWeek(current: Campaign): Campaign {
 // only roster imports, never elapsed weeks, finances, results or manager choices.
 function reconcileHistoricalImports(c: Campaign) {
   if (!c.world) return;
-  const through = Math.min(2026, c.year - (c.week <= 16 ? 1 : 0));
+  if (c.calendar?.runs.some(r => r.state === "playing")) return;
+  if (c.calendar) for (let year = 2011; year <= Math.min(2026, c.year); year++) {
+    const ti = historicalTournaments.find(e => e.kind === "ti" && e.year === year);
+    const after = ti ? utcTime(ti.end) + 86400000 : year === 2020 ? Date.UTC(2021, 0, 1) : Infinity;
+    if (utcTime(c.calendar.now) >= after && !c.calendar.shuffledYears.includes(year)) c.calendar.shuffledYears.push(year);
+  }
+  const through = c.calendar ? Math.max(2010, ...c.calendar.shuffledYears) : Math.min(2026, c.year - (c.week <= 16 ? 1 : 0));
   for (let year = 2011; year <= through; year++) {
     const shuffled = postTiShuffle(c.world, c.players, year, c.settings.shuffle);
     if (shuffled) {
@@ -358,6 +389,9 @@ export const opponentFor = (c: Campaign) => opponentClub(c)?.name ??
 export const playerTeam = (c: Campaign, id: string) =>
   clubForPlayer(c.world, id)?.name ?? (c.roster.includes(id) ? c.settings.team : "Free agent");
 export function recruitmentBlocker(c: Campaign, id: string): string | null {
+  const outgoing = teamPlayers(c).find(p => p.role === c.players.find(v => v.id === id)?.role);
+  const lock = playerTournamentLock(c, id) ?? (outgoing ? playerTournamentLock(c, outgoing.id) : null);
+  if (lock) return lock;
   if (!c.world) return null;
   return recruitHistoricalPlayer(structuredClone(c.world), structuredClone(c.players), id);
 }
@@ -421,6 +455,7 @@ export function settleEvent(
     return current;
   if (
     series.teams[0] !== current.settings.team ||
+    series.winner === null ||
     series.games.length < 2 ||
     series.games.length > 3 ||
     Math.max(...series.score) !== 2 ||
@@ -450,6 +485,10 @@ export function settleEvent(
   });
   transaction(c, `${e.name} earnings`, prize);
   for (const p of teamPlayers(c)) {
+    const share = Math.floor(prize * (c.contracts?.[p.id]?.prizeShare ?? 0) / 100);
+    if (share) transaction(c, `${p.name} prize share · ${e.name}`, -share);
+  }
+  for (const p of teamPlayers(c)) {
     p.energy = clamp(p.energy - (e.kind === "ti" ? 25 : 15));
     p.happiness = clamp(p.happiness + (won ? 6 : -4));
     p.stats.confidence = clamp(p.stats.confidence + (won ? 4 : -3));
@@ -462,6 +501,7 @@ export function settleEvent(
   return c;
 }
 export function signPlayer(current: Campaign, id: string): Campaign {
+  if (recruitmentBlocker(current, id)) return current;
   const c = structuredClone(current);
   const p = c.players.find((p) => p.id === id);
   if (!p || c.roster.includes(id) || c.cash < p.fee) return current;
@@ -469,6 +509,9 @@ export function signPlayer(current: Campaign, id: string): Campaign {
     (pid) => c.players.find((player) => player.id === pid)?.role === p.role,
   );
   if (slot < 0) return current;
+  const previousId = c.roster[slot];
+  const severance = releaseCost(c, previousId);
+  if (c.cash < p.fee + severance) return current;
   const owner = playerTeam(c, id);
   if (c.world) {
     const reason = recruitHistoricalPlayer(c.world, c.players, id);
@@ -476,16 +519,45 @@ export function signPlayer(current: Campaign, id: string): Campaign {
     c.roster = [...c.world.clubs.find((t) => t.id === c.world!.managedTeamId)!.roster];
   } else c.roster[slot] = id;
   transaction(c, `${p.name} signing fee`, -p.fee);
+  if (severance) transaction(c, `${c.players.find((v) => v.id === previousId)!.name} early release`, -severance);
+  if (c.contracts?.[previousId]) {
+    c.players.find((v) => v.id === previousId)!.wage = c.contracts[previousId].marketWage;
+    delete c.contracts[previousId];
+  }
   note(
     c,
     `${p.name} joins as ${p.role.toLowerCase()}. The previous starter leaves the lineup.${owner !== "Free agent" ? ` ${owner}'s lineup remains complete after regional recruitment.` : ""}`,
   );
   return c;
 }
+export function negotiateContract(current: Campaign, id: string, offer: ContractOffer): {
+  campaign: Campaign; status: "accepted" | "counter" | "blocked" | "invalid"; message: string; counter?: ContractOffer;
+} {
+  const p = current.players.find((v) => v.id === id);
+  if (!p) return { campaign: current, status: "invalid", message: "Player is unavailable." };
+  const assessment = assessOffer(current, p, offer);
+  if (assessment.status !== "accepted") return { campaign: current, ...assessment };
+  const ownPlayer = current.roster.includes(id);
+  const outgoing = ownPlayer ? undefined : teamPlayers(current).find((v) => v.role === p.role);
+  const upfront = offer.bonus + (ownPlayer ? 0 : p.fee + (outgoing ? releaseCost(current, outgoing.id) : 0));
+  if (upfront > 0 && current.cash < upfront) return { campaign: current, status: "blocked", message: `This deal needs ${money(upfront)} up front, including fees, bonus and any early release.` };
+  const previous = current.contracts?.[id];
+  if (previous?.signedAt === campaignWeek(current) && Object.keys(offer).every((key) => previous[key as keyof ContractOffer] === offer[key as keyof ContractOffer]))
+    return { campaign: current, status: "blocked", message: "These terms were already signed this week." };
+  let c = ownPlayer ? structuredClone(current) : signPlayer(current, id);
+  if (c === current) return { campaign: current, status: "blocked", message: recruitmentBlocker(current, id) ?? "No matching position is available." };
+  const player = c.players.find((v) => v.id === id)!;
+  c.contracts ??= {};
+  c.contracts[id] = { ...offer, signedAt: campaignWeek(c), expiresAt: campaignWeek(c) + offer.weeks, marketWage: previous?.marketWage ?? p.wage };
+  player.wage = offer.wage;
+  if (offer.bonus) transaction(c, `${player.name} contract bonus`, -offer.bonus);
+  note(c, `${player.name} agreed to ${offer.weeks} weeks at ${money(offer.wage)}/week, ${offer.practiceHours} practice hours, ${offer.restDays} protected rest days/week and ${offer.prizeShare}% of team prize earnings.`);
+  return { campaign: c, status: "accepted", message: `${player.name} signed. The agreed terms are now active.` };
+}
 export function signSponsor(current: Campaign, id: string): Campaign {
   const c = structuredClone(current);
   const s = data.sponsors.find((s) => s.id === id);
-  if (!s || c.sponsorIds.includes(id) || c.reputation < s.requirement)
+  if (!s || c.sponsorIds.includes(id) || c.reputation < s.requirement || sponsorSlotsUsed(c) >= 5)
     return current;
   c.sponsorIds.push(id);
   transaction(c, `${s.name} signing bonus`, s.bonus);
@@ -530,6 +602,7 @@ export function readSave(): Campaign | null {
     )
       return null;
     reconcileHistoricalImports(c);
+    c.sponsorships ??= initialSponsorships(c);
     return c;
   } catch {
     return null;

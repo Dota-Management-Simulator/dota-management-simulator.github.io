@@ -18,6 +18,6 @@ export function PortraitCredit({ playerId }: { playerId: string }) {
   if (!photo) return null;
   const date = photo.photoDate.match(/\d{4}-\d{2}-\d{2}/)?.[0] ?? photo.photoDate;
   return <p className="portrait-credit">Photo: <a className="text-link" href={photo.filePage} target="_blank" rel="noreferrer">{photo.author} ↗</a>
-    {" · "}<a className="text-link" href={photo.licenseUrl} target="_blank" rel="noreferrer">{photo.license}</a>
+    {" · "}<a className="text-link" href={photo.licenseUrl ?? photo.filePage} target="_blank" rel="noreferrer">{photo.license}</a>
     {" · "}{date}. Cropped and resized. Portraits are not season-specific.</p>;
 }

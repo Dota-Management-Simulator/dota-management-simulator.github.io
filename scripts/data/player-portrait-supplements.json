@@ -12345,6 +12345,12 @@
       "rightsStatement": "This file is copyrighted, but used with permission of the rights holder, see Notes for more information.\nAuthor:\tLuc Bouchon\nCopyright:\tBLAST\nNote:\tBLAST has allowed Liquipedia to use images from their Flickr account. All rights to the images remain in the hands of BLAST.\nSource:\thttps://discord.com/channels/93055209017729024/213718409567928331/1474350385199059068",
       "sourceLinks": [
         "https://discord.com/channels/93055209017729024/213718409567928331/1474350385199059068"
+      ],
+      "crop": [
+        0.11,
+        0.06,
+        0.47,
+        0.73
       ]
     },
     {

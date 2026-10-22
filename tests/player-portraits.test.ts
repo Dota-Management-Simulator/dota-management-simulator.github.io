@@ -5,6 +5,7 @@ import { resolve } from "node:path";
 import identities from "../src/data/player-identities.json";
 import references from "../scripts/data/player-portrait-references.json";
 import supplements from "../scripts/data/player-portrait-supplements.json";
+import catalog from "../src/data/player-portraits.json";
 import { playerPortraits, portraitFor } from "../src/player-portraits";
 
 test("portraits have reviewed identities, locally bundled images and complete photo credits", () => {
@@ -12,6 +13,7 @@ test("portraits have reviewed identities, locally bundled images and complete ph
   const selections = [...references.players, ...supplements.players].map((p) => p.id);
   assert.equal(new Set(selections).size, selections.length);
   assert.deepEqual(Object.keys(playerPortraits).sort(), selections.sort());
+  assert.deepEqual(Object.keys(catalog.players).sort(), selections.sort());
   assert.ok(selections.length >= 1000, "Keep the expanded portrait coverage");
   assert.equal(new Set(Object.values(playerPortraits).map((p) => p.path)).size, selections.length);
   assert.equal(readdirSync("public/player-portraits").filter((p) => p.endsWith(".webp")).length, selections.length);
@@ -19,8 +21,14 @@ test("portraits have reviewed identities, locally bundled images and complete ph
   // from another source may now cover the same player.
   for (const excluded of references.excluded) assert.ok(!references.players.some((p) => p.id === excluded.id));
   const publicCredits = JSON.parse(readFileSync("public/player-portraits/credits.json", "utf8"));
-  assert.deepEqual(publicCredits.players, playerPortraits);
-  for (const [id, photo] of Object.entries(playerPortraits)) {
+  assert.deepEqual(publicCredits.players, catalog.players);
+  for (const [id, photo] of Object.entries(catalog.players)) {
+    const runtime = portraitFor(id);
+    assert.deepEqual(runtime, {
+      path: photo.path, filePage: photo.filePage, author: photo.author,
+      license: photo.license, photoDate: photo.photoDate,
+      ...(photo.licenseUrl === photo.filePage ? {} : { licenseUrl: photo.licenseUrl }),
+    }, id);
     assert.ok(ids.has(id), id);
     assert.match(photo.path, /^player-portraits\/[a-f0-9]{20}\.webp$/);
     const bytes = readFileSync(resolve("public", photo.path));

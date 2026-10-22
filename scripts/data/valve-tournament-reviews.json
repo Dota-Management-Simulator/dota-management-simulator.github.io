@@ -1,0 +1,69 @@
+{
+  "reviewedOn": "2026-10-22",
+  "events": {
+    "15728": {
+      "canonicalSource": "https://liquipedia.net/dota2/The_International/2023",
+      "location": "Seattle, United States",
+      "groups": {"3":[7119388,8605863,7422789,8255756,8244493],"4":[2163,8255888,8574561,39,7391077],"5":[15,8599101,8728920,8724984,8254400],"8":[8291895,8260983,8597976,1061269,8894818]},
+      "names": {"7119388":"Team Spirit","8605863":"Entity","7422789":"9Pandas","8255756":"Evil Geniuses","8244493":"Team SMG","2163":"Team Liquid","8255888":"BetBoom Team","8574561":"Azure Ray","39":"Shopify Rebellion","7391077":"Thunder Awaken","15":"LGD Gaming","8599101":"Gaimin Gladiators","8728920":"nouns","8724984":"Virtus.pro","8254400":"beastcoast","8291895":"Tundra Esports","8260983":"TSM","8597976":"Talon Esports","1061269":"Keyd Stars","8894818":"PSG Quest"},
+      "qualified": [8605863,8244493,8574561,7391077,8728920,8724984,1061269,8894818],
+      "advanceCount": 4,
+      "format": "Group Stage: four groups of five play a single round robin, all BO2. Bottom team in each is eliminated. The remaining sixteen play eight BO3 seeding deciders; winners enter the playoff upper bracket and losers the lower bracket. Playoffs: sixteen-team double elimination, BO3 throughout except the BO5 grand final. Archived opponent choices supply the seeding template. Event-specific group tiebreak rules are still under review.",
+      "limitations": ["The complete dated stages are recovered, but TI2023's distinct elimination/seeding tiebreak rules require review before play."],
+      "sources": ["https://www.dota2.com/esports/ti12/schedule","https://www.oneesports.gg/dota2/ti12-schedule-results-teams-streams/"],
+      "notes": "Valve records distinguish BO3 elimination tiebreaks from BO1 seeding tiebreaks. Keep this field unavailable until the complete conditional policy is implemented."
+    },
+    "16935": {
+      "canonicalSource": "https://liquipedia.net/dota2/The_International/2024",
+      "location": "Copenhagen, Denmark",
+      "groups": {"2":[8261500,8599101,9255039,9303484],"3":[8605863,8291895,5,8597976],"4":[9247354,9080405,8728920,8255888],"5":[7119388,2163,9467224,8254400]},
+      "names": {"8261500":"Xtreme Gaming","8599101":"Gaimin Gladiators","9255039":"1w Team","9303484":"HEROIC","8605863":"Cloud9","8291895":"Tundra Esports","5":"G2 x iG","8597976":"Talon Esports","9247354":"Team Falcons","9080405":"Team Zero","8728920":"nouns","8255888":"BetBoom Team","7119388":"Team Spirit","2163":"Team Liquid","9467224":"Aurora Gaming","8254400":"beastcoast"},
+      "qualified": [9255039,9303484,8605863,8291895,5,8597976,9080405,8728920,9467224,8254400],
+      "advanceCount": 4,
+      "tieBreak": {"boundaries":[1,2],"twoTeamBestOf":3,"coinToss":true,"policy":"ti2024"},
+      "format": "Group Stage: four groups of four, single round robin, all BO2. Nobody is eliminated. Seeding Deciders: eight BO3 matches between the top two and the other group's lower two (A/B and C/D). Winners enter the playoff upper bracket, losers the lower bracket. Playoffs: sixteen-team double elimination; all BO3 except the BO5 grand final. Group ties for first/second or second/third require BO3; third/fourth remain tied. Three-way ties use BO1 round robin with only the required positions contested; a four-way tie uses the documented five-match BO1 placement bracket. Archived opponent choices supply the seeding template.",
+      "sources": ["https://www.dota2.com/esports/ti13/schedule","https://liquipedia.net/dota2/The_International/2024/Group_Stage","https://store.steampowered.com/news/posts/?appids=570&enddate=1717639687"],
+      "notes": "Names are event-era identities. Group C's bottom pair remain tied; ordering them in a seed template does not create another played game."
+    },
+    "9870": {
+      "canonicalSource": "https://liquipedia.net/dota2/The_International/2018",
+      "location": "Vancouver, Canada",
+      "groups": {"2": [2163,39,15,2586976,350190,5027210,543897,5229127,5], "3": [5228654,1883502,1838315,5026801,1375614,5066616,726228,2108395,67]},
+      "names": {"2163":"Team Liquid","39":"Evil Geniuses","15":"PSG.LGD","2586976":"OG","350190":"Fnatic","5027210":"VGJ.Thunder","543897":"Mineski","5229127":"Winstrike Team","5":"Invictus Gaming","5228654":"VGJ.Storm","1883502":"Virtus.pro","1838315":"Team Secret","5026801":"OpTic Gaming","1375614":"Newbee","5066616":"Team Serenity","726228":"Vici Gaming","2108395":"TNC Predator","67":"paiN Gaming"},
+      "qualified": [2586976,39,350190,5229127,5,5228654,5026801,5066616,2108395,67],
+      "useArchivedPrizes": true,
+      "poolNote": "The historical final pool was USD 25,532,177. Valve's current API counter differs; archived final allocations are retained. The 7th–8th award is corrected to USD 638,304, matching 2.5% and contemporary reporting.",
+      "sources": ["https://liquipedia.net/dota2/The_International/2018/Group_Stage", "https://dota2.net/news/23156-itogovyy-prizovoy-fond-vosmogo-the-international-sostavil-25532177", "https://stats.spectral.gg/lrg2/?cat=ti8"],
+      "notes": "Valve's node graph supplies the dated fixtures. Historical prize totals take precedence over its current counter. Source tiebreak nodes identify two-team BO3 and three-team BO1 round robin. Historical opponent choices remain the seed-wiring template."
+    },
+    "10749": {
+      "canonicalSource": "https://liquipedia.net/dota2/The_International/2019",
+      "location": "Shanghai, China",
+      "groups": {"20": [15,1838315,6214538,2108395,111474,543897,2163,2626685,7203342], "21": [2586976,726228,39,1883502,2672298,350190,36,6209804,6214973]},
+      "names": {"15":"PSG.LGD","1838315":"Team Secret","6214538":"Newbee","2108395":"TNC Predator","111474":"Alliance","543897":"Mineski","2163":"Team Liquid","2626685":"Keen Gaming","7203342":"Chaos Esports Club","2586976":"OG","726228":"Vici Gaming","39":"Evil Geniuses","1883502":"Virtus.pro","2672298":"Infamous","350190":"Fnatic","36":"Natus Vincere","6209804":"Royal Never Give Up","6214973":"Ninjas in Pyjamas"},
+      "qualified": [6214538,543897,7203342,2672298,36,6209804],
+      "useArchivedPrizes": true,
+      "poolNote": "The historical final pool was USD 34,330,068. Valve's current API counter differs; gameplay retains the archived final per-placement payouts rather than recalculating them from that later counter.",
+      "sources": ["https://liquipedia.net/dota2/The_International/2019/Group_Stage", "https://stats.spectral.gg/lrg2/?cat=ti9", "https://escorenews.com/en/dota-2/international-2019"],
+      "notes": "Valve's node graph supplies dated fixtures; era names and final historical prize allocations are retained separately from mutable Steam records. Historical opponent choices remain the seed-wiring template."
+    },
+    "13256": {
+      "canonicalSource": "https://liquipedia.net/dota2/The_International/2021",
+      "location": "Bucharest, Romania",
+      "groups": {"20": [5,1883502,2586976,8214850,8260983,39,6209166,111474,7391077], "21": [15,1838315,726228,7119388,8254400,7390454,350190,8204512,8255756]},
+      "names": {"5":"Invictus Gaming","1883502":"Virtus.pro","2586976":"OG","8214850":"T1","8260983":"Team Undying","39":"Evil Geniuses","6209166":"Team Aster","111474":"Alliance","7391077":"Thunder Predator","15":"PSG.LGD","1838315":"Team Secret","726228":"Vici Gaming","7119388":"Team Spirit","8254400":"beastcoast","7390454":"Quincy Crew","350190":"Fnatic","8204512":"Elephant","8255756":"SG esports"},
+      "qualified": [2586976,8260983,7119388,350190,8204512,8255756],
+      "sources": ["https://www.dota2.com/esports/ti10/watch", "https://liquipedia.net/dota2/The_International/2021/Group_Stage", "https://escorenews.com/en/dota-2/international-2021"],
+      "notes": "API Steam team names were corrected to tournament-era identities. Group standings recover historical seed slots; campaign winners are simulated. Prize allocations use Valve's final pool and percentage splits rounded to the nearest dollar, matching the independent archive. Bracket opponent choices follow the archived seed wiring; manager-selected opponents are not implemented."
+    },
+    "14268": {
+      "canonicalSource": "https://liquipedia.net/dota2/The_International/2022",
+      "location": "Singapore",
+      "groups": {"2": [39,2163,15,2586976,8131728,6209804,8599101,7732977,7390454,8721219], "3": [8291895,1838315,7391077,6209166,350190,7119388,8254400,8605863,8597976,8260983]},
+      "names": {"39":"Evil Geniuses","2163":"Team Liquid","15":"PSG.LGD","2586976":"OG","8131728":"Hokori","6209804":"Royal Never Give Up","8599101":"Gaimin Gladiators","7732977":"BOOM Esports","7390454":"Soniqs","8721219":"BetBoom Team","8291895":"Tundra Esports","1838315":"Team Secret","7391077":"Thunder Awaken","6209166":"Team Aster","7119388":"Team Spirit","350190":"Fnatic","8254400":"beastcoast","8605863":"Entity","8597976":"Talon Esports","8260983":"TSM"},
+      "qualified": [2163,1838315,8131728,6209804,7390454,8721219,8605863,8597976],
+      "sources": ["https://www.dota2.com/esports/ti11/watch", "https://www.dota2.com/newsentry/3326495812434981455", "https://escorenews.com/en/dota-2/international-2022", "https://escorenews.com/en/dota-2/article/39563-ti11-tiebreakers-rules-odds-which-teams-will-play-tiebreakers", "https://www.oneesports.gg/dota2/the-international-2022-ti11-group-stage-standings-and-results/"],
+      "notes": "Steam team names were corrected to tournament-era identities. Valve's final pool and percentage splits produce whole-dollar allocations, corroborated by the independent archive. An indexed Liquipedia payout table currently conflicts with its own pool; its inconsistent dollar amounts are not used. Bracket opponent choices follow the archived seed wiring; manager-selected opponents are not implemented."
+    }
+  }
+}

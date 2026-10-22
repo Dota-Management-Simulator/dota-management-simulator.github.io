@@ -4,13 +4,13 @@ Collected on **2026-10-21**. Local reference implementation; not deployed.
 
 Portraits now cover **1,022 of 1,641 historical identity records**, up from 79, using **907 distinct source photos**: the original 79 Wikimedia Commons photos, 752 Liquipedia headshots and 76 player-card photos served by Spectral. Documented aliases sometimes exist as separate identity records in the historical database, so this is not a claim of 1,022 different people. The expansion adds 943 assignments: 858 from Liquipedia profiles and 85 from player cards.
 
-The 320 × 400 WebP portraits appear in headquarters, roster cards, training, scouting, profiles and world-team lineups. Missing and failed images retain the colored silhouette. No save schema, ownership, finances or simulation behavior changes.
+The 320 × 400 WebP assets occupy approximately 16.2 MiB and load lazily in headquarters, roster cards, training, scouting, profiles and world-team lineups. Missing and failed images retain the colored silhouette. No save schema, ownership, finances or simulation behavior changes.
 
 ## Identity evidence and historical precision
 
 Runtime lookup uses exact IDs from `src/data/player-identities.json`, never guessed display names. Research extracted player-profile links from all 109 Liquipedia sources already referenced by the historical rosters. An exact roster handle/known alias and country connect those links to identity records. We checked 1,028 additional distinct profiles and selected their infobox headshots, excluding generic NoImage/unknown/default files. Shared-profile aliases retain their game IDs; this work does not merge historical identities.
 
-For a missing headshot, the card fallback requires one consistent numeric account ID across the profile's player-stat links. Of 272 such profiles, Spectral returned 76 photographs, 151 missing-card responses and 45 inconsistent account references that were skipped. Missing-card responses never enter the catalog. Source/crop contact sheets were visually reviewed; seven off-center subjects have explicit crop rectangles. Tall images keep their top edge to avoid cutting off faces.
+For a missing headshot, the card fallback requires one consistent numeric account ID across the profile's player-stat links. Of 272 such profiles, Spectral returned 76 photographs, 151 missing-card responses and 45 inconsistent account references that were skipped. Missing-card responses never enter the catalog. Source/crop contact sheets were visually reviewed; eight off-center subjects have explicit crop rectangles. Tall images keep their top edge to avoid cutting off faces.
 
 The Israeli Fly and American Fly. now both have independently sourced photos, distinct IDs and asset paths. The separate No[o]ne/No(o)ne records also require explicit assignments. Unknown and fictional IDs never borrow a similarly named player's photo.
 
@@ -28,7 +28,8 @@ Profiles link the photo author/source and license or reuse status. The complete 
 
 ## Files and regeneration
 
-- `src/data/player-portraits.json`: combined runtime catalog, exact identity evidence and per-file rights metadata.
+- `src/data/player-portraits.json`: complete catalog, exact identity evidence and per-file rights metadata.
+- `src/data/player-portrait-index.json`: generated display fields loaded by the app in a separate small chunk; full provenance remains in the catalog and shipped credits manifest.
 - `scripts/data/player-portrait-references.json`: original Commons selections and excluded group-photo files.
 - `scripts/data/player-portrait-supplements.json`: supplemental roster/profile/image references, captured rights statements, account evidence and reviewed crops.
 - `public/player-portraits/`: local WebP assets and complete credits. Different identity IDs have distinct generated paths, including explicitly documented aliases sharing a source.

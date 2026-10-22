@@ -1636,6 +1636,14 @@ select {
   font-size: 8px;
   color: #9aa58e;
 }
+.training-player {
+  width: 100%;
+  border-radius: 4px;
+}
+.training-player:hover strong {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .energy-cell {
   display: flex;
   flex-direction: column;
@@ -5079,3 +5087,37 @@ select {
 .portrait-credit { color: var(--muted); font-size: 11px; line-height: 1.7; overflow-wrap: anywhere; margin: 0 0 18px; }
 .world-player-identity { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .world-roster li { align-items: center; }
+.training-workload {
+  grid-column: 1 / -1;
+  min-width: 0;
+  padding: 12px 0 0;
+}
+.training-workload-controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+.training-workload-controls label {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  font-size: 11px;
+  color: var(--muted);
+}
+.training-workload-controls select {
+  min-width: 0;
+  font-size: 12px;
+}
+.training-workload-summary {
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.6;
+}
+.training-workload-summary.low-energy { color: var(--gold); }
+.style-blocks > span > span { display: block; height: 100%; background: var(--green); }
+@media (max-width: 600px) {
+  .training-workload-controls { gap: 8px; }
+  .training-workload-controls select { font-size: 10px; padding-left: 6px; }
+}

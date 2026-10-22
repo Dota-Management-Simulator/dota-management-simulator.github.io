@@ -1,0 +1,635 @@
+{
+  "reviewedOn": "2026-10-22",
+  "attribution": "Source URLs retained per event. Liquipedia facts: CC-BY-SA 3.0. Independent match archive: Escorenews.",
+  "events": [
+    {
+      "name": "The International 2014: Wild Card",
+      "url": "https://liquipedia.net/dota2/The_International/2014/Phase_One",
+      "year": 2014,
+      "tier": 1,
+      "kind": "qualifier",
+      "parent": "https://liquipedia.net/dota2/The_International/2014",
+      "qualifyingPlaces": 1,
+      "qualification": [{"event":"https://liquipedia.net/dota2/The_International/2014","from":1,"to":1,"slots":["Team Liquid"]}],
+      "fields": {"Game":"Dota 2","Start Date":"2014-07-08","End Date":"2014-07-08","Teams":"4","Type":"Offline","Prize Pool":"$0"},
+      "location": "Seattle, United States",
+      "format": "Four regional runners-up play a single-elimination wildcard. All three series are BO3. The winner qualifies for the next phase of TI2014 on July 9. No club cash prize is awarded for this qualifier.",
+      "participants": ["Virtus.pro\nRegional runner-up","MVP Phoenix\nRegional runner-up","CIS Game\nRegional runner-up","Team Liquid\nRegional runner-up"],
+      "prizes": [{"headers":["Place","Participant","$ USD"],"rows":[{"place":"1","cells":["1","Team Liquid","$0"]},{"place":"2","cells":["2","MVP Phoenix","$0"]},{"place":"3-4","cells":["3-4","Virtus.pro","$0"]},{"place":"","cells":["CIS Game"]}]}],
+      "groups": [],
+      "brackets": [{"heading":"Wild Card","matches":[{"teams":["Virtus.pro","MVP Phoenix"],"scores":["0","2"],"bestOf":3,"timestamp":"1404835200","round":"Semifinal"},{"teams":["CIS Game","Team Liquid"],"scores":["0","2"],"bestOf":3,"timestamp":"1404844500","round":"Semifinal"},{"teams":["MVP Phoenix","Team Liquid"],"scores":["0","2"],"bestOf":3,"timestamp":"1404856800","round":"Final"}]}],
+      "limitations": ["The four wildcard places must be earned through regional qualifiers; those entry links are not imported yet."],
+      "additionalSources": ["https://www.dota2.com.cn/international2014/format/","https://liquipedia.net/dota2/The_International/2014"]
+    },
+    {
+      "name": "The International 2012: West Qualifiers",
+      "url": "https://liquipedia.net/dota2/The_International/2012/West_Qualifiers",
+      "year": 2012,
+      "tier": 1,
+      "kind": "qualifier",
+      "parent": "https://liquipedia.net/dota2/The_International/2012",
+      "region": "Europe|Eastern Europe|North America|South America",
+      "qualifyingPlaces": 1,
+      "qualification": [
+        {
+          "event": "https://liquipedia.net/dota2/The_International/2012",
+          "from": 1,
+          "to": 1,
+          "slots": [
+            "Mortal Teamwork"
+          ]
+        }
+      ],
+      "fields": {
+        "Game": "Dota 2",
+        "Start Date": "2012-06-06",
+        "End Date": "2012-06-10",
+        "Teams": "8",
+        "Type": "Online",
+        "Prize Pool": "$0"
+      },
+      "format": "Eight invited teams. Double-elimination bracket. All matches before the grand final are BO3. Grand final is BO5 with no default-win advantage. The winner qualifies for The International 2012; no cash prizes.",
+      "location": "West regional qualifier (online)",
+      "participants": [
+        "Keita Gaming\nInvited",
+        "Mortal Teamwork\nInvited",
+        "NEXT.kz\nInvited",
+        "Quantic Gaming\nInvited",
+        "Team Infused\nInvited",
+        "Virtus.pro\nInvited",
+        "mousesports\nInvited",
+        "zNation\nInvited"
+      ],
+      "prizes": [
+        {
+          "headers": [
+            "Place",
+            "Participant",
+            "$ USD"
+          ],
+          "rows": [
+            {
+              "place": "1",
+              "cells": [
+                "1",
+                "Mortal Teamwork",
+                "$0"
+              ]
+            },
+            {
+              "place": "2",
+              "cells": [
+                "2",
+                "NEXT.kz",
+                "$0"
+              ]
+            },
+            {
+              "place": "3",
+              "cells": [
+                "3",
+                "mousesports",
+                "$0"
+              ]
+            },
+            {
+              "place": "4",
+              "cells": [
+                "4",
+                "zNation",
+                "$0"
+              ]
+            },
+            {
+              "place": "5-6",
+              "cells": [
+                "5-6",
+                "Quantic Gaming",
+                "$0"
+              ]
+            },
+            {
+              "place": "",
+              "cells": [
+                "Virtus.pro"
+              ]
+            },
+            {
+              "place": "7-8",
+              "cells": [
+                "7-8",
+                "Team Infused",
+                "$0"
+              ]
+            },
+            {
+              "place": "",
+              "cells": [
+                "Keita Gaming"
+              ]
+            }
+          ]
+        }
+      ],
+      "groups": [],
+      "brackets": [
+        {
+          "heading": "Qualifier playoffs",
+          "matches": [
+            {
+              "teams": [
+                "Mortal Teamwork",
+                "Virtus.pro"
+              ],
+              "scores": [
+                "1",
+                "2"
+              ],
+              "timestamp": "1338987600",
+              "round": "Upper bracket quarterfinal",
+              "details": "Upper bracket quarterfinal"
+            },
+            {
+              "teams": [
+                "mousesports",
+                "Team Infused"
+              ],
+              "scores": [
+                "2",
+                "1"
+              ],
+              "timestamp": "1339012800",
+              "round": "Upper bracket quarterfinal",
+              "details": "Upper bracket quarterfinal"
+            },
+            {
+              "teams": [
+                "zNation",
+                "Quantic Gaming"
+              ],
+              "scores": [
+                "1",
+                "2"
+              ],
+              "timestamp": "1339005600",
+              "round": "Upper bracket quarterfinal",
+              "details": "Upper bracket quarterfinal"
+            },
+            {
+              "teams": [
+                "NEXT.kz",
+                "Keita Gaming"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1338998400",
+              "round": "Upper bracket quarterfinal",
+              "details": "Upper bracket quarterfinal"
+            },
+            {
+              "teams": [
+                "Virtus.pro",
+                "mousesports"
+              ],
+              "scores": [
+                "1",
+                "2"
+              ],
+              "timestamp": "1339095600",
+              "round": "Upper bracket semifinal",
+              "details": "Upper bracket semifinal"
+            },
+            {
+              "teams": [
+                "Quantic Gaming",
+                "NEXT.kz"
+              ],
+              "scores": [
+                "0",
+                "2"
+              ],
+              "timestamp": "1339088400",
+              "round": "Upper bracket semifinal",
+              "details": "Upper bracket semifinal"
+            },
+            {
+              "teams": [
+                "mousesports",
+                "NEXT.kz"
+              ],
+              "scores": [
+                "0",
+                "2"
+              ],
+              "timestamp": "1339257600",
+              "round": "Upper bracket final",
+              "details": "Upper bracket final"
+            },
+            {
+              "teams": [
+                "Mortal Teamwork",
+                "Team Infused"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1339171200",
+              "round": "Lower bracket round 1",
+              "details": "Lower bracket round 1"
+            },
+            {
+              "teams": [
+                "zNation",
+                "Keita Gaming"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1339081200",
+              "round": "Lower bracket round 1",
+              "details": "Lower bracket round 1"
+            },
+            {
+              "teams": [
+                "Mortal Teamwork",
+                "Quantic Gaming"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1339182000",
+              "round": "Lower bracket round 2",
+              "details": "Lower bracket round 2"
+            },
+            {
+              "teams": [
+                "zNation",
+                "Virtus.pro"
+              ],
+              "scores": [
+                "2",
+                "1"
+              ],
+              "timestamp": "1339160400",
+              "round": "Lower bracket round 2",
+              "details": "Lower bracket round 2"
+            },
+            {
+              "teams": [
+                "Mortal Teamwork",
+                "zNation"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1339250400",
+              "round": "Lower bracket semifinal",
+              "details": "Lower bracket semifinal"
+            },
+            {
+              "teams": [
+                "Mortal Teamwork",
+                "mousesports"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1339336800",
+              "round": "Lower bracket final",
+              "details": "Lower bracket final"
+            },
+            {
+              "teams": [
+                "NEXT.kz",
+                "Mortal Teamwork"
+              ],
+              "scores": [
+                "1",
+                "3"
+              ],
+              "timestamp": "1339347600",
+              "round": "Grand final",
+              "details": "Grand final"
+            }
+          ]
+        }
+      ],
+      "additionalSources": [
+        "https://escorenews.com/en/dota-2/international-2012/qualification-west"
+      ],
+      "sourceNote": "Liquipedia source defines entry, format, zero cash prizes and advancement. Independently archived match timestamps and results recover the advancement graph; these results never decide simulated winners."
+    },
+    {
+      "name": "The International 2012: East Qualifiers",
+      "url": "https://liquipedia.net/dota2/The_International/2012/East_Qualifiers",
+      "year": 2012,
+      "tier": 1,
+      "kind": "qualifier",
+      "parent": "https://liquipedia.net/dota2/The_International/2012",
+      "region": "China|Southeast Asia",
+      "qualifyingPlaces": 1,
+      "qualification": [
+        {
+          "event": "https://liquipedia.net/dota2/The_International/2012",
+          "from": 1,
+          "to": 1,
+          "slots": [
+            "TongFu"
+          ]
+        }
+      ],
+      "fields": {
+        "Game": "Dota 2",
+        "Start Date": "2012-06-06",
+        "End Date": "2012-06-10",
+        "Teams": "8",
+        "Type": "Online",
+        "Prize Pool": "$0"
+      },
+      "format": "Eight invited teams. Double-elimination bracket. All matches before the grand final are BO3. Grand final is BO5 with no default-win advantage. The winner qualifies for The International 2012; no cash prizes.",
+      "location": "East regional qualifier (online)",
+      "participants": [
+        "AEONSports\nInvited",
+        "Duskbin\nInvited",
+        "Ice\nInvited",
+        "MSI-EvoGT\nInvited",
+        "Made in Thailand\nInvited",
+        "Mineski\nInvited",
+        "TongFu\nInvited",
+        "World Elite\nInvited"
+      ],
+      "prizes": [
+        {
+          "headers": [
+            "Place",
+            "Participant",
+            "$ USD"
+          ],
+          "rows": [
+            {
+              "place": "1",
+              "cells": [
+                "1",
+                "TongFu",
+                "$0"
+              ]
+            },
+            {
+              "place": "2",
+              "cells": [
+                "2",
+                "World Elite",
+                "$0"
+              ]
+            },
+            {
+              "place": "3",
+              "cells": [
+                "3",
+                "AEONSports",
+                "$0"
+              ]
+            },
+            {
+              "place": "4",
+              "cells": [
+                "4",
+                "Duskbin",
+                "$0"
+              ]
+            },
+            {
+              "place": "5-6",
+              "cells": [
+                "5-6",
+                "Ice",
+                "$0"
+              ]
+            },
+            {
+              "place": "",
+              "cells": [
+                "Made in Thailand"
+              ]
+            },
+            {
+              "place": "7-8",
+              "cells": [
+                "7-8",
+                "Mineski",
+                "$0"
+              ]
+            },
+            {
+              "place": "",
+              "cells": [
+                "MSI-EvoGT"
+              ]
+            }
+          ]
+        }
+      ],
+      "groups": [],
+      "brackets": [
+        {
+          "heading": "Qualifier playoffs",
+          "matches": [
+            {
+              "teams": [
+                "TongFu",
+                "Ice"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1338980400",
+              "round": "Upper bracket quarterfinal",
+              "details": "Upper bracket quarterfinal"
+            },
+            {
+              "teams": [
+                "AEONSports",
+                "MSI-EvoGT"
+              ],
+              "scores": [
+                "2",
+                "1"
+              ],
+              "timestamp": "1338987600",
+              "round": "Upper bracket quarterfinal",
+              "details": "Upper bracket quarterfinal"
+            },
+            {
+              "teams": [
+                "Mineski",
+                "Made in Thailand"
+              ],
+              "scores": [
+                "0",
+                "2"
+              ],
+              "timestamp": "1338969600",
+              "round": "Upper bracket quarterfinal",
+              "details": "Upper bracket quarterfinal"
+            },
+            {
+              "teams": [
+                "World Elite",
+                "Duskbin"
+              ],
+              "scores": [
+                "0",
+                "2"
+              ],
+              "timestamp": "1338996600",
+              "round": "Upper bracket quarterfinal",
+              "details": "Upper bracket quarterfinal"
+            },
+            {
+              "teams": [
+                "TongFu",
+                "Made in Thailand"
+              ],
+              "scores": [
+                "2",
+                "1"
+              ],
+              "timestamp": "1339063200",
+              "round": "Upper bracket semifinal",
+              "details": "Upper bracket semifinal"
+            },
+            {
+              "teams": [
+                "AEONSports",
+                "Duskbin"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1339158600",
+              "round": "Upper bracket semifinal",
+              "details": "Upper bracket semifinal"
+            },
+            {
+              "teams": [
+                "TongFu",
+                "AEONSports"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1339248600",
+              "round": "Upper bracket final",
+              "details": "Upper bracket final"
+            },
+            {
+              "teams": [
+                "Ice",
+                "Mineski"
+              ],
+              "scores": [
+                "2",
+                "1"
+              ],
+              "timestamp": "1339081200",
+              "round": "Lower bracket round 1",
+              "details": "Lower bracket round 1"
+            },
+            {
+              "teams": [
+                "MSI-EvoGT",
+                "World Elite"
+              ],
+              "scores": [
+                "1",
+                "2"
+              ],
+              "timestamp": "1339072200",
+              "round": "Lower bracket round 1",
+              "details": "Lower bracket round 1"
+            },
+            {
+              "teams": [
+                "Ice",
+                "Duskbin"
+              ],
+              "scores": [
+                "1",
+                "2"
+              ],
+              "timestamp": "1339169400",
+              "round": "Lower bracket round 2",
+              "details": "Lower bracket round 2"
+            },
+            {
+              "teams": [
+                "World Elite",
+                "Made in Thailand"
+              ],
+              "scores": [
+                "2",
+                "0"
+              ],
+              "timestamp": "1339149600",
+              "round": "Lower bracket round 2",
+              "details": "Lower bracket round 2"
+            },
+            {
+              "teams": [
+                "Duskbin",
+                "World Elite"
+              ],
+              "scores": [
+                "1",
+                "2"
+              ],
+              "timestamp": "1339239600",
+              "round": "Lower bracket semifinal",
+              "details": "Lower bracket semifinal"
+            },
+            {
+              "teams": [
+                "World Elite",
+                "AEONSports"
+              ],
+              "scores": [
+                "2",
+                "1"
+              ],
+              "timestamp": "1339262100",
+              "round": "Lower bracket final",
+              "details": "Lower bracket final"
+            },
+            {
+              "teams": [
+                "TongFu",
+                "World Elite"
+              ],
+              "scores": [
+                "3",
+                "0"
+              ],
+              "timestamp": "1339329600",
+              "round": "Grand final",
+              "details": "Grand final"
+            }
+          ]
+        }
+      ],
+      "additionalSources": [
+        "https://escorenews.com/en/dota-2/international-2012/qualification-east"
+      ],
+      "sourceNote": "Liquipedia source defines entry, format, zero cash prizes and advancement. Independently archived match timestamps and results recover the advancement graph; these results never decide simulated winners."
+    }
+  ]
+}

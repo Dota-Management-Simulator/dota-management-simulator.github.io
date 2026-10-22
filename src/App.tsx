@@ -16,6 +16,7 @@ import {
   Globe2,
   Heart,
   LayoutDashboard,
+  Mail,
   Leaf,
   Menu,
   Moon,
@@ -53,8 +54,6 @@ import {
   ROLES,
   SAVE_KEY,
   shortMoney,
-  signPlayer,
-  signSponsor,
   buildBattleConfig,
   prepareEvent,
   settleEvent,
@@ -62,7 +61,6 @@ import {
   statNames,
   teamPlayers,
   playerTeam,
-  recruitmentBlocker,
   weeklyIncome,
   weeklyWages,
 } from "./game";
@@ -82,7 +80,19 @@ import HeroPool from "./HeroPool";
 import WorldTeams from "./WorldTeams";
 import TeamBadge from "./TeamBadge";
 import Avatar, { PortraitCredit } from "./PlayerAvatar";
+import ContractNegotiation from "./ContractNegotiation";
+import SponsorMarket from "./SponsorMarket";
+import HistoricalCalendar, { TournamentHistory } from "./HistoricalCalendar";
+import ManagerInbox from "./ManagerInbox";
+import { advanceManagerWeek, syncOffice, unreadMessages } from "./office";
+import type { OfficeAction } from "./office";
+import { activeTournament, enableHistoricalCalendar, nextTournamentCommitment } from "./historical-game";
+import { formatDate } from "./tournaments";
+import { weeklyPractice, weeksRemaining } from "./contracts";
 import { teamIdForName } from "./team-logos";
+import { trainingEffect, trainingOptions } from "./training";
+import TrainingWorkload from "./TrainingWorkload";
+import { PlayerProfileTabs } from "./PlayerPerformance";
 import { getStartingTeams, rosterYearForStart, sourceFor, customClubNameAvailable } from "./history";
 
 const navigation: {
@@ -98,6 +108,7 @@ const navigation: {
     group: "YOUR ORGANIZATION",
   },
   { page: "roster", label: "Roster", icon: Users },
+  { page: "inbox", label: "Inbox", icon: Mail },
   { page: "training", label: "Training", icon: Crosshair },
   { page: "scouting", label: "Scouting", icon: Search },
   { page: "staff", label: "Staff", icon: UserRound },
@@ -121,6 +132,11 @@ const pageText: Record<
   Page,
   { eyebrow: string; title: string; description: string }
 > = {
+  inbox: {
+    eyebrow: "YOUR ORGANIZATION",
+    title: "Your next decision starts here.",
+    description: "Invitations, player agreements, sponsor updates and the messages that matter.",
+  },
   overview: {
     eyebrow: "THE BIG PICTURE",
     title: "Welcome to headquarters.",
@@ -154,7 +170,7 @@ const pageText: Record<
     eyebrow: "THE COMPETITION",
     title: "Choose your moments.",
     description:
-      "Chase circuit points, build momentum, or take a week to reset.",
+      "Plan your tournament dates, earn your place, and arrive ready to play.",
   },
   patch: {
     eyebrow: "UNDERSTAND THE GAME",
@@ -271,6 +287,7 @@ export default function App() {
   const [campaign, setCampaign] = useState<Campaign | null>(() => readSave());
   const [setup, setSetup] = useState(() => !readSave());
   const [page, setPage] = useState<Page>("overview");
+  const [calendarTarget, setCalendarTarget] = useState<string | undefined>();
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [player, setPlayer] = useState<Player | null>(null);
   const [event, setEvent] = useState<GameEvent | null>(null);
@@ -294,6 +311,9 @@ export default function App() {
   const settled = useRef(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const notify = (message: string) => setToast(message);
+  useEffect(() => {
+    if (campaign) setCampaign(current => current ? syncOffice(current) : current);
+  }, [campaign]);
   useEffect(() => {
     document.documentElement.dataset.theme = theme;
     document
@@ -344,9 +364,9 @@ export default function App() {
     const focusables = () =>
       Array.from(
         dialog?.querySelectorAll<HTMLElement>(
-          'button:not([disabled]), input, select, [tabindex="0"]',
+          'button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), a[href], summary, [tabindex="0"]',
         ) || [],
-      );
+      ).filter((element) => element.getClientRects().length > 0 && !element.closest('[hidden], [inert]'));
     (focusables()[0] || dialog)?.focus();
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape" && !simulating) {
@@ -384,6 +404,7 @@ export default function App() {
   }, [modalOpen, simulating, !!pendingSimulation, simDone, viewResult]);
   const go = (p: Page) => {
     if (!campaign || setup) return;
+    if (p === "calendar") setCalendarTarget(undefined);
     setPage(p);
     setMobileMenu(false);
     setFilter("");
@@ -392,8 +413,15 @@ export default function App() {
   };
   const update = (f: (c: Campaign) => Campaign) =>
     setCampaign((c) => (c ? f(c) : c));
+  const inboxAction = (action: OfficeAction) => {
+    if (action.kind === "tournament") { go("calendar"); setCalendarTarget(action.eventId); }
+    else if (action.kind === "player") {
+      const target = campaign?.players.find(p => p.id === action.playerId);
+      if (target) setPlayer(target);
+    } else go(action.page);
+  };
   const start = () => {
-    setCampaign(createCampaign(settings));
+    setCampaign(enableHistoricalCalendar(createCampaign(settings)));
     setSetup(false);
     setPage("overview");
     setConfirmNew(false);
@@ -468,8 +496,18 @@ export default function App() {
     }
   };
   const advance = () => {
-    update(advanceWeek);
-    notify("A week completed. Training, recovery, and finances updated.");
+    if (campaign?.calendar) {
+      const next = advanceManagerWeek(campaign);
+      setCampaign(next);
+      if (next.calendar!.now === campaign.calendar.now) {
+        go("calendar");
+        const commitment = nextTournamentCommitment(campaign);
+        notify(commitment && Date.parse(commitment.at) <= Date.parse(campaign.calendar.now) ? "Your next tournament series is due. Play it before advancing time." : "A tournament decision is due. Review your invitation or reserved event in the calendar.");
+      } else notify(`Advanced to ${formatDate(next.calendar!.now)}. Check your inbox for club updates.`);
+    } else {
+      update(advanceWeek);
+      notify("A week completed. Training, recovery, and finances updated.");
+    }
   };
   const roster = campaign ? teamPlayers(campaign) : [];
   const currentPlayer =
@@ -483,7 +521,6 @@ export default function App() {
   const selectedClub = startingClubs.find((t) => t.id === settings.historicalTeamId) ?? startingClubs[0];
   const setupName = settings.clubMode === "custom" ? settings.team.trim() : selectedClub.name;
   const nameConflict = settings.clubMode === "custom" && !!setupName && !customClubNameAvailable(setupName, selectedClub.id);
-  const recruitReason = campaign && currentPlayer && !campaign.roster.includes(currentPlayer.id) ? recruitmentBlocker(campaign, currentPlayer.id) : null;
   const matchesScout = (p: Player) => campaign && !campaign.roster.includes(p.id) &&
     (roleFilter === "All roles" || p.role === roleFilter) &&
     `${p.name} ${p.firstName} ${p.lastName} ${p.region} ${playerTeam(campaign, p.id)} ${p.historical?.aliases.join(" ") ?? ""}`.toLowerCase().includes(filter.toLowerCase());
@@ -533,6 +570,7 @@ export default function App() {
               >
                 <Icon icon={n.icon} />
                 <span>{n.label}</span>
+                {n.page === "inbox" && campaign && unreadMessages(campaign) > 0 && <span className="inbox-count">{unreadMessages(campaign)}</span>}
                 {!setup && page === n.page && <span className="active-dot" />}
               </button>
             </div>
@@ -567,6 +605,7 @@ export default function App() {
             </strong>
           </div>
           <div className="topbar-actions">
+            {campaign && !setup && <button className="icon-button inbox-shortcut" aria-label={`Open inbox, ${unreadMessages(campaign)} unread messages`} onClick={() => go("inbox")}><Mail size={18} />{unreadMessages(campaign) > 0 && <span className="inbox-count">{unreadMessages(campaign)}</span>}</button>}
             <span className="save-indicator">
               <span className={`status-dot ${saveError ? "warning" : ""}`} />
               {saveError
@@ -719,7 +758,7 @@ export default function App() {
                             })
                           }
                         >
-                          {Array.from({ length: 26 }, (_, i) => 2011 + i).map(
+                          {Array.from({ length: 16 }, (_, i) => 2011 + i).map(
                             (y) => (
                               <option key={y} value={y}>
                                 {y}
@@ -730,7 +769,7 @@ export default function App() {
                         </select>
                         <button
                           aria-label="Later starting year"
-                          disabled={settings.year >= 2036}
+                          disabled={settings.year >= 2026}
                           onClick={() =>
                             setSettings({
                               ...settings,
@@ -741,10 +780,10 @@ export default function App() {
                           <ChevronRight size={16} />
                         </button>
                       </div>
-                      <span>2011 — 2036</span>
+                      <span>2011 — 2026</span>
                     </div>
                     <p className="field-note">
-                      {settings.year === 2011 ? "Start at TI1. Regional players and 18 more heroes arrive after TI." : `Start with completed shuffles through ${rosterYearForStart(settings.year)}.`} Annual player and hero batches enter at the post-TI shuffle through 2026. Regional coverage includes closed qualifiers; ratings and the event calendar are estimates.
+                      {settings.year === 2011 ? "Start at TI1. Regional players and 18 more heroes arrive after TI." : `Start with completed shuffles through ${rosterYearForStart(settings.year)}.`} Annual player and hero batches enter at the post-TI shuffle through 2026. Historical events use sourced formats, dates and placement prizes; gameplay ratings remain estimates.
                     </p>
                   </section>
                   <section className="panel setup-section">
@@ -884,10 +923,10 @@ export default function App() {
                     <div className="season-pill">
                       <CalendarDays size={15} />
                       {campaign.year}
-                      <span>WEEK {campaign.week}</span>
+                      <span>{campaign.calendar ? formatDate(campaign.calendar.now) : `WEEK ${campaign.week}`}</span>
                     </div>
                     <button className="button primary" onClick={advance}>
-                      Advance week <ArrowRight size={16} />
+                      {campaign.calendar ? "Advance time" : "Advance week"} <ArrowRight size={16} />
                     </button>
                   </div>
                 </div>
@@ -937,16 +976,16 @@ export default function App() {
                           <Trophy size={15} /> THE INTERNATIONAL
                         </div>
                         <h3>
-                          {campaign.qualified
+                          {campaign.calendar ? "Earn your place at TI." : campaign.qualified
                             ? "You're going to TI."
                             : "An invitation to earn."}
                         </h3>
                         <p>
-                          {campaign.qualified
+                          {campaign.calendar ? "Invitations and regional qualification follow the event's historical system. Campaign results decide who advances." : campaign.qualified
                             ? "Your place on the biggest stage is secured. Prepare your team."
                             : "Make your mark on the circuit, or win your regional qualifier."}
                         </p>
-                        <div className="points-line">
+                        {!campaign.calendar && <><div className="points-line">
                           <strong>
                             {campaign.points}
                             <small> / 80 pts</small>
@@ -957,7 +996,7 @@ export default function App() {
                         </div>
                         <Meter
                           value={Math.min(100, (campaign.points / 80) * 100)}
-                        />
+                        /></>}
                         <button
                           className="text-link"
                           onClick={() => go("calendar")}
@@ -1050,7 +1089,7 @@ export default function App() {
                       <div className="overview-right">
                         <section className="panel next-event">
                           <div className="eyebrow">NEXT ON THE CALENDAR</div>
-                          {upcoming ? (
+                          {campaign.calendar ? <><div className="event-emblem"><Trophy size={26} /></div><h3>{activeTournament(campaign) ? "Your tournament is in progress." : "A real competitive calendar."}</h3><p>{formatDate(campaign.calendar.now)} · Full group stages, brackets and placement prizes.</p><button className="button secondary full" onClick={() => go("calendar")}>{activeTournament(campaign) ? "Resume tournament" : "Browse tournaments"}<ArrowRight size={15} /></button></> : upcoming ? (
                             <>
                               <div className="event-emblem">
                                 <Trophy size={26} />
@@ -1192,6 +1231,7 @@ export default function App() {
                                 Profile <ArrowUpRight size={15} />
                               </button>
                             </div>
+                            <small className="roster-contract-status">{campaign.contracts?.[p.id] ? weeksRemaining(campaign, campaign.contracts[p.id]) ? `${weeksRemaining(campaign, campaign.contracts[p.id])} weeks on contract` : "Renewal due" : "Rolling contract · open profile to negotiate"}</small>
                           </div>
                         </article>
                       ))}
@@ -1201,7 +1241,7 @@ export default function App() {
                       <p>
                         <strong>A complete squad, a clean slate.</strong> Select
                         a profile to inspect all 12 attributes, happiness,
-                        playstyles, and the player's contract. Ratings are
+                        playstyles, and negotiate pay, practice and contract terms. Ratings are
                         fictional, on a 0–100 scale; playstyles use 1–10.
                       </p>
                     </div>
@@ -1215,7 +1255,7 @@ export default function App() {
                         <strong>advance a week</strong>
                       </span>
                       <span>
-                        Specialized sessions cost 5 energy. Rest restores 24.
+                        Longer hours and higher intensity spend more energy.
                       </span>
                     </div>
                     <section className="panel">
@@ -1250,13 +1290,18 @@ export default function App() {
                         </div>
                         {roster.map((p) => (
                           <div className="training-row" key={p.id}>
-                            <div className="player-cell">
+                            <button
+                              type="button"
+                              className="player-cell plain-button training-player"
+                              onClick={() => setPlayer(p)}
+                              aria-label={`View ${p.name}'s player profile`}
+                            >
                               <Avatar player={p} small />
                               <span>
                                 <strong>{p.name}</strong>
                                 <small>{p.role}</small>
                               </span>
-                            </div>
+                            </button>
                             <div className="energy-cell">
                               <span>{p.energy}%</span>
                               <Meter value={p.energy} />
@@ -1274,28 +1319,21 @@ export default function App() {
                                 }))
                               }
                             >
-                              {[
-                                "Balanced",
-                                "Laning",
-                                "Teamfights",
-                                "Map awareness",
-                                "Hero pool",
-                                "Rest",
-                              ].map((t) => (
-                                <option key={t}>{t}</option>
+                              {trainingOptions(p).map((group) => (
+                                <optgroup key={group.label} label={group.label}>
+                                  {group.options.map((t) => (
+                                    <option key={t} value={t}>{t === "Rest" ? "Rest / energy" : t}</option>
+                                  ))}
+                                </optgroup>
                               ))}
                             </select>
                             <small className="training-effect">
-                              {campaign.training[p.id] === "Rest"
-                                ? "+24 energy · +4 happiness"
-                                : campaign.training[p.id] === "Balanced"
-                                  ? "+1 stability & stamina · +7 energy"
-                                  : "+1 to focus attributes · −5 energy"}
-                              {campaign.staffIds.includes("c1") &&
-                              campaign.training[p.id] !== "Rest"
-                                ? " · coach +1"
-                                : ""}
+                              {(() => {
+                                const effect = weeklyPractice(campaign, p, campaign.training[p.id] || "Balanced");
+                                return trainingEffect(campaign.training[p.id] || "Balanced", effect, campaign.cash + weeklyIncome(campaign) - weeklyWages(campaign) < 0);
+                              })()}
                             </small>
+                            <TrainingWorkload campaign={campaign} player={p} onChange={update} />
                           </div>
                         ))}
                       </div>
@@ -1305,10 +1343,12 @@ export default function App() {
                         <Crosshair size={28} />
                         <h3>Train with intention.</h3>
                         <p>
-                          Laning improves laning and skirmish. Teamfights
-                          improves execution and stability. Map awareness builds
-                          vision, intuition, and pushing. Hero pool develops
-                          versatility and creativity.
+                          Choose any of the 12 player attributes or a playstyle
+                          from their profile. Laning also improves skirmish,
+                          teamfights also builds stability, and hero pool also
+                          develops creativity. Map awareness trains vision,
+                          intuition, and pushing. Select a player's card to
+                          inspect their full profile.
                         </p>
                       </section>
                       <section className="panel feature-panel">
@@ -1318,7 +1358,13 @@ export default function App() {
                           Low energy reduces tournament performance. Balanced
                           training slowly restores energy while specialized
                           practice spends it. A physical therapist adds 8
-                          recovery every week.
+                          recovery every week. Happiness sessions focus on morale
+                          with the same recovery as balanced training. Attribute
+                          gains cap at 99; playstyle gains cap at 10. Intensity
+                          and weekly hours scale development, including playstyle
+                          comfort and happiness sessions. Coaches boost attribute
+                          training. Contract hours and protected rest days limit
+                          the weekly schedule.
                         </p>
                         <button
                           className="text-link"
@@ -1330,8 +1376,15 @@ export default function App() {
                     </div>
                   </>
                 )}
-                {page === "calendar" && (
+                {page === "inbox" && <ManagerInbox campaign={campaign} onChange={setCampaign} onAction={inboxAction} />}
+                {page === "calendar" && (campaign.calendar ? <HistoricalCalendar campaign={campaign} onChange={setCampaign} onHistory={setViewResult} focusEventId={calendarTarget} /> : (
                   <>
+                    <section className="panel calendar-board">
+                      <div className="eyebrow">DATED TOURNAMENT CALENDAR</div>
+                      <h2>Bring this campaign onto real event dates.</h2>
+                      <p className="field-note">This save uses the original 18-week schedule. Switch to the dated calendar to see full tournament durations, claim invitations and play linked qualifiers. Your roster, cash, player terms and past results stay with the club. The competition clock restarts at this year's historical opening date; old circuit points and qualification are replaced by event-specific entry rules.</p>
+                      <button className="button primary" onClick={() => setCampaign(syncOffice(enableHistoricalCalendar(campaign)))}>Use dated tournament calendar <CalendarDays size={16} /></button>
+                    </section>
                     <div className="qualification-banner">
                       <Trophy size={27} />
                       <div>
@@ -1434,7 +1487,7 @@ export default function App() {
                       </p>
                     </div>
                   </>
-                )}
+                ))}
                 {page === "patch" && (
                   <>
                     <div className="patch-header panel">
@@ -1525,7 +1578,7 @@ export default function App() {
                     </div>
                   </>
                 )}
-                {page === "patch" && <HeroPool year={campaign.year} week={campaign.week} />}
+                {page === "patch" && <HeroPool year={campaign.year} week={campaign.week} throughYear={campaign.calendar ? Math.max(2010, ...campaign.calendar.shuffledYears) : undefined} />}
                 {page === "world" && <WorldTeams campaign={campaign} onPlayer={setPlayer} />}
                 {page === "scouting" && (
                   <>
@@ -1720,63 +1773,7 @@ export default function App() {
                         </div>
                       ))}
                     </div>
-                    <SectionTitle
-                      title="Partnership opportunities"
-                      sub="Grow your reputation to open new doors. Bonuses are paid on signing."
-                    />
-                    <div className="sponsor-grid">
-                      {data.sponsors.map((s) => {
-                        const signed = campaign.sponsorIds.includes(s.id);
-                        const eligible = campaign.reputation >= s.requirement;
-                        return (
-                          <article className="panel sponsor-card" key={s.id}>
-                            <div className={`sponsor-brand ${s.color}`}>
-                              <span>{s.symbol}</span>
-                              <strong>{s.name}</strong>
-                            </div>
-                            <div className="sponsor-content">
-                              <span className="eyebrow">{s.category}</span>
-                              <p>{s.description}</p>
-                              <div className="sponsor-offer">
-                                <strong>
-                                  {money(s.weekly)}
-                                  <small> / week</small>
-                                </strong>
-                                <span>+ {money(s.bonus)} signing bonus</span>
-                              </div>
-                              <div className="sponsor-requirement">
-                                <Target size={14} />
-                                {s.requirement
-                                  ? `${s.requirement} reputation required · you have ${campaign.reputation}`
-                                  : "Open to emerging organizations"}
-                              </div>
-                              <button
-                                className={`button ${signed ? "secondary" : "primary"} full`}
-                                disabled={signed || !eligible}
-                                onClick={() => {
-                                  update((c) => signSponsor(c, s.id));
-                                  notify(
-                                    `${s.name} signed. Bonus added to your balance.`,
-                                  );
-                                }}
-                              >
-                                {signed ? (
-                                  <>
-                                    <Check size={15} /> Active partnership
-                                  </>
-                                ) : eligible ? (
-                                  <>
-                                    Sign partnership <ArrowRight size={15} />
-                                  </>
-                                ) : (
-                                  "Build your reputation"
-                                )}
-                              </button>
-                            </div>
-                          </article>
-                        );
-                      })}
-                    </div>
+                    <SponsorMarket campaign={campaign} onChange={(c) => update(() => c)} />
                     <section className="panel transaction-panel">
                       <SectionTitle
                         title="The ledger"
@@ -2032,6 +2029,8 @@ export default function App() {
                       <Wallet size={15} /> {money(currentPlayer.wage)} / wk
                     </span>
                   </div>
+                  <PlayerProfileTabs key={currentPlayer.id} campaign={campaign} playerId={currentPlayer.id}>
+                  <ContractNegotiation key={currentPlayer.id} campaign={campaign} player={currentPlayer} onChange={(next) => update(() => next)} />
                   <SectionTitle
                     title="Player attributes"
                     sub="Execution and potential · 0–100"
@@ -2060,66 +2059,21 @@ export default function App() {
                           <div className="style-blocks">
                             {Array.from({ length: 10 }, (_, i) => (
                               <span
-                                className={i < value! ? "filled" : ""}
                                 key={i}
-                              />
+                              >
+                                <span style={{ width: `${Math.max(0, Math.min(1, value! - i)) * 100}%` }} />
+                              </span>
                             ))}
                           </div>
                           <strong>{value}</strong>
                         </div>
                       ))}
                   </div>
-                  {campaign.roster.includes(currentPlayer.id) ? (
-                    <div className="profile-contract">
-                      <Shield size={18} />
-                      <div>
-                        <strong>
-                          Starting {currentPlayer.role.toLowerCase()}
-                        </strong>
-                        <p>
-                          Weekly contract · {money(currentPlayer.wage)}. Manage
-                          practice from Training.
-                        </p>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className="sign-player">
-                      <div>
-                        <strong>{money(currentPlayer.fee)} signing fee</strong>
-                        <p>
-                          Replaces{" "}
-                          {
-                            roster.find((p) => p.role === currentPlayer.role)
-                              ?.name
-                          }{" "}
-                          in the starting lineup.
-                        </p>
-                      </div>
-                      <button
-                        className="button primary"
-                        disabled={campaign.cash < currentPlayer.fee || !!recruitReason}
-                        onClick={() => {
-                          update((c) => signPlayer(c, currentPlayer.id));
-                          notify(
-                            `${currentPlayer.name} signed as your new ${currentPlayer.role.toLowerCase()}.`,
-                          );
-                          setPlayer(null);
-                          setViewResult(null);
-                        }}
-                      >
-                        {campaign.cash < currentPlayer.fee
-                          ? "Insufficient funds"
-                          : recruitReason ? "Recruitment unavailable"
-                          : "Sign player"}
-                        <Plus size={15} />
-                      </button>
-                      {recruitReason && <p className="field-note" role="status">{recruitReason}</p>}
-                    </div>
-                  )}
+                  </PlayerProfileTabs>
                 </div>
               </>
             )}
-            {viewResult && (
+            {viewResult?.tournamentId && campaign ? <TournamentHistory campaign={campaign} eventId={viewResult.tournamentId} onClose={() => setViewResult(null)} /> : viewResult && (
               <SeriesResults
                 result={viewResult}
                 managedTeamId={campaign?.world?.managedTeamId}
@@ -2231,7 +2185,7 @@ export default function App() {
                     <h3>Build your five</h3>
                     <p>
                       Explore profiles, compare attributes and playstyles, and
-                      recruit players from the market or other clubs. Clubs fill vacancies from available regional players.
+                      negotiate with players from your squad, the market or other clubs. Pay, bonuses, contract length, prize share, practice hours and rest days all form the deal. Clubs fill vacancies from available regional players.
                     </p>
                   </div>
                 </div>

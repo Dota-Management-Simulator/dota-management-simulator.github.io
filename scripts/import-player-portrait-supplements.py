@@ -15,6 +15,7 @@ from urllib.parse import urlparse
 
 import requests
 from PIL import Image, ImageOps
+from player_portrait_index import write_portrait_index
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / '.local/additional-portrait-originals'
@@ -115,6 +116,7 @@ def main():
                     'players': dict(sorted(players.items()))})
     write(catalog_path, catalog)
     write(OUTPUT / 'credits.json', {'players': catalog['players']})
+    write_portrait_index(ROOT, catalog['players'])
     print(json.dumps({'supplements': len(selected_ids), 'totalPortraits': len(players)}, indent=2))
 
 

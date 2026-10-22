@@ -1,8 +1,8 @@
-import { simulateBestOfThree } from "./battle";
+import { simulateSeries } from "./battle";
 import type { BattleConfig } from "./battle";
 self.onmessage = (event: MessageEvent<BattleConfig>) => {
   try {
-    const simulation = simulateBestOfThree(event.data, (games) =>
+    const simulation = simulateSeries(event.data, (games) =>
       self.postMessage({ type: "progress", games }),
     );
     self.postMessage({ type: "complete", simulation });

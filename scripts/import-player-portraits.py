@@ -16,6 +16,7 @@ import time
 
 import requests
 from PIL import Image, ImageOps
+from player_portrait_index import write_portrait_index
 
 ROOT = Path(__file__).resolve().parent.parent
 CACHE = ROOT / '.local/player-portrait-research'
@@ -201,6 +202,7 @@ def import_photos():
           'method': 'Wikimedia Commons photos with separately sourced headshots/card photos retained. Exact player IDs; one reference appearance per player, not season-specific. Consult per-file credits and rights.',
           'players': catalog})
     write(output / 'credits.json', {'players': catalog})
+    write_portrait_index(ROOT, catalog)
     print(f'Imported {len(catalog)} portraits.', flush=True)
 
 

@@ -41,6 +41,17 @@ test("seeded simulation is reproducible and series stops at the second win", () 
   assert.equal(s.games.filter((g) => g.winner === 0).length, s.score[0]);
   assert.equal(s.games.filter((g) => g.winner === 1).length, s.score[1]);
   assert.equal(s.games.at(-1)?.winner, s.winner);
+  for (const frames of simulated.frames) {
+    const draft = new Map(frames[0].players.map((player) => [player.heroId, player]));
+    for (const frame of frames) for (const unit of frame.units) {
+      if (unit.kind === "hero") {
+        const player = draft.get(unit.heroId!);
+        assert.ok(player, `Replay hero ${unit.id} must use this game's draft`);
+        assert.equal(unit.name, player.hero);
+        assert.equal(unit.team, player.team);
+      } else assert.equal(unit.heroId, undefined);
+    }
+  }
 });
 
 test("later hero batches reach actual drafts and produce finite completed match results", () => {
