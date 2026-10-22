@@ -1,6 +1,6 @@
 # Historical strength and alternate tournament results
 
-October 22, 2026. Implemented locally; not committed or published.
+October 22, 2026. Published in source `d2197b2`, Pages `dc3c334`; see [release verification](github-pages.md).
 
 Tournament results should broadly resemble history when strong lineups stay together. Management can change that timeline through signings, development, preparation, results, later invitations and bracket paths. Every played map still ends with an Ancient destroyed by the lane engine.
 

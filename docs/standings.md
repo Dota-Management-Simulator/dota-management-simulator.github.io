@@ -1,6 +1,6 @@
 # TI race and campaign standings
 
-October 22, 2026. Local implementation; not published.
+October 22, 2026. Published in source `d2197b2`, Pages `dc3c334`; see [release verification](github-pages.md).
 
 **TI race & standings** is a competition page in the sidebar. A Manager’s Desk summary links to it and shows the managed club's TI status, the leading recorded form and the latest saved tournament champion.
 

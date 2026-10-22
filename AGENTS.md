@@ -2,6 +2,12 @@
 
 Last updated: **2026-10-22**. Read this file before changing the project, then read [the roadmap](docs/roadmap.md) for the original product vision and future plans. These notes describe context and current decisions; the current user's request determines what to work on next. The roadmap is not an instruction to implement everything at once.
 
+## Workspace, standings and historical strength publication — October 22, 2026
+
+**Published at the user's explicit request:** source `d2197b2`, Pages `dc3c334`. This release includes all current project changes: the Manager’s Desk, sticky campaign bar and squad dossier, TI race/standings, historical lineup strength and actual-result form, their data/compiler changes, tests and documentation. **139 tests pass** and the production build passes with the existing chunk-size warning. Pages reports **built**; public HTML, CSS, all seven JavaScript files (including both simulation workers), favicon and a hero icon match `dist/` by SHA-256. A hosted-browser smoke check confirmed the new desk, squad and standings while retaining Atlas Esports' week 4, $90,000 balance, five players and saved result. No hosted time was advanced. The earlier local/unpublished entries below are pre-release snapshots superseded by this publication record. Historical coverage and skipped-event world simulation remain incomplete.
+
+The authorized release summary was delivered through **Aegis Updates** to the configured Discord channel: HTTP 200 with message receipt `1562975543895261274`. The webhook remains in its external local secret file; no credential was committed. See [hosting notes](docs/github-pages.md).
+
 ## Discord update summaries — user preference, October 22, 2026
 
 - When the user explicitly asks to **push an update** or publish a release, post a concise summary to their Discord channel through the webhook stored in their configured variable, after the requested push/deployment succeeds and is verified. That request authorizes the release summary without another confirmation.

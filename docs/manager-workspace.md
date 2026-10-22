@@ -1,6 +1,6 @@
 # Manager workspace
 
-October 22, 2026. Implemented locally; not published.
+October 22, 2026. Published in source `d2197b2`, Pages `dc3c334`; see [release verification](github-pages.md).
 
 The first game-format pass keeps Aegis's cream and forest themes, gold accents, club colors, badges and existing management systems. A compact Manager’s Desk replaces the introductory dashboard artwork; Squad replaces the large roster cards with a comparison table and selected-player dossier. Campaign setup keeps its existing presentation.
 
@@ -30,4 +30,4 @@ Seven manager-view tests cover immutable selectors, archived/read invitations, d
 
 Browser QA uses isolated `http://127.0.0.1:5298/`, preserving existing local and hosted campaign origins. Checks cover desktop (1440px), tablet (950px), phone (390px and 320px), original and club themes, player and playstyle selection, keyboard selection, full profiles, reload persistence, invitation reopening, reservation/start, direct series routing, disabled controls during computation, and a real skipped-playback series. A declined invitation followed by Continue advanced August 17 to August 24 and charged exactly one week's $6,000 net costs in the test campaign.
 
-Preview screenshots are ignored under `.local/manager-workspace-*.png`. This change has not been committed, pushed or deployed.
+Preview screenshots are ignored under `.local/manager-workspace-*.png`. This change is included in the verified October 22 release above; the final combined suite has 139 passing tests.
