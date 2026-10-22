@@ -13,8 +13,8 @@ import TournamentSources from "./TournamentSources";
 const monthNames = Array.from({ length: 12 }, (_, i) => new Intl.DateTimeFormat("en", { month: "long", timeZone: "UTC" }).format(Date.UTC(2011, i, 1)));
 const eventKind = (e: HistoricalTournament) => e.kind === "ti" ? "The International" : e.kind === "qualifier" ? "Qualifier" : `Tier ${e.tier}`;
 
-export default function TournamentCalendarBoard({ campaign, onChange, onHistory, busy, focusEventId }: {
-  campaign: Campaign; onChange: (c: Campaign) => void; onHistory: (r: Result) => void; busy: boolean; focusEventId?: string;
+export default function TournamentCalendarBoard({ campaign, onChange, onHistory, busy, focusEventId, focusRequest }: {
+  campaign: Campaign; onChange: (c: Campaign) => void; onHistory: (r: Result) => void; busy: boolean; focusEventId?: string; focusRequest?: number;
 }) {
   const now = campaign.calendar!.now;
   const [view, setView] = useState(() => ({ year: Number(now.slice(0, 4)), month: Number(now.slice(5, 7)) - 1 }));
@@ -37,7 +37,7 @@ export default function TournamentCalendarBoard({ campaign, onChange, onHistory,
     if (!event) return;
     setView({ year: Number(event.start.slice(0, 4)), month: Number(event.start.slice(5, 7)) - 1 });
     setSelected(event.id);
-  }, [focusEventId]);
+  }, [focusEventId, focusRequest]);
   useEffect(() => { if (chosen && !dialog.current?.open) dialog.current?.showModal(); }, [chosen]);
   const close = () => { dialog.current?.close(); setSelected(null); setError(""); };
   const execute = (fn: () => Campaign, dismiss = false) => { try { onChange(fn()); setError(""); if (dismiss) close(); } catch (e) { setError(e instanceof Error ? e.message : "Could not update tournament entry."); } };

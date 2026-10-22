@@ -125,6 +125,9 @@ def compile_event(raw):
     event_id = identifier(raw["url"])
     format_text = raw.get("format", "").split("Prizepool[edit]")[0].strip()
     prizes, original_placements = prize_tables(raw, team)
+    # Keep source finishing bands separate from the alternate-history graph.
+    # Do not promote inferred zero-prize elimination bands to observed results.
+    historical_results = {key: {"from": band[0], "to": band[1]} for key, band in original_placements.items()}
     native_pool = rules.get("nativePool") if rules else None
     if native_pool:
         currency_table = next((t for t in raw.get("prizes", []) if "headers" in t and any(native_pool["currency"] in h for h in t["headers"]) and any("USD" in h for h in t["headers"])), None)
@@ -406,6 +409,7 @@ def compile_event(raw):
             **({"qualifyingPlaces": raw["qualifyingPlaces"]} if raw.get("qualifyingPlaces") else {}),
             **({"qualification": [{"eventId": identifier(award["event"]), "from": award["from"], "to": award["to"], "slots": [team(name) for name in award.get("slots", [])]} for award in raw["qualification"]]} if raw.get("qualification") else {}),
             "groups": groups, "fixtures": fixtures, "placements": placements,
+            "historicalResults": {key: band for key, band in historical_results.items() if key in entrants},
             "status": "scheduled" if start > REVIEWED else "needs-review" if limitations else "ready",
             "limitations": list(dict.fromkeys(limitations))}
 

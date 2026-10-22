@@ -6,6 +6,8 @@ import { activeClubs } from "./history";
 import { campaignWeek } from "./contracts";
 import { fixtureTeams, historicalTournaments, hashSeed, isoTime, nextTournamentFixture, recordTournamentSeries, seededTournamentFixtures, tournamentById, tournamentForRun, tournamentOpponentCondition, utcTime } from "./tournaments";
 import type { HistoricalTournament, TournamentFixture, TournamentRun } from "./tournament-types";
+import { historicalLineupStrength } from "./historical-strength";
+import { historicalPower, lineupFormResults, tournamentCombatBonus, tournamentForm } from "./tournament-form";
 
 const DAY = 86400000;
 export function enableHistoricalCalendar(current: Campaign): Campaign {
@@ -74,10 +76,10 @@ function qualifierExclusions(c: Campaign, event: HistoricalTournament): Map<stri
   return excluded;
 }
 
-export function earnedInvitations(c: Campaign, event: HistoricalTournament): string[] {
-  if (c.calendar?.invitations[event.id]) return c.calendar.invitations[event.id];
-  if (event.year === 2011 && event.kind === "ti") return event.teams;
-  if (!event.invited.length) return [];
+export interface InvitationCandidate { id: string; clubId: string; score: number; performance: number; baseline: number }
+/** The exact discretionary invite order, shared with the TI race display. */
+export function invitationRanking(c: Campaign, event: HistoricalTournament): InvitationCandidate[] {
+  if (!c.calendar || !event.invited.length || (event.year === 2011 && event.kind === "ti")) return [];
   const regionEligible = (region: string) => !event.region || event.region.split("|").includes(region);
   const clubs = c.world ? activeClubs(c.world).filter(t => t.roster.length === 5 && regionEligible(t.region)) : [];
   const qualified = new Set(earnedQualifyingPlaces(c, event.id).map(entry => {
@@ -102,9 +104,19 @@ export function earnedInvitations(c: Campaign, event: HistoricalTournament): str
   return clubs.filter(club => {
     const id = club.id === managedClub(c) ? referenceClub(c) : club.id;
     return !qualified.has(id) && !excluded.has(id);
-  }).map(club => ({ id: club.id === managedClub(c) ? referenceClub(c) : club.id,
-    score: (performance.get(club.id) ?? 0) + club.roster.reduce((n, id) => { const p = c.players.find(p => p.id === id); return n + (p ? rating(p) : 0); }, 0) / 500 + (event.invited.includes(club.id) ? 0.01 : 0) }))
-    .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id)).slice(0, event.invited.length).map(t => t.id);
+  }).map(club => {
+    const baseline = club.roster.reduce((n, id) => { const p = c.players.find(p => p.id === id); return n + (p ? rating(p) : 0); }, 0) / 500
+      + historicalPower(historicalLineupStrength(event, club.roster)) + tournamentForm(c.calendar!.runs, club.roster, isoTime(cutoff));
+    const performanceScore = performance.get(club.id) ?? 0;
+    return { id: club.id === managedClub(c) ? referenceClub(c) : club.id, clubId: club.id,
+      score: performanceScore + baseline + (event.invited.includes(club.id) ? 0.01 : 0), performance: performanceScore, baseline };
+  }).sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+}
+
+export function earnedInvitations(c: Campaign, event: HistoricalTournament): string[] {
+  if (c.calendar?.invitations[event.id]) return c.calendar.invitations[event.id];
+  if (event.year === 2011 && event.kind === "ti") return event.teams;
+  return invitationRanking(c, event).slice(0, event.invited.length).map(team => team.id);
 }
 
 export function tournamentEntryBlocker(c: Campaign, event: HistoricalTournament): string | null {
@@ -178,7 +190,8 @@ export function enterHistoricalTournament(current: Campaign, eventId: string, se
     const roster = isManaged ? [...c.roster] : realClub && !realClub.roster.some(pid => used.has(pid)) ? [...realClub.roster] : Array.from({ length: 5 }, (_, role) => `unscouted-${id}-${role}`);
     roster.forEach(pid => used.add(pid));
     if (realClub) usedClubs.add(realClub.id);
-    return { id, name: isManaged ? c.settings.team : realClub?.name ?? event.teamNames[id] ?? id, clubId: isManaged ? managedClub(c) : realClub?.id, roster };
+    return { id, name: isManaged ? c.settings.team : realClub?.name ?? event.teamNames[id] ?? id, clubId: isManaged ? managedClub(c) : realClub?.id, roster,
+      strength: historicalLineupStrength(event, roster) };
   });
   const run: TournamentRun = { eventId, seed, managed, teams, lineup: [...c.roster], prizeShares: Object.fromEntries(c.roster.map(id => [id, c.contracts?.[id]?.prizeShare ?? 0])),
     matches: [], fixtures: seededTournamentFixtures(event, seed), groupOrder: {}, state: "playing", placements: [] };
@@ -190,25 +203,43 @@ export function enterHistoricalTournament(current: Campaign, eventId: string, se
   return c;
 }
 
-export function tournamentBattleConfig(c: Campaign, run: TournamentRun, fixture: TournamentFixture, managedFirst = true): BattleConfig {
+/** Old registered runs acquire optional evidence without rewriting any result,
+ * registered rule, saved attribute or clock. Workers receive the same snapshot. */
+export function withTournamentStrength(run: TournamentRun): TournamentRun {
+  if (run.teams.every(team => team.strength)) return run;
+  const pinned = tournamentForRun(run)!;
+  const event = { ...pinned, historicalResults: pinned.historicalResults ?? tournamentById(run.eventId)?.historicalResults };
+  return { ...run, teams: run.teams.map(team => team.strength ? team : { ...team, strength: historicalLineupStrength(event, team.roster) }) };
+}
+
+export function tournamentTeamTemplate(c: Campaign, original: TournamentRun, key: string) {
+  const run = withTournamentStrength(original);
+  const team = run.teams.find(t => t.id === key)!;
+  return { name: team.name, players: team.roster.map((id, role) => {
+    const p = c.players.find(p => p.id === id);
+    return { id, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
+      role, skills: { ...(p?.stats ?? startingAttributes(id)) }, energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
+  }), bonus: key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) + (c.staffIds.includes("c2") ? 0.035 : 0) : 0,
+  form: lineupFormResults(c.calendar?.runs.filter(other => other.eventId !== run.eventId) ?? [], team.roster) };
+}
+
+export function tournamentBattleConfig(c: Campaign, original: TournamentRun, fixture: TournamentFixture, managedFirst = true): BattleConfig {
+  const run = withTournamentStrength(original);
   let keys = fixtureTeams(run, fixture)!;
   if (!keys) throw new Error("The tournament opponents are not resolved.");
   const reverse = managedFirst && keys[1] === run.managed;
   if (reverse) keys = [keys[1], keys[0]];
   const event = tournamentForRun(run)!;
   const teamData = keys.map(key => run.teams.find(t => t.id === key)!);
-  const playerRows = (team: typeof teamData[number]) => team.roster.map((id, role) => {
-    const p = c.players.find(p => p.id === id);
-    const condition = { energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
-    return { id, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
-      role, skills: { ...(p?.stats ?? startingAttributes(id)) },
-      ...(team.id === run.managed ? condition : tournamentOpponentCondition(run, team.id, { ...condition, stamina: p?.stats.stamina ?? startingAttributes(id).stamina }, fixture.at)) };
-  });
-  const players: BattleConfig["players"] = [playerRows(teamData[0]), playerRows(teamData[1])];
-  const bonus = (key: string) => key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) + (c.staffIds.includes("c2") ? 0.035 : 0) : 0;
+  const templates = teamData.map(team => tournamentTeamTemplate(c, run, team.id));
+  const playerRows = (side: number) => templates[side].players.map(p => ({ ...p,
+    ...(teamData[side].id === run.managed ? {} : tournamentOpponentCondition(run, teamData[side].id,
+      { energy: p.energy, happiness: p.happiness, stamina: p.skills.stamina }, fixture.at)) }));
+  const players: BattleConfig["players"] = [playerRows(0), playerRows(1)];
+  const bonus = (side: number) => templates[side].bonus + tournamentCombatBonus(run, teamData[side], fixture.at, templates[side].form);
   const through = Math.max(2010, ...c.calendar!.shuffledYears);
   return { seed: run.seed ^ hashSeed(fixture.id), year: event.year, heroPoolThroughYear: Math.min(2026, through),
-    teams: [teamData[0].name, teamData[1].name], players, bonuses: [bonus(keys[0]), bonus(keys[1])],
+    teams: [teamData[0].name, teamData[1].name], players, bonuses: [bonus(0), bonus(1)],
     seriesFormat: { bestOf: fixture.bestOf, ...(fixture.advantage ? { advantage: reverse ? [fixture.advantage[1], fixture.advantage[0]] : fixture.advantage } : {}) } };
 }
 
@@ -262,7 +293,7 @@ export function settleTournamentMatch(current: Campaign, eventId: string, fixtur
   if (!run || run.matches.some(m => m.id === fixtureId)) return current;
   const fixture = nextTournamentFixture(run);
   if (!fixture || fixture.id !== fixtureId || !fixtureTeams(run, fixture)?.includes(run.managed)) throw new Error("This is not the next managed-team fixture.");
-  const updated = recordTournamentSeries(run, fixtureId, series);
+  const updated = recordTournamentSeries(withTournamentStrength(run), fixtureId, series);
   const end = Math.max(utcTime(current.calendar!.now), utcTime(fixture.at)) + series.games.reduce((sum, game) => sum + game.duration * 1000, 0);
   let c = advanceCalendarTo(current, isoTime(end), true);
   c.calendar!.nowHasTime = fixture.timeVerified || current.calendar!.nowHasTime;

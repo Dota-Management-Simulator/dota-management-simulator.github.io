@@ -40,7 +40,6 @@ import {
 import type { LucideIcon } from "lucide-react";
 import {
   advanceWeek,
-  average,
   createCampaign,
   data,
   DEFAULT_SETTINGS,
@@ -86,9 +85,9 @@ import HistoricalCalendar, { TournamentHistory } from "./HistoricalCalendar";
 import ManagerInbox from "./ManagerInbox";
 import { advanceManagerWeek, syncOffice, unreadMessages } from "./office";
 import type { OfficeAction } from "./office";
-import { activeTournament, enableHistoricalCalendar, nextTournamentCommitment } from "./historical-game";
+import { enableHistoricalCalendar, nextTournamentCommitment } from "./historical-game";
 import { formatDate } from "./tournaments";
-import { weeklyPractice, weeksRemaining } from "./contracts";
+import { weeklyPractice } from "./contracts";
 import { teamIdForName } from "./team-logos";
 import { trainingEffect, trainingOptions } from "./training";
 import TrainingWorkload from "./TrainingWorkload";
@@ -97,6 +96,11 @@ import { getStartingTeams, rosterYearForStart, sourceFor, customClubNameAvailabl
 import ClubBrandingEditor from "./ClubBrandingEditor";
 import { ClubIdentityContext } from "./ClubIdentity";
 import { useClubAppearance } from "./useClubAppearance";
+import CampaignBar from "./CampaignBar";
+import ManagerDesk from "./ManagerDesk";
+import SquadWorkspace from "./SquadWorkspace";
+import { managerContinue, managerCompetition } from "./manager-view";
+import CompetitionStandings from "./CompetitionStandings";
 
 const navigation: {
   page: Page;
@@ -106,21 +110,22 @@ const navigation: {
 }[] = [
   {
     page: "overview",
-    label: "Headquarters",
+    label: "Manager’s Desk",
     icon: LayoutDashboard,
     group: "YOUR ORGANIZATION",
   },
-  { page: "roster", label: "Roster", icon: Users },
+  { page: "roster", label: "Squad", icon: Users },
   { page: "inbox", label: "Inbox", icon: Mail },
   { page: "training", label: "Training", icon: Crosshair },
   { page: "scouting", label: "Scouting", icon: Search },
   { page: "staff", label: "Staff", icon: UserRound },
   {
-    page: "calendar",
-    label: "Season calendar",
-    icon: CalendarDays,
+    page: "standings",
+    label: "TI race & standings",
+    icon: BarChart3,
     group: "THE COMPETITION",
   },
+  { page: "calendar", label: "Season calendar", icon: CalendarDays },
   { page: "patch", label: "Patch & meta", icon: Sparkles },
   { page: "world", label: "World teams", icon: Globe2 },
   { page: "history", label: "Season history", icon: Trophy },
@@ -135,6 +140,11 @@ const pageText: Record<
   Page,
   { eyebrow: string; title: string; description: string }
 > = {
+  standings: {
+    eyebrow: "THE COMPETITION",
+    title: "The road to the Aegis.",
+    description: "Team form, TI places and the latest campaign champions.",
+  },
   inbox: {
     eyebrow: "YOUR ORGANIZATION",
     title: "Your next decision starts here.",
@@ -291,6 +301,7 @@ export default function App() {
   const [setup, setSetup] = useState(() => !readSave());
   const [page, setPage] = useState<Page>("overview");
   const [calendarTarget, setCalendarTarget] = useState<string | undefined>();
+  const [calendarRequest, setCalendarRequest] = useState(0);
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
   const [player, setPlayer] = useState<Player | null>(null);
   const [event, setEvent] = useState<GameEvent | null>(null);
@@ -307,6 +318,7 @@ export default function App() {
   const [toast, setToast] = useState("");
   const [saveError, setSaveError] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [calendarBusy, setCalendarBusy] = useState(false);
   const [filter, setFilter] = useState("");
   const [roleFilter, setRoleFilter] = useState("All roles");
   const workerRef = useRef<Worker | null>(null);
@@ -424,7 +436,7 @@ export default function App() {
   const update = (f: (c: Campaign) => Campaign) =>
     setCampaign((c) => (c ? f(c) : c));
   const inboxAction = (action: OfficeAction) => {
-    if (action.kind === "tournament") { go("calendar"); setCalendarTarget(action.eventId); }
+    if (action.kind === "tournament") { go("calendar"); setCalendarTarget(action.eventId); setCalendarRequest(n => n + 1); }
     else if (action.kind === "player") {
       const target = campaign?.players.find(p => p.id === action.playerId);
       if (target) setPlayer(target);
@@ -524,7 +536,24 @@ export default function App() {
     player && campaign
       ? campaign.players.find((p) => p.id === player.id)!
       : null;
-  const upcoming = campaign ? nextEvent(campaign) : null;
+  const continueAction = campaign ? managerContinue(campaign) : null;
+  const continueCampaign = () => {
+    if (!continueAction || calendarBusy || simulating) return;
+    if (continueAction.kind === "tournament") inboxAction({ kind: "tournament", eventId: continueAction.eventId });
+    else if (continueAction.kind === "legacy-event") openEvent(continueAction.event);
+    else advance();
+  };
+  const openCompetition = () => {
+    if (!campaign) return;
+    const competition = managerCompetition(campaign);
+    if (!competition) go("calendar");
+    else if (!competition.legacy) inboxAction({ kind: "tournament", eventId: competition.eventId });
+    else {
+      const next = nextEvent(campaign);
+      if (next && (next.kind !== "ti" || campaign.qualified)) openEvent(next);
+      else go("calendar");
+    }
+  };
   const activeEventResult =
     campaign && event ? eventResult(campaign, event.id) : null;
   const setupName = settings.clubMode === "custom" ? settings.team.trim() : selectedClub.name;
@@ -535,7 +564,7 @@ export default function App() {
 
   return (
     <ClubIdentityContext.Provider value={{ teamId: identityTeamId, name: identitySettings?.team ?? "", branding: clubBranding }}>
-    <div className="app-shell">
+    <div className={`app-shell ${campaign && !setup ? "game-shell" : ""}`}>
       {mobileMenu && (
         <div className="nav-scrim" onClick={() => setMobileMenu(false)} />
       )}
@@ -596,6 +625,7 @@ export default function App() {
         </div>
       </aside>
       <div className="workspace">
+        <div className="shell-header">
         <header className="topbar">
           <div className="breadcrumbs">
             <button
@@ -605,7 +635,7 @@ export default function App() {
             >
               <Menu size={20} />
             </button>
-            <span>Workspace</span>
+            <span>{campaign && !setup ? "Club office" : "Workspace"}</span>
             <ChevronRight size={13} />
             <strong>
               {setup
@@ -642,6 +672,8 @@ export default function App() {
             <div className="manager-avatar">GM</div>
           </div>
         </header>
+        {campaign && !setup && continueAction && <CampaignBar campaign={campaign} action={continueAction} busy={calendarBusy || simulating} onContinue={continueCampaign} />}
+        </div>
         <main>
           {setup ? (
             <>
@@ -925,22 +957,9 @@ export default function App() {
           ) : (
             campaign && (
               <>
-                <div className="page-heading">
-                  <div>
-                    <div className="eyebrow">{pageText[page].eyebrow}</div>
-                    <h1>{pageText[page].title}</h1>
-                    <p>{pageText[page].description}</p>
-                  </div>
-                  <div className="heading-actions">
-                    <div className="season-pill">
-                      <CalendarDays size={15} />
-                      {campaign.year}
-                      <span>{campaign.calendar ? formatDate(campaign.calendar.now) : `WEEK ${campaign.week}`}</span>
-                    </div>
-                    <button className="button primary" onClick={advance}>
-                      {campaign.calendar ? "Advance time" : "Advance week"} <ArrowRight size={16} />
-                    </button>
-                  </div>
+                <div className="page-heading game-page-heading">
+                  <div><div className="eyebrow">{pageText[page].eyebrow}</div><h1>{navigation.find(n => n.page === page)?.label}</h1></div>
+                  <span className="game-page-note">{page === "overview" ? "Assess. Decide. Continue." : page === "roster" ? "Five players. One shared ambition." : pageText[page].description}</span>
                 </div>
                 {campaign.cash < 0 && (
                   <div className="alert warning">
@@ -949,316 +968,13 @@ export default function App() {
                     earnings.
                   </div>
                 )}
-                {page === "overview" && (
-                  <>
-                    <div className="overview-top">
-                      <div className="season-hero">
-                        <div className="art-grid" />
-                        <div className="hero-copy">
-                          <Badge tone="dark">
-                            {campaign.year === 2011
-                              ? "THE CLASSIC ERA"
-                              : "YOUR NEXT CHAPTER"}{" "}
-                            · SEASON {campaign.year}
-                          </Badge>
-                          <h2>
-                            The road to glory
-                            <br />
-                            starts with <em>you.</em>
-                          </h2>
-                          <p>
-                            Build your five. Find your edge.
-                            <br />
-                            Make this season one to remember.
-                          </p>
-                          <button
-                            className="button cream"
-                            onClick={() => go("calendar")}
-                          >
-                            Plan your season <ArrowRight size={16} />
-                          </button>
-                        </div>
-                        <Aegis className="dashboard-aegis" />
-                        <span className="hero-watermark">
-                          ONE TEAM. ONE AEGIS.
-                        </span>
-                      </div>
-                      <div className="panel qualification">
-                        <div className="eyebrow">
-                          <Trophy size={15} /> THE INTERNATIONAL
-                        </div>
-                        <h3>
-                          {campaign.calendar ? "Earn your place at TI." : campaign.qualified
-                            ? "You're going to TI."
-                            : "An invitation to earn."}
-                        </h3>
-                        <p>
-                          {campaign.calendar ? "Invitations and regional qualification follow the event's historical system. Campaign results decide who advances." : campaign.qualified
-                            ? "Your place on the biggest stage is secured. Prepare your team."
-                            : "Make your mark on the circuit, or win your regional qualifier."}
-                        </p>
-                        {!campaign.calendar && <><div className="points-line">
-                          <strong>
-                            {campaign.points}
-                            <small> / 80 pts</small>
-                          </strong>
-                          <Badge tone={campaign.qualified ? "green" : ""}>
-                            {campaign.qualified ? "QUALIFIED" : "NOT QUALIFIED"}
-                          </Badge>
-                        </div>
-                        <Meter
-                          value={Math.min(100, (campaign.points / 80) * 100)}
-                        /></>}
-                        <button
-                          className="text-link"
-                          onClick={() => go("calendar")}
-                        >
-                          View qualification path <ArrowRight size={15} />
-                        </button>
-                      </div>
-                    </div>
-                    <div className="metrics-grid">
-                      {[
-                        {
-                          label: "Club balance",
-                          value: shortMoney(campaign.cash),
-                          sub: `${shortMoney(weeklyIncome(campaign) - weeklyWages(campaign))} net / week`,
-                          icon: Wallet,
-                          tone: "sand",
-                        },
-                        {
-                          label: "Team readiness",
-                          value: `${average(roster.map((p) => p.energy))}%`,
-                          sub: "Energy across your starting five",
-                          icon: Zap,
-                          tone: "moss",
-                        },
-                        {
-                          label: "Team morale",
-                          value: `${average(roster.map((p) => p.happiness))}%`,
-                          sub: "A happy team plays together",
-                          icon: Heart,
-                          tone: "clay",
-                        },
-                        {
-                          label: "Reputation",
-                          value: `${campaign.reputation}`,
-                          sub: "Opens doors to better sponsors",
-                          icon: TrendingUp,
-                          tone: "lilac",
-                        },
-                      ].map((m) => (
-                        <div className="panel metric" key={m.label}>
-                          <div>
-                            <span>{m.label}</span>
-                            <span className={`metric-icon ${m.tone}`}>
-                              <Icon icon={m.icon} />
-                            </span>
-                          </div>
-                          <strong>{m.value}</strong>
-                          <small>{m.sub}</small>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="overview-bottom">
-                      <section className="panel">
-                        <SectionTitle
-                          title="Your starting five"
-                          sub="The people behind the ambition."
-                          action={
-                            <button
-                              className="text-link"
-                              onClick={() => go("roster")}
-                            >
-                              Manage roster <ArrowRight size={15} />
-                            </button>
-                          }
-                        />
-                        <div className="mini-roster">
-                          {roster.map((p, i) => (
-                            <button
-                              className="mini-player"
-                              key={p.id}
-                              onClick={() => setPlayer(p)}
-                            >
-                              <span className="position-number">0{i + 1}</span>
-                              <Avatar player={p} small />
-                              <div>
-                                <strong>{p.name}</strong>
-                                <small>{p.role}</small>
-                              </div>
-                              <span className="mini-energy">
-                                <Meter value={p.energy} />
-                              </span>
-                              <strong className="rating-value">
-                                {rating(p)}
-                              </strong>
-                              <ChevronRight size={15} />
-                            </button>
-                          ))}
-                        </div>
-                      </section>
-                      <div className="overview-right">
-                        <section className="panel next-event">
-                          <div className="eyebrow">NEXT ON THE CALENDAR</div>
-                          {campaign.calendar ? <><div className="event-emblem"><Trophy size={26} /></div><h3>{activeTournament(campaign) ? "Your tournament is in progress." : "A real competitive calendar."}</h3><p>{formatDate(campaign.calendar.now)} · Full group stages, brackets and placement prizes.</p><button className="button secondary full" onClick={() => go("calendar")}>{activeTournament(campaign) ? "Resume tournament" : "Browse tournaments"}<ArrowRight size={15} /></button></> : upcoming ? (
-                            <>
-                              <div className="event-emblem">
-                                <Trophy size={26} />
-                              </div>
-                              <Badge>{upcoming.tier}</Badge>
-                              <h3>{upcoming.name}</h3>
-                              <p>
-                                Week {upcoming.week} · {upcoming.location}
-                              </p>
-                              <div className="event-rewards">
-                                <span>
-                                  <Coins size={15} />
-                                  {shortMoney(upcoming.prize)} prize
-                                </span>
-                                <span>
-                                  <Target size={15} />
-                                  {upcoming.points
-                                    ? `${upcoming.points} pts`
-                                    : "The Aegis"}
-                                </span>
-                              </div>
-                              <button
-                                className="button secondary full"
-                                disabled={
-                                  upcoming.kind === "ti" && !campaign.qualified
-                                }
-                                onClick={() => openEvent(upcoming)}
-                              >
-                                {upcoming.kind === "ti" && !campaign.qualified
-                                  ? "Qualification required"
-                                  : "Enter tournament"}
-                                <ArrowRight size={15} />
-                              </button>
-                            </>
-                          ) : (
-                            <>
-                              <h3>The season is winding down.</h3>
-                              <p>
-                                Rest, review, and advance to week 19 to begin a
-                                new year.
-                              </p>
-                              <button
-                                className="button secondary full"
-                                onClick={advance}
-                              >
-                                Advance week <ArrowRight size={15} />
-                              </button>
-                            </>
-                          )}
-                        </section>
-                        <button
-                          className="patch-teaser"
-                          onClick={() => go("patch")}
-                        >
-                          <span className="metric-icon moss">
-                            <Sparkles size={20} />
-                          </span>
-                          <div>
-                            <small>LIVE PATCH · {data.patch.version}</small>
-                            <strong>{data.patch.name}</strong>
-                          </div>
-                          <ArrowUpRight size={19} />
-                        </button>
-                      </div>
-                    </div>
-                    <section className="panel activity">
-                      <SectionTitle title="Around the organization" />
-                      <div className="activity-items">
-                        {campaign.log.slice(0, 3).map((l, i) => (
-                          <div key={`${l}-${i}`}>
-                            <span className="activity-dot" />
-                            <p>{l}</p>
-                            <small>{i === 0 ? "LATEST" : "RECENT"}</small>
-                          </div>
-                        ))}
-                      </div>
-                    </section>
-                  </>
-                )}
-                {page === "roster" && (
-                  <>
-                    <div className="info-strip">
-                      <span>
-                        <Users size={17} />
-                        <strong>5 / 5</strong> starting positions filled
-                      </span>
-                      <span>
-                        <BarChart3 size={17} /> Average rating{" "}
-                        <strong>{average(roster.map(rating))}</strong>
-                      </span>
-                      <button
-                        className="text-link"
-                        onClick={() => go("scouting")}
-                      >
-                        Explore players <ArrowRight size={15} />
-                      </button>
-                    </div>
-                    <div className="player-grid">
-                      {roster.map((p, i) => (
-                        <article className="panel player-card" key={p.id}>
-                          <div className="player-card-top">
-                            <span className="eyebrow">POSITION 0{i + 1}</span>
-                            <Badge>{p.role}</Badge>
-                          </div>
-                          <div className={`player-portrait ${p.color}`}>
-                            <Avatar player={p} />
-                            <span className="portrait-rating">
-                              {rating(p)}
-                              <small>OVR</small>
-                            </span>
-                            <div className="portrait-lines" />
-                          </div>
-                          <div className="player-card-content">
-                            <h3>{p.name}</h3>
-                            <p>
-                              {p.historical ? p.region : `${p.firstName} ${p.lastName} · ${p.age}`}
-                            </p>
-                            <div className="player-vital">
-                              <span>
-                                Energy<strong>{p.energy}%</strong>
-                              </span>
-                              <Meter value={p.energy} />
-                            </div>
-                            <div className="player-vital">
-                              <span>
-                                Happiness<strong>{p.happiness}%</strong>
-                              </span>
-                              <Meter value={p.happiness} tone="gold" />
-                            </div>
-                            <div className="player-card-footer">
-                              <span>
-                                {money(p.wage)}
-                                <small> / week</small>
-                              </span>
-                              <button
-                                className="text-link"
-                                onClick={() => setPlayer(p)}
-                              >
-                                Profile <ArrowUpRight size={15} />
-                              </button>
-                            </div>
-                            <small className="roster-contract-status">{campaign.contracts?.[p.id] ? weeksRemaining(campaign, campaign.contracts[p.id]) ? `${weeksRemaining(campaign, campaign.contracts[p.id])} weeks on contract` : "Renewal due" : "Rolling contract · open profile to negotiate"}</small>
-                          </div>
-                        </article>
-                      ))}
-                    </div>
-                    <div className="muted-callout">
-                      <Shield size={20} />
-                      <p>
-                        <strong>A complete squad, a clean slate.</strong> Select
-                        a profile to inspect all 12 attributes, happiness,
-                        playstyles, and negotiate pay, practice and contract terms. Ratings are
-                        fictional, on a 0–100 scale; playstyles use 1–10.
-                      </p>
-                    </div>
-                  </>
-                )}
+                {page === "overview" && <ManagerDesk campaign={campaign} onPage={go} onAction={inboxAction} onPlayer={setPlayer} onCompetition={openCompetition} />}
+                {page === "roster" && <SquadWorkspace campaign={campaign} onProfile={setPlayer} onTraining={() => go("training")} onScout={() => go("scouting")} />}
+                {page === "standings" && <CompetitionStandings campaign={campaign} onTournament={id => id ? inboxAction({ kind: "tournament", eventId: id }) : go("calendar")} onResults={winner => {
+                  const result = campaign.results.find(r => winner.archived ? `legacy:${r.year}:${r.eventId}` === winner.eventId : r.tournamentId === winner.eventId);
+                  if (result) setViewResult(result);
+                  else inboxAction({ kind: "tournament", eventId: winner.eventId });
+                }} />}
                 {page === "training" && (
                   <>
                     <div className="info-strip">
@@ -1395,7 +1111,7 @@ export default function App() {
                   </>
                 )}
                 {page === "inbox" && <ManagerInbox campaign={campaign} onChange={setCampaign} onAction={inboxAction} />}
-                {page === "calendar" && (campaign.calendar ? <HistoricalCalendar campaign={campaign} onChange={setCampaign} onHistory={setViewResult} focusEventId={calendarTarget} /> : (
+                {page === "calendar" && (campaign.calendar ? <HistoricalCalendar campaign={campaign} onChange={setCampaign} onHistory={setViewResult} focusEventId={calendarTarget} focusRequest={calendarRequest} onBusyChange={setCalendarBusy} /> : (
                   <>
                     <section className="panel calendar-board">
                       <div className="eyebrow">DATED TOURNAMENT CALENDAR</div>

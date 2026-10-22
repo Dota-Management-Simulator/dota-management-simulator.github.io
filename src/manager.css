@@ -1,0 +1,136 @@
+/* The campaign workspace uses the same theme and club identity tokens as the rest of Aegis. */
+.game-shell { --office-surface: var(--surface, #fffef9); --office-soft: var(--surface-soft, #f0f2e9); --office-muted: #697261; }
+:root[data-theme="dark"] .game-shell { --office-muted: var(--muted); }
+:root[data-club-theme] .game-shell { --office-muted: var(--muted); }
+.game-shell .sidebar { width: 214px; padding: 23px 13px 0; }
+.game-shell .brand { margin: 0 13px 23px; }
+.game-shell .organization { padding: 14px 3px; margin-bottom: 9px; }
+.game-shell .nav-label { font-size: 9px; letter-spacing: 1.1px; padding: 17px 13px 7px; }
+.game-shell .nav-link { padding: 10px 13px; font-size: 12px; }
+.game-shell .workspace { margin-left: 214px; }
+.game-shell .shell-header { position: sticky; top: 0; z-index: 24; box-shadow: 0 3px 14px #14201508; }
+.game-shell .topbar { height: 46px; padding: 0 26px; }
+.game-shell .breadcrumbs { font-size: 11px; gap: 9px; }
+.game-shell .topbar-actions { gap: 15px; }
+.game-shell .save-indicator { font-size: 10px; }
+.game-shell .manager-avatar { width: 25px; height: 25px; }
+.campaign-bar { display: flex; align-items: center; gap: 26px; padding: 16px 26px; background: var(--office-surface); border-bottom: 1px solid var(--line); color: var(--ink); }
+.campaign-date, .campaign-balance { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.campaign-bar svg { flex-shrink: 0; color: var(--green); }
+.campaign-date strong, .campaign-balance strong { display: block; font-size: 15px; font-weight: 650; font-variant-numeric: tabular-nums; }
+.campaign-date span, .campaign-balance span { display: block; color: var(--office-muted); font-size: 11px; margin-top: 5px; }
+.campaign-balance { padding-left: 23px; border-left: 1px solid var(--line); }
+.campaign-next { flex: 1; min-width: 0; }
+.campaign-next > span { color: var(--office-muted); letter-spacing: 1.1px; font-size: 9px; display: block; margin-bottom: 5px; }
+.campaign-next strong { font-size: 11px; font-weight: 500; display: block; overflow-wrap: anywhere; }
+.game-shell .campaign-continue { height: 43px; font-size: 12px; min-width: 147px; }
+.game-shell .campaign-continue svg { color: inherit; }
+.game-shell .workspace main { max-width: 1640px; padding: 24px 26px 0; }
+.game-shell .game-page-heading { margin-bottom: 18px; gap: 16px; }
+.game-page-heading h1 { font-size: 24px; letter-spacing: -.7px; }
+.game-page-heading .eyebrow { font-size: 9px; margin-bottom: 6px; }
+.game-page-note { font-size: 12px; color: var(--office-muted); text-align: right; max-width: 420px; }
+.game-shell .app-footer { margin-top: 24px; padding: 18px 0; }
+.game-shell :is(.desk-columns, .desk-bottom, .squad-workspace) { display: grid; gap: 18px; align-items: start; }
+.desk-columns { grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); }
+.manager-desk { display: grid; gap: 18px; }
+.desk-topline { display: flex; align-items: center; justify-content: space-between; gap: 16px; color: var(--office-muted); font-size: 12px; margin-bottom: 1px; }
+.desk-topline > span, .squad-toolbar > span { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.desk-topline svg { color: var(--green); }
+.workspace-divider { color: var(--muted); margin: 0 5px; }
+.manager-desk .panel, .squad-workspace .panel { background: var(--office-surface); border-color: var(--line); border-radius: 7px; }
+.desk-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 14px; padding: 18px 20px; }
+.desk-panel-heading p { font-size: 11px; color: var(--office-muted); margin-top: 4px; }
+.desk-panel-heading h2 { font-size: 15px; }
+.desk-panel-heading .eyebrow { margin-bottom: 6px; }
+.manager-desk .text-link, .player-dossier .text-link { font-size: 11px; gap: 6px; }
+.desk-decisions { overflow: hidden; }
+.desk-messages { padding: 0 20px 7px; }
+.desk-message { display: flex; align-items: flex-start; gap: 11px; padding: 13px 0; width: 100%; border: 0; border-top: 1px solid var(--line); background: transparent; text-align: left; color: var(--ink); }
+.desk-message:hover strong { color: var(--green); }
+.desk-message-dot { height: 6px; width: 6px; background: var(--gold); border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.desk-message-dot.read { background: var(--line); }
+.desk-message > span:last-child { min-width: 0; }
+.desk-message small { color: var(--office-muted); font-size: 11px; display: block; margin-bottom: 5px; }
+.desk-message strong { font-size: 13px; font-weight: 550; display: block; line-height: 1.5; }
+.desk-message > span > span { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--green); margin-top: 7px; }
+.desk-readiness { padding: 13px 20px; border: 0; border-top: 1px solid var(--line); background: var(--office-soft); color: var(--ink); width: 100%; display: flex; align-items: center; gap: 10px; text-align: left; font-size: 12px; line-height: 1.6; }
+.desk-readiness svg { flex-shrink: 0; color: var(--gold); }
+.desk-clear { padding: 20px; color: var(--office-muted); }
+.desk-clear h3 { font-size: 14px; margin-top: 10px; }
+.desk-clear p { font-size: 12px; margin-top: 7px; }
+.desk-competition { padding: 20px; }
+.desk-competition h2 { font-size: 19px; letter-spacing: -.5px; line-height: 1.45; }
+.desk-competition > p { font-size: 12px; color: var(--office-muted); margin-top: 9px; }
+.desk-matchup { display: flex; align-items: center; gap: 12px; padding: 24px 0; flex-wrap: wrap; }
+.desk-matchup strong { font-size: 15px; font-weight: 600; }
+.desk-matchup > span { font-size: 11px; color: var(--office-muted); }
+.desk-competition .button { font-size: 12px; }
+.desk-qualification { border-top: 1px solid var(--line); padding-top: 15px; margin-top: 18px; display: flex; gap: 8px; align-items: flex-start; font-size: 11px; color: var(--office-muted); line-height: 1.6; }
+.desk-qualification svg { flex-shrink: 0; margin-top: 2px; color: var(--gold); }
+.desk-bottom { grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); }
+.desk-activity { padding-bottom: 5px; }
+.desk-activity > p { padding: 0 20px 14px; font-size: 12px; color: var(--office-muted); display: flex; align-items: baseline; gap: 10px; }
+.desk-activity .activity-dot { flex-shrink: 0; }
+.desk-result { padding: 20px; }
+.desk-result h2 { font-size: 15px; }
+.desk-result p { font-size: 12px; margin-top: 8px; color: var(--office-muted); }
+.desk-result-score { display: block; margin-top: 12px; font-size: 16px; color: var(--green); }
+.desk-result .text-link { margin-top: 14px; }
+.squad-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 14px; margin-bottom: 17px; font-size: 12px; color: var(--office-muted); }
+.game-shell .squad-workspace { grid-template-columns: minmax(0, 1.65fr) minmax(300px, 1fr); }
+.squad-list { min-width: 0; overflow: hidden; }
+.squad-table-scroll { overflow-x: auto; }
+.game-shell .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.squad-table { width: 100%; border-collapse: collapse; text-align: left; font-size: 12px; font-variant-numeric: tabular-nums; }
+.squad-table th { font-weight: 500; }
+.squad-table thead th { color: var(--office-muted); font-size: 10px; padding: 11px 12px; border-block: 1px solid var(--line); background: var(--office-soft); white-space: nowrap; }
+.squad-table td { padding: 12px; color: var(--ink); border-bottom: 1px solid var(--line); white-space: nowrap; }
+.squad-table tbody th { padding: 0 12px; border-bottom: 1px solid var(--line); }
+.squad-table tbody tr:last-child :is(td, th) { border-bottom: 0; }
+.squad-table tr.selected { background: var(--office-soft); box-shadow: inset 3px 0 var(--green); }
+.squad-table tr:hover { background: var(--office-soft); }
+.squad-select { border: 0; background: transparent; color: var(--ink); display: flex; align-items: center; gap: 9px; padding: 12px 0; text-align: left; min-width: 154px; }
+.squad-select strong { display: block; font-size: 13px; font-weight: 600; }
+.squad-select small { display: block; font-size: 10px; color: var(--office-muted); margin-top: 4px; }
+.squad-select .avatar { width: 31px; height: 36px; flex-shrink: 0; }
+.squad-position { font-size: 10px; color: var(--office-muted); }
+.squad-rating { font-weight: 650; color: var(--green) !important; }
+.squad-condition { display: block; min-width: 50px; }
+.condition-track { display: block; height: 3px; background: var(--line); margin-top: 6px; overflow: hidden; border-radius: 2px; }
+.condition-track > span { display: block; height: 100%; background: var(--green); }
+.squad-condition.tired .condition-track > span { background: var(--gold); }
+.squad-condition.low .condition-track > span { background: #c57455; }
+.squad-pay { font-size: 11px; }
+.contract-due { color: var(--gold); }
+.squad-focus { font-size: 11px; max-width: 125px; white-space: normal !important; }
+.squad-footnote { padding: 14px 20px; color: var(--office-muted); font-size: 10px; border-top: 1px solid var(--line); }
+.player-dossier { padding: 20px; min-width: 0; scroll-margin-top: 150px; }
+.dossier-heading { display: flex; align-items: center; gap: 12px; }
+.dossier-heading .avatar { width: 52px; height: 61px; flex-shrink: 0; }
+.dossier-heading h2 { font-size: 20px; letter-spacing: -.5px; overflow-wrap: anywhere; }
+.dossier-heading p { font-size: 11px; color: var(--office-muted); margin-top: 5px; }
+.dossier-heading .eyebrow { font-size: 8px; margin-bottom: 6px; }
+.dossier-rating { font-size: 25px; color: var(--green); margin-left: auto; text-align: center; }
+.dossier-rating small { display: block; font-size: 8px; letter-spacing: 1px; margin-top: 3px; color: var(--office-muted); }
+.dossier-vitals { display: flex; gap: 17px; flex-wrap: wrap; padding: 17px 0; font-size: 11px; color: var(--office-muted); }
+.dossier-vitals > span { display: flex; align-items: center; gap: 5px; }
+.dossier-sections { display: flex; gap: 20px; border-bottom: 1px solid var(--line); margin-bottom: 17px; }
+.dossier-sections button { border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--office-muted); padding: 10px 0; font-size: 12px; }
+.dossier-sections button[aria-pressed="true"] { color: var(--green); border-bottom-color: var(--green); }
+.dossier-ratings { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 20px; }
+.dossier-stat { display: grid; grid-template-columns: 1fr auto; gap: 0 7px; font-size: 11px; color: var(--office-muted); align-items: baseline; }
+.dossier-stat > span:first-child { overflow-wrap: anywhere; }
+.dossier-stat strong { color: var(--ink); font-size: 12px; font-weight: 600; }
+.dossier-stat .condition-track { grid-column: 1 / -1; }
+.dossier-plan { border-top: 1px solid var(--line); margin-top: 21px; padding-top: 17px; margin-bottom: 18px; }
+.dossier-plan > strong { font-size: 13px; }
+.dossier-plan p { font-size: 11px; color: var(--office-muted); margin-top: 5px; }
+.dossier-plan .text-link { margin-top: 10px; }
+.player-dossier > .button { font-size: 10px; height: auto; min-height: 40px; white-space: normal; padding: 10px; }
+@media (max-width: 1180px) { .game-shell .squad-workspace { grid-template-columns: minmax(0, 1fr); } .dossier-ratings { grid-template-columns: repeat(4, 1fr); } .campaign-bar { gap: 18px; } .campaign-next { display: none; } .campaign-continue { margin-left: auto; } }
+@media (max-width: 1000px) { .desk-columns { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .game-page-note { max-width: 270px; } .game-shell .sidebar { width: 190px; } .game-shell .workspace { margin-left: 190px; } .game-shell .brand { margin-inline: 9px; } .game-shell .brand > span { font-size: 21px; } .campaign-balance { padding-left: 15px; } }
+@media (max-width: 980px) { .game-shell .sidebar { width: 239px; } .game-shell .workspace { margin-left: 0; } .game-shell .mobile-toggle { display: inline-flex; } .game-shell .sidebar .brand > span { font-size: 24px; } }
+@media (max-width: 650px) { .game-shell .topbar { padding-inline: 17px; } .game-shell .topbar-actions { gap: 8px; } .game-shell .save-indicator { display: none; } .campaign-bar { gap: 14px; padding: 13px 17px; flex-wrap: wrap; } .campaign-date { flex: 1; } .campaign-date strong, .campaign-balance strong { font-size: 13px; } .campaign-balance { border-left: 0; padding-left: 0; } .campaign-date span, .campaign-balance span { font-size: 10px; } .game-shell .campaign-continue { width: 100%; height: 39px; margin: 0; } .game-shell .workspace main { padding: 20px 17px 0; } .game-page-heading h1 { font-size: 22px; } .game-page-note { display: none; } .desk-topline { align-items: flex-start; flex-direction: column; gap: 8px; font-size: 11px; } .desk-columns, .desk-bottom { grid-template-columns: 1fr; } .desk-panel-heading { padding: 17px; } .desk-panel-heading .text-link { font-size: 10px; } .dossier-ratings { grid-template-columns: 1fr 1fr; } .game-shell .app-footer { flex-wrap: wrap; gap: 13px; } .squad-table.compact .squad-select { min-width: 148px; } .squad-table.compact :is(td, thead th) { padding-inline: 10px; } }
+@media (pointer: coarse) { .game-shell :is(.icon-button, .mobile-toggle) { min-width: 40px; min-height: 40px; } .desk-message, .squad-select, .dossier-sections button { min-height: 44px; } }
+@media (max-width: 650px) { .player-dossier { scroll-margin-top: 190px; } }

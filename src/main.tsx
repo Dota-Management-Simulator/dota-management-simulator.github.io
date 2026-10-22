@@ -5,6 +5,7 @@ import "./styles.css";
 import "./theme.css";
 import "./matches.css";
 import "./branding.css";
+import "./manager.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>

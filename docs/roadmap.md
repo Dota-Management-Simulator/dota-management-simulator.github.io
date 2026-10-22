@@ -8,6 +8,8 @@ Context preserved from the user's design discussions and subsequent implementati
 
 ## Explicit decisions already made
 
+- Historical results should be a soft baseline for intact lineups, while management and subsequent campaign changes can alter the timeline. Implemented locally through roster-linked strength, continuity, actual-result form and shared AI/managed simulation. The manager uses the same rules; outcomes still come from the lane engine. Existing ratings/results remain intact. Exact event lineups and skipped-event world simulation remain incomplete. See [historical strength](historical-strength.md).
+
 - Custom teams can upload a logo during setup. Organization settings now include logo uploads, a crest creator and editable primary/secondary colors for the managed club. A saved **Use team colors** checkbox controls app tinting independently of Light/Dark mode. Uploaded and bundled historical logos can supply suggested palettes; custom badges do not alter opponents. See [club branding](club-branding.md).
 - Historical organization selection also previews team colors immediately, including the setup cards and artwork, before a campaign is started.
 

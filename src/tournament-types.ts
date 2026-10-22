@@ -52,11 +52,22 @@ export interface HistoricalTournament {
   groups: TournamentGroup[];
   fixtures: TournamentFixture[];
   placements: { slot: TournamentSlot; from: number; to: number }[];
+  /** Source finishing bands, used as soft strength evidence, never as winners. */
+  historicalResults?: Record<string, { from: number; to: number }>;
   status: "ready" | "needs-review" | "scheduled";
   limitations: string[];
 }
 export interface TournamentTeam {
   id: string; name: string; clubId?: string; roster: string[];
+  /** Pinned evidence for this actual registered lineup, independent of its slot. */
+  strength?: HistoricalStrength;
+}
+export interface HistoricalStrength {
+  players: number;
+  continuity: number;
+  retained: number;
+  covered: number;
+  reference?: { event: string; source: string; from: number; to: number; rosterDate: string };
 }
 export interface TournamentMatchResult {
   id: string; teams: [string, string]; score: [number, number];

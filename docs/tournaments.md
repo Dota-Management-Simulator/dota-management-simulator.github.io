@@ -25,7 +25,7 @@ New campaigns use optional `Campaign.calendar` metadata. Wages, training and con
 
 Event windows and verified timestamps are sourced. Date-only facts stay date-only. Unrecovered per-pair dates are explicitly estimated within known stage windows; this is not a complete verified match timetable. Advances stop at pending registered fixtures. Concurrent online runs are supported; overlapping LAN attendance is blocked.
 
-BO1, fixed two-map BO2 draws, BO3, BO5 and BO7 use the lane engine, including default-win advantages. AI matches omit replay frames and save compact career stats. Managed series retain scoreboards/graphs. The worker loads registered rules/templates instead of the catalog. Watching/skipping share outcomes; reloading an unrecorded match returns to its seeded fixture.
+BO1, fixed two-map BO2 draws, BO3, BO5 and BO7 use the lane engine, including default-win advantages. AI matches omit replay frames and save compact career stats. Managed series retain scoreboards/graphs. The worker loads registered rules/templates instead of the catalog. Watching/skipping share outcomes; reloading an unrecorded match returns to its seeded fixture. The new [historical-strength layer](historical-strength.md) gives actual registered players a soft baseline from sourced finishes and roster references, plus continuity and result-driven form. Transfers, development and campaign results can alter it; neither a bracket slot nor a historical winner decides a map. Unfrozen invitation rankings use the same historical/form evidence alongside player ratings and completed placements.
 
 AI bracket batches now advance the club clock and elapsed payroll, and stop at another registered tournament's earlier commitment. Previously the final bracket could be revealed while the date stayed at the manager's elimination day. Existing settled saves keep their dates; the fix does not retrospectively move the clock or charge wages. Offscreen events outside registered runs still require world-season simulation.
 
@@ -57,7 +57,7 @@ All rolling/negotiated agreements require tournament completion. Registered line
 - `valve_tournaments.py` normalizes that cache offline. `valve-tournament-reviews.json` records event-scoped historical identities, source links and reviewed format exceptions. Unreviewed mutable Steam names never produce an automatically playable field. Verified source enums distinguish Swiss (3), GSL (8), double-elimination (5/6) and placement stages (9).
 - Rebuild offline: `python -X utf8 scripts/build-tournaments.py`. After new source research, export with `cache-tournament-facts.py`, normalize source rules, rebuild and review. Missing local caches must not erase tracked facts.
 
-Liquipedia contributors retain CC-BY-SA 3.0 attribution. Supplemental qualifier times/results link the independent [Escorenews archive](https://escorenews.com/en/dota-2/international-2012/qualification-east). Historical outcomes recover wiring only; campaign winners come from simulation.
+Liquipedia contributors retain CC-BY-SA 3.0 attribution. Supplemental qualifier times/results link the independent [Escorenews archive](https://escorenews.com/en/dota-2/international-2012/qualification-east). Historical outcomes recover wiring and now supply a separate soft, roster-linked strength baseline; campaign winners come from simulation.
 
 ## Validation
 

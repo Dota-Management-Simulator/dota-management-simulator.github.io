@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CalendarDays, Trophy } from "lucide-react";
 import type { Campaign, Result } from "./game";
-import { data, money } from "./game";
-import { activeTournament, commitTournamentRun, nextTournamentCommitment, settleTournamentMatch, tournamentBattleConfig } from "./historical-game";
+import { money } from "./game";
+import { activeTournament, commitTournamentRun, nextTournamentCommitment, settleTournamentMatch, tournamentBattleConfig, tournamentTeamTemplate, withTournamentStrength } from "./historical-game";
 import { fixtureTeams, formatDate, formatPrize, groupStandings, nextTournamentFixture, pinTournamentRun, tournamentById, tournamentForRun } from "./tournaments";
 import type { HistoricalTournament, TournamentRun } from "./tournament-types";
 import type { SimulatedSeries } from "./battle";
@@ -13,6 +13,7 @@ import TournamentCalendarBoard from "./TournamentCalendarBoard";
 import { advanceManagerWeek } from "./office";
 import "./tournaments.css";
 import TournamentSources from "./TournamentSources";
+import TournamentOutlook from "./TournamentOutlook";
 
 function EventFacts({ event }: { event: HistoricalTournament }) {
   return <details className="tournament-facts"><summary>Format, prize distribution & source</summary>
@@ -34,6 +35,7 @@ export function TournamentHistory({ campaign, eventId, onClose }: { campaign: Ca
   if (match?.series) return <SeriesResults key={match.id} result={{ eventId: match.id, event: `${event.name} · ${run.fixtures.find(f => f.id === match.id)?.stage}`, year: event.year, week: 0, won: match.series.winner === 0, prize: 0, points: 0, opponent: match.series.teams[1], score: match.series.score.join(" – "), series: match.series }} managedTeamId={campaign.world?.managedTeamId} onClose={() => setSelected(null)} />;
   return <div className="tournament-history"><div className="eyebrow">TOURNAMENT RESULTS · {event.year}</div><h2 id="modal-title">{event.name}</h2>
     <TournamentStandings event={event} run={run} onSeries={setSelected} />
+    <TournamentOutlook campaign={campaign} run={run} at={campaign.calendar!.now} />
     <EventFacts event={event} />
     <button className="button secondary full" onClick={onClose}>Back to management</button></div>;
 }
@@ -54,13 +56,15 @@ function TournamentStandings({ event, run, onSeries }: { event: HistoricalTourna
   </>;
 }
 
-export default function HistoricalCalendar({ campaign, onChange, onHistory, focusEventId }: { campaign: Campaign; onChange: (c: Campaign) => void; onHistory: (result: Result) => void; focusEventId?: string }) {
+export default function HistoricalCalendar({ campaign, onChange, onHistory, focusEventId, focusRequest, onBusyChange }: { campaign: Campaign; onChange: (c: Campaign) => void; onHistory: (result: Result) => void; focusEventId?: string; focusRequest?: number; onBusyChange?: (busy: boolean) => void }) {
   const [activeId, setActiveId] = useState<string | undefined>();
   const [error, setError] = useState("");
   const [advanceNotice, setAdvanceNotice] = useState("");
   const [computing, setComputing] = useState(false);
   const [progress, setProgress] = useState("");
   const [simulation, setSimulation] = useState<SimulatedSeries | null>(null);
+  useEffect(() => { onBusyChange?.(computing || simulation !== null); }, [computing, simulation, onBusyChange]);
+  useEffect(() => () => onBusyChange?.(false), [onBusyChange]);
   const worker = useRef<Worker | null>(null);
   const latestCampaign = useRef(campaign);
   latestCampaign.current = campaign;
@@ -75,7 +79,7 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
   const managedReady = !!(readyTeams && run && readyTeams.includes(run.managed));
   const earlierCommitment = commitment && fixture && commitment.eventId !== run?.eventId && Date.parse(commitment.at) < Date.parse(fixture.at) ? commitment : null;
   const otherCommitment = run ? nextTournamentCommitment({ ...campaign, calendar: { ...campaign.calendar!, runs: campaign.calendar!.runs.filter(other => other.eventId !== run.eventId) } }) : null;
-  useEffect(() => { if (focusEventId && campaign.calendar!.runs.some(r => r.eventId === focusEventId && r.state === "playing")) setActiveId(focusEventId); }, [focusEventId]);
+  useEffect(() => { if (focusEventId && campaign.calendar!.runs.some(r => r.eventId === focusEventId && r.state === "playing")) setActiveId(focusEventId); }, [focusEventId, focusRequest]);
   useEffect(() => () => { worker.current?.terminate(); }, []);
   useEffect(() => {
     if (!run || managedReady || worker.current || error || earlierCommitment) return;
@@ -83,10 +87,7 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
     worker.current = nextWorker; setComputing(true); setProgress("Simulating the other tournament matches…");
     const templates: TournamentWorkerInput["templates"] = {};
     for (const team of run.teams) {
-      templates[team.id] = { name: team.name, players: team.roster.map((id, role) => {
-        const p = campaign.players.find(p => p.id === id);
-        return { id, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`, role, skills: { ...(p?.stats ?? data.players[role].stats) }, energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
-      }), bonus: 0 };
+      templates[team.id] = tournamentTeamTemplate(campaign, run, team.id);
     }
     const fail = (message: string) => { nextWorker.terminate(); worker.current = null; setComputing(false); setError(message); };
     nextWorker.onmessage = ({ data: message }) => {
@@ -98,7 +99,7 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
       } else if (message.type === "error") fail(message.message);
     };
     nextWorker.onerror = () => fail("The tournament worker could not finish. Your saved progress is unchanged.");
-    nextWorker.postMessage({ run: pinTournamentRun(run), templates, year: event!.year, heroPoolThroughYear: Math.min(2026, Math.max(2010, ...campaign.calendar!.shuffledYears)), through: otherCommitment?.at } satisfies TournamentWorkerInput);
+    nextWorker.postMessage({ run: withTournamentStrength(pinTournamentRun(run)), templates, year: event!.year, heroPoolThroughYear: Math.min(2026, Math.max(2010, ...campaign.calendar!.shuffledYears)), through: otherCommitment?.at } satisfies TournamentWorkerInput);
     return () => { if (worker.current === nextWorker) { nextWorker.terminate(); worker.current = null; } };
   }, [run, managedReady, error, earlierCommitment?.eventId, otherCommitment?.at]); // Progress messages do not restart a batch.
 
@@ -138,12 +139,13 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
         <div className="tournament-actions"><button className="button primary" disabled={!!earlierCommitment} onClick={() => startSeries(false)}>Play & watch series <ArrowRight size={16} /></button><button className="button secondary" disabled={!!earlierCommitment} onClick={() => startSeries(true)}>Simulate series & skip playback</button></div>
       </> : earlierCommitment ? <p>Play the earlier commitment at {tournamentById(earlierCommitment.eventId)?.name} before continuing this bracket.</p> : <p>Preparing the next stage…</p>}
       <p className="field-note">Progress is saved after every series. Reloading during a match returns to that series. Players whose terms expire stay on the same pay and registered prize share until this run ends. Unscouted opponents use clearly labeled placeholder players.</p>
+      <TournamentOutlook campaign={campaign} run={run} at={fixture?.at ?? campaign.calendar!.now} />
       <TournamentStandings event={event} run={run} /><EventFacts event={event} />
     </section>}
     <TournamentCalendarBoard campaign={campaign} onChange={next => {
       const entered = next.calendar?.runs.find(r => r.state === "playing" && !campaign.calendar!.runs.some(old => old.eventId === r.eventId));
       if (entered) setActiveId(entered.eventId);
       onChange(next);
-    }} onHistory={onHistory} busy={computing} focusEventId={focusEventId} />
+    }} onHistory={onHistory} busy={computing} focusEventId={playing.some(r => r.eventId === focusEventId) ? undefined : focusEventId} focusRequest={focusRequest} />
   </div>;
 }

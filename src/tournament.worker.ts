@@ -3,10 +3,12 @@ import type { BattleConfig } from "./battle";
 import { fixtureTeams, nextTournamentFixture, recordTournamentSeries, tournamentOpponentCondition } from "./tournament-rules";
 import { hashSeed, utcTime } from "./tournament-utils";
 import type { TournamentRun } from "./tournament-types";
+import { tournamentCombatBonus } from "./tournament-form";
+import type { FormResult } from "./tournament-form";
 
 export interface TournamentWorkerInput {
   run: TournamentRun;
-  templates: Record<string, { name: string; players: BattleConfig["players"][0]; bonus: number }>;
+  templates: Record<string, { name: string; players: BattleConfig["players"][0]; bonus: number; form?: FormResult[] }>;
   year: number;
   heroPoolThroughYear: number;
   /** Another registered tournament's earlier commitment stops this batch. */
@@ -23,9 +25,10 @@ export function simulateOtherTournamentMatches(input: TournamentWorkerInput, pro
       const teams = fixtureTeams(run, fixture)!;
       if (teams.includes(run.managed)) break;
       const [a, b] = teams.map(id => templates[id]);
+      const bonus = (side: 0 | 1) => templates[teams[side]].bonus + tournamentCombatBonus(run, run.teams.find(t => t.id === teams[side])!, fixture.at, templates[teams[side]].form);
       const prepared = (side: 0 | 1) => templates[teams[side]].players.map(p => ({ ...p, ...tournamentOpponentCondition(run, teams[side], { energy: p.energy, happiness: p.happiness, stamina: p.skills.stamina }, fixture.at) }));
       const result = simulateSeries({ seed: run.seed ^ hashSeed(fixture.id), year, heroPoolThroughYear,
-        teams: [a.name, b.name], players: [prepared(0), prepared(1)], bonuses: [a.bonus, b.bonus],
+        teams: [a.name, b.name], players: [prepared(0), prepared(1)], bonuses: [bonus(0), bonus(1)],
         seriesFormat: { bestOf: fixture.bestOf, advantage: fixture.advantage }, captureReplay: false });
       run = recordTournamentSeries(run, fixture.id, result.summary);
       progress(++played);

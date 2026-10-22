@@ -39,6 +39,7 @@ export type Page =
   | "roster"
   | "training"
   | "calendar"
+  | "standings"
   | "patch"
   | "scouting"
   | "staff"
