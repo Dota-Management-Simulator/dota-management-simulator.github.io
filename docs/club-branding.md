@@ -10,6 +10,8 @@ Uploaded images are decoded locally, fitted without cropping into a square, and 
 
 Image colors are suggestions, not verified brand specifications. Sampling ignores transparent and near-neutral background pixels and groups similar colors by visible coverage with a saturation weight. Uploads suggest two colors; monochrome images retain the chosen colors. Historical clubs without explicit branding derive an automatic palette from their current bundled era logo when usable colored pixels exist. Missing/neutral artwork keeps the original theme until the manager chooses colors. Custom clubs start with the Aegis green/gold palette.
 
+Historical organization selection now previews those colors before starting a campaign, including the setup cards, era/difficulty choices and campaign artwork. Selecting another club or year follows the actually displayed club and its era logo, including the fallback club when a prior selection is unavailable. Previewing does not modify an existing campaign. The isolated 5196 browser check verifies switching Na`Vi/EHOME in both themes; the five branding tests and production build pass.
+
 **Use team colors** is checked by default. Unchecking restores the original cream or forest-green theme immediately while retaining the logo and palette. The separate Light/Dark choice still works. Colors tint backgrounds, panels, sidebar, primary buttons, navigation, hero cards and accents; body, button and active-navigation text use contrast-adjusted colors. Statistical charts, combat side colors and result semantics retain their own meanings.
 
 ## Save and identity behavior

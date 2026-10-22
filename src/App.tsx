@@ -328,11 +328,13 @@ export default function App() {
       // The toggle still works when browser storage is unavailable.
     }
   }, [theme]);
+  const startingClubs = getStartingTeams(settings.year);
+  const selectedClub = startingClubs.find((t) => t.id === settings.historicalTeamId) ?? startingClubs[0];
   const identitySettings = setup ? settings : campaign?.settings;
-  const identityTeamId = setup ? (settings.clubMode === "custom" ? "managed-custom" : settings.historicalTeamId) : campaign?.world?.managedTeamId;
+  const identityTeamId = setup ? (settings.clubMode === "custom" ? "managed-custom" : selectedClub.id) : campaign?.world?.managedTeamId;
   const clubBranding = useClubAppearance({ branding: identitySettings?.branding, teamId: identityTeamId,
     year: setup ? settings.year : campaign?.year ?? 2011, custom: identitySettings?.clubMode === "custom" || identityTeamId === "managed-custom",
-    theme, enabled: !!identitySettings && (!setup || settings.clubMode === "custom") });
+    theme, enabled: !!identitySettings });
   useEffect(() => {
     if (campaign) {
       try {
@@ -525,8 +527,6 @@ export default function App() {
   const upcoming = campaign ? nextEvent(campaign) : null;
   const activeEventResult =
     campaign && event ? eventResult(campaign, event.id) : null;
-  const startingClubs = getStartingTeams(settings.year);
-  const selectedClub = startingClubs.find((t) => t.id === settings.historicalTeamId) ?? startingClubs[0];
   const setupName = settings.clubMode === "custom" ? settings.team.trim() : selectedClub.name;
   const nameConflict = settings.clubMode === "custom" && !!setupName && !customClubNameAvailable(setupName, selectedClub.id);
   const matchesScout = (p: Player) => campaign && !campaign.roster.includes(p.id) &&

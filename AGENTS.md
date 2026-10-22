@@ -10,6 +10,8 @@ Earlier “local/not deployed” labels below describe pre-publication snapshots
 
 ## Club identity update — October 22, 2026
 
+Organization-selection previews now apply the displayed historical club's colors before campaign creation, including setup cards, difficulty/era choices and preview artwork. The palette uses the actual fallback club when a selected club is unavailable for the year. Browser QA uses isolated **5196**; existing campaigns remain untouched during previews.
+
 **Published:** source `a52ef20`, Pages `ec251a6`; Pages build and public asset/worker SHA-256 checks pass. A hosted-browser check confirmed the new settings on the existing legacy campaign without modifying its identity, dates or finances.
 
 Custom campaign setup and **Organization settings → Team identity** now support local PNG/JPEG/WebP logo uploads and a crest creator (shape, symbol, initials, primary/secondary colors). Optional `Settings.branding` persists the compressed image/crest and **Use team colors** preference in the existing save. Image colors suggest a palette; uncustomized historical clubs can derive colors from their bundled era logo. Both Light/Dark modes work with club colors, and unticking the preference restores the original Aegis theme while retaining the logo. Shared managed-team badge context keeps all team views consistent without replacing opponent badges. Malformed optional fields normalize without discarding a campaign. See [club branding rules](docs/club-branding.md). Five new tests bring the suite to **104 passing tests**; build passes. Isolated **5195** browser QA covers setup, real upload/rejection, editable colors, reload/toggle persistence, historical palettes and mobile light/dark layouts.

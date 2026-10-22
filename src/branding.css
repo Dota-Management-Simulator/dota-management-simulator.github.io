@@ -42,6 +42,14 @@
 :root[data-club-theme] .season-hero :is(h2, h3) { color: #f2f3f6; }
 :root[data-club-theme] .season-hero :is(p, .eyebrow) { color: #d3d8e2; }
 :root[data-club-theme] .season-hero > svg { color: var(--club-accent); }
+:root[data-club-theme] .campaign-art { background: linear-gradient(135deg, var(--club-hero), var(--club-hero-end)); }
+:root[data-club-theme] .campaign-art :is(.hero-aegis, .art-top) { color: var(--club-accent); }
+:root[data-club-theme] .campaign-art .art-caption { color: #edf0f4; }
+:root[data-club-theme] :is(.era-card, .difficulty, .numbered-title > span) { background: var(--surface-soft); color: var(--green); border-color: var(--line); }
+:root[data-club-theme] :is(.era-card.selected, .difficulty.selected) { background: var(--surface-raised); border-color: var(--green); box-shadow: none; }
+:root[data-club-theme] .difficulty:hover { background: var(--surface-raised); border-color: var(--green); }
+:root[data-club-theme] :is(.difficulty > strong, .era-heading > strong, .preview-row strong) { color: var(--ink); }
+:root[data-club-theme] :is(.era-symbol, .year-stepper button, .selected .radio-dot) { color: var(--green); border-color: var(--green); }
 :root[data-club-theme] .nav-link.active { color: var(--club-accent); background: #ffffff12; }
 :root[data-club-theme] .nav-link.active:before, :root[data-club-theme] .active-dot { background: var(--club-accent); }
 :root[data-club-theme] :is(.meter, .style-blocks > span) { background: var(--surface-raised); }
