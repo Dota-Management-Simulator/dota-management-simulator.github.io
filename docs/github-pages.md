@@ -35,6 +35,8 @@ Initial publication was verified with a successful Pages build, HTTP 200 respons
 
 ## October 22, 2026 release
 
+**Organization-selection preview:** source `2ff2259`, Pages deployment `798cabb`. Historical team colors now apply while selecting the organization, including setup cards and artwork, and follow the actually displayed club after year changes. Pages reports **built**; public HTML, CSS, every JavaScript chunk, favicon and both workers match the production build by SHA-256. Five branding tests and the build pass; isolated 5196 browser checks cover switching clubs in light/dark mode, 2026 fallback selection and custom-club isolation.
+
 **Club branding follow-up:** source `a52ef20` and Pages deployment `ec251a6` publish logo uploads, the crest editor and optional team-color themes. The suite has 104 passing tests and the production build passes. Pages reports **built**; HTML, all JavaScript chunks including both workers, CSS and favicon match `dist/` by SHA-256. Local browser QA covers actual image selection/rejection, color updates, save/reload and toggle persistence, historical palette sampling and mobile light/dark settings. The hosted app exposes the new Organization settings controls while preserving the existing legacy campaign's week, balance and identity. See [club branding](club-branding.md).
 
 The user authorized pushing all current work. Source commit `ea8d84c` was pushed to `origin/main`, and `npm run deploy` published deployment commit `dd87c54` to `gh-pages`. GitHub's Pages API reports that deployment as **built**, without an error.
