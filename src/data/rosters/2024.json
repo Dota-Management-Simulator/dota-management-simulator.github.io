@@ -1,0 +1,1586 @@
+{
+  "year": 2024,
+  "reviewedOn": "2026-10-21",
+  "note": "Main-event and regional qualifier references enter together at the annual post-TI shuffle. This is a dated composite, not an exhaustive census or single-date transfer list.",
+  "coverage": "Regional/tier-2 coverage uses documented closed qualifiers; rosters with incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2024-0",
+      "title": "The International 2024 - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2024"
+    },
+    {
+      "id": "rosters-2024-1",
+      "title": "The International 2024: North America Closed Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2024/North_America"
+    },
+    {
+      "id": "rosters-2024-2",
+      "title": "The International 2024: China Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2024/China"
+    },
+    {
+      "id": "rosters-2024-3",
+      "title": "The International 2024: Southeast Asia Closed Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2024/Southeast_Asia"
+    },
+    {
+      "id": "rosters-2024-4",
+      "title": "The International 2024: South America Closed Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2024/South_America"
+    },
+    {
+      "id": "rosters-2024-5",
+      "title": "The International 2024: Western Europe Closed Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2024/Western_Europe"
+    },
+    {
+      "id": "rosters-2024-6",
+      "title": "The International 2024: Eastern Europe Closed Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2024/Eastern_Europe"
+    }
+  ],
+  "teams": [
+    {
+      "id": "1win",
+      "name": "1w Team",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "Munkushi~",
+        "CHIRA_JUNIOR",
+        "Cloud",
+        "swedenstrong",
+        "RESPECT"
+      ],
+      "playerIds": [
+        "real-munkushi~",
+        "real-chira_junior",
+        "real-cloud",
+        "real-swedenstrong",
+        "real-respect"
+      ]
+    },
+    {
+      "id": "aurora-gaming",
+      "name": "Aurora Gaming",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "23",
+        "lorenof",
+        "Jabz",
+        "Q",
+        "Oli"
+      ],
+      "playerIds": [
+        "real-23",
+        "real-lorenof",
+        "real-jabz",
+        "real-q--thailand",
+        "real-oli"
+      ]
+    },
+    {
+      "id": "betboom-team",
+      "name": "BB Team",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "Nightfall",
+        "gpk",
+        "MieRo`",
+        "Save-",
+        "TORONTOTOKYO"
+      ],
+      "playerIds": [
+        "real-nightfall",
+        "real-gpk",
+        "real-miero",
+        "real-save-",
+        "real-torontotokyo"
+      ]
+    },
+    {
+      "id": "beastcoast",
+      "name": "beastcoast",
+      "region": "South America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "payk",
+        "Lumpy",
+        "Vitaly",
+        "Elmisho",
+        "MoOz"
+      ],
+      "playerIds": [
+        "real-payk",
+        "real-lumpy",
+        "real-vitaly",
+        "real-elmisho",
+        "real-mooz"
+      ]
+    },
+    {
+      "id": "cloud9",
+      "name": "Cloud9",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "watson",
+        "No[o]ne-",
+        "DM",
+        "Kataomi`",
+        "Fishman"
+      ],
+      "playerIds": [
+        "real-watson",
+        "real-no%5Bo%5Dne",
+        "real-dm",
+        "real-kataomi",
+        "real-fishman"
+      ]
+    },
+    {
+      "id": "ig",
+      "name": "G2 x iG",
+      "region": "China",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "Monet",
+        "NothingToSay",
+        "JT-",
+        "BoBoKa",
+        "xNova"
+      ],
+      "playerIds": [
+        "real-monet",
+        "real-nothingtosay",
+        "real-jt-",
+        "real-boboka",
+        "real-xnova"
+      ]
+    },
+    {
+      "id": "gaimin-gladiators",
+      "name": "Gaimin Gladiators",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "dyrachyo",
+        "Quinn",
+        "Ace",
+        "tOfu",
+        "Seleri"
+      ],
+      "playerIds": [
+        "real-dyrachyo",
+        "real-quinn",
+        "real-ace",
+        "real-tofu",
+        "real-seleri"
+      ]
+    },
+    {
+      "id": "heroic",
+      "name": "HEROIC",
+      "region": "South America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "K1",
+        "4nalog",
+        "Davai Lama",
+        "Scofield",
+        "KJ"
+      ],
+      "playerIds": [
+        "real-k1",
+        "real-4nalog",
+        "real-davai%20lama",
+        "real-scofield",
+        "real-kj"
+      ]
+    },
+    {
+      "id": "nouns",
+      "name": "Nouns Esports",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "Yuma",
+        "Copy",
+        "Gunnar",
+        "Lelis",
+        "Fly"
+      ],
+      "playerIds": [
+        "real-yuma",
+        "real-copy",
+        "real-gunnar",
+        "real-lelis",
+        "real-fly"
+      ]
+    },
+    {
+      "id": "talon-esports",
+      "name": "Talon Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "Akashi",
+        "Mikoto",
+        "Ws",
+        "Jhocam",
+        "ponyo"
+      ],
+      "playerIds": [
+        "real-akashi",
+        "real-mikoto",
+        "real-ws",
+        "real-jhocam",
+        "real-ponyo"
+      ]
+    },
+    {
+      "id": "team-falcons",
+      "name": "Team Falcons",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "skiter",
+        "Malr1ne",
+        "ATF",
+        "Cr1t-",
+        "Sneyking"
+      ],
+      "playerIds": [
+        "real-skiter",
+        "real-malr1ne",
+        "real-atf",
+        "real-cr1t-",
+        "real-sneyking"
+      ]
+    },
+    {
+      "id": "team-liquid",
+      "name": "Team Liquid",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "miCKe",
+        "Nisha",
+        "33",
+        "Boxi",
+        "Insania"
+      ],
+      "playerIds": [
+        "real-micke",
+        "real-nisha",
+        "real-33",
+        "real-boxi",
+        "real-insania"
+      ]
+    },
+    {
+      "id": "team-spirit",
+      "name": "Team Spirit",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "Yatoro",
+        "Larl",
+        "Collapse",
+        "Mira",
+        "Miposhka"
+      ],
+      "playerIds": [
+        "real-yatoro",
+        "real-larl",
+        "real-collapse",
+        "real-mira",
+        "real-miposhka"
+      ]
+    },
+    {
+      "id": "team-zero",
+      "name": "Team Zero",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "Erika",
+        "7e",
+        "Beyond",
+        "ponlo",
+        "zzq"
+      ],
+      "playerIds": [
+        "real-erika",
+        "real-7e",
+        "real-beyond",
+        "real-ponlo",
+        "real-zzq"
+      ]
+    },
+    {
+      "id": "tundra-esports",
+      "name": "Tundra Esports",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "Pure",
+        "Topson",
+        "RAMZES666",
+        "Saksa",
+        "Whitemon"
+      ],
+      "playerIds": [
+        "real-pure",
+        "real-topson",
+        "real-ramzes666",
+        "real-saksa",
+        "real-whitemon"
+      ]
+    },
+    {
+      "id": "xtreme-gaming",
+      "name": "Xtreme Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2024-0",
+      "date": "2024-09-15",
+      "roster": [
+        "Ame",
+        "Xm",
+        "Xxs",
+        "XinQ",
+        "Dy"
+      ],
+      "playerIds": [
+        "real-ame",
+        "real-xm",
+        "real-xxs",
+        "real-xinq",
+        "real-dy"
+      ]
+    },
+    {
+      "id": "4-amigos",
+      "name": "4 Amigos",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-1",
+      "date": "2024-06-12",
+      "roster": [
+        "Double King",
+        "RCY",
+        "monkeys-forever",
+        "Rozeanne",
+        "albinozebra1"
+      ],
+      "playerIds": [
+        "real-double%20king",
+        "real-rcy",
+        "real-monkeys-forever",
+        "real-rozeanne",
+        "real-albinozebra1"
+      ]
+    },
+    {
+      "id": "apex-genesis",
+      "name": "Apex Genesis",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-1",
+      "date": "2024-06-12",
+      "roster": [
+        "Sammyboy",
+        "W1sh-",
+        "Fayde",
+        "Bignum",
+        "Speeed"
+      ],
+      "playerIds": [
+        "real-sammyboy",
+        "real-w1sh",
+        "real-fayde",
+        "real-bignum",
+        "real-speeed"
+      ]
+    },
+    {
+      "id": "azure-ray",
+      "name": "Azure Ray",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "Lou",
+        "Ori",
+        "Bach",
+        "fy",
+        "天命"
+      ],
+      "playerIds": [
+        "real-lou",
+        "real-ori",
+        "real-faith_bian",
+        "real-fy",
+        "real-%E5%A4%A9%E5%91%BD"
+      ]
+    },
+    {
+      "id": "blacklist-international",
+      "name": "Blacklist International",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "Natsumi-",
+        "Abed",
+        "Gabbi",
+        "TIMS",
+        "Jaunuel"
+      ],
+      "playerIds": [
+        "real-natsumi-",
+        "real-abed",
+        "real-gabbi",
+        "real-tims",
+        "real-jaunuel"
+      ]
+    },
+    {
+      "id": "bleed-esports",
+      "name": "Bleed Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "JaCkky",
+        "Emo",
+        "zeal",
+        "poloson",
+        "Se"
+      ],
+      "playerIds": [
+        "real-jackky",
+        "real-emo",
+        "real-zeal",
+        "real-poloson",
+        "real-se"
+      ]
+    },
+    {
+      "id": "boom-esports",
+      "name": "BOOM Esports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-4",
+      "date": "2024",
+      "roster": [
+        "Pakazs",
+        "DarkMago",
+        "Sacred",
+        "Matthew",
+        "Yadomi"
+      ],
+      "playerIds": [
+        "real-pakazs",
+        "real-darkmago",
+        "real-sacred",
+        "real-matthew",
+        "real-yadomi"
+      ]
+    },
+    {
+      "id": "dandelions",
+      "name": "Dandelions",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "Nande",
+        "Mo13ei",
+        "Palantimos",
+        "dEsire",
+        "Kidaro"
+      ],
+      "playerIds": [
+        "real-nande",
+        "real-mo13ei",
+        "real-palantimos",
+        "real-desire",
+        "real-kidaro"
+      ]
+    },
+    {
+      "id": "dark-horse",
+      "name": "Dark Horse",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "L'enfer, c'est les autres",
+        "Han",
+        "Ayunid",
+        "sheep",
+        "xiN"
+      ],
+      "playerIds": [
+        "real-l'enfer%2C%20c'est%20les%20autres",
+        "real-han",
+        "real-ayunid",
+        "real-sheep",
+        "real-xin"
+      ]
+    },
+    {
+      "id": "entity",
+      "name": "Entity",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "watson",
+        "No[o]ne-",
+        "DM",
+        "Kataomi`",
+        "Fishman"
+      ],
+      "playerIds": [
+        "real-watson",
+        "real-no%5Bo%5Dne",
+        "real-dm",
+        "real-kataomi",
+        "real-fishman"
+      ]
+    },
+    {
+      "id": "execration",
+      "name": "Execration",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "Abat",
+        "lewis",
+        "Tino",
+        "Shanks",
+        "cml"
+      ],
+      "playerIds": [
+        "real-abat",
+        "real-lewis",
+        "real-tino",
+        "real-shanks",
+        "real-cml"
+      ]
+    },
+    {
+      "id": "fantasy-gaming",
+      "name": "Fantasy Gaming",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-4",
+      "date": "2024",
+      "roster": [
+        "DCMC",
+        "Robo-Z",
+        "drakesh1t",
+        "Zxca",
+        "JimmyCoff666"
+      ],
+      "playerIds": [
+        "real-dcmc",
+        "real-robo-z",
+        "real-drakesh1t",
+        "real-zxca",
+        "real-jimmycoff666"
+      ]
+    },
+    {
+      "id": "fusion",
+      "name": "FUSION",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-4",
+      "date": "2024",
+      "roster": [
+        "Wits",
+        "Alone",
+        "Ryu",
+        "Michael~",
+        "Prada"
+      ],
+      "playerIds": [
+        "real-wits",
+        "real-alone",
+        "real-ryu",
+        "real-michael",
+        "real-prada"
+      ]
+    },
+    {
+      "id": "grin-esports",
+      "name": "GRIN Esports",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-1",
+      "date": "2024-06-12",
+      "roster": [
+        "millky",
+        "Kitzz",
+        "Moo",
+        "Sneaky",
+        "pingus"
+      ],
+      "playerIds": [
+        "real-millky",
+        "real-kitzz",
+        "real-moo",
+        "real-sneaky",
+        "real-pingus"
+      ]
+    },
+    {
+      "id": "ihc-esports",
+      "name": "IHC Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "FortuneSoul",
+        "Ikigai",
+        "11",
+        "Ace12",
+        "khishka"
+      ],
+      "playerIds": [
+        "real-fortunesoul",
+        "real-ikigai",
+        "real-11",
+        "real-ace12",
+        "real-khishka"
+      ]
+    },
+    {
+      "id": "infinity",
+      "name": "Infinity",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-4",
+      "date": "2024",
+      "roster": [
+        "Lumière",
+        "PiPi",
+        "Arkano",
+        "Genek",
+        "Gardick"
+      ],
+      "playerIds": [
+        "real-lumi%C3%A8re",
+        "real-pipi",
+        "real-arkano",
+        "real-genek",
+        "real-gardick"
+      ]
+    },
+    {
+      "id": "justbetter",
+      "name": "JustBetter",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "Focus",
+        "ThuG",
+        "SkyLark",
+        "Astral",
+        "SsaSpartan"
+      ],
+      "playerIds": [
+        "real-focus",
+        "real-thug",
+        "real-skylark",
+        "real-astral",
+        "real-ssaspartan"
+      ]
+    },
+    {
+      "id": "kev",
+      "name": "KEV",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "Ulu",
+        "ButterflyEffect",
+        "生死",
+        "Redpanda",
+        "Undyne_"
+      ],
+      "playerIds": [
+        "real-ulu",
+        "real-butterflyeffect",
+        "real-%E7%94%9F%E6%AD%BB",
+        "real-redpanda",
+        "real-undyne"
+      ]
+    },
+    {
+      "id": "l1ga-team",
+      "name": "L1GA TEAM",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-6",
+      "date": "2024-06-18",
+      "roster": [
+        "v1olent`",
+        "reibl",
+        "bb3px",
+        "OneJey",
+        "pantomem"
+      ],
+      "playerIds": [
+        "real-v1olent%60",
+        "real-reibl",
+        "real-bb3px",
+        "real-onejey",
+        "real-pantomem"
+      ]
+    },
+    {
+      "id": "la-correntada",
+      "name": "La Correntada",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-1",
+      "date": "2024-06-12",
+      "roster": [
+        "Rises",
+        "Benjimon",
+        "Monster",
+        "Theyna",
+        "Tony"
+      ],
+      "playerIds": [
+        "real-rises",
+        "real-benjimon",
+        "real-monster",
+        "real-theyna",
+        "real-tony"
+      ]
+    },
+    {
+      "id": "lava-esports",
+      "name": "Lava Esports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-4",
+      "date": "2024",
+      "roster": [
+        "DaaD-",
+        "kxy",
+        "Adrian",
+        "pamplona",
+        "555"
+      ],
+      "playerIds": [
+        "real-daad-",
+        "real-kxy",
+        "real-adrian",
+        "real-pamplona",
+        "real-555"
+      ]
+    },
+    {
+      "id": "leviata-n",
+      "name": "Leviatán",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-4",
+      "date": "2024",
+      "roster": [
+        "Kotaro",
+        "Stojkov",
+        "kpii",
+        "Xepher",
+        "Stinger"
+      ],
+      "playerIds": [
+        "real-kotaro",
+        "real-stojkov",
+        "real-kpii",
+        "real-xepher",
+        "real-stinger"
+      ]
+    },
+    {
+      "id": "lgd",
+      "name": "LGD Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "shiro",
+        "Echo",
+        "niu",
+        "Pyw",
+        "y`"
+      ],
+      "playerIds": [
+        "real-shiro",
+        "real-echo",
+        "real-niu",
+        "real-pyw",
+        "real-y%60"
+      ]
+    },
+    {
+      "id": "mamuteros",
+      "name": "MAMUTEROS",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-4",
+      "date": "2024",
+      "roster": [
+        "Celulas",
+        "osito",
+        "Benjaz",
+        "D1smar",
+        "Panda"
+      ],
+      "playerIds": [
+        "real-celulas",
+        "real-osito",
+        "real-benjaz",
+        "real-d1smar",
+        "real-panda"
+      ]
+    },
+    {
+      "id": "manta-esports",
+      "name": "Manta Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "gohan",
+        "Qui",
+        "Kimizu",
+        "Erice",
+        "Grimz"
+      ],
+      "playerIds": [
+        "real-gohan",
+        "real-qui",
+        "real-kimizu",
+        "real-erice",
+        "real-grimz"
+      ]
+    },
+    {
+      "id": "midas-club",
+      "name": "Midas Club",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-4",
+      "date": "2024",
+      "roster": [
+        "Costabile",
+        "4dr",
+        "fcr",
+        "hyko",
+        "Kingrd"
+      ],
+      "playerIds": [
+        "real-costabile",
+        "real-4dr",
+        "real-fcr",
+        "real-hyko",
+        "real-kingrd"
+      ]
+    },
+    {
+      "id": "mouz",
+      "name": "MOUZ",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "Ulnit",
+        "Supream^",
+        "Force",
+        "NARMAN",
+        "Bengan"
+      ],
+      "playerIds": [
+        "real-ulnit",
+        "real-supream%5E",
+        "real-force",
+        "real-narman",
+        "real-bengan"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2024-6",
+      "date": "2024-06-18",
+      "roster": [
+        "Yuragi",
+        "sanctity-",
+        "nefrit",
+        "Zayac",
+        "Malady"
+      ],
+      "playerIds": [
+        "real-yuragi",
+        "real-sanctity-",
+        "real-nefrit",
+        "real-zayac",
+        "real-malady"
+      ]
+    },
+    {
+      "id": "navi-junior",
+      "name": "NAVI Junior",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "gotthejuice",
+        "Niku",
+        "pma",
+        "daze",
+        "Riddys"
+      ],
+      "playerIds": [
+        "real-gotthejuice",
+        "real-niku",
+        "real-pma",
+        "real-daze",
+        "real-riddys"
+      ]
+    },
+    {
+      "id": "neon-esports",
+      "name": "Neon Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "Cije",
+        "Ken",
+        "JG",
+        "bombi",
+        "Castaway"
+      ],
+      "playerIds": [
+        "real-cije",
+        "real-ken",
+        "real-jg",
+        "real-bombi",
+        "real-castaway"
+      ]
+    },
+    {
+      "id": "nigma-galaxy",
+      "name": "Nigma Galaxy",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "Miracle-",
+        "SumaiL",
+        "Fbz",
+        "GH",
+        "KuroKy"
+      ],
+      "playerIds": [
+        "real-miracle-",
+        "real-sumail",
+        "real-fbz",
+        "real-gh",
+        "real-kuroky"
+      ]
+    },
+    {
+      "id": "noping-esports",
+      "name": "NoPing Esports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-4",
+      "date": "2024",
+      "roster": [
+        "hFn",
+        "SebaS",
+        "Oscar",
+        "Demon",
+        "Mjz"
+      ],
+      "playerIds": [
+        "real-hfn",
+        "real-sebas",
+        "real-oscar",
+        "real-demon--peru",
+        "real-mjz"
+      ]
+    },
+    {
+      "id": "og",
+      "name": "OG",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "Timado",
+        "bzm",
+        "Wisper",
+        "Ari",
+        "Ceb"
+      ],
+      "playerIds": [
+        "real-timado",
+        "real-bzm",
+        "real-wisper",
+        "real-ari",
+        "real-7ckngmad"
+      ]
+    },
+    {
+      "id": "old-warrior",
+      "name": "Old Warrior",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "flyfly",
+        "Setsu",
+        "old eLeVeN",
+        "Kaka",
+        "qyqx"
+      ],
+      "playerIds": [
+        "real-flyfly",
+        "real-setsu",
+        "real-old%20eleven",
+        "real-kaka",
+        "real-qyqx"
+      ]
+    },
+    {
+      "id": "psg-quest",
+      "name": "PSG Quest",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "TA2000",
+        "No!ob",
+        "Malik",
+        "OmaR",
+        "Dukalis"
+      ],
+      "playerIds": [
+        "real-ta2000",
+        "real-no!ob",
+        "real-malik",
+        "real-omar",
+        "real-dukalis"
+      ]
+    },
+    {
+      "id": "salvation-gaming",
+      "name": "Salvation Gaming",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "YoungGod",
+        "Wonder'boy",
+        "Rupido",
+        "Dric~",
+        "LOyd"
+      ],
+      "playerIds": [
+        "real-younggod",
+        "real-wonder'boy",
+        "real-rupido",
+        "real-dric~",
+        "real-loyd"
+      ]
+    },
+    {
+      "id": "shopify-rebellion",
+      "name": "Shopify Rebellion",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-1",
+      "date": "2024-06-12",
+      "roster": [
+        "Arteezy",
+        "Yopaj-",
+        "MinD_ContRoL",
+        "Kitrak",
+        "skem"
+      ],
+      "playerIds": [
+        "real-arteezy",
+        "real-yopaj",
+        "real-mind_control",
+        "real-kitrak",
+        "real-skem"
+      ]
+    },
+    {
+      "id": "spiky-gaming",
+      "name": "Spiky Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "mmmm",
+        "Xwy",
+        "xiaoyu",
+        "Hara",
+        "Outside"
+      ],
+      "playerIds": [
+        "real-mmmm",
+        "real-xwy",
+        "real-xiaoyu",
+        "real-hara",
+        "real-outside"
+      ]
+    },
+    {
+      "id": "team-bald",
+      "name": "Team Bald",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "Gorgc",
+        "Mikey",
+        "SabeRLight-",
+        "Saksa",
+        "Nagato"
+      ],
+      "playerIds": [
+        "real-gorgc",
+        "real-mikey",
+        "real-saberlight-",
+        "real-saksa",
+        "real-nagato"
+      ]
+    },
+    {
+      "id": "team-bright",
+      "name": "Team Bright",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "ukiyo",
+        "Small.Kk",
+        "项羽",
+        "TK",
+        "imitator"
+      ],
+      "playerIds": [
+        "real-ukiyo",
+        "real-small.kk",
+        "real-%E9%A1%B9%E7%BE%BD",
+        "real-tk",
+        "real-imitator"
+      ]
+    },
+    {
+      "id": "team-prism",
+      "name": "Team Prism",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "423",
+        "Bob",
+        "seimei",
+        "Tsukimoto",
+        "Carlo"
+      ],
+      "playerIds": [
+        "real-423",
+        "real-bob",
+        "real-seimei",
+        "real-tsukimoto",
+        "real-carlo"
+      ]
+    },
+    {
+      "id": "team-secret",
+      "name": "Team Secret",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "Crystallis",
+        "Kordan",
+        "BOOM",
+        "Shishak",
+        "Puppey"
+      ],
+      "playerIds": [
+        "real-crystallis",
+        "real-kordan",
+        "real-boom",
+        "real-shishak",
+        "real-puppey"
+      ]
+    },
+    {
+      "id": "team-turtle",
+      "name": "TEAM TURTLE",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "Chalice",
+        "Somnus",
+        "Yang",
+        "planet",
+        "皮球"
+      ],
+      "playerIds": [
+        "real-chalice",
+        "real-somnus",
+        "real-yang",
+        "real-planet",
+        "real-%E7%9A%AE%E7%90%83"
+      ]
+    },
+    {
+      "id": "the-chapulines",
+      "name": "The Chapulines",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-1",
+      "date": "2024-06-12",
+      "roster": [
+        "Ifrit",
+        "Zerag-",
+        "Satoshi-",
+        "Xcaret",
+        "Hiruko"
+      ],
+      "playerIds": [
+        "real-ifrit",
+        "real-zerag-",
+        "real-satoshi-",
+        "real-xcaret",
+        "real-hiruko"
+      ]
+    },
+    {
+      "id": "the-hut",
+      "name": "The Hut",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-1",
+      "date": "2024-06-12",
+      "roster": [
+        "lanxiaohai",
+        "oldWhite",
+        "ClouD",
+        "bgod",
+        "door"
+      ],
+      "playerIds": [
+        "real-lanxiaohai",
+        "real-oldwhite",
+        "real-cloud--united-states",
+        "real-bgod",
+        "real-door"
+      ]
+    },
+    {
+      "id": "tnc",
+      "name": "TNC Predator",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "Palos",
+        "Yowe",
+        "Kokz",
+        "Jing",
+        "Kuku"
+      ],
+      "playerIds": [
+        "real-palos",
+        "real-yowe",
+        "real-kokz",
+        "real-jing",
+        "real-kuku"
+      ]
+    },
+    {
+      "id": "tolight-team",
+      "name": "ToLight Team",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "圣子华炼",
+        "V",
+        "七海 灯子",
+        "LordSoul",
+        "Azreal"
+      ],
+      "playerIds": [
+        "real-%E5%9C%A3%E5%AD%90%E5%8D%8E%E7%82%BC",
+        "real-v",
+        "real-%E4%B8%83%E6%B5%B7%20%E7%81%AF%E5%AD%90",
+        "real-lordsoul",
+        "real-azreal"
+      ]
+    },
+    {
+      "id": "twisted-minds",
+      "name": "Twisted Minds",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-5",
+      "date": "2024-06-23",
+      "roster": [
+        "Shad",
+        "Adzantick",
+        "StoneBank",
+        "Pablo",
+        "Handsken"
+      ],
+      "playerIds": [
+        "real-shad",
+        "real-adzantick",
+        "real-stonebank",
+        "real-pablo",
+        "real-handsken"
+      ]
+    },
+    {
+      "id": "underdog",
+      "name": "Underdog",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-2",
+      "date": "2024-06-13",
+      "roster": [
+        "Qi777",
+        "好好",
+        "诺",
+        "惊魂chen",
+        "Pandaの灵"
+      ],
+      "playerIds": [
+        "real-qi777",
+        "real-%E5%A5%BD%E5%A5%BD",
+        "real-%E8%AF%BA",
+        "real-%E6%83%8A%E9%AD%82chen",
+        "real-panda%E3%81%AE%E7%81%B5"
+      ]
+    },
+    {
+      "id": "virtus-pro",
+      "name": "Virtus.pro",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-6",
+      "date": "2024-06-18",
+      "roster": [
+        "Kiritych",
+        "squad1x",
+        "Noticed",
+        "Antares",
+        "fng"
+      ],
+      "playerIds": [
+        "real-kiritych",
+        "real-squad1x",
+        "real-noticed",
+        "real-antares",
+        "real-fng"
+      ]
+    },
+    {
+      "id": "yangon-galacticos",
+      "name": "Yangon Galacticos",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-3",
+      "date": "2024-06-23",
+      "roster": [
+        "Ksh",
+        "Young PH",
+        "Haw",
+        "Skill lay",
+        "ZawRain"
+      ],
+      "playerIds": [
+        "real-ksh",
+        "real-young%20ph",
+        "real-haw",
+        "real-skill%20lay",
+        "real-zawrain"
+      ]
+    },
+    {
+      "id": "yellow-submarine",
+      "name": "Yellow Submarine",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2024-6",
+      "date": "2024-06-18",
+      "roster": [
+        "Satanic",
+        "erase",
+        "kasane",
+        "rue",
+        "asdekor_r"
+      ],
+      "playerIds": [
+        "real-satanic",
+        "real-erase",
+        "real-kasane",
+        "real-rue",
+        "real-asdekor_r"
+      ]
+    }
+  ]
+}

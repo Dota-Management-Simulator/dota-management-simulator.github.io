@@ -61,8 +61,8 @@ test("weekly payroll, sponsor income, focused practice, rest and staff resolve t
   c = signSponsor(c, "s1");
   c = hireStaff(c, "c1");
   c = hireStaff(c, "c3");
-  c.training.p1 = "Laning";
-  c.training.p2 = "Rest";
+  c.training[c.roster[0]] = "Laning";
+  c.training[c.roster[1]] = "Rest";
   c.players[1].energy = 60;
   const cash = c.cash;
   const wages = weeklyWages(c);
@@ -86,14 +86,18 @@ test("sponsor reputation gates and repeated signings cannot award money twice", 
 
 test("recruitment replaces only the same position and charges once", () => {
   const c = createCampaign(DEFAULT_SETTINGS);
-  const signed = signPlayer(c, "f1");
+  const recruit = c.players.find((p) => p.name === "God")!;
+  const signed = signPlayer(c, recruit.id);
   assert.equal(signed.roster.length, 5);
-  assert.equal(signed.roster[1], "f1");
-  assert.equal(signed.roster[0], "p1");
-  assert.ok(!signed.roster.includes("p2"));
-  assert.equal(signed.cash, c.cash - 8000);
-  assert.equal(signPlayer(signed, "f1"), signed);
-  assert.equal(signPlayer({ ...c, cash: 0 }, "f1").roster[1], "p2");
+  assert.equal(signed.roster[1], recruit.id);
+  assert.equal(signed.roster[0], c.roster[0]);
+  assert.ok(!signed.roster.includes(c.roster[1]));
+  assert.equal(signed.cash, c.cash - recruit.fee);
+  assert.equal(signPlayer(signed, recruit.id), signed);
+  const poor = { ...c, cash: 0 };
+  assert.equal(signPlayer(poor, recruit.id), poor);
+  assert.deepEqual(c.world?.clubs.find((t) => t.id === "m5")?.roster[1], recruit.id);
+  assert.equal(signed.world?.clubs.find((t) => t.id === "m5")?.roster[1], c.roster[1]);
 });
 
 test("TI is locked until qualification, and losing all circuit events does not qualify", () => {
@@ -136,6 +140,7 @@ test("bankruptcy reduces happiness; a new season resets qualification but keeps 
   assert.equal(low.players[0].happiness, c.players[0].happiness - 10);
   c = createCampaign(DEFAULT_SETTINGS);
   c = settleEvent(c, events[3], fixture(c, 0));
+  c.players[0].age = 20;
   const records = c.results.length;
   const age = c.players[0].age;
   while (c.year === 2011) c = advanceWeek(c);
@@ -144,5 +149,5 @@ test("bankruptcy reduces happiness; a new season resets qualification but keeps 
   assert.equal(c.points, 0);
   assert.equal(c.qualified, false);
   assert.ok(c.results.length >= records);
-  assert.equal(c.players[0].age, age + 1);
+  assert.equal(c.players[0].age, age! + 1);
 });

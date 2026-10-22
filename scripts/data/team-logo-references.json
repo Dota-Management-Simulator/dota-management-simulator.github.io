@@ -1,0 +1,6473 @@
+{
+  "pages": [
+    "The_International/2011",
+    "G-League/2011/1",
+    "DreamHack/2011/Winter",
+    "Dota2_Star_Championship",
+    "World_DotA_Championship/2011",
+    "Electronic_Sports_World_Cup/2011",
+    "The_International/2012",
+    "The_International/2012/East_Qualifiers",
+    "The_International/2012/West_Qualifiers",
+    "The_International/2013",
+    "The_International/2013/West_Qualifiers",
+    "The_International/2013/East_Qualifiers",
+    "The_International/2014",
+    "The_International/2014/Europe",
+    "The_International/2014/China",
+    "The_International/2014/Americas_Qualifiers",
+    "The_International/2014/Southeast_Asia",
+    "The_International/2015",
+    "The_International/2015/Southeast_Asia",
+    "The_International/2015/China",
+    "The_International/2015/Americas",
+    "The_International/2016",
+    "The_International/2016/Europe",
+    "The_International/2016/China",
+    "The_International/2016/Americas",
+    "The_International/2016/Southeast_Asia",
+    "The_International/2017",
+    "The_International/2017/Europe",
+    "The_International/2017/South_America",
+    "The_International/2017/Europe/Champions_Qualifier",
+    "The_International/2017/China",
+    "The_International/2017/Southeast_Asia",
+    "The_International/2017/CIS",
+    "The_International/2017/North_America",
+    "The_International/2017/North_America/Champions_Qualifier",
+    "The_International/2018",
+    "The_International/2018/CIS",
+    "The_International/2018/Europe",
+    "The_International/2018/Southeast_Asia",
+    "The_International/2018/China",
+    "The_International/2018/North_America",
+    "The_International/2018/South_America",
+    "The_International/2019",
+    "The_International/2019/Southeast_Asia",
+    "The_International/2019/Europe",
+    "The_International/2019/North_America",
+    "The_International/2019/China",
+    "The_International/2019/South_America",
+    "The_International/2019/CIS",
+    "BTS/Pro_Series/4/Americas",
+    "ESL_One/Los_Angeles/2020/Online/Europe_CIS",
+    "BTS/Pro_Series/1/Americas",
+    "BTS/Pro_Series/1/Southeast_Asia",
+    "ESL_One/Birmingham/2020/Online/China",
+    "ESL_One/Los_Angeles/2020/Online/China",
+    "BTS/Pro_Series/2/Southeast_Asia",
+    "BTS/Pro_Series/4/Southeast_Asia",
+    "ESL_One/Los_Angeles/2020/Online/South_America",
+    "The_International/2021",
+    "The_International/2021/North_America",
+    "The_International/2021/Southeast_Asia",
+    "The_International/2021/Eastern_Europe",
+    "The_International/2021/China",
+    "The_International/2021/South_America",
+    "The_International/2021/Western_Europe",
+    "The_International/2022",
+    "The_International/2022/North_America",
+    "The_International/2022/Western_Europe",
+    "The_International/2022/Southeast_Asia",
+    "The_International/2022/China",
+    "The_International/2022/Eastern_Europe",
+    "The_International/2022/South_America",
+    "The_International/2023",
+    "The_International/2023/South_America",
+    "The_International/2023/Western_Europe",
+    "The_International/2023/North_America",
+    "The_International/2023/Southeast_Asia",
+    "The_International/2023/China",
+    "The_International/2023/Eastern_Europe",
+    "The_International/2024",
+    "The_International/2024/North_America",
+    "The_International/2024/China",
+    "The_International/2024/Southeast_Asia",
+    "The_International/2024/South_America",
+    "The_International/2024/Western_Europe",
+    "The_International/2024/Eastern_Europe",
+    "The_International/2025",
+    "The_International/2025/Western_Europe",
+    "The_International/2025/China",
+    "The_International/2025/North_America",
+    "The_International/2025/Southeast_Asia",
+    "The_International/2025/Eastern_Europe",
+    "The_International/2025/South_America",
+    "The_International/2026",
+    "The_International/2026/North_America",
+    "The_International/2026/South_America",
+    "The_International/2026/Southeast_Asia",
+    "The_International/2026/China",
+    "The_International/2026/Europe"
+  ],
+  "logoPages": {
+    "The_International/2011": [
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "Meet Your Makers",
+        "9/99/Meet_Your_Makers_allmode.png"
+      ],
+      [
+        "Moscow Five",
+        "d/d9/Moscow_Five_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "OK.Nirvana.int",
+        "5/52/Online_Kingdom_allmode.png"
+      ],
+      [
+        "Made in Thailand",
+        "b/b6/Made_in_Thailand_allmode.png"
+      ],
+      [
+        "Virus Gaming",
+        "e/e0/Virusgaminglogo.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ],
+      [
+        "Mineski",
+        "2/27/Mineski_allmode.png"
+      ],
+      [
+        "MUFC",
+        "2/26/Mufc.png"
+      ],
+      [
+        "Storm Games Clan",
+        "0/0c/Sgclogo_std.png"
+      ],
+      [
+        "GosuGamers",
+        "0/0d/GosuGamers_Old_allmode.png"
+      ],
+      [
+        "OK.Nirvana.cn",
+        "9/91/Nirvana_logo_allmode.png"
+      ],
+      [
+        "Next Evolution",
+        "c/c9/Nevologo_std.png"
+      ],
+      [
+        "NORDIC-eSport",
+        "c/cd/NORDIC-eSport_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "G-League/2011/1": [
+      [
+        "LGD",
+        "1/10/LGD_Dota_Allstars_allmode.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ]
+    ],
+    "DreamHack/2011/Winter": [
+      [
+        "Fnatic",
+        "8/83/Fnatic_allmode.png"
+      ],
+      [
+        "Team Shakira",
+        "c/c0/Shakiralogo_std.png"
+      ],
+      [
+        "BX3 eSports Club",
+        "7/7a/BX3_eSports_Club_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "Dota2_Star_Championship": [
+      [
+        "The Retry",
+        "5/5c/Theretrylogo_std.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "Moscow Five",
+        "d/d9/Moscow_Five_allmode.png"
+      ],
+      [
+        "Mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "ESahara",
+        "b/b2/ESahara_allmode.png"
+      ],
+      [
+        "Team Shakira",
+        "c/c0/Shakiralogo_std.png"
+      ],
+      [
+        "Power Rangers",
+        "a/a1/Power_Rangers_lightmode.png"
+      ],
+      [
+        "eSahara",
+        "b/b2/ESahara_allmode.png"
+      ],
+      [
+        "MOUZ",
+        "c/c2/MOUZ_2021_allmode.png"
+      ]
+    ],
+    "World_DotA_Championship/2011": [
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "PanDarea",
+        "c/c1/PanDarea_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "OK.Nirvana.cn",
+        "9/91/Nirvana_logo_allmode.png"
+      ],
+      [
+        "World Elite",
+        "e/ef/Team_WE_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "Made in Thailand",
+        "b/b6/Made_in_Thailand_allmode.png"
+      ],
+      [
+        "IDeal eSports",
+        "f/f3/IDeal_eSports_allmode.png"
+      ],
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ],
+      [
+        "LGD",
+        "1/10/LGD_Dota_Allstars_allmode.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ],
+      [
+        "Moscow Five",
+        "d/d9/Moscow_Five_allmode.png"
+      ],
+      [
+        "iDeal eSports",
+        "f/f3/IDeal_eSports_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "2/2f/LGD_Gaming_Dec_2019_allmode.png"
+      ]
+    ],
+    "Electronic_Sports_World_Cup/2011": [
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "GamersLeague",
+        "8/8c/Team_Gamersleague_allmode.png"
+      ],
+      [
+        "Moscow Five",
+        "d/d9/Moscow_Five_allmode.png"
+      ],
+      [
+        "NEXT.kz",
+        "b/b3/Next_logo.png"
+      ],
+      [
+        "Virus Gaming",
+        "e/e0/Virusgaminglogo.png"
+      ],
+      [
+        "BX3 eSports Club",
+        "7/7a/BX3_eSports_Club_allmode.png"
+      ],
+      [
+        "Storm Games Clan",
+        "0/0c/Sgclogo_std.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ]
+    ],
+    "The_International/2012": [
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "9/98/LGD_Gaming_allmode.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Team Zenith",
+        "9/90/Team_Zenith_Dota2_allmode.png"
+      ],
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ],
+      [
+        "Counter Logic Gaming",
+        "e/e1/Counter_Logic_Gaming_allmode.png"
+      ],
+      [
+        "CompLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "Darer",
+        "1/13/Darer_allmode.png"
+      ],
+      [
+        "Mortal Teamwork",
+        "2/24/MTw_allmode.png"
+      ],
+      [
+        "Mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Moscow Five",
+        "d/d9/Moscow_Five_allmode.png"
+      ],
+      [
+        "Absolute Legends",
+        "0/01/Absolute_Legends_allmode.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ],
+      [
+        "Meet Your Makers",
+        "9/99/Meet_Your_Makers_allmode.png"
+      ],
+      [
+        "OK.Nirvana.int",
+        "5/52/Online_Kingdom_allmode.png"
+      ],
+      [
+        "OK.Nirvana.cn",
+        "9/91/Nirvana_logo_allmode.png"
+      ],
+      [
+        "GosuGamers",
+        "0/0d/GosuGamers_Old_allmode.png"
+      ],
+      [
+        "Virus Gaming",
+        "e/e0/Virusgaminglogo.png"
+      ],
+      [
+        "Next Evolution",
+        "c/c9/Nevologo_std.png"
+      ]
+    ],
+    "The_International/2012/East_Qualifiers": [
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ],
+      [
+        "World Elite",
+        "e/ef/Team_WE_allmode.png"
+      ],
+      [
+        "AEONSports",
+        "0/0b/Aeonlogo_std.png"
+      ],
+      [
+        "Duskbin",
+        "a/a6/Duskbin_allmode.png"
+      ],
+      [
+        "Made in Thailand",
+        "b/b6/Made_in_Thailand_allmode.png"
+      ],
+      [
+        "Mineski",
+        "2/27/Mineski_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2012/West_Qualifiers": [
+      [
+        "Mortal Teamwork",
+        "2/24/MTw_allmode.png"
+      ],
+      [
+        "NEXT.kz",
+        "b/b3/Next_logo.png"
+      ],
+      [
+        "Mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "ZNation",
+        "d/d5/ZNation_allmode.png"
+      ],
+      [
+        "Quantic Gaming",
+        "7/7f/Quantic_Gaming_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "5/52/Virtus_Pro_Logo_2012.png"
+      ],
+      [
+        "Team Infused",
+        "6/6e/Team_Infused_allmode.png"
+      ],
+      [
+        "Keita Gaming",
+        "9/97/Keita_Gaming.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2013": [
+      [
+        "Alliance",
+        "8/85/Alliance_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ],
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "Team Liquid",
+        "f/fc/Team_Liquid_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "8/83/Fnatic_allmode.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "LGD International",
+        "3/3b/LGD_International_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "9/98/LGD_Gaming_allmode.png"
+      ],
+      [
+        "Team Zenith",
+        "9/90/Team_Zenith_Dota2_allmode.png"
+      ],
+      [
+        "RattleSnake",
+        "7/72/Rattlesnake_logo.png"
+      ],
+      [
+        "Mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "MUFC",
+        "2/26/Mufc.png"
+      ],
+      [
+        "Virtus.pro",
+        "1/1d/Virtus.pro_allmode.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "MOUZ",
+        "c/c2/MOUZ_2021_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "Moscow Five",
+        "d/d9/Moscow_Five_allmode.png"
+      ],
+      [
+        "Meet Your Makers",
+        "9/99/Meet_Your_Makers_allmode.png"
+      ],
+      [
+        "Counter Logic Gaming",
+        "e/e1/Counter_Logic_Gaming_allmode.png"
+      ],
+      [
+        "Darer",
+        "1/13/Darer_allmode.png"
+      ],
+      [
+        "OK.Nirvana.int",
+        "5/52/Online_Kingdom_allmode.png"
+      ],
+      [
+        "OK.Nirvana.cn",
+        "9/91/Nirvana_logo_allmode.png"
+      ],
+      [
+        "GosuGamers",
+        "0/0d/GosuGamers_Old_allmode.png"
+      ],
+      [
+        "Next Evolution",
+        "c/c9/Nevologo_std.png"
+      ],
+      [
+        "Mortal Teamwork",
+        "2/24/MTw_allmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ]
+    ],
+    "The_International/2013/West_Qualifiers": [
+      [
+        "Mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "DD.Dota",
+        "4/48/Dddota.png"
+      ],
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "Absolute Legends",
+        "0/01/Absolute_Legends_allmode.png"
+      ],
+      [
+        "QPAD Red Pandas",
+        "8/83/QPAD_Red_Pandas_lightmode.png"
+      ],
+      [
+        "Team Empire",
+        "d/d5/Team_Empire_allmode.png"
+      ],
+      [
+        "ICCup",
+        "4/4e/Iccup_logo.png"
+      ],
+      [
+        "RoX.KIS",
+        "6/64/Roxkis_logo_transparent.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "iCCup",
+        "4/4e/Iccup_logo.png"
+      ]
+    ],
+    "The_International/2013/East_Qualifiers": [
+      [
+        "LGD Gaming",
+        "9/98/LGD_Gaming_allmode.png"
+      ],
+      [
+        "RattleSnake",
+        "7/72/Rattlesnake_logo.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "RisingStars",
+        "8/81/Risingstarslogo_std.png"
+      ],
+      [
+        "First Departure",
+        "0/0c/FirstDeparture_Logo.png"
+      ],
+      [
+        "Made in Thailand",
+        "b/b6/Made_in_Thailand_allmode.png"
+      ],
+      [
+        "Ledion Dreamz",
+        "7/7d/Dreamzlogo_std.png"
+      ],
+      [
+        "Mineski",
+        "2/27/Mineski_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2014": [
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "9/98/LGD_Gaming_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "Titan",
+        "f/f4/Titan_lightmode.png"
+      ],
+      [
+        "Team Liquid",
+        "f/fc/Team_Liquid_allmode.png"
+      ],
+      [
+        "Mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Alliance",
+        "8/85/Alliance_allmode.png"
+      ],
+      [
+        "Team Empire",
+        "d/d5/Team_Empire_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "8/83/Fnatic_allmode.png"
+      ],
+      [
+        "Arrow Gaming",
+        "8/87/Arrow_Gaming_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "1/1d/Virtus.pro_allmode.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "CIS Game",
+        "7/71/CIS_Game_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Na`Vi North America",
+        "e/ec/NaviUS_logo.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "MOUZ",
+        "c/c2/MOUZ_2021_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "Team Zenith",
+        "9/90/Team_Zenith_Dota2_allmode.png"
+      ],
+      [
+        "RattleSnake",
+        "7/72/Rattlesnake_logo.png"
+      ],
+      [
+        "OK.Nirvana.cn",
+        "9/91/Nirvana_logo_allmode.png"
+      ],
+      [
+        "Meet Your Makers",
+        "9/99/Meet_Your_Makers_allmode.png"
+      ],
+      [
+        "Counter Logic Gaming",
+        "e/e1/Counter_Logic_Gaming_allmode.png"
+      ],
+      [
+        "LGD International",
+        "3/3b/LGD_International_allmode.png"
+      ],
+      [
+        "GosuGamers",
+        "0/0d/GosuGamers_Old_allmode.png"
+      ],
+      [
+        "OK.Nirvana.int",
+        "5/52/Online_Kingdom_allmode.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ],
+      [
+        "Darer",
+        "1/13/Darer_allmode.png"
+      ],
+      [
+        "MUFC",
+        "2/26/Mufc.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Moscow Five",
+        "d/d9/Moscow_Five_allmode.png"
+      ]
+    ],
+    "The_International/2014/Europe": [
+      [
+        "Mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "1/1d/Virtus.pro_allmode.png"
+      ],
+      [
+        "Team Coast",
+        "8/86/Team_Coast_notext.png"
+      ],
+      [
+        "Power Rangers",
+        "a/a1/Power_Rangers_lightmode.png"
+      ],
+      [
+        "XGame.kz",
+        "5/57/XGame.kz.png"
+      ],
+      [
+        "Relax",
+        "5/58/Relaxlogo_std.png"
+      ],
+      [
+        "Hehe united",
+        "a/a3/Hehe_united_allmode.png"
+      ],
+      [
+        "Meet Your Makers",
+        "9/99/Meet_Your_Makers_allmode.png"
+      ],
+      [
+        "Aware Gaming",
+        "9/99/Aware_Gaming_allmode.png"
+      ],
+      [
+        "MOUZ",
+        "c/c2/MOUZ_2021_allmode.png"
+      ],
+      [
+        "hehe united",
+        "a/a3/Hehe_united_allmode.png"
+      ],
+      [
+        "xGame.kz",
+        "5/57/XGame.kz.png"
+      ],
+      [
+        "RoX.KIS",
+        "6/64/Roxkis_logo_transparent.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2014/China": [
+      [
+        "LGD Gaming",
+        "9/98/LGD_Gaming_allmode.png"
+      ],
+      [
+        "CIS Game",
+        "7/71/CIS_Game_allmode.png"
+      ],
+      [
+        "DT^Club",
+        "e/ef/DT_Club_lightmode.png"
+      ],
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ],
+      [
+        "HyperGloryTeam",
+        "e/eb/HyperGloryTeam_notext.png"
+      ],
+      [
+        "LGD.CDEC",
+        "0/01/LGD.CDEC.png"
+      ],
+      [
+        "New Element",
+        "1/1a/New_Element.png"
+      ],
+      [
+        "Speed Gaming.cn",
+        "5/57/Speed_Gaming.png"
+      ],
+      [
+        "Orenda",
+        "6/6c/Orenda_lightmode.png"
+      ],
+      [
+        "CNB.cn",
+        "1/12/CnBcn_logo.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2014/Americas_Qualifiers": [
+      [
+        "Team Liquid",
+        "f/fc/Team_Liquid_allmode.png"
+      ],
+      [
+        "Sneaky Nyx Assassins",
+        "a/a0/Sneaky_Nyx_Assassins.png"
+      ],
+      [
+        "Union Gaming",
+        "a/a4/UG_logo.png"
+      ],
+      [
+        "Team eHug",
+        "1/1f/Ehug.png"
+      ],
+      [
+        "Revenge eSports",
+        "6/66/Revenge_eSports_allmode.png"
+      ],
+      [
+        "Top5",
+        "5/57/Top5.png"
+      ],
+      [
+        "Shadows of the Past",
+        "d/df/Shadows_of_the_Past_lightmode.png"
+      ],
+      [
+        "CNB e-Sports Club",
+        "1/17/CNB_e-Sports_Club_allmode.png"
+      ],
+      [
+        "No Earthspirit",
+        "6/6d/NoEarth-logo.png"
+      ],
+      [
+        "Isurus Gaming",
+        "0/0d/Isurus_Gaming_allmode.png"
+      ],
+      [
+        "NA Rejects",
+        "d/d0/North_American_Rejects_lightmode.png"
+      ]
+    ],
+    "The_International/2014/Southeast_Asia": [
+      [
+        "Arrow Gaming",
+        "8/87/Arrow_Gaming_allmode.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "Made in Thailand",
+        "b/b6/Made_in_Thailand_allmode.png"
+      ],
+      [
+        "Mineski",
+        "2/27/Mineski_allmode.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ],
+      [
+        "First Departure",
+        "0/0c/FirstDeparture_Logo.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "Zephyr",
+        "b/b7/ZephyrDota.png"
+      ],
+      [
+        "Execration",
+        "4/4b/Execration_allmode.png"
+      ],
+      [
+        "Rex Regum Qeon",
+        "1/1e/Rex_Regum_Qeon_allmode.png"
+      ],
+      [
+        "Rex Regum QEON",
+        "6/64/Rex_Regum_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2015": [
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "9/98/LGD_Gaming_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "1/1d/Virtus.pro_allmode.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Team Empire",
+        "d/d5/Team_Empire_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "CompLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "8/83/Fnatic_allmode.png"
+      ],
+      [
+        "MVP HOT6ix",
+        "e/e0/MVP_h6_logo.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ],
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "Team Zenith",
+        "9/90/Team_Zenith_Dota2_allmode.png"
+      ],
+      [
+        "RattleSnake",
+        "7/72/Rattlesnake_logo.png"
+      ],
+      [
+        "OK.Nirvana.cn",
+        "9/91/Nirvana_logo_allmode.png"
+      ],
+      [
+        "GosuGamers",
+        "0/0d/GosuGamers_Old_allmode.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Meet Your Makers",
+        "9/99/Meet_Your_Makers_allmode.png"
+      ],
+      [
+        "Counter Logic Gaming",
+        "e/e1/Counter_Logic_Gaming_allmode.png"
+      ],
+      [
+        "LGD International",
+        "3/3b/LGD_International_allmode.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ],
+      [
+        "Moscow Five",
+        "d/d9/Moscow_Five_allmode.png"
+      ],
+      [
+        "Darer",
+        "1/13/Darer_allmode.png"
+      ],
+      [
+        "MUFC",
+        "2/26/Mufc.png"
+      ],
+      [
+        "Titan",
+        "f/f4/Titan_lightmode.png"
+      ],
+      [
+        "OK.Nirvana.int",
+        "5/52/Online_Kingdom_allmode.png"
+      ],
+      [
+        "Alliance",
+        "8/85/Alliance_allmode.png"
+      ],
+      [
+        "Arrow Gaming",
+        "8/87/Arrow_Gaming_allmode.png"
+      ]
+    ],
+    "The_International/2015/Southeast_Asia": [
+      [
+        "MVP HOT6ix",
+        "e/e0/MVP_h6_logo.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "Wild Card",
+        "a/a4/The_International_2015_aegis_allmode.png"
+      ],
+      [
+        "Rave",
+        "2/21/Rave.png"
+      ],
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "G Guard Esports",
+        "a/af/G_Guard_Esports.png"
+      ],
+      [
+        "Can't Say Wips",
+        "4/47/CantSayWips.png"
+      ],
+      [
+        "Mineski",
+        "2/27/Mineski_allmode.png"
+      ],
+      [
+        "Signature.Trust",
+        "c/c7/Signature_Gaming_allmode.png"
+      ],
+      [
+        "5eva",
+        "a/a5/5eva.png"
+      ],
+      [
+        "Invasion e-Sports",
+        "8/8a/Invasion_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2015/China": [
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "Wild Card",
+        "a/a4/The_International_2015_aegis_allmode.png"
+      ],
+      [
+        "Energy Pacemaker",
+        "e/e3/Energy_Pacemaker_allmode.png"
+      ],
+      [
+        "Wings Gaming",
+        "3/35/Wings_Gaming_allmode.png"
+      ],
+      [
+        "Old Boys",
+        "1/18/Old_Boys_Dota_allmode.png"
+      ],
+      [
+        "HyperGloryTeam",
+        "e/eb/HyperGloryTeam_notext.png"
+      ],
+      [
+        "TongFu.WanZhou",
+        "d/dc/TongFu_%28red%29_allmode.png"
+      ],
+      [
+        "VG.Potential",
+        "6/66/ViCi_Gaming_Potential_allmode.png"
+      ],
+      [
+        "Newbee Young",
+        "9/95/Newbee_Young_allmode.png"
+      ],
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ]
+    ],
+    "The_International/2015/Americas": [
+      [
+        "CompLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Wild Card",
+        "a/a4/The_International_2015_aegis_allmode.png"
+      ],
+      [
+        "Mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Void Boys",
+        "f/f5/Void_Boys_allmode.png"
+      ],
+      [
+        "Not Today",
+        "8/8b/Not_Today_Logo.png"
+      ],
+      [
+        "Unknown.xiu",
+        "1/10/Unknown.xiu_allmode.png"
+      ],
+      [
+        "Team Leviathan",
+        "4/47/TeamLeviathanLogo.png"
+      ],
+      [
+        "ROOT Gaming",
+        "e/e9/ROOT_Gaming_allmode.png"
+      ],
+      [
+        "Team eHug",
+        "1/1f/Ehug.png"
+      ],
+      [
+        "NA Rejects",
+        "d/d0/North_American_Rejects_lightmode.png"
+      ],
+      [
+        "Wheel Whreck",
+        "9/9f/WWWW_logo_card.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ]
+    ],
+    "The_International/2016": [
+      [
+        "Wings Gaming",
+        "3/35/Wings_Gaming_allmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "4/4e/Fnatic_2015_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "Team Liquid",
+        "f/fc/Team_Liquid_allmode.png"
+      ],
+      [
+        "OG",
+        "2/2f/OG_Logo.png"
+      ],
+      [
+        "LGD Gaming",
+        "9/98/LGD_Gaming_allmode.png"
+      ],
+      [
+        "Alliance",
+        "8/85/Alliance_allmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Escape Gaming",
+        "2/2e/Escape_Gaming.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "VG.Reborn",
+        "5/5c/Vici_Gaming_Reborn_notext.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Chaos Esports Club",
+        "d/da/Chaos_Esports_Club_2019_acid_lightmode.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "Team Zenith",
+        "9/90/Team_Zenith_Dota2_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ],
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ],
+      [
+        "RattleSnake",
+        "7/72/Rattlesnake_logo.png"
+      ],
+      [
+        "Meet Your Makers",
+        "9/99/Meet_Your_Makers_allmode.png"
+      ],
+      [
+        "Counter Logic Gaming",
+        "e/e1/Counter_Logic_Gaming_allmode.png"
+      ],
+      [
+        "LGD International",
+        "3/3b/LGD_International_allmode.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "GosuGamers",
+        "0/0d/GosuGamers_Old_allmode.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ],
+      [
+        "OK.Nirvana.cn",
+        "9/91/Nirvana_logo_allmode.png"
+      ],
+      [
+        "OK.Nirvana.int",
+        "5/52/Online_Kingdom_allmode.png"
+      ],
+      [
+        "Titan",
+        "f/f4/Titan_lightmode.png"
+      ],
+      [
+        "Darer",
+        "1/13/Darer_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Next Evolution",
+        "c/c9/Nevologo_std.png"
+      ],
+      [
+        "Mortal Teamwork",
+        "2/24/MTw_allmode.png"
+      ],
+      [
+        "Team Empire",
+        "d/d5/Team_Empire_allmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "MVP HOT6ix",
+        "e/e0/MVP_h6_logo.png"
+      ]
+    ],
+    "The_International/2016/Europe": [
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Alliance",
+        "8/85/Alliance_allmode.png"
+      ],
+      [
+        "Escape Gaming",
+        "2/2e/Escape_Gaming.png"
+      ],
+      [
+        "Wild Card",
+        "b/ba/Dota2_Aegis_allmode.png"
+      ],
+      [
+        "Ad Finem",
+        "1/19/Ad_Finem_allmode.png"
+      ],
+      [
+        "Fantastic Five",
+        "c/c5/Fantastic_Five_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "1/1d/Virtus.pro_allmode.png"
+      ],
+      [
+        "Vega Squadron",
+        "8/82/Vega_Squadron_allmode.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "Power Rangers",
+        "a/a1/Power_Rangers_lightmode.png"
+      ],
+      [
+        "Flipsid3 Tactics",
+        "5/5e/FlipSid3_Tactics_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2016/China": [
+      [
+        "Wings Gaming",
+        "3/35/Wings_Gaming_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Wild Card",
+        "b/ba/Dota2_Aegis_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "IG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "CDEC Youth",
+        "1/1f/CDEC_Youth_lightmode.png"
+      ],
+      [
+        "Newbee Young",
+        "9/95/Newbee_Young_allmode.png"
+      ],
+      [
+        "TongFu",
+        "6/62/TongFu_%28gold%29_allmode.png"
+      ],
+      [
+        "VG.Reborn",
+        "5/5c/Vici_Gaming_Reborn_notext.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2016/Americas": [
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "CompLexity Gaming",
+        "6/6f/Complexity_Gaming_2016_allmode.png"
+      ],
+      [
+        "Wild Card",
+        "b/ba/Dota2_Aegis_allmode.png"
+      ],
+      [
+        "FDL",
+        "3/3c/Fdlteam.png"
+      ],
+      [
+        "Void Boys",
+        "f/f5/Void_Boys_allmode.png"
+      ],
+      [
+        "DrinkingBoys",
+        "2/26/DrinkingBoys_lightmode.png"
+      ],
+      [
+        "Vultur",
+        "f/f1/Vultur_allmode.png"
+      ],
+      [
+        "Chaos Esports Club",
+        "d/da/Chaos_Esports_Club_2019_acid_lightmode.png"
+      ]
+    ],
+    "The_International/2016/Southeast_Asia": [
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "4/4e/Fnatic_2015_allmode.png"
+      ],
+      [
+        "Execration",
+        "4/4b/Execration_allmode.png"
+      ],
+      [
+        "Wild Card",
+        "b/ba/Dota2_Aegis_allmode.png"
+      ],
+      [
+        "WarriorsGaming.Unity",
+        "e/e9/WarriorsGaming_Unity.png"
+      ],
+      [
+        "White Fries Gaming",
+        "f/f3/White_Fries_Gaming_allmode.png"
+      ],
+      [
+        "Orange.Taring",
+        "d/de/Orange.Taring.png"
+      ],
+      [
+        "Mineski",
+        "f/f9/Mineski_Sports5.png"
+      ],
+      [
+        "Rave",
+        "2/21/Rave.png"
+      ],
+      [
+        "Signature.Trust",
+        "c/c7/Signature_Gaming_allmode.png"
+      ],
+      [
+        "The MongolZ",
+        "b/b9/The_MongolZ_lightmode.png"
+      ],
+      [
+        "TNC Predator",
+        "1/1c/TNC_Predator_2021_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2017": [
+      [
+        "Team Liquid",
+        "a/a7/Team_Liquid_2017_lightmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "LGD.Forever Young",
+        "6/67/LGD.Forever_Young.png"
+      ],
+      [
+        "LGD Gaming",
+        "e/ea/LGD_Gaming_2016_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "1/1d/Virtus.pro_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "Execration",
+        "4/4b/Execration_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ],
+      [
+        "IG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "Fnatic",
+        "4/4e/Fnatic_2015_allmode.png"
+      ],
+      [
+        "HellRaisers",
+        "3/39/HellRaisers_2018_allmode.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Chaos Esports Club",
+        "d/da/Chaos_Esports_Club_2019_acid_lightmode.png"
+      ],
+      [
+        "TNC Predator",
+        "1/1c/TNC_Predator_2021_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "VG.Reborn",
+        "5/5c/Vici_Gaming_Reborn_notext.png"
+      ],
+      [
+        "GosuGamers",
+        "0/0d/GosuGamers_Old_allmode.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "OK.Nirvana.cn",
+        "9/91/Nirvana_logo_allmode.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Alliance",
+        "8/85/Alliance_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ],
+      [
+        "Titan",
+        "f/f4/Titan_lightmode.png"
+      ],
+      [
+        "OK.Nirvana.int",
+        "5/52/Online_Kingdom_allmode.png"
+      ],
+      [
+        "LGD International",
+        "3/3b/LGD_International_allmode.png"
+      ],
+      [
+        "Na`Vi North America",
+        "e/ec/NaviUS_logo.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "MVP HOT6ix",
+        "e/e0/MVP_h6_logo.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "Escape Gaming",
+        "2/2e/Escape_Gaming.png"
+      ]
+    ],
+    "The_International/2017/Europe": [
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Planet Dog",
+        "9/92/Planet_Dog_logo.png"
+      ],
+      [
+        "Mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Danish Bears",
+        "f/ff/Danish_Bears_logo.png"
+      ],
+      [
+        "Team Singularity",
+        "b/b3/Team_Singularity_allmode.png"
+      ],
+      [
+        "PENTA Sports",
+        "1/1f/PENTA_Sports_lightmode.png"
+      ],
+      [
+        "4 protect five",
+        "2/20/4_protect_five_lightmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "Crescendo",
+        "4/40/Crescendo_allmode.png"
+      ],
+      [
+        "Cool Beans",
+        "f/f2/Cool_Beans_logo.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2017/South_America": [
+      [
+        "Infamous",
+        "9/9f/Infamous_allmode.png"
+      ],
+      [
+        "SG e-sports",
+        "9/95/SG_e-sports_allmode.png"
+      ],
+      [
+        "Midas Club Elite",
+        "7/71/Midas_Club_Elite.png"
+      ],
+      [
+        "Mad Kings",
+        "7/7e/Mad_Kings_allmode.png"
+      ],
+      [
+        "Unknown.xiu",
+        "b/bb/Unknown.xiu_201702_allmode.png"
+      ],
+      [
+        "Elite Wolves",
+        "e/e3/Elite_Wolves_lightmode.png"
+      ],
+      [
+        "STARS e-Sports",
+        "6/62/STARS.png"
+      ],
+      [
+        "Anthrax",
+        "f/f5/Anthrax_allmode.png"
+      ],
+      [
+        "Union Gaming BO",
+        "a/a4/UG_logo.png"
+      ],
+      [
+        "Colombia DotA",
+        "a/af/Flag_of_Colombia_4_by_3.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2017/Europe/Champions_Qualifier": [
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "Team Saphira",
+        "b/bc/Team_Saphira_logo.png"
+      ],
+      [
+        "BrooDMotherS",
+        "d/d1/BrooDMotherS_lightmode.png"
+      ],
+      [
+        "BendOver",
+        "c/c3/BendOver_allmode.png"
+      ],
+      [
+        "Eeriness",
+        "1/1d/EEriness_2014_allmode.png"
+      ]
+    ],
+    "The_International/2017/China": [
+      [
+        "IG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "LGD.Forever Young",
+        "6/67/LGD.Forever_Young.png"
+      ],
+      [
+        "LGD Gaming",
+        "e/ea/LGD_Gaming_2016_allmode.png"
+      ],
+      [
+        "EHOME.Keen",
+        "a/a9/EHOME.Keen_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Team MAX",
+        "5/52/Team_MAX_%28Chinese_team%29_lightmode.png"
+      ],
+      [
+        "Team VGJ",
+        "a/a4/Team_VGJ_lightmode.png"
+      ],
+      [
+        "FTD club A",
+        "c/c3/FTD_A_%28display%29_allmode.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2017/Southeast_Asia": [
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "4/4e/Fnatic_2015_allmode.png"
+      ],
+      [
+        "Execration",
+        "4/4b/Execration_allmode.png"
+      ],
+      [
+        "Clutch Gamers",
+        "7/73/Clutch_Gamers_allmode.png"
+      ],
+      [
+        "Mineski",
+        "0/0b/Mineski_201706_allmode.png"
+      ],
+      [
+        "Team Faceless",
+        "2/2b/Team_Faceless_allmode.png"
+      ],
+      [
+        "Geek Fam",
+        "a/ac/Geek_Fam_2017_allmode.png"
+      ],
+      [
+        "Moogle",
+        "7/7b/Moogle.png"
+      ],
+      [
+        "HappyFeet",
+        "3/39/HappyFeet_2017_allmode.png"
+      ],
+      [
+        "Skatemasters",
+        "3/3e/Skatemasters_logo_std.png"
+      ],
+      [
+        "TNC Predator",
+        "1/1c/TNC_Predator_2021_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2017/CIS": [
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "Team Spirit",
+        "2/2d/Team_Spirit_2016_allmode.png"
+      ],
+      [
+        "Vega Squadron",
+        "0/04/Vega_Squadron_2016_allmode.png"
+      ],
+      [
+        "M19",
+        "3/32/M19_lightmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "Gambit Esports",
+        "9/97/Gambit_Esports_allmode.png"
+      ],
+      [
+        "Effect",
+        "5/52/Effect_logo2017.png"
+      ],
+      [
+        "Comanche",
+        "f/f8/Comanche_logo.png"
+      ],
+      [
+        "Double Dimension",
+        "1/1e/Double_Dimension_2017.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2017/North_America": [
+      [
+        "Team NP",
+        "7/7e/Team_NP.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "Team Freedom",
+        "b/bf/Team_Freedom.png"
+      ],
+      [
+        "CompLexity Gaming",
+        "6/6f/Complexity_Gaming_2016_allmode.png"
+      ],
+      [
+        "Planet Odd",
+        "7/75/Planet_Odd_allmode.png"
+      ],
+      [
+        "Guess",
+        "b/ba/Guess.png"
+      ],
+      [
+        "Team Red",
+        "5/59/Team_Red_dota_allmode.png"
+      ],
+      [
+        "OverPower",
+        "b/b5/Team_OverPower_logo.png"
+      ],
+      [
+        "compLexity Gaming",
+        "6/6f/Complexity_Gaming_2016_allmode.png"
+      ],
+      [
+        "Wheel Whreck",
+        "9/9f/WWWW_logo_card.png"
+      ],
+      [
+        "Chaos Esports Club",
+        "d/da/Chaos_Esports_Club_2019_acid_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2017/North_America/Champions_Qualifier": [
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2018": [
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "PSG.LGD",
+        "e/e8/PSG.LGD_allmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "f/fd/Evil_Geniuses_March_2018_lightmode.png"
+      ],
+      [
+        "Team Liquid",
+        "a/a7/Team_Liquid_2017_lightmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "3/36/Vp-megafon-style.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "OpTic Gaming",
+        "7/79/OpTic_Gaming_lightmode.png"
+      ],
+      [
+        "VGJ.Storm",
+        "e/ec/VGJ.Storm_lightmode.png"
+      ],
+      [
+        "Team Serenity",
+        "8/83/Team_Serenity_Dota_lightmode.png"
+      ],
+      [
+        "Mineski",
+        "0/0b/Mineski_201706_allmode.png"
+      ],
+      [
+        "Winstrike Team",
+        "e/e7/Winstrike_Team_2018_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "4/4e/Fnatic_2015_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "VGJ.Thunder",
+        "8/85/VGJ.Thunder_lightmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "PaiN Gaming",
+        "8/83/PaiN_Gaming_2017_lightmode.png"
+      ],
+      [
+        "paiN Gaming",
+        "8/83/PaiN_Gaming_2017_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "LGD Gaming",
+        "2/2f/LGD_Gaming_Dec_2019_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "GosuGamers",
+        "0/0d/GosuGamers_Old_allmode.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "VG.Reborn",
+        "5/5c/Vici_Gaming_Reborn_notext.png"
+      ],
+      [
+        "LGD.Forever Young",
+        "6/67/LGD.Forever_Young.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "Team Zenith",
+        "9/90/Team_Zenith_Dota2_allmode.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "RattleSnake",
+        "7/72/Rattlesnake_logo.png"
+      ],
+      [
+        "TYLOO",
+        "8/8c/TYLOO_logo_2011_april_allmode.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "Alliance",
+        "8/85/Alliance_allmode.png"
+      ],
+      [
+        "Orange Esports",
+        "1/1c/Orange_Esports_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Team Empire",
+        "d/d5/Team_Empire_allmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "OK.Nirvana.int",
+        "5/52/Online_Kingdom_allmode.png"
+      ],
+      [
+        "Counter Logic Gaming",
+        "e/e1/Counter_Logic_Gaming_allmode.png"
+      ],
+      [
+        "LGD International",
+        "3/3b/LGD_International_allmode.png"
+      ],
+      [
+        "MVP HOT6ix",
+        "e/e0/MVP_h6_logo.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "Moscow Five",
+        "d/d9/Moscow_Five_allmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "Escape Gaming",
+        "2/2e/Escape_Gaming.png"
+      ],
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "Na`Vi North America",
+        "e/ec/NaviUS_logo.png"
+      ],
+      [
+        "Mortal Teamwork",
+        "2/24/MTw_allmode.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "HellRaisers",
+        "3/39/HellRaisers_2018_allmode.png"
+      ]
+    ],
+    "The_International/2018/CIS": [
+      [
+        "Winstrike Team",
+        "e/ec/Winstrike_Team_allmode.png"
+      ],
+      [
+        "Espada",
+        "5/53/Espada_allmode.png"
+      ],
+      [
+        "Team Spirit",
+        "2/2d/Team_Spirit_2016_allmode.png"
+      ],
+      [
+        "Double Dimension",
+        "1/1e/Double_Dimension_2017.png"
+      ],
+      [
+        "Gambit Esports",
+        "6/6c/Gambit_Esports_sep_2020_allmode.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "Vega Squadron",
+        "0/04/Vega_Squadron_2016_allmode.png"
+      ],
+      [
+        "FlyToMoon",
+        "5/5b/FlyToMoon_allmode.png"
+      ]
+    ],
+    "The_International/2018/Europe": [
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Wind and Rain",
+        "f/f7/Wind_and_Rain_aug_2017_allmode.png"
+      ],
+      [
+        "BlinkPool",
+        "4/44/BlinkPool_lightmode.png"
+      ],
+      [
+        "Team Kinguin",
+        "d/dc/Team_Kinguin_allmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "Singularity Esports",
+        "a/a9/Singularity_Esports_2018_lightmode.png"
+      ],
+      [
+        "The Final Tribe",
+        "3/3e/The_Final_Tribe_lightmode.png"
+      ],
+      [
+        "Kingdra",
+        "9/98/Kingdra_logo.png"
+      ],
+      [
+        "Team Singularity",
+        "a/a9/Singularity_Esports_2018_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2018/Southeast_Asia": [
+      [
+        "Fnatic",
+        "4/4e/Fnatic_2015_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "TNC Tigers",
+        "6/61/TNC_Tiger_allmode.png"
+      ],
+      [
+        "Entity Gaming",
+        "1/11/Entity_2017_allmode.png"
+      ],
+      [
+        "Battle Arena Elites",
+        "e/e3/Battle_Arena_Elites_logo.png"
+      ],
+      [
+        "BOOM ID",
+        "0/0a/BOOM_ID_allmode.png"
+      ],
+      [
+        "ALPHA Red",
+        "1/12/ALPHA_Red_allmode.png"
+      ],
+      [
+        "Sterling Global Dragons",
+        "6/6e/Sterling_Global_Dragons_allmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Entity",
+        "4/48/Entity_2021_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2018/China": [
+      [
+        "Team Serenity",
+        "8/83/Team_Serenity_Dota_lightmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "LGD.Forever Young",
+        "6/67/LGD.Forever_Young.png"
+      ],
+      [
+        "For The Dream",
+        "5/5d/For_The_Dream_allmode.png"
+      ],
+      [
+        "Keen Gaming",
+        "9/9d/Keen_Gaming_logo.png"
+      ],
+      [
+        "IG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ]
+    ],
+    "The_International/2018/North_America": [
+      [
+        "VGJ.Storm",
+        "e/ec/VGJ.Storm_lightmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "f/fd/Evil_Geniuses_March_2018_lightmode.png"
+      ],
+      [
+        "OpTic Gaming",
+        "7/79/OpTic_Gaming_lightmode.png"
+      ],
+      [
+        "Immortals",
+        "1/13/Immortals_allmode.png"
+      ],
+      [
+        "CompLexity Gaming",
+        "6/6f/Complexity_Gaming_2016_allmode.png"
+      ],
+      [
+        "Team Baidu",
+        "8/87/Team_Baidu_King_logo_std.png"
+      ],
+      [
+        "Jsut a Squad",
+        "a/aa/Jsut_a_squad_logo_small.png"
+      ],
+      [
+        "Team Leviathan",
+        "4/47/TeamLeviathanLogo.png"
+      ],
+      [
+        "compLexity Gaming",
+        "6/6f/Complexity_Gaming_2016_allmode.png"
+      ]
+    ],
+    "The_International/2018/South_America": [
+      [
+        "PaiN Gaming",
+        "8/83/PaiN_Gaming_2017_lightmode.png"
+      ],
+      [
+        "SG e-sports",
+        "8/83/SG_e-sports_2018_allmode.png"
+      ],
+      [
+        "Torus Gaming",
+        "0/0b/Torus_gaming.png"
+      ],
+      [
+        "Thunder Predator",
+        "2/25/Thunder_Awaken_2017_allmode.png"
+      ],
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ],
+      [
+        "Midas Club",
+        "0/04/Midas_Club_logo.png"
+      ],
+      [
+        "paiN Gaming",
+        "8/83/PaiN_Gaming_2017_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2019": [
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Team Liquid",
+        "a/a7/Team_Liquid_2017_lightmode.png"
+      ],
+      [
+        "PSG.LGD",
+        "e/e8/PSG.LGD_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "f/fd/Evil_Geniuses_March_2018_lightmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "2/27/Virtus.pro_TI9.png"
+      ],
+      [
+        "TNC Predator",
+        "a/a6/TNC_Predator_2019_allmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "Mineski",
+        "0/0b/Mineski_201706_allmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "4/4e/Fnatic_2015_allmode.png"
+      ],
+      [
+        "Keen Gaming",
+        "9/9d/Keen_Gaming_logo.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "Chaos Esports Club",
+        "d/da/Chaos_Esports_Club_2019_acid_lightmode.png"
+      ],
+      [
+        "Ninjas in Pyjamas",
+        "7/7f/Ninjas_in_Pyjamas_2017_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "LGD Gaming",
+        "2/2f/LGD_Gaming_Dec_2019_allmode.png"
+      ],
+      [
+        "GosuGamers",
+        "0/0d/GosuGamers_Old_allmode.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "RattleSnake",
+        "7/72/Rattlesnake_logo.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "Team Zenith",
+        "9/90/Team_Zenith_Dota2_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "Meet Your Makers",
+        "9/99/Meet_Your_Makers_allmode.png"
+      ],
+      [
+        "Counter Logic Gaming",
+        "e/e1/Counter_Logic_Gaming_allmode.png"
+      ],
+      [
+        "LGD International",
+        "3/3b/LGD_International_allmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "OpTic Gaming",
+        "7/79/OpTic_Gaming_lightmode.png"
+      ],
+      [
+        "VG.Reborn",
+        "5/5c/Vici_Gaming_Reborn_notext.png"
+      ],
+      [
+        "MVP HOT6ix",
+        "e/e0/MVP_h6_logo.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "Escape Gaming",
+        "2/2e/Escape_Gaming.png"
+      ],
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "VGJ.Storm",
+        "e/ec/VGJ.Storm_lightmode.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "Na`Vi North America",
+        "e/ec/NaviUS_logo.png"
+      ],
+      [
+        "Mortal Teamwork",
+        "2/24/MTw_allmode.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "paiN Gaming",
+        "8/83/PaiN_Gaming_2017_lightmode.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "HellRaisers",
+        "3/39/HellRaisers_2018_allmode.png"
+      ],
+      [
+        "LGD.Forever Young",
+        "6/67/LGD.Forever_Young.png"
+      ],
+      [
+        "VGJ.Thunder",
+        "8/85/VGJ.Thunder_lightmode.png"
+      ],
+      [
+        "Execration",
+        "4/4b/Execration_allmode.png"
+      ]
+    ],
+    "The_International/2019/Southeast_Asia": [
+      [
+        "Mineski",
+        "0/0b/Mineski_201706_allmode.png"
+      ],
+      [
+        "Team Jinesbrus",
+        "d/df/Team_Jinesbrus_logo.png"
+      ],
+      [
+        "Team Adroit",
+        "d/df/Team_Adroit_2019_lightmode.png"
+      ],
+      [
+        "Team Amplfy",
+        "0/08/Team_Amplfy_lightmode.png"
+      ],
+      [
+        "496 Gaming",
+        "c/c9/496_Gaming_2019_allmode.png"
+      ],
+      [
+        "BOOM ID",
+        "0/0a/BOOM_ID_allmode.png"
+      ],
+      [
+        "EVOS Esports",
+        "d/d0/EVOS_Esports_allmode.png"
+      ],
+      [
+        "Resurgence",
+        "8/86/Resurgence_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2019/Europe": [
+      [
+        "Chaos Esports Club",
+        "d/da/Chaos_Esports_Club_2019_acid_lightmode.png"
+      ],
+      [
+        "The Final Tribe",
+        "3/3e/The_Final_Tribe_lightmode.png"
+      ],
+      [
+        "Hippomaniacs",
+        "b/b0/Hippomaniacs_allmode.png"
+      ],
+      [
+        "Aachen City Esports",
+        "d/d9/Aachen_City_Esports_logo.png"
+      ],
+      [
+        "Anti-MagE-",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Team Singularity",
+        "a/a9/Singularity_Esports_2018_lightmode.png"
+      ],
+      [
+        "Team Bald",
+        "7/7c/Team_Bald_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2019/North_America": [
+      [
+        "Forward Gaming",
+        "b/bd/Forward_gaming_logo.png"
+      ],
+      [
+        "J.Storm",
+        "5/50/J.Storm_allmode.png"
+      ],
+      [
+        "Beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "Kookaburra",
+        "7/77/Kookaburra_logo.png"
+      ],
+      [
+        "Black Sheep",
+        "1/15/Black_sheep.png"
+      ],
+      [
+        "Complexity Gaming",
+        "9/96/Complexity_Gaming_2019_lightmode.png"
+      ],
+      [
+        "Team Xolotl",
+        "b/ba/Team_xolotllogo.png"
+      ],
+      [
+        "beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2019/China": [
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Team Aster",
+        "e/e7/Team_Aster_allmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "Team Sirius",
+        "7/7e/Team_Sirius_logo.png"
+      ],
+      [
+        "Team Serenity",
+        "8/83/Team_Serenity_Dota_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2019/South_America": [
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ],
+      [
+        "PaiN Gaming",
+        "8/83/PaiN_Gaming_2017_lightmode.png"
+      ],
+      [
+        "EgoBoys",
+        "5/51/EgoBoys_allmode.png"
+      ],
+      [
+        "Thunder Predator",
+        "0/03/Thunder_Predator_2019_lightmode.png"
+      ],
+      [
+        "FURIA Esports",
+        "a/aa/FURIA_Esports_allmode.png"
+      ],
+      [
+        "Gorillaz-Pride",
+        "0/08/Gorillaz-Pride_allmode.png"
+      ],
+      [
+        "SG e-sports",
+        "8/83/SG_e-sports_2018_allmode.png"
+      ],
+      [
+        "paiN Gaming",
+        "8/83/PaiN_Gaming_2017_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2019/CIS": [
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "Winstrike Team",
+        "e/e7/Winstrike_Team_2018_allmode.png"
+      ],
+      [
+        "Vega Squadron",
+        "0/04/Vega_Squadron_2016_allmode.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "Gambit Esports",
+        "9/97/Gambit_Esports_allmode.png"
+      ],
+      [
+        "Nemiga Gaming",
+        "0/0f/Nemiga_Gaming.png"
+      ],
+      [
+        "FlyToMoon",
+        "5/5b/FlyToMoon_allmode.png"
+      ],
+      [
+        "Team Spirit",
+        "2/2d/Team_Spirit_2016_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "BTS/Pro_Series/4/Americas": [
+      [
+        "Thunder Predator",
+        "0/03/Thunder_Predator_2019_lightmode.png"
+      ],
+      [
+        "4 Zoomers",
+        "d/db/4_Zoomers_2020_allmode.png"
+      ],
+      [
+        "Beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "Jaguares Esports",
+        "f/fc/Jaguares_Esports_allmode.png"
+      ],
+      [
+        "EgoBoys",
+        "f/ff/EgoBoys_2020_lightmode.png"
+      ],
+      [
+        "Gorillaz-Pride",
+        "0/08/Gorillaz-Pride_allmode.png"
+      ],
+      [
+        "Unknown Team",
+        "9/96/Unknown_Team_lightmode.png"
+      ],
+      [
+        "beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "ESL_One/Los_Angeles/2020/Online/Europe_CIS": [
+      [
+        "Virtus.pro",
+        "c/c0/Virtus.pro_2019_allmode.png"
+      ],
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Vikin.gg",
+        "f/f9/Vikin.gg_allmode.png"
+      ],
+      [
+        "Chicken Fighters",
+        "4/4d/Chicken_Fighters_allmode.png"
+      ],
+      [
+        "Team Spirit",
+        "2/2d/Team_Spirit_2016_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Team Nigma",
+        "1/1c/Team_Nigma_allmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "HellRaisers",
+        "3/39/HellRaisers_2018_allmode.png"
+      ],
+      [
+        "Team Unique",
+        "5/58/Team_Unique_2019_lightmode.png"
+      ],
+      [
+        "Cyber Legacy",
+        "0/07/Cyber_Legacy_allmode.png"
+      ],
+      [
+        "Team Liquid",
+        "c/c9/Team_Liquid_2020_lightmode.png"
+      ],
+      [
+        "Gambit Esports",
+        "9/97/Gambit_Esports_allmode.png"
+      ],
+      [
+        "Ninjas in Pyjamas",
+        "7/7f/Ninjas_in_Pyjamas_2017_lightmode.png"
+      ],
+      [
+        "B8",
+        "c/c6/B8_lightmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "a/a1/Natus_Vincere_2020_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "BTS/Pro_Series/1/Americas": [
+      [
+        "Evil Geniuses",
+        "c/c1/Evil_Geniuses_2019_lightmode.png"
+      ],
+      [
+        "Thunder Predator",
+        "0/03/Thunder_Predator_2019_lightmode.png"
+      ],
+      [
+        "CR4ZY",
+        "c/c0/CR4ZY_allmode.png"
+      ],
+      [
+        "Business associates",
+        "1/1a/Business_associates_2020_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "Beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "FURIA Esports",
+        "a/aa/FURIA_Esports_allmode.png"
+      ],
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ],
+      [
+        "business associates",
+        "1/1a/Business_associates_2020_allmode.png"
+      ],
+      [
+        "beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "BTS/Pro_Series/1/Southeast_Asia": [
+      [
+        "Fnatic",
+        "f/f9/Fnatic_2020_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "a/a6/TNC_Predator_2019_allmode.png"
+      ],
+      [
+        "Geek Fam",
+        "4/41/Geek_Fam_2019_allmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Team Adroit",
+        "d/df/Team_Adroit_2019_lightmode.png"
+      ],
+      [
+        "T1",
+        "e/e4/T1_2019_allmode.png"
+      ],
+      [
+        "CR",
+        "f/f8/CR_allmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "c/c1/Evil_Geniuses_2019_lightmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "Reality Rift",
+        "e/ee/Reality_Rift_Sign.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "ESL_One/Birmingham/2020/Online/China": [
+      [
+        "PSG.LGD",
+        "e/e8/PSG.LGD_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "Team Aster",
+        "e/e7/Team_Aster_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Longinus",
+        "9/94/Longinus_logo.png"
+      ],
+      [
+        "Sparking Arrow Gaming",
+        "c/c8/Sparking_Arrow_Gaming_allmode.png"
+      ]
+    ],
+    "ESL_One/Los_Angeles/2020/Online/China": [
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "PSG.LGD",
+        "e/e8/PSG.LGD_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "BTS/Pro_Series/2/Southeast_Asia": [
+      [
+        "Geek Fam",
+        "4/41/Geek_Fam_2019_allmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "f/f9/Fnatic_2020_allmode.png"
+      ],
+      [
+        "Neon Esports",
+        "4/45/Neon_Esports_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "a/a6/TNC_Predator_2019_allmode.png"
+      ],
+      [
+        "Team Adroit",
+        "d/df/Team_Adroit_2019_lightmode.png"
+      ],
+      [
+        "T1",
+        "e/e4/T1_2019_allmode.png"
+      ],
+      [
+        "Execration",
+        "4/4b/Execration_allmode.png"
+      ],
+      [
+        "Reality Rift",
+        "e/ee/Reality_Rift_Sign.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "BTS/Pro_Series/4/Southeast_Asia": [
+      [
+        "TNC Predator",
+        "a/a6/TNC_Predator_2019_allmode.png"
+      ],
+      [
+        "T1",
+        "e/e4/T1_2019_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "f/f9/Fnatic_2020_allmode.png"
+      ],
+      [
+        "Motivate.Trust Gaming",
+        "8/85/Motivate.Trust_Gaming_allmode.png"
+      ],
+      [
+        "Execration",
+        "c/c9/Execration_2020_lightmode.png"
+      ],
+      [
+        "Neon Esports",
+        "4/45/Neon_Esports_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Team Aster",
+        "e/e7/Team_Aster_allmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "8/8c/Evil_Geniuses_2020_lightmode.png"
+      ],
+      [
+        "Omega Esports",
+        "0/08/Omega_Esports_%28Philippines%29_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "ESL_One/Los_Angeles/2020/Online/South_America": [
+      [
+        "Beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "NoPing e-sports",
+        "5/5e/NoPing_e-sports_allmode.png"
+      ],
+      [
+        "FURIA Esports",
+        "a/aa/FURIA_Esports_allmode.png"
+      ],
+      [
+        "Thunder Predator",
+        "0/03/Thunder_Predator_2019_lightmode.png"
+      ],
+      [
+        "Ninjas in Pyjamas",
+        "7/7f/Ninjas_in_Pyjamas_2017_lightmode.png"
+      ],
+      [
+        "beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2021": [
+      [
+        "Team Spirit",
+        "a/a6/Team_Spirit_2021_lightmode.png"
+      ],
+      [
+        "PSG.LGD",
+        "1/11/PSG.LGD_2020_lightmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "0/04/Virtus.pro_TI10_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "T1",
+        "e/e4/T1_2019_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "f/f9/Fnatic_2020_allmode.png"
+      ],
+      [
+        "Quincy Crew",
+        "e/e0/Quincy_Crew_2021_lightmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "8/8c/Evil_Geniuses_2020_lightmode.png"
+      ],
+      [
+        "Team Undying",
+        "4/46/Team_Undying_allmode.png"
+      ],
+      [
+        "Team Aster",
+        "e/e7/Team_Aster_allmode.png"
+      ],
+      [
+        "Beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "Elephant",
+        "a/ab/Elephant_allmode.png"
+      ],
+      [
+        "Thunder Predator",
+        "0/03/Thunder_Predator_2019_lightmode.png"
+      ],
+      [
+        "SG esports",
+        "2/2b/SG_e-sports_2021_allmode.png"
+      ],
+      [
+        "beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "LGD Gaming",
+        "2/2f/LGD_Gaming_Dec_2019_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "Scythe Gaming",
+        "0/0c/Scythe_Gaming.png"
+      ],
+      [
+        "Team Zenith",
+        "9/90/Team_Zenith_Dota2_allmode.png"
+      ],
+      [
+        "Team DK",
+        "5/51/Team_DK_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Mineski",
+        "0/0b/Mineski_201706_allmode.png"
+      ],
+      [
+        "RattleSnake",
+        "7/72/Rattlesnake_logo.png"
+      ],
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "OpTic Gaming",
+        "7/79/OpTic_Gaming_lightmode.png"
+      ],
+      [
+        "LGD.Forever Young",
+        "6/67/LGD.Forever_Young.png"
+      ],
+      [
+        "VG.Reborn",
+        "5/5c/Vici_Gaming_Reborn_notext.png"
+      ],
+      [
+        "Team Liquid",
+        "f/fc/Team_Liquid_allmode.png"
+      ],
+      [
+        "Chaos Esports Club",
+        "d/da/Chaos_Esports_Club_2019_acid_lightmode.png"
+      ],
+      [
+        "Escape Gaming",
+        "2/2e/Escape_Gaming.png"
+      ],
+      [
+        "Keen Gaming",
+        "9/9d/Keen_Gaming_logo.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "VGJ.Storm",
+        "e/ec/VGJ.Storm_lightmode.png"
+      ],
+      [
+        "Mortal Teamwork",
+        "2/24/MTw_allmode.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "Ninjas in Pyjamas",
+        "7/7f/Ninjas_in_Pyjamas_2017_lightmode.png"
+      ],
+      [
+        "VGJ.Thunder",
+        "8/85/VGJ.Thunder_lightmode.png"
+      ],
+      [
+        "Wings Gaming",
+        "3/35/Wings_Gaming_allmode.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "Team Serenity",
+        "8/83/Team_Serenity_Dota_lightmode.png"
+      ],
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ],
+      [
+        "paiN Gaming",
+        "8/83/PaiN_Gaming_2017_lightmode.png"
+      ]
+    ],
+    "The_International/2021/North_America": [
+      [
+        "4 Zoomers",
+        "d/db/4_Zoomers_2020_allmode.png"
+      ],
+      [
+        "Black N Yellow",
+        "2/26/Black_N_Yellow_allmode.png"
+      ],
+      [
+        "Simply TOOBASED",
+        "a/a0/Simply_TOOBASED_lightmode.png"
+      ],
+      [
+        "Team DogChamp",
+        "d/db/Team_DogChamp_allmode.png"
+      ],
+      [
+        "D2 Hustlers",
+        "6/6a/D2_Hustlers_allmode.png"
+      ],
+      [
+        "The Cut",
+        "5/53/The_Cut_allmode.png"
+      ],
+      [
+        "5ManMidas",
+        "0/02/5ManMidas_allmode.png"
+      ],
+      [
+        "Felt",
+        "5/5b/Felt_allmode.png"
+      ],
+      [
+        "simply TOOBASED",
+        "a/a0/Simply_TOOBASED_lightmode.png"
+      ],
+      [
+        "felt",
+        "5/5b/Felt_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Team Undying",
+        "4/46/Team_Undying_allmode.png"
+      ]
+    ],
+    "The_International/2021/Southeast_Asia": [
+      [
+        "Fnatic",
+        "f/f9/Fnatic_2020_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "1/1c/TNC_Predator_2021_allmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Execration",
+        "c/c9/Execration_2020_lightmode.png"
+      ],
+      [
+        "Neon Esports",
+        "6/63/OB_Esports_x_Neon_allmode.png"
+      ],
+      [
+        "Galaxy Racer",
+        "c/c5/Galaxy_Racer_alt_allmode.png"
+      ],
+      [
+        "Team SMG",
+        "1/15/Team_SMG_allmode.png"
+      ],
+      [
+        "Motivate.Trust Gaming",
+        "8/85/Motivate.Trust_Gaming_allmode.png"
+      ],
+      [
+        "Lilgun",
+        "6/6f/Lilgun_202106_lightmode.png"
+      ],
+      [
+        "496 Gaming",
+        "c/c9/496_Gaming_2019_allmode.png"
+      ],
+      [
+        "Omega Esports",
+        "0/08/Omega_Esports_%28Philippines%29_allmode.png"
+      ],
+      [
+        "Army Geniuses",
+        "8/83/Army_Geniuses_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Nigma Galaxy SEA",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ]
+    ],
+    "The_International/2021/Eastern_Europe": [
+      [
+        "Team Spirit",
+        "a/a6/Team_Spirit_2021_lightmode.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "HellRaisers",
+        "1/11/HellRaisers_2020_allmode.png"
+      ],
+      [
+        "PuckChamp",
+        "f/f5/PuckChamp_2021_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "a/a1/Natus_Vincere_2020_allmode.png"
+      ],
+      [
+        "Nemiga Gaming",
+        "b/bb/Nemiga_Gaming_2020_temporary.png"
+      ],
+      [
+        "Team Unique",
+        "5/58/Team_Unique_2019_lightmode.png"
+      ],
+      [
+        "Fantastic Five",
+        "b/b1/Fantastic_Five_2021_allmode.png"
+      ],
+      [
+        "Winstrike Team",
+        "f/fd/Winstrike_Team_2019_allmode.png"
+      ],
+      [
+        "B8",
+        "c/c6/B8_lightmode.png"
+      ],
+      [
+        "EXTREMUM",
+        "f/f9/EXTREMUM_lightmode.png"
+      ],
+      [
+        "AS Monaco Gambit",
+        "7/79/AS_Monaco_Gambit_allmode.png"
+      ],
+      [
+        "Gambit Esports",
+        "6/6c/Gambit_Esports_sep_2020_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2021/China": [
+      [
+        "Elephant",
+        "a/ab/Elephant_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "Team MagMa",
+        "6/64/Team_MagMa_allmode.png"
+      ],
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "Sparking Arrow Gaming",
+        "c/c8/Sparking_Arrow_Gaming_allmode.png"
+      ],
+      [
+        "Aster.Aries",
+        "a/a3/Aster.Aries_allmode.png"
+      ],
+      [
+        "LBZS",
+        "1/15/LBZS_allmode.png"
+      ],
+      [
+        "Phoenix Gaming",
+        "8/86/Phoenix_Gaming_%28China%29_2020_allmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "Xtreme Gaming",
+        "7/72/Xtreme_Gaming_%28China%29_allmode.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2021/South_America": [
+      [
+        "SG esports",
+        "2/2b/SG_e-sports_2021_allmode.png"
+      ],
+      [
+        "Unknown Team",
+        "9/96/Unknown_Team_lightmode.png"
+      ],
+      [
+        "Infinity",
+        "b/bc/Infinity_2021_lightmode.png"
+      ],
+      [
+        "NoPing e-sports",
+        "5/5e/NoPing_e-sports_allmode.png"
+      ],
+      [
+        "EgoBoys",
+        "f/ff/EgoBoys_2020_lightmode.png"
+      ],
+      [
+        "BINOMISTAS",
+        "d/de/BINOMISTAS_lightmode.png"
+      ],
+      [
+        "Hokori",
+        "6/67/Hokori_allmode.png"
+      ],
+      [
+        "Interitus",
+        "0/0e/Interitus_allmode.png"
+      ],
+      [
+        "Gorillaz-Pride",
+        "0/08/Gorillaz-Pride_allmode.png"
+      ],
+      [
+        "Infamous",
+        "5/58/Infamous_2020_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "NoPing Esports",
+        "e/e6/NoPing_e-sports_2021_allmode.png"
+      ]
+    ],
+    "The_International/2021/Western_Europe": [
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Tundra Esports",
+        "1/13/Tundra_Esports_2020_lightmode.png"
+      ],
+      [
+        "Team Nigma",
+        "4/41/Team_Nigma_2021_allmode.png"
+      ],
+      [
+        "Team Liquid",
+        "c/c9/Team_Liquid_2020_lightmode.png"
+      ],
+      [
+        "Chicken Fighters",
+        "0/0f/Chicken_Fighters_2021_allmode.png"
+      ],
+      [
+        "Into The Breach",
+        "d/d3/Into_The_Breach_2021_lightmode.png"
+      ],
+      [
+        "Vikin.gg",
+        "4/41/Vikin.gg_2020_lightmode.png"
+      ],
+      [
+        "Team Bald Reborn",
+        "7/7c/Team_Bald_allmode.png"
+      ],
+      [
+        "Hippomaniacs",
+        "b/b0/Hippomaniacs_allmode.png"
+      ],
+      [
+        "Level UP",
+        "2/2c/Level_Up_Esports_2021_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Nigma Galaxy",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ]
+    ],
+    "The_International/2022": [
+      [
+        "Tundra Esports",
+        "1/13/Tundra_Esports_2020_lightmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Team Liquid",
+        "c/c9/Team_Liquid_2020_lightmode.png"
+      ],
+      [
+        "Team Aster",
+        "e/e7/Team_Aster_allmode.png"
+      ],
+      [
+        "PSG.LGD",
+        "1/11/PSG.LGD_2020_lightmode.png"
+      ],
+      [
+        "Thunder Awaken",
+        "2/22/Thunder_Awaken_2022_lightmode.png"
+      ],
+      [
+        "Beastcoast",
+        "9/95/Beastcoast_2022_allmode.png"
+      ],
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "8/8c/Evil_Geniuses_2020_lightmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Gaimin Gladiators",
+        "7/78/Gladiators_2022_allmode.png"
+      ],
+      [
+        "Entity",
+        "4/48/Entity_2021_lightmode.png"
+      ],
+      [
+        "Hokori",
+        "d/d0/Hokori_2021_allmode.png"
+      ],
+      [
+        "Team Spirit",
+        "6/66/Team_Spirit_2022_lightmode.png"
+      ],
+      [
+        "Fnatic",
+        "f/f9/Fnatic_2020_allmode.png"
+      ],
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "Soniqs",
+        "a/a8/Susquehanna_Soniqs_allmode.png"
+      ],
+      [
+        "Talon Esports",
+        "4/40/Talon_Esports_2021_allmode.png"
+      ],
+      [
+        "BetBoom Team",
+        "1/18/BetBoom_Team_allmode.png"
+      ],
+      [
+        "TSM",
+        "c/c8/TSM_2019_lightmode.png"
+      ],
+      [
+        "beastcoast",
+        "9/95/Beastcoast_2022_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "2/2f/LGD_Gaming_Dec_2019_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "2/2a/Natus_Vincere_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "OpTic Gaming",
+        "7/79/OpTic_Gaming_lightmode.png"
+      ],
+      [
+        "mousesports",
+        "a/a8/Mousesports_2016_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "Ninjas in Pyjamas",
+        "7/7f/Ninjas_in_Pyjamas_2017_lightmode.png"
+      ],
+      [
+        "Elephant",
+        "a/ab/Elephant_allmode.png"
+      ],
+      [
+        "Chaos Esports Club",
+        "d/da/Chaos_Esports_Club_2019_acid_lightmode.png"
+      ],
+      [
+        "Team Empire",
+        "d/d5/Team_Empire_allmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "VGJ.Storm",
+        "e/ec/VGJ.Storm_lightmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "Keen Gaming",
+        "9/9d/Keen_Gaming_logo.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "MVP Phoenix",
+        "9/97/MVP_Phoenix_allmode.png"
+      ],
+      [
+        "Mineski",
+        "0/0b/Mineski_201706_allmode.png"
+      ],
+      [
+        "Quincy Crew",
+        "e/e0/Quincy_Crew_2021_lightmode.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "Na`Vi North America",
+        "e/ec/NaviUS_logo.png"
+      ],
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "Team Undying",
+        "4/46/Team_Undying_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "LGD.Forever Young",
+        "6/67/LGD.Forever_Young.png"
+      ],
+      [
+        "HellRaisers",
+        "3/39/HellRaisers_2018_allmode.png"
+      ],
+      [
+        "Wings Gaming",
+        "3/35/Wings_Gaming_allmode.png"
+      ],
+      [
+        "Team Serenity",
+        "8/83/Team_Serenity_Dota_lightmode.png"
+      ],
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ]
+    ],
+    "The_International/2022/North_America": [
+      [
+        "Soniqs",
+        "a/a8/Susquehanna_Soniqs_allmode.png"
+      ],
+      [
+        "Nouns",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "Wildcard Gaming",
+        "6/63/Wildcard_Gaming_allmode.png"
+      ],
+      [
+        "Team DogChamp",
+        "d/db/Team_DogChamp_allmode.png"
+      ],
+      [
+        "5RATFORCESTAFF",
+        "9/95/5RATFORCESTAFF_allmode.png"
+      ],
+      [
+        "The Cut",
+        "5/53/The_Cut_allmode.png"
+      ],
+      [
+        "Felt",
+        "5/5b/Felt_allmode.png"
+      ],
+      [
+        "CDUB Esports",
+        "2/26/CDUB_Esports_allmode.png"
+      ],
+      [
+        "5ManMidas",
+        "0/02/5ManMidas_allmode.png"
+      ],
+      [
+        "Simply TOOBASED",
+        "a/a0/Simply_TOOBASED_lightmode.png"
+      ],
+      [
+        "felt",
+        "5/5b/Felt_allmode.png"
+      ],
+      [
+        "Quincy Crew",
+        "e/e0/Quincy_Crew_2021_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Wildcard",
+        "b/b3/Wildcard_2024_lightmode.png"
+      ],
+      [
+        "Nouns Esports",
+        "a/aa/Nouns_Esports_allmode.png"
+      ]
+    ],
+    "The_International/2022/Western_Europe": [
+      [
+        "Entity",
+        "4/48/Entity_2021_lightmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Team Liquid",
+        "c/c9/Team_Liquid_2020_lightmode.png"
+      ],
+      [
+        "Into The Breach",
+        "8/84/Into_The_Breach_Pink_2022_allmode.png"
+      ],
+      [
+        "Nigma Galaxy",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ],
+      [
+        "Goonsquad",
+        "c/c5/Goonsquad_allmode.png"
+      ],
+      [
+        "DGG Esports",
+        "8/88/DGG_Esports_lightmode.png"
+      ],
+      [
+        "Team Bald Reborn",
+        "7/7c/Team_Bald_allmode.png"
+      ],
+      [
+        "IVY",
+        "9/93/IVY_allmode.png"
+      ],
+      [
+        "Water Rune Enjoyers",
+        "5/59/Water_Rune_Enjoyers_allmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "Team Bald",
+        "7/7c/Team_Bald_allmode.png"
+      ]
+    ],
+    "The_International/2022/Southeast_Asia": [
+      [
+        "Talon Esports",
+        "4/40/Talon_Esports_2021_allmode.png"
+      ],
+      [
+        "Polaris Esports",
+        "a/a3/Polaris_Esports_allmode.png"
+      ],
+      [
+        "T1",
+        "e/e4/T1_2019_allmode.png"
+      ],
+      [
+        "RSG",
+        "b/b5/RSG_allmode.png"
+      ],
+      [
+        "XERXIA",
+        "0/08/Xerxia_Esports_allmode.png"
+      ],
+      [
+        "Neon Esports",
+        "4/45/Neon_Esports_allmode.png"
+      ],
+      [
+        "Army Geniuses",
+        "8/83/Army_Geniuses_allmode.png"
+      ],
+      [
+        "Execration",
+        "c/c9/Execration_2020_lightmode.png"
+      ],
+      [
+        "Lilgun",
+        "6/6f/Lilgun_202106_lightmode.png"
+      ],
+      [
+        "Nigma Galaxy SEA",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ],
+      [
+        "Atlantis",
+        "1/11/Atlantis_allmode.png"
+      ],
+      [
+        "Summit Gaming",
+        "7/7a/Summit_Gaming_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "1/1c/TNC_Predator_2021_allmode.png"
+      ],
+      [
+        "Team SMG",
+        "9/91/Team_SMG_2022_allmode.png"
+      ],
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2022/China": [
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "Xtreme Gaming",
+        "7/72/Xtreme_Gaming_%28China%29_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "CDEC Gaming",
+        "7/73/CDEC_allmode.png"
+      ],
+      [
+        "Aster.Aries",
+        "a/a3/Aster.Aries_allmode.png"
+      ],
+      [
+        "Ybb Gaming",
+        "e/e8/Ybb_Gaming_2022_allmode.png"
+      ],
+      [
+        "ShenZhen",
+        "a/ad/ShenZhen_allmode.png"
+      ],
+      [
+        "Team MagMa",
+        "6/64/Team_MagMa_allmode.png"
+      ],
+      [
+        "EHOME",
+        "d/d5/EHOME_allmode.png"
+      ],
+      [
+        "LBZS",
+        "3/36/LBZS_2021_allmode.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "Team SMG",
+        "9/91/Team_SMG_2022_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2022/Eastern_Europe": [
+      [
+        "BetBoom Team",
+        "1/18/BetBoom_Team_allmode.png"
+      ],
+      [
+        "Outsiders",
+        "4/4f/Outsiders_DOTA2_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "3/3f/Natus_Vincere_2021_lightmode.png"
+      ],
+      [
+        "One Move",
+        "1/11/One_Move_allmode.png"
+      ],
+      [
+        "Nemiga Gaming",
+        "b/bb/Nemiga_Gaming_2020_temporary.png"
+      ],
+      [
+        "Mind Games",
+        "9/9d/Mind_Games_2022_allmode.png"
+      ],
+      [
+        "PuckChamp",
+        "c/ce/PuckChamp_202111_allmode.png"
+      ],
+      [
+        "HellRaisers",
+        "1/11/HellRaisers_2020_allmode.png"
+      ],
+      [
+        "Pari Parni",
+        "7/76/Pari_Parni_2022_allmode.png"
+      ],
+      [
+        "Cybercats",
+        "4/45/Cybercats_2022_allmode.png"
+      ],
+      [
+        "Project Armor",
+        "a/a8/Project_Armor_lightmode.png"
+      ],
+      [
+        "Team Unique",
+        "5/58/Team_Unique_2019_lightmode.png"
+      ],
+      [
+        "HYDRA",
+        "2/29/HYDRA_2021_lightmode.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "cybercats",
+        "3/36/Cybercats_2023_allmode.png"
+      ]
+    ],
+    "The_International/2022/South_America": [
+      [
+        "Hokori",
+        "d/d0/Hokori_2021_allmode.png"
+      ],
+      [
+        "Infamous",
+        "0/04/Infamous_Uesports_lightmode.png"
+      ],
+      [
+        "Mad Kings",
+        "e/ec/Mad_Kings_2021_lightmode.png"
+      ],
+      [
+        "No Runes",
+        "d/d8/No_Runes_allmode.png"
+      ],
+      [
+        "SG esports",
+        "2/2b/SG_e-sports_2021_allmode.png"
+      ],
+      [
+        "Ravens",
+        "7/73/Ravens_allmode.png"
+      ],
+      [
+        "Wolf Team",
+        "2/24/Wolf_Team_allmode.png"
+      ],
+      [
+        "Dreamers Esports",
+        "9/92/Dreamers_Esports_lightmode.png"
+      ],
+      [
+        "Balrogs",
+        "7/7a/Balrogs_2021_lightmode.png"
+      ],
+      [
+        "Infinity",
+        "b/bc/Infinity_2021_lightmode.png"
+      ],
+      [
+        "Gorillaz-Pride",
+        "0/08/Gorillaz-Pride_allmode.png"
+      ],
+      [
+        "NoPing e-sports",
+        "e/e6/NoPing_e-sports_2021_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Tempest",
+        "c/cf/Tempest_allmode.png"
+      ]
+    ],
+    "The_International/2023": [
+      [
+        "Team Spirit",
+        "6/66/Team_Spirit_2022_lightmode.png"
+      ],
+      [
+        "Gaimin Gladiators",
+        "7/78/Gladiators_2022_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "2/2f/LGD_Gaming_Dec_2019_allmode.png"
+      ],
+      [
+        "Azure Ray",
+        "a/a3/Azure_Ray_allmode.png"
+      ],
+      [
+        "Team Liquid",
+        "1/1e/Team_Liquid_2023_lightmode.png"
+      ],
+      [
+        "BetBoom Team",
+        "8/8d/BetBoom_Team_mar_2023_allmode.png"
+      ],
+      [
+        "Nouns",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "c/c0/Virtus.pro_2019_allmode.png"
+      ],
+      [
+        "TSM",
+        "c/c8/TSM_2019_lightmode.png"
+      ],
+      [
+        "9Pandas",
+        "2/29/9Pandas_dota2_allmode.png"
+      ],
+      [
+        "Talon Esports",
+        "7/7c/Talon_Esports_2019_allmode.png"
+      ],
+      [
+        "Entity",
+        "4/48/Entity_2021_lightmode.png"
+      ],
+      [
+        "Shopify Rebellion",
+        "a/a4/Shopify_Rebellion_2021_lightmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "8/8c/Evil_Geniuses_2020_lightmode.png"
+      ],
+      [
+        "Keyd Stars",
+        "c/cf/Keyd_Stars_2022_allmode.png"
+      ],
+      [
+        "Tundra Esports",
+        "1/13/Tundra_Esports_2020_lightmode.png"
+      ],
+      [
+        "Team SMG",
+        "9/91/Team_SMG_2022_allmode.png"
+      ],
+      [
+        "Thunder Awaken",
+        "2/22/Thunder_Awaken_2022_lightmode.png"
+      ],
+      [
+        "Beastcoast",
+        "9/95/Beastcoast_2022_allmode.png"
+      ],
+      [
+        "PSG Quest",
+        "4/4c/PSG_Quest_lightmode.png"
+      ],
+      [
+        "nouns",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "beastcoast",
+        "9/95/Beastcoast_2022_allmode.png"
+      ],
+      [
+        "Nouns Esports",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "8/83/Fnatic_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "OG",
+        "2/2f/OG_Logo.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "OpTic Gaming",
+        "7/79/OpTic_Gaming_lightmode.png"
+      ],
+      [
+        "PSG.LGD",
+        "e/e8/PSG.LGD_allmode.png"
+      ],
+      [
+        "Elephant",
+        "a/ab/Elephant_allmode.png"
+      ],
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "VG.Reborn",
+        "5/5c/Vici_Gaming_Reborn_notext.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "Na`Vi North America",
+        "e/ec/NaviUS_logo.png"
+      ],
+      [
+        "VGJ.Storm",
+        "e/ec/VGJ.Storm_lightmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "Quincy Crew",
+        "e/e0/Quincy_Crew_2021_lightmode.png"
+      ],
+      [
+        "Soniqs",
+        "a/a8/Susquehanna_Soniqs_allmode.png"
+      ],
+      [
+        "Mineski",
+        "0/0b/Mineski_201706_allmode.png"
+      ],
+      [
+        "HellRaisers",
+        "3/39/HellRaisers_2018_allmode.png"
+      ],
+      [
+        "Ninjas in Pyjamas",
+        "7/7f/Ninjas_in_Pyjamas_2017_lightmode.png"
+      ],
+      [
+        "Wings Gaming",
+        "3/35/Wings_Gaming_allmode.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ],
+      [
+        "Team Undying",
+        "4/46/Team_Undying_allmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "LGD.Forever Young",
+        "6/67/LGD.Forever_Young.png"
+      ],
+      [
+        "T1",
+        "e/e4/T1_2019_allmode.png"
+      ]
+    ],
+    "The_International/2023/South_America": [
+      [
+        "Keyd Stars",
+        "c/cf/Keyd_Stars_2022_allmode.png"
+      ],
+      [
+        "Thunder Awaken",
+        "2/22/Thunder_Awaken_2022_lightmode.png"
+      ],
+      [
+        "AcatSuki",
+        "1/13/AcatSuki_allmode.png"
+      ],
+      [
+        "Mad Kings",
+        "e/ec/Mad_Kings_2021_lightmode.png"
+      ],
+      [
+        "Infinity",
+        "b/bc/Infinity_2021_lightmode.png"
+      ],
+      [
+        "Lava Esports",
+        "7/79/Lava_Esports_allmode.png"
+      ],
+      [
+        "Universitario Esports",
+        "1/16/Universitario_Esports_allmode.png"
+      ],
+      [
+        "Balrogs",
+        "7/7a/Balrogs_2021_lightmode.png"
+      ],
+      [
+        "NoPing Esports",
+        "e/e6/NoPing_e-sports_2021_allmode.png"
+      ],
+      [
+        "X5 Gaming",
+        "c/c6/X5_Gaming_allmode.png"
+      ],
+      [
+        "Infamous",
+        "5/58/Infamous_2020_allmode.png"
+      ],
+      [
+        "Hokori",
+        "d/d0/Hokori_2021_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2023/Western_Europe": [
+      [
+        "Entity",
+        "4/48/Entity_2021_lightmode.png"
+      ],
+      [
+        "Quest Esports",
+        "3/3c/Quest_Esports_lightmode.png"
+      ],
+      [
+        "Luna Galaxy",
+        "e/e6/Luna_Galaxy_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Level UP",
+        "2/2c/Level_Up_Esports_2021_allmode.png"
+      ],
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "KZ Team",
+        "5/56/KZ_TEAM_allmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "Into The Breach",
+        "8/84/Into_The_Breach_Pink_2022_allmode.png"
+      ],
+      [
+        "Nigma Galaxy",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ],
+      [
+        "Ancient Tribe",
+        "2/22/Ancient_Tribe_2022_allmode.png"
+      ],
+      [
+        "IVY",
+        "9/93/IVY_allmode.png"
+      ],
+      [
+        "Wildcard Gaming",
+        "6/63/Wildcard_Gaming_allmode.png"
+      ],
+      [
+        "Team Sexy",
+        "1/16/Team_Sexy_2023_lightmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "PSG Quest",
+        "4/4c/PSG_Quest_lightmode.png"
+      ]
+    ],
+    "The_International/2023/North_America": [
+      [
+        "Nouns",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "B8",
+        "c/c6/B8_lightmode.png"
+      ],
+      [
+        "Team DogChamp",
+        "d/db/Team_DogChamp_allmode.png"
+      ],
+      [
+        "Wildcard Gaming",
+        "6/63/Wildcard_Gaming_allmode.png"
+      ],
+      [
+        "Felt",
+        "5/5b/Felt_allmode.png"
+      ],
+      [
+        "American goons",
+        "3/34/American_goons_allmode.png"
+      ],
+      [
+        "Sand King Gómez",
+        "3/37/Sand_King_G%C3%B3mez_2020_sllmode.png"
+      ],
+      [
+        "The Cut",
+        "5/53/The_Cut_allmode.png"
+      ],
+      [
+        "CDUB Esports",
+        "2/26/CDUB_Esports_allmode.png"
+      ],
+      [
+        "TiltedBoys",
+        "6/6f/TiltedBoys_allmode.png"
+      ],
+      [
+        "Lucky Bird",
+        "0/0a/Lucky_Bird_allmode.png"
+      ],
+      [
+        "Ravens",
+        "7/73/Ravens_allmode.png"
+      ],
+      [
+        "GRIN Esports",
+        "3/30/Grin_Esports_allmode.png"
+      ],
+      [
+        "PuckChamp",
+        "c/ce/PuckChamp_202111_allmode.png"
+      ],
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "felt",
+        "5/5b/Felt_allmode.png"
+      ],
+      [
+        "nouns",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Wildcard",
+        "b/b3/Wildcard_2024_lightmode.png"
+      ],
+      [
+        "Nouns Esports",
+        "a/aa/Nouns_Esports_allmode.png"
+      ]
+    ],
+    "The_International/2023/Southeast_Asia": [
+      [
+        "Team SMG",
+        "9/91/Team_SMG_2022_allmode.png"
+      ],
+      [
+        "Blacklist International",
+        "a/aa/Blacklist_International_lightmode.png"
+      ],
+      [
+        "Geek Fam",
+        "4/41/Geek_Fam_2019_allmode.png"
+      ],
+      [
+        "Execration",
+        "c/c9/Execration_2020_lightmode.png"
+      ],
+      [
+        "Bleed Esports",
+        "4/42/Bleed_eSports_2021_allmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Neon Esports",
+        "4/45/Neon_Esports_allmode.png"
+      ],
+      [
+        "Army Geniuses",
+        "8/83/Army_Geniuses_allmode.png"
+      ],
+      [
+        "Made in Philippines",
+        "d/d7/Made_in_Philippines_allmode.png"
+      ],
+      [
+        "UD Vessuwan",
+        "2/22/UD_Vessuwan_allmode.png"
+      ],
+      [
+        "Myth Avenue Gaming",
+        "4/43/Myth_Avenue_Gaming_allmode.png"
+      ],
+      [
+        "SPAWN Team",
+        "5/56/SPAWN_Team_allmode.png"
+      ],
+      [
+        "IHC Esports",
+        "8/88/IHC_ESPORTS_allmode.png"
+      ],
+      [
+        "Polaris Esports",
+        "a/a3/Polaris_Esports_allmode.png"
+      ],
+      [
+        "Team Aster",
+        "e/e7/Team_Aster_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "XERXIA",
+        "0/08/Xerxia_Esports_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2023/China": [
+      [
+        "Azure Ray",
+        "a/a3/Azure_Ray_allmode.png"
+      ],
+      [
+        "Xtreme Gaming",
+        "7/72/Xtreme_Gaming_%28China%29_allmode.png"
+      ],
+      [
+        "Team Zero",
+        "3/3d/Team_Zero_lightmode.png"
+      ],
+      [
+        "Team Bright",
+        "1/16/Team_Bright_lightmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Team Aster",
+        "e/e7/Team_Aster_allmode.png"
+      ],
+      [
+        "Aster.Aries",
+        "a/a3/Aster.Aries_allmode.png"
+      ],
+      [
+        "Holy Grail",
+        "d/d4/Holy_Grail_allmode.png"
+      ],
+      [
+        "Big brain",
+        "5/57/Big_brain_lightmode.png"
+      ],
+      [
+        "IG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "Team Disillusion",
+        "f/f4/Team_Disillusion_allmode.png"
+      ],
+      [
+        "Limit",
+        "3/37/Limit_Gaming_allmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Supernova",
+        "9/9d/Supernova_allmode.png"
+      ],
+      [
+        "Myth Avenue Gaming",
+        "4/43/Myth_Avenue_Gaming_allmode.png"
+      ],
+      [
+        "PSG.LGD",
+        "1/11/PSG.LGD_2020_lightmode.png"
+      ],
+      [
+        "iG.Vitality",
+        "1/10/IG.Vitality_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2023/Eastern_Europe": [
+      [
+        "Virtus.pro",
+        "c/c0/Virtus.pro_2019_allmode.png"
+      ],
+      [
+        "One Move",
+        "1/11/One_Move_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "3/3f/Natus_Vincere_2021_lightmode.png"
+      ],
+      [
+        "HYDRA",
+        "2/29/HYDRA_2021_lightmode.png"
+      ],
+      [
+        "Nemiga Gaming",
+        "b/bb/Nemiga_Gaming_2020_temporary.png"
+      ],
+      [
+        "NAVI Junior",
+        "d/df/Natus_Vincere_Junior_2021_lightmode.png"
+      ],
+      [
+        "Matreshka",
+        "3/3a/Matreshka_2023_allmode.png"
+      ],
+      [
+        "Team Sexy",
+        "1/16/Team_Sexy_2023_lightmode.png"
+      ],
+      [
+        "UALEIKUMNIHAO",
+        "b/b1/UALEIKUMNIHAO_allmode.png"
+      ],
+      [
+        "Cybercats",
+        "3/36/Cybercats_2023_allmode.png"
+      ],
+      [
+        "IVY",
+        "9/93/IVY_allmode.png"
+      ],
+      [
+        "StoRm",
+        "c/cb/StoRm_allmode.png"
+      ],
+      [
+        "Quest Esports",
+        "3/3c/Quest_Esports_lightmode.png"
+      ]
+    ],
+    "The_International/2024": [
+      [
+        "Team Liquid",
+        "0/01/Team_Liquid_2024_lightmode.png"
+      ],
+      [
+        "Gaimin Gladiators",
+        "7/78/Gladiators_2022_allmode.png"
+      ],
+      [
+        "Tundra Esports",
+        "1/13/Tundra_Esports_2020_lightmode.png"
+      ],
+      [
+        "Team Falcons",
+        "8/83/Team_Falcons_2022_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "Xtreme Gaming",
+        "7/72/Xtreme_Gaming_%28China%29_allmode.png"
+      ],
+      [
+        "BB Team",
+        "5/5b/BetBoom_Team_2024_allmode.png"
+      ],
+      [
+        "Aurora Gaming",
+        "1/18/Aurora_Gaming_2023_allmode.png"
+      ],
+      [
+        "Nouns Esports",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "1w Team",
+        "5/5c/1win_Team_2024_allmode.png"
+      ],
+      [
+        "HEROIC",
+        "0/03/Heroic_2023_allmode.png"
+      ],
+      [
+        "Team Spirit",
+        "6/66/Team_Spirit_2022_lightmode.png"
+      ],
+      [
+        "Talon Esports",
+        "7/7c/Talon_Esports_2019_allmode.png"
+      ],
+      [
+        "Team Zero",
+        "3/3d/Team_Zero_lightmode.png"
+      ],
+      [
+        "Beastcoast",
+        "9/95/Beastcoast_2022_allmode.png"
+      ],
+      [
+        "G2 x iG",
+        "f/f9/G2.iG_lightmode.png"
+      ],
+      [
+        "beastcoast",
+        "9/95/Beastcoast_2022_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "BetBoom Team",
+        "5/5b/BetBoom_Team_2024_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "8/83/Fnatic_allmode.png"
+      ],
+      [
+        "compLexity Gaming",
+        "3/3c/CompLexity-logo.png"
+      ],
+      [
+        "OG",
+        "2/2f/OG_Logo.png"
+      ],
+      [
+        "Evil Geniuses",
+        "f/fd/Evil_Geniuses_March_2018_lightmode.png"
+      ],
+      [
+        "Shopify Rebellion",
+        "a/a4/Shopify_Rebellion_2021_lightmode.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "Na`Vi North America",
+        "e/ec/NaviUS_logo.png"
+      ],
+      [
+        "VGJ.Storm",
+        "e/ec/VGJ.Storm_lightmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "e/ea/LGD_Gaming_2016_allmode.png"
+      ],
+      [
+        "PSG.LGD",
+        "e/e8/PSG.LGD_allmode.png"
+      ],
+      [
+        "OpTic Gaming",
+        "7/79/OpTic_Gaming_lightmode.png"
+      ],
+      [
+        "Quincy Crew",
+        "e/e0/Quincy_Crew_2021_lightmode.png"
+      ],
+      [
+        "Soniqs",
+        "a/a8/Susquehanna_Soniqs_allmode.png"
+      ],
+      [
+        "HellRaisers",
+        "3/39/HellRaisers_2018_allmode.png"
+      ],
+      [
+        "Ninjas in Pyjamas",
+        "7/7f/Ninjas_in_Pyjamas_2017_lightmode.png"
+      ],
+      [
+        "Mineski",
+        "0/0b/Mineski_201706_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "Team Empire",
+        "2/21/Team_Empire_2016_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "1/1d/Virtus.pro_allmode.png"
+      ],
+      [
+        "9Pandas",
+        "2/29/9Pandas_dota2_allmode.png"
+      ],
+      [
+        "LGD.Forever Young",
+        "6/67/LGD.Forever_Young.png"
+      ],
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "Team Aster",
+        "e/e7/Team_Aster_allmode.png"
+      ],
+      [
+        "Team SMG",
+        "9/91/Team_SMG_2022_allmode.png"
+      ],
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ],
+      [
+        "nouns",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Team Serenity",
+        "8/83/Team_Serenity_Dota_lightmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "T1",
+        "e/e4/T1_2019_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Entity",
+        "4/48/Entity_2021_lightmode.png"
+      ],
+      [
+        "TSM",
+        "c/c8/TSM_2019_lightmode.png"
+      ],
+      [
+        "Hokori",
+        "d/d0/Hokori_2021_allmode.png"
+      ],
+      [
+        "Keyd Stars",
+        "c/cf/Keyd_Stars_2022_allmode.png"
+      ],
+      [
+        "SG esports",
+        "2/2b/SG_e-sports_2021_allmode.png"
+      ]
+    ],
+    "The_International/2024/North_America": [
+      [
+        "Nouns Esports",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "Shopify Rebellion",
+        "a/a4/Shopify_Rebellion_2021_lightmode.png"
+      ],
+      [
+        "Apex Genesis",
+        "f/fa/Apex_Genesis_allmode.png"
+      ],
+      [
+        "GRIN Esports",
+        "3/30/Grin_Esports_allmode.png"
+      ]
+    ],
+    "The_International/2024/China": [
+      [
+        "Team Zero",
+        "3/3d/Team_Zero_lightmode.png"
+      ],
+      [
+        "G2 x iG",
+        "f/f9/G2.iG_lightmode.png"
+      ],
+      [
+        "Azure Ray",
+        "a/a3/Azure_Ray_allmode.png"
+      ],
+      [
+        "TEAM TURTLE",
+        "e/ec/Team_Turtle_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "2/2f/LGD_Gaming_Dec_2019_allmode.png"
+      ],
+      [
+        "KEV",
+        "4/49/KEV_2024_allmode.png"
+      ],
+      [
+        "Spiky Gaming",
+        "1/1a/Spiky_gaming_allmode.png"
+      ],
+      [
+        "Dark Horse",
+        "8/85/Dark_Horse_lightmode.png"
+      ],
+      [
+        "Team Bright",
+        "1/16/Team_Bright_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2024/Southeast_Asia": [
+      [
+        "Talon Esports",
+        "7/7c/Talon_Esports_2019_allmode.png"
+      ],
+      [
+        "Aurora Gaming",
+        "1/18/Aurora_Gaming_2023_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "1/1c/TNC_Predator_2021_allmode.png"
+      ],
+      [
+        "Execration",
+        "c/c9/Execration_2020_lightmode.png"
+      ],
+      [
+        "Team Prism",
+        "2/2e/Team_Prism_lightmode.png"
+      ],
+      [
+        "Bleed Esports",
+        "d/d6/Bleed_Esports_2024_allmode.png"
+      ],
+      [
+        "IHC Esports",
+        "8/88/IHC_ESPORTS_allmode.png"
+      ],
+      [
+        "Yangon Galacticos",
+        "d/db/Yangon_Galacticos_2021_allmode.png"
+      ],
+      [
+        "Manta Esports",
+        "b/b8/MANTA_Esports_allmode.png"
+      ],
+      [
+        "Neon Esports",
+        "4/45/Neon_Esports_allmode.png"
+      ],
+      [
+        "Blacklist International",
+        "a/aa/Blacklist_International_lightmode.png"
+      ],
+      [
+        "Salvation Gaming",
+        "b/b2/Salvation_Gaming_allmode.png"
+      ],
+      [
+        "InterActive Philippines",
+        "b/b9/InterActive_Philippines_202309_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2024/South_America": [
+      [
+        "HEROIC",
+        "0/03/Heroic_2023_allmode.png"
+      ],
+      [
+        "Beastcoast",
+        "9/95/Beastcoast_2022_allmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Midas Club",
+        "4/40/Midas_Club_2019_allmode.png"
+      ],
+      [
+        "Leviatán",
+        "e/ec/Leviat%C3%A1n_allmode.png"
+      ],
+      [
+        "NoPing Esports",
+        "e/e6/NoPing_e-sports_2021_allmode.png"
+      ],
+      [
+        "FUSION",
+        "9/9b/FUSION_2023_lightmode.png"
+      ],
+      [
+        "Fantasy Gaming",
+        "1/19/Fantasy_Gaming_allmode.png"
+      ],
+      [
+        "Lava Esports",
+        "7/79/Lava_Esports_allmode.png"
+      ],
+      [
+        "Infinity",
+        "b/bc/Infinity_2021_lightmode.png"
+      ],
+      [
+        "Estar Backs",
+        "2/22/Estar_Backs_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "beastcoast",
+        "9/95/Beastcoast_2022_allmode.png"
+      ]
+    ],
+    "The_International/2024/Western_Europe": [
+      [
+        "Entity",
+        "4/48/Entity_2021_lightmode.png"
+      ],
+      [
+        "Tundra Esports",
+        "1/13/Tundra_Esports_2020_lightmode.png"
+      ],
+      [
+        "PSG Quest",
+        "4/4c/PSG_Quest_lightmode.png"
+      ],
+      [
+        "NAVI Junior",
+        "d/df/Natus_Vincere_Junior_2021_lightmode.png"
+      ],
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Nigma Galaxy",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ],
+      [
+        "Twisted Minds",
+        "2/24/Twisted_Minds_2023_allmode.png"
+      ],
+      [
+        "MOUZ",
+        "c/c2/MOUZ_2021_allmode.png"
+      ],
+      [
+        "Team Bald",
+        "7/7c/Team_Bald_allmode.png"
+      ],
+      [
+        "Shopify Rebellion",
+        "a/a4/Shopify_Rebellion_2021_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "Dandelions",
+        "9/97/Dandelions_2026_lightmode.webp"
+      ]
+    ],
+    "The_International/2024/Eastern_Europe": [
+      [
+        "9Pandas",
+        "2/29/9Pandas_dota2_allmode.png"
+      ],
+      [
+        "Yellow Submarine",
+        "a/ad/Yellow_Submarine_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "3/3f/Natus_Vincere_2021_lightmode.png"
+      ],
+      [
+        "L1GA TEAM",
+        "c/c1/L1GA_TEAM_lightmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "c/c0/Virtus.pro_2019_allmode.png"
+      ],
+      [
+        "Nemiga Gaming",
+        "b/bb/Nemiga_Gaming_2020_temporary.png"
+      ],
+      [
+        "One Move",
+        "1/11/One_Move_allmode.png"
+      ],
+      [
+        "Neon Esports",
+        "5/52/Vod.svg"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "HULIGANI",
+        "8/81/HULIGANI_allmode.png"
+      ],
+      [
+        "1w Team",
+        "5/5c/1win_Team_2024_allmode.png"
+      ]
+    ],
+    "The_International/2025": [
+      [
+        "Team Falcons",
+        "8/83/Team_Falcons_2022_allmode.png"
+      ],
+      [
+        "Xtreme Gaming",
+        "7/72/Xtreme_Gaming_%28China%29_allmode.png"
+      ],
+      [
+        "PVISION",
+        "9/9d/PARIVISION_allmode.png"
+      ],
+      [
+        "BB Team",
+        "5/5b/BetBoom_Team_2024_allmode.png"
+      ],
+      [
+        "HEROIC",
+        "0/03/Heroic_2023_allmode.png"
+      ],
+      [
+        "Nigma Galaxy",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ],
+      [
+        "Tundra Esports",
+        "1/13/Tundra_Esports_2020_lightmode.png"
+      ],
+      [
+        "Team Tidebound",
+        "5/50/Team_Tidebound_allmode.png"
+      ],
+      [
+        "Yakutou Brothers",
+        "6/63/Yakutou_Brothers_lightmode.png"
+      ],
+      [
+        "Aurora Gaming",
+        "1/1c/Aurora_Gaming_2025_allmode.png"
+      ],
+      [
+        "Wildcard",
+        "b/b3/Wildcard_2024_lightmode.png"
+      ],
+      [
+        "Team Liquid",
+        "3/3b/Team_Liquid_25_years.png"
+      ],
+      [
+        "Team Spirit",
+        "6/66/Team_Spirit_2022_lightmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "3/3f/Natus_Vincere_2021_lightmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Team Nemesis",
+        "e/ed/Team_Nem_lightmode.png"
+      ],
+      [
+        "Gaimin Gladiators",
+        "7/78/Gladiators_2022_allmode.png"
+      ],
+      [
+        "BetBoom Team",
+        "5/5b/BetBoom_Team_2024_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2025/Western_Europe": [
+      [
+        "NAVI Junior",
+        "d/df/Natus_Vincere_Junior_2021_lightmode.png"
+      ],
+      [
+        "Nigma Galaxy",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ],
+      [
+        "OG",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Yellow Submarine",
+        "a/ad/Yellow_Submarine_allmode.png"
+      ],
+      [
+        "4Pirates",
+        "f/fe/4Pirates_2025_allmode.png"
+      ],
+      [
+        "1w Team",
+        "5/5c/1win_Team_2024_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "c/c0/Virtus.pro_2019_allmode.png"
+      ],
+      [
+        "AVULUS",
+        "f/f9/Avulus_2024_allmode.png"
+      ],
+      [
+        "MOUZ",
+        "c/c2/MOUZ_2021_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "BetBoom Team",
+        "5/5b/BetBoom_Team_2024_allmode.png"
+      ],
+      [
+        "9Pandas",
+        "2/29/9Pandas_dota2_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2025/China": [
+      [
+        "Xtreme Gaming",
+        "7/72/Xtreme_Gaming_%28China%29_allmode.png"
+      ],
+      [
+        "Azure Ray",
+        "a/a3/Azure_Ray_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Tearlaments",
+        "3/35/Tearlaments_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2025/North_America": [
+      [
+        "Wildcard",
+        "b/b3/Wildcard_2024_lightmode.png"
+      ],
+      [
+        "Shopify Rebellion",
+        "a/a4/Shopify_Rebellion_2021_lightmode.png"
+      ],
+      [
+        "CDUB Esports",
+        "2/26/CDUB_Esports_allmode.png"
+      ],
+      [
+        "Yoru RyodaN",
+        "6/64/Yoru_Ryodan_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2025/Southeast_Asia": [
+      [
+        "Team Nemesis",
+        "e/ed/Team_Nem_lightmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Talon Esports",
+        "7/7c/Talon_Esports_2019_allmode.png"
+      ],
+      [
+        "Execration",
+        "4/44/Execration_2024_allmode.png"
+      ],
+      [
+        "Tech Free Gaming",
+        "9/9a/Tech_Free_Gaming_allmode.png"
+      ],
+      [
+        "Ivory",
+        "b/b7/Ivory_2024_allmode.png"
+      ],
+      [
+        "Kopite",
+        "5/5a/Kopite_allmode.png"
+      ],
+      [
+        "InterActive Philippines",
+        "b/b9/InterActive_Philippines_202309_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2025/Eastern_Europe": [
+      [
+        "Aurora Gaming",
+        "1/1c/Aurora_Gaming_2025_allmode.png"
+      ],
+      [
+        "Cyber Goose",
+        "f/ff/Cyber_Goose_allmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "3/3f/Natus_Vincere_2021_lightmode.png"
+      ],
+      [
+        "Nemiga Gaming",
+        "b/bb/Nemiga_Gaming_2020_temporary.png"
+      ],
+      [
+        "L1GA TEAM",
+        "c/c1/L1GA_TEAM_lightmode.png"
+      ],
+      [
+        "One Move",
+        "1/11/One_Move_allmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ],
+      [
+        "HULIGANI",
+        "8/81/HULIGANI_allmode.png"
+      ]
+    ],
+    "The_International/2025/South_America": [
+      [
+        "HEROIC",
+        "0/03/Heroic_2023_allmode.png"
+      ],
+      [
+        "OG.LATAM",
+        "7/70/OG_RB_allmode.png"
+      ],
+      [
+        "Infamous",
+        "5/58/Infamous_2020_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2026": [
+      [
+        "Team Spirit",
+        "6/66/Team_Spirit_2022_lightmode.png"
+      ],
+      [
+        "TEAM VISION",
+        "5/55/TEAM_VISION_allmode.png"
+      ],
+      [
+        "Team Yandex",
+        "9/9c/Team_Yandex_2026_lightmode.png"
+      ],
+      [
+        "BoomBoys",
+        "0/05/BoomBoys_allmode.png"
+      ],
+      [
+        "Nigma Galaxy",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ],
+      [
+        "Team Liquid",
+        "0/01/Team_Liquid_2024_lightmode.png"
+      ],
+      [
+        "Iron Wing",
+        "3/3c/Iron_Wing_allmode.png"
+      ],
+      [
+        "Team Falcons",
+        "8/83/Team_Falcons_2022_allmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Aurora Gaming",
+        "1/1c/Aurora_Gaming_2025_allmode.png"
+      ],
+      [
+        "Team Resilience",
+        "b/bd/Team_Resilience_%28DOTA2%29_lightmode.png"
+      ],
+      [
+        "GamerLegion",
+        "2/21/GamerLegion_2026_allmode.png"
+      ],
+      [
+        "LGD Gaming",
+        "2/2f/LGD_Gaming_Dec_2019_allmode.png"
+      ],
+      [
+        "Xtreme Gaming",
+        "7/72/Xtreme_Gaming_%28China%29_allmode.png"
+      ],
+      [
+        "OG",
+        "7/7b/OG_2026_allmode.png"
+      ],
+      [
+        "HULIGANI",
+        "8/81/HULIGANI_allmode.png"
+      ],
+      [
+        "1w Team",
+        "5/5c/1win_Team_2024_allmode.png"
+      ],
+      [
+        "BetBoom Team",
+        "5/5b/BetBoom_Team_2024_allmode.png"
+      ],
+      [
+        "Evil Geniuses",
+        "b/bf/Evil_Geniuses_allmode.png"
+      ],
+      [
+        "Shopify Rebellion",
+        "a/a4/Shopify_Rebellion_2021_lightmode.png"
+      ],
+      [
+        "Team Dignitas",
+        "8/8c/Team_Dignitas_allmode.png"
+      ],
+      [
+        "Na`Vi North America",
+        "e/ec/NaviUS_logo.png"
+      ],
+      [
+        "VGJ.Storm",
+        "e/ec/VGJ.Storm_lightmode.png"
+      ],
+      [
+        "Newbee",
+        "d/d7/Newbee_allmode.png"
+      ],
+      [
+        "Tundra Esports",
+        "1/13/Tundra_Esports_2020_lightmode.png"
+      ],
+      [
+        "PSG.LGD",
+        "e/e8/PSG.LGD_allmode.png"
+      ],
+      [
+        "VG.Reborn",
+        "5/5c/Vici_Gaming_Reborn_notext.png"
+      ],
+      [
+        "Elephant",
+        "a/ab/Elephant_allmode.png"
+      ],
+      [
+        "Azure Ray",
+        "a/a3/Azure_Ray_allmode.png"
+      ],
+      [
+        "HellRaisers",
+        "3/39/HellRaisers_2018_allmode.png"
+      ],
+      [
+        "OpTic Gaming",
+        "7/79/OpTic_Gaming_lightmode.png"
+      ],
+      [
+        "Ninjas in Pyjamas",
+        "7/7f/Ninjas_in_Pyjamas_2017_lightmode.png"
+      ],
+      [
+        "Team Secret",
+        "0/07/Team_Secret_lightmode.png"
+      ],
+      [
+        "Digital Chaos",
+        "5/58/DigitalChaos_Logo.png"
+      ],
+      [
+        "Virtus.pro",
+        "1/1d/Virtus.pro_allmode.png"
+      ],
+      [
+        "Team SMG",
+        "9/91/Team_SMG_2022_allmode.png"
+      ],
+      [
+        "Cloud9",
+        "b/bb/Cloud9_2023_allmode.png"
+      ],
+      [
+        "PVISION",
+        "9/9d/PARIVISION_allmode.png"
+      ],
+      [
+        "Invictus Gaming",
+        "9/97/Invictus_Gaming_lightmode.png"
+      ],
+      [
+        "Team Aster",
+        "e/e7/Team_Aster_allmode.png"
+      ],
+      [
+        "TNC Pro Team",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "TNC Predator",
+        "2/2a/TNC_Pro_Team_allmode.png"
+      ],
+      [
+        "Fnatic",
+        "f/f9/Fnatic_2020_allmode.png"
+      ],
+      [
+        "Team Nemesis",
+        "e/ed/Team_Nem_lightmode.png"
+      ],
+      [
+        "Wings Gaming",
+        "3/35/Wings_Gaming_allmode.png"
+      ],
+      [
+        "Team Tidebound",
+        "5/50/Team_Tidebound_allmode.png"
+      ],
+      [
+        "Team Serenity",
+        "8/83/Team_Serenity_Dota_lightmode.png"
+      ],
+      [
+        "Alliance",
+        "c/c9/Alliance_2016_allmode.png"
+      ],
+      [
+        "Gaimin Gladiators",
+        "7/78/Gladiators_2022_allmode.png"
+      ],
+      [
+        "BB Team",
+        "5/5b/BetBoom_Team_2024_allmode.png"
+      ],
+      [
+        "G2 x iG",
+        "f/f9/G2.iG_lightmode.png"
+      ],
+      [
+        "Royal Never Give Up",
+        "7/79/Royal_Never_Give_Up_allmode.png"
+      ],
+      [
+        "Infamous",
+        "e/e5/Infamous_2017_allmode.png"
+      ],
+      [
+        "beastcoast",
+        "3/3c/Beastcoast_2017_allmode.png"
+      ],
+      [
+        "HEROIC",
+        "0/03/Heroic_2023_allmode.png"
+      ],
+      [
+        "BOOM Esports",
+        "d/d0/Boom_Esports_allmode.png"
+      ],
+      [
+        "Entity",
+        "4/48/Entity_2021_lightmode.png"
+      ],
+      [
+        "SG esports",
+        "2/2b/SG_e-sports_2021_allmode.png"
+      ],
+      [
+        "Keyd Stars",
+        "c/cf/Keyd_Stars_2022_allmode.png"
+      ],
+      [
+        "9Pandas",
+        "2/29/9Pandas_dota2_allmode.png"
+      ],
+      [
+        "T1",
+        "e/e4/T1_2019_allmode.png"
+      ],
+      [
+        "TSM",
+        "c/c8/TSM_2019_lightmode.png"
+      ],
+      [
+        "Talon Esports",
+        "4/40/Talon_Esports_2021_allmode.png"
+      ],
+      [
+        "Nouns Esports",
+        "a/aa/Nouns_Esports_allmode.png"
+      ],
+      [
+        "Team Zero",
+        "3/3d/Team_Zero_lightmode.png"
+      ]
+    ],
+    "The_International/2026/North_America": [
+      [
+        "GamerLegion",
+        "6/69/GamerLegion_2023_lightmode.png"
+      ]
+    ],
+    "The_International/2026/South_America": [
+      [
+        "LGD Gaming",
+        "2/2f/LGD_Gaming_Dec_2019_allmode.png"
+      ],
+      [
+        "PlayTime",
+        "3/39/PlayTime_allmode.png"
+      ],
+      [
+        "Amaru Gaming",
+        "1/1e/Amaru_Gaming_allmode.png"
+      ],
+      [
+        "Team Nemesis",
+        "e/ed/Team_Nem_lightmode.png"
+      ],
+      [
+        "Red Hot Chili Pibble",
+        "a/a5/Red_Hot_Chili_Pibble_allmode.webp"
+      ],
+      [
+        "Estar Backs",
+        "2/22/Estar_Backs_allmode.png"
+      ],
+      [
+        "Hokori",
+        "d/d0/Hokori_2021_allmode.png"
+      ],
+      [
+        "X5 Gaming",
+        "c/c6/X5_Gaming_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2026/Southeast_Asia": [
+      [
+        "OG",
+        "7/7b/OG_2026_allmode.png"
+      ],
+      [
+        "REKONIX",
+        "3/30/REKONIX_lightmode.png"
+      ],
+      [
+        "Execration",
+        "4/44/Execration_2024_allmode.png"
+      ],
+      [
+        "GLYPH",
+        "8/8c/GLYPH_lightmode.png"
+      ],
+      [
+        "Mentality Monsters",
+        "2/24/Mentality_Monsters_lightmode.png"
+      ],
+      [
+        "Carstensz Esports",
+        "f/fb/Carstensz_Esports_allmode.png"
+      ],
+      [
+        "InterActive Philippines",
+        "b/b9/InterActive_Philippines_202309_allmode.png"
+      ],
+      [
+        "Yangon Galacticos",
+        "d/db/Yangon_Galacticos_2021_allmode.png"
+      ],
+      [
+        "Direborn Esports",
+        "e/ee/Direborn_Esports_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ],
+    "The_International/2026/China": [
+      [
+        "Team Resilience",
+        "b/bd/Team_Resilience_%28DOTA2%29_lightmode.png"
+      ],
+      [
+        "Vici Gaming",
+        "c/ce/VICI_Gaming_allmode.png"
+      ],
+      [
+        "Yakutou Brothers",
+        "6/63/Yakutou_Brothers_lightmode.png"
+      ],
+      [
+        "Team Refuser",
+        "d/d3/Team_Refuser_allmode.png"
+      ],
+      [
+        "Cloud Rising",
+        "3/31/Cloud_Rising_lightmode.png"
+      ],
+      [
+        "Game Master",
+        "9/98/Game_Master_lightmode.png"
+      ],
+      [
+        "Roar Gaming",
+        "9/99/Roar_Gaming_lightmode.png"
+      ]
+    ],
+    "The_International/2026/Europe": [
+      [
+        "Team Spirit",
+        "6/66/Team_Spirit_2022_lightmode.png"
+      ],
+      [
+        "TEAM VISION",
+        "5/55/TEAM_VISION_allmode.png"
+      ],
+      [
+        "Nigma Galaxy",
+        "6/67/Nigma_Galaxy_allmode.png"
+      ],
+      [
+        "HULIGANI",
+        "8/81/HULIGANI_allmode.png"
+      ],
+      [
+        "Yellow Submarine",
+        "3/34/Yellow_Submarine_2025_allmode.png"
+      ],
+      [
+        "Virtus.pro",
+        "c/c0/Virtus.pro_2019_allmode.png"
+      ],
+      [
+        "Power Rangers",
+        "a/a1/Power_Rangers_lightmode.png"
+      ],
+      [
+        "Natus Vincere",
+        "3/3f/Natus_Vincere_2021_lightmode.png"
+      ],
+      [
+        "Team Bald",
+        "7/7c/Team_Bald_allmode.png"
+      ],
+      [
+        "MOUZ",
+        "c/c2/MOUZ_2021_allmode.png"
+      ],
+      [
+        "VP.Prodigy",
+        "d/d0/VP.Prodigy_allmode.png"
+      ],
+      [
+        "BetBoom Team",
+        "5/5b/BetBoom_Team_2024_allmode.png"
+      ],
+      [
+        "Anti-Mage",
+        "d/d4/Anti-Mage_icon_dota2_gameasset.png"
+      ]
+    ]
+  },
+  "supplements": [
+    {
+      "year": 2011,
+      "name": "It's Gosu eSports",
+      "file": "3/37/ItsGosu.jpeg",
+      "page": "It%27s_Gosu_eSports",
+      "note": "Organization profile logo; the documented Dota squad operated only in 2011-2012. Exact logo debut is not dated."
+    },
+    {
+      "year": 2011,
+      "name": "Natural 9",
+      "file": "6/69/Natural_9.png",
+      "page": "Natural_9",
+      "note": "Past Logos gallery explicitly labels this the original logo. Annual mapping uses the first referenced club season; exact debut is not dated."
+    }
+  ],
+  "filenameYearExceptions": {
+    "a/a8/Mousesports_2016_allmode.png": {
+      "source": "https://liquipedia.net/dota2/Mousesports",
+      "note": "Past Logos gallery describes this as the original logo prior to October 14, 2021; early event tables also use it. The filename year is not treated as a rebrand date."
+    }
+  }
+}

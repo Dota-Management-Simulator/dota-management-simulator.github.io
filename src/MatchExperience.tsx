@@ -21,6 +21,8 @@ import type {
 } from "./battle";
 import type { Result } from "./game";
 import { heroById } from "./heroes";
+import TeamBadge from "./TeamBadge";
+import { teamIdForName } from "./team-logos";
 
 const COLORS = ["#c8b16f", "#9da6e2"];
 const compact = (n: number) =>
@@ -278,9 +280,11 @@ function Scoreboard({
 export function SeriesResults({
   result,
   onClose,
+  managedTeamId,
 }: {
   result: Result;
   onClose: () => void;
+  managedTeamId?: string;
 }) {
   const [selected, setSelected] = useState(0);
   const series = result.series;
@@ -310,11 +314,11 @@ export function SeriesResults({
           {result.won ? "A series to remember." : "A lesson for the next one."}
         </h2>
         <div className="series-scoreline">
-          <strong>{series.teams[0]}</strong>
+          <strong><TeamBadge teamId={managedTeamId} name={series.teams[0]} year={result.year} size="small" />{series.teams[0]}</strong>
           <span>
             {series.score[0]} <i>—</i> {series.score[1]}
           </span>
-          <strong>{series.teams[1]}</strong>
+          <strong><TeamBadge teamId={managedTeamId ? teamIdForName(series.teams[1], result.year) : undefined} name={series.teams[1]} year={result.year} size="small" />{series.teams[1]}</strong>
         </div>
         <div
           className={`series-outcome ${result.won ? "series-victory" : "series-defeat"}`}
@@ -575,9 +579,13 @@ function MapReplay({
 export function MatchViewer({
   simulation,
   onFinish,
+  year,
+  managedTeamId,
 }: {
   simulation: SimulatedSeries;
   onFinish: () => void;
+  year: number;
+  managedTeamId?: string;
 }) {
   const [gameIndex, setGameIndex] = useState(0);
   const [clock, setClock] = useState(0);
@@ -649,6 +657,7 @@ export function MatchViewer({
       </div>
       <div className="live-score">
         <strong style={{ color: COLORS[0] }}>
+          <TeamBadge teamId={managedTeamId} name={simulation.summary.teams[0]} year={year} size="small" />
           {simulation.summary.teams[0]}
         </strong>
         <span>
@@ -657,6 +666,7 @@ export function MatchViewer({
           <b>{kills[1]}</b>
         </span>
         <strong style={{ color: COLORS[1] }}>
+          <TeamBadge teamId={managedTeamId ? teamIdForName(simulation.summary.teams[1], year) : undefined} name={simulation.summary.teams[1]} year={year} size="small" />
           {simulation.summary.teams[1]}
         </strong>
       </div>
@@ -757,7 +767,7 @@ export function ComputingMatch({
       </h2>
       <p>
         {error ||
-          "Drafting from the TI1 hero pool and resolving lane combat in the background."}
+          "Drafting from your season's unlocked heroes and resolving lane combat in the background."}
       </p>
       {!error && (
         <>

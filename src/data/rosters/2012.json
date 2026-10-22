@@ -1,0 +1,720 @@
+{
+  "year": 2012,
+  "reviewedOn": "2026-10-21",
+  "note": "Main-event and regional qualifier references enter together at the annual post-TI shuffle. This is a dated composite, not an exhaustive census or single-date transfer list.",
+  "coverage": "Regional/tier-2 coverage uses documented closed qualifiers; rosters with incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2012-0",
+      "title": "The International 2012 - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2012"
+    },
+    {
+      "id": "rosters-2012-1",
+      "title": "The International 2012: East Qualifiers - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2012/East_Qualifiers"
+    },
+    {
+      "id": "rosters-2012-2",
+      "title": "Artyk Gaming — dated roster reference",
+      "url": "https://liquipedia.net/dota2/Artyk_Gaming"
+    },
+    {
+      "id": "rosters-2012-3",
+      "title": "The International 2012: West Qualifiers - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2012/West_Qualifiers"
+    }
+  ],
+  "teams": [
+    {
+      "id": "absolute-legends",
+      "name": "Absolute Legends",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "blackshatan",
+        "xMusiCa",
+        "bLeeK",
+        "Godot",
+        "Snoopy"
+      ],
+      "playerIds": [
+        "real-blackshatan",
+        "real-musica",
+        "real-bleek",
+        "real-godot",
+        "real-snoopy"
+      ]
+    },
+    {
+      "id": "complexity",
+      "name": "compLexity Gaming",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "TC",
+        "Jeyo",
+        "HANNAH_MONTANA",
+        "FLUFFNSTUFF",
+        "ixmike88"
+      ],
+      "playerIds": [
+        "real-tc",
+        "real-jeyo",
+        "real-hannah_montana",
+        "real-fluffnstuff",
+        "real-ixmike88"
+      ]
+    },
+    {
+      "id": "counter-logic-gaming",
+      "name": "Counter Logic Gaming",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Pajkatt",
+        "MiSeRy",
+        "Lacoste",
+        "Mirakel",
+        "Akke"
+      ],
+      "playerIds": [
+        "real-pajkatt",
+        "real-misery",
+        "real-lacoste",
+        "real-mirakel",
+        "real-akke"
+      ]
+    },
+    {
+      "id": "darer",
+      "name": "Darer",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Artstyle",
+        "God",
+        "Mag~",
+        "Goblak",
+        "Funn1k"
+      ],
+      "playerIds": [
+        "real-artstyle",
+        "real-god",
+        "real-mag~",
+        "real-goblak",
+        "real-funn1k"
+      ]
+    },
+    {
+      "id": "ehome",
+      "name": "EHOME",
+      "region": "China",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "LaNm",
+        "KingJ",
+        "PCT",
+        "X!!",
+        "QQQ"
+      ],
+      "playerIds": [
+        "real-lanm",
+        "real-kingj",
+        "real-pct",
+        "real-x!!",
+        "real-qqq"
+      ]
+    },
+    {
+      "id": "evil-geniuses",
+      "name": "Evil Geniuses",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Fear",
+        "BuLba",
+        "DeMoN",
+        "Maelk",
+        "UNiVeRsE"
+      ],
+      "playerIds": [
+        "real-fear",
+        "real-bulba",
+        "real-demon",
+        "real-maelk",
+        "real-universe"
+      ]
+    },
+    {
+      "id": "ig",
+      "name": "Invictus Gaming",
+      "region": "China",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Zhou",
+        "Ferrari_430",
+        "YYF",
+        "ChuaN",
+        "Faith"
+      ],
+      "playerIds": [
+        "real-zhou",
+        "real-ferrari_430",
+        "real-yyf",
+        "real-chuan",
+        "real-faith"
+      ]
+    },
+    {
+      "id": "lgd",
+      "name": "LGD Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Sylar",
+        "xiao8",
+        "Yao",
+        "DD",
+        "DDC"
+      ],
+      "playerIds": [
+        "real-sylar",
+        "real-xiao8",
+        "real-yao",
+        "real-dd",
+        "real-ddc"
+      ]
+    },
+    {
+      "id": "mufc",
+      "name": "Mortal Teamwork",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Sockshka",
+        "syndereN",
+        "Funzii",
+        "Kebap",
+        "7ckngMad"
+      ],
+      "playerIds": [
+        "real-sockshka",
+        "real-synderen",
+        "real-funzii",
+        "real-kebap",
+        "real-7ckngmad"
+      ]
+    },
+    {
+      "id": "m5",
+      "name": "Moscow Five",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Silent",
+        "Admiration",
+        "Vigoss",
+        "PGG",
+        "Bloodangel"
+      ],
+      "playerIds": [
+        "real-silent",
+        "real-admiration",
+        "real-vigoss",
+        "real-pgg",
+        "real-bloodangel"
+      ]
+    },
+    {
+      "id": "mouz",
+      "name": "mousesports",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Black^",
+        "SingSing",
+        "SexyBamboe",
+        "1437",
+        "KuroKy"
+      ],
+      "playerIds": [
+        "real-black%5E",
+        "real-singsing",
+        "real-sexybamboe",
+        "real-1437",
+        "real-kuroky"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "XBOCT",
+        "Dendi",
+        "LighTofHeaveN",
+        "Puppey",
+        "ARS-ART"
+      ],
+      "playerIds": [
+        "real-xboct",
+        "real-dendi",
+        "real-lightofheaven",
+        "real-puppey",
+        "real-ars-art"
+      ]
+    },
+    {
+      "id": "orange",
+      "name": "Orange Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "YamateH",
+        "Mushi",
+        "WinteR",
+        "XtiNcT",
+        "Ice"
+      ],
+      "playerIds": [
+        "real-yamateh",
+        "real-mushi",
+        "real-winter",
+        "real-xtinct",
+        "real-ice"
+      ]
+    },
+    {
+      "id": "dk",
+      "name": "Team DK",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "BurNIng",
+        "Super",
+        "rOtK",
+        "Zippo",
+        "LongDD"
+      ],
+      "playerIds": [
+        "real-burning",
+        "real-super",
+        "real-rotk",
+        "real-zippo",
+        "real-longdd"
+      ]
+    },
+    {
+      "id": "team-zenith",
+      "name": "Team Zenith",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Hyhy",
+        "iceiceice",
+        "Loda",
+        "xFreedom",
+        "xy-"
+      ],
+      "playerIds": [
+        "real-hyhy",
+        "real-iceiceice",
+        "real-loda",
+        "real-xfreedom",
+        "real-xy-"
+      ]
+    },
+    {
+      "id": "tongfu",
+      "name": "TongFu",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2012-0",
+      "date": "2012-09-02",
+      "roster": [
+        "Hao",
+        "Mu",
+        "Kabu",
+        "Awoke",
+        "SanSheng"
+      ],
+      "playerIds": [
+        "real-hao",
+        "real-mu",
+        "real-kabu",
+        "real-awoke",
+        "real-sansheng"
+      ]
+    },
+    {
+      "id": "aeonsports",
+      "name": "AEONSports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-1",
+      "date": "2012-06-10",
+      "roster": [
+        "King",
+        "Kiosaii",
+        "WarNutZ",
+        "Ken",
+        "Dame"
+      ],
+      "playerIds": [
+        "real-king",
+        "real-kiosaii",
+        "real-warnutz",
+        "real-ken--singapore",
+        "real-dame"
+      ]
+    },
+    {
+      "id": "artyk-gaming",
+      "name": "Artyk Gaming",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-2",
+      "date": "2012-12-15",
+      "roster": [
+        "Iwo",
+        "SmAsH",
+        "Nova",
+        "Masoku",
+        "Mstco"
+      ],
+      "playerIds": [
+        "real-iwo",
+        "real-smash",
+        "real-nova",
+        "real-masoku",
+        "real-mstco"
+      ]
+    },
+    {
+      "id": "duskbin",
+      "name": "Duskbin",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-1",
+      "date": "2012-06-10",
+      "roster": [
+        "ninjaboogie",
+        "Blah",
+        "Arsian",
+        "LeiAiSher",
+        "Hachiko"
+      ],
+      "playerIds": [
+        "real-ninjaboogie",
+        "real-blah",
+        "real-arsian",
+        "real-leiaisher",
+        "real-hachiko"
+      ]
+    },
+    {
+      "id": "ice",
+      "name": "Ice",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-1",
+      "date": "2012-06-10",
+      "roster": [
+        "Bboy",
+        "Gigolo",
+        "nichx",
+        "Bruce Lee",
+        "WeNz"
+      ],
+      "playerIds": [
+        "real-bboy",
+        "real-gigolo",
+        "real-nichx",
+        "real-bruce%20lee",
+        "real-wenz"
+      ]
+    },
+    {
+      "id": "keita-gaming",
+      "name": "Keita Gaming",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-3",
+      "date": "2012-06-10",
+      "roster": [
+        "Wall-eater",
+        "Pinoy",
+        "Niqua",
+        "QuiX",
+        "bonzajajaj"
+      ],
+      "playerIds": [
+        "real-wall-eater",
+        "real-pinoy",
+        "real-niqua",
+        "real-quix",
+        "real-bonzajajaj"
+      ]
+    },
+    {
+      "id": "mith",
+      "name": "Made in Thailand",
+      "region": "Southeast Asia",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2012-1",
+      "date": "2012-06-10",
+      "roster": [
+        "TnK",
+        "rSrS",
+        "aabBAA",
+        "l3nu",
+        "LaKelz"
+      ],
+      "playerIds": [
+        "real-tnk",
+        "real-rsrs",
+        "real-aabbaa",
+        "real-l3nu",
+        "real-lakelz"
+      ]
+    },
+    {
+      "id": "mineski",
+      "name": "Mineski",
+      "region": "Southeast Asia",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2012-1",
+      "date": "2012-06-10",
+      "roster": [
+        "Lutan",
+        "Bg01",
+        "SEL",
+        "Mr.Swish",
+        "Foxxx"
+      ],
+      "playerIds": [
+        "real-lutan",
+        "real-bg01",
+        "real-sel",
+        "real-mr.swish",
+        "real-foxxx"
+      ]
+    },
+    {
+      "id": "msi-evogt",
+      "name": "MSI-EvoGT",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-1",
+      "date": "2012-06-10",
+      "roster": [
+        "kimo",
+        "Cast",
+        "Vash",
+        "doc",
+        "DoA"
+      ],
+      "playerIds": [
+        "real-kimo",
+        "real-cast",
+        "real-vash",
+        "real-doc",
+        "real-doa"
+      ]
+    },
+    {
+      "id": "next-kz",
+      "name": "NEXT.kz",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-3",
+      "date": "2012-06-10",
+      "roster": [
+        "Mantis",
+        "StalCat",
+        "eQual",
+        "LuCky",
+        "570"
+      ],
+      "playerIds": [
+        "real-mantis",
+        "real-stalcat",
+        "real-equal",
+        "real-lucky",
+        "real-570"
+      ]
+    },
+    {
+      "id": "quantic-gaming",
+      "name": "Quantic Gaming",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-3",
+      "date": "2012-06-10",
+      "roster": [
+        "Korok",
+        "LaStHiTMaGiC",
+        "Solara",
+        "Mikey",
+        "PAINTITGOLD"
+      ],
+      "playerIds": [
+        "real-korok",
+        "real-lasthitmagic",
+        "real-solara",
+        "real-mikey--united-states",
+        "real-paintitgold"
+      ]
+    },
+    {
+      "id": "team-infused",
+      "name": "Team Infused",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-3",
+      "date": "2012-06-10",
+      "roster": [
+        "Reesion",
+        "Wagamama",
+        "EGM",
+        "mini",
+        "Fishbone"
+      ],
+      "playerIds": [
+        "real-reesion",
+        "real-wagamama",
+        "real-egm",
+        "real-mini--sweden",
+        "real-fishbone"
+      ]
+    },
+    {
+      "id": "virtus-pro",
+      "name": "Virtus.pro",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-3",
+      "date": "2012-06-10",
+      "roster": [
+        "Blowyourbrain",
+        "Scandal",
+        "KuroKy",
+        "Santa",
+        "NS"
+      ],
+      "playerIds": [
+        "real-blowyourbrain",
+        "real-scandal",
+        "real-kuroky",
+        "real-santa",
+        "real-ns--germany"
+      ]
+    },
+    {
+      "id": "we",
+      "name": "World Elite",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-1",
+      "date": "2012-06-10",
+      "roster": [
+        "Luo",
+        "Icy",
+        "Fnty",
+        "Chan",
+        "JIEJIE"
+      ],
+      "playerIds": [
+        "real-luo",
+        "real-icy",
+        "real-fnty",
+        "real-chan",
+        "real-jiejie"
+      ]
+    },
+    {
+      "id": "znation",
+      "name": "zNation",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2012-3",
+      "date": "2012-06-10",
+      "roster": [
+        "STALIANER",
+        "Crazy",
+        "Sedoy",
+        "Nexus",
+        "Alba"
+      ],
+      "playerIds": [
+        "real-stalianer",
+        "real-crazy",
+        "real-sedoy",
+        "real-nexus",
+        "real-alba"
+      ]
+    }
+  ]
+}

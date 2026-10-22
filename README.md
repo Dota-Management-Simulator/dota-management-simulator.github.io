@@ -1,6 +1,6 @@
 # Aegis Manager
 
-A local, browser-based Dota-inspired management prototype. React + TypeScript + Vite; fictional data is loaded from `src/data/world.json`, separate from the UI and simulation engine.
+A local, browser-based Dota-inspired management prototype. React + TypeScript + Vite, with separate application, simulation and JSON data modules. Annual historical player/team and hero-release batches cover 2011–2026; gameplay ratings and finances remain estimates. These historical updates are local and have not yet been deployed.
 
 **[Play the live simulator](https://dota-management-simulator.github.io/)** · [Source repository](https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io)
 
@@ -25,8 +25,10 @@ GitHub Pages publishes from `Dota-Management-Simulator/dota-management-simulator
 
 ## Implemented scaffold
 
-- Campaign setup: team name, region, 2011–2036 start year, three difficulty levels with different starting budgets and opponent modifiers. The 2011 option is the classic starting point.
-- Headquarters, player profiles (12 skills plus happiness/energy), 1–10 playstyle ratings, roster, free-agent signing, individual training/recovery, support staff hiring.
+- Campaign setup: manage an original TI1 club, or a historical club from the prior completed annual batch for later starts. Custom clubs replace one, inheriting its region and players. Three difficulty levels change budgets and combat modifiers.
+- Historical world: 100 opening identities/19 clubs, expanding through annual imports to 1,641 identity records by the 2026 shuffle. TI fields and selected regional/closed qualifier teams supply real handles and roster references; roles remain adapted. Shared club rosters supply actual opposition names. World teams exposes current lineups and source links; scouting searches aliases, clubs and regions. See [coverage, provenance and limitations](docs/historical-rosters.md).
+- Headquarters, player profiles (12 skills plus happiness/energy), 1–10 playstyle ratings, roster, recruitment from clubs or free agents, regional vacancy replacements, individual training/recovery, support staff hiring.
+- Local portraits cover 1,022 historical player records using 907 distinct source photos from Wikimedia, Liquipedia and Spectral player cards. Profiles retain source/rights links; missing images use silhouettes. Exact identity matching and non-season-specific appearances are preserved. The expansion has mixed reuse rights and remains local, not deployed. See [portrait coverage and credits](docs/player-portraits.md).
 - An illustrative 18-week season with five events. Earn 80 points or win the regional qualifier to enter TI; qualifying is not guaranteed. Skipping events is supported. Each event is simplified to a best-of-three decider, resolved by a lane-combat engine adapted from the supplied Lane Siege prototype.
 - Watch accelerated map playback with pause and 1×/2×/4× controls, or skip to the same result. Match computation runs in a Web Worker. Hero K/D/A, levels, gold, XP, last hits, duration, towers, and interactive gold/XP advantage graphs are saved per game and reopen from Season history → Details.
 - Weekly wages and sponsor income, signing bonuses, reputation gates, transaction history, and an ongoing season archive.
@@ -38,12 +40,12 @@ GitHub Pages publishes from `Dota-Management-Simulator/dota-management-simulator
 
 `world.json` contains seven 0–100 patch attributes: **tempo, farming economy, lane importance, teamfight impact, objective pressure, vision advantage, split-push viability**. Each has labels and a short explanation. Featured meta heroes now come from the classic pool (Storm Spirit, Beastmaster, Weaver, Chen, Earthshaker). Roles, tags, strength values, and combat values remain placeholders. No values claim to represent a real historical patch.
 
-`src/data/heroes-2011.json` contains the 46 TI1-contested heroes, with modern display names and a source link. Patch & meta includes a searchable, position-filtered hero catalog. The classic campaign excludes later hero releases; later seasons currently retain the classic pool until additional era data is supplied. See [simulation notes](docs/simulation.md) for provenance and modeling limits.
+`src/data/heroes-2011.json` contains the 46 TI1-contested heroes. `src/data/hero-releases.json` adds 81 heroes in release-year batches through 2026, for a total of 127. Additions unlock at that year's post-TI shuffle, including late-year releases. This is a game rule, independent of Captain's Mode eligibility. Patch & meta shows the currently eligible, searchable hero catalog. See [simulation notes](docs/simulation.md) for provenance and modeling limits.
 
 The lane engine simulates movement, waves, attacks, four generic ability archetypes, healing/retreat, gold/XP acquisition, leveling, respawn, towers, and Ancient destruction. Each Ancient destruction awards a game; two games win a series. Randomness supplies drafts and player form, never a separate winner roll. A labeled overtime siege rule breaks stalemates. Player laning, teamfight, skirmish, stability, farming and intuition, plus energy, happiness, difficulty and analyst preparation, affect combat. Patch and playstyle values are modeled and displayed but do not yet modify outcomes. Playback does not influence outcomes. Only compact scoreboards and resource timelines are persisted; replay frames stay in memory. Existing saves and older roll-based result summaries remain readable.
 
 ## Intentionally deferred
 
-Historical player and balance data imports; accurate TI numbering, actual tournament formats/calendars, patches per tournament, additional hero-release eras, manual drafting, tactical orders, exact Dota abilities/items, confidence-by-stage behavior, detailed hero proficiency, bootcamps and strategy secrecy, automatic historical roster shuffles, injuries, procedural future-world generation, contracts beyond weekly wages, multiple save slots, accounts, and backend storage. Years can advance beyond the selected start year, but rosters are not procedurally replenished yet.
+Exhaustive lower-tier coverage and individually verified historical positions, era-specific signature heroes, historical balance assessments, accurate TI numbering, actual tournament formats/calendars, patches per tournament, manual drafting, tactical orders, exact Dota abilities/items, confidence-by-stage behavior, detailed hero proficiency, bootcamps and strategy secrecy, injuries, retirement/procedural future-world generation, contracts beyond weekly wages, multiple save slots, accounts, and backend storage. Years beyond 2026 continue the alternate timeline with the latest imported pool.
 
-The region currently identifies the organization; it does not change opponents or free-agent eligibility. Player ratings are illustrative. Difficulty affects starting cash and your team's combat modifier. Training effects are deliberately simple and deterministic. The project uses a Google Fonts stylesheet with local system-font fallbacks.
+Region identifies a club and the real-player pool used to refill its vacancies. Difficulty affects starting cash and your team's combat modifier. Training effects are deliberately simple and deterministic. Older fictional saves remain intact. The project uses a Google Fonts stylesheet with local system-font fallbacks.

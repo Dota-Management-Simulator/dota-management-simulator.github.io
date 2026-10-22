@@ -13,6 +13,7 @@ export interface BattlePlayer {
 export interface BattleConfig {
   seed: number;
   year: number;
+  heroPoolThroughYear?: number;
   teams: [string, string];
   players: [BattlePlayer[], BattlePlayer[]];
   bonuses: [number, number];
@@ -178,7 +179,7 @@ export class LaneBattle {
     gameIndex = 0,
   ) {
     this.random = seededRandom(config.seed + gameIndex * 7919);
-    const pool = getHeroPool(config.year).slice();
+    const pool = getHeroPool(config.year, config.heroPoolThroughYear).slice();
     for (const team of [0, 1] as Side[]) {
       const base = BASES[team];
       this.add({ team, kind: "base", x: base[0], y: base[1], hp: 4500 });

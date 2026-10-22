@@ -1,0 +1,1034 @@
+{
+  "verifiedThrough": "2026-10-21",
+  "note": "All additions in a calendar year unlock together during that year's post-TI shuffle. Release year means Dota 2 release, not DotA Allstars release or Captains Mode eligibility. Role preferences, attributes and generic ability archetypes are gameplay approximations, not historical patch balance.",
+  "sources": [
+    {
+      "id": "releases",
+      "title": "Hero release chronology",
+      "url": "https://liquipedia.net/dota2/Heroes_by_release"
+    },
+    {
+      "id": "oracle",
+      "title": "Valve Foreseer's Contract — Oracle available in 2014",
+      "url": "https://www.dota2.com/oracle/day2"
+    },
+    {
+      "id": "catalog",
+      "title": "OpenDota constants — hero identities and current metadata",
+      "url": "https://github.com/odota/dotaconstants/blob/master/build/heroes.json"
+    },
+    {
+      "id": "largo",
+      "title": "Valve — Introducing Largo and Patch 7.40, December 2025",
+      "url": "https://www.dota2.com/news"
+    }
+  ],
+  "corrections": [
+    "Oracle uses Valve's 2014 release, correcting the secondary chronology's 2015 entry.",
+    "Largo was released in December 2025; timezone differences in the precise day do not change its shuffle year.",
+    "No additional hero release is documented in 2026 by the October 21 research cutoff."
+  ],
+  "batches": [
+    {
+      "year": 2011,
+      "heroes": [
+        {
+          "id": "juggernaut",
+          "name": "Juggernaut",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "area",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "bloodseeker",
+          "name": "Bloodseeker",
+          "attribute": "Agility",
+          "roles": [
+            0,
+            1
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "kunkka",
+          "name": "Kunkka",
+          "attribute": "Strength",
+          "roles": [
+            1,
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "riki",
+          "name": "Riki",
+          "attribute": "Agility",
+          "roles": [
+            0,
+            3
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "queen_of_pain",
+          "name": "Queen of Pain",
+          "attribute": "Intelligence",
+          "roles": [
+            1
+          ],
+          "ability": "nuke",
+          "ranged": true,
+          "releasedYear": 2011
+        },
+        {
+          "id": "wraith_king",
+          "name": "Wraith King",
+          "attribute": "Strength",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "broodmother",
+          "name": "Broodmother",
+          "attribute": "Agility",
+          "roles": [
+            2
+          ],
+          "ability": "nuke",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "huskar",
+          "name": "Huskar",
+          "attribute": "Strength",
+          "roles": [
+            1
+          ],
+          "ability": "area",
+          "ranged": true,
+          "releasedYear": 2011
+        },
+        {
+          "id": "jakiro",
+          "name": "Jakiro",
+          "attribute": "Intelligence",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2011
+        },
+        {
+          "id": "batrider",
+          "name": "Batrider",
+          "attribute": "Universal",
+          "roles": [
+            2,
+            3
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2011
+        },
+        {
+          "id": "omniknight",
+          "name": "Omniknight",
+          "attribute": "Strength",
+          "roles": [
+            2,
+            4
+          ],
+          "ability": "heal",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "dragon_knight",
+          "name": "Dragon Knight",
+          "attribute": "Strength",
+          "roles": [
+            0,
+            1,
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "warlock",
+          "name": "Warlock",
+          "attribute": "Intelligence",
+          "roles": [
+            4
+          ],
+          "ability": "heal",
+          "ranged": true,
+          "releasedYear": 2011
+        },
+        {
+          "id": "alchemist",
+          "name": "Alchemist",
+          "attribute": "Strength",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "lifestealer",
+          "name": "Lifestealer",
+          "attribute": "Strength",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "death_prophet",
+          "name": "Death Prophet",
+          "attribute": "Universal",
+          "roles": [
+            1,
+            2
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2011
+        },
+        {
+          "id": "ursa",
+          "name": "Ursa",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2011
+        },
+        {
+          "id": "bounty_hunter",
+          "name": "Bounty Hunter",
+          "attribute": "Agility",
+          "roles": [
+            2,
+            3
+          ],
+          "ability": "nuke",
+          "ranged": false,
+          "releasedYear": 2011
+        }
+      ]
+    },
+    {
+      "year": 2012,
+      "heroes": [
+        {
+          "id": "silencer",
+          "name": "Silencer",
+          "attribute": "Intelligence",
+          "roles": [
+            1,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "spirit_breaker",
+          "name": "Spirit Breaker",
+          "attribute": "Strength",
+          "roles": [
+            2,
+            3
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "invoker",
+          "name": "Invoker",
+          "attribute": "Intelligence",
+          "roles": [
+            1
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "clinkz",
+          "name": "Clinkz",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "area",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "outworld_destroyer",
+          "name": "Outworld Destroyer",
+          "attribute": "Intelligence",
+          "roles": [
+            1
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "bane",
+          "name": "Bane",
+          "attribute": "Universal",
+          "roles": [
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "shadow_demon",
+          "name": "Shadow Demon",
+          "attribute": "Intelligence",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "lycan",
+          "name": "Lycan",
+          "attribute": "Strength",
+          "roles": [
+            2
+          ],
+          "ability": "area",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "lone_druid",
+          "name": "Lone Druid",
+          "attribute": "Agility",
+          "roles": [
+            0,
+            1
+          ],
+          "ability": "area",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "brewmaster",
+          "name": "Brewmaster",
+          "attribute": "Universal",
+          "roles": [
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "phantom_lancer",
+          "name": "Phantom Lancer",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "nuke",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "treant_protector",
+          "name": "Treant Protector",
+          "attribute": "Strength",
+          "roles": [
+            4
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "ogre_magi",
+          "name": "Ogre Magi",
+          "attribute": "Strength",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "gyrocopter",
+          "name": "Gyrocopter",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "chaos_knight",
+          "name": "Chaos Knight",
+          "attribute": "Strength",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "phantom_assassin",
+          "name": "Phantom Assassin",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "area",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "rubick",
+          "name": "Rubick",
+          "attribute": "Intelligence",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "luna",
+          "name": "Luna",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "nuke",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "io",
+          "name": "Io",
+          "attribute": "Universal",
+          "roles": [
+            4
+          ],
+          "ability": "heal",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "undying",
+          "name": "Undying",
+          "attribute": "Strength",
+          "roles": [
+            4
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "disruptor",
+          "name": "Disruptor",
+          "attribute": "Intelligence",
+          "roles": [
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "templar_assassin",
+          "name": "Templar Assassin",
+          "attribute": "Agility",
+          "roles": [
+            1
+          ],
+          "ability": "area",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "naga_siren",
+          "name": "Naga Siren",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "nyx_assassin",
+          "name": "Nyx Assassin",
+          "attribute": "Universal",
+          "roles": [
+            3
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "keeper_of_the_light",
+          "name": "Keeper of the Light",
+          "attribute": "Intelligence",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "visage",
+          "name": "Visage",
+          "attribute": "Universal",
+          "roles": [
+            2
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2012
+        },
+        {
+          "id": "meepo",
+          "name": "Meepo",
+          "attribute": "Agility",
+          "roles": [
+            1
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "magnus",
+          "name": "Magnus",
+          "attribute": "Universal",
+          "roles": [
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "centaur_warrunner",
+          "name": "Centaur Warrunner",
+          "attribute": "Strength",
+          "roles": [
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "slark",
+          "name": "Slark",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2012
+        },
+        {
+          "id": "timbersaw",
+          "name": "Timbersaw",
+          "attribute": "Strength",
+          "roles": [
+            2
+          ],
+          "ability": "nuke",
+          "ranged": false,
+          "releasedYear": 2012
+        }
+      ]
+    },
+    {
+      "year": 2013,
+      "heroes": [
+        {
+          "id": "medusa",
+          "name": "Medusa",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2013
+        },
+        {
+          "id": "troll_warlord",
+          "name": "Troll Warlord",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2013
+        },
+        {
+          "id": "tusk",
+          "name": "Tusk",
+          "attribute": "Strength",
+          "roles": [
+            3
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2013
+        },
+        {
+          "id": "bristleback",
+          "name": "Bristleback",
+          "attribute": "Strength",
+          "roles": [
+            2
+          ],
+          "ability": "nuke",
+          "ranged": false,
+          "releasedYear": 2013
+        },
+        {
+          "id": "skywrath_mage",
+          "name": "Skywrath Mage",
+          "attribute": "Intelligence",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2013
+        },
+        {
+          "id": "elder_titan",
+          "name": "Elder Titan",
+          "attribute": "Strength",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2013
+        },
+        {
+          "id": "abaddon",
+          "name": "Abaddon",
+          "attribute": "Universal",
+          "roles": [
+            2,
+            4
+          ],
+          "ability": "heal",
+          "ranged": false,
+          "releasedYear": 2013
+        },
+        {
+          "id": "ember_spirit",
+          "name": "Ember Spirit",
+          "attribute": "Agility",
+          "roles": [
+            1
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2013
+        },
+        {
+          "id": "earth_spirit",
+          "name": "Earth Spirit",
+          "attribute": "Strength",
+          "roles": [
+            3
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2013
+        },
+        {
+          "id": "legion_commander",
+          "name": "Legion Commander",
+          "attribute": "Strength",
+          "roles": [
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2013
+        }
+      ]
+    },
+    {
+      "year": 2014,
+      "heroes": [
+        {
+          "id": "phoenix",
+          "name": "Phoenix",
+          "attribute": "Strength",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2014
+        },
+        {
+          "id": "terrorblade",
+          "name": "Terrorblade",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "nuke",
+          "ranged": false,
+          "releasedYear": 2014
+        },
+        {
+          "id": "techies",
+          "name": "Techies",
+          "attribute": "Universal",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2014
+        },
+        {
+          "id": "oracle",
+          "name": "Oracle",
+          "attribute": "Intelligence",
+          "roles": [
+            4
+          ],
+          "ability": "heal",
+          "ranged": true,
+          "releasedYear": 2014
+        }
+      ]
+    },
+    {
+      "year": 2015,
+      "heroes": [
+        {
+          "id": "winter_wyvern",
+          "name": "Winter Wyvern",
+          "attribute": "Intelligence",
+          "roles": [
+            4
+          ],
+          "ability": "heal",
+          "ranged": true,
+          "releasedYear": 2015
+        },
+        {
+          "id": "arc_warden",
+          "name": "Arc Warden",
+          "attribute": "Universal",
+          "roles": [
+            1
+          ],
+          "ability": "nuke",
+          "ranged": true,
+          "releasedYear": 2015
+        }
+      ]
+    },
+    {
+      "year": 2016,
+      "heroes": [
+        {
+          "id": "underlord",
+          "name": "Underlord",
+          "attribute": "Strength",
+          "roles": [
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2016
+        },
+        {
+          "id": "monkey_king",
+          "name": "Monkey King",
+          "attribute": "Agility",
+          "roles": [
+            0,
+            1
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2016
+        }
+      ]
+    },
+    {
+      "year": 2017,
+      "heroes": [
+        {
+          "id": "dark_willow",
+          "name": "Dark Willow",
+          "attribute": "Intelligence",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2017
+        },
+        {
+          "id": "pangolier",
+          "name": "Pangolier",
+          "attribute": "Universal",
+          "roles": [
+            1,
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2017
+        }
+      ]
+    },
+    {
+      "year": 2018,
+      "heroes": [
+        {
+          "id": "grimstroke",
+          "name": "Grimstroke",
+          "attribute": "Intelligence",
+          "roles": [
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2018
+        }
+      ]
+    },
+    {
+      "year": 2019,
+      "heroes": [
+        {
+          "id": "mars",
+          "name": "Mars",
+          "attribute": "Strength",
+          "roles": [
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2019
+        },
+        {
+          "id": "snapfire",
+          "name": "Snapfire",
+          "attribute": "Universal",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2019
+        },
+        {
+          "id": "void_spirit",
+          "name": "Void Spirit",
+          "attribute": "Universal",
+          "roles": [
+            1
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2019
+        }
+      ]
+    },
+    {
+      "year": 2020,
+      "heroes": [
+        {
+          "id": "hoodwink",
+          "name": "Hoodwink",
+          "attribute": "Agility",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2020
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "heroes": [
+        {
+          "id": "dawnbreaker",
+          "name": "Dawnbreaker",
+          "attribute": "Strength",
+          "roles": [
+            2
+          ],
+          "ability": "heal",
+          "ranged": false,
+          "releasedYear": 2021
+        },
+        {
+          "id": "marci",
+          "name": "Marci",
+          "attribute": "Universal",
+          "roles": [
+            0,
+            3
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2021
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "heroes": [
+        {
+          "id": "primal_beast",
+          "name": "Primal Beast",
+          "attribute": "Strength",
+          "roles": [
+            1,
+            2
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2022
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "heroes": [
+        {
+          "id": "muerta",
+          "name": "Muerta",
+          "attribute": "Intelligence",
+          "roles": [
+            0,
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2023
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "heroes": [
+        {
+          "id": "ringmaster",
+          "name": "Ringmaster",
+          "attribute": "Intelligence",
+          "roles": [
+            4
+          ],
+          "ability": "stun",
+          "ranged": true,
+          "releasedYear": 2024
+        },
+        {
+          "id": "kez",
+          "name": "Kez",
+          "attribute": "Agility",
+          "roles": [
+            0
+          ],
+          "ability": "stun",
+          "ranged": false,
+          "releasedYear": 2024
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "heroes": [
+        {
+          "id": "largo",
+          "name": "Largo",
+          "attribute": "Strength",
+          "roles": [
+            3,
+            4
+          ],
+          "ability": "heal",
+          "ranged": false,
+          "releasedYear": 2025
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "heroes": []
+    }
+  ]
+}

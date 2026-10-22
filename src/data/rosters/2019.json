@@ -1,0 +1,1402 @@
+{
+  "year": 2019,
+  "reviewedOn": "2026-10-21",
+  "note": "Main-event and regional qualifier references enter together at the annual post-TI shuffle. This is a dated composite, not an exhaustive census or single-date transfer list.",
+  "coverage": "Regional/tier-2 coverage uses documented closed qualifiers; rosters with incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2019-0",
+      "title": "The International 2019 - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2019"
+    },
+    {
+      "id": "rosters-2019-1",
+      "title": "The International 2019: Southeast Asia Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2019/Southeast_Asia"
+    },
+    {
+      "id": "rosters-2019-2",
+      "title": "The International 2019: Europe Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2019/Europe"
+    },
+    {
+      "id": "rosters-2019-3",
+      "title": "The International 2019: North America Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2019/North_America"
+    },
+    {
+      "id": "rosters-2019-4",
+      "title": "The International 2019: China Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2019/China"
+    },
+    {
+      "id": "rosters-2019-5",
+      "title": "The International 2019: South America Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2019/South_America"
+    },
+    {
+      "id": "rosters-2019-6",
+      "title": "The International 2019: CIS Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2019/CIS"
+    }
+  ],
+  "teams": [
+    {
+      "id": "alliance",
+      "name": "Alliance",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "miCKe",
+        "qojqva",
+        "Boxi",
+        "Taiga",
+        "iNSaNiA"
+      ],
+      "playerIds": [
+        "real-micke",
+        "real-qojqva",
+        "real-boxi",
+        "real-taiga",
+        "real-insania"
+      ]
+    },
+    {
+      "id": "chaos-esports-club",
+      "name": "Chaos Esports Club",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "vtFαded",
+        "MATUMBAMAN",
+        "KheZu",
+        "MiLAN",
+        "MISERY"
+      ],
+      "playerIds": [
+        "real-vtf%CE%B1ded",
+        "real-matumbaman",
+        "real-khezu",
+        "real-milan",
+        "real-misery"
+      ]
+    },
+    {
+      "id": "evil-geniuses",
+      "name": "Evil Geniuses",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "Arteezy",
+        "SumaiL",
+        "s4",
+        "Cr1t-",
+        "Fly"
+      ],
+      "playerIds": [
+        "real-arteezy",
+        "real-sumail",
+        "real-s4",
+        "real-cr1t-",
+        "real-fly"
+      ]
+    },
+    {
+      "id": "fnatic",
+      "name": "Fnatic",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "Jabz",
+        "Abed",
+        "iceiceice",
+        "DJ",
+        "DuBu"
+      ],
+      "playerIds": [
+        "real-jabz",
+        "real-abed",
+        "real-iceiceice",
+        "real-dj",
+        "real-dubu"
+      ]
+    },
+    {
+      "id": "infamous",
+      "name": "Infamous",
+      "region": "South America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "K1",
+        "Chris Luck",
+        "Wisper",
+        "Scofield",
+        "Stinger"
+      ],
+      "playerIds": [
+        "real-k1",
+        "real-chris%20luck",
+        "real-wisper",
+        "real-scofield",
+        "real-stinger"
+      ]
+    },
+    {
+      "id": "keen-gaming",
+      "name": "Keen Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "old chicken",
+        "一",
+        "eLeVeN",
+        "Kaka",
+        "dark"
+      ],
+      "playerIds": [
+        "real-old%20chicken",
+        "real-%E4%B8%80",
+        "real-eleven",
+        "real-kaka",
+        "real-dark"
+      ]
+    },
+    {
+      "id": "mineski",
+      "name": "Mineski",
+      "region": "Southeast Asia",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "Nikobaby",
+        "Moonn",
+        "kpii",
+        "ragingpotato",
+        "ninjaboogie"
+      ],
+      "playerIds": [
+        "real-nikobaby",
+        "real-moonn",
+        "real-kpii",
+        "real-ragingpotato",
+        "real-ninjaboogie"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "Crystallize",
+        "MagicaL",
+        "Blizzy",
+        "Zayac",
+        "SoNNeikO"
+      ],
+      "playerIds": [
+        "real-crystallize",
+        "real-magical",
+        "real-blizzy",
+        "real-zayac",
+        "real-sonneiko"
+      ]
+    },
+    {
+      "id": "newbee",
+      "name": "Newbee",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "YawaR",
+        "CCnC",
+        "Sneyking",
+        "MSS",
+        "pieliedie"
+      ],
+      "playerIds": [
+        "real-yawar",
+        "real-quinn",
+        "real-sneyking",
+        "real-mss",
+        "real-pieliedie"
+      ]
+    },
+    {
+      "id": "ninjas-in-pyjamas",
+      "name": "Ninjas in Pyjamas",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "Ace",
+        "Fata",
+        "33",
+        "Saksa",
+        "ppd"
+      ],
+      "playerIds": [
+        "real-ace",
+        "real-fata-",
+        "real-33",
+        "real-saksa",
+        "real-ppd"
+      ]
+    },
+    {
+      "id": "og",
+      "name": "OG",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "ana",
+        "Topson",
+        "Ceb",
+        "JerAx",
+        "N0tail"
+      ],
+      "playerIds": [
+        "real-ana",
+        "real-topson",
+        "real-7ckngmad",
+        "real-jerax",
+        "real-n0tail"
+      ]
+    },
+    {
+      "id": "lgd",
+      "name": "PSG.LGD",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019",
+      "roster": [
+        "Ame",
+        "Somnus丶M",
+        "Chalice",
+        "fy",
+        "xNova"
+      ],
+      "playerIds": [
+        "real-ame",
+        "real-somnus",
+        "real-chalice",
+        "real-fy",
+        "real-xnova"
+      ]
+    },
+    {
+      "id": "royal-never-give-up",
+      "name": "Royal Never Give Up",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "Monet",
+        "Setsu",
+        "Flyby",
+        "LaNm",
+        "ah fu"
+      ],
+      "playerIds": [
+        "real-monet",
+        "real-setsu",
+        "real-flyby",
+        "real-lanm",
+        "real-ahfu"
+      ]
+    },
+    {
+      "id": "team-liquid",
+      "name": "Team Liquid",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019",
+      "roster": [
+        "Miracle-",
+        "w33",
+        "MinD_ContRoL",
+        "GH",
+        "KuroKy"
+      ],
+      "playerIds": [
+        "real-miracle-",
+        "real-w33",
+        "real-mind_control",
+        "real-gh",
+        "real-kuroky"
+      ]
+    },
+    {
+      "id": "team-secret",
+      "name": "Team Secret",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "Nisha",
+        "MidOne",
+        "zai",
+        "YapzOr",
+        "Puppey"
+      ],
+      "playerIds": [
+        "real-nisha",
+        "real-midone",
+        "real-zai",
+        "real-yapzor",
+        "real-puppey"
+      ]
+    },
+    {
+      "id": "tnc",
+      "name": "TNC Predator",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "Gabbi",
+        "Armel",
+        "Kuku",
+        "Tims",
+        "eyyou"
+      ],
+      "playerIds": [
+        "real-gabbi",
+        "real-armel",
+        "real-kuku",
+        "real-tims",
+        "real-eyyou"
+      ]
+    },
+    {
+      "id": "vici-gaming",
+      "name": "Vici Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019",
+      "roster": [
+        "Paparazi灬",
+        "Ori",
+        "Yang",
+        "Fade",
+        "Dy"
+      ],
+      "playerIds": [
+        "real-paparazi",
+        "real-ori",
+        "real-yang",
+        "real-fade",
+        "real-dy"
+      ]
+    },
+    {
+      "id": "virtus-pro",
+      "name": "Virtus.pro",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2019-0",
+      "date": "2019-08-25",
+      "roster": [
+        "RAMZES666",
+        "No[o]ne",
+        "9pasha",
+        "RodjER",
+        "Solo"
+      ],
+      "playerIds": [
+        "real-ramzes666",
+        "real-no%5Bo%5Dne",
+        "real-9pasha",
+        "real-rodjer",
+        "real-solo"
+      ]
+    },
+    {
+      "id": "496-gaming",
+      "name": "496 Gaming",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-1",
+      "date": "2019",
+      "roster": [
+        "Vivian",
+        "458",
+        "Red",
+        "Yasy",
+        "Datbb"
+      ],
+      "playerIds": [
+        "real-vivian",
+        "real-458",
+        "real-red",
+        "real-yasy",
+        "real-datbb"
+      ]
+    },
+    {
+      "id": "aachen-city-esports",
+      "name": "Aachen City Esports",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-2",
+      "date": "2019",
+      "roster": [
+        "Rajjix",
+        "symetricaL",
+        "jonassomfan",
+        "Pablo",
+        "Peksu"
+      ],
+      "playerIds": [
+        "real-rajjix",
+        "real-symetrical",
+        "real-jonassomfan",
+        "real-pablo",
+        "real-peksu"
+      ]
+    },
+    {
+      "id": "anti-mage",
+      "name": "Anti-MagE-",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-2",
+      "date": "2019",
+      "roster": [
+        "Naive-",
+        "MagE-",
+        "GeneRaL",
+        "syndereN",
+        "dnz"
+      ],
+      "playerIds": [
+        "real-naive-",
+        "real-mage-",
+        "real-general",
+        "real-synderen",
+        "real-dnz"
+      ]
+    },
+    {
+      "id": "beastcoast",
+      "name": "beastcoast",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-3",
+      "date": "2019-07-14",
+      "roster": [
+        "Mandy",
+        "Ryoya",
+        "Brax",
+        "MoOz",
+        "ixmike88"
+      ],
+      "playerIds": [
+        "real-mandy",
+        "real-ryoya",
+        "real-brax",
+        "real-mooz",
+        "real-ixmike88"
+      ]
+    },
+    {
+      "id": "black-sheep",
+      "name": "Black Sheep",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-3",
+      "date": "2019-07-14",
+      "roster": [
+        "mason",
+        "iAnnihilate",
+        "Dyun",
+        "Boris",
+        "Bloody Nine"
+      ],
+      "playerIds": [
+        "real-mason",
+        "real-iannihilate",
+        "real-dyun",
+        "real-boris",
+        "real-bloody%20nine"
+      ]
+    },
+    {
+      "id": "boom-id",
+      "name": "BOOM ID",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-1",
+      "date": "2019",
+      "roster": [
+        "Dreamocel",
+        "Mikoto",
+        "Fbz",
+        "Jhocam",
+        "Khezcute"
+      ],
+      "playerIds": [
+        "real-dreamocel",
+        "real-mikoto",
+        "real-fbz",
+        "real-jhocam",
+        "real-khezcute"
+      ]
+    },
+    {
+      "id": "cdec-gaming",
+      "name": "CDEC Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-4",
+      "date": "2019",
+      "roster": [
+        "Eve",
+        "Xm",
+        "123",
+        "James",
+        "黑凤梨丶"
+      ],
+      "playerIds": [
+        "real-eve",
+        "real-xm",
+        "real-123",
+        "real-james",
+        "real-%E9%BB%91%E5%87%A4%E6%A2%A8%E4%B8%B6"
+      ]
+    },
+    {
+      "id": "complexity",
+      "name": "Complexity Gaming",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-3",
+      "date": "2019-07-14",
+      "roster": [
+        "Meracle",
+        "Limmp",
+        "tavo",
+        "Zfreek",
+        "Adam"
+      ],
+      "playerIds": [
+        "real-meracle",
+        "real-limmp",
+        "real-tavo",
+        "real-zfreek",
+        "real-adam"
+      ]
+    },
+    {
+      "id": "egoboys",
+      "name": "EgoBoys",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-5",
+      "date": "2019",
+      "roster": [
+        "Timado",
+        "LeoStyle-",
+        "Benjaz",
+        "Matthew",
+        "Masoku"
+      ],
+      "playerIds": [
+        "real-timado",
+        "real-leostyle",
+        "real-benjaz",
+        "real-matthew",
+        "real-masoku"
+      ]
+    },
+    {
+      "id": "ehome",
+      "name": "EHOME",
+      "region": "China",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2019-4",
+      "date": "2019",
+      "roster": [
+        "NeverEnd",
+        "Ferrari_430",
+        "Faith_bian",
+        "XinQ",
+        "y`"
+      ],
+      "playerIds": [
+        "real-neverend",
+        "real-ferrari_430",
+        "real-faith_bian",
+        "real-xinq",
+        "real-y%60"
+      ]
+    },
+    {
+      "id": "evos-esports",
+      "name": "EVOS Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-1",
+      "date": "2019",
+      "roster": [
+        "InYourdreaM",
+        "Facehugger",
+        "Aville",
+        "Vlaicu",
+        "Whitemon"
+      ],
+      "playerIds": [
+        "real-inyourdream",
+        "real-facehugger",
+        "real-aville",
+        "real-vlaicu",
+        "real-whitemon"
+      ]
+    },
+    {
+      "id": "flytomoon",
+      "name": "FlyToMoon",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-6",
+      "date": "2019-07-10",
+      "roster": [
+        ".Ark",
+        "Iceberg",
+        "Flow",
+        "CemaTheSlayer",
+        "ALWAYSWANNAFLY"
+      ],
+      "playerIds": [
+        "real-.ark",
+        "real-iceberg",
+        "real-flow",
+        "real-cematheslayer",
+        "real-alwayswannafly"
+      ]
+    },
+    {
+      "id": "forward-gaming",
+      "name": "Forward Gaming",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-3",
+      "date": "2019-07-14",
+      "roster": [
+        "YawaR",
+        "CCnC",
+        "Sneyking",
+        "MSS",
+        "pieliedie"
+      ],
+      "playerIds": [
+        "real-yawar",
+        "real-quinn",
+        "real-sneyking",
+        "real-mss",
+        "real-pieliedie"
+      ]
+    },
+    {
+      "id": "furia-esports",
+      "name": "FURIA Esports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-5",
+      "date": "2019",
+      "roster": [
+        "RdO",
+        "mini",
+        "Murdoc",
+        "Hyko",
+        "Duster"
+      ],
+      "playerIds": [
+        "real-rdo",
+        "real-mini",
+        "real-murdoc",
+        "real-hyko",
+        "real-duster"
+      ]
+    },
+    {
+      "id": "gambit-esports",
+      "name": "Gambit Esports",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-6",
+      "date": "2019-07-10",
+      "roster": [
+        "Daxak",
+        "Afoninje",
+        "AfterLife",
+        "Immersion",
+        "fng"
+      ],
+      "playerIds": [
+        "real-daxak",
+        "real-afoninje",
+        "real-afterlife",
+        "real-immersion",
+        "real-fng"
+      ]
+    },
+    {
+      "id": "gorillaz-pride",
+      "name": "Gorillaz-Pride",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-5",
+      "date": "2019",
+      "roster": [
+        "Madara",
+        "Darkmago♥",
+        "Sword",
+        "sl4d1n-",
+        "Jericho"
+      ],
+      "playerIds": [
+        "real-madara--peru",
+        "real-darkmago",
+        "real-sword",
+        "real-sl4d1n-",
+        "real-jericho"
+      ]
+    },
+    {
+      "id": "hippomaniacs",
+      "name": "Hippomaniacs",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-2",
+      "date": "2019",
+      "roster": [
+        "Curry",
+        "Supream^",
+        "SabeRLight-",
+        "Muf",
+        "sehny"
+      ],
+      "playerIds": [
+        "real-curry",
+        "real-supream%5E",
+        "real-saberlight-",
+        "real-muf",
+        "real-sehny"
+      ]
+    },
+    {
+      "id": "ig",
+      "name": "Invictus Gaming",
+      "region": "China",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2019-4",
+      "date": "2019",
+      "roster": [
+        "zhizhizhi",
+        "Emo",
+        "JT-",
+        "dogf1ghts",
+        "Oli"
+      ],
+      "playerIds": [
+        "real-zhizhizhi",
+        "real-emo",
+        "real-jt-",
+        "real-dogf1ghts",
+        "real-oli"
+      ]
+    },
+    {
+      "id": "j-storm",
+      "name": "J.Storm",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-3",
+      "date": "2019-07-14",
+      "roster": [
+        "Resolut1on",
+        "Nine",
+        "Moo",
+        "Fear",
+        "1437"
+      ],
+      "playerIds": [
+        "real-resolut1on",
+        "real-nine",
+        "real-moo",
+        "real-fear",
+        "real-1437"
+      ]
+    },
+    {
+      "id": "kookaburra",
+      "name": "Kookaburra",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-3",
+      "date": "2019-07-14",
+      "roster": [
+        "Ritsu",
+        "Bryle",
+        "MoonMeander",
+        "Kingrd",
+        "Kitrak"
+      ],
+      "playerIds": [
+        "real-ritsu",
+        "real-bryle",
+        "real-moonmeander",
+        "real-kingrd",
+        "real-kitrak"
+      ]
+    },
+    {
+      "id": "nemiga-gaming",
+      "name": "Nemiga Gaming",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-6",
+      "date": "2019-07-10",
+      "roster": [
+        "Zitraks",
+        "mellojul",
+        "TheChosenOne",
+        "Astral",
+        "Fervian"
+      ],
+      "playerIds": [
+        "real-zitraks",
+        "real-mellojul",
+        "real-thechosenone",
+        "real-astral",
+        "real-fervian"
+      ]
+    },
+    {
+      "id": "old-suck-gaming",
+      "name": "Old Suck Gaming",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-3",
+      "date": "2019-07-14",
+      "roster": [
+        "B",
+        "raylalisa",
+        "Virsatus",
+        "Chives",
+        "Empyrean5"
+      ],
+      "playerIds": [
+        "real-b",
+        "real-raylalisa",
+        "real-virsatus",
+        "real-chives",
+        "real-empyrean5"
+      ]
+    },
+    {
+      "id": "pain-gaming",
+      "name": "paiN Gaming",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-5",
+      "date": "2019",
+      "roster": [
+        "hFn",
+        "4dr",
+        "Liposa",
+        "Thiolicor",
+        "444"
+      ],
+      "playerIds": [
+        "real-hfn",
+        "real-4dr",
+        "real-liposa",
+        "real-thiolicor",
+        "real-444"
+      ]
+    },
+    {
+      "id": "resurgence",
+      "name": "Resurgence",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-1",
+      "date": "2019",
+      "roster": [
+        "Welp",
+        "LJSL",
+        "Deth",
+        "ponlo",
+        "InsidiousC"
+      ],
+      "playerIds": [
+        "real-welp",
+        "real-ljsl",
+        "real-deth",
+        "real-ponlo",
+        "real-insidiousc"
+      ]
+    },
+    {
+      "id": "sg-e-sports",
+      "name": "SG e-sports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-5",
+      "date": "2019",
+      "roster": [
+        "Golem",
+        "4nalog",
+        "Sexyfat",
+        "MahhxD",
+        "C4t"
+      ],
+      "playerIds": [
+        "real-golem",
+        "real-4nalog",
+        "real-sexyfat",
+        "real-mahhxd",
+        "real-c4t"
+      ]
+    },
+    {
+      "id": "six-eight-two",
+      "name": "six eight two",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-2",
+      "date": "2019",
+      "roster": [
+        "zipzap",
+        "W1sh",
+        "Tobi",
+        "meowspirit",
+        "antoha"
+      ],
+      "playerIds": [
+        "real-zipzap",
+        "real-w1sh",
+        "real-tobi",
+        "real-meowspirit",
+        "real-antoha"
+      ]
+    },
+    {
+      "id": "team-adroit",
+      "name": "Team Adroit",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-1",
+      "date": "2019",
+      "roster": [
+        "Natsumi-",
+        "Mac",
+        "Bokerino",
+        "Boombacs",
+        "cml"
+      ],
+      "playerIds": [
+        "real-natsumi-",
+        "real-mac",
+        "real-bokerino",
+        "real-boombacs",
+        "real-cml"
+      ]
+    },
+    {
+      "id": "team-amplfy",
+      "name": "Team Amplfy",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-1",
+      "date": "2019",
+      "roster": [
+        "Abat",
+        "Karl",
+        "Ryoyr",
+        "BDz",
+        "Jeyo"
+      ],
+      "playerIds": [
+        "real-abat",
+        "real-karl",
+        "real-ryoyr",
+        "real-bdz",
+        "real-jeyo"
+      ]
+    },
+    {
+      "id": "team-aster",
+      "name": "Team Aster",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-4",
+      "date": "2019",
+      "roster": [
+        "Kamma",
+        "ChYuan",
+        "Xxs",
+        "BoBoKa",
+        "Q"
+      ],
+      "playerIds": [
+        "real-kamma",
+        "real-chyuan",
+        "real-xxs",
+        "real-boboka",
+        "real-q"
+      ]
+    },
+    {
+      "id": "team-bald",
+      "name": "Team Bald",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-2",
+      "date": "2019",
+      "roster": [
+        "gorgc",
+        "Stormstormer",
+        "SexyBamboe",
+        "EGM",
+        "Eixn"
+      ],
+      "playerIds": [
+        "real-gorgc",
+        "real-stormstormer",
+        "real-sexybamboe",
+        "real-egm",
+        "real-eixn"
+      ]
+    },
+    {
+      "id": "team-empire",
+      "name": "Team Empire",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-6",
+      "date": "2019-07-10",
+      "roster": [
+        "dream'",
+        "Kodos",
+        "Maden",
+        "sayuw",
+        "KingR"
+      ],
+      "playerIds": [
+        "real-dream",
+        "real-kodos",
+        "real-maden",
+        "real-sayuw",
+        "real-kingr"
+      ]
+    },
+    {
+      "id": "team-ham",
+      "name": "Team Ham",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-5",
+      "date": "2019",
+      "roster": [
+        "oliver",
+        "Mastermind",
+        "HesteJoe-Rotten",
+        "Biver",
+        "Papita"
+      ],
+      "playerIds": [
+        "real-oliver",
+        "real-mastermind",
+        "real-hestejoe-rotten",
+        "real-biver",
+        "real-papita"
+      ]
+    },
+    {
+      "id": "team-jinesbrus",
+      "name": "Team Jinesbrus",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-1",
+      "date": "2019",
+      "roster": [
+        "23savage",
+        "Gunnar",
+        "Forev",
+        "Febby",
+        "March"
+      ],
+      "playerIds": [
+        "real-23savage",
+        "real-gunnar",
+        "real-forev",
+        "real-febby",
+        "real-march"
+      ]
+    },
+    {
+      "id": "team-serenity",
+      "name": "Team Serenity",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-4",
+      "date": "2019",
+      "roster": [
+        "Aventador",
+        "Zyd",
+        "Pyw",
+        "Roddgeee",
+        "XCJ"
+      ],
+      "playerIds": [
+        "real-aventador",
+        "real-zyd",
+        "real-pyw",
+        "real-roddgeee",
+        "real-xcj"
+      ]
+    },
+    {
+      "id": "team-singularity",
+      "name": "Team Singularity",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-2",
+      "date": "2019",
+      "roster": [
+        "Xcalibur",
+        "Pingvincek",
+        "Shachlo",
+        "Luft",
+        "Miposhka"
+      ],
+      "playerIds": [
+        "real-xcalibur",
+        "real-pingvincek",
+        "real-shachlo",
+        "real-luft",
+        "real-miposhka"
+      ]
+    },
+    {
+      "id": "team-sirius",
+      "name": "Team Sirius",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-4",
+      "date": "2019",
+      "roster": [
+        "Sylar",
+        "ASD",
+        "InJuly",
+        "天命",
+        "HYM"
+      ],
+      "playerIds": [
+        "real-sylar",
+        "real-asd",
+        "real-injuly",
+        "real-%E5%A4%A9%E5%91%BD",
+        "real-hym"
+      ]
+    },
+    {
+      "id": "team-spirit",
+      "name": "Team Spirit",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-6",
+      "date": "2019-07-10",
+      "roster": [
+        "Illidan",
+        "G",
+        "633",
+        "velheor",
+        "Vanskor"
+      ],
+      "playerIds": [
+        "real-illidan",
+        "real-god",
+        "real-633",
+        "real-velheor",
+        "real-vanskor"
+      ]
+    },
+    {
+      "id": "team-xolotl",
+      "name": "Team Xolotl",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-3",
+      "date": "2019-07-14",
+      "roster": [
+        "Ifrit",
+        "esK",
+        "Jano",
+        "Raykill",
+        "hector"
+      ],
+      "playerIds": [
+        "real-ifrit",
+        "real-esk",
+        "real-jano",
+        "real-raykill",
+        "real-hector"
+      ]
+    },
+    {
+      "id": "the-final-tribe",
+      "name": "The Final Tribe",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-2",
+      "date": "2019",
+      "roster": [
+        "Frost",
+        "Chessie",
+        "Xibbe",
+        "Handsken",
+        "Era"
+      ],
+      "playerIds": [
+        "real-frost",
+        "real-chessie",
+        "real-xibbe",
+        "real-handsken",
+        "real-era"
+      ]
+    },
+    {
+      "id": "thunder-awaken",
+      "name": "Thunder Predator",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-5",
+      "date": "2019",
+      "roster": [
+        "Kotaro Hayama",
+        "Faker",
+        "Frank",
+        "Wu",
+        "Accel"
+      ],
+      "playerIds": [
+        "real-kotaro%20hayama",
+        "real-faker",
+        "real-frank",
+        "real-wu",
+        "real-accel"
+      ]
+    },
+    {
+      "id": "vega-squadron",
+      "name": "Vega Squadron",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2019-6",
+      "date": "2019-07-10",
+      "roster": [
+        "xannii",
+        "gpk",
+        "LastHero",
+        "so bad",
+        "Fishman"
+      ],
+      "playerIds": [
+        "real-xannii",
+        "real-gpk",
+        "real-lasthero",
+        "real-so%20bad",
+        "real-fishman"
+      ]
+    }
+  ]
+}

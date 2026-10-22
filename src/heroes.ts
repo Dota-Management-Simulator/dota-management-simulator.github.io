@@ -1,8 +1,25 @@
 import era from "./data/heroes-2011.json";
-export type Hero = (typeof era.heroes)[number];
+import releases from "./data/hero-releases.json";
+export interface Hero {
+  id: string;
+  name: string;
+  attribute: string;
+  roles: number[];
+  ability: string;
+  ranged: boolean;
+  releasedYear?: number;
+}
 export const heroEra = era;
-export const getHeroPool = (_year: number): Hero[] => era.heroes;
-export const heroById = (id: string) => era.heroes.find((h) => h.id === id);
+export const heroReleases = releases;
+export const LAST_HERO_YEAR = 2026;
+const catalog: Hero[] = [...era.heroes, ...releases.batches.flatMap((b) => b.heroes)];
+// The TI1 opening 46 are always present. Calendar-year additions arrive only
+// in that year's shuffle; a later start includes already completed shuffles.
+export const heroUnlockYear = (year: number, week = 1) => Math.min(LAST_HERO_YEAR, year - (week <= 16 ? 1 : 0));
+export const getHeroPool = (year: number, throughYear = heroUnlockYear(year)): Hero[] =>
+  catalog.filter((h) => h.releasedYear == null || h.releasedYear <= throughYear);
+export const heroById = (id: string) => catalog.find((h) => h.id === id);
+export const heroesArrivingIn = (year: number): Hero[] => releases.batches.find((b) => b.year === year)?.heroes ?? [];
 export const heroRoles = [
   "Carry",
   "Mid",

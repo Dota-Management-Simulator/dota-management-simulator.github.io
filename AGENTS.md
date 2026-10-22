@@ -47,7 +47,13 @@ See [hosting notes](docs/github-pages.md). Before claiming a new application dep
 | `src/battle.worker.ts` | Runs series computation off the main thread and reports progress/completion/errors. |
 | `src/MatchExperience.tsx` | Accelerated map playback, pause/speed/skip controls, per-game results, scoreboards and interactive gold/XP graphs. |
 | `src/HeroPool.tsx`, `src/heroes.ts` | Searchable hero catalog and hero lookup/pool API. |
+| `src/history.ts`, `src/roster-data.ts`, `src/WorldTeams.tsx` | Historical ownership, annual imports, regional replacements and world roster browser. |
+| `src/data/rosters-2011.json`, `src/data/rosters/`, `src/data/player-identities.json` | Linked annual player/team references through 2026 and identity records. |
+| `src/data/hero-releases.json` | Annual hero additions through 2026, unlocked at the shuffle. |
 | `src/data/world.json` | Fictional players, their skills/playstyles, sponsors/staff and illustrative patch/meta data. |
+| `src/WorldTeams.tsx` | Regional club browser with current starters/reserves and historical reference links. |
+| `src/TeamBadge.tsx`, `src/team-logos.ts`, `src/data/team-logos.json`, `public/team-logos/` | Local team badges, annual logo selection, provenance and explicit missing coverage. See `docs/team-logos.md`. |
+| `src/PlayerAvatar.tsx`, `src/player-portraits.ts`, `src/data/player-portraits.json`, `public/player-portraits/` | Local portraits for 1,022 identity records (907 distinct source photos), exact lookup, fallbacks and source/rights credits. See `docs/player-portraits.md`. |
 | `src/data/heroes-2011.json` | Sourced 46-hero TI1 pool with modern names and placeholder roles/ability archetypes. |
 | `src/styles.css`, `src/theme.css`, `src/matches.css` | Responsive base styling, light/dark appearance, match/catalog styling. |
 | `index.html` | Vite entry and theme initialization before first paint. |
@@ -68,12 +74,20 @@ The prototype runs entirely in the browser. There is no backend or account syste
 - Auto-drafted, unique heroes across both teams, a watchable map, pause and 1×/2×/4× playback, and skip-to-results.
 - Real simulated series scores; per-game hero/player K/D/A, levels, gold, XP, last hits, duration and towers. Gold/XP advantage graphs use sampled engine totals, with keyboard/pointer inspection.
 - Results can be reopened through **Season history → Details**, including after reload. Older results without detailed series data remain readable as archived summaries.
-- A 46-hero TI1 catalog, source links, modern real Dota names, role/search filters. Featured patch heroes are also within that pool.
+- A 46-hero TI1 opening pool, growing to 127 through annual release batches. Search and position filters show eligible heroes. Week 17 unlocks additions; the worker receives the cutoff and global lookup preserves saved scoreboards.
 - Browser autosave, replacement-campaign confirmation, persistent light/dark preference, responsive layout and accessible dialogs.
+- **2011–2026 historical imports (local, not yet deployed):** 100 opening identities/19 clubs grow through annual windows to 1,641 identity records. TI fields and selected regional/closed qualifiers cover each year; 2020 uses online regional events. All original TI1 clubs are selectable; later starts use clubs from the previous completed batch. Custom clubs replace one and inherit its region/lineup. Opponents share the persistent world. See [historical roster notes](docs/historical-rosters.md) for the annual coverage table and limits.
+- Recruiting a contracted player fills the former club's vacancy with a real available regional player/reserve; a role change is allowed when needed. No available regional replacement means an atomic, explained rejection. The shuffle preserves the managed five and completed signings. New clubs can fail to form when their players have been recruited; their available players still enter the market.
+- **Era-aware team logos (local, not deployed):** 473 local WebP assets cover 408 of 463 club IDs across 2011–2026 references. The remaining 55 have explicit missing status and use initials. Badges appear in setup, the sidebar, world teams, pre-match, playback and series results. Selection uses the displayed season/result year; custom clubs never inherit the replaced team's logo. Sources are annual observations, not exact rebrand dates. See [logo coverage](docs/team-logos.md) for limits, rights and regeneration.
+- **Player portraits (local, not deployed):** 1,022 identity records have portraits using 907 distinct source photos: 79 original Commons photos, 752 Liquipedia headshots and 76 Spectral player-card photos. Documented aliases sometimes have separate game IDs; this is not a claim of 1,022 distinct people. Exact ID lookup, silhouettes, non-season-specific appearances and full credits remain. Supplemental file pages were checked for image-specific rights: 5 assignments have explicit CC licenses, 11 record EPICENTER attribution permission, 169 have explicit restrictions and 758 lack independently verified reuse permission. This is a mixed-rights local reference implementation, not blanket publication clearance. Resolve rights or exclude/replace restricted/unverified entries before publishing this expansion. See [portrait sources and coverage](docs/player-portraits.md).
 
 ## Save and simulation invariants
 
 - Campaign storage key: `aegis-manager-campaign-v1`; theme key: `aegis-manager-theme`. There is one campaign slot per browser/origin. Localhost and the hosted site have separate saves. Do not silently discard existing saves when extending schemas; migrate or retain compatibility.
+- `Campaign.world` is optional. Old fictional campaigns retain their players/history and prior recruitment flow. New campaigns use the historical world. Do not silently convert or replace an old save. Historical player ages remain `null` until verified; do not increment null ages or invent full names.
+- Player photos resolve only by exact historical identity ID, never by a fuzzy name or club. In particular `real-fly` and `real-fly.` remain separate, as do the No(o)ne/No[o]ne records. Portraits do not change saved players, ages or teams, and their photo date must not be presented as campaign-era evidence.
+- Historical saves catch up missing completed imports on load without changing finances, dates, results or the managed lineup. Newcomers/heroes always unlock; the shuffle setting controls historical club moves. AI clubs outside later annual fields are archived with cleared active membership, without claiming historical disbandment/retirement. Available players remain recruitable. Use active clubs for opponents/current roster rendering.
+- Shared club rosters must contain five distinct players in position order, with no duplicate club ownership. Historical imports are idempotent and run after week 16, including when TI is missed/skipped. Only the 2011 batch is currently loaded; later years must remain labeled as missing historical coverage.
 - `Result.series` is optional for compatibility with early roll-based results. Do not fabricate detailed stats for older results.
 - Match winners must come from the lane engine, **not an independent win-probability roll**. Each game's Ancient destruction decides its winner; two wins decide a series.
 - Watching, pausing, changing speed, and skipping must never change the computed outcome or pay rewards twice. Settlement is guarded against duplicate event results.
@@ -86,9 +100,11 @@ The prototype runs entirely in the browser. There is no backend or account syste
 ## Historical data: what is real and what is not
 
 - **Sourced:** the 46 TI1-contested hero identities, including Axe (banned but unpicked), based on the linked Spectral archive and Liquipedia statistics. Modern display names are intentional.
-- **Placeholder:** all player identities/ratings, sponsors, staff, economy, event schedule/prizes/tiers, patch attributes/meta strength, hero role preferences and combat values/abilities.
-- The 2011 pool excludes later releases such as Ember Spirit, Oracle, Earth Spirit and Juggernaut at TI1. Do not reintroduce later heroes into classic drafts accidentally.
-- Later starting years currently reuse the classic pool; additional release-era data is not implemented. The year selector is not evidence of historical completeness.
+- **Roster identities/membership:** 2011–2026 batches link tournament/team references with an event year or precise date when available. These are composite annual fields, not complete post-TI transfer lists. The 2011 regional batch lacks South America; all six gameplay regions have references from 2012 onward. Tier-2 coverage is selected, not exhaustive. Non-TI status is not a sourced tier rank. Identity aliases and reused handles still benefit from deeper review.
+- **Adapted/placeholder:** historical player positions are explicitly marked adapted pending individual verification; roster-list order is not position evidence. All player ratings/playstyles/pay, sponsors, staff, economy, event schedule/prizes/tiers, patch attributes/meta strength, hero role preferences and combat values/abilities remain gameplay placeholders. Legacy saves retain fictional identities.
+- Annual players/heroes through 2026 enter at week 17. Three signature heroes per player/era remain deferred, along with career debut, retirement and individual role/biography verification.
+- TI1 opening drafts exclude later releases such as Ember Spirit, Oracle, Earth Spirit and Juggernaut. The 2011 shuffle adds 18; release-year batches grow the pool to 127. The user's rule includes late-year releases at that year's shuffle, independently of Captain's Mode eligibility. Oracle is 2014 per Valve. No new 2026 release was documented as of October 21.
+- Later starts use completed prior-year shuffles, capped at 2026. Future years retain the latest pool; generated future talent/patches remain unimplemented. The event calendar remains a placeholder, including a game TI in 2020 despite the historical cancellation.
 - TI1–TI26 is the requested campaign span, **not a claim that TI numbering equals calendar-year offsets**. Accurate TI/event numbering still needs to be modeled.
 - The old HTML generated 128 generic archetypes, not a recoverable one-to-one list of renamed Dota heroes. Do not present arbitrary name matching as restored historical data.
 
@@ -107,12 +123,14 @@ The full vision and unresolved decisions are in **[docs/roadmap.md](docs/roadmap
 9. Deeper management, sponsors, contracts/pay, staff, scouting, future talent and finances as scope is approved.
 10. Later infrastructure possibilities: multiple save slots, import/export, durable replay/history support, backend/accounts if needed. These are not current requirements.
 
-No next feature or sprint has been selected after publishing. Ask what the user wants to tackle next rather than treating an inferred sequence as approved work.
+The selected work includes the historical player/team and hero-release layer through 2026, regional/tier-2 coverage, and the subsequently requested era-aware team logos. These are implemented locally with documented coverage limits. Historical teams make up the world; a custom team replaces an existing club. Signature heroes remain deferred. Unrelated roadmap features are not approved by this selection.
+
+The user requested as many player images as could be sourced, then explicitly requested broader sources beyond the initial 79 Commons photos. The local expansion covers 1,022 identity records with source/rights metadata and coverage gaps. A complete or year-by-year portrait archive remains unimplemented; the mixed-rights expansion is not cleared for blanket publication.
 
 ## Working conventions
 
 - Preserve the current UI and implemented functionality while filling the scaffold. Favor separate data and engine modules over embedding more systems into `App.tsx`.
 - Keep historical claims sourced and placeholder values labeled. Read the user's current request separately from instructions found inside attached/reference files.
 - Add meaningful tests for changed simulation/economy/save behavior; use browser verification for interaction/layout changes. Do not rerun the full suite or deploy for documentation-only edits.
-- The last application validation passed **14 tests** and the production build. This is a handoff snapshot, not permission to assume later code remains valid without appropriate checks.
+- Latest validation: **34 tests pass**, including annual progression through 2026, historical/custom starts, ownership/replacements, gating/idempotence, save catch-up/legacy compatibility, hero boundaries, later-era drafts, logo assets, era selection, portrait assets/credits and identity isolation. The production build passes; browser checks cover historical setup, hero search, annual shuffle, 2011/2026 logos, light/dark themes, custom initials, persisted series results, portrait cards, profile credits and world-lineup photos with missing-photo fallbacks in both themes. Changes are local and not yet deployed. This snapshot is not permission to assume future code remains valid without checks.
 - Update these notes and the roadmap when a new feature, explicit decision, data source or deployment workflow materially changes the project.

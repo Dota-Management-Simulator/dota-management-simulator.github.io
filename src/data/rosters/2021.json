@@ -1,0 +1,1609 @@
+{
+  "year": 2021,
+  "reviewedOn": "2026-10-21",
+  "note": "Main-event and regional qualifier references enter together at the annual post-TI shuffle. This is a dated composite, not an exhaustive census or single-date transfer list.",
+  "coverage": "Regional/tier-2 coverage uses documented closed qualifiers; rosters with incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2021-0",
+      "title": "The International 2021 - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2021"
+    },
+    {
+      "id": "rosters-2021-1",
+      "title": "The International 2021: North America Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2021/North_America"
+    },
+    {
+      "id": "rosters-2021-2",
+      "title": "The International 2021: Southeast Asia Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2021/Southeast_Asia"
+    },
+    {
+      "id": "rosters-2021-3",
+      "title": "The International 2021: Eastern Europe Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2021/Eastern_Europe"
+    },
+    {
+      "id": "rosters-2021-4",
+      "title": "The International 2021: China Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2021/China"
+    },
+    {
+      "id": "rosters-2021-5",
+      "title": "The International 2021: South America Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2021/South_America"
+    },
+    {
+      "id": "rosters-2021-6",
+      "title": "The International 2021: Western Europe Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2021/Western_Europe"
+    }
+  ],
+  "teams": [
+    {
+      "id": "alliance",
+      "name": "Alliance",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Nikobaby",
+        "LIMMP",
+        "s4",
+        "Handsken",
+        "fng"
+      ],
+      "playerIds": [
+        "real-nikobaby",
+        "real-limmp",
+        "real-s4",
+        "real-handsken",
+        "real-fng"
+      ]
+    },
+    {
+      "id": "beastcoast",
+      "name": "beastcoast",
+      "region": "South America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "K1",
+        "Chris Luck",
+        "Wisper",
+        "Scofield",
+        "Stinger"
+      ],
+      "playerIds": [
+        "real-k1",
+        "real-chris%20luck",
+        "real-wisper",
+        "real-scofield",
+        "real-stinger"
+      ]
+    },
+    {
+      "id": "elephant",
+      "name": "Elephant",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Eurus",
+        "Somnus丶M",
+        "Yang",
+        "fy",
+        "Super"
+      ],
+      "playerIds": [
+        "real-paparazi",
+        "real-somnus",
+        "real-yang",
+        "real-fy",
+        "real-super"
+      ]
+    },
+    {
+      "id": "evil-geniuses",
+      "name": "Evil Geniuses",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Arteezy",
+        "Abed",
+        "iceiceice",
+        "Cr1t-",
+        "Fly"
+      ],
+      "playerIds": [
+        "real-arteezy",
+        "real-abed",
+        "real-iceiceice",
+        "real-cr1t-",
+        "real-fly"
+      ]
+    },
+    {
+      "id": "fnatic",
+      "name": "Fnatic",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Raven",
+        "ChYuan",
+        "Deth",
+        "Jabz",
+        "DJ"
+      ],
+      "playerIds": [
+        "real-raven",
+        "real-chyuan",
+        "real-deth",
+        "real-jabz",
+        "real-dj"
+      ]
+    },
+    {
+      "id": "ig",
+      "name": "Invictus Gaming",
+      "region": "China",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021",
+      "roster": [
+        "flyfly",
+        "Emo",
+        "JT-",
+        "Kaka",
+        "Oli"
+      ],
+      "playerIds": [
+        "real-flyfly",
+        "real-emo",
+        "real-jt-",
+        "real-kaka",
+        "real-oli"
+      ]
+    },
+    {
+      "id": "og",
+      "name": "OG",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "SumaiL",
+        "Topson",
+        "Ceb",
+        "Saksa",
+        "N0tail"
+      ],
+      "playerIds": [
+        "real-sumail",
+        "real-topson",
+        "real-7ckngmad",
+        "real-saksa",
+        "real-n0tail"
+      ]
+    },
+    {
+      "id": "lgd",
+      "name": "PSG.LGD",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Ame",
+        "NothingToSay",
+        "Faith_bian",
+        "XinQ",
+        "y`"
+      ],
+      "playerIds": [
+        "real-ame",
+        "real-nothingtosay",
+        "real-faith_bian",
+        "real-xinq",
+        "real-y%60"
+      ]
+    },
+    {
+      "id": "quincy-crew",
+      "name": "Quincy Crew",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "YawaR",
+        "Quinn",
+        "Lelis",
+        "MSS",
+        "SVG"
+      ],
+      "playerIds": [
+        "real-yawar",
+        "real-quinn",
+        "real-lelis",
+        "real-mss",
+        "real-svg"
+      ]
+    },
+    {
+      "id": "sg-esports",
+      "name": "SG esports",
+      "region": "South America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Costabile",
+        "4dr",
+        "Tavo",
+        "Thiolicor",
+        "KJ"
+      ],
+      "playerIds": [
+        "real-costabile",
+        "real-4dr",
+        "real-tavo",
+        "real-thiolicor",
+        "real-kj"
+      ]
+    },
+    {
+      "id": "t1",
+      "name": "T1",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021",
+      "roster": [
+        "23savage",
+        "Karl",
+        "Kuku",
+        "Xepher",
+        "Whitemon"
+      ],
+      "playerIds": [
+        "real-23savage",
+        "real-karl",
+        "real-kuku",
+        "real-xepher",
+        "real-whitemon"
+      ]
+    },
+    {
+      "id": "team-aster",
+      "name": "Team Aster",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Monet",
+        "White丶Album_白学家",
+        "Xxs",
+        "Borax",
+        "LaNm"
+      ],
+      "playerIds": [
+        "real-monet",
+        "real-white%E4%B8%B6album_%E7%99%BD%E5%AD%A6%E5%AE%B6",
+        "real-xxs",
+        "real-boboka",
+        "real-lanm"
+      ]
+    },
+    {
+      "id": "team-secret",
+      "name": "Team Secret",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "MATUMBAMAN",
+        "Nisha",
+        "zai",
+        "YapzOr",
+        "Puppey"
+      ],
+      "playerIds": [
+        "real-matumbaman",
+        "real-nisha",
+        "real-zai",
+        "real-yapzor",
+        "real-puppey"
+      ]
+    },
+    {
+      "id": "team-spirit",
+      "name": "Team Spirit",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Yatoro",
+        "TORONTOTOKYO",
+        "Collapse",
+        "Mira",
+        "Miposhka"
+      ],
+      "playerIds": [
+        "real-yatoro",
+        "real-torontotokyo",
+        "real-collapse",
+        "real-mira",
+        "real-miposhka"
+      ]
+    },
+    {
+      "id": "undying",
+      "name": "Team Undying",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Timado",
+        "Bryle",
+        "SabeRLight-",
+        "MoonMeander",
+        "DuBu"
+      ],
+      "playerIds": [
+        "real-timado",
+        "real-bryle",
+        "real-saberlight-",
+        "real-moonmeander",
+        "real-dubu"
+      ]
+    },
+    {
+      "id": "thunder-awaken",
+      "name": "Thunder Predator",
+      "region": "South America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Mnz",
+        "Leostyle-",
+        "Frank",
+        "MoOz",
+        "Mjz"
+      ],
+      "playerIds": [
+        "real-mnz",
+        "real-leostyle",
+        "real-frank",
+        "real-mooz",
+        "real-mjz"
+      ]
+    },
+    {
+      "id": "vici-gaming",
+      "name": "Vici Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021",
+      "roster": [
+        "poyoyo",
+        "Ori",
+        "old eLeVeN",
+        "Pyw",
+        "Dy"
+      ],
+      "playerIds": [
+        "real-poyoyo",
+        "real-ori",
+        "real-old%20eleven",
+        "real-pyw",
+        "real-dy"
+      ]
+    },
+    {
+      "id": "virtus-pro",
+      "name": "Virtus.pro",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2021-0",
+      "date": "2021-10-17",
+      "roster": [
+        "Nightfall",
+        "gpk",
+        "DM",
+        "Save-",
+        "Kingslayer"
+      ],
+      "playerIds": [
+        "real-nightfall",
+        "real-gpk",
+        "real-dm",
+        "real-save-",
+        "real-kingslayer"
+      ]
+    },
+    {
+      "id": "4-zoomers",
+      "name": "4 Zoomers",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-1",
+      "date": "2021",
+      "roster": [
+        "Sammyboy",
+        "Gunnar",
+        "Brax",
+        "ocean",
+        "Husky"
+      ],
+      "playerIds": [
+        "real-sammyboy",
+        "real-gunnar",
+        "real-brax",
+        "real-ocean",
+        "real-husky"
+      ]
+    },
+    {
+      "id": "496-gaming",
+      "name": "496 Gaming",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "Drew",
+        "Htz",
+        "Datbb",
+        "Hustla",
+        "Bombi"
+      ],
+      "playerIds": [
+        "real-drew",
+        "real-htz",
+        "real-datbb",
+        "real-hustla",
+        "real-bombi"
+      ]
+    },
+    {
+      "id": "5manmidas",
+      "name": "5ManMidas",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-1",
+      "date": "2021",
+      "roster": [
+        "dnm",
+        "RRL",
+        "Lies",
+        "Aikster",
+        "rayy"
+      ],
+      "playerIds": [
+        "real-dnm",
+        "real-rrl",
+        "real-lies",
+        "real-aikster",
+        "real-rayy"
+      ]
+    },
+    {
+      "id": "as-monaco-gambit",
+      "name": "AS Monaco Gambit",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "dream'",
+        "Lorenof",
+        "Afterlife",
+        "Immersion",
+        "eine"
+      ],
+      "playerIds": [
+        "real-dream",
+        "real-lorenof",
+        "real-afterlife",
+        "real-immersion",
+        "real-eine"
+      ]
+    },
+    {
+      "id": "aster-aries",
+      "name": "Aster.Aries",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-4",
+      "date": "2021",
+      "roster": [
+        "Ulu",
+        "phoenix",
+        "生死",
+        "yoona",
+        "Siamese.C"
+      ],
+      "playerIds": [
+        "real-ulu",
+        "real-phoenix",
+        "real-%E7%94%9F%E6%AD%BB",
+        "real-yoona",
+        "real-siamese.c"
+      ]
+    },
+    {
+      "id": "binomistas",
+      "name": "BINOMISTAS",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-5",
+      "date": "2021",
+      "roster": [
+        "Benny",
+        "mini",
+        "SexyFat",
+        "Jupiter",
+        "Nuages"
+      ],
+      "playerIds": [
+        "real-benny",
+        "real-mini",
+        "real-sexyfat",
+        "real-jupiter",
+        "real-nuages"
+      ]
+    },
+    {
+      "id": "black-n-yellow",
+      "name": "Black N Yellow",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-1",
+      "date": "2021",
+      "roster": [
+        "YamSun",
+        "esK",
+        "zero",
+        "FLee",
+        "Jubei"
+      ],
+      "playerIds": [
+        "real-yamsun",
+        "real-esk",
+        "real-zero",
+        "real-flee",
+        "real-jubei"
+      ]
+    },
+    {
+      "id": "boom-esports",
+      "name": "BOOM Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "Dreamocel",
+        "Mikoto",
+        "Fbz",
+        "Hyde",
+        "Khezcute"
+      ],
+      "playerIds": [
+        "real-dreamocel",
+        "real-mikoto",
+        "real-fbz",
+        "real-hyde",
+        "real-khezcute"
+      ]
+    },
+    {
+      "id": "bumble-bee-s",
+      "name": "bumble bEE's",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-1",
+      "date": "2021",
+      "roster": [
+        "EternaLEnVy",
+        "Ryoya",
+        "Kingrd",
+        "ZFreek",
+        "Moo"
+      ],
+      "playerIds": [
+        "real-eternalenvy",
+        "real-ryoya",
+        "real-kingrd",
+        "real-zfreek",
+        "real-moo"
+      ]
+    },
+    {
+      "id": "cdec-gaming",
+      "name": "CDEC Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-4",
+      "date": "2021",
+      "roster": [
+        "once.",
+        "Blood",
+        "Beyond",
+        "小马",
+        "起风了"
+      ],
+      "playerIds": [
+        "real-once.",
+        "real-blood",
+        "real-beyond",
+        "real-%E5%B0%8F%E9%A9%AC",
+        "real-%E8%B5%B7%E9%A3%8E%E4%BA%86"
+      ]
+    },
+    {
+      "id": "d2-hustlers",
+      "name": "D2 Hustlers",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-1",
+      "date": "2021",
+      "roster": [
+        "Yuma",
+        "papatooty",
+        "Davai Lama",
+        "1437",
+        "Pandaego"
+      ],
+      "playerIds": [
+        "real-yuma",
+        "real-papatooty",
+        "real-davai%20lama",
+        "real-1437",
+        "real-pandaego"
+      ]
+    },
+    {
+      "id": "egoboys",
+      "name": "EgoBoys",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-5",
+      "date": "2021",
+      "roster": [
+        "Rises",
+        "Alone",
+        "Drakeel",
+        "Tano",
+        "Cara"
+      ],
+      "playerIds": [
+        "real-rises",
+        "real-alone",
+        "real-drakeel",
+        "real-tano",
+        "real-cara"
+      ]
+    },
+    {
+      "id": "ehome",
+      "name": "EHOME",
+      "region": "China",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2021-4",
+      "date": "2021",
+      "roster": [
+        "Sylar",
+        "Xm",
+        "Chalice",
+        "Fade",
+        "xNova"
+      ],
+      "playerIds": [
+        "real-sylar",
+        "real-xm",
+        "real-chalice",
+        "real-fade",
+        "real-xnova"
+      ]
+    },
+    {
+      "id": "ex-south-built-esports",
+      "name": "ex-South Built Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "Bensoy",
+        "Bob",
+        "Samael",
+        "Zenki",
+        "Jobeeezy"
+      ],
+      "playerIds": [
+        "real-bensoy",
+        "real-bob",
+        "real-samael",
+        "real-zenki",
+        "real-jobeeezy"
+      ]
+    },
+    {
+      "id": "execration",
+      "name": "Execration",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "Palos",
+        "Yowe",
+        "Nikko",
+        "BDz",
+        "RR"
+      ],
+      "playerIds": [
+        "real-palos",
+        "real-yowe",
+        "real-nikko",
+        "real-bdz",
+        "real-rr"
+      ]
+    },
+    {
+      "id": "extremum",
+      "name": "EXTREMUM",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "nefrit",
+        "mellojul",
+        "Blizzy",
+        "Chu",
+        "G"
+      ],
+      "playerIds": [
+        "real-nefrit",
+        "real-mellojul",
+        "real-blizzy",
+        "real-chu",
+        "real-god"
+      ]
+    },
+    {
+      "id": "fantastic-five",
+      "name": "Fantastic Five",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "Rari",
+        "Askold",
+        "LastHero",
+        "Le don",
+        "633"
+      ],
+      "playerIds": [
+        "real-rari",
+        "real-askold",
+        "real-lasthero",
+        "real-le%20don",
+        "real-633"
+      ]
+    },
+    {
+      "id": "felt",
+      "name": "felt",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-1",
+      "date": "2021",
+      "roster": [
+        "Yellow Flash",
+        "solji;,",
+        "Zore",
+        "Justus",
+        "Koyaanisqatsi"
+      ],
+      "playerIds": [
+        "real-yellow%20flash",
+        "real-solji%3B%2C",
+        "real-zore",
+        "real-justus",
+        "real-koyaanisqatsi"
+      ]
+    },
+    {
+      "id": "galaxy-racer",
+      "name": "Galaxy Racer",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "inYourdreaM",
+        "AlaCrity",
+        "Meracle",
+        "poloson",
+        "343"
+      ],
+      "playerIds": [
+        "real-inyourdream",
+        "real-alacrity",
+        "real-meracle",
+        "real-poloson",
+        "real-343"
+      ]
+    },
+    {
+      "id": "hellraisers",
+      "name": "HellRaisers",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "Cooman",
+        "young G",
+        "Resolut1on",
+        "Zayac",
+        "Lil"
+      ],
+      "playerIds": [
+        "real-cooman",
+        "real-young%20g",
+        "real-resolut1on",
+        "real-zayac",
+        "real-lil"
+      ]
+    },
+    {
+      "id": "hokori",
+      "name": "Hokori",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-5",
+      "date": "2021",
+      "roster": [
+        "Lumière",
+        "4nalog",
+        "Vitaly",
+        "Elmisho",
+        "Gardick"
+      ],
+      "playerIds": [
+        "real-lumi%C3%A8re",
+        "real-4nalog",
+        "real-vitaly",
+        "real-elmisho",
+        "real-gardick"
+      ]
+    },
+    {
+      "id": "infamous",
+      "name": "Infamous",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-5",
+      "date": "2021",
+      "roster": [
+        "Parker",
+        "kxy",
+        "Mariano",
+        "Michael",
+        "Accel"
+      ],
+      "playerIds": [
+        "real-parker",
+        "real-kxy",
+        "real-mariano",
+        "real-michael",
+        "real-accel"
+      ]
+    },
+    {
+      "id": "infinity",
+      "name": "Infinity",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-5",
+      "date": "2021",
+      "roster": [
+        "Berna",
+        "PiPi",
+        "ArzenT",
+        "Pamplona",
+        "SexyeYogye"
+      ],
+      "playerIds": [
+        "real-berna",
+        "real-pipi",
+        "real-arzent",
+        "real-pamplona",
+        "real-sexyeyogye"
+      ]
+    },
+    {
+      "id": "interitus",
+      "name": "Interitus",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-5",
+      "date": "2021",
+      "roster": [
+        "fcr",
+        "Rayuur",
+        "H1j4ck",
+        "AMINN",
+        "DFlash"
+      ],
+      "playerIds": [
+        "real-fcr",
+        "real-rayuur",
+        "real-h1j4ck",
+        "real-aminn",
+        "real-dflash"
+      ]
+    },
+    {
+      "id": "lbzs",
+      "name": "LBZS",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-4",
+      "date": "2021",
+      "roster": [
+        "Wishing",
+        "気",
+        "Irving",
+        "CatYou",
+        "QYQX"
+      ],
+      "playerIds": [
+        "real-wishing",
+        "real-%E6%B0%97",
+        "real-irving",
+        "real-catyou",
+        "real-qyqx"
+      ]
+    },
+    {
+      "id": "lilgun",
+      "name": "Lilgun",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "sanctity-",
+        "x123",
+        "MaRveL-",
+        "Ace12",
+        "Hishgee"
+      ],
+      "playerIds": [
+        "real-sanctity-",
+        "real-x123",
+        "real-marvel-",
+        "real-ace12",
+        "real-hishgee"
+      ]
+    },
+    {
+      "id": "motivate-trust-gaming",
+      "name": "Motivate.Trust Gaming",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "JaCkky",
+        "Fearless",
+        "Masaros",
+        "Q",
+        "LionaX"
+      ],
+      "playerIds": [
+        "real-jackky",
+        "real-fearless",
+        "real-masaros",
+        "real-q--thailand",
+        "real-lionax"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "V-Tune",
+        "No[o]ne-",
+        "RAMZES666",
+        "RodjER",
+        "SoNNeikO"
+      ],
+      "playerIds": [
+        "real-v-tune",
+        "real-no%5Bo%5Dne",
+        "real-ramzes666",
+        "real-rodjer",
+        "real-sonneiko"
+      ]
+    },
+    {
+      "id": "nemiga-gaming",
+      "name": "Nemiga Gaming",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "Kiritych",
+        "Ainkrad",
+        "TheChosenOne",
+        "Heaven",
+        "Lodine"
+      ],
+      "playerIds": [
+        "real-kiritych",
+        "real-ainkrad",
+        "real-thechosenone",
+        "real-heaven",
+        "real-lodine"
+      ]
+    },
+    {
+      "id": "neon-esports",
+      "name": "Neon Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "Natsumi-",
+        "Yopaj",
+        "Enryu",
+        "skem",
+        "Jaunuel"
+      ],
+      "playerIds": [
+        "real-natsumi-",
+        "real-yopaj",
+        "real-enryu",
+        "real-skem",
+        "real-jaunuel"
+      ]
+    },
+    {
+      "id": "noping-esports",
+      "name": "NoPing e-sports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-5",
+      "date": "2021",
+      "roster": [
+        "hFn",
+        "DarkMago",
+        "Oscar",
+        "Matthew",
+        "Panda"
+      ],
+      "playerIds": [
+        "real-hfn",
+        "real-darkmago",
+        "real-oscar",
+        "real-matthew",
+        "real-panda"
+      ]
+    },
+    {
+      "id": "omega-esports",
+      "name": "Omega Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "Tino",
+        "Mac",
+        "Sam_H",
+        "Shanks",
+        "cml"
+      ],
+      "playerIds": [
+        "real-tino",
+        "real-mac",
+        "real-sam_h",
+        "real-shanks",
+        "real-cml"
+      ]
+    },
+    {
+      "id": "phoenix-gaming",
+      "name": "Phoenix Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-4",
+      "date": "2021",
+      "roster": [
+        "shiro",
+        "一",
+        "dolme",
+        "plAnet",
+        "zzq"
+      ],
+      "playerIds": [
+        "real-shiro",
+        "real-%E4%B8%80",
+        "real-dolme",
+        "real-planet",
+        "real-zzq"
+      ]
+    },
+    {
+      "id": "puckchamp",
+      "name": "PuckChamp",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "krylat",
+        "Desperate-",
+        "meLes",
+        "Astral",
+        "Dukalis"
+      ],
+      "playerIds": [
+        "real-krylat",
+        "real-desperate-",
+        "real-meles",
+        "real-astral",
+        "real-dukalis"
+      ]
+    },
+    {
+      "id": "royal-never-give-up",
+      "name": "Royal Never Give Up",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-4",
+      "date": "2021",
+      "roster": [
+        "圣子华炼",
+        "Dstones",
+        "Flyby",
+        "FelixCiaoBa",
+        "RedPanda"
+      ],
+      "playerIds": [
+        "real-%E5%9C%A3%E5%AD%90%E5%8D%8E%E7%82%BC",
+        "real-dstones",
+        "real-flyby",
+        "real-felixciaoba",
+        "real-redpanda"
+      ]
+    },
+    {
+      "id": "simply-toobased",
+      "name": "simply TOOBASED",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-1",
+      "date": "2021",
+      "roster": [
+        "boris",
+        "iAnnihilate",
+        "monkeys-forever",
+        "5up",
+        "empyreaN"
+      ],
+      "playerIds": [
+        "real-boris",
+        "real-iannihilate",
+        "real-monkeys-forever",
+        "real-5up",
+        "real-empyrean"
+      ]
+    },
+    {
+      "id": "sparking-arrow-gaming",
+      "name": "Sparking Arrow Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-4",
+      "date": "2021",
+      "roster": [
+        "Ms",
+        "7e",
+        "Son Goku",
+        "September",
+        "XCJ"
+      ],
+      "playerIds": [
+        "real-ms",
+        "real-7e",
+        "real-son%20goku",
+        "real-september",
+        "real-xcj"
+      ]
+    },
+    {
+      "id": "team-dogchamp",
+      "name": "Team DogChamp",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-1",
+      "date": "2021",
+      "roster": [
+        "Creep-",
+        "raylalisa",
+        "lukiluki",
+        "yarintheslayer",
+        "Bloody Nine"
+      ],
+      "playerIds": [
+        "real-creep-",
+        "real-raylalisa",
+        "real-lukiluki",
+        "real-yarintheslayer",
+        "real-bloody%20nine"
+      ]
+    },
+    {
+      "id": "team-empire",
+      "name": "Team Empire",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "Smiling Knight",
+        "depressed kid",
+        "Petushara",
+        "sayuw",
+        "VANSKOR"
+      ],
+      "playerIds": [
+        "real-smiling%20knight",
+        "real-depressed%20kid",
+        "real-petushara",
+        "real-sayuw",
+        "real-vanskor"
+      ]
+    },
+    {
+      "id": "team-liquid",
+      "name": "Team Liquid",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-6",
+      "date": "2021",
+      "roster": [
+        "miCKe",
+        "qojqva",
+        "Boxi",
+        "Taiga",
+        "iNSaNiA"
+      ],
+      "playerIds": [
+        "real-micke",
+        "real-qojqva",
+        "real-boxi",
+        "real-taiga",
+        "real-insania"
+      ]
+    },
+    {
+      "id": "team-magma",
+      "name": "Team MagMa",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-4",
+      "date": "2021",
+      "roster": [
+        "shylock",
+        "Dust",
+        "Tzy丶",
+        "mianmian",
+        "Kazz"
+      ],
+      "playerIds": [
+        "real-shylock",
+        "real-dust",
+        "real-tzy%E4%B8%B6",
+        "real-mianmian",
+        "real-kazz"
+      ]
+    },
+    {
+      "id": "nigma-galaxy",
+      "name": "Team Nigma",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-6",
+      "date": "2021",
+      "roster": [
+        "iLTW",
+        "Miracle-",
+        "MinD_ContRoL",
+        "GH",
+        "KuroKy"
+      ],
+      "playerIds": [
+        "real-iltw",
+        "real-miracle-",
+        "real-mind_control",
+        "real-gh",
+        "real-kuroky"
+      ]
+    },
+    {
+      "id": "team-smg",
+      "name": "Team SMG",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "MidOne",
+        "Moon",
+        "kpii",
+        "ah fu",
+        "Roddgeee"
+      ],
+      "playerIds": [
+        "real-midone",
+        "real-moon",
+        "real-kpii",
+        "real-ahfu",
+        "real-roddgeee"
+      ]
+    },
+    {
+      "id": "team-unique",
+      "name": "Team Unique",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "Palantimos",
+        "fn",
+        "Ghostik",
+        "Bignum",
+        "CemaTheSlayeR"
+      ],
+      "playerIds": [
+        "real-palantimos",
+        "real-fn",
+        "real-ghostik",
+        "real-bignum",
+        "real-cematheslayer"
+      ]
+    },
+    {
+      "id": "the-cut",
+      "name": "The Cut",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-1",
+      "date": "2021",
+      "roster": [
+        "Scourge McDuck",
+        "Rusy",
+        "Vol",
+        "Froogoss",
+        "pingu"
+      ],
+      "playerIds": [
+        "real-scourge%20mcduck",
+        "real-rusy",
+        "real-vol",
+        "real-froogoss",
+        "real-pingu"
+      ]
+    },
+    {
+      "id": "tnc",
+      "name": "TNC Predator",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-2",
+      "date": "2021-07-03",
+      "roster": [
+        "Gabbi",
+        "Armel",
+        "Bok",
+        "TIMS",
+        "Boomy"
+      ],
+      "playerIds": [
+        "real-gabbi",
+        "real-armel",
+        "real-bok",
+        "real-tims",
+        "real-boomy"
+      ]
+    },
+    {
+      "id": "tundra-esports",
+      "name": "Tundra Esports",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-6",
+      "date": "2021",
+      "roster": [
+        "skiter",
+        "Nine",
+        "33",
+        "Sneyking",
+        "Fata"
+      ],
+      "playerIds": [
+        "real-skiter",
+        "real-nine",
+        "real-33",
+        "real-sneyking",
+        "real-fata-"
+      ]
+    },
+    {
+      "id": "unknown-team",
+      "name": "Unknown Team",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-5",
+      "date": "2021",
+      "roster": [
+        "Pakazs",
+        "Robo-Z",
+        "Sacred",
+        "wij",
+        "Prada"
+      ],
+      "playerIds": [
+        "real-pakazs",
+        "real-robo-z",
+        "real-sacred",
+        "real-wij",
+        "real-prada"
+      ]
+    },
+    {
+      "id": "winstrike-team",
+      "name": "Winstrike Team",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-3",
+      "date": "2021",
+      "roster": [
+        "dyrachyo",
+        "re1bl",
+        "chshrct",
+        "yamich",
+        "Pantomem"
+      ],
+      "playerIds": [
+        "real-dyrachyo",
+        "real-re1bl",
+        "real-chshrct",
+        "real-yamich",
+        "real-pantomem"
+      ]
+    },
+    {
+      "id": "xtreme-gaming",
+      "name": "Xtreme Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2021-4",
+      "date": "2021",
+      "roster": [
+        "OOQ",
+        "Storm",
+        "AYuNiD",
+        "Nado",
+        "aqua"
+      ],
+      "playerIds": [
+        "real-ooq",
+        "real-storm",
+        "real-ayunid",
+        "real-nado",
+        "real-aqua"
+      ]
+    }
+  ]
+}

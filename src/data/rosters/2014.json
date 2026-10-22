@@ -1,0 +1,1254 @@
+{
+  "year": 2014,
+  "reviewedOn": "2026-10-21",
+  "note": "Main-event and regional qualifier references enter together at the annual post-TI shuffle. This is a dated composite, not an exhaustive census or single-date transfer list.",
+  "coverage": "Regional/tier-2 coverage uses documented closed qualifiers; rosters with incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2014-0",
+      "title": "The International 2014 - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2014"
+    },
+    {
+      "id": "rosters-2014-1",
+      "title": "The International 2014: European Qualifiers - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2014/Europe"
+    },
+    {
+      "id": "rosters-2014-2",
+      "title": "The International 2014: China Qualifiers - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2014/China"
+    },
+    {
+      "id": "rosters-2014-3",
+      "title": "The International 2014: Americas Qualifiers - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2014/Americas_Qualifiers"
+    },
+    {
+      "id": "rosters-2014-4",
+      "title": "The International 2014: Southeast Asia Qualifiers - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2014/Southeast_Asia"
+    }
+  ],
+  "teams": [
+    {
+      "id": "alliance",
+      "name": "Alliance",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "Loda",
+        "s4",
+        "AdmiralBulldog",
+        "EGM",
+        "Akke"
+      ],
+      "playerIds": [
+        "real-loda",
+        "real-s4",
+        "real-admiralbulldog",
+        "real-egm",
+        "real-akke"
+      ]
+    },
+    {
+      "id": "arrow-gaming",
+      "name": "Arrow Gaming",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "LaNcE",
+        "ddz",
+        "JoHnNy",
+        "MoZuN",
+        "xiangzai"
+      ],
+      "playerIds": [
+        "real-lance",
+        "real-ddz",
+        "real-johnny",
+        "real-mozun",
+        "real-xiangzai"
+      ]
+    },
+    {
+      "id": "cloud9",
+      "name": "Cloud9",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "EternaLEnVy",
+        "SingSing",
+        "bOne7",
+        "Aui_2000",
+        "pieliedie"
+      ],
+      "playerIds": [
+        "real-eternalenvy",
+        "real-singsing",
+        "real-bone7",
+        "real-aui_2000",
+        "real-pieliedie"
+      ]
+    },
+    {
+      "id": "evil-geniuses",
+      "name": "Evil Geniuses",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "mason",
+        "Arteezy",
+        "UNiVeRsE",
+        "zai",
+        "ppd"
+      ],
+      "playerIds": [
+        "real-mason",
+        "real-arteezy",
+        "real-universe",
+        "real-zai",
+        "real-ppd"
+      ]
+    },
+    {
+      "id": "fnatic",
+      "name": "Fnatic",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "Era",
+        "H4nn1",
+        "Trixi",
+        "BigDaddy",
+        "Fly"
+      ],
+      "playerIds": [
+        "real-era",
+        "real-h4nn1",
+        "real-trixi",
+        "real-n0tail",
+        "real-fly"
+      ]
+    },
+    {
+      "id": "ig",
+      "name": "Invictus Gaming",
+      "region": "China",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "Luo",
+        "Ferrari_430",
+        "YYF",
+        "ChuaN",
+        "Faith"
+      ],
+      "playerIds": [
+        "real-luo",
+        "real-ferrari_430",
+        "real-yyf",
+        "real-chuan",
+        "real-faith"
+      ]
+    },
+    {
+      "id": "lgd",
+      "name": "LGD Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "Rabbit",
+        "Yao",
+        "Lin",
+        "DD",
+        "DDC"
+      ],
+      "playerIds": [
+        "real-rabbit",
+        "real-yao",
+        "real-lin",
+        "real-dd",
+        "real-ddc"
+      ]
+    },
+    {
+      "id": "mouz",
+      "name": "mousesports",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "Pajkatt",
+        "FATA",
+        "MSS",
+        "MiSeRy",
+        "paS"
+      ],
+      "playerIds": [
+        "real-pajkatt",
+        "real-fata-",
+        "real-mss",
+        "real-misery",
+        "real-pas"
+      ]
+    },
+    {
+      "id": "na-vi-north-america",
+      "name": "Na`Vi North America",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "Sneyking",
+        "Korok",
+        "Brax",
+        "Fogged",
+        "1437"
+      ],
+      "playerIds": [
+        "real-sneyking",
+        "real-korok",
+        "real-brax",
+        "real-fogged",
+        "real-1437"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "XBOCT",
+        "Dendi",
+        "Funn1k",
+        "Puppey",
+        "KuroKy"
+      ],
+      "playerIds": [
+        "real-xboct",
+        "real-dendi",
+        "real-funn1k",
+        "real-puppey",
+        "real-kuroky"
+      ]
+    },
+    {
+      "id": "newbee",
+      "name": "Newbee",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "Hao",
+        "Mu",
+        "xiao8",
+        "Banana",
+        "SanSheng"
+      ],
+      "playerIds": [
+        "real-hao",
+        "real-mu",
+        "real-xiao8",
+        "real-banana",
+        "real-sansheng"
+      ]
+    },
+    {
+      "id": "dk",
+      "name": "Team DK",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "BurNIng",
+        "Mushi",
+        "iceiceice",
+        "LaNm",
+        "MMY"
+      ],
+      "playerIds": [
+        "real-burning",
+        "real-mushi",
+        "real-iceiceice",
+        "real-lanm",
+        "real-x!!"
+      ]
+    },
+    {
+      "id": "team-empire",
+      "name": "Team Empire",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "Silent",
+        "Resolut1on",
+        "Mag~",
+        "VANSKOR",
+        "ALWAYSWANNAFLY"
+      ],
+      "playerIds": [
+        "real-silent",
+        "real-resolut1on",
+        "real-mag~",
+        "real-vanskor",
+        "real-alwayswannafly"
+      ]
+    },
+    {
+      "id": "team-liquid",
+      "name": "Team Liquid",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "TC",
+        "qojqva",
+        "DeMoN",
+        "waytosexy",
+        "BuLba"
+      ],
+      "playerIds": [
+        "real-tc",
+        "real-qojqva",
+        "real-demon",
+        "real-waytosexy",
+        "real-bulba"
+      ]
+    },
+    {
+      "id": "titan",
+      "name": "Titan",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "kYxY",
+        "YamateH",
+        "Ohaiyo",
+        "Net",
+        "XtiNcT"
+      ],
+      "playerIds": [
+        "real-kyxy",
+        "real-yamateh",
+        "real-ohaiyo",
+        "real-net",
+        "real-xtinct"
+      ]
+    },
+    {
+      "id": "vici-gaming",
+      "name": "Vici Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2014-0",
+      "date": "2014",
+      "roster": [
+        "Sylar",
+        "Super",
+        "rOtk",
+        "fy",
+        "Fenrir"
+      ],
+      "playerIds": [
+        "real-sylar",
+        "real-super",
+        "real-rotk",
+        "real-fy",
+        "real-fenrir"
+      ]
+    },
+    {
+      "id": "aware-gaming",
+      "name": "Aware Gaming",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-1",
+      "date": "2014",
+      "roster": [
+        "Yamaha",
+        "L0lik_O",
+        "XaKoH",
+        "RodjER_",
+        "Stress"
+      ],
+      "playerIds": [
+        "real-yamaha",
+        "real-l0lik_o",
+        "real-xakoh",
+        "real-rodjer",
+        "real-stress"
+      ]
+    },
+    {
+      "id": "cis-game",
+      "name": "CIS Game",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-2",
+      "date": "2014",
+      "roster": [
+        "Black^",
+        "Inflame",
+        "June",
+        "Ayo",
+        "Demons"
+      ],
+      "playerIds": [
+        "real-black%5E",
+        "real-inflame",
+        "real-june",
+        "real-ayo",
+        "real-demons"
+      ]
+    },
+    {
+      "id": "cnb-e-sports-club",
+      "name": "CNB e-Sports Club",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "4DR",
+        "KINGRD",
+        "Tavo",
+        "Nedbone",
+        "Baga"
+      ],
+      "playerIds": [
+        "real-4dr",
+        "real-kingrd",
+        "real-tavo",
+        "real-nedbone",
+        "real-baga"
+      ]
+    },
+    {
+      "id": "cnb-cn",
+      "name": "CNB.cn",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-2",
+      "date": "2014",
+      "roster": [
+        "5400",
+        "888",
+        "8gk",
+        "Sdn",
+        "@dogf1ghts"
+      ],
+      "playerIds": [
+        "real-5400",
+        "real-888",
+        "real-8gk",
+        "real-sdn",
+        "real-dogf1ghts"
+      ]
+    },
+    {
+      "id": "dt-club",
+      "name": "DT^Club",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-2",
+      "date": "2014",
+      "roster": [
+        "XDD",
+        "Air",
+        "InJuly",
+        "super",
+        "DreamyU"
+      ],
+      "playerIds": [
+        "real-xdd",
+        "real-air",
+        "real-injuly",
+        "real-super",
+        "real-dreamyu"
+      ]
+    },
+    {
+      "id": "execration",
+      "name": "Execration",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-4",
+      "date": "2014-05-19",
+      "roster": [
+        "abeng",
+        "ninjaboogie",
+        "Ewe",
+        "Foxx",
+        "BG01"
+      ],
+      "playerIds": [
+        "real-abeng",
+        "real-ninjaboogie",
+        "real-ewe",
+        "real-foxx",
+        "real-bg01"
+      ]
+    },
+    {
+      "id": "first-departure",
+      "name": "First Departure",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-4",
+      "date": "2014-05-19",
+      "roster": [
+        "daFa-",
+        "Chains",
+        "ks",
+        "Lubby",
+        "SCripted"
+      ],
+      "playerIds": [
+        "real-dafa-",
+        "real-chains",
+        "real-ks",
+        "real-lubby",
+        "real-scripted"
+      ]
+    },
+    {
+      "id": "hehe-united",
+      "name": "hehe united",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-1",
+      "date": "2014",
+      "roster": [
+        "Reelo",
+        "ｈｗａ",
+        "Kaibutsu",
+        "nihis",
+        "chipshajen"
+      ],
+      "playerIds": [
+        "real-reelo",
+        "real-%EF%BD%88%EF%BD%97%EF%BD%81",
+        "real-kaibutsu",
+        "real-nihis",
+        "real-chipshajen"
+      ]
+    },
+    {
+      "id": "hypergloryteam",
+      "name": "HyperGloryTeam",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-2",
+      "date": "2014",
+      "roster": [
+        "ZSMJ",
+        "cty",
+        "XTT",
+        "PrettyHaw",
+        "Cys-S"
+      ],
+      "playerIds": [
+        "real-zsmj",
+        "real-cty",
+        "real-xtt",
+        "real-prettyhaw",
+        "real-cys-s"
+      ]
+    },
+    {
+      "id": "isurus-gaming",
+      "name": "Isurus Gaming",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "Fullback",
+        "DDX-",
+        "zurdo",
+        "papita",
+        "Nheidara"
+      ],
+      "playerIds": [
+        "real-fullback",
+        "real-ddx-",
+        "real-zurdo",
+        "real-papita",
+        "real-nheidara"
+      ]
+    },
+    {
+      "id": "lgd-cdec",
+      "name": "LGD.CDEC",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-2",
+      "date": "2014",
+      "roster": [
+        "Agressif",
+        "Maybe",
+        "333",
+        "Garder",
+        "Q"
+      ],
+      "playerIds": [
+        "real-agressif",
+        "real-somnus",
+        "real-333",
+        "real-garder",
+        "real-q"
+      ]
+    },
+    {
+      "id": "mith",
+      "name": "Made in Thailand",
+      "region": "Southeast Asia",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2014-4",
+      "date": "2014-05-19",
+      "roster": [
+        "LaKelz",
+        "aabBAA",
+        "KyT",
+        "TnK",
+        "Boombell"
+      ],
+      "playerIds": [
+        "real-lakelz",
+        "real-aabbaa",
+        "real-kyt",
+        "real-tnk",
+        "real-boombell"
+      ]
+    },
+    {
+      "id": "mym",
+      "name": "Meet Your Makers",
+      "region": "Europe",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2014-1",
+      "date": "2014",
+      "roster": [
+        "Link",
+        "Ryze",
+        "Ace",
+        "unicornxoxo",
+        "Cr1t"
+      ],
+      "playerIds": [
+        "real-link",
+        "real-ryze",
+        "real-ace",
+        "real-unicornxoxo",
+        "real-cr1t-"
+      ]
+    },
+    {
+      "id": "mineski",
+      "name": "Mineski",
+      "region": "Southeast Asia",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2014-4",
+      "date": "2014-05-19",
+      "roster": [
+        "Bimbo",
+        "Vash",
+        "Paseo",
+        "Owa",
+        "Gio"
+      ],
+      "playerIds": [
+        "real-bimbo",
+        "real-vash",
+        "real-paseo",
+        "real-owa",
+        "real-gio"
+      ]
+    },
+    {
+      "id": "mvp-phoenix",
+      "name": "MVP Phoenix",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-4",
+      "date": "2014-05-19",
+      "roster": [
+        "March",
+        "QO",
+        "Forev",
+        "Reisen",
+        "Heen"
+      ],
+      "playerIds": [
+        "real-march",
+        "real-qo",
+        "real-forev",
+        "real-reisen",
+        "real-heen"
+      ]
+    },
+    {
+      "id": "na-rejects",
+      "name": "NA Rejects",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "Sneyking",
+        "Korok",
+        "Brax",
+        "Fogged",
+        "1437"
+      ],
+      "playerIds": [
+        "real-sneyking",
+        "real-korok",
+        "real-brax",
+        "real-fogged",
+        "real-1437"
+      ]
+    },
+    {
+      "id": "new-element",
+      "name": "New Element",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-2",
+      "date": "2014",
+      "roster": [
+        "DJ",
+        "Shiki",
+        "龙丶",
+        "淰",
+        "Xz"
+      ],
+      "playerIds": [
+        "real-dj--china",
+        "real-shiki",
+        "real-%E9%BE%99%E4%B8%B6",
+        "real-%E6%B7%B0",
+        "real-xz"
+      ]
+    },
+    {
+      "id": "no-earthspirit",
+      "name": "No Earthspirit",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "Bricks",
+        "Relic",
+        "half fried egg roll",
+        "Gudii",
+        "Nave"
+      ],
+      "playerIds": [
+        "real-bricks",
+        "real-relic",
+        "real-half%20fried%20egg%20roll",
+        "real-gudii",
+        "real-nave"
+      ]
+    },
+    {
+      "id": "orange",
+      "name": "Orange Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-4",
+      "date": "2014-05-19",
+      "roster": [
+        "SXOCXS",
+        "Ysaera",
+        "WinteR",
+        "InsidiousC",
+        "Sharky"
+      ],
+      "playerIds": [
+        "real-sxocxs",
+        "real-ysaera",
+        "real-winter",
+        "real-insidiousc",
+        "real-sharky"
+      ]
+    },
+    {
+      "id": "orenda",
+      "name": "Orenda",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-2",
+      "date": "2014",
+      "roster": [
+        "Yim",
+        "290",
+        "Zyf",
+        "Liionly",
+        "Yi"
+      ],
+      "playerIds": [
+        "real-yim",
+        "real-290",
+        "real-zyf",
+        "real-liionly",
+        "real-yi"
+      ]
+    },
+    {
+      "id": "power-rangers",
+      "name": "Power Rangers",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-1",
+      "date": "2014",
+      "roster": [
+        "Moonlight",
+        "Scandal",
+        "chshrct",
+        "fng",
+        "j4"
+      ],
+      "playerIds": [
+        "real-moonlight",
+        "real-scandal",
+        "real-chshrct",
+        "real-fng",
+        "real-j4"
+      ]
+    },
+    {
+      "id": "relax",
+      "name": "Relax",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-1",
+      "date": "2014",
+      "roster": [
+        "yoky",
+        "Crazy",
+        "Shachlo",
+        "Dread",
+        "Windx"
+      ],
+      "playerIds": [
+        "real-yoky",
+        "real-crazy",
+        "real-shachlo",
+        "real-dread",
+        "real-windx"
+      ]
+    },
+    {
+      "id": "revenge-esports",
+      "name": "Revenge eSports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "Benjaz",
+        "SmAsH",
+        "miHawk",
+        "Masoku",
+        "mstco"
+      ],
+      "playerIds": [
+        "real-benjaz",
+        "real-smash",
+        "real-mihawk",
+        "real-masoku",
+        "real-mstco"
+      ]
+    },
+    {
+      "id": "rex-regum-qeon",
+      "name": "Rex Regum QEON",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-4",
+      "date": "2014-05-19",
+      "roster": [
+        "DonXwaN",
+        "KoaLa",
+        "Gehenna",
+        "NFR",
+        "bubu"
+      ],
+      "playerIds": [
+        "real-donxwan",
+        "real-koala",
+        "real-gehenna",
+        "real-nfr",
+        "real-bubu"
+      ]
+    },
+    {
+      "id": "rox-kis",
+      "name": "RoX.KIS",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-1",
+      "date": "2014",
+      "roster": [
+        "Bzz",
+        "Solo",
+        "Sedoy",
+        "yol",
+        "Goblak"
+      ],
+      "playerIds": [
+        "real-bzz",
+        "real-solo",
+        "real-sedoy",
+        "real-yol",
+        "real-goblak"
+      ]
+    },
+    {
+      "id": "scythe",
+      "name": "Scythe Gaming",
+      "region": "Southeast Asia",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2014-4",
+      "date": "2014-05-19",
+      "roster": [
+        "Meracle",
+        "Poloson",
+        "Hana",
+        "Chibix33",
+        "xFreedom"
+      ],
+      "playerIds": [
+        "real-meracle",
+        "real-poloson",
+        "real-hana",
+        "real-chibix33",
+        "real-xfreedom"
+      ]
+    },
+    {
+      "id": "shadows-of-the-past",
+      "name": "Shadows of the Past",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "Risk",
+        "ChickenMC",
+        "naerok",
+        "LaStHiTMaGiC",
+        "Joik"
+      ],
+      "playerIds": [
+        "real-risk",
+        "real-chickenmc",
+        "real-naerok",
+        "real-lasthitmagic",
+        "real-joik"
+      ]
+    },
+    {
+      "id": "sneaky-nyx-assassins",
+      "name": "Sneaky Nyx Assassins",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "USH",
+        "SNA",
+        "ixmike88",
+        "FLUFFNSTUFF",
+        "whiteBeard"
+      ],
+      "playerIds": [
+        "real-ush",
+        "real-sna",
+        "real-ixmike88",
+        "real-fluffnstuff",
+        "real-whitebeard"
+      ]
+    },
+    {
+      "id": "speed-gaming-cn",
+      "name": "Speed Gaming.cn",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-2",
+      "date": "2014",
+      "roster": [
+        "My-Miku",
+        "Zy",
+        "Zrd",
+        "Jdh",
+        "Zyp"
+      ],
+      "playerIds": [
+        "real-my-miku",
+        "real-zy",
+        "real-zrd",
+        "real-jdh",
+        "real-zyp"
+      ]
+    },
+    {
+      "id": "team-coast",
+      "name": "Team Coast",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-1",
+      "date": "2014",
+      "roster": [
+        "Apemother",
+        "eskillz",
+        "Solen",
+        "Frigoleet",
+        "Steffstyle"
+      ],
+      "playerIds": [
+        "real-apemother",
+        "real-eskillz",
+        "real-solen",
+        "real-frigoleet",
+        "real-steffstyle"
+      ]
+    },
+    {
+      "id": "team-ehug",
+      "name": "Team eHug",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "jigglebilly",
+        "justin",
+        "Cak3z",
+        "ima_sheep(sux)",
+        "Pandaego"
+      ],
+      "playerIds": [
+        "real-jigglebilly",
+        "real-justin",
+        "real-cak3z",
+        "real-ima_sheep(sux)",
+        "real-pandaego"
+      ]
+    },
+    {
+      "id": "tongfu",
+      "name": "TongFu",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-2",
+      "date": "2014",
+      "roster": [
+        "SryFox",
+        "uuu9",
+        "lpc",
+        "XiaoLv",
+        "Kabu"
+      ],
+      "playerIds": [
+        "real-sryfox",
+        "real-uuu9",
+        "real-lpc",
+        "real-xiaolv",
+        "real-kabu"
+      ]
+    },
+    {
+      "id": "top5",
+      "name": "Top5",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "Shanks",
+        "PatSoul",
+        "Fly.",
+        "Legendory",
+        "Whatever"
+      ],
+      "playerIds": [
+        "real-shanks--united-states",
+        "real-patsoul",
+        "real-fly.",
+        "real-legendory",
+        "real-whatever"
+      ]
+    },
+    {
+      "id": "union-gaming",
+      "name": "Union Gaming",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-3",
+      "date": "2014",
+      "roster": [
+        "Iwo",
+        "SiDeRal",
+        "Angel",
+        "ZndeRsteel",
+        "Jericho"
+      ],
+      "playerIds": [
+        "real-iwo",
+        "real-sideral",
+        "real-angel",
+        "real-zndersteel",
+        "real-jericho"
+      ]
+    },
+    {
+      "id": "virtus-pro",
+      "name": "Virtus.pro",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-1",
+      "date": "2014",
+      "roster": [
+        "Illidan",
+        "God",
+        "JotM",
+        "NS",
+        "ARS-ART"
+      ],
+      "playerIds": [
+        "real-illidan",
+        "real-god",
+        "real-jotm",
+        "real-ns",
+        "real-ars-art"
+      ]
+    },
+    {
+      "id": "xgame-kz",
+      "name": "xGame.kz",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-1",
+      "date": "2014",
+      "roster": [
+        "Mantis",
+        "Watafaka",
+        "StalCat",
+        "eQual",
+        "Reeves"
+      ],
+      "playerIds": [
+        "real-mantis",
+        "real-watafaka",
+        "real-stalcat",
+        "real-equal",
+        "real-reeves"
+      ]
+    },
+    {
+      "id": "zephyr",
+      "name": "Zephyr",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2014-4",
+      "date": "2014-05-19",
+      "roster": [
+        "Corey",
+        "Blitz",
+        "SexyBamboe",
+        "Eosin",
+        "Purge"
+      ],
+      "playerIds": [
+        "real-corey",
+        "real-blitz",
+        "real-sexybamboe",
+        "real-eosin",
+        "real-purge"
+      ]
+    }
+  ]
+}

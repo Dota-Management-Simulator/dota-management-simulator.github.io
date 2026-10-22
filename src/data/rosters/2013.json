@@ -1,0 +1,651 @@
+{
+  "year": 2013,
+  "reviewedOn": "2026-10-21",
+  "note": "Main-event and regional qualifier references enter together at the annual post-TI shuffle. This is a dated composite, not an exhaustive census or single-date transfer list.",
+  "coverage": "Regional/tier-2 coverage uses documented closed qualifiers; rosters with incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2013-0",
+      "title": "The International 2013 - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2013"
+    },
+    {
+      "id": "rosters-2013-1",
+      "title": "The International 2013: Western Qualifiers - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2013/West_Qualifiers"
+    },
+    {
+      "id": "rosters-2013-2",
+      "title": "Artyk Gaming — dated roster reference",
+      "url": "https://liquipedia.net/dota2/Artyk_Gaming"
+    },
+    {
+      "id": "rosters-2013-3",
+      "title": "The International 2013: Eastern Qualifiers - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2013/East_Qualifiers"
+    }
+  ],
+  "teams": [
+    {
+      "id": "alliance",
+      "name": "Alliance",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Loda",
+        "s4",
+        "AdmiralBulldog",
+        "EGM",
+        "Akke"
+      ],
+      "playerIds": [
+        "real-loda",
+        "real-s4",
+        "real-admiralbulldog",
+        "real-egm",
+        "real-akke"
+      ]
+    },
+    {
+      "id": "fnatic",
+      "name": "Fnatic",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Era",
+        "H4nn1",
+        "Trixi",
+        "BigDaddy",
+        "Fly"
+      ],
+      "playerIds": [
+        "real-era",
+        "real-h4nn1",
+        "real-trixi",
+        "real-n0tail",
+        "real-fly"
+      ]
+    },
+    {
+      "id": "ig",
+      "name": "Invictus Gaming",
+      "region": "China",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Zhou",
+        "Ferrari_430",
+        "YYF",
+        "ChuaN",
+        "Faith"
+      ],
+      "playerIds": [
+        "real-zhou",
+        "real-ferrari_430",
+        "real-yyf",
+        "real-chuan",
+        "real-faith"
+      ]
+    },
+    {
+      "id": "lgd",
+      "name": "LGD Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Sylar",
+        "Yao",
+        "xiao8",
+        "DD",
+        "ddc"
+      ],
+      "playerIds": [
+        "real-sylar",
+        "real-yao",
+        "real-xiao8",
+        "real-dd",
+        "real-ddc"
+      ]
+    },
+    {
+      "id": "lgd-international",
+      "name": "LGD International",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Pajkatt",
+        "God",
+        "Brax",
+        "1437",
+        "MiSeRY"
+      ],
+      "playerIds": [
+        "real-pajkatt",
+        "real-god",
+        "real-brax",
+        "real-1437",
+        "real-misery"
+      ]
+    },
+    {
+      "id": "mouz",
+      "name": "mousesports",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Black^",
+        "FATA-",
+        "qojqva",
+        "syndereN",
+        "paS"
+      ],
+      "playerIds": [
+        "real-black%5E",
+        "real-fata-",
+        "real-qojqva",
+        "real-synderen",
+        "real-pas"
+      ]
+    },
+    {
+      "id": "mufc",
+      "name": "MUFC",
+      "region": "Southeast Asia",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "dabeliuteef",
+        "TooFuckingGood",
+        "Ling",
+        "FzFz",
+        "WinteR"
+      ],
+      "playerIds": [
+        "real-dabeliuteef",
+        "real-toofuckinggood",
+        "real-ling",
+        "real-fzfz",
+        "real-winter"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "XBOCT",
+        "Dendi",
+        "Funn1k",
+        "Puppey",
+        "KuroKy"
+      ],
+      "playerIds": [
+        "real-xboct",
+        "real-dendi",
+        "real-funn1k",
+        "real-puppey",
+        "real-kuroky"
+      ]
+    },
+    {
+      "id": "orange",
+      "name": "Orange Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Mushi",
+        "kYxY",
+        "Ohaiyo",
+        "XtiNcT",
+        "Net"
+      ],
+      "playerIds": [
+        "real-mushi",
+        "real-kyxy",
+        "real-ohaiyo",
+        "real-xtinct",
+        "real-net"
+      ]
+    },
+    {
+      "id": "rattlesnake",
+      "name": "RattleSnake",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "LaNm",
+        "Luo",
+        "Icy",
+        "Kabu",
+        "Sag"
+      ],
+      "playerIds": [
+        "real-lanm",
+        "real-luo",
+        "real-icy",
+        "real-kabu",
+        "real-sag"
+      ]
+    },
+    {
+      "id": "team-dignitas",
+      "name": "Team Dignitas",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Aui_2000",
+        "Sneyking",
+        "Universe",
+        "Waytosexy",
+        "Fogged"
+      ],
+      "playerIds": [
+        "real-aui_2000",
+        "real-sneyking",
+        "real-universe",
+        "real-waytosexy",
+        "real-fogged"
+      ]
+    },
+    {
+      "id": "dk",
+      "name": "Team DK",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "BurNIng",
+        "Super",
+        "rOtK",
+        "QQQ",
+        "MMY!"
+      ],
+      "playerIds": [
+        "real-burning",
+        "real-super",
+        "real-rotk",
+        "real-qqq",
+        "real-x!!"
+      ]
+    },
+    {
+      "id": "team-liquid",
+      "name": "Team Liquid",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Korok",
+        "TC",
+        "BuLba",
+        "FLUFFNSTUFF",
+        "ixmike88"
+      ],
+      "playerIds": [
+        "real-korok",
+        "real-tc",
+        "real-bulba",
+        "real-fluffnstuff",
+        "real-ixmike88"
+      ]
+    },
+    {
+      "id": "team-zenith",
+      "name": "Team Zenith",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "iceiceice",
+        "YamateH",
+        "xy-",
+        "xFreedom",
+        "Ice"
+      ],
+      "playerIds": [
+        "real-iceiceice",
+        "real-yamateh",
+        "real-xy-",
+        "real-xfreedom",
+        "real-ice"
+      ]
+    },
+    {
+      "id": "tongfu",
+      "name": "TongFu",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Hao",
+        "Mu",
+        "SanSheng",
+        "Banana",
+        "KingJ"
+      ],
+      "playerIds": [
+        "real-hao",
+        "real-mu",
+        "real-sansheng",
+        "real-banana",
+        "real-kingj"
+      ]
+    },
+    {
+      "id": "virtus-pro",
+      "name": "Virtus.pro",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2013-0",
+      "date": "2013-08-11",
+      "roster": [
+        "Illidan",
+        "Crazy",
+        "KSi",
+        "ARS-ART",
+        "NS"
+      ],
+      "playerIds": [
+        "real-illidan",
+        "real-crazy",
+        "real-ksi",
+        "real-ars-art",
+        "real-ns"
+      ]
+    },
+    {
+      "id": "absolute-legends",
+      "name": "Absolute Legends",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2013-1",
+      "date": "2013",
+      "roster": [
+        "unicornxoxo",
+        "Miggel",
+        "Mania",
+        "Mirakel",
+        "Ryze"
+      ],
+      "playerIds": [
+        "real-unicornxoxo",
+        "real-miggel",
+        "real-mania",
+        "real-mirakel",
+        "real-ryze"
+      ]
+    },
+    {
+      "id": "artyk-gaming",
+      "name": "Artyk Gaming",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2013-2",
+      "date": "2013-06-25",
+      "roster": [
+        "Iwo",
+        "SmAsH",
+        "miHawk",
+        "Masoku",
+        "Mstco"
+      ],
+      "playerIds": [
+        "real-iwo",
+        "real-smash",
+        "real-mihawk",
+        "real-masoku",
+        "real-mstco"
+      ]
+    },
+    {
+      "id": "dd-dota",
+      "name": "DD.Dota",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2013-1",
+      "date": "2013",
+      "roster": [
+        "Silent",
+        "Funzii",
+        "Sockshka",
+        "7ckngMad",
+        "Goblak"
+      ],
+      "playerIds": [
+        "real-silent",
+        "real-funzii",
+        "real-sockshka",
+        "real-7ckngmad",
+        "real-goblak"
+      ]
+    },
+    {
+      "id": "first-departure",
+      "name": "First Departure",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2013-3",
+      "date": "2013-05-30",
+      "roster": [
+        "Hana",
+        "Poloson",
+        "SCripted",
+        "Meracle",
+        "Lubby"
+      ],
+      "playerIds": [
+        "real-hana",
+        "real-poloson",
+        "real-scripted",
+        "real-meracle",
+        "real-lubby"
+      ]
+    },
+    {
+      "id": "iccup",
+      "name": "iCCup",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2013-1",
+      "date": "2013",
+      "roster": [
+        "Jackal",
+        "Resolut1on",
+        "Mag~",
+        "ALWAYSWANNAFLY",
+        "wejustzik"
+      ],
+      "playerIds": [
+        "real-jackal",
+        "real-resolut1on",
+        "real-mag~",
+        "real-alwayswannafly",
+        "real-wejustzik"
+      ]
+    },
+    {
+      "id": "ledion-dreamz",
+      "name": "Ledion Dreamz",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2013-3",
+      "date": "2013-05-30",
+      "roster": [
+        "Owey",
+        "LA",
+        "Julz",
+        "JyC",
+        "Yoshi"
+      ],
+      "playerIds": [
+        "real-owey",
+        "real-la",
+        "real-julz",
+        "real-jyc",
+        "real-yoshi"
+      ]
+    },
+    {
+      "id": "mith",
+      "name": "Made in Thailand",
+      "region": "Southeast Asia",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2013-3",
+      "date": "2013-05-30",
+      "roster": [
+        "LaKelz",
+        "aabBAA",
+        "TnK",
+        "sD",
+        "r5r5"
+      ],
+      "playerIds": [
+        "real-lakelz",
+        "real-aabbaa",
+        "real-tnk",
+        "real-sd",
+        "real-r5r5"
+      ]
+    },
+    {
+      "id": "mineski",
+      "name": "Mineski",
+      "region": "Southeast Asia",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2013-3",
+      "date": "2013-05-30",
+      "roster": [
+        "Jhoven",
+        "Yani",
+        "Jay",
+        "owa",
+        "Gio"
+      ],
+      "playerIds": [
+        "real-jhoven",
+        "real-yani",
+        "real-jay",
+        "real-owa",
+        "real-gio"
+      ]
+    },
+    {
+      "id": "qpad-red-pandas",
+      "name": "QPAD Red Pandas",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2013-1",
+      "date": "2013",
+      "roster": [
+        "SingSing",
+        "Wagamama",
+        "SeleCT",
+        "JerAx",
+        "Mini"
+      ],
+      "playerIds": [
+        "real-singsing",
+        "real-wagamama",
+        "real-select",
+        "real-jerax",
+        "real-mini--sweden"
+      ]
+    },
+    {
+      "id": "risingstars",
+      "name": "RisingStars",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2013-3",
+      "date": "2013-05-30",
+      "roster": [
+        "Rabbit",
+        "Air",
+        "xdd",
+        "super",
+        "Mofi"
+      ],
+      "playerIds": [
+        "real-rabbit",
+        "real-air",
+        "real-xdd",
+        "real-super",
+        "real-mofi"
+      ]
+    },
+    {
+      "id": "vici-gaming",
+      "name": "Vici Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2013-3",
+      "date": "2013-05-30",
+      "roster": [
+        "Xtt",
+        "Cty",
+        "ZSMJ",
+        "fy",
+        "Fenrir"
+      ],
+      "playerIds": [
+        "real-xtt",
+        "real-cty",
+        "real-zsmj",
+        "real-fy",
+        "real-fenrir"
+      ]
+    }
+  ]
+}

@@ -1,6 +1,9 @@
 import world from "./data/world.json";
 import { simulateBestOfThree, seededRandom } from "./battle";
 import type { BattleConfig, SeriesSummary } from "./battle";
+import { createHistoricalWorld, clubForPlayer, recruitHistoricalPlayer, postTiShuffle, getStartingTeams, customClubNameAvailable, activeClubs } from "./history";
+import type { HistoricalWorld } from "./history";
+import { heroUnlockYear, heroesArrivingIn } from "./heroes";
 
 export const ROLES = [
   "Carry",
@@ -18,7 +21,10 @@ export type Training =
   | "Map awareness"
   | "Hero pool"
   | "Rest";
-export type Player = (typeof world.players)[number];
+export type Player = Omit<(typeof world.players)[number], "age"> & {
+  age: number | null;
+  historical?: { aliases: string[]; source: string; date: string; team: string; role: string; roleEvidence: "adapted" };
+};
 export type Page =
   | "overview"
   | "roster"
@@ -28,7 +34,8 @@ export type Page =
   | "scouting"
   | "staff"
   | "finances"
-  | "history";
+  | "history"
+  | "world";
 export interface Settings {
   team: string;
   region: string;
@@ -36,6 +43,8 @@ export interface Settings {
   year: number;
   shuffle: boolean;
   injuries: boolean;
+  clubMode?: "historical" | "custom";
+  historicalTeamId?: string;
 }
 export interface Result {
   eventId: string;
@@ -67,14 +76,17 @@ export interface Campaign {
   results: Result[];
   log: string[];
   transactions: { week: number; year: number; label: string; amount: number }[];
+  world?: HistoricalWorld;
 }
 export const DEFAULT_SETTINGS: Settings = {
-  team: "Atlas Esports",
-  region: "Europe",
+  team: "Natus Vincere",
+  region: "Eastern Europe",
   difficulty: "Contender",
   year: 2011,
   shuffle: true,
   injuries: false,
+  clubMode: "historical",
+  historicalTeamId: "navi",
 };
 export const data = world;
 export const statNames: Record<string, string> = {
@@ -180,9 +192,16 @@ export const nextEvent = (c: Campaign) =>
 export const clamp = (n: number, min = 0, max = 100) =>
   Math.min(max, Math.max(min, n));
 export function createCampaign(settings: Settings): Campaign {
+  const choices = getStartingTeams(settings.year);
+  const chosen = choices.find((t) => t.id === settings.historicalTeamId) ?? choices[0];
+  const name = settings.clubMode === "custom" ? settings.team.trim() || "Atlas Esports" : chosen.name;
+  if (settings.clubMode === "custom" && !customClubNameAvailable(name, chosen.id)) throw new Error("That club name is already in use.");
+  const historical = createHistoricalWorld(chosen.id, settings.clubMode === "custom" ? name : undefined, settings.year);
+  const players = historical.players;
+  const state = historical.state;
   return {
     version: 1,
-    settings: { ...settings, team: settings.team.trim() || "Atlas Esports" },
+    settings: { ...settings, team: name, region: chosen.region, historicalTeamId: chosen.id },
     year: settings.year,
     week: 1,
     cash:
@@ -194,13 +213,14 @@ export function createCampaign(settings: Settings): Campaign {
     reputation: 10,
     points: 0,
     qualified: false,
-    players: structuredClone(data.players),
-    roster: data.players.slice(0, 5).map((p) => p.id),
-    training: Object.fromEntries(data.players.map((p) => [p.id, "Balanced"])),
+    players,
+    roster: [...historical.managed.roster],
+    training: Object.fromEntries(players.map((p) => [p.id, "Balanced"])),
+    world: state,
     sponsorIds: [],
     staffIds: [],
     results: [],
-    log: ["Welcome to your first season. Your story starts here."],
+    log: [settings.year === 2011 ? "2011 historical world loaded. Regional references retain their original observation dates." : `${settings.year} begins with roster and hero imports through ${state.dataThroughYear}. This season's additions enter after TI.`],
     transactions: [],
   };
 }
@@ -216,6 +236,7 @@ function transaction(c: Campaign, label: string, amount: number) {
 }
 export function advanceWeek(current: Campaign): Campaign {
   const c = structuredClone(current);
+  reconcileHistoricalImports(c);
   for (const e of events.filter(
     (e) => e.week === c.week && !eventResult(c, e.id),
   )) {
@@ -266,19 +287,24 @@ export function advanceWeek(current: Campaign): Campaign {
     );
   }
   c.week++;
+  reconcileHistoricalImports(c);
+  if (c.week === 17) {
+    const arrivals = heroesArrivingIn(c.year);
+    if (arrivals.length) note(c, `${c.year} shuffle adds ${arrivals.length} heroes: ${arrivals.map((h) => h.name).join(", ")}.`);
+  }
   if (c.week > 18) {
     c.year++;
     c.week = 1;
     c.points = 0;
     c.qualified = false;
     c.players.forEach((p) => {
-      p.age++;
+      if (p.age != null) p.age++;
     });
     note(c, `${c.year} begins. A new season, a fresh chance at the Aegis.`);
     if (c.settings.shuffle)
       note(
         c,
-        "Shuffle window open. Review free agents and refresh your roster.",
+        "New season ready. Players and heroes through 2026 enter during their annual shuffle; your alternate timeline continues beyond the imported years.",
       );
   } else
     note(
@@ -286,6 +312,23 @@ export function advanceWeek(current: Campaign): Campaign {
       `Week ${c.week}: training and recovery completed. Payroll settled.`,
     );
   return c;
+}
+
+// Catch up historical saves made before the later batches existed. This changes
+// only roster imports, never elapsed weeks, finances, results or manager choices.
+function reconcileHistoricalImports(c: Campaign) {
+  if (!c.world) return;
+  const through = Math.min(2026, c.year - (c.week <= 16 ? 1 : 0));
+  for (let year = 2011; year <= through; year++) {
+    const shuffled = postTiShuffle(c.world, c.players, year, c.settings.shuffle);
+    if (shuffled) {
+      c.world = shuffled.state;
+      c.players = shuffled.players;
+      for (const p of c.players) c.training[p.id] ??= "Balanced";
+      note(c, `${year} ${year === 2020 ? "annual shuffle (no historical TI)" : "post-TI shuffle"}: regional player arrivals imported.${c.settings.shuffle ? " Historical roster moves applied." : " Historical roster moves disabled."} Your starting five and recruitment decisions are retained.`);
+      if (shuffled.unformedClubs.length) note(c, `${shuffled.unformedClubs.join(", ")} could not form a full regional roster in this timeline. Their available players remain in the market.`);
+    }
+  }
 }
 export function simulateEvent(
   current: Campaign,
@@ -306,10 +349,18 @@ export function prepareEvent(current: Campaign, e: GameEvent): Campaign {
   while (c.week < e.week) c = advanceWeek(c);
   return c;
 }
-export const opponentFor = (c: Campaign) =>
-  ["Cinder Collective", "Nova Assembly", "Silent Current", "Aster Union"][
-    c.results.length % 4
-  ];
+export const opponentClub = (c: Campaign) => {
+  const clubs = c.world ? activeClubs(c.world).filter((t) => t.id !== c.world!.managedTeamId && t.roster.length === 5) : undefined;
+  return clubs?.length ? clubs[c.results.length % clubs.length] : undefined;
+};
+export const opponentFor = (c: Campaign) => opponentClub(c)?.name ??
+  ["Cinder Collective", "Nova Assembly", "Silent Current", "Aster Union"][c.results.length % 4];
+export const playerTeam = (c: Campaign, id: string) =>
+  clubForPlayer(c.world, id)?.name ?? (c.roster.includes(id) ? c.settings.team : "Free agent");
+export function recruitmentBlocker(c: Campaign, id: string): string | null {
+  if (!c.world) return null;
+  return recruitHistoricalPlayer(structuredClone(c.world), structuredClone(c.players), id);
+}
 export function buildBattleConfig(
   c: Campaign,
   e: GameEvent,
@@ -324,7 +375,11 @@ export function buildBattleConfig(
     energy: p.energy,
     happiness: p.happiness,
   }));
-  const opposition = ROLES.map((_, role) => ({
+  const club = opponentClub(c);
+  const opposition = club ? club.roster.map((id, role) => {
+    const p = c.players.find((p) => p.id === id)!;
+    return { id: p.id, name: p.name, role, skills: { ...p.stats }, energy: p.energy, happiness: p.happiness };
+  }) : ROLES.map((_, role) => ({
     id: `opponent-${role}`,
     name: ["Cinder", "Echo", "Flare", "Rune", "Tern"][role],
     role,
@@ -340,6 +395,7 @@ export function buildBattleConfig(
   return {
     seed,
     year: c.year,
+    heroPoolThroughYear: heroUnlockYear(c.year, c.week),
     teams: [c.settings.team, opponentFor(c)],
     players: [players, opposition],
     bonuses: [
@@ -413,11 +469,16 @@ export function signPlayer(current: Campaign, id: string): Campaign {
     (pid) => c.players.find((player) => player.id === pid)?.role === p.role,
   );
   if (slot < 0) return current;
-  c.roster[slot] = id;
+  const owner = playerTeam(c, id);
+  if (c.world) {
+    const reason = recruitHistoricalPlayer(c.world, c.players, id);
+    if (reason) return current;
+    c.roster = [...c.world.clubs.find((t) => t.id === c.world!.managedTeamId)!.roster];
+  } else c.roster[slot] = id;
   transaction(c, `${p.name} signing fee`, -p.fee);
   note(
     c,
-    `${p.name} joins as ${p.role.toLowerCase()}. The previous starter is available as a free agent.`,
+    `${p.name} joins as ${p.role.toLowerCase()}. The previous starter leaves the lineup.${owner !== "Free agent" ? ` ${owner}'s lineup remains complete after regional recruitment.` : ""}`,
   );
   return c;
 }
@@ -468,6 +529,7 @@ export function readSave(): Campaign | null {
       )
     )
       return null;
+    reconcileHistoricalImports(c);
     return c;
   } catch {
     return null;

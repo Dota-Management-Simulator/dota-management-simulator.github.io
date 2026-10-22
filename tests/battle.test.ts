@@ -10,7 +10,7 @@ import {
   settleEvent,
   data,
 } from "../src/game";
-import { getHeroPool } from "../src/heroes";
+import { getHeroPool, heroById } from "../src/heroes";
 
 const original = createCampaign(DEFAULT_SETTINGS);
 const config = buildBattleConfig(
@@ -41,6 +41,26 @@ test("seeded simulation is reproducible and series stops at the second win", () 
   assert.equal(s.games.filter((g) => g.winner === 0).length, s.score[0]);
   assert.equal(s.games.filter((g) => g.winner === 1).length, s.score[1]);
   assert.equal(s.games.at(-1)?.winner, s.winner);
+});
+
+test("later hero batches reach actual drafts and produce finite completed match results", () => {
+  const c = createCampaign({ ...DEFAULT_SETTINGS, year: 2026 });
+  const game = new LaneBattle(buildBattleConfig(c, events[0], 42));
+  game.run();
+  const summary = game.summary();
+  assert.equal(summary.players.length, 10);
+  assert.equal(new Set(summary.players.map((p) => p.heroId)).size, 10);
+  assert.ok(summary.players.some((p) => heroById(p.heroId)?.releasedYear != null));
+  assert.equal(summary.ancientHealth[1 - summary.winner], 0);
+  for (const p of summary.players) {
+    assert.ok(heroById(p.heroId));
+    assert.ok([p.gold, p.xp, p.level, p.kills, p.deaths].every(Number.isFinite));
+  }
+  const before = { ...config, year: 2011, heroPoolThroughYear: 2010 };
+  for (let seed = 1; seed <= 8; seed++) {
+    const draft = new LaneBattle({ ...before, seed }).frames[0].players;
+    assert.ok(draft.every((p) => heroById(p.heroId)?.releasedYear == null));
+  }
 });
 test("each game has a destroyed Ancient, a unique ten-hero draft, and valid KDA and levels", () => {
   for (const g of simulated.summary.games) {

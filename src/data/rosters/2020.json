@@ -1,0 +1,1228 @@
+{
+  "year": 2020,
+  "reviewedOn": "2026-10-21",
+  "note": "No TI was held in 2020. Online regional event references enter the annual shuffle.",
+  "coverage": "The 2020 reference field uses documented online regional events because no TI was held. Incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2020-0",
+      "title": "BTS Pro Series Season 4: Americas - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/BTS/Pro_Series/4/Americas"
+    },
+    {
+      "id": "rosters-2020-1",
+      "title": "ESL One Los Angeles 2020 - Online: Europe & CIS - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/ESL_One/Los_Angeles/2020/Online/Europe_CIS"
+    },
+    {
+      "id": "rosters-2020-2",
+      "title": "BTS Pro Series: Americas - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/BTS/Pro_Series/1/Americas"
+    },
+    {
+      "id": "rosters-2020-3",
+      "title": "BTS Pro Series: Southeast Asia - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/BTS/Pro_Series/1/Southeast_Asia"
+    },
+    {
+      "id": "rosters-2020-4",
+      "title": "ESL One Birmingham 2020 - Online: China - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/ESL_One/Birmingham/2020/Online/China"
+    },
+    {
+      "id": "rosters-2020-5",
+      "title": "ESL One Los Angeles 2020 - Online: China - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/ESL_One/Los_Angeles/2020/Online/China"
+    },
+    {
+      "id": "rosters-2020-6",
+      "title": "BTS Pro Series Season 2: Southeast Asia - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/BTS/Pro_Series/2/Southeast_Asia"
+    },
+    {
+      "id": "rosters-2020-7",
+      "title": "BTS Pro Series Season 4: Southeast Asia - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/BTS/Pro_Series/4/Southeast_Asia"
+    },
+    {
+      "id": "rosters-2020-8",
+      "title": "ESL One Los Angeles 2020 - Online: South America - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/ESL_One/Los_Angeles/2020/Online/South_America"
+    }
+  ],
+  "teams": [
+    {
+      "id": "4-zoomers",
+      "name": "4 Zoomers",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-0",
+      "date": "2020-12-20",
+      "roster": [
+        "Sammyboy",
+        "Gunnar",
+        "Brax",
+        "Ocean",
+        "Husky"
+      ],
+      "playerIds": [
+        "real-sammyboy",
+        "real-gunnar",
+        "real-brax",
+        "real-ocean",
+        "real-husky"
+      ]
+    },
+    {
+      "id": "5manmidas",
+      "name": "5ManMidas",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-0",
+      "date": "2020-12-20",
+      "roster": [
+        "NeutronStar",
+        "RRL",
+        "Monster",
+        "SoNiC",
+        "Shoe"
+      ],
+      "playerIds": [
+        "real-neutronstar",
+        "real-rrl",
+        "real-monster",
+        "real-sonic",
+        "real-shoe"
+      ]
+    },
+    {
+      "id": "alliance",
+      "name": "Alliance",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "Nikobaby",
+        "LIMMP",
+        "s4",
+        "Handsken",
+        "Xibbe"
+      ],
+      "playerIds": [
+        "real-nikobaby",
+        "real-limmp",
+        "real-s4",
+        "real-handsken",
+        "real-xibbe"
+      ]
+    },
+    {
+      "id": "b8",
+      "name": "B8",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "Xcalibur",
+        "Dendi",
+        "Ghostik",
+        "kingr-",
+        "LeBronDota"
+      ],
+      "playerIds": [
+        "real-xcalibur",
+        "real-dendi",
+        "real-ghostik",
+        "real-kingr",
+        "real-lebrondota"
+      ]
+    },
+    {
+      "id": "beastcoast",
+      "name": "beastcoast",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-2",
+      "date": "2020-04-26",
+      "roster": [
+        "K1",
+        "Chris Luck",
+        "Wisper",
+        "Scofield",
+        "StingeR"
+      ],
+      "playerIds": [
+        "real-k1",
+        "real-chris%20luck",
+        "real-wisper",
+        "real-scofield",
+        "real-stinger"
+      ]
+    },
+    {
+      "id": "boom-esports",
+      "name": "BOOM Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-3",
+      "date": "2020-04-26",
+      "roster": [
+        "Dreamocel",
+        "Mikoto",
+        "Fbz",
+        "Hyde-",
+        "Khezcute"
+      ],
+      "playerIds": [
+        "real-dreamocel",
+        "real-mikoto",
+        "real-fbz",
+        "real-hyde",
+        "real-khezcute"
+      ]
+    },
+    {
+      "id": "business-associates",
+      "name": "business associates",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-2",
+      "date": "2020-04-26",
+      "roster": [
+        "Moo",
+        "Nine",
+        "Brax",
+        "MoOz",
+        "Fear"
+      ],
+      "playerIds": [
+        "real-moo",
+        "real-nine",
+        "real-brax",
+        "real-mooz",
+        "real-fear"
+      ]
+    },
+    {
+      "id": "cdec-gaming",
+      "name": "CDEC Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-4",
+      "date": "2020",
+      "roster": [
+        "Ame",
+        "Xm",
+        "Srf",
+        "James",
+        "黑凤梨丶"
+      ],
+      "playerIds": [
+        "real-ame",
+        "real-xm",
+        "real-srf",
+        "real-james",
+        "real-%E9%BB%91%E5%87%A4%E6%A2%A8%E4%B8%B6"
+      ]
+    },
+    {
+      "id": "chicken-fighters",
+      "name": "Chicken Fighters",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "charlie",
+        "Supream^",
+        "SabeRLighT-",
+        "Era",
+        "SoNNeikO"
+      ],
+      "playerIds": [
+        "real-charlie",
+        "real-supream%5E",
+        "real-saberlight-",
+        "real-era",
+        "real-sonneiko"
+      ]
+    },
+    {
+      "id": "cloud9",
+      "name": "Cloud9",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-2",
+      "date": "2020-04-26",
+      "roster": [
+        "Ace",
+        "EternaLEnVy",
+        "misery",
+        "Sneyking",
+        "pieliedie"
+      ],
+      "playerIds": [
+        "real-ace",
+        "real-eternalenvy",
+        "real-misery",
+        "real-sneyking",
+        "real-pieliedie"
+      ]
+    },
+    {
+      "id": "cr",
+      "name": "CR",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-3",
+      "date": "2020-04-26",
+      "roster": [
+        "StarGazer",
+        "Benhur",
+        "X1aOyU",
+        "Ohaiyo",
+        "Mushi"
+      ],
+      "playerIds": [
+        "real-stargazer",
+        "real-benhur",
+        "real-x1aoyu",
+        "real-ohaiyo",
+        "real-mushi"
+      ]
+    },
+    {
+      "id": "cr4zy",
+      "name": "CR4ZY",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-2",
+      "date": "2020-04-26",
+      "roster": [
+        "skiter",
+        "Bryle",
+        "KheZu",
+        "Aui_2000",
+        "MoonMeander"
+      ],
+      "playerIds": [
+        "real-skiter",
+        "real-bryle",
+        "real-khezu",
+        "real-aui_2000",
+        "real-moonmeander"
+      ]
+    },
+    {
+      "id": "cyber-legacy",
+      "name": "Cyber Legacy",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "Palantimos",
+        "Pikachu",
+        "Lasthero-",
+        "Bignum",
+        "HappyDyurara"
+      ],
+      "playerIds": [
+        "real-palantimos",
+        "real-pikachu",
+        "real-lasthero",
+        "real-bignum",
+        "real-happydyurara"
+      ]
+    },
+    {
+      "id": "ehome",
+      "name": "EHOME",
+      "region": "China",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2020-5",
+      "date": "2020-04-05",
+      "roster": [
+        "Sylar",
+        "NothingToSay",
+        "Faith_bian",
+        "XinQ",
+        "y`"
+      ],
+      "playerIds": [
+        "real-sylar",
+        "real-nothingtosay",
+        "real-faith_bian",
+        "real-xinq",
+        "real-y%60"
+      ]
+    },
+    {
+      "id": "evil-geniuses",
+      "name": "Evil Geniuses",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-2",
+      "date": "2020-04-26",
+      "roster": [
+        "Arteezy",
+        "Ryoya",
+        "BuLba",
+        "Cr1t-",
+        "Fly"
+      ],
+      "playerIds": [
+        "real-arteezy",
+        "real-ryoya",
+        "real-bulba",
+        "real-cr1t-",
+        "real-fly"
+      ]
+    },
+    {
+      "id": "execration",
+      "name": "Execration",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-6",
+      "date": "2020-06-20",
+      "roster": [
+        "Palos",
+        "Benhur",
+        "Bhm",
+        "yaha",
+        "RR"
+      ],
+      "playerIds": [
+        "real-palos",
+        "real-benhur",
+        "real-bhm",
+        "real-yaha",
+        "real-rr"
+      ]
+    },
+    {
+      "id": "fnatic",
+      "name": "Fnatic",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-7",
+      "date": "2020-12-20",
+      "roster": [
+        "Raven",
+        "Moon",
+        "Masaros",
+        "Jabz",
+        "DJ"
+      ],
+      "playerIds": [
+        "real-raven",
+        "real-moon",
+        "real-masaros",
+        "real-jabz",
+        "real-dj"
+      ]
+    },
+    {
+      "id": "furia-esports",
+      "name": "FURIA Esports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-2",
+      "date": "2020-04-26",
+      "roster": [
+        "RdO",
+        "Murdoc",
+        "SexyFat",
+        "Hyko",
+        "Duster"
+      ],
+      "playerIds": [
+        "real-rdo",
+        "real-murdoc",
+        "real-sexyfat",
+        "real-hyko",
+        "real-duster"
+      ]
+    },
+    {
+      "id": "gambit-esports",
+      "name": "Gambit Esports",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "dream",
+        "gpk~",
+        "Shachlo",
+        "XSvamp1Re",
+        "Fng"
+      ],
+      "playerIds": [
+        "real-dream",
+        "real-gpk",
+        "real-shachlo",
+        "real-xsvamp1re",
+        "real-fng"
+      ]
+    },
+    {
+      "id": "geek-fam",
+      "name": "Geek Fam",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-3",
+      "date": "2020-04-26",
+      "roster": [
+        "Raven",
+        "Karl",
+        "Kuku",
+        "Xepher",
+        "Whitemon"
+      ],
+      "playerIds": [
+        "real-raven",
+        "real-karl",
+        "real-kuku",
+        "real-xepher",
+        "real-whitemon"
+      ]
+    },
+    {
+      "id": "hellraisers",
+      "name": "HellRaisers",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "Nix",
+        "ksani",
+        "funn1k",
+        "RodjER",
+        "Miposhka"
+      ],
+      "playerIds": [
+        "real-nix",
+        "real-ksani",
+        "real-funn1k",
+        "real-rodjer",
+        "real-miposhka"
+      ]
+    },
+    {
+      "id": "ig",
+      "name": "Invictus Gaming",
+      "region": "China",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2020-5",
+      "date": "2020-04-05",
+      "roster": [
+        "flyfly",
+        "Emo",
+        "JT-",
+        "Kaka",
+        "Oli"
+      ],
+      "playerIds": [
+        "real-flyfly",
+        "real-emo",
+        "real-jt-",
+        "real-kaka",
+        "real-oli"
+      ]
+    },
+    {
+      "id": "jaguares-esports",
+      "name": "Jaguares Esports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-0",
+      "date": "2020-12-20",
+      "roster": [
+        "Benny",
+        "Mini",
+        "Hane",
+        "MahhXD",
+        "Nuages"
+      ],
+      "playerIds": [
+        "real-benny",
+        "real-mini",
+        "real-hane",
+        "real-mahhxd",
+        "real-nuages"
+      ]
+    },
+    {
+      "id": "longinus",
+      "name": "Longinus",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-4",
+      "date": "2020",
+      "roster": [
+        "Piao",
+        "Mpc",
+        "InJuly",
+        "jiumi",
+        "DoDo"
+      ],
+      "playerIds": [
+        "real-piao",
+        "real-mpc",
+        "real-injuly",
+        "real-jiumi",
+        "real-dodo"
+      ]
+    },
+    {
+      "id": "motivate-trust-gaming",
+      "name": "Motivate.Trust Gaming",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-7",
+      "date": "2020-12-20",
+      "roster": [
+        "23savage",
+        "Fearless",
+        "Nevermine",
+        "Q",
+        "boombell"
+      ],
+      "playerIds": [
+        "real-23savage",
+        "real-fearless",
+        "real-nevermine",
+        "real-q--thailand",
+        "real-boombell"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "Crystallize",
+        "MagicaL",
+        "9pasha",
+        "Slayer",
+        "Illias"
+      ],
+      "playerIds": [
+        "real-crystallize",
+        "real-magical",
+        "real-9pasha",
+        "real-cematheslayer",
+        "real-illias"
+      ]
+    },
+    {
+      "id": "neon-esports",
+      "name": "Neon Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-6",
+      "date": "2020-06-20",
+      "roster": [
+        "skem",
+        "Yopaj",
+        "Rappy",
+        "PlayHard",
+        "Jaunuel"
+      ],
+      "playerIds": [
+        "real-skem",
+        "real-yopaj",
+        "real-rappy",
+        "real-playhard",
+        "real-jaunuel"
+      ]
+    },
+    {
+      "id": "newbee",
+      "name": "Newbee",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-5",
+      "date": "2020-04-05",
+      "roster": [
+        "Moogy",
+        "Aq",
+        "Wizard",
+        "Waixi",
+        "Faith"
+      ],
+      "playerIds": [
+        "real-moogy",
+        "real-aq",
+        "real-wizard",
+        "real-waixi",
+        "real-faith"
+      ]
+    },
+    {
+      "id": "ninjas-in-pyjamas",
+      "name": "Ninjas in Pyjamas",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "Daxak",
+        "TANNER",
+        "Blizzy",
+        "MiLAN",
+        "ppd"
+      ],
+      "playerIds": [
+        "real-daxak",
+        "real-tanner",
+        "real-blizzy",
+        "real-milan",
+        "real-ppd"
+      ]
+    },
+    {
+      "id": "noping-esports",
+      "name": "NoPing e-sports",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-8",
+      "date": "2020-04-03",
+      "roster": [
+        "Costabile",
+        "4dr",
+        "tavo",
+        "Thiolicor",
+        "KJ"
+      ],
+      "playerIds": [
+        "real-costabile",
+        "real-4dr",
+        "real-tavo",
+        "real-thiolicor",
+        "real-kj"
+      ]
+    },
+    {
+      "id": "og",
+      "name": "OG",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "SumaiL-",
+        "33",
+        "Ceb",
+        "Saksa",
+        "N0tail"
+      ],
+      "playerIds": [
+        "real-sumail",
+        "real-33",
+        "real-7ckngmad",
+        "real-saksa",
+        "real-n0tail"
+      ]
+    },
+    {
+      "id": "lgd",
+      "name": "PSG.LGD",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-5",
+      "date": "2020-04-05",
+      "roster": [
+        "Chalice",
+        "Somnus丶M",
+        "eLeVeN",
+        "fy",
+        "xNova"
+      ],
+      "playerIds": [
+        "real-chalice",
+        "real-somnus",
+        "real-eleven",
+        "real-fy",
+        "real-xnova"
+      ]
+    },
+    {
+      "id": "quincy-crew",
+      "name": "Quincy Crew",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-2",
+      "date": "2020-04-26",
+      "roster": [
+        "YawaR",
+        "Quinn",
+        "MSS",
+        "Biver",
+        "SVG"
+      ],
+      "playerIds": [
+        "real-yawar",
+        "real-quinn",
+        "real-mss",
+        "real-biver",
+        "real-svg"
+      ]
+    },
+    {
+      "id": "reality-rift",
+      "name": "Reality Rift",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-3",
+      "date": "2020-04-26",
+      "roster": [
+        "Drew",
+        "AlaCrity",
+        "kYxY",
+        "Hustla",
+        "Nutz"
+      ],
+      "playerIds": [
+        "real-drew",
+        "real-alacrity",
+        "real-kyxy",
+        "real-hustla",
+        "real-nutz"
+      ]
+    },
+    {
+      "id": "royal-never-give-up",
+      "name": "Royal Never Give Up",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-5",
+      "date": "2020-04-05",
+      "roster": [
+        "Monet",
+        "Setsu",
+        "Flywin",
+        "September",
+        "Super"
+      ],
+      "playerIds": [
+        "real-monet",
+        "real-setsu",
+        "real-flywin",
+        "real-september",
+        "real-super"
+      ]
+    },
+    {
+      "id": "sadboys",
+      "name": "SadBoys",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-0",
+      "date": "2020-12-20",
+      "roster": [
+        "Fear",
+        "dnm",
+        "Moo",
+        "Sneyking",
+        "ppd"
+      ],
+      "playerIds": [
+        "real-fear",
+        "real-dnm",
+        "real-moo",
+        "real-sneyking",
+        "real-ppd"
+      ]
+    },
+    {
+      "id": "sparking-arrow-gaming",
+      "name": "Sparking Arrow Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-4",
+      "date": "2020",
+      "roster": [
+        "圣子华炼",
+        "白学家",
+        "OpGod",
+        "FelixCiaoBa",
+        "RedPanda"
+      ],
+      "playerIds": [
+        "real-%E5%9C%A3%E5%AD%90%E5%8D%8E%E7%82%BC",
+        "real-%E7%99%BD%E5%AD%A6%E5%AE%B6",
+        "real-opgod",
+        "real-felixciaoba",
+        "real-redpanda"
+      ]
+    },
+    {
+      "id": "t1",
+      "name": "T1",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-7",
+      "date": "2020-12-20",
+      "roster": [
+        "JaCkky",
+        "Karl",
+        "Kuku",
+        "Xepher",
+        "Whitemon"
+      ],
+      "playerIds": [
+        "real-jackky",
+        "real-karl",
+        "real-kuku",
+        "real-xepher",
+        "real-whitemon"
+      ]
+    },
+    {
+      "id": "team-adroit",
+      "name": "Team Adroit",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-3",
+      "date": "2020-04-26",
+      "roster": [
+        "Natsumi-",
+        "Mac",
+        "Bok",
+        "Boombacs",
+        "cml"
+      ],
+      "playerIds": [
+        "real-natsumi-",
+        "real-mac",
+        "real-bok",
+        "real-boombacs",
+        "real-cml"
+      ]
+    },
+    {
+      "id": "team-aster",
+      "name": "Team Aster",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-4",
+      "date": "2020",
+      "roster": [
+        "Sccc",
+        "ChYuan",
+        "Xxs",
+        "BoBoKa",
+        "Fade"
+      ],
+      "playerIds": [
+        "real-sccc",
+        "real-chyuan",
+        "real-xxs",
+        "real-boboka",
+        "real-fade"
+      ]
+    },
+    {
+      "id": "team-dog",
+      "name": "Team Dog",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-7",
+      "date": "2020-12-20",
+      "roster": [
+        "inYourdreaM",
+        "Abed",
+        "iceiceice",
+        "ah fu",
+        "poloson"
+      ],
+      "playerIds": [
+        "real-inyourdream",
+        "real-abed",
+        "real-iceiceice",
+        "real-ahfu",
+        "real-poloson"
+      ]
+    },
+    {
+      "id": "team-liquid",
+      "name": "Team Liquid",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "m`iCKe",
+        "qojqva",
+        "Boxi",
+        "Taiga",
+        "iNSaNiA"
+      ],
+      "playerIds": [
+        "real-micke",
+        "real-qojqva",
+        "real-boxi",
+        "real-taiga",
+        "real-insania"
+      ]
+    },
+    {
+      "id": "nigma-galaxy",
+      "name": "Team Nigma",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "Miracle-",
+        "w33",
+        "MinD_ContRoL",
+        "GH",
+        "KuroKy"
+      ],
+      "playerIds": [
+        "real-miracle-",
+        "real-w33",
+        "real-mind_control",
+        "real-gh",
+        "real-kuroky"
+      ]
+    },
+    {
+      "id": "team-secret",
+      "name": "Team Secret",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "MATUMBAMAN",
+        "Nisha",
+        "zai",
+        "YapzOr",
+        "Puppey"
+      ],
+      "playerIds": [
+        "real-matumbaman",
+        "real-nisha",
+        "real-zai",
+        "real-yapzor",
+        "real-puppey"
+      ]
+    },
+    {
+      "id": "team-spirit",
+      "name": "Team Spirit",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "dyrachyo",
+        "Ergon",
+        "0LD_A",
+        "Immersion",
+        "Misha"
+      ],
+      "playerIds": [
+        "real-dyrachyo",
+        "real-ergon",
+        "real-nongrata",
+        "real-immersion",
+        "real-misha"
+      ]
+    },
+    {
+      "id": "team-unique",
+      "name": "Team Unique",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "Zitraks",
+        "19teen",
+        "633",
+        "illusion",
+        "VANSKOR"
+      ],
+      "playerIds": [
+        "real-zitraks",
+        "real-19teen",
+        "real-633",
+        "real-illusion",
+        "real-vanskor"
+      ]
+    },
+    {
+      "id": "thunder-awaken",
+      "name": "Thunder Predator",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-2",
+      "date": "2020-04-26",
+      "roster": [
+        "MNZ",
+        "Leostyle-",
+        "Frank",
+        "Matthew",
+        "Mjz"
+      ],
+      "playerIds": [
+        "real-mnz",
+        "real-leostyle",
+        "real-frank",
+        "real-matthew",
+        "real-mjz"
+      ]
+    },
+    {
+      "id": "tnc",
+      "name": "TNC Predator",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-7",
+      "date": "2020-12-20",
+      "roster": [
+        "Gabbi",
+        "Armel",
+        "kpii",
+        "Tims",
+        "Febby"
+      ],
+      "playerIds": [
+        "real-gabbi",
+        "real-armel",
+        "real-kpii",
+        "real-tims",
+        "real-febby"
+      ]
+    },
+    {
+      "id": "vici-gaming",
+      "name": "Vici Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-5",
+      "date": "2020-04-05",
+      "roster": [
+        "Eurus",
+        "Ori",
+        "Yang",
+        "Pyw",
+        "Dy"
+      ],
+      "playerIds": [
+        "real-paparazi",
+        "real-ori",
+        "real-yang",
+        "real-pyw",
+        "real-dy"
+      ]
+    },
+    {
+      "id": "vikin-gg",
+      "name": "Vikin.gg",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "Shad",
+        "BOOM",
+        "Tobi",
+        "Aramis",
+        "Seleri"
+      ],
+      "playerIds": [
+        "real-shad",
+        "real-boom",
+        "real-tobi",
+        "real-aramis",
+        "real-seleri"
+      ]
+    },
+    {
+      "id": "virtus-pro",
+      "name": "Virtus.pro",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2020-1",
+      "date": "2020-04-19",
+      "roster": [
+        "iLTW",
+        "No[o]ne-",
+        "Resolut1on",
+        "W_Zayac",
+        "Solo"
+      ],
+      "playerIds": [
+        "real-iltw",
+        "real-no%5Bo%5Dne",
+        "real-resolut1on",
+        "real-zayac",
+        "real-solo"
+      ]
+    }
+  ]
+}

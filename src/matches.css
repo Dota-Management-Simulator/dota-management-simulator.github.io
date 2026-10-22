@@ -55,11 +55,15 @@
   padding: 16px 20px;
 }
 .live-score > strong {
+  display: flex;
+  align-items: center;
+  gap: 10px;
   font-size: 14px;
   font-weight: 600;
   overflow-wrap: anywhere;
 }
 .live-score > strong:last-child {
+  justify-content: flex-end;
   text-align: right;
 }
 .live-score > span {
@@ -208,6 +212,10 @@
   background: #e0e8ed;
   color: #7895ac;
 }
+.attr-universal {
+  background: #e8e0ed;
+  color: #9672a6;
+}
 :root[data-theme="dark"] .attr-strength {
   background: #3d2e24;
   color: #d0a086;
@@ -219,6 +227,10 @@
 :root[data-theme="dark"] .attr-intelligence {
   background: #293642;
   color: #a0bed9;
+}
+:root[data-theme="dark"] .attr-universal {
+  background: #362d3e;
+  color: #c7aed7;
 }
 .watch-controls {
   display: flex;
@@ -305,6 +317,10 @@
   margin: 0 auto 21px;
 }
 .series-scoreline > strong {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
   font-size: 16px;
   font-weight: 600;
   color: var(--match-text);
@@ -312,6 +328,7 @@
   overflow-wrap: anywhere;
 }
 .series-scoreline > strong:last-child {
+  justify-content: flex-start;
   text-align: left;
 }
 .series-scoreline > span {

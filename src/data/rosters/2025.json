@@ -1,0 +1,1241 @@
+{
+  "year": 2025,
+  "reviewedOn": "2026-10-21",
+  "note": "Main-event and regional qualifier references enter together at the annual post-TI shuffle. This is a dated composite, not an exhaustive census or single-date transfer list.",
+  "coverage": "Regional/tier-2 coverage uses documented closed qualifiers; rosters with incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2025-0",
+      "title": "The International 2025 - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2025"
+    },
+    {
+      "id": "rosters-2025-1",
+      "title": "The International 2025: Western Europe Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2025/Western_Europe"
+    },
+    {
+      "id": "rosters-2025-2",
+      "title": "The International 2025: China Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2025/China"
+    },
+    {
+      "id": "rosters-2025-3",
+      "title": "The International 2025: North America Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2025/North_America"
+    },
+    {
+      "id": "rosters-2025-4",
+      "title": "The International 2025: Southeast Asia Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2025/Southeast_Asia"
+    },
+    {
+      "id": "rosters-2025-5",
+      "title": "The International 2025: Eastern Europe Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2025/Eastern_Europe"
+    },
+    {
+      "id": "rosters-2025-6",
+      "title": "The International 2025: South America Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2025/South_America"
+    }
+  ],
+  "teams": [
+    {
+      "id": "aurora-gaming",
+      "name": "Aurora Gaming",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Nightfall",
+        "kiyotaka",
+        "TORONTOTOKYO",
+        "Mira",
+        "panto"
+      ],
+      "playerIds": [
+        "real-nightfall",
+        "real-kiyotaka",
+        "real-torontotokyo",
+        "real-mira",
+        "real-panto"
+      ]
+    },
+    {
+      "id": "betboom-team",
+      "name": "BB Team",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Pure",
+        "gpk~",
+        "MieRo",
+        "Save-",
+        "Kataomi"
+      ],
+      "playerIds": [
+        "real-pure",
+        "real-gpk",
+        "real-miero",
+        "real-save-",
+        "real-kataomi"
+      ]
+    },
+    {
+      "id": "boom-esports",
+      "name": "BOOM Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "JaCkky",
+        "Armel",
+        "Jabz",
+        "TIMS",
+        "Jaunuel"
+      ],
+      "playerIds": [
+        "real-jackky",
+        "real-armel",
+        "real-jabz",
+        "real-tims",
+        "real-jaunuel"
+      ]
+    },
+    {
+      "id": "heroic",
+      "name": "HEROIC",
+      "region": "South America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Yuma",
+        "4nalog",
+        "Wisper",
+        "Scofield",
+        "KJ"
+      ],
+      "playerIds": [
+        "real-yuma",
+        "real-4nalog",
+        "real-wisper",
+        "real-scofield",
+        "real-kj"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Europe",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "gotthejuice",
+        "Niku",
+        "pma",
+        "Zayac",
+        "Riddys"
+      ],
+      "playerIds": [
+        "real-gotthejuice",
+        "real-niku",
+        "real-pma",
+        "real-zayac",
+        "real-riddys"
+      ]
+    },
+    {
+      "id": "nigma-galaxy",
+      "name": "Nigma Galaxy",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Ghost",
+        "SumaiL",
+        "No!ob",
+        "OmaR",
+        "GH"
+      ],
+      "playerIds": [
+        "real-ghost",
+        "real-sumail",
+        "real-no!ob",
+        "real-omar",
+        "real-gh"
+      ]
+    },
+    {
+      "id": "parivision",
+      "name": "PVISION",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Satanic",
+        "No[o]ne-",
+        "DM",
+        "9Class",
+        "Dukalis"
+      ],
+      "playerIds": [
+        "real-satanic",
+        "real-no%5Bo%5Dne",
+        "real-dm",
+        "real-9class",
+        "real-dukalis"
+      ]
+    },
+    {
+      "id": "team-falcons",
+      "name": "Team Falcons",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "skiter",
+        "Malr1ne",
+        "ATF",
+        "Cr1t-",
+        "Sneyking"
+      ],
+      "playerIds": [
+        "real-skiter",
+        "real-malr1ne",
+        "real-atf",
+        "real-cr1t-",
+        "real-sneyking"
+      ]
+    },
+    {
+      "id": "team-liquid",
+      "name": "Team Liquid",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "miCKe",
+        "Nisha",
+        "SaberLight",
+        "Boxi",
+        "Insania"
+      ],
+      "playerIds": [
+        "real-micke",
+        "real-nisha",
+        "real-saberlight-",
+        "real-boxi",
+        "real-insania"
+      ]
+    },
+    {
+      "id": "team-nemesis",
+      "name": "Team Nemesis",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Akashi",
+        "Mac",
+        "Raven",
+        "Jing",
+        "Erice"
+      ],
+      "playerIds": [
+        "real-akashi",
+        "real-mac",
+        "real-raven",
+        "real-jing",
+        "real-erice"
+      ]
+    },
+    {
+      "id": "team-spirit",
+      "name": "Team Spirit",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Yatoro",
+        "Larl",
+        "Collapse",
+        "rue",
+        "Miposhka"
+      ],
+      "playerIds": [
+        "real-yatoro",
+        "real-larl",
+        "real-collapse",
+        "real-rue",
+        "real-miposhka"
+      ]
+    },
+    {
+      "id": "team-tidebound",
+      "name": "Team Tidebound",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "shiro",
+        "NothingToSay",
+        "Bach",
+        "planet",
+        "y`"
+      ],
+      "playerIds": [
+        "real-shiro",
+        "real-nothingtosay",
+        "real-faith_bian",
+        "real-planet",
+        "real-y%60"
+      ]
+    },
+    {
+      "id": "tundra-esports",
+      "name": "Tundra Esports",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Crystallis",
+        "bzm",
+        "33",
+        "Saksa",
+        "Tobi"
+      ],
+      "playerIds": [
+        "real-crystallis",
+        "real-bzm",
+        "real-33",
+        "real-saksa",
+        "real-tobi"
+      ]
+    },
+    {
+      "id": "wildcard",
+      "name": "Wildcard",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Yamsun",
+        "RCY",
+        "Fayde",
+        "Bignum",
+        "Speeed"
+      ],
+      "playerIds": [
+        "real-yamsun",
+        "real-rcy",
+        "real-fayde",
+        "real-bignum",
+        "real-speeed"
+      ]
+    },
+    {
+      "id": "xtreme-gaming",
+      "name": "Xtreme Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "Ame",
+        "Xm",
+        "Xxs",
+        "XinQ",
+        "xNova"
+      ],
+      "playerIds": [
+        "real-ame",
+        "real-xm",
+        "real-xxs",
+        "real-xinq",
+        "real-xnova"
+      ]
+    },
+    {
+      "id": "yakult-brothers",
+      "name": "Yakutou Brothers",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2025-0",
+      "date": "2025-09-14",
+      "roster": [
+        "flyfly",
+        "Emo",
+        "Beyond",
+        "BoBoKa",
+        "Oli"
+      ],
+      "playerIds": [
+        "real-flyfly",
+        "real-emo",
+        "real-beyond",
+        "real-boboka",
+        "real-oli"
+      ]
+    },
+    {
+      "id": "1win",
+      "name": "1w Team",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-1",
+      "date": "2025-06-17",
+      "roster": [
+        "Munkushi~",
+        "squad1x",
+        "SSS",
+        "swedenstrong",
+        "kasane"
+      ],
+      "playerIds": [
+        "real-munkushi~",
+        "real-squad1x",
+        "real-sss",
+        "real-swedenstrong",
+        "real-kasane"
+      ]
+    },
+    {
+      "id": "4pirates",
+      "name": "4Pirates",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-1",
+      "date": "2025-06-17",
+      "roster": [
+        "Otaker",
+        "nattynarwhal_",
+        "мистер мораль",
+        "ariel",
+        "PERDAN4IK"
+      ],
+      "playerIds": [
+        "real-otaker",
+        "real-nattynarwhal_",
+        "real-%D0%BC%D0%B8%D1%81%D1%82%D0%B5%D1%80%20%D0%BC%D0%BE%D1%80%D0%B0%D0%BB%D1%8C",
+        "real-ariel",
+        "real-perdan4ik"
+      ]
+    },
+    {
+      "id": "avulus",
+      "name": "AVULUS",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-1",
+      "date": "2025-06-17",
+      "roster": [
+        "Smiling Knight",
+        "Mo13ei",
+        "Xibbe",
+        "dEsire",
+        "Fly"
+      ],
+      "playerIds": [
+        "real-smiling%20knight",
+        "real-mo13ei",
+        "real-xibbe",
+        "real-desire",
+        "real-fly"
+      ]
+    },
+    {
+      "id": "azure-ray",
+      "name": "Azure Ray",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-2",
+      "date": "2025",
+      "roster": [
+        "Monet",
+        "Somnus",
+        "JT-",
+        "Pyw",
+        "xNova"
+      ],
+      "playerIds": [
+        "real-monet",
+        "real-somnus",
+        "real-jt-",
+        "real-pyw",
+        "real-xnova"
+      ]
+    },
+    {
+      "id": "bsj-and-friends",
+      "name": "BSJ and friends",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-3",
+      "date": "2025",
+      "roster": [
+        "Sammyboy",
+        "iAnnihilate",
+        "monkeys-forever",
+        "Newsham",
+        "Zexxiii"
+      ],
+      "playerIds": [
+        "real-sammyboy",
+        "real-iannihilate",
+        "real-monkeys-forever",
+        "real-newsham",
+        "real-zexxiii"
+      ]
+    },
+    {
+      "id": "castawake",
+      "name": "Castawake",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-4",
+      "date": "2025-06-17",
+      "roster": [
+        "Krish",
+        "Bob",
+        "Fbz",
+        "DJ",
+        "Castaway"
+      ],
+      "playerIds": [
+        "real-krish",
+        "real-bob",
+        "real-fbz",
+        "real-dj",
+        "real-castaway"
+      ]
+    },
+    {
+      "id": "cdub-esports",
+      "name": "CDUB Esports",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-3",
+      "date": "2025",
+      "roster": [
+        "Th3",
+        "ducho0",
+        "MarinoKi",
+        "Dante inferno",
+        "wxkeupparalyzed"
+      ],
+      "playerIds": [
+        "real-th3",
+        "real-ducho0",
+        "real-marinoki",
+        "real-dante%20inferno",
+        "real-wxkeupparalyzed"
+      ]
+    },
+    {
+      "id": "cyber-goose",
+      "name": "Cyber Goose",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-5",
+      "date": "2025-06-08",
+      "roster": [
+        "Lukas",
+        "Ainkrad",
+        "Palantimos",
+        "悲観主義者",
+        "Mary_y"
+      ],
+      "playerIds": [
+        "real-lukas",
+        "real-ainkrad",
+        "real-palantimos",
+        "real-%E6%82%B2%E8%A6%B3%E4%B8%BB%E7%BE%A9%E8%80%85",
+        "real-mary_y"
+      ]
+    },
+    {
+      "id": "excel-esports",
+      "name": "Excel Esports",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-2",
+      "date": "2025",
+      "roster": [
+        "ukiyo",
+        "ButterflyEffect",
+        "生死",
+        "CatYou",
+        "RedPanda"
+      ],
+      "playerIds": [
+        "real-ukiyo",
+        "real-butterflyeffect",
+        "real-%E7%94%9F%E6%AD%BB",
+        "real-catyou",
+        "real-redpanda"
+      ]
+    },
+    {
+      "id": "execration",
+      "name": "Execration",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-4",
+      "date": "2025-06-17",
+      "roster": [
+        "Palos",
+        "lewis",
+        "Tino",
+        "Shanks",
+        "cml"
+      ],
+      "playerIds": [
+        "real-palos",
+        "real-lewis",
+        "real-tino",
+        "real-shanks",
+        "real-cml"
+      ]
+    },
+    {
+      "id": "future-esport",
+      "name": "Future Esport",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-2",
+      "date": "2025",
+      "roster": [
+        "CDR",
+        "yChen",
+        "Irving",
+        "Xu.",
+        "LOyd"
+      ],
+      "playerIds": [
+        "real-cdr",
+        "real-ychen",
+        "real-irving",
+        "real-xu.",
+        "real-loyd"
+      ]
+    },
+    {
+      "id": "interactive-philippines",
+      "name": "InterActive Philippines",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-4",
+      "date": "2025-06-17",
+      "roster": [
+        "jedbaby^",
+        "Yona",
+        "fiend",
+        "sagiribabyy",
+        "rekkusu"
+      ],
+      "playerIds": [
+        "real-jedbaby%5E",
+        "real-yona",
+        "real-fiend",
+        "real-sagiribabyy",
+        "real-rekkusu"
+      ]
+    },
+    {
+      "id": "ivory",
+      "name": "Ivory",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-4",
+      "date": "2025-06-17",
+      "roster": [
+        "gohan",
+        "Ken",
+        "Rupido",
+        "Dric~",
+        "Grimz"
+      ],
+      "playerIds": [
+        "real-gohan",
+        "real-ken",
+        "real-rupido",
+        "real-dric~",
+        "real-grimz"
+      ]
+    },
+    {
+      "id": "kopite",
+      "name": "Kopite",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-4",
+      "date": "2025-06-17",
+      "roster": [
+        "Chucky",
+        "GaN-",
+        "DCMG",
+        "Carlo",
+        "bombi"
+      ],
+      "playerIds": [
+        "real-chucky",
+        "real-gan-",
+        "real-dcmg",
+        "real-carlo",
+        "real-bombi"
+      ]
+    },
+    {
+      "id": "l1ga-team",
+      "name": "L1GA TEAM",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-5",
+      "date": "2025-06-08",
+      "roster": [
+        "v1olent`",
+        "erase",
+        "Malik",
+        "mrls",
+        "RESPECT"
+      ],
+      "playerIds": [
+        "real-v1olent%60",
+        "real-erase",
+        "real-malik",
+        "real-mrls",
+        "real-respect"
+      ]
+    },
+    {
+      "id": "mouz",
+      "name": "MOUZ",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-1",
+      "date": "2025-06-17",
+      "roster": [
+        "dream`",
+        "Abed",
+        "zeal",
+        "Ekki",
+        "Seleri"
+      ],
+      "playerIds": [
+        "real-dream",
+        "real-abed",
+        "real-zeal",
+        "real-ekki",
+        "real-seleri"
+      ]
+    },
+    {
+      "id": "navi-junior",
+      "name": "NAVI Junior",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-1",
+      "date": "2025-06-17",
+      "roster": [
+        "gotthejuice",
+        "Niku",
+        "pma",
+        "Zayac",
+        "Riddys"
+      ],
+      "playerIds": [
+        "real-gotthejuice",
+        "real-niku",
+        "real-pma",
+        "real-zayac",
+        "real-riddys"
+      ]
+    },
+    {
+      "id": "nemiga-gaming",
+      "name": "Nemiga Gaming",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-5",
+      "date": "2025-06-08",
+      "roster": [
+        "bashka",
+        "young G",
+        "Covisnine",
+        "xsvampire",
+        "monodrama"
+      ],
+      "playerIds": [
+        "real-bashka",
+        "real-young%20g",
+        "real-covisnine",
+        "real-xsvampire",
+        "real-monodrama"
+      ]
+    },
+    {
+      "id": "og",
+      "name": "OG",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-1",
+      "date": "2025-06-17",
+      "roster": [
+        "Shad",
+        "Stormstormer",
+        "MikSa`",
+        "daze",
+        "Kidaro"
+      ],
+      "playerIds": [
+        "real-shad",
+        "real-stormstormer",
+        "real-miksa%60",
+        "real-daze",
+        "real-kidaro"
+      ]
+    },
+    {
+      "id": "og-latam",
+      "name": "OG.LATAM",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-6",
+      "date": "2025",
+      "roster": [
+        "Lumière",
+        "SLATEM$",
+        "Oscar",
+        "N1ght",
+        "Gardick"
+      ],
+      "playerIds": [
+        "real-lumi%C3%A8re",
+        "real-slatem%24",
+        "real-oscar",
+        "real-n1ght",
+        "real-gardick"
+      ]
+    },
+    {
+      "id": "one-move",
+      "name": "One Move",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-5",
+      "date": "2025-06-08",
+      "roster": [
+        "eyesxght",
+        "Difference",
+        "Vazya",
+        "Gilgir",
+        "bb3px"
+      ],
+      "playerIds": [
+        "real-eyesxght",
+        "real-difference",
+        "real-vazya",
+        "real-gilgir",
+        "real-bb3px"
+      ]
+    },
+    {
+      "id": "shopify-rebellion",
+      "name": "Shopify Rebellion",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-3",
+      "date": "2025",
+      "roster": [
+        "Timado",
+        "Yopaj",
+        "Davai Lama",
+        "Hellscream",
+        "skem"
+      ],
+      "playerIds": [
+        "real-timado",
+        "real-yopaj",
+        "real-davai%20lama",
+        "real-hellscream",
+        "real-skem"
+      ]
+    },
+    {
+      "id": "sustancia-x",
+      "name": "Sustancia X",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-6",
+      "date": "2025",
+      "roster": [
+        "Tiburoncin",
+        "kxy",
+        "YiSuS",
+        "pamplona",
+        "555"
+      ],
+      "playerIds": [
+        "real-tiburoncin",
+        "real-kxy",
+        "real-yisus",
+        "real-pamplona",
+        "real-555"
+      ]
+    },
+    {
+      "id": "talon-esports",
+      "name": "Talon Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-4",
+      "date": "2025-06-17",
+      "roster": [
+        "23savage",
+        "Mikoto",
+        "Ws",
+        "Jhocam",
+        "Kuku"
+      ],
+      "playerIds": [
+        "real-23savage",
+        "real-mikoto",
+        "real-ws",
+        "real-jhocam",
+        "real-kuku"
+      ]
+    },
+    {
+      "id": "team-curtain",
+      "name": "Team Curtain",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-2",
+      "date": "2025",
+      "roster": [
+        "Summer",
+        "pp",
+        "Nevermine",
+        "Hara",
+        "sj"
+      ],
+      "playerIds": [
+        "real-summer",
+        "real-pp",
+        "real-nevermine",
+        "real-hara",
+        "real-sj"
+      ]
+    },
+    {
+      "id": "team-secret",
+      "name": "Team Secret",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-1",
+      "date": "2025-06-17",
+      "roster": [
+        "Kiritych",
+        "reibl",
+        "Cloud",
+        "Thiolicor",
+        "Puppey"
+      ],
+      "playerIds": [
+        "real-kiritych",
+        "real-reibl",
+        "real-cloud",
+        "real-thiolicor",
+        "real-puppey"
+      ]
+    },
+    {
+      "id": "team-slayers",
+      "name": "Team Slayers",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-3",
+      "date": "2025",
+      "roster": [
+        "IDFAA",
+        "VAGABUND",
+        "luppa",
+        "yxmt",
+        "menace"
+      ],
+      "playerIds": [
+        "real-idfaa",
+        "real-vagabund",
+        "real-luppa",
+        "real-yxmt",
+        "real-menace"
+      ]
+    },
+    {
+      "id": "teamdk",
+      "name": "TeamDk",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-6",
+      "date": "2025",
+      "roster": [
+        "Fyoung-",
+        "Karmah",
+        "Azula",
+        "FeelinG",
+        "Cara"
+      ],
+      "playerIds": [
+        "real-fyoung-",
+        "real-karmah",
+        "real-azula",
+        "real-feeling",
+        "real-cara"
+      ]
+    },
+    {
+      "id": "tearlaments",
+      "name": "Tearlaments",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-2",
+      "date": "2025",
+      "roster": [
+        "YSR-04E",
+        "Echo",
+        "Srf",
+        "7e",
+        "zzq"
+      ],
+      "playerIds": [
+        "real-ysr-04e",
+        "real-echo",
+        "real-srf",
+        "real-7e",
+        "real-zzq"
+      ]
+    },
+    {
+      "id": "tech-free-gaming",
+      "name": "Tech Free Gaming",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-4",
+      "date": "2025-06-17",
+      "roster": [
+        "Jikroy",
+        "MamangDaya",
+        "db-",
+        "dalul",
+        "Varizh"
+      ],
+      "playerIds": [
+        "real-jikroy",
+        "real-mamangdaya",
+        "real-db-",
+        "real-dalul",
+        "real-varizh"
+      ]
+    },
+    {
+      "id": "trailer-park-boys",
+      "name": "Trailer Park Boys",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-4",
+      "date": "2025-06-17",
+      "roster": [
+        "423",
+        "sanctity-",
+        "11",
+        "NARMAN",
+        "Se"
+      ],
+      "playerIds": [
+        "real-423",
+        "real-sanctity-",
+        "real-11",
+        "real-narman",
+        "real-se--philippines"
+      ]
+    },
+    {
+      "id": "tt-geam",
+      "name": "Tt Geam",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-3",
+      "date": "2025",
+      "roster": [
+        "Jia",
+        "OKokk",
+        "InviS",
+        "Lucifer",
+        "Cyberdingzhen"
+      ],
+      "playerIds": [
+        "real-jia",
+        "real-okokk",
+        "real-invis",
+        "real-lucifer",
+        "real-cyberdingzhen"
+      ]
+    },
+    {
+      "id": "vici-gaming",
+      "name": "Vici Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-2",
+      "date": "2025",
+      "roster": [
+        "Paparazi灬",
+        "Ori",
+        "Yang",
+        "Kaka",
+        "Dy"
+      ],
+      "playerIds": [
+        "real-paparazi",
+        "real-ori",
+        "real-yang",
+        "real-kaka",
+        "real-dy"
+      ]
+    },
+    {
+      "id": "virtus-pro",
+      "name": "Virtus.pro",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-1",
+      "date": "2025-06-17",
+      "roster": [
+        "V-Tune",
+        "lorenof",
+        "Daxak",
+        "Antares",
+        "Rein"
+      ],
+      "playerIds": [
+        "real-v-tune",
+        "real-lorenof",
+        "real-daxak",
+        "real-antares",
+        "real-rein"
+      ]
+    },
+    {
+      "id": "yellow-submarine",
+      "name": "Yellow Submarine",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-1",
+      "date": "2025-06-17",
+      "roster": [
+        "bottega",
+        "Mirele",
+        "INFERNAL",
+        "lupsione",
+        "Xakoda"
+      ],
+      "playerIds": [
+        "real-bottega",
+        "real-mirele",
+        "real-infernal",
+        "real-lupsione",
+        "real-xakoda"
+      ]
+    },
+    {
+      "id": "yoru-ryodan",
+      "name": "Yoru RyodaN",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2025-3",
+      "date": "2025",
+      "roster": [
+        "Double King",
+        "dnm",
+        "dotasama",
+        "Rozeanne",
+        "bigfatbee"
+      ],
+      "playerIds": [
+        "real-double%20king",
+        "real-dnm",
+        "real-dotasama",
+        "real-rozeanne",
+        "real-bigfatbee"
+      ]
+    }
+  ]
+}

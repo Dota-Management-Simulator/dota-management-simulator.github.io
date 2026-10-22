@@ -1,0 +1,686 @@
+{
+  "reviewedOn": "2026-10-21",
+  "method": "Individual player categories; selected photographs and crops visually reviewed. Stable identity IDs, not fuzzy display-name lookup.",
+  "players": [
+    {
+      "id": "real-33",
+      "file": "File:The International 2018 (29289194727).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:33_(gamer)",
+      "crop": [
+        0.18,
+        0.03,
+        0.91,
+        0.82
+      ]
+    },
+    {
+      "id": "real-9pasha",
+      "file": "File:9pasha at The International 2018 (extract).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:9pasha",
+      "crop": [
+        0.1,
+        0.03,
+        0.95,
+        0.72
+      ]
+    },
+    {
+      "id": "real-ace",
+      "file": "File:Ace at The International 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Ace_(gamer)"
+    },
+    {
+      "id": "real-admiralbulldog",
+      "file": "File:Henrik Ahnberg.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:AdmiralBulldog"
+    },
+    {
+      "id": "real-akke",
+      "file": "File:DreamHack 2015 Bucharest - StarLadder XII 35.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Akke_(gamer)",
+      "crop": [
+        0.58,
+        0.02,
+        0.98,
+        0.95
+      ]
+    },
+    {
+      "id": "real-ame",
+      "file": "File:Ame at Epicenter XL Dota 2 Major 4.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Ame"
+    },
+    {
+      "id": "real-ana",
+      "file": "File:Ana The International 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Ana_(gamer)"
+    },
+    {
+      "id": "real-armel",
+      "file": "File:The International 2018 (30302406118).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Armel_(gamer)",
+      "crop": [
+        0.15,
+        0.02,
+        0.91,
+        0.8
+      ]
+    },
+    {
+      "id": "real-arteezy",
+      "file": "File:Arteezy The International 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Arteezy"
+    },
+    {
+      "id": "real-artstyle",
+      "file": "File:Artstyle at The International 2018 (extract).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Artstyle_(gamer)"
+    },
+    {
+      "id": "real-aui_2000",
+      "file": "File:The International 2018 (30302408718).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Aui_2000"
+    },
+    {
+      "id": "real-banana",
+      "file": "File:Banana at TI4.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Banana_(gamer)",
+      "crop": [
+        0.05,
+        0.3,
+        0.98,
+        0.99
+      ]
+    },
+    {
+      "id": "real-bulba",
+      "file": "File:The International 2018 (44173358382).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:BuLba"
+    },
+    {
+      "id": "real-burning",
+      "file": "File:BurNIng at Asia Championships 2017.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:BurNIng"
+    },
+    {
+      "id": "real-quinn",
+      "file": "File:The International 2018 (43469340444).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:CCnC",
+      "crop": [
+        0.08,
+        0.02,
+        0.66,
+        0.98
+      ]
+    },
+    {
+      "id": "real-7ckngmad",
+      "file": "File:Dota 2 desk analysis - ESL One Frankfurt 2014 (cropped to Ceb).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Ceb"
+    },
+    {
+      "id": "real-chalice",
+      "file": "File:PSG.LDG at Epicenter XL Dota 2 Major 80.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Chalice_(gamer)",
+      "crop": [
+        0.28,
+        0.09,
+        0.81,
+        0.99
+      ]
+    },
+    {
+      "id": "real-chuan",
+      "file": "File:DreamHack 2015 Bucharest - StarLadder XII 36.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Chuan_(gamer)",
+      "crop": [
+        0.5,
+        0.06,
+        0.98,
+        0.99
+      ]
+    },
+    {
+      "id": "real-collapse",
+      "file": "File:Collapse PGL Wallachia Season 1.png",
+      "category": "https://commons.wikimedia.org/wiki/Category:Collapse_(gamer)"
+    },
+    {
+      "id": "real-cr1t-",
+      "file": "File:The International 2018 - Andreas Franck Nielsen (Cr1t-).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Cr1t",
+      "crop": [
+        0.08,
+        0.24,
+        0.95,
+        0.94
+      ]
+    },
+    {
+      "id": "real-dendi",
+      "file": "File:Dendi TI4.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Dendi_(gamer)"
+    },
+    {
+      "id": "real-dj",
+      "file": "File:The International 2018 (30302410158).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:DJ_(gamer)",
+      "crop": [
+        0.28,
+        0.05,
+        0.74,
+        0.98
+      ]
+    },
+    {
+      "id": "real-era",
+      "file": "File:Dreamhack-day2-019.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Era_(gamer)"
+    },
+    {
+      "id": "real-eternalenvy",
+      "file": "File:DreamHack 2015 Bucharest - StarLadder XII 06.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:EternalEnvy",
+      "crop": [
+        0.1,
+        0.02,
+        0.59,
+        0.99
+      ]
+    },
+    {
+      "id": "real-fata-",
+      "file": "File:Fata-.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Fata_(gamer)"
+    },
+    {
+      "id": "real-fear",
+      "file": "File:EG.Fear winning TI 2015 (crop).PNG",
+      "category": "https://commons.wikimedia.org/wiki/Category:Fear_(gamer)"
+    },
+    {
+      "id": "real-fenrir",
+      "file": "File:Fenrir at TI 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Fenrir_(gamer)"
+    },
+    {
+      "id": "real-ferrari_430",
+      "file": "File:Ferrari 430, StarLadder XII.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Ferrari_430_(gamer)"
+    },
+    {
+      "id": "real-fly",
+      "file": "File:Fly at The International 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Fly_(Dota_2_player)"
+    },
+    {
+      "id": "real-fogged",
+      "file": "File:Dreamhack-day2-011.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Fogged"
+    },
+    {
+      "id": "real-fy",
+      "file": "File:PSG.LDG at Epicenter XL Dota 2 Major 83.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Fy",
+      "crop": [
+        0.18,
+        0.02,
+        0.68,
+        0.99
+      ]
+    },
+    {
+      "id": "real-gh",
+      "file": "File:Gh (Maroun Merhej) at TI 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Gh_(gamer)"
+    },
+    {
+      "id": "real-h4nn1",
+      "file": "File:Dreamhack-day2-017.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:H4nn1",
+      "crop": [
+        0.1,
+        0,
+        0.92,
+        0.72
+      ]
+    },
+    {
+      "id": "real-hao",
+      "file": "File:Hao at TI4.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Hao_(gamer)"
+    },
+    {
+      "id": "real-iceberg",
+      "file": "File:The International 2018 (44155558962).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Iceberg_(gamer)",
+      "crop": [
+        0.17,
+        0,
+        0.88,
+        0.99
+      ]
+    },
+    {
+      "id": "real-jabz",
+      "file": "File:The International 2018 (42361119500).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Jabz",
+      "crop": [
+        0.14,
+        0.02,
+        0.83,
+        0.98
+      ]
+    },
+    {
+      "id": "real-kuku",
+      "file": "File:The International 2018 (43264070265).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Kuku",
+      "crop": [
+        0.08,
+        0,
+        0.98,
+        0.87
+      ]
+    },
+    {
+      "id": "real-kuroky",
+      "file": "File:KuroKy 2014 interview.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:KuroKy"
+    },
+    {
+      "id": "real-lanm",
+      "file": "File:The International 2018 (43300597385).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:LaNm"
+    },
+    {
+      "id": "real-loda",
+      "file": "File:Loda (Jonathan Berg) at ESL One Frankfurt 2014 (original) (cropped).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Loda_(gamer)",
+      "crop": [
+        0.03,
+        0,
+        0.98,
+        0.86
+      ]
+    },
+    {
+      "id": "real-malr1ne",
+      "file": "File:Malr1ne Paragon Events Dota 2.png",
+      "category": "https://commons.wikimedia.org/wiki/Category:Malr1ne",
+      "crop": [
+        0.08,
+        0,
+        0.94,
+        0.76
+      ]
+    },
+    {
+      "id": "real-matumbaman",
+      "file": "File:MATUMBAMAN at The International 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Matumbaman"
+    },
+    {
+      "id": "real-mind_control",
+      "file": "File:Mind Control (Iwan Iwanow) at TI 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Mind_Control"
+    },
+    {
+      "id": "real-miracle-",
+      "file": "File:The International 2018 (29274193217).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Miracle-",
+      "crop": [
+        0.13,
+        0,
+        0.82,
+        1
+      ]
+    },
+    {
+      "id": "real-moogy",
+      "file": "File:The International 2018 (44169337311).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Moogy",
+      "crop": [
+        0.13,
+        0.02,
+        0.76,
+        0.99
+      ]
+    },
+    {
+      "id": "real-mss",
+      "file": "File:The International 2018 (44227208501).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:MSS_(gamer)",
+      "crop": [
+        0.3,
+        0,
+        0.98,
+        1
+      ]
+    },
+    {
+      "id": "real-n0tail",
+      "file": "File:The International 2018 (42413912070) (cropped).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:N0tail"
+    },
+    {
+      "id": "real-ninjaboogie",
+      "file": "File:The International 2018 (43264069915).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Ninjaboogie",
+      "crop": [
+        0.15,
+        0.05,
+        0.82,
+        0.95
+      ]
+    },
+    {
+      "id": "real-no%5Bo%5Dne",
+      "file": "File:The International 2018 (44180400692).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Noone-",
+      "crop": [
+        0.06,
+        0,
+        0.78,
+        1
+      ]
+    },
+    {
+      "id": "real-pajkatt",
+      "file": "File:The International 2018 - Per Anders Olsson Lille (Pajkatt).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Pajkatt",
+      "crop": [
+        0.13,
+        0,
+        0.86,
+        0.63
+      ]
+    },
+    {
+      "id": "real-pieliedie",
+      "file": "File:Johan „pieliedie“ Åström leaves the stage after a win.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Pieliedie",
+      "crop": [
+        0.18,
+        0.02,
+        0.57,
+        0.98
+      ]
+    },
+    {
+      "id": "real-ppd",
+      "file": "File:PPD The International 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:PPD_(gamer)"
+    },
+    {
+      "id": "real-puppey",
+      "file": "File:The International 2018 (43509512714).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Puppey"
+    },
+    {
+      "id": "real-ramzes666",
+      "file": "File:RAMZES666 portrait.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Ramzes666",
+      "crop": [
+        0.08,
+        0,
+        0.93,
+        0.82
+      ]
+    },
+    {
+      "id": "real-black%5E",
+      "file": "File:FL.Black (32969615474).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Black%5E",
+      "crop": [
+        0.27,
+        0,
+        0.81,
+        1
+      ]
+    },
+    {
+      "id": "real-resolut1on",
+      "file": "File:The International 2018 (30336650508).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Resolut1on",
+      "crop": [
+        0.12,
+        0.08,
+        0.91,
+        0.84
+      ]
+    },
+    {
+      "id": "real-rodjer",
+      "file": "File:RodjER at The International 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:RodjER"
+    },
+    {
+      "id": "real-rotk",
+      "file": "File:Bai „rOtK“ Fan.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Rotk",
+      "crop": [
+        0.15,
+        0,
+        0.92,
+        1
+      ]
+    },
+    {
+      "id": "real-s4",
+      "file": "File:The International 2018 Gustav Magnusson (s4).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:S4_(gamer)"
+    },
+    {
+      "id": "real-dyrachyo",
+      "file": "File:Dyrachyo Paragon Events Dota 2.png",
+      "category": "https://commons.wikimedia.org/wiki/Category:Dyrachyo"
+    },
+    {
+      "id": "real-singsing",
+      "file": "File:Weh Sing „SingSing“ Yuen.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:SingSing",
+      "crop": [
+        0.32,
+        0.02,
+        0.86,
+        0.99
+      ]
+    },
+    {
+      "id": "real-sneyking",
+      "file": "File:Dreamhack-day2-010.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Sneyking"
+    },
+    {
+      "id": "real-solo",
+      "file": "File:The International 2018 (43507164324).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Solo_(gamer)",
+      "crop": [
+        0.32,
+        0.07,
+        0.69,
+        0.98
+      ]
+    },
+    {
+      "id": "real-somnus",
+      "file": "File:PSG.LDG at Epicenter XL Dota 2 Major 103.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Somnus",
+      "crop": [
+        0.19,
+        0.02,
+        0.72,
+        0.98
+      ]
+    },
+    {
+      "id": "real-sumail",
+      "file": "File:EG.SumaiL (32945940994) (cropped).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Sumail"
+    },
+    {
+      "id": "real-svg",
+      "file": "File:SVG at TI 2018.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:SVG_(gamer)"
+    },
+    {
+      "id": "real-topson",
+      "file": "File:Topson at The International 2018 (color corrected).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Topson"
+    },
+    {
+      "id": "real-trixi",
+      "file": "File:Dreamhack-day2-015.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Trixi",
+      "crop": [
+        0.06,
+        0,
+        0.95,
+        0.8
+      ]
+    },
+    {
+      "id": "real-universe",
+      "file": "File:The International 2018 (30302408188).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Universe_(gamer)"
+    },
+    {
+      "id": "real-vigoss",
+      "file": "File:Vigoss-eswc.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Vigoss",
+      "crop": [
+        0.18,
+        0.01,
+        0.85,
+        1
+      ]
+    },
+    {
+      "id": "real-waytosexy",
+      "file": "File:Dreamhack-day2-013.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Waytosexy"
+    },
+    {
+      "id": "real-xboct",
+      "file": "File:Alexander XBOCT Dashkevich.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:XBOCT"
+    },
+    {
+      "id": "real-xiao8",
+      "file": "File:TI4 (3).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Xiao8",
+      "crop": [
+        0.36,
+        0.015,
+        0.73,
+        0.76
+      ]
+    },
+    {
+      "id": "real-xinq",
+      "file": "File:The International 2018 (42379828330).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:XinQ"
+    },
+    {
+      "id": "real-xnova",
+      "file": "File:PSG.LDG at Epicenter XL Dota 2 Major 31.jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:XNova",
+      "crop": [
+        0.12,
+        0,
+        0.72,
+        1
+      ]
+    },
+    {
+      "id": "real-yapzor",
+      "file": "File:The International 2018 (43509513154).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:YapzOr"
+    },
+    {
+      "id": "real-yawar",
+      "file": "File:The International 2018 (30336390288).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Yawar_(gamer)"
+    },
+    {
+      "id": "real-zai",
+      "file": "File:The International 2018 (43507163864).jpg",
+      "category": "https://commons.wikimedia.org/wiki/Category:Zai_(gamer)",
+      "crop": [
+        0.12,
+        0,
+        0.69,
+        1
+      ]
+    },
+    {
+      "id": "real-gpk",
+      "file": "File:Gpk~ Fissure Playground 2.jpg",
+      "category": "https://www.wikidata.org/wiki/Q137254630",
+      "crop": [
+        0.2,
+        0,
+        0.79,
+        0.98
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "id": "real-goblak",
+      "file": "File:The Kiev Major - goblak.jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-heen",
+      "file": "File:The International 2018 (43337031785).jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-midone",
+      "file": "File:The International 2018 (30338896818).jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-mu",
+      "file": "File:TI4 (2).jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-niqua",
+      "file": "File:DreamHack Summer 2015 - Alliance 2.jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-nutz",
+      "file": "File:FL.Black (33812707655).jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-paparazi",
+      "file": "File:The International 2018 (44158198012).jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-raven",
+      "file": "File:The International 2018 (30302406438).jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-sansheng",
+      "file": "File:TI4 (2).jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-super",
+      "file": "File:TI4 - Grand Finals - 14896848386.jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    },
+    {
+      "id": "real-sylar",
+      "file": "File:Vici Gaming at The International 2014 09.jpg",
+      "reason": "Available group photograph does not document an unambiguous individual crop."
+    }
+  ]
+}

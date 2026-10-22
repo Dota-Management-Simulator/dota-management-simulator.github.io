@@ -1,0 +1,1154 @@
+{
+  "year": 2026,
+  "reviewedOn": "2026-10-21",
+  "note": "Main-event and regional qualifier references enter together at the annual post-TI shuffle. This is a dated composite, not an exhaustive census or single-date transfer list.",
+  "coverage": "Regional/tier-2 coverage uses documented closed qualifiers; rosters with incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2026-0",
+      "title": "The International 2026 - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2026"
+    },
+    {
+      "id": "rosters-2026-1",
+      "title": "GamerLegion — dated roster reference",
+      "url": "https://liquipedia.net/dota2/GamerLegion"
+    },
+    {
+      "id": "rosters-2026-2",
+      "title": "LGD Gaming — dated roster reference",
+      "url": "https://liquipedia.net/dota2/LGD_Gaming"
+    },
+    {
+      "id": "rosters-2026-3",
+      "title": "The International 2026: North America Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2026/North_America"
+    },
+    {
+      "id": "rosters-2026-4",
+      "title": "The International 2026: South America Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2026/South_America"
+    },
+    {
+      "id": "rosters-2026-5",
+      "title": "The International 2026: Southeast Asia Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2026/Southeast_Asia"
+    },
+    {
+      "id": "rosters-2026-6",
+      "title": "The International 2026: China Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2026/China"
+    },
+    {
+      "id": "rosters-2026-7",
+      "title": "The International 2026: Europe Regional Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2026/Europe"
+    }
+  ],
+  "teams": [
+    {
+      "id": "aurora-gaming",
+      "name": "Aurora Gaming",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "Nightfall",
+        "Mikoto",
+        "Ws",
+        "Mira",
+        "kaori"
+      ],
+      "playerIds": [
+        "real-nightfall",
+        "real-mikoto",
+        "real-ws",
+        "real-mira",
+        "real-kaori"
+      ]
+    },
+    {
+      "id": "boomboys",
+      "name": "BoomBoys",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "Kiritych~",
+        "gpk~",
+        "MieRo",
+        "Save-",
+        "Kataomi"
+      ],
+      "playerIds": [
+        "real-kiritych",
+        "real-gpk",
+        "real-miero",
+        "real-save-",
+        "real-kataomi"
+      ]
+    },
+    {
+      "id": "gamerlegion",
+      "name": "GamerLegion",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-1",
+      "date": "2026-09-29",
+      "roster": [
+        "Yuma",
+        "RCY",
+        "Fayde",
+        "Bignum",
+        "Speeed"
+      ],
+      "playerIds": [
+        "real-yuma",
+        "real-rcy",
+        "real-fayde",
+        "real-bignum",
+        "real-speeed"
+      ]
+    },
+    {
+      "id": "huligani",
+      "name": "HULIGANI",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "ssnovv1",
+        "Mirage`",
+        "Corrupted",
+        "sayuw",
+        "RESPECT"
+      ],
+      "playerIds": [
+        "real-ssnovv1",
+        "real-mirage%60",
+        "real-corrupted",
+        "real-sayuw",
+        "real-respect"
+      ]
+    },
+    {
+      "id": "iron-wing",
+      "name": "Iron Wing",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "Pure",
+        "bzm",
+        "33",
+        "Ari",
+        "Whitemon"
+      ],
+      "playerIds": [
+        "real-pure",
+        "real-bzm",
+        "real-33",
+        "real-ari",
+        "real-whitemon"
+      ]
+    },
+    {
+      "id": "lgd",
+      "name": "LGD Gaming",
+      "region": "South America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-2",
+      "date": "2026-09-25",
+      "roster": [
+        "Wits",
+        "SumaiL",
+        "Davai",
+        "Thiolicor",
+        "Sneyking"
+      ],
+      "playerIds": [
+        "real-wits",
+        "real-sumail",
+        "real-davai",
+        "real-thiolicor",
+        "real-sneyking"
+      ]
+    },
+    {
+      "id": "nigma-galaxy",
+      "name": "Nigma Galaxy",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "SumaiL",
+        "lorenof",
+        "Davai",
+        "OmaR",
+        "GH"
+      ],
+      "playerIds": [
+        "real-sumail",
+        "real-lorenof",
+        "real-davai",
+        "real-omar",
+        "real-gh"
+      ]
+    },
+    {
+      "id": "og",
+      "name": "OG",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "Natsumi",
+        "Yopaj-",
+        "Raven",
+        "TIMS",
+        "skem"
+      ],
+      "playerIds": [
+        "real-natsumi-",
+        "real-yopaj",
+        "real-raven",
+        "real-tims",
+        "real-skem"
+      ]
+    },
+    {
+      "id": "team-falcons",
+      "name": "Team Falcons",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "skiter",
+        "Malr1ne",
+        "ATF",
+        "Cr1t-",
+        "Sneyking"
+      ],
+      "playerIds": [
+        "real-skiter",
+        "real-malr1ne",
+        "real-atf",
+        "real-cr1t-",
+        "real-sneyking"
+      ]
+    },
+    {
+      "id": "team-liquid",
+      "name": "Team Liquid",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "m1CKe",
+        "Nisha",
+        "Ace",
+        "Boxi",
+        "tOfu"
+      ],
+      "playerIds": [
+        "real-micke",
+        "real-nisha",
+        "real-ace",
+        "real-boxi",
+        "real-tofu"
+      ]
+    },
+    {
+      "id": "team-resilience",
+      "name": "Team Resilience",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "YSR-04E",
+        "Echozz",
+        "niu",
+        "planet",
+        "zzq"
+      ],
+      "playerIds": [
+        "real-ysr-04e",
+        "real-echozz",
+        "real-niu",
+        "real-planet",
+        "real-zzq"
+      ]
+    },
+    {
+      "id": "team-spirit",
+      "name": "Team Spirit",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "Yatoro",
+        "Larl",
+        "Collapse",
+        "not me",
+        "rue"
+      ],
+      "playerIds": [
+        "real-yatoro",
+        "real-larl",
+        "real-collapse",
+        "real-not%20me",
+        "real-rue"
+      ]
+    },
+    {
+      "id": "team-vision",
+      "name": "TEAM VISION",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "Satanic",
+        "No[o]ne-",
+        "Noticed",
+        "9Class",
+        "Dukalis"
+      ],
+      "playerIds": [
+        "real-satanic",
+        "real-no%5Bo%5Dne",
+        "real-noticed",
+        "real-9class",
+        "real-dukalis"
+      ]
+    },
+    {
+      "id": "team-yandex",
+      "name": "Team Yandex",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "watson",
+        "CHIRA_JUNIOR",
+        "DM",
+        "Saksa",
+        "Malady"
+      ],
+      "playerIds": [
+        "real-watson",
+        "real-chira_junior",
+        "real-dm",
+        "real-saksa",
+        "real-malady"
+      ]
+    },
+    {
+      "id": "vici-gaming",
+      "name": "Vici Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "shiro",
+        "Xm",
+        "Bach",
+        "XinQ",
+        "y`"
+      ],
+      "playerIds": [
+        "real-shiro",
+        "real-xm",
+        "real-faith_bian",
+        "real-xinq",
+        "real-y%60"
+      ]
+    },
+    {
+      "id": "xtreme-gaming",
+      "name": "Xtreme Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2026-0",
+      "date": "2026-08-23",
+      "roster": [
+        "Ame",
+        "NothingToSay",
+        "Xxs",
+        "fy",
+        "xNova"
+      ],
+      "playerIds": [
+        "real-ame",
+        "real-nothingtosay",
+        "real-xxs",
+        "real-fy",
+        "real-xnova"
+      ]
+    },
+    {
+      "id": "4-anchors-and-ilmeria",
+      "name": "4 Anchors and Ilmeria",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-3",
+      "date": "2026",
+      "roster": [
+        "dnm",
+        "Ilmeria",
+        "King Potato",
+        "bigfatbee",
+        "Yanbura"
+      ],
+      "playerIds": [
+        "real-dnm",
+        "real-ilmeria",
+        "real-king%20potato",
+        "real-bigfatbee",
+        "real-yanbura"
+      ]
+    },
+    {
+      "id": "amaru-gaming",
+      "name": "Amaru Gaming",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-4",
+      "date": "2026-06-19",
+      "roster": [
+        "K1",
+        "PiPi",
+        "Oscar",
+        "Genek",
+        "Panda"
+      ],
+      "playerIds": [
+        "real-k1",
+        "real-pipi",
+        "real-oscar",
+        "real-genek",
+        "real-panda"
+      ]
+    },
+    {
+      "id": "carstensz-esports",
+      "name": "Carstensz Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-5",
+      "date": "2026-06-23",
+      "roster": [
+        "Dreamocel",
+        "salamat1",
+        "seimei",
+        "Ahyad",
+        "Ace12"
+      ],
+      "playerIds": [
+        "real-dreamocel",
+        "real-salamat1",
+        "real-seimei",
+        "real-ahyad",
+        "real-ace12"
+      ]
+    },
+    {
+      "id": "cloud-rising",
+      "name": "Cloud Rising",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-6",
+      "date": "2026-06-18",
+      "roster": [
+        "Yumeyume",
+        "Q7",
+        "Ice Coke",
+        "sheep",
+        "谢乐zzz张泽中"
+      ],
+      "playerIds": [
+        "real-yumeyume",
+        "real-q7",
+        "real-ice%20coke",
+        "real-sheep",
+        "real-%E8%B0%A2%E4%B9%90zzz%E5%BC%A0%E6%B3%BD%E4%B8%AD"
+      ]
+    },
+    {
+      "id": "direborn-esports",
+      "name": "Direborn Esports",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-5",
+      "date": "2026-06-23",
+      "roster": [
+        "db-",
+        "Pota2",
+        "womy",
+        "deko",
+        "PlayHard"
+      ],
+      "playerIds": [
+        "real-db-",
+        "real-pota2",
+        "real-womy",
+        "real-deko",
+        "real-playhard"
+      ]
+    },
+    {
+      "id": "estar-backs",
+      "name": "Estar Backs",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-4",
+      "date": "2026-06-19",
+      "roster": [
+        "Parker",
+        "S1RENM",
+        "Snufy",
+        "Michael",
+        "Accel"
+      ],
+      "playerIds": [
+        "real-parker",
+        "real-s1renm",
+        "real-snufy",
+        "real-michael",
+        "real-accel"
+      ]
+    },
+    {
+      "id": "execration",
+      "name": "Execration",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-5",
+      "date": "2026-06-23",
+      "roster": [
+        "Akashi",
+        "Bob",
+        "Tino",
+        "Shanks",
+        "cml"
+      ],
+      "playerIds": [
+        "real-akashi",
+        "real-bob",
+        "real-tino",
+        "real-shanks",
+        "real-cml"
+      ]
+    },
+    {
+      "id": "game-master",
+      "name": "Game Master",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-6",
+      "date": "2026-06-18",
+      "roster": [
+        "flyfly",
+        "MooN",
+        "JT-",
+        "Pyw",
+        "TK"
+      ],
+      "playerIds": [
+        "real-flyfly",
+        "real-moon",
+        "real-jt-",
+        "real-pyw",
+        "real-tk"
+      ]
+    },
+    {
+      "id": "gg-boom",
+      "name": "GG Boom",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-3",
+      "date": "2026",
+      "roster": [
+        "GG BOND",
+        "历飞雨",
+        "Loon",
+        "lamperouge",
+        "Dr. Strangelove"
+      ],
+      "playerIds": [
+        "real-gg%20bond",
+        "real-%E5%8E%86%E9%A3%9E%E9%9B%A8",
+        "real-loon",
+        "real-lamperouge",
+        "real-dr.%20strangelove"
+      ]
+    },
+    {
+      "id": "glyph",
+      "name": "GLYPH",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-5",
+      "date": "2026-06-23",
+      "roster": [
+        "JaCkky",
+        "Emo",
+        "zeal",
+        "Jhocam",
+        "NARMAN"
+      ],
+      "playerIds": [
+        "real-jackky",
+        "real-emo",
+        "real-zeal",
+        "real-jhocam",
+        "real-narman"
+      ]
+    },
+    {
+      "id": "grey-track",
+      "name": "Grey Track",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-6",
+      "date": "2026-06-18",
+      "roster": [
+        "RA1NCLOUD",
+        "Dust",
+        "Beyond",
+        "Rico",
+        "Undyne"
+      ],
+      "playerIds": [
+        "real-ra1ncloud",
+        "real-dust",
+        "real-beyond",
+        "real-rico",
+        "real-undyne"
+      ]
+    },
+    {
+      "id": "grind-back",
+      "name": "Grind Back",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-5",
+      "date": "2026-06-23",
+      "roster": [
+        "23savage",
+        "Ken",
+        "Nikko",
+        "Q",
+        "Oli"
+      ],
+      "playerIds": [
+        "real-23savage",
+        "real-ken",
+        "real-nikko",
+        "real-q--thailand",
+        "real-oli"
+      ]
+    },
+    {
+      "id": "hokori",
+      "name": "Hokori",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-4",
+      "date": "2026-06-19",
+      "roster": [
+        "Lumière",
+        "Benjimon",
+        "Vitaly",
+        "Asao",
+        "Gardick"
+      ],
+      "playerIds": [
+        "real-lumi%C3%A8re",
+        "real-benjimon",
+        "real-vitaly",
+        "real-asao",
+        "real-gardick"
+      ]
+    },
+    {
+      "id": "interactive-philippines",
+      "name": "InterActive Philippines",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-5",
+      "date": "2026-06-23",
+      "roster": [
+        "jedd",
+        "lewis",
+        "V",
+        "Erice",
+        "Grimz"
+      ],
+      "playerIds": [
+        "real-jedd",
+        "real-lewis",
+        "real-v--philippines",
+        "real-erice",
+        "real-grimz"
+      ]
+    },
+    {
+      "id": "lindorfitos",
+      "name": "Lindorfitos",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-4",
+      "date": "2026-06-19",
+      "roster": [
+        "DaaD-",
+        "Alone",
+        "Adrian",
+        "Monhty",
+        "Stinger"
+      ],
+      "playerIds": [
+        "real-daad-",
+        "real-alone",
+        "real-adrian",
+        "real-monhty",
+        "real-stinger"
+      ]
+    },
+    {
+      "id": "mentality-monsters",
+      "name": "Mentality Monsters",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-5",
+      "date": "2026-06-23",
+      "roster": [
+        "Cije",
+        "GaN-",
+        "egxrdemxn",
+        "OneJey",
+        "Juju"
+      ],
+      "playerIds": [
+        "real-cije",
+        "real-gan-",
+        "real-egxrdemxn",
+        "real-onejey",
+        "real-juju"
+      ]
+    },
+    {
+      "id": "mouz",
+      "name": "MOUZ",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-7",
+      "date": "2026",
+      "roster": [
+        "Crystallis",
+        "MidOne",
+        "BOOM",
+        "yamich",
+        "panto"
+      ],
+      "playerIds": [
+        "real-crystallis",
+        "real-midone",
+        "real-boom",
+        "real-yamich",
+        "real-panto"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2026-7",
+      "date": "2026",
+      "roster": [
+        "gotthejuice",
+        "Niku",
+        "pma",
+        "daze",
+        "Riddys"
+      ],
+      "playerIds": [
+        "real-gotthejuice",
+        "real-niku",
+        "real-pma",
+        "real-daze",
+        "real-riddys"
+      ]
+    },
+    {
+      "id": "playtime",
+      "name": "PlayTime",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-4",
+      "date": "2026-06-19",
+      "roster": [
+        "Wits",
+        "DarkMago",
+        "Frank",
+        "Scofield",
+        "Elmisho"
+      ],
+      "playerIds": [
+        "real-wits",
+        "real-darkmago",
+        "real-frank",
+        "real-scofield",
+        "real-elmisho"
+      ]
+    },
+    {
+      "id": "red-hot-chili-pibble",
+      "name": "Red Hot Chili Pibble",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-4",
+      "date": "2026-06-19",
+      "roster": [
+        "Kotaro",
+        "lalatronii",
+        "Ryu",
+        "Mjz",
+        "Prada"
+      ],
+      "playerIds": [
+        "real-kotaro",
+        "real-lalatronii",
+        "real-ryu",
+        "real-mjz",
+        "real-prada"
+      ]
+    },
+    {
+      "id": "rekonix",
+      "name": "REKONIX",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-5",
+      "date": "2026-06-23",
+      "roster": [
+        "Jikroy",
+        "inYourdreaM",
+        "Fbz",
+        "dalul",
+        "Varizh"
+      ],
+      "playerIds": [
+        "real-jikroy",
+        "real-inyourdream",
+        "real-fbz",
+        "real-dalul",
+        "real-varizh"
+      ]
+    },
+    {
+      "id": "rising-rage",
+      "name": "Rising Rage",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-4",
+      "date": "2026-06-19",
+      "roster": [
+        "DCMC",
+        "Jam3s",
+        "Hermit",
+        "Kiri",
+        "CHAAANNN"
+      ],
+      "playerIds": [
+        "real-dcmc",
+        "real-jam3s",
+        "real-hermit",
+        "real-kiri",
+        "real-chaaannn"
+      ]
+    },
+    {
+      "id": "roar-gaming",
+      "name": "Roar Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-6",
+      "date": "2026-06-18",
+      "roster": [
+        "ukiyo",
+        "ButterflyEffect",
+        "生死",
+        "CatYou",
+        "LOyd"
+      ],
+      "playerIds": [
+        "real-ukiyo",
+        "real-butterflyeffect",
+        "real-%E7%94%9F%E6%AD%BB",
+        "real-catyou",
+        "real-loyd"
+      ]
+    },
+    {
+      "id": "team-bald",
+      "name": "Team Bald",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-7",
+      "date": "2026",
+      "roster": [
+        "Shad",
+        "sanctity-",
+        "Xibbe",
+        "mrls",
+        "Bengan"
+      ],
+      "playerIds": [
+        "real-shad",
+        "real-sanctity-",
+        "real-xibbe",
+        "real-mrls",
+        "real-bengan"
+      ]
+    },
+    {
+      "id": "team-nemesis",
+      "name": "Team Nemesis",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-4",
+      "date": "2026-06-19",
+      "roster": [
+        "rubikon155",
+        "4nalog",
+        "Jabz",
+        "Lelis",
+        "Yamsun"
+      ],
+      "playerIds": [
+        "real-rubikon155",
+        "real-4nalog",
+        "real-jabz",
+        "real-lelis",
+        "real-yamsun"
+      ]
+    },
+    {
+      "id": "team-refuser",
+      "name": "Team Refuser",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-6",
+      "date": "2026-06-18",
+      "roster": [
+        "Monet",
+        "Paparazi灬",
+        "Yang",
+        "BoBoKa",
+        "poloson"
+      ],
+      "playerIds": [
+        "real-monet",
+        "real-paparazi",
+        "real-yang",
+        "real-boboka",
+        "real-poloson"
+      ]
+    },
+    {
+      "id": "the-bug",
+      "name": "The Bug",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-3",
+      "date": "2026",
+      "roster": [
+        "boris",
+        "iAnnihilate",
+        "monkeys-forever",
+        "Newsham",
+        "empyreaN"
+      ],
+      "playerIds": [
+        "real-boris",
+        "real-iannihilate",
+        "real-monkeys-forever",
+        "real-newsham",
+        "real-empyrean"
+      ]
+    },
+    {
+      "id": "vp-prodigy",
+      "name": "VP.Prodigy",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-7",
+      "date": "2026",
+      "roster": [
+        "cutie",
+        "Serenada",
+        "Miyaoo",
+        "raregods",
+        "JANTER"
+      ],
+      "playerIds": [
+        "real-cutie",
+        "real-serenada",
+        "real-miyaoo",
+        "real-raregods",
+        "real-janter"
+      ]
+    },
+    {
+      "id": "x5-gaming",
+      "name": "x5 Gaming",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-4",
+      "date": "2026-06-19",
+      "roster": [
+        "Ribau",
+        "mini",
+        "Arkano",
+        "Fer",
+        "Bastian"
+      ],
+      "playerIds": [
+        "real-ribau",
+        "real-mini",
+        "real-arkano",
+        "real-fer",
+        "real-bastian"
+      ]
+    },
+    {
+      "id": "yakult-brothers",
+      "name": "Yakutou Brothers",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-6",
+      "date": "2026-06-18",
+      "roster": [
+        "Lou",
+        "Setsu",
+        "项羽",
+        "kaka",
+        "天命"
+      ],
+      "playerIds": [
+        "real-lou",
+        "real-setsu",
+        "real-%E9%A1%B9%E7%BE%BD",
+        "real-kaka",
+        "real-%E5%A4%A9%E5%91%BD"
+      ]
+    },
+    {
+      "id": "yangon-galacticos",
+      "name": "Yangon Galacticos",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-5",
+      "date": "2026-06-23",
+      "roster": [
+        "Ksh",
+        "Young PH",
+        "Rupido",
+        "Dric~",
+        "Teehee"
+      ],
+      "playerIds": [
+        "real-ksh",
+        "real-young%20ph",
+        "real-rupido",
+        "real-dric~",
+        "real-teehee"
+      ]
+    },
+    {
+      "id": "yellow-submarine",
+      "name": "Yellow Submarine",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2026-7",
+      "date": "2026",
+      "roster": [
+        "shigetsu",
+        "Rain",
+        "Batyuk",
+        "ryota",
+        "Xakoda"
+      ],
+      "playerIds": [
+        "real-shigetsu",
+        "real-rain",
+        "real-batyuk",
+        "real-ryota",
+        "real-xakoda"
+      ]
+    }
+  ]
+}

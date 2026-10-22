@@ -10,9 +10,13 @@ Context preserved from the user's design discussions and subsequent implementati
 - Use real Dota hero names; keep initial balance values illustrative rather than claiming validated historical stats.
 - Adapt the old lane simulation to determine results, show a watchable simulation, and allow skipping it.
 - Results should show series scores, **K/D/A per hero, levels, and gold and XP graphs over the game**.
-- Use a hero pool appropriate to TI1/2011. The present implementation contains the 46 TI1-contested heroes.
+- Use the 46 TI1-contested heroes at the opening, then add Dota 2 heroes in calendar-year batches at post-TI shuffles through 2026. This game rule includes late-year releases and is independent of Captain's Mode eligibility.
 - Support dark mode and remember the preference.
 - Publish the source publicly under the user's GitHub organization and host on GitHub Pages. The actual organization is **Dota-Management-Simulator**, owned by **Jonahbyu**; the earlier proposed name Dota-Team-Manager was superseded.
+- Populate real players and teams in annual increments from 2011 through the present, including regional/tier-2 players. Load annual updates during the post-TI shuffle. Three era-specific signature heroes per player are deferred.
+- Historical teams make up the world. Manage an original TI1 team or replace one with a custom club. Recruiting another club's player makes that club find an available regional replacement.
+- Show historical team logos according to era, including sourced branding changes. The local implementation bundles 473 images for 408 of 463 club IDs; 55 unverified clubs use initials. Logo selection uses the displayed season or result year, with annual snapshot precision. Custom clubs use their own initials. See [team logo coverage](team-logos.md).
+- Add as many sourced player photos as practical, including sources beyond Wikimedia. The local collection covers 1,022 identity records using 907 distinct source photos from Commons, Liquipedia and Spectral player cards. Exact player-ID matching, silhouette fallbacks and source/rights credits remain. These are single reference appearances, not year-by-year photos. The expansion has mixed rights, including Liquipedia-only restrictions and unverified reuse permission; it is not blanket publication clearance and remains local. See [portrait coverage and sources](player-portraits.md).
 
 The initial request to avoid building was superseded by explicit requests to build the scaffold, add features and publish. It is not an ongoing prohibition. Conversely, the future concepts below are not blanket approval for a wholesale rebuild.
 
@@ -28,14 +32,14 @@ The initial request to avoid building was superseded by explicit requests to bui
 
 ### Present limits
 
-The selector offers calendar years 2011–2036, but all seasons currently use a compact 18-week/five-event placeholder schedule. Time rolls into a new year, players age, and qualification resets. Historical events, accurate TI numbering, regional formats, actual rosters, transfers, retirement and procedural talent replenishment are not implemented. The shuffle setting only adds a transfer-window log message; it does not simulate historical moves.
+The selector offers calendar years 2011–2036 with a compact 18-week/five-event placeholder calendar. Annual player/team imports cover 2011–2026, including TI fields and selected regional/closed qualifier references. The database grows from 100 opening identities/19 clubs to 1,641 identities through 2026. Hero releases grow from 46 opening heroes to 127. Later starts use completed prior-year batches. All original TI1 clubs and later reference clubs can be managed or replaced with a custom club. Imports preserve the manager's five/signings; regional replacements reconcile overlapping references. AI clubs outside later annual fields are archived without claiming historical disbandment. See [historical roster notes](historical-rosters.md) for sources, precision and coverage limits. Individual roles, exhaustive tier-2 coverage, retirement, historical events, accurate TI numbering and procedural generation remain pending. No historical TI occurred in 2020; its roster import uses online events while the game's separate calendar remains a placeholder.
 
 ### Decisions still needed
 
 - Calendar/season granularity and the intended relationship between start year, TI edition and actual event dates.
 - How faithfully qualification rules change by era versus a simplified unified system.
 - How results, finances, reputation and relationships affect historical transfers, team formation, retirement and future generation.
-- Whether players can start with existing historical organizations, fictional teams, or both.
+- Resolved: both historical clubs and a custom replacement club are supported. Further decisions concern contracts, retirement and how later historical batches interact with the alternate timeline.
 
 ## 2. Tournament scheduling and preparation
 
@@ -97,7 +101,7 @@ The current seven patch dimensions provide a starting schema:
 
 Heroes need tags for role and strategic properties, such as initiation, durability, control, saving, pushing, scaling and damage type. A patch changes hero strength and viable playstyles, not just a cosmetic version label. Player comfort and creativity should leave room for successful off-meta picks.
 
-Current patch values, meta ratings, roles and ability archetypes are illustrative. They are displayed but do not affect the lane engine. Only TI1 hero membership is sourced. Additional era release pools, dated patch records, per-tournament patch selection, and simulation/draft integration remain future work.
+Current patch values, meta ratings, roles and ability archetypes are illustrative. Patch attributes do not affect the lane engine. TI1 membership and annual release pools through 2026 are sourced and gate actual engine drafts. Dated patch records, per-tournament patch selection and meaningful patch balance remain future work.
 
 ## 6. Drafting
 
@@ -112,7 +116,7 @@ Potential inputs from the discussion:
 - Creativity and off-meta opportunities.
 - Opponent draft and what their composition threatens.
 
-Draft quality should influence real match situations. A pushing composition needs a way to exploit objectives; a pickoff composition needs opportunities to isolate heroes. The current engine auto-selects a unique, position-preferred ten-hero draft from the classic pool. **Interactive drafting, bans and draft-scoring AI are not implemented.** Exact formats and how to expose explanations are still open.
+Draft quality should influence real match situations. A pushing composition needs a way to exploit objectives; a pickoff composition needs opportunities to isolate heroes. The current engine auto-selects a unique, position-preferred ten-hero draft from the campaign's unlocked hero pool. **Interactive drafting, bans and draft-scoring AI are not implemented.** Exact formats and how to expose explanations are still open.
 
 ## 7. Matches: current lane engine and future manager orders
 
@@ -137,7 +141,7 @@ Good outcome explanations were suggested: show why a play succeeded or failed ra
 
 The original summary identified management as the first playable foundation: team/free-agent rosters, training, staff, finance, wages, earnings, sponsors, schedules and standings.
 
-Implemented: signing free agents to replace starters by position, fixed weekly wages, individual training/rest, three staff roles, sponsor offers/bonuses/reputation gates, a ledger, and basic happiness/readiness.
+Implemented: recruiting free agents or players from historical clubs to replace starters by position, regional replacement of departing opposition players, fixed weekly wages, individual training/rest, three staff roles, sponsor offers/bonuses/reputation gates, a ledger, and basic happiness/readiness.
 
 Future work from the vision includes contract/pay decisions, richer morale, staffing effects, sponsor progression and requirements, team development, realistic scouting/roster movement, and preparation costs. Detailed standings, full tournament brackets, negotiations and staff upgrade/career systems are not implemented. Avoid importing the old prototype's flat per-match payouts or direct damage/HP staff bonuses without reconciling them with the new weekly economy and chosen design.
 
@@ -150,4 +154,4 @@ Useful questions for the next feature conversation:
 - What level of simulation detail is enough for management decisions to feel meaningful?
 - How much historical roster fidelity should remain after the managed timeline diverges?
 
-Engineering possibilities such as save export/import, multiple slots, persisted replays, more modular UI and eventually backend/accounts are **optional proposals**, not user-approved requirements. Do not start those simply because they appear here. No next sprint was agreed after publication.
+Engineering possibilities such as save export/import, multiple slots, persisted replays, more modular UI and eventually backend/accounts are **optional proposals**, not user-approved requirements. The selected annual player/team and hero-release layer through 2026 is implemented locally and has not yet been deployed. Signature heroes, deeper regional coverage and individual role/biography verification remain future data work.

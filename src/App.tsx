@@ -61,6 +61,8 @@ import {
   opponentFor,
   statNames,
   teamPlayers,
+  playerTeam,
+  recruitmentBlocker,
   weeklyIncome,
   weeklyWages,
 } from "./game";
@@ -77,6 +79,11 @@ import type {
 import { ComputingMatch, MatchViewer, SeriesResults } from "./MatchExperience";
 import type { SimulatedSeries } from "./battle";
 import HeroPool from "./HeroPool";
+import WorldTeams from "./WorldTeams";
+import TeamBadge from "./TeamBadge";
+import Avatar, { PortraitCredit } from "./PlayerAvatar";
+import { teamIdForName } from "./team-logos";
+import { getStartingTeams, rosterYearForStart, sourceFor, customClubNameAvailable } from "./history";
 
 const navigation: {
   page: Page;
@@ -101,6 +108,7 @@ const navigation: {
     group: "THE COMPETITION",
   },
   { page: "patch", label: "Patch & meta", icon: Sparkles },
+  { page: "world", label: "World teams", icon: Globe2 },
   { page: "history", label: "Season history", icon: Trophy },
   {
     page: "finances",
@@ -134,7 +142,7 @@ const pageText: Record<
     eyebrow: "THE TRANSFER MARKET",
     title: "Find your missing piece.",
     description:
-      "A new perspective can change everything. Explore the free-agent pool.",
+      "Explore regional talent, free agents, and players at other clubs.",
   },
   staff: {
     eyebrow: "BEHIND THE PLAYERS",
@@ -165,6 +173,11 @@ const pageText: Record<
     title: "Every season tells a story.",
     description:
       "The wins, the lessons, and the long road to lifting the Aegis.",
+  },
+  world: {
+    eyebrow: "THE HISTORICAL WORLD",
+    title: "The teams around you.",
+    description: "Follow every club's lineup as recruitment and the post-TI shuffle reshape the scene.",
   },
 };
 function Icon({
@@ -213,20 +226,6 @@ function Aegis({ className = "" }: { className?: string }) {
         opacity=".3"
       />
     </svg>
-  );
-}
-function Avatar({
-  player,
-  small = false,
-}: {
-  player: Player;
-  small?: boolean;
-}) {
-  return (
-    <div className={`avatar ${player.color} ${small ? "small" : ""}`}>
-      <span>{player.name.slice(0, 1)}</span>
-      <div className="avatar-shape" />
-    </div>
   );
 }
 function Badge({
@@ -480,6 +479,14 @@ export default function App() {
   const upcoming = campaign ? nextEvent(campaign) : null;
   const activeEventResult =
     campaign && event ? eventResult(campaign, event.id) : null;
+  const startingClubs = getStartingTeams(settings.year);
+  const selectedClub = startingClubs.find((t) => t.id === settings.historicalTeamId) ?? startingClubs[0];
+  const setupName = settings.clubMode === "custom" ? settings.team.trim() : selectedClub.name;
+  const nameConflict = settings.clubMode === "custom" && !!setupName && !customClubNameAvailable(setupName, selectedClub.id);
+  const recruitReason = campaign && currentPlayer && !campaign.roster.includes(currentPlayer.id) ? recruitmentBlocker(campaign, currentPlayer.id) : null;
+  const matchesScout = (p: Player) => campaign && !campaign.roster.includes(p.id) &&
+    (roleFilter === "All roles" || p.role === roleFilter) &&
+    `${p.name} ${p.firstName} ${p.lastName} ${p.region} ${playerTeam(campaign, p.id)} ${p.historical?.aliases.join(" ") ?? ""}`.toLowerCase().includes(filter.toLowerCase());
 
   return (
     <div className="app-shell">
@@ -501,9 +508,7 @@ export default function App() {
           </span>
         </a>
         <div className="organization">
-          <div className="org-mark">
-            <Shield size={19} />
-          </div>
+          {campaign && !setup ? <TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="small" /> : <div className="org-mark"><Shield size={19} /></div>}
           <div>
             <strong>
               {campaign && !setup
@@ -619,44 +624,32 @@ export default function App() {
                     </div>
                     <div className="form-row">
                       <label>
-                        Team name
-                        <input
-                          maxLength={32}
-                          value={settings.team}
-                          onChange={(e) =>
-                            setSettings({ ...settings, team: e.target.value })
-                          }
-                          placeholder="Name your organization"
-                        />
+                        Your club
+                        <select aria-label="Club type" value={settings.clubMode ?? "historical"} onChange={(e) => setSettings({ ...settings, clubMode: e.target.value as "historical" | "custom", team: e.target.value === "historical" ? selectedClub.name : "Atlas Esports" })}>
+                          <option value="historical">Manage a historical team</option>
+                          <option value="custom">Create a club and replace a team</option>
+                        </select>
                       </label>
                       <label>
-                        Home region
+                        {settings.clubMode === "custom" ? "Team to replace" : settings.year === 2011 ? "Original TI team" : "Historical team"}
                         <div className="select-wrap">
                           <Globe2 size={16} />
                           <select
-                            value={settings.region}
-                            onChange={(e) =>
-                              setSettings({
-                                ...settings,
-                                region: e.target.value,
-                              })
-                            }
+                            aria-label="Historical team"
+                            value={selectedClub.id}
+                            onChange={(e) => { const t = startingClubs.find((t) => t.id === e.target.value)!; setSettings({ ...settings, historicalTeamId: t.id, region: t.region, team: settings.clubMode === "custom" ? settings.team : t.name }); }}
                           >
-                            {[
-                              "Europe",
-                              "North America",
-                              "South America",
-                              "China",
-                              "Southeast Asia",
-                              "Eastern Europe",
-                            ].map((r) => (
-                              <option key={r}>{r}</option>
-                            ))}
+                            {startingClubs.map((t) => <option key={t.id} value={t.id}>{t.name}</option>)}
                           </select>
                           <ChevronDown size={14} />
                         </div>
                       </label>
                     </div>
+                    <div className="setup-club-badge"><TeamBadge teamId={settings.clubMode === "custom" ? "managed-custom" : selectedClub.id} name={setupName} year={settings.year} size="large" /><strong>{setupName || "Your club"}</strong></div>
+                    {settings.clubMode === "custom" && <label className="custom-club-name">Team name<input maxLength={32} value={settings.team} onChange={(e) => setSettings({ ...settings, team: e.target.value })} /></label>}
+                    <p className="field-note">{selectedClub.region} · {settings.clubMode === "custom" ? `Your club inherits ${selectedClub.name}'s players and regional place. The original club leaves this campaign.` : `Start with this organization's ${settings.year === 2011 ? "TI1" : rosterYearForStart(settings.year)} reference lineup.`}</p>
+                    <p className="field-note">{selectedClub.roster.join(" · ")}</p>
+                    {nameConflict && <p className="field-note" role="alert">That name belongs to another club in this world.</p>}
                   </section>
                   <section className="panel setup-section">
                     <div className="numbered-title">
@@ -689,8 +682,8 @@ export default function App() {
                             {settings.year === 2011
                               ? "CLASSIC"
                               : settings.year > 2026
-                                ? "GENERATED ERA"
-                                : "SANDBOX ERA"}
+                                ? "FUTURE SANDBOX"
+                                : "HISTORICAL ERA"}
                           </Badge>
                         </div>
                         <p>
@@ -751,8 +744,7 @@ export default function App() {
                       <span>2011 — 2036</span>
                     </div>
                     <p className="field-note">
-                      All eras currently use fictional players, events, and
-                      patch values. Historical data comes later.
+                      {settings.year === 2011 ? "Start at TI1. Regional players and 18 more heroes arrive after TI." : `Start with completed shuffles through ${rosterYearForStart(settings.year)}.`} Annual player and hero batches enter at the post-TI shuffle through 2026. Regional coverage includes closed qualifiers; ratings and the event calendar are estimates.
                     </p>
                   </section>
                   <section className="panel setup-section">
@@ -817,7 +809,7 @@ export default function App() {
                     </span>
                     <button
                       className="button primary"
-                      disabled={!settings.team.trim()}
+                      disabled={!setupName || nameConflict}
                       onClick={() => (campaign ? setConfirmNew(true) : start())}
                     >
                       Begin your story <ArrowRight size={17} />
@@ -842,7 +834,7 @@ export default function App() {
                   </div>
                   <div className="preview-content">
                     <div className="eyebrow">YOUR CAMPAIGN, AT A GLANCE</div>
-                    <h3>{settings.team.trim() || "Your organization"}</h3>
+                    <h3>{setupName || "Your organization"}</h3>
                     <div className="preview-row">
                       <span>First season</span>
                       <strong>
@@ -852,7 +844,7 @@ export default function App() {
                     </div>
                     <div className="preview-row">
                       <span>Home region</span>
-                      <strong>{settings.region}</strong>
+                      <strong>{selectedClub.region}</strong>
                     </div>
                     <div className="preview-row">
                       <span>Difficulty</span>
@@ -860,7 +852,7 @@ export default function App() {
                     </div>
                     <div className="preview-row">
                       <span>Starting roster</span>
-                      <strong>5 fictional players</strong>
+                      <strong>5 historical players</strong>
                     </div>
                     <div className="preview-rule" />
                     <div className="little-note">
@@ -876,7 +868,7 @@ export default function App() {
               </div>
               <div className="prototype-note">
                 <span className="tiny-square" /> THE FOUNDATION BUILD{" "}
-                <span>Real decisions. Placeholder world. Room to grow.</span>
+                <span>Historical players. Your alternate history.</span>
               </div>
             </>
           ) : (
@@ -1153,7 +1145,7 @@ export default function App() {
                         className="text-link"
                         onClick={() => go("scouting")}
                       >
-                        Explore free agents <ArrowRight size={15} />
+                        Explore players <ArrowRight size={15} />
                       </button>
                     </div>
                     <div className="player-grid">
@@ -1174,7 +1166,7 @@ export default function App() {
                           <div className="player-card-content">
                             <h3>{p.name}</h3>
                             <p>
-                              {p.firstName} {p.lastName} <span>· {p.age}</span>
+                              {p.historical ? p.region : `${p.firstName} ${p.lastName} · ${p.age}`}
                             </p>
                             <div className="player-vital">
                               <span>
@@ -1533,15 +1525,16 @@ export default function App() {
                     </div>
                   </>
                 )}
-                {page === "patch" && <HeroPool year={campaign.year} />}
+                {page === "patch" && <HeroPool year={campaign.year} week={campaign.week} />}
+                {page === "world" && <WorldTeams campaign={campaign} onPlayer={setPlayer} />}
                 {page === "scouting" && (
                   <>
                     <div className="filter-bar">
                       <div className="search-field">
                         <Search size={17} />
                         <input
-                          aria-label="Search free agents"
-                          placeholder="Search players, regions…"
+                          aria-label="Search players"
+                          placeholder="Search players, aliases, teams…"
                           value={filter}
                           onChange={(e) => setFilter(e.target.value)}
                         />
@@ -1556,30 +1549,23 @@ export default function App() {
                         ))}
                       </select>
                       <span>
+                        {campaign.players.filter(matchesScout).length} of{" "}
                         {
                           campaign.players.filter(
                             (p) => !campaign.roster.includes(p.id),
                           ).length
                         }{" "}
-                        available players
+                        players
                       </span>
                     </div>
                     <section className="panel">
                       <SectionTitle
-                        title="The free-agent pool"
-                        sub="Sign a player to replace the current starter in their position."
+                        title="The transfer market"
+                        sub="Recruit a player in your starter's position. Other clubs seek available regional replacements."
                       />
                       <div className="scouting-list">
                         {campaign.players
-                          .filter(
-                            (p) =>
-                              !campaign.roster.includes(p.id) &&
-                              (roleFilter === "All roles" ||
-                                p.role === roleFilter) &&
-                              `${p.name} ${p.firstName} ${p.lastName} ${p.region}`
-                                .toLowerCase()
-                                .includes(filter.toLowerCase()),
-                          )
+                          .filter(matchesScout)
                           .map((p) => (
                             <div className="scout-row" key={p.id}>
                               <button
@@ -1590,7 +1576,7 @@ export default function App() {
                                 <span>
                                   <strong>{p.name}</strong>
                                   <small>
-                                    {p.age} years · {p.region}
+                                    {playerTeam(campaign, p.id)} · {p.region}
                                   </small>
                                 </span>
                               </button>
@@ -1611,15 +1597,7 @@ export default function App() {
                               </button>
                             </div>
                           ))}
-                        {!campaign.players.some(
-                          (p) =>
-                            !campaign.roster.includes(p.id) &&
-                            (roleFilter === "All roles" ||
-                              p.role === roleFilter) &&
-                            `${p.name} ${p.firstName} ${p.lastName} ${p.region}`
-                              .toLowerCase()
-                              .includes(filter.toLowerCase()),
-                        ) && (
+                        {!campaign.players.some(matchesScout) && (
                           <div className="empty-state">
                             <Search size={28} />
                             <h3>No players found.</h3>
@@ -1956,7 +1934,7 @@ export default function App() {
                     <span className="tiny-square" /> AEGIS MANAGER
                   </span>
                   <span>
-                    Fictional world data · Local prototype ·{" "}
+                    {campaign.world ? "2011–2026 rosters · Estimated gameplay ratings" : "Legacy fictional world"} ·{" "}
                     {campaign.settings.difficulty} difficulty
                   </span>
                   <button onClick={newCampaign}>
@@ -2028,8 +2006,7 @@ export default function App() {
                     <Badge>{currentPlayer.role}</Badge>
                     <h2 id="modal-title">{currentPlayer.name}</h2>
                     <p>
-                      {currentPlayer.firstName} {currentPlayer.lastName} ·{" "}
-                      {currentPlayer.age} years · {currentPlayer.region}
+                      {currentPlayer.historical ? `${playerTeam(campaign, currentPlayer.id)} · ${currentPlayer.region}` : `${currentPlayer.firstName} ${currentPlayer.lastName} · ${currentPlayer.age} years · ${currentPlayer.region}`}
                     </p>
                   </div>
                   <div className="profile-overall">
@@ -2038,6 +2015,12 @@ export default function App() {
                   </div>
                 </div>
                 <div className="profile-body">
+                  <PortraitCredit playerId={currentPlayer.id} />
+                  {currentPlayer.historical && <div className="historical-provenance">
+                    <p>Historical reference: {currentPlayer.historical.team} · {currentPlayer.historical.date}. <a className="text-link" href={sourceFor(currentPlayer.historical.source)?.url} target="_blank" rel="noreferrer">Source ↗</a></p>
+                    <p>Reference role: {currentPlayer.historical.role} (adapted). Current role: {currentPlayer.role}. Ratings, playstyles, wages and fees are gameplay estimates. Full name and age are pending research.</p>
+                    {!!currentPlayer.historical.aliases.length && <p>Also known as: {currentPlayer.historical.aliases.join(", ")}</p>}
+                  </div>}
                   <div className="profile-vitals">
                     <span>
                       <Zap size={15} /> {currentPlayer.energy}% energy
@@ -2114,7 +2097,7 @@ export default function App() {
                       </div>
                       <button
                         className="button primary"
-                        disabled={campaign.cash < currentPlayer.fee}
+                        disabled={campaign.cash < currentPlayer.fee || !!recruitReason}
                         onClick={() => {
                           update((c) => signPlayer(c, currentPlayer.id));
                           notify(
@@ -2126,9 +2109,11 @@ export default function App() {
                       >
                         {campaign.cash < currentPlayer.fee
                           ? "Insufficient funds"
+                          : recruitReason ? "Recruitment unavailable"
                           : "Sign player"}
                         <Plus size={15} />
                       </button>
+                      {recruitReason && <p className="field-note" role="status">{recruitReason}</p>}
                     </div>
                   )}
                 </div>
@@ -2137,6 +2122,7 @@ export default function App() {
             {viewResult && (
               <SeriesResults
                 result={viewResult}
+                managedTeamId={campaign?.world?.managedTeamId}
                 onClose={() => setViewResult(null)}
               />
             )}
@@ -2145,6 +2131,7 @@ export default function App() {
               (simDone && activeEventResult ? (
                 <SeriesResults
                   result={activeEventResult}
+                  managedTeamId={campaign.world?.managedTeamId}
                   onClose={() => {
                     setEvent(null);
                     go("history");
@@ -2153,6 +2140,8 @@ export default function App() {
               ) : pendingSimulation ? (
                 <MatchViewer
                   simulation={pendingSimulation}
+                  year={campaign.year}
+                  managedTeamId={campaign.world?.managedTeamId}
                   onFinish={() => finishSimulation(pendingSimulation)}
                 />
               ) : simulating || workerError ? (
@@ -2184,17 +2173,13 @@ export default function App() {
                     season's story.
                   </p>
                   <div className="sim-matchup">
-                    <div className="org-mark">
-                      <Shield size={24} />
-                    </div>
+                    <TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} />
                     <strong>{campaign.settings.team}</strong>
                     <span>VS</span>
                     <strong>
                       {opponentFor(prepareEvent(campaign, event))}
                     </strong>
-                    <div className="org-mark opponent">
-                      <Swords size={24} />
-                    </div>
+                    <TeamBadge teamId={campaign.world ? teamIdForName(opponentFor(prepareEvent(campaign, event)), campaign.year) : undefined} name={opponentFor(prepareEvent(campaign, event))} year={campaign.year} />
                   </div>
                   <div className="sim-rewards">
                     <div>
@@ -2246,7 +2231,7 @@ export default function App() {
                     <h3>Build your five</h3>
                     <p>
                       Explore profiles, compare attributes and playstyles, and
-                      recruit free agents to replace starters.
+                      recruit players from the market or other clubs. Clubs fill vacancies from available regional players.
                     </p>
                   </div>
                 </div>
@@ -2282,10 +2267,7 @@ export default function App() {
                   </div>
                 </div>
                 <div className="alert">
-                  This is a scaffold with fictional data. Detailed drafting,
-                  tactical orders, historical rosters, patch effects, bootcamps,
-                  automated shuffles, and long-term procedural generation are
-                  future systems.
+                  Historical player and hero batches cover 2011–2026 and enter at annual post-TI shuffles. Later starts use completed prior shuffles. Regional coverage includes closed qualifier teams; it is not an exhaustive player census. Recruitment changes opponent lineups. Signature heroes, detailed drafting, tactical orders, patch effects and bootcamps remain future work. Gameplay ratings and the event calendar are estimates.
                 </div>
               </div>
             )}
@@ -2321,7 +2303,7 @@ export default function App() {
                 </div>
                 <div className="settings-row">
                   <span>Game data</span>
-                  <Badge tone="gold">FICTIONAL / PLACEHOLDER</Badge>
+                  <Badge tone="gold">{campaign?.world ? "2011–2026 ROSTERS · ESTIMATED RATINGS" : "LEGACY PLACEHOLDERS"}</Badge>
                 </div>
                 <div className="settings-row">
                   <span>Save location</span>
@@ -2351,7 +2333,7 @@ export default function App() {
                 <div className="eyebrow">A NEW BEGINNING</div>
                 <h2 id="modal-title">Replace your current campaign?</h2>
                 <p>
-                  Starting {settings.team} in {settings.year} will replace the
+                  Starting {setupName} in {settings.year} will replace the
                   saved campaign for {campaign?.settings.team}. This prototype
                   has one local save slot.
                 </p>

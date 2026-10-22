@@ -1,0 +1,1001 @@
+{
+  "year": 2016,
+  "reviewedOn": "2026-10-21",
+  "note": "Main-event and regional qualifier references enter together at the annual post-TI shuffle. This is a dated composite, not an exhaustive census or single-date transfer list.",
+  "coverage": "Regional/tier-2 coverage uses documented closed qualifiers; rosters with incomplete player lists are excluded. Positions remain adapted; countries and regions are not citizenship or eligibility rules.",
+  "sources": [
+    {
+      "id": "rosters-2016-0",
+      "title": "The International 2016 - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2016"
+    },
+    {
+      "id": "rosters-2016-1",
+      "title": "The International 2016: Europe Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2016/Europe"
+    },
+    {
+      "id": "rosters-2016-2",
+      "title": "The International 2016: China Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2016/China"
+    },
+    {
+      "id": "rosters-2016-3",
+      "title": "The International 2016: Americas Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2016/Americas"
+    },
+    {
+      "id": "rosters-2016-4",
+      "title": "The International 2016: Southeast Asia Qualifier - Liquipedia Dota 2 Wiki",
+      "url": "https://liquipedia.net/dota2/The_International/2016/Southeast_Asia"
+    }
+  ],
+  "teams": [
+    {
+      "id": "alliance",
+      "name": "Alliance",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Loda",
+        "s4",
+        "AdmiralBulldog",
+        "Akke",
+        "EGM"
+      ],
+      "playerIds": [
+        "real-loda",
+        "real-s4",
+        "real-admiralbulldog",
+        "real-akke",
+        "real-egm"
+      ]
+    },
+    {
+      "id": "digital-chaos",
+      "name": "Digital Chaos",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Resolut1on",
+        "w33",
+        "Moo",
+        "Saksa",
+        "MiSeRy"
+      ],
+      "playerIds": [
+        "real-resolut1on",
+        "real-w33",
+        "real-moo",
+        "real-saksa",
+        "real-misery"
+      ]
+    },
+    {
+      "id": "ehome",
+      "name": "EHOME",
+      "region": "China",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "iceiceice",
+        "old chicken",
+        "eLeVeN",
+        "LaNm",
+        "Fenrir"
+      ],
+      "playerIds": [
+        "real-iceiceice",
+        "real-old%20chicken",
+        "real-eleven",
+        "real-lanm",
+        "real-fenrir"
+      ]
+    },
+    {
+      "id": "escape-gaming",
+      "name": "Escape Gaming",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Era",
+        "qojqva",
+        "KheZu",
+        "YapzOr",
+        "syndereN"
+      ],
+      "playerIds": [
+        "real-era",
+        "real-qojqva",
+        "real-khezu",
+        "real-yapzor",
+        "real-synderen"
+      ]
+    },
+    {
+      "id": "evil-geniuses",
+      "name": "Evil Geniuses",
+      "region": "North America",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Fear",
+        "SumaiL",
+        "Universe",
+        "Zai",
+        "ppd"
+      ],
+      "playerIds": [
+        "real-fear",
+        "real-sumail",
+        "real-universe",
+        "real-zai",
+        "real-ppd"
+      ]
+    },
+    {
+      "id": "fnatic",
+      "name": "Fnatic",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Mushi",
+        "MidOne",
+        "Ohaiyo",
+        "DJ",
+        "343"
+      ],
+      "playerIds": [
+        "real-mushi",
+        "real-midone",
+        "real-ohaiyo",
+        "real-dj",
+        "real-343"
+      ]
+    },
+    {
+      "id": "lgd",
+      "name": "LGD Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Agressif",
+        "Maybe",
+        "xiao8",
+        "Banana",
+        "MMY!"
+      ],
+      "playerIds": [
+        "real-agressif",
+        "real-somnus",
+        "real-xiao8",
+        "real-banana",
+        "real-x!!"
+      ]
+    },
+    {
+      "id": "mvp-phoenix",
+      "name": "MVP Phoenix",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "MP",
+        "QO",
+        "Forev",
+        "Febby",
+        "DuBu"
+      ],
+      "playerIds": [
+        "real-mp",
+        "real-qo",
+        "real-forev",
+        "real-febby",
+        "real-dubu"
+      ]
+    },
+    {
+      "id": "navi",
+      "name": "Natus Vincere",
+      "region": "Eastern Europe",
+      "ti1": true,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Ditya Ra",
+        "Dendi",
+        "GeneRaL",
+        "SoNNeikO",
+        "Artstyle"
+      ],
+      "playerIds": [
+        "real-ditya%20ra",
+        "real-dendi",
+        "real-general",
+        "real-sonneiko",
+        "real-artstyle"
+      ]
+    },
+    {
+      "id": "newbee",
+      "name": "Newbee",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Hao",
+        "Mu",
+        "kpii",
+        "ChuaN",
+        "kaka"
+      ],
+      "playerIds": [
+        "real-hao",
+        "real-mu",
+        "real-kpii",
+        "real-chuan",
+        "real-kaka"
+      ]
+    },
+    {
+      "id": "og",
+      "name": "OG",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "n0tail",
+        "Miracle-",
+        "MoonMeander",
+        "Cr1t-",
+        "Fly"
+      ],
+      "playerIds": [
+        "real-n0tail",
+        "real-miracle-",
+        "real-moonmeander",
+        "real-cr1t-",
+        "real-fly"
+      ]
+    },
+    {
+      "id": "team-liquid",
+      "name": "Team Liquid",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "MATUMBAMAN",
+        "FATA-",
+        "MinD_ContRoL",
+        "JerAx",
+        "KuroKy"
+      ],
+      "playerIds": [
+        "real-matumbaman",
+        "real-fata-",
+        "real-mind_control",
+        "real-jerax",
+        "real-kuroky"
+      ]
+    },
+    {
+      "id": "team-secret",
+      "name": "Team Secret",
+      "region": "Europe",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Arteezy",
+        "EternaLEnVy",
+        "BuLba",
+        "Puppey",
+        "pieliedie"
+      ],
+      "playerIds": [
+        "real-arteezy",
+        "real-eternalenvy",
+        "real-bulba",
+        "real-puppey",
+        "real-pieliedie"
+      ]
+    },
+    {
+      "id": "tnc",
+      "name": "TNC Pro Team",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "Raven",
+        "Kuku",
+        "Sam_H",
+        "eyyou",
+        "DeMoN"
+      ],
+      "playerIds": [
+        "real-raven",
+        "real-kuku",
+        "real-sam_h",
+        "real-eyyou",
+        "real-demon"
+      ]
+    },
+    {
+      "id": "vg-reborn",
+      "name": "VG.Reborn",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "END",
+        "Nono",
+        "Mikasa",
+        "fy",
+        "ddc"
+      ],
+      "playerIds": [
+        "real-end",
+        "real-nono",
+        "real-mikasa",
+        "real-fy",
+        "real-ddc"
+      ]
+    },
+    {
+      "id": "wings-gaming",
+      "name": "Wings Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "main",
+      "source": "rosters-2016-0",
+      "date": "2016-08-13",
+      "roster": [
+        "shadow",
+        "bLink",
+        "Faith_bian",
+        "y`",
+        "iceice"
+      ],
+      "playerIds": [
+        "real-shadow",
+        "real-blink",
+        "real-faith_bian",
+        "real-y%60",
+        "real-iceice"
+      ]
+    },
+    {
+      "id": "ad-finem",
+      "name": "Ad Finem",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-1",
+      "date": "2016-06-28",
+      "roster": [
+        "Madara",
+        "ThuG",
+        "SkyLark",
+        "Maybe Next Time",
+        "SsaSpartan"
+      ],
+      "playerIds": [
+        "real-madara",
+        "real-thug",
+        "real-skylark",
+        "real-maybe%20next%20time",
+        "real-ssaspartan"
+      ]
+    },
+    {
+      "id": "cdec-gaming",
+      "name": "CDEC Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-2",
+      "date": "2016",
+      "roster": [
+        "Rabbit",
+        "Super",
+        "Yao",
+        "Q",
+        "garder"
+      ],
+      "playerIds": [
+        "real-rabbit",
+        "real-super",
+        "real-yao",
+        "real-q",
+        "real-garder"
+      ]
+    },
+    {
+      "id": "cdec-youth",
+      "name": "CDEC Youth",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-2",
+      "date": "2016",
+      "roster": [
+        "Ame",
+        "Inflame",
+        "Xz",
+        "Victoria",
+        "demons"
+      ],
+      "playerIds": [
+        "real-ame",
+        "real-inflame",
+        "real-xz",
+        "real-victoria",
+        "real-demons"
+      ]
+    },
+    {
+      "id": "complexity",
+      "name": "compLexity Gaming",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-3",
+      "date": "2016",
+      "roster": [
+        "Chessie",
+        "Limmp",
+        "swindlemelonzz",
+        "Zfreek",
+        "Handsken"
+      ],
+      "playerIds": [
+        "real-chessie",
+        "real-limmp",
+        "real-swindlemelonzz",
+        "real-zfreek",
+        "real-handsken"
+      ]
+    },
+    {
+      "id": "drinkingboys",
+      "name": "DrinkingBoys",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-3",
+      "date": "2016",
+      "roster": [
+        "Sakula",
+        "Getovas",
+        "Mad",
+        "ManTou",
+        "Shanks"
+      ],
+      "playerIds": [
+        "real-sakula",
+        "real-getovas",
+        "real-mad",
+        "real-mantou",
+        "real-shanks--united-states"
+      ]
+    },
+    {
+      "id": "execration",
+      "name": "Execration",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-4",
+      "date": "2016-06-28",
+      "roster": [
+        "Nando",
+        "Abed",
+        "RR",
+        "Tims",
+        "Kim0"
+      ],
+      "playerIds": [
+        "real-nando",
+        "real-abed",
+        "real-rr",
+        "real-tims",
+        "real-kim0"
+      ]
+    },
+    {
+      "id": "fantastic-five",
+      "name": "Fantastic Five",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-1",
+      "date": "2016-06-28",
+      "roster": [
+        "Illidan",
+        "Bzz",
+        "9pashaebashu",
+        "rmN-",
+        "yol"
+      ],
+      "playerIds": [
+        "real-illidan",
+        "real-bzz",
+        "real-9pashaebashu",
+        "real-rmn",
+        "real-yol"
+      ]
+    },
+    {
+      "id": "fdl",
+      "name": "FDL",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-3",
+      "date": "2016",
+      "roster": [
+        "Beesa",
+        "CC&C",
+        "MJW",
+        "Fronz",
+        "Stan King"
+      ],
+      "playerIds": [
+        "real-beesa",
+        "real-cc%26c",
+        "real-mjw",
+        "real-fronz",
+        "real-stan%20king"
+      ]
+    },
+    {
+      "id": "flipsid3-tactics",
+      "name": "Flipsid3 Tactics",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-1",
+      "date": "2016-06-28",
+      "roster": [
+        "Sedoy",
+        "tmw",
+        "Shachlo",
+        "VANSKOR",
+        "MeTTpuM"
+      ],
+      "playerIds": [
+        "real-sedoy",
+        "real-tmw",
+        "real-shachlo",
+        "real-vanskor",
+        "real-mettpum"
+      ]
+    },
+    {
+      "id": "ig-vitality",
+      "name": "iG.Vitality",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-2",
+      "date": "2016",
+      "roster": [
+        "Yuno",
+        "Op",
+        "InJuly",
+        "dogf1ghts",
+        "super"
+      ],
+      "playerIds": [
+        "real-yuno",
+        "real-op",
+        "real-injuly",
+        "real-dogf1ghts",
+        "real-super"
+      ]
+    },
+    {
+      "id": "ig",
+      "name": "Invictus Gaming",
+      "region": "China",
+      "ti1": true,
+      "group": "regional",
+      "source": "rosters-2016-2",
+      "date": "2016",
+      "roster": [
+        "qd",
+        "Ferrari_430",
+        "Xxs",
+        "BoBoKa",
+        "Rong"
+      ],
+      "playerIds": [
+        "real-qd",
+        "real-ferrari_430",
+        "real-xxs",
+        "real-boboka",
+        "real-rong"
+      ]
+    },
+    {
+      "id": "mineski-sports5",
+      "name": "Mineski.Sports5",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-4",
+      "date": "2016-06-28",
+      "roster": [
+        "Bimbo",
+        "Benhur",
+        "Bok",
+        "Julz",
+        "Cast"
+      ],
+      "playerIds": [
+        "real-bimbo",
+        "real-benhur",
+        "real-bok",
+        "real-julz",
+        "real-cast"
+      ]
+    },
+    {
+      "id": "newbee-young",
+      "name": "Newbee Young",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-2",
+      "date": "2016",
+      "roster": [
+        "JiaJia",
+        "Sccc",
+        "2lei",
+        "Mrrr",
+        "Le"
+      ],
+      "playerIds": [
+        "real-jiajia",
+        "real-sccc",
+        "real-2lei",
+        "real-mrrr",
+        "real-le"
+      ]
+    },
+    {
+      "id": "orange-taring",
+      "name": "Orange.Taring",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-4",
+      "date": "2016-06-28",
+      "roster": [
+        "Syeonix",
+        "Roddgee",
+        "YamateH",
+        "Ice",
+        "ling"
+      ],
+      "playerIds": [
+        "real-syeonix",
+        "real-roddgee",
+        "real-yamateh",
+        "real-ice",
+        "real-ling"
+      ]
+    },
+    {
+      "id": "power-rangers",
+      "name": "Power Rangers",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-1",
+      "date": "2016-06-28",
+      "roster": [
+        "goddam",
+        "Arise",
+        "chshrct",
+        "Bignum",
+        "j4"
+      ],
+      "playerIds": [
+        "real-goddam",
+        "real-arise",
+        "real-chshrct",
+        "real-bignum",
+        "real-j4"
+      ]
+    },
+    {
+      "id": "rave",
+      "name": "Rave",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-4",
+      "date": "2016-06-28",
+      "roster": [
+        "Jeyo",
+        "ryOyr",
+        "rapy",
+        "derp",
+        "ninjaboogie"
+      ],
+      "playerIds": [
+        "real-jeyo",
+        "real-ryoyr",
+        "real-rapy",
+        "real-derp",
+        "real-ninjaboogie"
+      ]
+    },
+    {
+      "id": "signature-trust",
+      "name": "Signature.Trust",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-4",
+      "date": "2016-06-28",
+      "roster": [
+        "LaKelz",
+        "MyPro",
+        "aabBAA",
+        "Jabz",
+        "boombell"
+      ],
+      "playerIds": [
+        "real-lakelz",
+        "real-mypro",
+        "real-aabbaa",
+        "real-jabz",
+        "real-boombell"
+      ]
+    },
+    {
+      "id": "team-empire",
+      "name": "Team Empire",
+      "region": "Eastern Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-1",
+      "date": "2016-06-28",
+      "roster": [
+        "RAMZES666",
+        "Scandal",
+        "Afterlife",
+        "Miposhka",
+        "KingR"
+      ],
+      "playerIds": [
+        "real-ramzes666",
+        "real-scandal",
+        "real-afterlife",
+        "real-miposhka",
+        "real-kingr"
+      ]
+    },
+    {
+      "id": "the-mongolz",
+      "name": "The MongolZ",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-4",
+      "date": "2016-06-28",
+      "roster": [
+        "Retribution",
+        "SANKE",
+        "Masquerade",
+        "Johny",
+        "Ariunbolor"
+      ],
+      "playerIds": [
+        "real-retribution",
+        "real-sanke",
+        "real-masquerade",
+        "real-johny",
+        "real-ariunbolor"
+      ]
+    },
+    {
+      "id": "tongfu",
+      "name": "TongFu",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-2",
+      "date": "2016",
+      "roster": [
+        "uuu9",
+        "Lin",
+        "Faith",
+        "lpc",
+        "Kabu"
+      ],
+      "playerIds": [
+        "real-uuu9",
+        "real-lin",
+        "real-faith",
+        "real-lpc",
+        "real-kabu"
+      ]
+    },
+    {
+      "id": "vega-squadron",
+      "name": "Vega Squadron",
+      "region": "Europe",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-1",
+      "date": "2016-06-28",
+      "roster": [
+        "fn",
+        "No(o)ne",
+        "Mag~",
+        "Solo",
+        "CemaTheSlayeR"
+      ],
+      "playerIds": [
+        "real-fn",
+        "real-no(o)ne",
+        "real-mag~",
+        "real-solo",
+        "real-cematheslayer"
+      ]
+    },
+    {
+      "id": "vici-gaming",
+      "name": "Vici Gaming",
+      "region": "China",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-2",
+      "date": "2016",
+      "roster": [
+        "Sylar",
+        "Cty",
+        "rOtK",
+        "hym",
+        "BurNIng"
+      ],
+      "playerIds": [
+        "real-sylar",
+        "real-cty",
+        "real-rotk",
+        "real-hym",
+        "real-burning"
+      ]
+    },
+    {
+      "id": "void-boys",
+      "name": "Void Boys",
+      "region": "North America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-3",
+      "date": "2016",
+      "roster": [
+        "PatSoul",
+        "747",
+        "Sneyking",
+        "OmegaPwner",
+        "Clairvoyance"
+      ],
+      "playerIds": [
+        "real-patsoul",
+        "real-747",
+        "real-sneyking",
+        "real-omegapwner",
+        "real-clairvoyance"
+      ]
+    },
+    {
+      "id": "vultur",
+      "name": "Vultur",
+      "region": "South America",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-3",
+      "date": "2016",
+      "roster": [
+        "Algodonchin",
+        "DDX-",
+        "SrChango",
+        "Elviscochuelo",
+        "Teckla8"
+      ],
+      "playerIds": [
+        "real-algodonchin",
+        "real-ddx-",
+        "real-srchango",
+        "real-elviscochuelo",
+        "real-teckla8"
+      ]
+    },
+    {
+      "id": "warriorsgaming-unity",
+      "name": "WarriorsGaming.Unity",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-4",
+      "date": "2016-06-28",
+      "roster": [
+        "Ahjit",
+        "NaNa",
+        "Wenn",
+        "Ahfu",
+        "Zacky"
+      ],
+      "playerIds": [
+        "real-ahjit",
+        "real-nana",
+        "real-wenn",
+        "real-ahfu",
+        "real-zacky"
+      ]
+    },
+    {
+      "id": "white-fries-gaming",
+      "name": "White Fries Gaming",
+      "region": "Southeast Asia",
+      "ti1": false,
+      "group": "regional",
+      "source": "rosters-2016-4",
+      "date": "2016-06-28",
+      "roster": [
+        "kYxY",
+        "290",
+        "Poloson",
+        "hyhy",
+        "chisbug"
+      ],
+      "playerIds": [
+        "real-kyxy",
+        "real-290",
+        "real-poloson",
+        "real-hyhy",
+        "real-chisbug"
+      ]
+    }
+  ]
+}

@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
-import { getHeroPool, heroEra, heroRoles } from "./heroes";
+import { getHeroPool, heroEra, heroRoles, heroUnlockYear, heroReleases, heroesArrivingIn } from "./heroes";
 
-export default function HeroPool({ year }: { year: number }) {
+export default function HeroPool({ year, week }: { year: number; week: number }) {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("all");
-  const heroes = getHeroPool(year);
+  const through = heroUnlockYear(year, week);
+  const heroes = getHeroPool(year, through);
+  const arriving = week <= 16 ? heroesArrivingIn(year) : [];
   const filtered = heroes.filter(
     (h) =>
       h.name.toLowerCase().includes(search.toLowerCase()) &&
@@ -15,10 +17,9 @@ export default function HeroPool({ year }: { year: number }) {
     <section className="panel hero-pool-panel">
       <div className="section-title">
         <div>
-          <h2>The classic hero pool</h2>
+          <h2>Your season's hero pool</h2>
           <p>
-            46 TI1-contested heroes · modern names · prototype abilities and
-            balance
+            {heroes.length} heroes · {through < 2011 ? "TI1 opening pool" : `Shuffles through ${through}`} · modern names
           </p>
         </div>
         <a
@@ -34,7 +35,7 @@ export default function HeroPool({ year }: { year: number }) {
         <div className="search-field">
           <Search size={16} />
           <input
-            aria-label="Search classic heroes"
+            aria-label="Search heroes"
             placeholder="Find a hero…"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
@@ -71,7 +72,7 @@ export default function HeroPool({ year }: { year: number }) {
             <span>
               <strong>{h.name}</strong>
               <small>
-                {h.attribute} · {h.ranged ? "Ranged" : "Melee"} · {h.ability}
+                {h.attribute} · {h.ranged ? "Ranged" : "Melee"} · {h.releasedYear ? `${h.releasedYear} shuffle` : "TI1 opening"}
               </small>
             </span>
           </div>
@@ -81,12 +82,10 @@ export default function HeroPool({ year }: { year: number }) {
         <p className="hero-pool-empty">No heroes match these filters.</p>
       )}
       <p className="match-footnote">
-        {year === 2011
-          ? "The 2011 campaign excludes later releases such as Ember Spirit, Oracle, and Earth Spirit."
-          : "Later seasons currently retain this classic pool until additional era data is added."}{" "}
-        Position preferences and combat archetypes are illustrative; this is not
-        a recreation of patch 6.72.
+        {arriving.length ? `${arriving.length} more heroes enter at this season's post-TI shuffle. ` : ""}
+        Dota 2 release-year additions enter together after TI, including releases later in that calendar year. This game rule does not follow Captain's Mode eligibility. Position preferences, attributes and combat archetypes are illustrative.
       </p>
+      <p className="match-footnote"><a className="text-link" href={heroReleases.sources[0].url} target="_blank" rel="noreferrer">Hero release chronology ↗</a> · Coverage through 2026; no additional 2026 release recorded as of October 21.</p>
     </section>
   );
 }
