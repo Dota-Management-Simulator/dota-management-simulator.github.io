@@ -32,3 +32,14 @@ Commit and push source changes to `main`, then run `npm run deploy` from the pro
 The app runs entirely in the browser, including its simulation worker. Campaign saves and theme choices stay in the browser that created them; localhost saves do not automatically transfer to the hosted site's different origin.
 
 Initial publication was verified with a successful Pages build, HTTP 200 responses for the page, JavaScript, CSS, favicon and worker, and a hosted-browser campaign and match simulation. Future deployments should also be checked before reporting publication as complete.
+
+## October 22, 2026 release
+
+The user authorized pushing all current work. Source commit `ea8d84c` was pushed to `origin/main`, and `npm run deploy` published deployment commit `dd87c54` to `gh-pages`. GitHub's Pages API reports that deployment as **built**, without an error.
+
+- All 99 tests pass; TypeScript and the production build pass. Vite retains its large-chunk warning.
+- Public HTML, all seven JavaScript chunks (including battle and tournament workers), CSS, favicon and `hero-icons/axe.png` return HTTP 200 and match `dist/` by SHA-256.
+- A hosted-browser smoke check loaded the existing legacy campaign with its saved week, balance, roster and results. The new inbox navigation and player contract section rendered, and Performance displayed the two saved maps with unknown older telemetry left blank. The check did not advance time, negotiate terms or simulate another match.
+- The release includes the implemented historical references/assets, contracts, sponsor market, expanded training, hero icons, tournament engine/catalog, calendar/inbox and player performance. Tournament history remains partial; pending-verification entry locks are retained. The documented portrait rights remain mixed; publication is not evidence of reuse permission.
+
+Earlier “local/not deployed” statements in feature notes record the pre-release state and are superseded by this release record for deployment status only. Ignored `.local/` fixtures, dependency directories and temporary files remain outside source control.
