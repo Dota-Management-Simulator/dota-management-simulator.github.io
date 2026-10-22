@@ -25,7 +25,7 @@ test("every profile attribute has a selectable focus that develops it without ch
     assert.deepEqual(trained.playstyles, p.playstyles);
     assert.equal(trained.energy, 55);
     assert.equal(p.stats[key as keyof Player["stats"]], 50, "input remains immutable");
-    assert.deepEqual(next.players.find((other) => !c.roster.includes(other.id)), c.players.find((other) => !c.roster.includes(other.id)), "non-roster players do not train");
+    assert.notDeepEqual(next.players.find((other) => !c.roster.includes(other.id))!.stats, c.players.find((other) => !c.roster.includes(other.id))!.stats, "other rosters train as well");
   }
 });
 
@@ -60,7 +60,7 @@ test("happiness and energy recovery work without skill gains and retain debt pen
     const trained = advanceWeek(c).players.find((other) => other.id === p.id)!;
     assert.equal(trained.happiness, focus === "Happiness" ? 66 : 64);
     assert.equal(trained.energy, focus === "Happiness" ? 67 : 84);
-    assert.deepEqual(trained.stats, p.stats);
+    assert.deepEqual(trained.stats, Object.fromEntries(Object.entries(p.stats).map(([key, value]) => [key, value - (focus === "Rest" ? 0.2 : 0)])));
     assert.deepEqual(trained.playstyles, p.playstyles);
     c.cash = 0;
     assert.equal(advanceWeek(c).players.find((other) => other.id === p.id)!.happiness, 50);
@@ -89,9 +89,9 @@ test("new attribute focuses use contract workload and coach growth with the exis
   assert.equal(advanceWeek(c).players.find((other) => other.id === p.id)!.stats.farming, 99);
 });
 
-test("original plans retain their skill targets and effects", () => {
+test("focused plans retain their paired targets; Balanced spreads growth and Rest allows decay", () => {
   const targets = {
-    Balanced: ["stability", "stamina"], Laning: ["laning", "skirmish"],
+    Balanced: Object.keys(attributeNames), Laning: ["laning", "skirmish"],
     Teamfights: ["teamfights", "stability"], "Map awareness": ["vision", "intuition", "pushing"],
     "Hero pool": ["heroPool", "creativity"], Rest: [],
   };
@@ -101,7 +101,7 @@ test("original plans retain their skill targets and effects", () => {
     c.training[p.id] = focus as Training;
     const trained = advanceWeek(c).players.find((other) => other.id === p.id)!;
     for (const key of Object.keys(p.stats) as (keyof Player["stats"])[])
-      assert.equal(trained.stats[key], p.stats[key] + (keys.includes(key) ? 1 : 0));
+      assert.equal(trained.stats[key], p.stats[key] + (focus === "Rest" ? -0.2 : keys.includes(key) ? focus === "Balanced" ? 0.17 : 1 : 0));
   }
 });
 
@@ -196,7 +196,7 @@ test("full rest ignores the saved workload and fractional gains stay capped and 
   p.energy = 40;
   const rest = advanceWeek(c).players.find((p) => p.id === id)!;
   assert.equal(rest.energy, 64);
-  assert.deepEqual(rest.stats, p.stats);
+  assert.deepEqual(rest.stats, Object.fromEntries(Object.entries(p.stats).map(([key, value]) => [key, value - 0.2])));
   assert.deepEqual(rest.playstyles, p.playstyles);
   c.training[id] = "Farming";
   p.stats.farming = 98;

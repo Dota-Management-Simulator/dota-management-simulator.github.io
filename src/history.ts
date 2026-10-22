@@ -4,6 +4,7 @@ import aliasesData from "./data/identity-aliases.json";
 import world from "./data/world.json";
 import { LAST_ROSTER_YEAR, rosterBatchFor, rosterBatches, rosterSources } from "./roster-data";
 import type { Player, Role } from "./game";
+import { startingAttributes } from "./development";
 
 export const historicalArchive = archive;
 const roles: Role[] = ["Carry", "Mid", "Offlane", "Soft support", "Hard support"];
@@ -68,6 +69,7 @@ function makePlayer(name: string, role: number, region: string, source: string, 
   return {
     ...structuredClone(world.players[role]),
     id, name, firstName: "", lastName: "", age: null, region, role: roles[role],
+    stats: startingAttributes(id),
     historical: {
       aliases: [...new Set([...(identity?.names ?? []), ...(aliases[aliasLookup.get(name.toLowerCase()) ?? name] ?? [])])].filter((s) => s !== name),
       source, date, team, role: roles[role], roleEvidence: "adapted",

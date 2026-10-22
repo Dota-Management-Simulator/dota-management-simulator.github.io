@@ -21,6 +21,7 @@ export default function WorldTeams({ campaign, onPlayer }: { campaign: Campaign;
       <p>{through < 2011 ? "TI1 opening rosters; regional arrivals follow TI" : `Annual roster batches imported through ${through}`} · Coverage through 2026.</p>
       <p>{rosterBatchFor(through)?.coverage ?? "Includes TI1 squads, reserves and selected regional teams. The 2011 regional coverage is partial and has no verified South American roster."}</p>
       <p>Current club assignments reflect your campaign. References combine dated events within each year; they are not a single-date transfer list. Roles are adapted and ratings, wages and fees are gameplay estimates.</p>
+      <p>Active starters and reserves train every elapsed week, focusing on weaker skills and resting when tired. Free agents practice at a lighter workload. Starting attributes range from 15–40; development can take them higher, while insufficient practice causes gradual decay.</p>
       {!!archived && <p>{archived} earlier reference clubs are archived outside the current annual field. This does not imply a historical disbandment or retirement. Their players remain available for recruitment.</p>}
       <label>Region <select aria-label="World team region" value={region} onChange={(e) => setRegion(e.target.value)}>
         {["All regions", ...new Set(active.map((t) => t.region))].map((r) => <option key={r}>{r}</option>)}

@@ -65,11 +65,11 @@ export type Training =
   | "Happiness"
   | `Playstyle: ${Playstyle}`;
 
-// Original multi-attribute plans retain their effects for existing saves.
+// Focused plans retain their paired skills; Balanced spreads development widely.
 export function trainingPlan(focus: Training) {
   let stats: (keyof Player["stats"])[] = [];
   let playstyle: Playstyle | undefined;
-  if (focus === "Balanced") stats = ["stability", "stamina"];
+  if (focus === "Balanced") stats = Object.keys(attributeNames) as (keyof Player["stats"])[];
   else if (focus === "Laning") stats = ["laning", "skirmish"];
   else if (focus === "Teamfights") stats = ["teamfights", "stability"];
   else if (focus === "Map awareness") stats = ["vision", "intuition", "pushing"];
@@ -98,10 +98,19 @@ export function trainingOptions(player: Player): { label: string; options: Train
   ];
 }
 
-export function trainingEffect(focus: Training, practice: { growth: number; playstyleGrowth: number; energy: number; happiness: number }, debt: boolean) {
+export function skillDeltas(focus: Training, practice: { growth: number; maintenance: number }) {
+  const plan = trainingPlan(focus);
+  return Object.fromEntries((Object.keys(attributeNames) as (keyof Player["stats"])[]).map(key => [key,
+    roundTraining(practice.maintenance + (plan.stats.includes(key) ? practice.growth / (focus === "Balanced" ? 6 : 1) : 0)),
+  ])) as Player["stats"];
+}
+
+export function trainingEffect(focus: Training, practice: { growth: number; maintenance: number; playstyleGrowth: number; energy: number; happiness: number }, debt: boolean) {
   const plan = trainingPlan(focus);
   const effects: string[] = [];
-  if (plan.stats.length) effects.push(`+${practice.growth} ${plan.stats.map((key) => attributeNames[key].toLowerCase()).join(" & ")}`);
+  const signed = (value: number) => `${value < 0 ? "−" : "+"}${Math.abs(value)}`;
+  if (plan.stats.length) effects.push(`${signed(skillDeltas(focus, practice)[plan.stats[0]])} ${focus === "Balanced" ? "all attributes" : plan.stats.map((key) => attributeNames[key].toLowerCase()).join(" & ")}`);
+  if (practice.maintenance < 0 && plan.stats.length < 12) effects.push(`−${Math.abs(practice.maintenance)} ${plan.stats.length ? "other attributes" : "all attributes"} (decay)`);
   if (plan.playstyle) effects.push(`+${practice.playstyleGrowth} ${plan.playstyle.toLowerCase()} (max 10)`);
   effects.push(`${practice.energy < 0 ? "−" : "+"}${Math.abs(practice.energy)} energy`);
   effects.push(debt ? "−10 happiness (debt)" : `${practice.happiness < 0 ? "−" : "+"}${Math.abs(practice.happiness)} happiness`);

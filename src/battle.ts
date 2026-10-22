@@ -220,15 +220,17 @@ export class LaneBattle {
         pool.splice(pool.indexOf(hero), 1); // No duplicates across either draft.
         const s = player.skills;
         const skill =
-          ((s.laning || 70) +
-            (s.teamfights || 70) +
-            (s.skirmish || 70) +
-            (s.stability || 70)) /
+          ((s.laning ?? 70) +
+            (s.teamfights ?? 70) +
+            (s.skirmish ?? 70) +
+            (s.stability ?? 70)) /
           4;
         const form =
-          1 + (this.random() - 0.5) * (1 - (s.stability || 70) / 130) * 0.35;
+          1 + (this.random() - 0.5) * (1 - (s.stability ?? 70) / 130) * 0.35;
         const power = limit(
-          (1 + (skill - 75) * 0.018 + config.bonuses[team]) *
+          // Keep the new 15–40 starting range above the safety floor so
+          // development changes combat power throughout the early game.
+          (0.4 + skill * 0.008 + config.bonuses[team]) *
             (0.8 + player.energy / 500) *
             (0.9 + player.happiness / 1000) *
             form,
@@ -246,7 +248,7 @@ export class LaneBattle {
           y: base[1] - role * 5,
           range: hero.ranged ? 150 : 42,
           rate: hero.attribute === "Agility" ? 0.9 : 1.15,
-          speed: 102 + (s.intuition || 70) / 8,
+          speed: 102 + (s.intuition ?? 70) / 8,
           strength: hero.attribute === "Strength" ? 25 : 19,
           agility: hero.attribute === "Agility" ? 24 : 15,
           intelligence: hero.attribute === "Intelligence" ? 25 : 16,
@@ -393,7 +395,7 @@ export class LaneBattle {
   }
   private gainXp(u: Unit, value: number) {
     if (!u.player) return;
-    const gain = value * 2.2 * (0.8 + (u.player.skills.farming || 70) / 350);
+    const gain = value * 2.2 * (0.8 + (u.player.skills.farming ?? 70) / 350);
     u.experience += gain;
     u.totalXp += gain;
     while (u.level < 25 && u.experience >= 80 * u.level) {
@@ -467,14 +469,14 @@ export class LaneBattle {
               .filter((u) => !u.dead && distance(u, target) < 210)
               .sort(
                 (a, b) =>
-                  (b.player?.skills.farming || 50) /
+                  (b.player?.skills.farming ?? 50) /
                     Math.max(30, distance(b, target)) -
-                  (a.player?.skills.farming || 50) /
+                  (a.player?.skills.farming ?? 50) /
                     Math.max(30, distance(a, target)),
               )[0];
       if (farmer) {
         farmer.lastHits++;
-        farmer.gold += 35 * (0.8 + (farmer.player?.skills.farming || 70) / 250);
+        farmer.gold += 35 * (0.8 + (farmer.player?.skills.farming ?? 70) / 250);
       }
     }
     const xp =
@@ -492,12 +494,12 @@ export class LaneBattle {
     const armor = target.agility / 6;
     let value = u.damage * (1 - (0.06 * armor) / (1 + 0.06 * armor));
     if (u.player && target.kind === "creep")
-      value *= 0.7 + (u.player.skills.laning || 70) / 150;
+      value *= 0.7 + (u.player.skills.laning ?? 70) / 150;
     this.damage(u, target, value);
   }
   private cast(u: Unit, target: Unit) {
     if (!u.hero) return;
-    const execution = 0.7 + (u.player?.skills.teamfights || 70) / 200;
+    const execution = 0.7 + (u.player?.skills.teamfights ?? 70) / 200;
     if (u.hero.ability === "nuke")
       this.damage(u, target, (u.damage * 2 + u.level * 8) * execution);
     else if (u.hero.ability === "stun") {
@@ -534,7 +536,7 @@ export class LaneBattle {
       if (this.winner !== null) break;
       if (u.kind === "hero") {
         u.gold +=
-          DT * GAME_CLOCK * (0.8 + (u.player?.skills.farming || 70) / 100);
+          DT * GAME_CLOCK * (0.8 + (u.player?.skills.farming ?? 70) / 100);
         this.recalculate(u);
       }
       if (u.dead) {
@@ -593,7 +595,7 @@ export class LaneBattle {
         u.hp +
           (distance(u, home) < 100 ? u.max * 0.12 : 2 + 0.1 * u.strength) * DT,
       );
-      if (u.hp < u.max * (0.24 + (u.player?.skills.intuition || 70) / 1000))
+      if (u.hp < u.max * (0.24 + (u.player?.skills.intuition ?? 70) / 1000))
         u.retreat = true;
       if (u.hp > u.max * 0.85) u.retreat = false;
       if (u.retreat) {

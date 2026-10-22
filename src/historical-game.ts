@@ -1,5 +1,6 @@
 import { advanceCalendarTo, clamp, data, money, rating, teamPlayers } from "./game";
 import type { Campaign, Result } from "./game";
+import { startingAttributes } from "./development";
 import type { BattleConfig, SeriesSummary } from "./battle";
 import { activeClubs } from "./history";
 import { campaignWeek } from "./contracts";
@@ -200,8 +201,8 @@ export function tournamentBattleConfig(c: Campaign, run: TournamentRun, fixture:
     const p = c.players.find(p => p.id === id);
     const condition = { energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
     return { id, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
-      role, skills: { ...(p?.stats ?? data.players[role].stats) },
-      ...(team.id === run.managed ? condition : tournamentOpponentCondition(run, team.id, { ...condition, stamina: p?.stats.stamina ?? data.players[role].stats.stamina }, fixture.at)) };
+      role, skills: { ...(p?.stats ?? startingAttributes(id)) },
+      ...(team.id === run.managed ? condition : tournamentOpponentCondition(run, team.id, { ...condition, stamina: p?.stats.stamina ?? startingAttributes(id).stamina }, fixture.at)) };
   });
   const players: BattleConfig["players"] = [playerRows(teamData[0]), playerRows(teamData[1])];
   const bonus = (key: string) => key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) + (c.staffIds.includes("c2") ? 0.035 : 0) : 0;

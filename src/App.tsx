@@ -1360,7 +1360,9 @@ export default function App() {
                           teamfights also builds stability, and hero pool also
                           develops creativity. Map awareness trains vision,
                           intuition, and pushing. Select a player's card to
-                          inspect their full profile.
+                          inspect their full profile. Balanced training spreads
+                          growth across all 12 attributes. Players start with
+                          15–40 attributes and can develop beyond that range.
                         </p>
                       </section>
                       <section className="panel feature-panel">
@@ -1376,7 +1378,11 @@ export default function App() {
                           and weekly hours scale development, including playstyle
                           comfort and happiness sessions. Coaches boost attribute
                           training. Contract hours and protected rest days limit
-                          the weekly schedule.
+                          the weekly schedule. Ten effective practice hours
+                          maintain skills; less practice causes up to 0.2 points
+                          of decay per attribute each week. Rest restores energy
+                          but still allows this gradual decay. Below 40 energy,
+                          development slows. Other clubs train and rest too.
                         </p>
                         <button
                           className="text-link"

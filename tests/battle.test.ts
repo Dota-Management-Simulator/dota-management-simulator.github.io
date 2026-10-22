@@ -20,6 +20,25 @@ const config = buildBattleConfig(
 );
 const simulated = simulateBestOfThree(config);
 
+test("low starting skills affect combat power and zero skills never fall back to veteran ratings", () => {
+  const heroesAt = (skill: number) => {
+    const c = structuredClone(config);
+    c.bonuses = [0, 0];
+    for (const side of c.players) for (const p of side) {
+      p.energy = 100; p.happiness = 100;
+      for (const key of Object.keys(p.skills)) p.skills[key] = skill;
+    }
+    return new LaneBattle(c).units.filter(u => u.kind === "hero");
+  };
+  const zero = heroesAt(0), low = heroesAt(15), high = heroesAt(40), veteran = heroesAt(75);
+  for (let i = 0; i < low.length; i++) {
+    assert.ok(low[i].power < high[i].power);
+    assert.ok(high[i].power < veteran[i].power);
+    assert.ok(zero[i].power <= low[i].power);
+    assert.ok(zero[i].speed < low[i].speed);
+  }
+});
+
 test("classic pool contains 46 unique TI1 heroes and all featured meta heroes are eligible", () => {
   const pool = getHeroPool(2011);
   assert.equal(pool.length, 46);

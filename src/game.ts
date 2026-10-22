@@ -4,7 +4,8 @@ import type { BattleConfig, SeriesSummary } from "./battle";
 import { createHistoricalWorld, clubForPlayer, recruitHistoricalPlayer, postTiShuffle, getStartingTeams, customClubNameAvailable, activeClubs } from "./history";
 import type { HistoricalWorld } from "./history";
 import { heroUnlockYear, heroesArrivingIn } from "./heroes";
-import { attributeNames, roundTraining, trainingPlan } from "./training";
+import { attributeNames, roundTraining } from "./training";
+import { applyPlayerPractice, developWorldPlayers } from "./development";
 import type { TrainingSchedule } from "./training";
 export type { Training } from "./training";
 import type { Training } from "./training";
@@ -298,16 +299,9 @@ function applyWeeklyManagement(c: Campaign) {
   for (const p of teamPlayers(c)) {
     const plan = c.training[p.id] || "Balanced";
     const practice = weeklyPractice(c, p, plan);
-    const focus = trainingPlan(plan);
-    for (const key of focus.stats)
-      p.stats[key] = clamp(roundTraining(p.stats[key] + practice.growth), 0, 99);
-    if (focus.playstyle && p.playstyles[focus.playstyle] != null)
-      p.playstyles[focus.playstyle] = clamp(roundTraining(p.playstyles[focus.playstyle]! + practice.playstyleGrowth), 1, 10);
-    p.energy = clamp(roundTraining(p.energy + practice.energy));
-    p.happiness = clamp(
-      roundTraining(p.happiness + (c.cash < 0 ? -10 : practice.happiness)),
-    );
+    applyPlayerPractice(p, plan, practice, c.cash < 0);
   }
+  developWorldPlayers(c);
 }
 
 /** Real elapsed time pays and trains once per seven days, across year changes.
@@ -333,9 +327,13 @@ export function advanceCalendarTo(current: Campaign, at: string, tournamentProgr
     c.week = Math.floor((atTime - Date.UTC(c.year, 0, 1)) / 604800000) + 1;
   };
   for (let tick = Date.parse(calendar.origin) + (calendar.paidWeeks + 1) * 604800000; tick <= target; tick += 604800000) {
+    // Reconcile arrivals before the weekly tick, whether the manager advances
+    // in one jump or stops between ticks. Newly available players train once.
+    reconcileHistoricalImports(c, new Date(tick).toISOString());
     applyWeeklyManagement(c);
     calendar.paidWeeks++;
     updateDate(tick);
+    reconcileHistoricalImports(c);
     advanceSponsorMarket(c);
   }
   updateDate(target);
@@ -345,13 +343,13 @@ export function advanceCalendarTo(current: Campaign, at: string, tournamentProgr
 
 // Catch up historical saves made before the later batches existed. This changes
 // only roster imports, never elapsed weeks, finances, results or manager choices.
-function reconcileHistoricalImports(c: Campaign) {
+function reconcileHistoricalImports(c: Campaign, at = c.calendar?.now) {
   if (!c.world) return;
   if (c.calendar?.runs.some(r => r.state === "playing")) return;
-  if (c.calendar) for (let year = 2011; year <= Math.min(2026, c.year); year++) {
+  if (c.calendar) for (let year = 2011; year <= Math.min(2026, new Date(at!).getUTCFullYear()); year++) {
     const ti = historicalTournaments.find(e => e.kind === "ti" && e.year === year);
     const after = ti ? utcTime(ti.end) + 86400000 : year === 2020 ? Date.UTC(2021, 0, 1) : Infinity;
-    if (utcTime(c.calendar.now) >= after && !c.calendar.shuffledYears.includes(year)) c.calendar.shuffledYears.push(year);
+    if (utcTime(at!) >= after && !c.calendar.shuffledYears.includes(year)) c.calendar.shuffledYears.push(year);
   }
   const through = c.calendar ? Math.max(2010, ...c.calendar.shuffledYears) : Math.min(2026, c.year - (c.week <= 16 ? 1 : 0));
   for (let year = 2011; year <= through; year++) {

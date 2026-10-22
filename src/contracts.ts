@@ -79,11 +79,16 @@ export function weeklyPractice(c: Campaign, p: Player, plan: Training) {
   const sponsor = sponsorBenefits(c, plan);
   const mediaFactor = Math.max(0.5, 1 - sponsor.mediaHours * 0.05);
   const coachGrowth = c.staffIds.includes("c1") ? Math.min(1, hours / 20) : 0;
-  const growth = plan === "Rest" ? 0 : roundTraining(((baseGrowth + coachGrowth) * intensity + sponsor.growth * volume) * mediaFactor);
-  const playstyleGrowth = plan === "Rest" ? 0 : roundTraining(volume * intensity * mediaFactor);
+  const readiness = Math.max(0.25, Math.min(1, p.energy / 40));
+  const growth = plan === "Rest" ? 0 : roundTraining(((baseGrowth + coachGrowth) * intensity + sponsor.growth * volume) * mediaFactor * readiness);
+  const playstyleGrowth = plan === "Rest" ? 0 : roundTraining(volume * intensity * mediaFactor * readiness);
+  // Ten effective practice hours maintain all attributes. Less practice causes
+  // gradual rust, including full recovery weeks; extra practice develops focus.
+  const effectiveHours = plan === "Rest" ? 0 : hours * intensity * mediaFactor;
+  const maintenance = roundTraining(-0.2 * (1 - Math.min(1, effectiveHours / 10)));
   const energy = roundTraining((plan === "Rest" ? focus.energy : focus.energy - (hours - 20) * 0.6 + (restDays - 2) * 4 - hours * (intensity - 1) * 0.8) + (c.staffIds.includes("c3") ? 8 : 0) + sponsor.energy);
   const expired = contract && weeksRemaining(c, contract) === 0 && !playerTournamentLock(c, p.id);
   const payMorale = contract ? Math.max(-3, Math.min(2, Math.round((p.wage / contract.marketWage - 1) * 5))) : 0;
   const morale = plan === "Happiness" ? focus.happiness * volume * intensity : focus.happiness;
-  return { growth, playstyleGrowth, energy, happiness: roundTraining(morale + payMorale - (expired ? 2 : 0) + sponsor.happiness) };
+  return { growth, maintenance, playstyleGrowth, energy, happiness: roundTraining(morale + payMorale - (expired ? 2 : 0) + sponsor.happiness) };
 }

@@ -1,5 +1,9 @@
 # Lane simulation and annual hero pools
 
+## Player progression balance — October 22, 2026 (local)
+
+New player attributes start at 15–40 and develop through weekly practice; existing saved ratings remain intact. Combat power now uses `(0.4 + average(laning, teamfights, skirmish, stability) × 0.008 + difficulty/staff bonus)` before energy, happiness, form and existing safety bounds. The former steep curve put nearly all new starting skills at the same minimum power. This gentler curve preserves differences and development across the starting range. Skill lookups use nullish defaults so a real zero from decay never becomes a fallback 70. Future matches use the revised model; stored outcomes and scoreboards are retained. A new engine test covers low-skill power ordering and zero ratings. See [training and world development](training.md).
+
 The match engine is a TypeScript adaptation of the user's **Lane Siege** HTML prototype, preserved in `reference/lane-siege-original.html`. The original repository entry point and README are preserved separately as `reference/original-index.html` and `reference/original-README.md`; the original commit history is retained in the publishing checkout. Reused concepts: three lanes, two towers per lane, creep waves, attribute scaling, basic attacks, four ability archetypes, healing and retreat, nearby experience, respawn, and Ancient destruction.
 
 The TI1 opening pool contains 46 heroes documented as contested at The International 2011 by [Spectral Stats](https://stats.ru.spectral.gg/lrg2/?league=ti1&mod=heroes), cross-checked against [Liquipedia's TI1 hero statistics](https://liquipedia.net/dota2/The_International/Hero_Statistics/2011). This includes Axe, who was banned but not picked. Modern names are used for renamed heroes. Hero membership is sourced; all combat values, role preferences, attributes and ability archetypes are deliberately simplified placeholders.
