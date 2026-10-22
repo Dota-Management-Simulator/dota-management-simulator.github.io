@@ -2,6 +2,8 @@
 
 Implemented October 22, 2026. Open the gear button → **Organization settings → Team identity**. Custom campaign setup includes the same editor before starting the campaign. Organization settings allow any managed club, including an existing historical or legacy club, to customize its badge.
 
+Published from source `a52ef20` as GitHub Pages deployment `ec251a6`. Pages reports **built**; public HTML, CSS, every JavaScript chunk, both workers and favicon match the production build. The hosted-browser check confirmed the new controls on the existing legacy save without changing its logo, week or balance.
+
 Choose **Upload a logo** for a PNG, JPEG or WebP up to 5 MB, or **Create a crest** for a shield, round or diamond badge with a star, lightning bolt or crown and up to three initials. The preview updates immediately. Primary and secondary color pickers control crests and the app's club palette. Remove custom logo restores the historical era badge, or initials for a custom/legacy team; it retains the selected colors and theme preference.
 
 Uploaded images are decoded locally, fitted without cropping into a square, and re-encoded at 256, 192 or 128 pixels with a maximum 180,000-character data URL. Images over 40 megapixels are rejected. Object URLs are released after import. The input resets so the same file can be chosen again; failed imports retain the current logo. There is no server upload. The image lives in the existing browser campaign save, subject to the existing autosave/storage-error indicator.

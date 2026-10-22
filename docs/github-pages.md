@@ -35,6 +35,8 @@ Initial publication was verified with a successful Pages build, HTTP 200 respons
 
 ## October 22, 2026 release
 
+**Club branding follow-up:** source `a52ef20` and Pages deployment `ec251a6` publish logo uploads, the crest editor and optional team-color themes. The suite has 104 passing tests and the production build passes. Pages reports **built**; HTML, all JavaScript chunks including both workers, CSS and favicon match `dist/` by SHA-256. Local browser QA covers actual image selection/rejection, color updates, save/reload and toggle persistence, historical palette sampling and mobile light/dark settings. The hosted app exposes the new Organization settings controls while preserving the existing legacy campaign's week, balance and identity. See [club branding](club-branding.md).
+
 The user authorized pushing all current work. Source commit `ea8d84c` was pushed to `origin/main`, and `npm run deploy` published deployment commit `dd87c54` to `gh-pages`. GitHub's Pages API reports that deployment as **built**, without an error.
 
 - All 99 tests pass; TypeScript and the production build pass. Vite retains its large-chunk warning.
