@@ -8,6 +8,8 @@ Context preserved from the user's design discussions and subsequent implementati
 
 ## Explicit decisions already made
 
+- Custom teams can upload a logo during setup. Organization settings now include logo uploads, a crest creator and editable primary/secondary colors for the managed club. A saved **Use team colors** checkbox controls app tinting independently of Light/Dark mode. Uploaded and bundled historical logos can supply suggested palettes; custom badges do not alter opponents. See [club branding](club-branding.md).
+
 - Build a browser application with separate files/data/simulation modules, rather than only a standalone HTML file.
 - Begin with a clean management scaffold and dummy players/stats, then incrementally fill in systems. The user likes the current UI.
 - Include campaign setup, difficulty and a starting-era choice; the earliest/classic start is The International in 2011.

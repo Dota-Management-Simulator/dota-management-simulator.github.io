@@ -1,0 +1,58 @@
+.club-branding-editor { margin: 24px 0; padding: 20px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface-soft, #f7f8f3); }
+.club-branding-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
+.club-branding-heading h3 { color: var(--ink); font-size: 15px; }
+.club-branding-heading p { font-size: 11px; margin-top: 4px; color: var(--muted); }
+.club-branding-editor fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.club-branding-editor .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.club-branding-editor label { color: var(--ink); font-size: 11px; }
+.club-upload input { display: block; width: 100%; height: auto; padding: 9px; margin-top: 9px; font-size: 10px; }
+.club-upload input::file-selector-button { border: 0; border-radius: 3px; padding: 7px 9px; background: var(--green); color: var(--club-button-text, #fff); margin-right: 8px; cursor: pointer; }
+:root[data-theme="dark"]:not([data-club-theme]) .club-upload input::file-selector-button { color: #141a16; }
+.club-branding-editor .field-note { font-size: 10px; color: var(--muted); line-height: 1.6; margin: 8px 0; }
+.club-logo-actions { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; margin: 16px 0; }
+.club-logo-actions .button { font-size: 11px; padding: 9px 12px; }
+.club-crest-controls { display: grid; grid-template-columns: 1fr 1fr 70px; gap: 10px; margin: 18px 0; }
+.club-crest-controls select, .club-crest-controls input { width: 100%; margin-top: 8px; padding: 0 8px; }
+.club-color-controls { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 12px 0 18px; }
+.club-color-controls label { display: grid; grid-template-columns: 35px 1fr; align-items: center; gap: 8px; }
+.club-color-controls input { grid-column: 1; width: 35px; height: 32px; padding: 2px; margin: 0; cursor: pointer; }
+.club-color-controls span { font: 10px monospace; color: var(--muted); }
+.club-color-controls .club-color-label { grid-column: 1 / -1; font: inherit; color: var(--ink); }
+.club-theme-toggle { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; line-height: 1.5; padding-top: 14px; border-top: 1px solid var(--line); }
+.club-theme-toggle input { flex: 0 0 16px; width: 16px; height: 16px; margin: 2px 0 0; accent-color: var(--green); }
+.club-theme-toggle small { display: block; color: var(--muted); margin-top: 4px; font-size: 10px; font-weight: 400; }
+.club-upload-error { color: #b34737; font-size: 11px; margin-top: 12px; }
+:root[data-theme="dark"] .club-upload-error { color: #ffb3a6; }
+.team-badge-custom { padding: 2px; background: var(--surface, #fff); }
+.club-crest { display: block; width: 100%; height: 100%; }
+
+/* These overrides only exist while the club-color preference is enabled. */
+:root[data-club-theme] { background: var(--bg); color: var(--ink); }
+:root[data-club-theme] body { background: var(--bg); color: var(--ink); }
+:root[data-club-theme] :is(.panel, .modal, .setup-preview, .topbar) { background: var(--surface); border-color: var(--line); }
+:root[data-club-theme] :is(h1, h2, h3, .settings-row strong, label) { color: var(--ink); }
+:root[data-club-theme] :is(p, .field-note, .settings-row, .breadcrumbs, .save-indicator) { color: var(--muted); }
+:root[data-club-theme] :is(input, select, .search-field input, .filter-bar > select, .year-stepper) { background: var(--surface); color: var(--ink); border-color: var(--line); }
+:root[data-club-theme] :is(.text-link, .eyebrow, .icon-button, .profile-stats strong, .playstyle-list strong) { color: var(--green); }
+:root[data-club-theme] :is(.button.primary, .button.cream) { background: var(--club-button); border-color: var(--club-button); color: var(--club-button-text); }
+:root[data-club-theme] :is(.button.primary, .button.cream):hover:not(:disabled) { background: var(--club-button); border-color: var(--club-button); filter: brightness(1.1); }
+:root[data-club-theme] .button.secondary { background: var(--surface-soft); color: var(--green); border-color: var(--line); }
+:root[data-club-theme] .button.secondary:hover:not(:disabled) { background: var(--surface-raised); border-color: var(--green); }
+:root[data-club-theme] .season-hero { background: linear-gradient(110deg, var(--club-hero), var(--club-hero-end)); }
+:root[data-club-theme] .season-hero :is(h2, h3) { color: #f2f3f6; }
+:root[data-club-theme] .season-hero :is(p, .eyebrow) { color: #d3d8e2; }
+:root[data-club-theme] .season-hero > svg { color: var(--club-accent); }
+:root[data-club-theme] .nav-link.active { color: var(--club-accent); background: #ffffff12; }
+:root[data-club-theme] .nav-link.active:before, :root[data-club-theme] .active-dot { background: var(--club-accent); }
+:root[data-club-theme] :is(.meter, .style-blocks > span) { background: var(--surface-raised); }
+:root[data-club-theme] :is(.meter > span, .style-blocks > .filled) { background: var(--green); }
+:root[data-club-theme] .theme-options button { color: var(--muted); }
+:root[data-club-theme] .theme-options button[aria-pressed="true"] { background: var(--surface-raised); color: var(--green); border-color: var(--line); }
+:root[data-club-theme] :is(button, a):focus-visible { outline-color: var(--gold); }
+:root[data-club-theme] :is(input, select):focus { outline-color: var(--green); }
+@media (max-width: 600px) {
+  .club-branding-editor { padding: 15px; }
+  .club-crest-controls { grid-template-columns: 1fr 1fr; }
+  .club-crest-controls label:last-child { grid-column: 1 / -1; max-width: 90px; }
+  .club-color-controls { gap: 10px; }
+}

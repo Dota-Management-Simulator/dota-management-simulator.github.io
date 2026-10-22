@@ -94,6 +94,9 @@ import { trainingEffect, trainingOptions } from "./training";
 import TrainingWorkload from "./TrainingWorkload";
 import { PlayerProfileTabs } from "./PlayerPerformance";
 import { getStartingTeams, rosterYearForStart, sourceFor, customClubNameAvailable } from "./history";
+import ClubBrandingEditor from "./ClubBrandingEditor";
+import { ClubIdentityContext } from "./ClubIdentity";
+import { useClubAppearance } from "./useClubAppearance";
 
 const navigation: {
   page: Page;
@@ -325,6 +328,11 @@ export default function App() {
       // The toggle still works when browser storage is unavailable.
     }
   }, [theme]);
+  const identitySettings = setup ? settings : campaign?.settings;
+  const identityTeamId = setup ? (settings.clubMode === "custom" ? "managed-custom" : settings.historicalTeamId) : campaign?.world?.managedTeamId;
+  const clubBranding = useClubAppearance({ branding: identitySettings?.branding, teamId: identityTeamId,
+    year: setup ? settings.year : campaign?.year ?? 2011, custom: identitySettings?.clubMode === "custom" || identityTeamId === "managed-custom",
+    theme, enabled: !!identitySettings && (!setup || settings.clubMode === "custom") });
   useEffect(() => {
     if (campaign) {
       try {
@@ -526,6 +534,7 @@ export default function App() {
     `${p.name} ${p.firstName} ${p.lastName} ${p.region} ${playerTeam(campaign, p.id)} ${p.historical?.aliases.join(" ") ?? ""}`.toLowerCase().includes(filter.toLowerCase());
 
   return (
+    <ClubIdentityContext.Provider value={{ teamId: identityTeamId, name: identitySettings?.team ?? "", branding: clubBranding }}>
     <div className="app-shell">
       {mobileMenu && (
         <div className="nav-scrim" onClick={() => setMobileMenu(false)} />
@@ -624,7 +633,8 @@ export default function App() {
             </button>
             <button
               className="icon-button"
-              aria-label="Campaign settings"
+              aria-label="Organization settings"
+              title="Organization settings"
               onClick={() => setPreferences(true)}
             >
               <Settings2 size={18} />
@@ -664,7 +674,7 @@ export default function App() {
                     <div className="form-row">
                       <label>
                         Your club
-                        <select aria-label="Club type" value={settings.clubMode ?? "historical"} onChange={(e) => setSettings({ ...settings, clubMode: e.target.value as "historical" | "custom", team: e.target.value === "historical" ? selectedClub.name : "Atlas Esports" })}>
+                        <select aria-label="Club type" value={settings.clubMode ?? "historical"} onChange={(e) => setSettings({ ...settings, branding: undefined, clubMode: e.target.value as "historical" | "custom", team: e.target.value === "historical" ? selectedClub.name : "Atlas Esports" })}>
                           <option value="historical">Manage a historical team</option>
                           <option value="custom">Create a club and replace a team</option>
                         </select>
@@ -686,6 +696,8 @@ export default function App() {
                     </div>
                     <div className="setup-club-badge"><TeamBadge teamId={settings.clubMode === "custom" ? "managed-custom" : selectedClub.id} name={setupName} year={settings.year} size="large" /><strong>{setupName || "Your club"}</strong></div>
                     {settings.clubMode === "custom" && <label className="custom-club-name">Team name<input maxLength={32} value={settings.team} onChange={(e) => setSettings({ ...settings, team: e.target.value })} /></label>}
+                    {settings.clubMode === "custom" && <ClubBrandingEditor value={clubBranding} name={setupName} teamId="managed-custom" year={settings.year}
+                      onChange={branding => setSettings(current => ({ ...current, branding }))} />}
                     <p className="field-note">{selectedClub.region} · {settings.clubMode === "custom" ? `Your club inherits ${selectedClub.name}'s players and regional place. The original club leaves this campaign.` : `Start with this organization's ${settings.year === 2011 ? "TI1" : rosterYearForStart(settings.year)} reference lineup.`}</p>
                     <p className="field-note">{selectedClub.roster.join(" · ")}</p>
                     {nameConflict && <p className="field-note" role="alert">That name belongs to another club in this world.</p>}
@@ -2228,7 +2240,7 @@ export default function App() {
             {preferences && (
               <div className="text-modal">
                 <div className="eyebrow">YOUR WORKSPACE</div>
-                <h2 id="modal-title">Campaign settings</h2>
+                <h2 id="modal-title">Organization settings</h2>
                 <p>
                   {campaign
                     ? `${campaign.settings.team} · ${campaign.settings.region} · ${campaign.settings.difficulty} difficulty`
@@ -2255,6 +2267,10 @@ export default function App() {
                     </button>
                   </div>
                 </div>
+                {identitySettings && (!setup || settings.clubMode === "custom") && <ClubBrandingEditor value={clubBranding}
+                  name={identitySettings.team} teamId={identityTeamId} year={setup ? settings.year : campaign?.year ?? 2011}
+                  onChange={branding => { if (setup) setSettings(current => ({ ...current, branding }));
+                    else update(current => ({ ...current, settings: { ...current.settings, branding } })); }} />}
                 <div className="settings-row">
                   <span>Game data</span>
                   <Badge tone="gold">{campaign?.world ? "2011–2026 ROSTERS · ESTIMATED RATINGS" : "LEGACY PLACEHOLDERS"}</Badge>
@@ -2308,5 +2324,6 @@ export default function App() {
         </div>
       )}
     </div>
+    </ClubIdentityContext.Provider>
   );
 }

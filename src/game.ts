@@ -16,6 +16,8 @@ import type { HistoricalCalendar } from "./tournament-types";
 import type { OfficeState } from "./office";
 import { playerTournamentLock } from "./tournament-locks";
 import { historicalTournaments, nextTournamentFixture, utcTime } from "./tournaments";
+import { normalizeBranding } from "./branding";
+import type { ClubBranding } from "./branding";
 
 export const ROLES = [
   "Carry",
@@ -51,6 +53,7 @@ export interface Settings {
   injuries: boolean;
   clubMode?: "historical" | "custom";
   historicalTeamId?: string;
+  branding?: ClubBranding;
 }
 export interface Result {
   eventId: string;
@@ -197,7 +200,8 @@ export function createCampaign(settings: Settings): Campaign {
   const state = historical.state;
   const campaign: Campaign = {
     version: 1,
-    settings: { ...settings, team: name, region: chosen.region, historicalTeamId: chosen.id },
+    settings: { ...settings, team: name, region: chosen.region, historicalTeamId: chosen.id,
+      ...(settings.branding ? { branding: normalizeBranding(settings.branding) } : {}) },
     year: settings.year,
     week: 1,
     cash:
@@ -601,6 +605,7 @@ export function readSave(): Campaign | null {
       )
     )
       return null;
+    if (c.settings.branding) c.settings.branding = normalizeBranding(c.settings.branding);
     reconcileHistoricalImports(c);
     c.sponsorships ??= initialSponsorships(c);
     return c;

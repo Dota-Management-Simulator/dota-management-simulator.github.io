@@ -35,7 +35,7 @@ export default function WorldTeams({ campaign, onPlayer }: { campaign: Campaign;
       })}</ol>
       {!!club.bench.length && <p>Reserves: {club.bench.map((id) => <button className="text-link world-reserve" key={id} onClick={() => onPlayer(campaign.players.find((p) => p.id === id)!)}>{campaign.players.find((p) => p.id === id)!.name}</button>)}</p>}
       <a className="text-link" href={sourceFor(club.reference.source)?.url} target="_blank" rel="noreferrer">Roster reference ↗</a>
-      {teamLogoFor(club.id, campaign.year) ? <a className="text-link logo-reference" href={teamLogoFor(club.id, campaign.year)!.filePage} target="_blank" rel="noreferrer">Logo reference ↗</a> : <span className="logo-missing">{club.id === "managed-custom" ? "Custom club initials" : "Era logo unavailable · initials shown"}</span>}
+      {club.id === state.managedTeamId && campaign.settings.branding?.logo ? <span className="logo-missing">Custom club logo</span> : teamLogoFor(club.id, campaign.year) ? <a className="text-link logo-reference" href={teamLogoFor(club.id, campaign.year)!.filePage} target="_blank" rel="noreferrer">Logo reference ↗</a> : <span className="logo-missing">{club.id === "managed-custom" ? "Custom club initials" : "Era logo unavailable · initials shown"}</span>}
     </section>)}</div>
   </>;
 }
