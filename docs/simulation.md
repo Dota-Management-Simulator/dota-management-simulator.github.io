@@ -1,6 +1,6 @@
 # Lane simulation and annual hero pools
 
-## Player progression balance — October 22, 2026 (local)
+## Player progression balance — October 22, 2026 (published)
 
 New player attributes start at 15–40 and develop through weekly practice; existing saved ratings remain intact. Combat power now uses `(0.4 + average(laning, teamfights, skirmish, stability) × 0.008 + difficulty/staff bonus)` before energy, happiness, form and existing safety bounds. The former steep curve put nearly all new starting skills at the same minimum power. This gentler curve preserves differences and development across the starting range. Skill lookups use nullish defaults so a real zero from decay never becomes a fallback 70. Future matches use the revised model; stored outcomes and scoreboards are retained. A new engine test covers low-skill power ordering and zero ratings. See [training and world development](training.md).
 
