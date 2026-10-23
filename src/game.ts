@@ -109,6 +109,7 @@ export interface Campaign {
   training: Record<string, Training>;
   trainingSchedules?: Record<string, TrainingSchedule>;
   trainingPresets?: TrainingPreset[];
+  trainingQuickSlots?: (string | null)[];
   sponsorIds: string[];
   sponsorships?: Sponsorships;
   staffIds: string[];

@@ -1,0 +1,23 @@
+/* Three pinned saved plans beside "Rest the squad". */
+.training-plan-actions { display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-end; gap: 8px; }
+.training-quick-slots { display: flex; flex-wrap: wrap; gap: 6px; }
+.training-quick-slot { display: flex; align-items: center; height: 34px; border: 1px solid #dfe3d7; border-radius: 6px; background: #fff; overflow: hidden; }
+.training-quick-slot.empty { border-style: dashed; }
+.training-quick-apply, .training-quick-icon, .training-quick-confirm { height: 100%; border: 0; background: transparent; color: #59634f; font-size: 10px; }
+.training-quick-apply { max-width: 150px; padding: 0 10px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.training-quick-icon { display: grid; place-items: center; width: 28px; border-left: 1px solid #eceee6; }
+.training-quick-icon:disabled { opacity: .45; cursor: default; }
+.training-quick-confirm { padding: 0 9px; border-left: 1px solid #eceee6; color: var(--gold); font-weight: 600; }
+.training-quick-apply:hover, .training-quick-icon:hover:not(:disabled), .training-quick-confirm:hover { background: #f0f3e9; }
+.training-quick-slot select { width: 118px; height: 100%; margin: 0; border: 0; border-radius: 0; padding: 0 6px 0 9px; font-size: 10px; color: var(--muted); background-color: transparent; }
+.training-quick-slot input { width: 120px; height: 100%; margin: 0; border: 0; border-radius: 0; padding: 0 8px; font-size: 11px; background: transparent; }
+@media (max-width: 760px) {
+  .section-title:has(.training-plan-actions) { flex-wrap: wrap; }
+  .training-plan-actions { justify-content: flex-start; }
+}
+
+:root[data-theme="dark"] .training-quick-slot { background: #263124; border-color: #42503a; }
+:root[data-theme="dark"] :is(.training-quick-apply, .training-quick-icon) { color: #c6d4b5; }
+:root[data-theme="dark"] :is(.training-quick-icon, .training-quick-confirm) { border-left-color: #42503a; }
+:root[data-theme="dark"] :is(.training-quick-apply:hover, .training-quick-icon:hover:not(:disabled), .training-quick-confirm:hover) { background: #34432d; }
+:root[data-theme="dark"] .training-quick-slot input { color: var(--ink); }

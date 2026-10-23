@@ -14,6 +14,12 @@ Presets follow exact retained player IDs. A replacement inherits the departed pl
 
 The optional `Campaign.trainingPresets` field persists in the existing save slot, with no migration required. Malformed preset data is filtered without discarding a valid campaign. Presets belong to their campaign/browser save and are not shared between campaigns. Five focused tests cover snapshots/real weekly effects, independent variants/update/delete, current contract limits, retained identities/replacements, and legacy/malformed save loading. All **185 tests** and the production build pass (existing chunk warning). Isolated **5308** browser QA verifies creating/applying variants, overwrite/rename, deletion/cancel, reload persistence and desktop/390px light/dark layouts. The normal preview and hosted campaign were not modified.
 
+### Quick slots beside Rest the squad — October 23, 2026
+
+**Local, not published:** three one-click quick slots sit to the left of **Rest the squad**. Each pins one of the saved training plans above by ID, so both views share the same data. An empty slot can pin an existing plan from its dropdown, or its save icon stores the current weekly plan as a new saved plan (named `Quick plan N`, never duplicating a name; blocked when all 20 plans are used). On a pinned slot, the name applies the plan, the pencil renames the plan without changing its settings, the save icon overwrites it with the current weekly plan after an **Overwrite?** confirmation, and × unpins it while keeping the saved plan. A plan pinned to a new slot leaves its old slot.
+
+Optional `Campaign.trainingQuickSlots` stores three preset IDs or `null`. Missing, malformed, repeated or deleted IDs read as empty slots, so deleting a plan in the full panel simply empties its slot. Logic is in `src/training-quick-slots.ts`, UI in `src/TrainingQuickSlots.tsx`; four tests are in `tests/training-quick-slots.test.ts`.
+
 ## Development and recovery rules
 
 These are illustrative game rules, not historical training data. Let `H` be actual weekly hours, `D` training days and `I` the intensity multiplier.

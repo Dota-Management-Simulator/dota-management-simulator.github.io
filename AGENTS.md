@@ -36,6 +36,10 @@ Thirteen primary TI role tables supply 1,351 hero/event rows; gaps use labeled e
 
 Pushes to `main` now test, build and deploy through `.github/workflows/deploy.yml`; see [Canonical repository and deployment](#canonical-repository-and-deployment). Before the workflow existed, the patch, staff, talents, training preset, bracket and hero balance work was published manually: source `8c65458`, Pages `cd5dfa3`. Pages reported **built**, and the public HTML, CSS and all seven JavaScript chunks matched `dist/` by SHA-256. The Discord summary for that release was **not** posted: the agent's permission check blocked reading the webhook file.
 
+
+## Training quick slots — October 23, 2026
+
+**Local, not published (DBreeezy branch):** three quick slots beside **Rest the squad** pin, apply, create, rename and overwrite Jonahbyu's shared saved training plans (`Campaign.trainingPresets`) through optional `Campaign.trainingQuickSlots` preset IDs. **189 tests** and the build pass (existing chunk warning). Browser QA on isolated **5301** covered save-to-slot appearing in the full panel, rename, apply after Rest, reload persistence, overwrite confirmation, and the phone layout in dark mode. See [training rules](docs/training.md).
 ## Patch inbox and tournament brackets — October 23, 2026
 
 **New local follow-up:** every patch now opens the same introduction popup as the milestone updates, with its summary, new-hero icons and related verified official trailers where available. `Campaign.patchIntroductions` persists crossed-update queues and dismissals, including reloads while busy; previous milestone dismissals migrate. Read notes opens that exact queued patch. Multiple videos use a picker; Valve-hosted MP4s cover Muerta/Ringmaster/Kez/Largo, alongside verified YouTube update/hero films. The notes retain replay. Five new focused tests bring the full suite to **190 passing tests**; build passes, with isolated **5311** UI QA. See [delivery, sources and validation](docs/patch-milestones.md). This follow-up is not pushed or deployed; preserve the separate balance run.
