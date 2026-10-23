@@ -2,6 +2,8 @@
 
 Reviewed **October 23, 2026**. Approved scope: major events, tier-2 events and their qualifiers, real dates/times, actual formats, era-specific entry and placement payouts. Every player must finish registered tournament runs before a transfer or release.
 
+**Published:** source `54cbeea`, Pages `996ff33`. Pages/build/public asset and worker checks pass; hosted saved scoreboards reopen with campaign values preserved. Earlier local fix labels below are pre-release snapshots. See [release verification](github-pages.md).
+
 ## Coverage
 
 **The full request is not finished.** The catalog contains **483 records**: 96 pass current supported-format/stage/topology/payout checks, 385 need review and two are scheduled. The October 23 audit restricts sixteen formerly accepted events rather than playing guessed formats. Passing checks does not mean every start time, invitation method or tiebreaker is verified. Entry also requires an invitation or qualifying place. The research catalog includes DPC qualification-path leagues whose tier classification is still under review; the count is not a claim of 483 verified major/tier-2 tournaments. See [audit findings and limits](tournament-audit.md).

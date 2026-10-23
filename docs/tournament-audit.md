@@ -1,5 +1,7 @@
 # Tournament format audit — October 23, 2026
 
+Published as source `54cbeea` and Pages `996ff33`, with successful Pages/public checksum checks, preserved hosted save values and the authorized Discord release summary. See [release verification](github-pages.md).
+
 The audit reviewed the compiler and all 483 catalog records against their cached evidence, then exercised every event still marked ready. It found real format-import errors. It does **not** establish that every league in Dota history is complete or every historical detail is verified.
 
 The catalog now has **96 ready, 385 needing review and two scheduled** records. Sixteen of the previous 112 ready events require more evidence or rules support. No previously restricted event was promoted by this audit. Saved registered rules, finances and results are retained; corrections apply to new registrations.

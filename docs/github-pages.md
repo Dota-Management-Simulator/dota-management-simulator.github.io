@@ -39,6 +39,18 @@ The user wants update summaries in their Discord channel **only when they explic
 
 The webhook stays outside the browser application and committed files. The user identified the local secret file `resend api .txt`; its confirmed path is recorded in [the project handoff](../AGENTS.md). Read the webhook into a local variable only when sending the authorized summary; never print it. The Discord webhook is named **Aegis Updates** and targets **#dota-management-simulator**. If the webhook is unavailable or delivery fails, report that the Discord summary remains unsent. No automatic notification hook has been installed and no setup/test message has been sent.
 
+## October 23, 2026 release
+
+**Restored scoreboards and tournament format audit:** source `54cbeea`, Pages `996ff33351377a265fd6300d85c30267c062236c`. The user requested auditing other leagues and publishing the update. Watched/skipped managed matches now open saved map scoreboards, with active/archive reopening for managed and compact AI records. The format importer separates regular groups from qualifier/tiebreak/playoff rules, preserves BO1 double round robins, recovers missing default wins and fixes round headings. Coverage is **96 ready / 385 needing review / two scheduled** after restricting sixteen formerly accepted events with unsupported or incomplete rules; complete historical/DPC/world-event simulation is not claimed.
+
+- The isolated committed-source snapshot passes **145 application tests, 13 parser tests and the production build** (existing chunk-size warning). Each ready event resolves eight seeded alternate advancement paths. A real worker match in the isolated production build opens ten player rows and two resource graphs without browser errors.
+- Pages reports **built**, without an error. Public HTML, CSS, every JavaScript file including both workers, favicon and `hero-icons/axe.png` return HTTP 200 and match the release build by SHA-256.
+- A hosted-browser reload uses `index-Bbf9UcIM.js`, retains Atlas Esports' week 4 / $90,000 and identical Kestrel/Solace/Oak/Static/North roster values, and reopens the existing two-map Founders Open result with ten player rows. No hosted time was advanced or new match played.
+- Shared-folder patch-system work that appeared during the audit was preserved. Only the tournament/scoreboard changes were committed for this release; deployment used an isolated archive of that commit rather than the mutable shared working directory.
+- The authorized Aegis Updates Discord summary was delivered successfully (HTTP 200, receipt `1563088286497636353`). The external secret URL was not printed or committed. No automatic notification hook was added.
+
+Earlier local/pending labels describe pre-release snapshots and are superseded for publication status only. Full findings and limitations are in [the audit](tournament-audit.md).
+
 ## October 22, 2026 release
 
 **Manager workspace, TI standings and historical strength:** source `d2197b2f4ad4c102ae2e74dd7a48af5ab7a8bf5b`, Pages `dc3c334a2652d537a6f056c156db02e616871128`. The user requested pushing all outstanding project changes and posting the release summary. This publishes the Manager’s Desk, sticky campaign controls, squad comparison/dossier, TI race and standings, roster-linked historical strength and actual-result form, plus supporting data/compiler changes, tests and documentation.
