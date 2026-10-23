@@ -23,6 +23,12 @@ The partner's 17 leads are retained in [the research intake](../scripts/data/tou
 
 ## Clock, simulation and saves
 
+### Bracket display (October 23, local)
+
+Active events and tournament archives show connected bracket cards before research/format detail. A non-group stage becomes visible when its first series is next, a series in that stage has been recorded, or the run is complete. Future stages retain a waiting message; group-only leagues keep their tables. Dynamically created tiebreak stages follow the same rule. No historical winners are filled into unresolved slots.
+
+Cards show registered team names, group ranks or winner/loser sources, best-of length, default-win starting scores, actual completed scores, next-series highlighting and saved scoreboard links. Solid paths advance winners; dashed paths carry losers. The graph follows saved fixture dependencies, including cross-stage source labels, and scrolls within its container on narrow screens. Results and event rules are unchanged.
+
 New campaigns use optional `Campaign.calendar` metadata. Wages, training and contract/sponsor expiry follow real seven-day intervals across years. Existing weekly saves retain their clock unless explicitly converted. Roster/hero imports follow actual TI end dates, with a year-end boundary for 2020.
 
 Event windows and verified timestamps are sourced. Date-only facts stay date-only. Unrecovered per-pair dates are explicitly estimated within known stage windows; this is not a complete verified match timetable. Advances stop at pending registered fixtures. Concurrent online runs are supported; overlapping LAN attendance is blocked.

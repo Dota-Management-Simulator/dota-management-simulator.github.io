@@ -6,11 +6,13 @@ import { managedSponsorTeam, sponsorBlocker, sponsorMarket, sponsors } from "./s
 import { historicalTournaments, nextTournamentFixture, tournamentById, utcTime } from "./tournaments";
 import type { HistoricalTournament } from "./tournament-types";
 import { CALENDAR_DAY, calendarDay } from "./calendar-layout";
+import { announcedPatches, patchAnnouncement } from "./patch-announcements";
+import { campaignPatch } from "./patches";
 
-export type OfficeAction = { kind: "tournament"; eventId: string } | { kind: "player"; playerId: string } | { kind: "page"; page: Page };
+export type OfficeAction = { kind: "tournament"; eventId: string } | { kind: "player"; playerId: string } | { kind: "page"; page: Page } | { kind: "patch"; patchId: string };
 export interface OfficeMessage {
   id: string; at: string; sender: string; subject: string; body: string;
-  category: "tournaments" | "contracts" | "sponsors" | "club";
+  category: "tournaments" | "contracts" | "sponsors" | "club" | "patches";
   action?: OfficeAction; actionLabel?: string; read?: boolean; archived?: boolean;
   createdWeek?: number;
   expired?: { at: string; reason: string };
@@ -21,6 +23,7 @@ export interface OfficeState {
   seen: string[];
   registrations: Record<string, { status: "reserved" | "declined"; at: string }>;
   sponsorTerms: TermSnapshot[];
+  lastPatchId?: string;
 }
 const emptyOffice = (): OfficeState => ({ messages: [], seen: [], registrations: {}, sponsorTerms: [] });
 export const officeNow = (c: Campaign) => c.calendar?.now ?? `${c.year} · Week ${c.week}`;
@@ -74,6 +77,8 @@ function messageWeek(c: Campaign, message: OfficeMessage): number {
 
 /** Evaluate real club state, including notices saved before expiry metadata existed. */
 export function messageExpiryReason(c: Campaign, message: OfficeMessage): string | null {
+  // Patch announcements remain readable and link to their own historical notes.
+  if (message.category === "patches") return null;
   const week = campaignWeek(c);
   const age = week - messageWeek(c, message);
   const contract = /^contract:(.*):(-?\d+):(-?\d+):(due|expired)$/.exec(message.id);
@@ -181,6 +186,11 @@ export function syncOffice(current: Campaign): Campaign {
   };
   add({ id: "office-welcome", sender: "Club secretary", subject: "Your manager's inbox is ready", category: "club",
     body: "Tournament invitations, registration reminders, player terms and sponsor updates arrive here. Opening a message marks it read. Every action links back to your club's actual agreements and event entry rules." });
+  for (const patch of announcedPatches(current, office.lastPatchId)) add({
+    id: `patch:${patch.id}`, sender: "Patch desk", category: "patches", subject: `Patch ${patch.id}: ${patch.name}`,
+    body: patchAnnouncement(patch), action: { kind: "patch", patchId: patch.id }, actionLabel: `Read patch ${patch.id} notes`,
+  });
+  office.lastPatchId = campaignPatch(current).id;
   for (const id of current.roster) {
     const p = current.players.find(p => p.id === id);
     const term = current.contracts?.[id];

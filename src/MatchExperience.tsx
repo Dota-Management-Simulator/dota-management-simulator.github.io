@@ -23,6 +23,8 @@ import { heroById } from "./heroes";
 import { heroIconFor } from "./hero-icons";
 import TeamBadge from "./TeamBadge";
 import { teamIdForName } from "./team-logos";
+import { frontierBounds, frontierMargin, frontierSize } from "./battle-map";
+import { talentTiers } from "./talents";
 
 const COLORS = ["#c8b16f", "#9da6e2"];
 const compact = (n: number) =>
@@ -279,8 +281,9 @@ function Scoreboard({
                           </span>
                         </div>
                       </td>
-                      <td>
+                      <td title={p.talents ? talentTiers.filter(t => p.talents?.[t.level] != null).map(t => `Level ${t.level}: ${t.choices[p.talents![t.level]!].name}`).join(" · ") || "No talents active" : undefined}>
                         <span className="level-box">{p.level}</span>
+                        {p.talents && <small className="neutral-lh">{Object.keys(p.talents).length} {Object.keys(p.talents).length === 1 ? "talent" : "talents"}</small>}
                       </td>
                       <td className="kda-cell">
                         <strong>{p.kills}</strong>
@@ -291,7 +294,7 @@ function Scoreboard({
                       </td>
                       <td>{compact(p.gold)}</td>
                       <td>{compact(p.xp)}</td>
-                      <td>{p.lastHits}</td>
+                      <td title={p.neutralLastHits != null ? `${p.neutralLastHits} neutral last hits` : undefined}>{p.lastHits}{p.neutralLastHits != null && <small className="neutral-lh">{p.neutralLastHits} neutral</small>}</td>
                     </tr>
                   ))}
               </tbody>
@@ -349,6 +352,7 @@ export function SeriesResults({
         <h2 id="modal-title" ref={heading} tabIndex={-1}>
           {drawn ? "The series ends level." : neutral ? `${series.teams[series.winner!]} win the series.` : result.won ? "A series to remember." : "A lesson for the next one."}
         </h2>
+        {series.patch && <p className="patch-match-label">Patch {series.patch.id} · {series.patch.name} · {series.patch.versions}</p>}
         <div className="series-scoreline">
           <strong><TeamBadge teamId={teamIds ? teamIds[0] : managedTeamId} name={series.teams[0]} year={result.year} size="small" />{series.teams[0]}</strong>
           <span>
@@ -428,18 +432,20 @@ function MapReplay({
   before,
   after,
   ratio,
+  expanded,
 }: {
   before: ReplayFrame;
   after: ReplayFrame;
   ratio: number;
+  expanded: boolean;
 }) {
   const nextUnits = new Map(after.units.map((u) => [u.id, u]));
   return (
     <svg
       className="battle-map"
-      viewBox="0 0 800 800"
+      viewBox={expanded ? frontierBounds : "0 0 800 800"}
       role="img"
-      aria-label="Match playback: heroes, creep waves, towers, and Ancients across three lanes"
+      aria-label={`Match playback: heroes, creep waves, towers, and Ancients across three lanes${expanded ? "; New Frontiers expanded map and twelve neutral farm camps" : ""}`}
     >
       <defs>
         <pattern
@@ -460,8 +466,9 @@ function MapReplay({
           <stop offset="1" stopColor="#192126" />
         </linearGradient>
       </defs>
-      <rect width="800" height="800" fill="url(#map-bg)" />
-      <rect width="800" height="800" fill="url(#map-grid)" />
+      <rect x={expanded ? -frontierMargin : 0} y={expanded ? -frontierMargin : 0} width={expanded ? frontierSize : 800} height={expanded ? frontierSize : 800} fill="url(#map-bg)" />
+      <rect x={expanded ? -frontierMargin : 0} y={expanded ? -frontierMargin : 0} width={expanded ? frontierSize : 800} height={expanded ? frontierSize : 800} fill="url(#map-grid)" />
+      {expanded && <rect x="0" y="0" width="800" height="800" fill="none" stroke="#af995b" strokeDasharray="6 9" opacity=".25" />}
       <path
         d="M0 210Q240 180 400 400T800 590"
         stroke="#608da0"
@@ -489,6 +496,11 @@ function MapReplay({
           <path d="m0-13-9 17h18Zm0 0v24" fill="#92ae72" stroke="#92ae72" />
         </g>
       ))}
+      {expanded && before.camps?.map(camp => <g key={camp.id} transform={`translate(${camp.x},${camp.y})`} opacity={camp.readyAt <= before.time ? .85 : .25}>
+        <title>Neutral camp · {camp.readyAt <= before.time ? `${Math.ceil(camp.hp)} HP · gold and experience` : "respawning"}</title>
+        <circle r="17" fill="#314331" stroke="#c8b16f" strokeWidth="1.5" />
+        <path d="m-8 7 8-16 8 16Z" fill="#c8b16f" />
+      </g>)}
       <text
         x="160"
         y="746"
@@ -661,6 +673,7 @@ export function MatchViewer({
         <div>
           <div className="eyebrow">LANE SIEGE · TOURNAMENT SERIES</div>
           <h2 id="modal-title">The team takes the stage.</h2>
+          {simulation.summary.mapLayout === "frontiers" && <p className="patch-match-label">New Frontiers · 40% more area · 12 shared farm camps</p>}
         </div>
         <button
           className="button secondary small-button"
@@ -689,7 +702,7 @@ export function MatchViewer({
       </div>
       <div className="watch-layout">
         <div className="map-wrap">
-          <MapReplay before={before} after={after} ratio={ratio} />
+          <MapReplay before={before} after={after} ratio={ratio} expanded={simulation.summary.mapLayout === "frontiers"} />
           <span className="map-live-label">
             <i /> GAME {gameIndex + 1} · SIMULATION PLAYBACK
           </span>
@@ -746,7 +759,7 @@ export function MatchViewer({
           ))}
         </div>
         <span>
-          Game {gameIndex + 1} of {simulation.summary.games.length} · {simulation.summary.bestOf === 2 ? "Two-map series" : `Best of ${simulation.summary.bestOf ?? 3}`}
+          Game {gameIndex + 1} of {simulation.summary.games.length} · {simulation.summary.bestOf === 2 ? "Two-map series" : `Best of ${simulation.summary.bestOf ?? 3}`}{simulation.summary.patch && ` · Patch ${simulation.summary.patch.id}`}
         </span>
         <button className="text-link" onClick={() => setClock(game.duration)}>
           Next result <ArrowRight size={14} />

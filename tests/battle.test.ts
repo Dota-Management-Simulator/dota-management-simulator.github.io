@@ -21,8 +21,12 @@ const config = buildBattleConfig(
 const simulated = simulateBestOfThree(config);
 
 test("low starting skills affect combat power and zero skills never fall back to veteran ratings", () => {
+  // Creativity also changes draft selection. Compare the same heroes so this
+  // measures player development rather than two different patch coefficients.
+  const drafted = new LaneBattle(config).units.filter(u => u.kind === "hero");
   const heroesAt = (skill: number) => {
     const c = structuredClone(config);
+    c.draft = [drafted.slice(0, 5).map(u => u.hero!.id), drafted.slice(5).map(u => u.hero!.id)];
     c.bonuses = [0, 0];
     for (const side of c.players) for (const p of side) {
       p.energy = 100; p.happiness = 100;

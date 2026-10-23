@@ -1,5 +1,15 @@
 import { getHeroPool } from "./heroes";
 import type { Hero } from "./heroes";
+import { axisFactor, draftWeight, heroPatchBonus, heroTags, patchById } from "./patches";
+import type { SeasonPatch } from "./patches";
+import { perceivedPatch } from "./patch-knowledge";
+import type { PatchObserver } from "./patch-knowledge";
+import { oppositionStaff } from "./staff";
+import { frontiersEnabled, talentsEnabled } from "./patch-milestones";
+import { createFarmCamps } from "./battle-map";
+import type { FarmCamp } from "./battle-map";
+import { talentBonuses } from "./talents";
+import type { TalentPlan } from "./talents";
 
 export type Side = 0 | 1;
 export interface BattlePlayer {
@@ -9,16 +19,23 @@ export interface BattlePlayer {
   skills: Record<string, number>;
   energy: number;
   happiness: number;
+  talents?: TalentPlan;
 }
 export interface BattleConfig {
   seed: number;
   year: number;
   heroPoolThroughYear?: number;
+  /** Absent on older saved preparations: retain the original neutral engine. */
+  patchId?: string;
+  patchObservers?: [PatchObserver, PatchObserver];
   teams: [string, string];
   players: [BattlePlayer[], BattlePlayer[]];
   bonuses: [number, number];
   seriesFormat?: { bestOf: 1 | 2 | 3 | 5 | 7; advantage?: [number, number] };
   captureReplay?: boolean;
+  /** Offline calibration and future manual drafts use the same combat path. */
+  draft?: [string[], string[]];
+  captureTimeline?: boolean;
 }
 export interface PlayerScore {
   id: string;
@@ -39,6 +56,8 @@ export interface PlayerScore {
   buildingDamage?: number;
   healing?: number;
   laneOutcome?: "win" | "draw" | "loss";
+  neutralLastHits?: number;
+  talents?: TalentPlan;
 }
 export interface ResourcePoint {
   time: number;
@@ -64,6 +83,8 @@ export interface SeriesSummary {
   advantage?: [number, number];
   score: [number, number];
   games: GameSummary[];
+  patch?: { id: string; name: string; versions: string };
+  mapLayout?: "frontiers";
 }
 export interface ReplayUnit {
   id: number;
@@ -81,6 +102,7 @@ export interface ReplayFrame {
   kills: [number, number];
   units: ReplayUnit[];
   players: PlayerScore[];
+  camps?: FarmCamp[];
 }
 export interface SimulatedSeries {
   summary: SeriesSummary;
@@ -170,6 +192,8 @@ interface Unit {
   buildingDamage: number;
   healing: number;
   laneOutcome?: PlayerScore["laneOutcome"];
+  farmCamp?: number;
+  neutralLastHits: number;
 }
 const distance = (a: { x: number; y: number }, b: { x: number; y: number }) =>
   Math.hypot(a.x - b.x, a.y - b.y);
@@ -178,6 +202,7 @@ const distance = (a: { x: number; y: number }, b: { x: number; y: number }) =>
 // with gold, assist attribution, bounded overtime, and separate replay capture.
 export class LaneBattle {
   units: Unit[] = [];
+  camps: FarmCamp[] = [];
   time = 0;
   winner: Side | null = null;
   kills: [number, number] = [0, 0];
@@ -189,13 +214,24 @@ export class LaneBattle {
   private serial = 0;
   private lanesMeasured = false;
   private random: () => number;
+  private patch: SeasonPatch | undefined;
   constructor(
     public config: BattleConfig,
     gameIndex = 0,
   ) {
     this.random = seededRandom(config.seed + gameIndex * 7919);
-    const pool = getHeroPool(config.year, config.heroPoolThroughYear).slice();
+    this.patch = patchById(config.patchId);
+    this.camps = frontiersEnabled(this.patch) ? createFarmCamps() : [];
+    const pool = getHeroPool(config.year, this.patch ? Math.min(config.heroPoolThroughYear ?? this.patch.year - 1, this.patch.year - 1) : config.heroPoolThroughYear).slice();
+    if (config.draft) {
+      const ids = config.draft.flat();
+      if (config.draft.some(side => side.length !== 5) || new Set(ids).size !== 10 ||
+          config.draft.some(side => side.some((id, role) => !pool.some(h => h.id === id && h.roles.includes(role)))))
+        throw new Error("A fixed draft must contain ten unique, unlocked, position-eligible heroes.");
+    }
     for (const team of [0, 1] as Side[]) {
+      const observer = config.patchObservers?.[team] ?? { teamKey: config.teams[team], staffIds: oppositionStaff(config.teams[team]) };
+      const draftPatch = this.patch ? perceivedPatch(this.patch, observer) : undefined;
       const base = BASES[team];
       this.add({ team, kind: "base", x: base[0], y: base[1], hp: 4500 });
       for (let lane = 0; lane < 3; lane++)
@@ -216,7 +252,9 @@ export class LaneBattle {
       config.players[team].forEach((player, role) => {
         const candidates = pool.filter((h) => h.roles.includes(role));
         const choices = candidates.length ? candidates : pool;
-        const hero = choices[Math.floor(this.random() * choices.length)];
+        const weights = choices.map(h => draftWeight(h, draftPatch, player.skills.creativity ?? 50));
+        let roll = this.random() * weights.reduce((sum, value) => sum + value, 0);
+        const hero = config.draft ? pool.find(h => h.id === config.draft![team][role])! : choices[weights.findIndex((weight, index) => (roll -= weight) < 0 || index === weights.length - 1)];
         pool.splice(pool.indexOf(hero), 1); // No duplicates across either draft.
         const s = player.skills;
         const skill =
@@ -236,7 +274,7 @@ export class LaneBattle {
             form,
           0.35,
           2.2,
-        );
+        ) * (1 + heroPatchBonus(this.patch, hero.id) / 100);
         const lane = [2, 1, 0, 0, 2][role];
         const unit = this.add({
           team,
@@ -248,7 +286,7 @@ export class LaneBattle {
           y: base[1] - role * 5,
           range: hero.ranged ? 150 : 42,
           rate: hero.attribute === "Agility" ? 0.9 : 1.15,
-          speed: 102 + (s.intuition ?? 70) / 8,
+          speed: (102 + (s.intuition ?? 70) / 8) * axisFactor(this.patch, "tempo", 0.12),
           strength: hero.attribute === "Strength" ? 25 : 19,
           agility: hero.attribute === "Agility" ? 24 : 15,
           intelligence: hero.attribute === "Intelligence" ? 25 : 16,
@@ -289,6 +327,7 @@ export class LaneBattle {
       heroDamage: 0,
       buildingDamage: 0,
       healing: 0,
+      neutralLastHits: 0,
       strength: 0,
       agility: 0,
       intelligence: 0,
@@ -328,9 +367,11 @@ export class LaneBattle {
         : u.hero.attribute === "Agility"
           ? u.agility
           : u.intelligence;
-    u.damage = (25 + primary + u.gold * 0.0018) * u.power;
-    u.max = (200 + u.strength * 22) * u.power + u.gold * 0.013;
+    const talents = this.talents(u);
+    u.damage = (25 + primary + u.gold * 0.0018 * axisFactor(this.patch, "economy", 0.2)) * u.power * talents.attack;
+    u.max = ((200 + u.strength * 22) * u.power + u.gold * 0.013) * talents.health;
   }
+  private talents(u: Unit) { return talentBonuses(talentsEnabled(this.patch) ? u.player?.talents : undefined, u.level); }
   private spawn() {
     const siege = 1 + Math.max(0, this.time - 240) / 200;
     for (const team of [0, 1] as Side[])
@@ -376,6 +417,10 @@ export class LaneBattle {
     let best: Unit | undefined;
     let d = radius;
     for (const e of this.units) {
+      // Exact broad-phase rejection: anything outside this box cannot beat
+      // the current edge-to-edge distance. Preserve tie order and combat RNG.
+      const extent = e.kind === "base" ? 26 : e.kind === "hero" ? 10 : 6;
+      if (Math.abs(e.x - u.x) > d + extent || Math.abs(e.y - u.y) > d + extent) continue;
       if (!this.canTarget(u, e)) continue;
       const gap =
         distance(u, e) - (e.kind === "base" ? 26 : e.kind === "hero" ? 10 : 6);
@@ -389,13 +434,13 @@ export class LaneBattle {
   private move(u: Unit, x: number, y: number) {
     const d = Math.hypot(x - u.x, y - u.y);
     if (d < 1) return;
-    const step = Math.min(d, u.speed * DT);
+    const step = Math.min(d, u.speed * this.talents(u).speed * DT);
     u.x += ((x - u.x) / d) * step;
     u.y += ((y - u.y) / d) * step;
   }
   private gainXp(u: Unit, value: number) {
     if (!u.player) return;
-    const gain = value * 2.2 * (0.8 + (u.player.skills.farming ?? 70) / 350);
+    const gain = value * 2.2 * (0.8 + (u.player.skills.farming ?? 70) / 350) * axisFactor(this.patch, "economy", 0.18) * this.talents(u).resources;
     u.experience += gain;
     u.totalXp += gain;
     while (u.level < 25 && u.experience >= 80 * u.level) {
@@ -411,6 +456,13 @@ export class LaneBattle {
   }
   private damage(source: Unit, target: Unit, value: number) {
     if (target.dead || this.winner !== null) return;
+    if (target.kind === "tower" || target.kind === "base") value *= this.talents(source).buildings;
+    if (this.patch && source.player && source.hero && (target.kind === "tower" || target.kind === "base")) {
+      const pushing = source.player.skills.pushing ?? 50;
+      value *= axisFactor(this.patch, "objectives", 0.3) * (0.9 + pushing / 500);
+      const partners = this.units.filter(u => u.kind === "hero" && !u.dead && u.team === source.team && u !== source && distance(u, source) < 200).length;
+      if (partners === 0) value *= axisFactor(this.patch, "splitpush", heroTags(source.hero).includes("Pushing") ? 0.35 : 0.18);
+    }
     // Count effective damage, excluding overkill. Telemetry never consumes RNG.
     const effective = Math.max(0, Math.min(target.hp, value));
     if (source.kind === "hero") {
@@ -434,6 +486,7 @@ export class LaneBattle {
       (u) => u.kind === "hero" && u.team === source.team,
     );
     if (target.kind === "hero") {
+      target.farmCamp = undefined;
       target.deaths++;
       target.respawn = 6 + target.level * 2;
       this.kills[source.team]++;
@@ -450,17 +503,17 @@ export class LaneBattle {
             )[0];
       if (killer) {
         killer.kills++;
-        killer.gold += 200 + target.level * 10;
+        killer.gold += (200 + target.level * 10) * this.talents(killer).resources;
       }
       for (const hero of involved)
         if (hero !== killer) {
           hero.assists++;
-          hero.gold += 75;
+          hero.gold += 75 * this.talents(hero).resources;
         }
       target.contributions.clear();
     } else if (target.kind === "tower") {
-      for (const hero of allies) hero.gold += 150;
-      if (source.kind === "hero") source.gold += 75;
+      for (const hero of allies) hero.gold += 150 * this.talents(hero).resources;
+      if (source.kind === "hero") source.gold += 75 * this.talents(source).resources;
     } else {
       const farmer =
         source.kind === "hero"
@@ -476,7 +529,7 @@ export class LaneBattle {
               )[0];
       if (farmer) {
         farmer.lastHits++;
-        farmer.gold += 35 * (0.8 + (farmer.player?.skills.farming ?? 70) / 250);
+        farmer.gold += 35 * (0.8 + (farmer.player?.skills.farming ?? 70) / 250) * axisFactor(this.patch, "economy", 0.25) * this.talents(farmer).resources;
       }
     }
     const xp =
@@ -495,20 +548,27 @@ export class LaneBattle {
     let value = u.damage * (1 - (0.06 * armor) / (1 + 0.06 * armor));
     if (u.player && target.kind === "creep")
       value *= 0.7 + (u.player.skills.laning ?? 70) / 150;
+    if (this.patch && u.player && this.time < 100 && (target.kind === "hero" || target.kind === "creep"))
+      value *= 1 + (this.patch.axes.laning - 50) / 50 * (u.player.skills.laning ?? 50) / 100 * 0.3;
     this.damage(u, target, value);
   }
   private cast(u: Unit, target: Unit) {
     if (!u.hero) return;
-    const execution = 0.7 + (u.player?.skills.teamfights ?? 70) / 200;
+    let execution = 0.7 + (u.player?.skills.teamfights ?? 70) / 200;
+    if (this.patch) {
+      const partners = this.units.filter(a => a.kind === "hero" && !a.dead && a.team === u.team && a !== u && distance(a,u) < 240).length;
+      execution *= 1 + (this.patch.axes.teamfight - 50) / 50 * Math.min(1, partners / 2) * 0.3;
+    }
+    const spellPower = execution * this.talents(u).spells;
     if (u.hero.ability === "nuke")
-      this.damage(u, target, (u.damage * 2 + u.level * 8) * execution);
+      this.damage(u, target, (u.damage * 2 + u.level * 8) * spellPower);
     else if (u.hero.ability === "stun") {
-      target.stun = 1.6;
-      this.damage(u, target, u.damage * execution);
+      target.stun = 1.6 * (this.patch ? limit(execution, 0.7, 1.4) : 1);
+      this.damage(u, target, u.damage * spellPower);
     } else if (u.hero.ability === "area") {
       for (const e of this.units)
         if (this.canTarget(u, e) && distance(e, target) < 90)
-          this.damage(u, e, u.damage * 1.35 * execution);
+          this.damage(u, e, u.damage * 1.35 * spellPower);
     } else
       for (const ally of this.units)
         if (
@@ -517,13 +577,42 @@ export class LaneBattle {
           ally.team === u.team &&
           distance(ally, u) < 200
         ) {
-          u.healing += Math.max(0, Math.min(ally.max - ally.hp, (90 + u.level * 12) * execution));
+          u.healing += Math.max(0, Math.min(ally.max - ally.hp, (90 + u.level * 12) * spellPower));
           ally.hp = Math.min(
             ally.max,
-            ally.hp + (90 + u.level * 12) * execution,
+            ally.hp + (90 + u.level * 12) * spellPower,
           );
         }
-    u.abilityCd = 9 + this.random() * 3;
+    u.abilityCd = (9 + this.random() * 3) / axisFactor(this.patch, "tempo", 0.18);
+  }
+  /** Shared, finite camps: clearing costs travel and attack time. No passive farm bonus. */
+  private farm(u: Unit): boolean {
+    const role = u.player!.role;
+    const inWindow = this.time >= 100 && this.time < 480 && (this.time + role * 7) % 60 < 18;
+    if (!inWindow || u.hp < u.max * 0.6 || this.nearest(u, 220)) { u.farmCamp = undefined; return false; }
+    let camp = this.camps.find(c => c.id === u.farmCamp && c.readyAt <= this.time);
+    if (!camp) {
+      const available = this.camps.filter(c => c.readyAt <= this.time && !this.units.some(a => a !== u && !a.dead && a.farmCamp === c.id));
+      camp = available.sort((a,b) => distance(u,a) - distance(u,b))[0];
+      if (!camp || distance(u,camp) > 380) return false;
+      u.farmCamp = camp.id;
+    }
+    if (distance(u,camp) > 40) this.move(u,camp.x,camp.y);
+    else if (u.cd <= 0) {
+      u.cd = u.rate;
+      camp.hp -= u.damage * (0.8 + (u.player!.skills.farming ?? 50) / 100);
+      u.hp = Math.max(1, u.hp - 12);
+      if (camp.hp <= 0) {
+        u.gold += 95 * (0.8 + (u.player!.skills.farming ?? 50) / 250) * axisFactor(this.patch, "economy", 0.25) * this.talents(u).resources;
+        u.lastHits += 3;
+        u.neutralLastHits += 3;
+        this.gainXp(u,90);
+        camp.hp = 450;
+        camp.readyAt = this.time + 10;
+        u.farmCamp = undefined;
+      }
+    }
+    return true;
   }
   step() {
     if (this.winner !== null) return; // Team zero is a valid winner.
@@ -536,7 +625,7 @@ export class LaneBattle {
       if (this.winner !== null) break;
       if (u.kind === "hero") {
         u.gold +=
-          DT * GAME_CLOCK * (0.8 + (u.player?.skills.farming ?? 70) / 100);
+          DT * GAME_CLOCK * (0.8 + (u.player?.skills.farming ?? 70) / 100) * axisFactor(this.patch, "economy", 0.25) * this.talents(u).resources;
         this.recalculate(u);
       }
       if (u.dead) {
@@ -599,10 +688,13 @@ export class LaneBattle {
         u.retreat = true;
       if (u.hp > u.max * 0.85) u.retreat = false;
       if (u.retreat) {
+        u.farmCamp = undefined;
         this.move(u, home.x, home.y);
         continue;
       }
-      const target = this.nearest(u, u.range + 60);
+      const awareness = this.patch ? (this.patch.axes.vision - 50) / 50 * ((u.player?.skills.vision ?? 50) + (u.player?.skills.intuition ?? 50)) / 200 * 65 : 0;
+      if (this.camps.length && this.farm(u)) continue;
+      const target = this.nearest(u, u.range + 60 + awareness);
       if (target) {
         if (u.abilityCd <= 0 && distance(u, target) < u.range + 30)
           this.cast(u, target);
@@ -716,12 +808,14 @@ export class LaneBattle {
         heroDamage: Math.round(u.heroDamage),
         buildingDamage: Math.round(u.buildingDamage),
         healing: Math.round(u.healing),
+        ...(this.camps.length ? { neutralLastHits: u.neutralLastHits } : {}),
+        ...(talentsEnabled(this.patch) ? { talents: Object.fromEntries(Object.entries(u.player!.talents ?? {}).filter(([level]) => u.level >= Number(level))) as TalentPlan } : {}),
         ...(u.laneOutcome ? { laneOutcome: u.laneOutcome } : {}),
       }));
   }
   private capture(final = false) {
     const time = Math.round(this.time * GAME_CLOCK);
-    if (final || this.time >= this.nextSample) {
+    if (this.config.captureTimeline !== false && (final || this.time >= this.nextSample)) {
       if (this.timeline.at(-1)?.time !== time)
         this.timeline.push({
           time,
@@ -739,6 +833,7 @@ export class LaneBattle {
           time,
           kills: [...this.kills],
           players: this.score(),
+          ...(this.camps.length ? { camps: this.camps.map(c => ({ ...c, readyAt: Math.round(c.readyAt * GAME_CLOCK) })) } : {}),
           units: this.units
             .filter((u) => u.wait <= 0)
             .map((u) => ({
@@ -802,6 +897,7 @@ export function simulateSeries(
   config: BattleConfig,
   onProgress?: (games: number) => void,
 ): SimulatedSeries {
+  const patch = patchById(config.patchId);
   const { bestOf = 3, advantage = [0, 0] } = config.seriesFormat ?? {};
   if (![1, 2, 3, 5, 7].includes(bestOf) || advantage.some(n => !Number.isInteger(n) || n < 0) || (bestOf === 2 && advantage.some(Boolean)))
     throw new Error("Invalid series format");
@@ -828,6 +924,8 @@ export function simulateSeries(
       ...(advantage.some(Boolean) ? { advantage } : {}),
       score,
       games,
+      ...(patch ? { patch: { id: patch.id, name: patch.name, versions: patch.versions } } : {}),
+      ...(frontiersEnabled(patch) ? { mapLayout: "frontiers" as const } : {}),
     },
     frames,
   };

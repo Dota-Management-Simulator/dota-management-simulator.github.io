@@ -6,6 +6,14 @@ Each player can choose Light (0.75×), Normal (1×) or Intense (1.5×) training,
 
 The page shows total weekly hours, days off, expected attribute/comfort/morale gains, net energy change and projected energy after the week. Projected energy below 40% is highlighted. The forecast includes staff, contract and active sponsor effects; bankruptcy replaces happiness gains with the existing −10 penalty. It is a training-only forecast, before any subsequent match energy cost.
 
+## Saved training plans — October 23, 2026
+
+**Local, not published:** Training → **Saved training plans** stores up to 20 named squad presets in the current campaign. Set each player's focus, intensity, hours/day and days/week below, enter a name, then choose **Save as new plan**. To create variants, adjust the weekly plan and save under another name. Selecting a saved plan only previews it; **Apply plan** restores its settings. **Update selected** replaces its saved settings with the current weekly plan and can rename it. Updating and deleting require inline confirmation; deleting a preset leaves active training unchanged. Duplicate names are rejected without overwriting another plan.
+
+Presets follow exact retained player IDs. A replacement inherits the departed player's saved role plan; an unmatched role keeps its current settings. Unsupported playstyle focuses fall back to Balanced. Current contract practice-hour/rest-day limits constrain applied workloads without altering the saved template. Rest presets retain the underlying workload for later use, while actual Rest still performs zero practice. Saving, applying, updating and deleting never advance time, change money or train anyone immediately. Current training settings continue between weeks until changed.
+
+The optional `Campaign.trainingPresets` field persists in the existing save slot, with no migration required. Malformed preset data is filtered without discarding a valid campaign. Presets belong to their campaign/browser save and are not shared between campaigns. Five focused tests cover snapshots/real weekly effects, independent variants/update/delete, current contract limits, retained identities/replacements, and legacy/malformed save loading. All **185 tests** and the production build pass (existing chunk warning). Isolated **5308** browser QA verifies creating/applying variants, overwrite/rename, deletion/cancel, reload persistence and desktop/390px light/dark layouts. The normal preview and hosted campaign were not modified.
+
 ## Development and recovery rules
 
 These are illustrative game rules, not historical training data. Let `H` be actual weekly hours, `D` training days and `I` the intensity multiplier.

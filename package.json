@@ -8,6 +8,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "tsx --test tests/*.test.ts",
+    "calibrate:heroes": "node scripts/calibrate-heroes.mjs",
+    "balance:heroes": "node scripts/iterate-hero-balance.mjs",
+    "rank:heroes": "node scripts/export-hero-rankings.mjs",
     "deploy": "npm run build && node scripts/deploy-pages.mjs"
   },
   "dependencies": {

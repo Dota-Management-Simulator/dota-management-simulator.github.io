@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
 import { getHeroPool, heroEra, heroRoles, heroUnlockYear, heroReleases, heroesArrivingIn } from "./heroes";
+import type { PatchReport } from "./patch-knowledge";
 
-export default function HeroPool({ year, week, throughYear }: { year: number; week: number; throughYear?: number }) {
+export default function HeroPool({ year, week, throughYear, report }: { year: number; week: number; throughYear?: number; report?: PatchReport }) {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("all");
   const through = throughYear ?? heroUnlockYear(year, week);
@@ -19,7 +20,7 @@ export default function HeroPool({ year, week, throughYear }: { year: number; we
         <div>
           <h2>Your season's hero pool</h2>
           <p>
-            {heroes.length} heroes · {through < 2011 ? "TI1 opening pool" : `Shuffles through ${through}`} · modern names
+            {heroes.length} heroes · {through < 2011 ? "TI1 opening pool" : `Release batches through ${through}`} · modern names
           </p>
         </div>
         <a
@@ -71,8 +72,9 @@ export default function HeroPool({ year, week, throughYear }: { year: number; we
             </span>
             <span>
               <strong>{h.name}</strong>
+              {report?.heroes.some(entry => entry.id === h.id) && <small className="patch-pool-bonus">Scouted favorite · patch {report.patchId}</small>}
               <small>
-                {h.attribute} · {h.ranged ? "Ranged" : "Melee"} · {h.releasedYear ? `${h.releasedYear} shuffle` : "TI1 opening"}
+                {h.attribute} · {h.ranged ? "Ranged" : "Melee"} · {h.releasedYear ? `Patch ${h.releasedYear + 1}.1` : "TI1 opening"}
               </small>
             </span>
           </div>
@@ -82,7 +84,7 @@ export default function HeroPool({ year, week, throughYear }: { year: number; we
         <p className="hero-pool-empty">No heroes match these filters.</p>
       )}
       <p className="match-footnote">
-        {arriving.length ? `${arriving.length} more heroes enter at this season's post-TI shuffle. ` : ""}
+        {arriving.length ? `${arriving.length} more heroes enter with patch ${year + 1}.1 at the post-TI shuffle. ` : ""}
         Dota 2 release-year additions enter together after TI, including releases later in that calendar year. This game rule does not follow Captain's Mode eligibility. Position preferences, attributes and combat archetypes are illustrative.
       </p>
       <p className="match-footnote"><a className="text-link" href={heroReleases.sources[0].url} target="_blank" rel="noreferrer">Hero release chronology ↗</a> · Coverage through 2026; no additional 2026 release recorded as of October 21.</p>

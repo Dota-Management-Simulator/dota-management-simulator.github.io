@@ -20,7 +20,7 @@
 .inbox-detail { padding: 30px; min-width: 0; }
 .inbox-detail h2 { margin: 12px 0; font-size: 21px; line-height: 1.5; }
 .inbox-sender { color: var(--muted); font-size: 12px; }
-.inbox-body { font-size: 14px; line-height: 1.9; margin: 25px 0; }
+.inbox-body { font-size: 14px; line-height: 1.9; margin: 25px 0; white-space: pre-line; }
 .inbox-message-actions { display: flex; gap: 22px; flex-wrap: wrap; margin-top: 32px; }
 .inbox-message-actions button { display: inline-flex; gap: 6px; align-items: center; }
 .inbox-expiry { padding: 16px; margin-top: 20px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); font-size: 12px; line-height: 1.7; }

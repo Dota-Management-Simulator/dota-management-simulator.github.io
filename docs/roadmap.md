@@ -1,5 +1,17 @@
 # Product vision and future plans
 
+**October 23 saved training plans, local:** the user requested reusable training settings and variants. Training now stores named squad presets for focus, intensity, hours/day and days/week, with preview/apply, save-as-new variants, update/rename and deletion. Presets persist in the campaign, follow retained players and replacement roles, and respect current contract limits without advancing time. All 185 tests/build pass; isolated 5308 browser QA covers interactions, reload and light/dark desktop/phone layouts. Not published. See [training rules](training.md).
+
+**October 23 iterative balance follow-up, local:** the user authorized further tuning in every patch and internal top-ten-per-role highlighting. `npm run balance:heroes -- --workers 12 --apply` runs four further fitting rounds plus 4,096 validation maps per phase, with up to three passes for unresolved phases. The current process and completed-map counts are recorded in `.local/hero-balance-rounds/status.json` and `progress.json`. Application code now keeps hero corrections outside the player-power limits so strong nerfs/buffs preserve skill progression; the batch was restarted against that engine. `src/hero-rankings.ts` and `npm run rank:heroes` provide eligible role-specific top tens, with gold-highlighted local HTML/JSON/CSV reports and separate candidate/active labels. No full-strength knowledge enters scouting. Do not claim balanced patches or applied coefficients before the program's final status confirms them. See [method](hero-balance.md). Not published.
+
+**October 23 wider patch observations, local:** baseline axis ranges are now 35 points wide. Seeded random placement spans every legal integer lower bound, including truth at either endpoint, with stable reloads and nested specialist coverage. This supersedes the earlier 25-point and 12-point baselines. See [staff research](staff-research.md). Not published.
+
+**October 23 historical hero balance, local:** every eligible hero has an internal 42–58% equal-team target for each phase; actual combat power is tuned by CPU-only full-engine batches. Two community count snapshots inform TI2015 and Shanghai Major 2016; other phases remain clearly provisional, and observed historical rates remain separate from capped gameplay targets. Staff now see uncertain win-rate ranges rather than power-bonus percentages. A 163,840-map batch and automatic local verification are running; `.local/hero-calibration/status.json` records actual progress, checks and any remaining imbalance. Do not infer completed calibration or a guaranteed campaign win-rate ceiling from the design target. See [method, sources and commands](hero-balance.md). Not published.
+
+**October 23 local staff/research revamp:** patch truth is fixed; each team sees 12-point ranges and initially two favored heroes. Staff narrow only their specialties to 4–5 points or discover more heroes. Six roles include the existing coach/analyst/therapist plus economy coach, strategy scout and hero specialist. Both workers draft from their own perceived report, while combat uses actual patch values. The analyst's flat power bonus is removed. Hire/release/payroll and old saves remain compatible; reports are deterministic and never exact. All 160 tests and the build pass, plus isolated staffing/reload/light/dark and actual worker QA. Local, not published. See [staff research](staff-research.md).
+
+**October 23 local patch system:** two numbered composites per TI season cover 2011–2026, with real source-version ranges, distinct priorities and strong heroes. Opening follows the shuffle; a second pre-TI drop changes drafting and actual lane combat. Events pin one patch for both workers; new managed/AI result archives retain patch labels. Tuning/hero priorities remain estimates, TI1 coverage is provisional, and future patches are explicitly generated. Existing saves/results remain intact. All 153 tests and the build pass. Not published. See [patch sources and rules](patches.md).
+
 **October 23 published update:** source `54cbeea`, Pages `996ff33` publish the scoreboard restoration and tournament audit. All 145 application tests, 13 parser tests and the build pass. Pages and public asset/worker checksum checks pass; the hosted legacy campaign's week, finances, roster and saved scoreboards were preserved. The authorized Discord summary was delivered. The audit's **96 ready / 385 needing review / two scheduled** count supersedes older coverage counts. Earlier local/pending entries below are pre-release snapshots. See [release verification](github-pages.md).
 
 **October 23 tournament audit — release pending:** corrected regular-group parsing, default wins and round headers, and restored post-match scoreboards. Current coverage is **96 ready / 385 needing review / two scheduled** after restricting sixteen formerly accepted events with unsupported or incomplete rules. All 145 application tests, 13 parser tests and the build pass; every ready event resolves eight alternate advancement paths. BO2/BO3 browser checks pass. Existing saves retain registered rules/results. See [findings and remaining limits](tournament-audit.md).
@@ -110,6 +122,8 @@ Weekly practice can now improve any playstyle shown on a player's profile, cappe
 
 ## 5. Patches, hero tags and the evolving meta
 
+Local milestone follow-up (October 23): the patch screen now opens a single scrolling summary with hero arrivals, uncertain gameplay comparisons and simplified hero notes. The composite containing 7.00 unlocks per-player talent plans that activate at match levels 10/15/20/25. New Frontiers expands actual playable area by 40% and adds twelve finite neutral farm camps with travel/clearing costs. Both milestones introduce official embedded videos. These remain simplified systems on the compressed season calendar; see [rules and limits](patch-milestones.md).
+
 The user does not want exhaustive patch notes. The idea is **one or two representative major patches per year/era**, attached to specific tournaments, with concise attributes and meta hero lists.
 
 The current seven patch dimensions provide a starting schema:
@@ -124,7 +138,7 @@ The current seven patch dimensions provide a starting schema:
 
 Heroes need tags for role and strategic properties, such as initiation, durability, control, saving, pushing, scaling and damage type. A patch changes hero strength and viable playstyles, not just a cosmetic version label. Player comfort and creativity should leave room for successful off-meta picks.
 
-Current patch values, meta ratings, roles and ability archetypes are illustrative. Patch attributes do not affect the lane engine. TI1 membership and annual release pools through 2026 are sourced and gate actual engine drafts. Dated patch records, per-tournament patch selection and meaningful patch balance remain future work.
+The local catalog now implements two composite patches per TI season from 2011–2026, actual effects for all seven priorities, patch-aware auto-drafting, featured hero power and one pinned patch per tournament. Valve version/release dates remain separate from compressed gameplay drop dates. Tuning, hero priorities, tags and abilities are estimates, not verified historical pick/win rankings. TI1 phases are provisional. Annual release pools still gate every draft; future patches are generated. Exact spells, inventory, wards and detailed historical balance reconstruction remain future work. See [patch coverage and mechanics](patches.md).
 
 ## 6. Drafting
 
@@ -139,7 +153,7 @@ Potential inputs from the discussion:
 - Creativity and off-meta opportunities.
 - Opponent draft and what their composition threatens.
 
-Draft quality should influence real match situations. A pushing composition needs a way to exploit objectives; a pickoff composition needs opportunities to isolate heroes. The current engine auto-selects a unique, position-preferred ten-hero draft from the campaign's unlocked hero pool. **Interactive drafting, bans and draft-scoring AI are not implemented.** Exact formats and how to expose explanations are still open.
+Draft quality should influence real match situations. A pushing composition needs a way to exploit objectives; a pickoff composition needs opportunities to isolate heroes. The current engine auto-selects a unique, position-preferred ten-hero draft from the campaign's unlocked hero pool. Patch priority and strategic tags weight those choices, with creativity preserving more off-meta opportunities. **Interactive drafting, bans and full composition-scoring AI are not implemented.** Exact formats and how to expose explanations are still open.
 
 ## 7. Matches: current lane engine and future manager orders
 

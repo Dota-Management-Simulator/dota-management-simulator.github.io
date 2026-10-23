@@ -1,0 +1,21 @@
+.training-presets { margin-bottom: 24px; padding: 18px; border: 1px solid var(--line); border-radius: 8px; min-width: 0; }
+.training-presets h3 { margin: 0 0 8px; font-size: 15px; }
+.training-presets p { margin: 8px 0 12px; color: var(--muted); font-size: 12px; line-height: 1.6; }
+.training-preset-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.training-preset-fields label { display: flex; flex-direction: column; gap: 7px; min-width: 0; color: var(--muted); font-size: 12px; }
+.training-preset-fields input, .training-preset-fields select { width: 100%; min-width: 0; margin: 0; }
+.training-preset-actions, .training-preset-confirm { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px; }
+.training-preset-confirm { padding: 12px; border: 1px solid var(--line); border-radius: 6px; }
+.training-preset-confirm p { flex-basis: 100%; margin: 0; }
+.training-presets .training-preset-help { font-size: 11px; margin-bottom: 0; }
+.training-preset-preview { margin-top: 14px; font-size: 12px; }
+.training-preset-preview summary { cursor: pointer; overflow-wrap: anywhere; }
+.training-preset-preview ul { list-style: none; padding: 0; margin: 12px 0; }
+.training-preset-preview li { display: flex; flex-wrap: wrap; gap: 6px 14px; padding: 6px 0; line-height: 1.6; }
+.training-preset-preview li strong { min-width: 100px; }
+.training-preset-preview li span { color: var(--muted); }
+@media (max-width: 600px) {
+  .training-presets { padding: 12px; }
+  .training-preset-fields { grid-template-columns: minmax(0, 1fr); }
+  .training-preset-actions > button { flex: 1 1 130px; }
+}

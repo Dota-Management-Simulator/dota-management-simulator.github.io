@@ -15,6 +15,8 @@ import "./tournaments.css";
 import TournamentSources from "./TournamentSources";
 import TournamentOutlook from "./TournamentOutlook";
 import { tournamentScoreboard } from "./scoreboards";
+import { patchAtDate, patchById } from "./patches";
+import TournamentBracket from "./TournamentBracket";
 
 function EventFacts({ event }: { event: HistoricalTournament }) {
   return <details className="tournament-facts"><summary>Format, prize distribution & source</summary>
@@ -52,6 +54,7 @@ function TournamentStandings({ event, run, onSeries, busy = false }: { event: Hi
   };
   return <>
     {place && <div className="qualification-banner"><Trophy size={26} /><div><strong>{place.from === 1 ? "Tournament champions" : `${place.from === place.to ? place.from : `${place.from}–${place.to}`} place`}</strong><p>{money(place.prize)} gross prize · player shares use the registered contracts.</p></div></div>}
+    <TournamentBracket run={run} onSeries={onSeries} busy={busy} />
     <div className="tournament-groups">{event.groups.map(group => <section className="tournament-group" key={group.id}><h3>{group.name}</h3><table><thead><tr><th>Team</th><th>Series</th><th>Maps</th><th>Pts</th></tr></thead><tbody>{standings(group.id).map(row => <tr key={row.team} className={row.team === run.managed ? "managed-row" : ""}><th scope="row">{name(row.team)}</th><td>{row.wins}–{row.draws}–{row.losses}</td><td>{row.gamesWon}–{row.gamesLost}</td><td>{row.points}</td></tr>)}</tbody></table></section>)}</div>
     <details className="tournament-fixtures" open><summary>Matches · {run.matches.length} completed</summary><div>{run.matches.map(match => { const fixture = run.fixtures.find(f => f.id === match.id);return <div className={`tournament-match ${match.teams.includes(run.managed) ? "managed-row" : ""}`} key={match.id}><span><small>{fixture?.stage} · {fixture?.label} · BO{fixture?.bestOf}</small>{name(match.teams[0])} <strong>{match.score.join(" – ")}</strong> {name(match.teams[1])}</span>{(match.series?.games.length || match.performance?.games.length) && onSeries ? <button className="text-link" disabled={busy} aria-label={`Scoreboards: ${name(match.teams[0])} vs ${name(match.teams[1])}, ${fixture?.label ?? fixture?.stage ?? "Series"}`} onClick={() => onSeries(match.id)}>Scoreboards</button> : <small>Detailed stats not recorded</small>}</div>;})}</div></details>
     {run.state === "complete" && <details className="tournament-fixtures"><summary>Final placements</summary><table><thead><tr><th>Place</th><th>Team</th><th>Prize</th></tr></thead><tbody>{[...run.placements].sort((a, b) => a.from - b.from).map(p => <tr key={p.team} className={p.team === run.managed ? "managed-row" : ""}><td>{p.from === p.to ? p.from : `${p.from}–${p.to}`}</td><th scope="row">{name(p.team)}</th><td>{formatPrize(p.prize)}</td></tr>)}</tbody></table></details>}
@@ -156,6 +159,7 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
     {playing.length > 1 && <label className="tournament-run-selector">Active tournament<select value={run?.eventId} disabled={computing || !!simulation} onChange={e => { setActiveId(e.target.value); setError(""); }}>{playing.map(r => <option key={r.eventId} value={r.eventId}>{tournamentById(r.eventId)?.name ?? r.eventId}</option>)}</select></label>}
     {error && <div role="alert" className="muted-callout"><p>{error}</p><button className="button secondary small-button" onClick={() => setError("")}>Retry</button></div>}
     {run && event && <section className="panel tournament-active"><div className="eyebrow">IN PROGRESS · REGISTERED LINEUP</div><h2>{event.name}</h2>
+      <p className="patch-match-label">Patch {run.patchId ?? patchAtDate(event.start).id} · {patchById(run.patchId)?.name ?? patchAtDate(event.start).name} · Pinned for this tournament</p>
       {computing ? <p role="status" aria-live="polite">{progress}</p> : managedReady && fixture ? <>
         <p>{fixture.stage} · {fixture.label} · BO{fixture.bestOf} · {formatDate(fixture.at, fixture.timeVerified)}{!fixture.timeVerified && (fixture.dateVerified ? " · Start time not recorded" : " · Estimated match date")}</p>
         <div className="tournament-next-match">{readyTeams!.map((key, i) => { const team = run.teams.find(t => t.id === key)!; return <span key={key}>{i === 1 && <small>vs</small>}<TeamBadge teamId={team.clubId} name={team.name} year={event.year} />{team.name}</span>; })}</div>
@@ -164,9 +168,9 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
         <div className="tournament-actions"><button className="button primary" disabled={!!earlierCommitment} onClick={() => startSeries(false)}>Play & watch series <ArrowRight size={16} /></button><button className="button secondary" disabled={!!earlierCommitment} onClick={() => startSeries(true)}>Simulate series & skip playback</button></div>
       </> : earlierCommitment ? <p>Play the earlier commitment at {tournamentById(earlierCommitment.eventId)?.name} before continuing this bracket.</p> : <p>Preparing the next stage…</p>}
       <p className="field-note">Progress is saved after every series. Reloading during a match returns to that series. Players whose terms expire stay on the same pay and registered prize share until this run ends. Unscouted opponents use clearly labeled placeholder players.</p>
+      <TournamentStandings event={event} run={run} busy={computing} onSeries={fixtureId => setSelectedScoreboard({ eventId: run.eventId, fixtureId })} />
       <TournamentOutlook campaign={campaign} run={run} at={fixture?.at ?? campaign.calendar!.now} />
-      <TournamentRounds run={run} />
-      <TournamentStandings event={event} run={run} busy={computing} onSeries={fixtureId => setSelectedScoreboard({ eventId: run.eventId, fixtureId })} /><EventFacts event={event} />
+      <TournamentRounds run={run} /><EventFacts event={event} />
     </section>}
     <TournamentCalendarBoard campaign={campaign} onChange={next => {
       const entered = next.calendar?.runs.find(r => r.state === "playing" && !campaign.calendar!.runs.some(old => old.eventId === r.eventId));

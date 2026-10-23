@@ -4,7 +4,7 @@ import type { HistoricalTournament, TournamentMatchResult, TournamentRun } from 
 
 /** Older AI archives have player rows but no resource timelines or map objectives. */
 export type ScoreboardGame = Pick<GameSummary, "winner" | "duration" | "kills" | "players"> & Partial<GameSummary>;
-export type ScoreboardSeries = Pick<SeriesSummary, "teams" | "winner" | "score" | "bestOf" | "advantage"> & { games: ScoreboardGame[] };
+export type ScoreboardSeries = Pick<SeriesSummary, "teams" | "winner" | "score" | "bestOf" | "advantage" | "patch"> & { games: ScoreboardGame[] };
 export type ScoreboardResult = Omit<Result, "series"> & { series?: ScoreboardSeries };
 
 export function tournamentScoreboard(event: HistoricalTournament, run: TournamentRun, match: TournamentMatchResult) {

@@ -33,7 +33,6 @@ import {
   UserRound,
   Users,
   Wallet,
-  Waves,
   X,
   Zap,
 } from "lucide-react";
@@ -41,11 +40,11 @@ import type { LucideIcon } from "lucide-react";
 import {
   advanceWeek,
   createCampaign,
-  data,
   DEFAULT_SETTINGS,
   eventResult,
   events,
   hireStaff,
+  dismissStaff,
   money,
   nextEvent,
   rating,
@@ -75,7 +74,10 @@ import type {
 } from "./game";
 import { ComputingMatch, MatchViewer, SeriesResults } from "./MatchExperience";
 import type { SimulatedSeries } from "./battle";
-import HeroPool from "./HeroPool";
+import PatchMeta from "./PatchMeta";
+import PatchArrival from "./PatchArrival";
+import PlayerTalents from "./PlayerTalents";
+import StaffOffice from "./StaffOffice";
 import WorldTeams from "./WorldTeams";
 import TeamBadge from "./TeamBadge";
 import Avatar, { PortraitCredit } from "./PlayerAvatar";
@@ -91,6 +93,7 @@ import { weeklyPractice } from "./contracts";
 import { teamIdForName } from "./team-logos";
 import { trainingEffect, trainingOptions } from "./training";
 import TrainingWorkload from "./TrainingWorkload";
+import TrainingPresets from "./TrainingPresets";
 import { PlayerProfileTabs } from "./PlayerPerformance";
 import { getStartingTeams, rosterYearForStart, sourceFor, customClubNameAvailable } from "./history";
 import ClubBrandingEditor from "./ClubBrandingEditor";
@@ -319,6 +322,7 @@ export default function App() {
   const [saveError, setSaveError] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
   const [calendarBusy, setCalendarBusy] = useState(false);
+  const [patchTarget, setPatchTarget] = useState<string>();
   const [filter, setFilter] = useState("");
   const [roleFilter, setRoleFilter] = useState("All roles");
   const workerRef = useRef<Worker | null>(null);
@@ -427,6 +431,7 @@ export default function App() {
   const go = (p: Page) => {
     if (!campaign || setup) return;
     if (p === "calendar") setCalendarTarget(undefined);
+    if (p === "patch") setPatchTarget(undefined);
     setPage(p);
     setMobileMenu(false);
     setFilter("");
@@ -437,6 +442,7 @@ export default function App() {
     setCampaign((c) => (c ? f(c) : c));
   const inboxAction = (action: OfficeAction) => {
     if (action.kind === "tournament") { go("calendar"); setCalendarTarget(action.eventId); setCalendarRequest(n => n + 1); }
+    else if (action.kind === "patch") { go("patch"); setPatchTarget(action.patchId); }
     else if (action.kind === "player") {
       const target = campaign?.players.find(p => p.id === action.playerId);
       if (target) setPlayer(target);
@@ -568,6 +574,9 @@ export default function App() {
       {mobileMenu && (
         <div className="nav-scrim" onClick={() => setMobileMenu(false)} />
       )}
+      {campaign && !setup && <PatchArrival campaign={campaign} busy={modalOpen || calendarBusy || simulating}
+        onDismiss={id => update(c => ({ ...c, seenPatchMilestones: [...new Set([...(c.seenPatchMilestones ?? []), id])] }))}
+        onRead={() => go("patch")} />}
       <aside className={`sidebar ${mobileMenu ? "open" : ""}`}>
         <a
           className="brand"
@@ -672,7 +681,7 @@ export default function App() {
             <div className="manager-avatar">GM</div>
           </div>
         </header>
-        {campaign && !setup && continueAction && <CampaignBar campaign={campaign} action={continueAction} busy={calendarBusy || simulating} onContinue={continueCampaign} />}
+        {campaign && !setup && continueAction && <CampaignBar campaign={campaign} action={continueAction} busy={calendarBusy || simulating} onContinue={continueCampaign} onPatch={() => go("patch")} />}
         </div>
         <main>
           {setup ? (
@@ -1009,6 +1018,7 @@ export default function App() {
                           </button>
                         }
                       />
+                      <TrainingPresets campaign={campaign} onChange={update} notify={notify} />
                       <div className="training-table">
                         <div className="table-head">
                           <span>PLAYER</span>
@@ -1222,97 +1232,7 @@ export default function App() {
                     </div>
                   </>
                 ))}
-                {page === "patch" && (
-                  <>
-                    <div className="patch-header panel">
-                      <div className="patch-version">{data.patch.version}</div>
-                      <div>
-                        <Badge tone="green">CURRENT ENVIRONMENT</Badge>
-                        <h2>{data.patch.name}</h2>
-                        <p>{data.patch.description}</p>
-                      </div>
-                      <Sparkles className="patch-spark" size={48} />
-                    </div>
-                    <div className="two-col patch-layout">
-                      <section className="panel">
-                        <SectionTitle
-                          title="What this patch rewards"
-                          sub="Seven tuning points for the shape of the game."
-                        />
-                        <div className="patch-attributes">
-                          {data.patch.attributes.map((a) => (
-                            <div className="patch-attribute" key={a.key}>
-                              <div>
-                                <strong>{a.name}</strong>
-                                <span>
-                                  {a.value}
-                                  <small> / 100</small>
-                                </span>
-                              </div>
-                              <Meter value={a.value} tone="gold" />
-                              <div className="attribute-scale">
-                                <span>{a.low}</span>
-                                <span>{a.high}</span>
-                              </div>
-                              <p>{a.description}</p>
-                            </div>
-                          ))}
-                        </div>
-                      </section>
-                      <div>
-                        <section className="panel">
-                          <SectionTitle
-                            title="Heroes to watch"
-                            sub="Real hero names · placeholder ratings and tags."
-                          />
-                          <div className="meta-heroes">
-                            {data.patch.heroes.map((h) => {
-                              const HeroIcon =
-                                h.symbol === "flame"
-                                  ? Flame
-                                  : h.symbol === "tree"
-                                    ? Leaf
-                                    : h.symbol === "moon"
-                                      ? Moon
-                                      : h.symbol === "waves"
-                                        ? Waves
-                                        : Sparkles;
-                              return (
-                                <div className="meta-hero" key={h.name}>
-                                  <div className={`hero-icon ${h.color}`}>
-                                    <HeroIcon size={23} />
-                                  </div>
-                                  <div>
-                                    <strong>{h.name}</strong>
-                                    <small>
-                                      {h.role} · {h.tags.join(" / ")}
-                                    </small>
-                                  </div>
-                                  <span className="meta-strength">
-                                    {h.strength}
-                                    <small>META</small>
-                                  </span>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </section>
-                        <div className="muted-callout vertical">
-                          <Sparkles size={23} />
-                          <p>
-                            <strong>Structure now. Verified data later.</strong>{" "}
-                            Patch attributes, hero tags, and meta strength live
-                            in a separate data file. They are available for
-                            future drafting and simulation. The lane engine
-                            currently uses player skills, readiness, morale,
-                            difficulty, and analyst preparation.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </>
-                )}
-                {page === "patch" && <HeroPool year={campaign.year} week={campaign.week} throughYear={campaign.calendar ? Math.max(2010, ...campaign.calendar.shuffledYears) : undefined} />}
+                {page === "patch" && <PatchMeta key={patchTarget ?? "current"} initialPatchId={patchTarget} campaign={campaign} onStaff={() => go("staff")} onPlayer={id => setPlayer(campaign.players.find(p => p.id === id) ?? null)} />}
                 {page === "world" && <WorldTeams campaign={campaign} onPlayer={setPlayer} />}
                 {page === "scouting" && (
                   <>
@@ -1404,68 +1324,9 @@ export default function App() {
                     </section>
                   </>
                 )}
-                {page === "staff" && (
-                  <>
-                    <div className="info-strip">
-                      <span>
-                        <Users size={17} />
-                        <strong>{campaign.staffIds.length} / 3</strong> support
-                        roles filled
-                      </span>
-                      <span>
-                        Staff wages are paid automatically every week.
-                      </span>
-                    </div>
-                    <div className="staff-grid">
-                      {data.staff.map((s) => {
-                        const hired = campaign.staffIds.includes(s.id);
-                        return (
-                          <article className="panel staff-card" key={s.id}>
-                            <div className={`staff-portrait ${s.color}`}>
-                              <UserRound size={48} strokeWidth={1} />
-                              <Badge>{s.role}</Badge>
-                            </div>
-                            <div className="staff-content">
-                              <h3>{s.name}</h3>
-                              <p>{s.specialty}</p>
-                              <div className="staff-benefit">
-                                <TrendingUp size={16} />
-                                {s.benefit}
-                              </div>
-                              <div className="staff-price">
-                                <strong>{money(s.weekly)}</strong>
-                                <span> / week</span>
-                              </div>
-                              <button
-                                disabled={hired || campaign.cash < s.weekly * 4}
-                                className={`button ${hired ? "secondary" : "primary"} full`}
-                                onClick={() => {
-                                  update((c) => hireStaff(c, s.id));
-                                  notify(
-                                    `${s.name} is now part of your organization.`,
-                                  );
-                                }}
-                              >
-                                {hired ? (
-                                  <>
-                                    <Check size={15} /> On your staff
-                                  </>
-                                ) : campaign.cash < s.weekly * 4 ? (
-                                  "Need four weeks of wages"
-                                ) : (
-                                  <>
-                                    <Plus size={15} /> Hire{" "}
-                                    {s.role.toLowerCase()}
-                                  </>
-                                )}
-                              </button>
-                            </div>
-                          </article>
-                        );
-                      })}
-                    </div>
-                  </>
-                )}
+                {page === "staff" && <StaffOffice campaign={campaign} onPatch={() => go("patch")}
+                  onHire={id => { update(c => hireStaff(c, id)); notify("Staff hired. Your patch report has been updated."); }}
+                  onDismiss={id => { update(c => dismissStaff(c, id)); notify("Staff released. Research coverage and future payroll updated."); }} />}
                 {page === "finances" && (
                   <>
                     <div className="metrics-grid financial-metrics">
@@ -1765,6 +1626,7 @@ export default function App() {
                   </div>
                   <PlayerProfileTabs key={currentPlayer.id} campaign={campaign} playerId={currentPlayer.id}>
                   <ContractNegotiation key={currentPlayer.id} campaign={campaign} player={currentPlayer} onChange={(next) => update(() => next)} />
+                  <PlayerTalents campaign={campaign} playerId={currentPlayer.id} onChange={next => update(() => next)} />
                   <SectionTitle
                     title="Player attributes"
                     sub="Execution and potential · 0–100"
@@ -1955,7 +1817,7 @@ export default function App() {
                   </div>
                 </div>
                 <div className="alert">
-                  Historical player and hero batches cover 2011–2026 and enter at annual post-TI shuffles. Later starts use completed prior shuffles. Regional coverage includes closed qualifier teams; it is not an exhaustive player census. Recruitment changes opponent lineups. Signature heroes, detailed drafting, tactical orders, patch effects and bootcamps remain future work. Gameplay ratings and the event calendar are estimates.
+                  Historical player and hero batches cover 2011–2026 and enter at annual post-TI shuffles. Later starts use completed prior shuffles. Regional coverage includes closed qualifier teams; it is not an exhaustive player census. Recruitment changes opponent lineups. Signature heroes, detailed drafting, tactical orders and bootcamps remain future work. Two composite patches per TI season now change drafting and lane combat; their balance values are estimates. Gameplay ratings and the event calendar are estimates.
                 </div>
               </div>
             )}

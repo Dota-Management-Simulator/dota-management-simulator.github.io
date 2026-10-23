@@ -196,11 +196,14 @@ export function recordTournamentSeries(current: TournamentRun, fixtureId: string
   const normalized = reversed ? { ...series, teams: [...series.teams].reverse() as [string, string], score: [...series.score].reverse() as [number, number], winner: series.winner === null ? null : 1 - series.winner as 0 | 1,
     games: series.games.map(g => ({ ...g, winner: 1 - g.winner as 0 | 1 })) } : series;
   if (normalized.teams[0] !== names[0] || normalized.teams[1] !== names[1]) throw new Error("The result belongs to different teams.");
+  if (current.patchId && series.patch && current.patchId !== series.patch.id) throw new Error("The result used a different tournament patch.");
   validateSeries(fixture, normalized);
   const run = structuredClone(current);
+  if (!run.patchId && series.patch) run.patchId = series.patch.id;
   run.matches.push({ id: fixtureId, teams, score: normalized.score, winner: normalized.winner, at: fixture.at,
     ...(teams.includes(run.managed) ? { series } : { performance: {
       teams: [...series.teams] as [string, string],
+      ...(series.patch ? { patch: series.patch } : {}),
       games: series.games.map(({ winner, duration, kills, players }) => ({ winner, duration, kills, players })),
     } }) });
   completeGroups(run);

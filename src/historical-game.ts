@@ -2,6 +2,9 @@ import { advanceCalendarTo, clamp, data, money, rating, teamPlayers } from "./ga
 import type { Campaign, Result } from "./game";
 import { startingAttributes } from "./development";
 import type { BattleConfig, SeriesSummary } from "./battle";
+import { patchAtDate } from "./patches";
+import { managedPatchObserver } from "./patch-knowledge";
+import { oppositionStaff } from "./staff";
 import { activeClubs } from "./history";
 import { campaignWeek } from "./contracts";
 import { fixtureTeams, historicalTournaments, hashSeed, isoTime, nextTournamentFixture, recordTournamentSeries, seededTournamentFixtures, tournamentById, tournamentForRun, tournamentOpponentCondition, utcTime } from "./tournaments";
@@ -194,7 +197,7 @@ export function enterHistoricalTournament(current: Campaign, eventId: string, se
       strength: historicalLineupStrength(event, roster) };
   });
   const run: TournamentRun = { eventId, seed, managed, teams, lineup: [...c.roster], prizeShares: Object.fromEntries(c.roster.map(id => [id, c.contracts?.[id]?.prizeShare ?? 0])),
-    matches: [], fixtures: seededTournamentFixtures(event, seed), groupOrder: {}, state: "playing", placements: [] };
+    matches: [], fixtures: seededTournamentFixtures(event, seed), groupOrder: {}, state: "playing", placements: [], patchId: patchAtDate(event.start).id };
   const { fixtures: _fixtures, ...definition } = event;
   run.definition = structuredClone(definition);
   c.calendar!.runs.push(run);
@@ -218,8 +221,9 @@ export function tournamentTeamTemplate(c: Campaign, original: TournamentRun, key
   return { name: team.name, players: team.roster.map((id, role) => {
     const p = c.players.find(p => p.id === id);
     return { id, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
-      role, skills: { ...(p?.stats ?? startingAttributes(id)) }, energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
-  }), bonus: key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) + (c.staffIds.includes("c2") ? 0.035 : 0) : 0,
+      role, skills: { ...(p?.stats ?? startingAttributes(id)) }, talents: c.talentPlans?.[id] ? normalizeTalentPlan(c.talentPlans[id]) : key === run.managed ? {} : automaticTalents(role), energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
+  }), bonus: key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) : 0,
+  patchObserver: key === run.managed ? managedPatchObserver(c) : { teamKey: key, staffIds: oppositionStaff(key) },
   form: lineupFormResults(c.calendar?.runs.filter(other => other.eventId !== run.eventId) ?? [], team.roster) };
 }
 
@@ -238,8 +242,9 @@ export function tournamentBattleConfig(c: Campaign, original: TournamentRun, fix
   const players: BattleConfig["players"] = [playerRows(0), playerRows(1)];
   const bonus = (side: number) => templates[side].bonus + tournamentCombatBonus(run, teamData[side], fixture.at, templates[side].form);
   const through = Math.max(2010, ...c.calendar!.shuffledYears);
-  return { seed: run.seed ^ hashSeed(fixture.id), year: event.year, heroPoolThroughYear: Math.min(2026, through),
+  return { seed: run.seed ^ hashSeed(fixture.id), year: event.year, heroPoolThroughYear: Math.min(2026, through), patchId: run.patchId ?? patchAtDate(event.start).id,
     teams: [teamData[0].name, teamData[1].name], players, bonuses: [bonus(0), bonus(1)],
+    patchObservers: [templates[0].patchObserver, templates[1].patchObserver],
     seriesFormat: { bestOf: fixture.bestOf, ...(fixture.advantage ? { advantage: reverse ? [fixture.advantage[1], fixture.advantage[0]] : fixture.advantage } : {}) } };
 }
 
@@ -304,3 +309,4 @@ export function settleTournamentMatch(current: Campaign, eventId: string, fixtur
   c = commitTournamentRun(c, updated);
   return c;
 }
+import { automaticTalents, normalizeTalentPlan } from "./talents";

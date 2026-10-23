@@ -3,6 +3,7 @@ import type { GameSummary, SeriesSummary } from "./battle";
 /** AI matches retain career statistics without resource timelines or replays. */
 export interface TournamentPerformance {
   teams: SeriesSummary["teams"];
+  patch?: SeriesSummary["patch"];
   games: Pick<GameSummary, "winner" | "duration" | "kills" | "players">[];
 }
 
@@ -86,6 +87,8 @@ export interface TournamentRun {
   settled?: boolean;
   /** Structural rules are pinned at registration, not player combat configs. */
   definition?: Omit<HistoricalTournament, "fixtures">;
+  /** One composite patch throughout the registered event. */
+  patchId?: string;
 }
 export interface HistoricalCalendar {
   now: string;

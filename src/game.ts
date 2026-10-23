@@ -7,6 +7,8 @@ import { heroUnlockYear, heroesArrivingIn } from "./heroes";
 import { attributeNames, roundTraining } from "./training";
 import { applyPlayerPractice, developWorldPlayers } from "./development";
 import type { TrainingSchedule } from "./training";
+import { normalizeTrainingPresets } from "./training-presets";
+import type { TrainingPreset } from "./training-presets";
 export type { Training } from "./training";
 import type { Training } from "./training";
 import { assessOffer, campaignWeek, releaseCost, weeklyPractice } from "./contracts";
@@ -19,6 +21,11 @@ import { playerTournamentLock } from "./tournament-locks";
 import { historicalTournaments, nextTournamentFixture, utcTime } from "./tournaments";
 import { normalizeBranding } from "./branding";
 import type { ClubBranding } from "./branding";
+import { campaignPatch } from "./patches";
+import { staffCatalog, oppositionStaff } from "./staff";
+import { managedPatchObserver } from "./patch-knowledge";
+import { automaticTalents, normalizeTalentPlan } from "./talents";
+import type { TalentPlan } from "./talents";
 
 export const ROLES = [
   "Carry",
@@ -73,6 +80,8 @@ export interface Result {
 }
 export interface Campaign {
   version: 1;
+  talentPlans?: Record<string, TalentPlan>;
+  seenPatchMilestones?: string[];
   settings: Settings;
   year: number;
   week: number;
@@ -84,6 +93,7 @@ export interface Campaign {
   roster: string[];
   training: Record<string, Training>;
   trainingSchedules?: Record<string, TrainingSchedule>;
+  trainingPresets?: TrainingPreset[];
   sponsorIds: string[];
   sponsorships?: Sponsorships;
   staffIds: string[];
@@ -105,7 +115,7 @@ export const DEFAULT_SETTINGS: Settings = {
   clubMode: "historical",
   historicalTeamId: "navi",
 };
-export const data = world;
+export const data = { ...world, staff: staffCatalog };
 export const statNames: Record<string, string> = attributeNames;
 export const events = [
   {
@@ -409,13 +419,14 @@ export function buildBattleConfig(
     name: p.name,
     role,
     skills: { ...p.stats },
+    talents: normalizeTalentPlan(c.talentPlans?.[p.id]),
     energy: p.energy,
     happiness: p.happiness,
   }));
   const club = opponentClub(c);
   const opposition = club ? club.roster.map((id, role) => {
     const p = c.players.find((p) => p.id === id)!;
-    return { id: p.id, name: p.name, role, skills: { ...p.stats }, energy: p.energy, happiness: p.happiness };
+    return { id: p.id, name: p.name, role, skills: { ...p.stats }, talents: c.talentPlans?.[p.id] ?? automaticTalents(role), energy: p.energy, happiness: p.happiness };
   }) : ROLES.map((_, role) => ({
     id: `opponent-${role}`,
     name: ["Cinder", "Echo", "Flare", "Rune", "Tern"][role],
@@ -427,20 +438,23 @@ export function buildBattleConfig(
       ]),
     ),
     energy: 90,
+    talents: automaticTalents(role),
     happiness: 85,
   }));
   return {
     seed,
     year: c.year,
     heroPoolThroughYear: heroUnlockYear(c.year, c.week),
+    patchId: campaignPatch(c).id,
     teams: [c.settings.team, opponentFor(c)],
+    patchObservers: [managedPatchObserver(c), { teamKey: club?.id ?? opponentFor(c), staffIds: oppositionStaff(club?.id ?? opponentFor(c)) }],
     players: [players, opposition],
     bonuses: [
       (c.settings.difficulty === "Club"
         ? 0.14
         : c.settings.difficulty === "Legend"
           ? -0.12
-          : 0) + (c.staffIds.includes("c2") ? 0.035 : 0),
+          : 0),
       0,
     ],
   };
@@ -578,6 +592,14 @@ export function hireStaff(current: Campaign, id: string): Campaign {
   note(c, `${s.name} joins as ${s.role.toLowerCase()}.`);
   return c;
 }
+export function dismissStaff(current: Campaign, id: string): Campaign {
+  const s = staffCatalog.find(s => s.id === id);
+  if (!s || !current.staffIds.includes(id)) return current;
+  const c = structuredClone(current);
+  c.staffIds = c.staffIds.filter(staffId => staffId !== id);
+  note(c, `${s.name} leaves your support staff. Future weekly wages stop; their research coverage is no longer available.`);
+  return c;
+}
 export const SAVE_KEY = "aegis-manager-campaign-v1";
 export function readSave(): Campaign | null {
   try {
@@ -605,6 +627,12 @@ export function readSave(): Campaign | null {
     )
       return null;
     if (c.settings.branding) c.settings.branding = normalizeBranding(c.settings.branding);
+    if (c.trainingPresets !== undefined) c.trainingPresets = normalizeTrainingPresets(c.trainingPresets);
+    if (c.talentPlans && typeof c.talentPlans === "object" && !Array.isArray(c.talentPlans)) {
+      c.talentPlans = Object.fromEntries(Object.entries(c.talentPlans).map(([id, plan]) => [id, normalizeTalentPlan(plan)]));
+    } else delete c.talentPlans;
+    if (Array.isArray(c.seenPatchMilestones)) c.seenPatchMilestones = c.seenPatchMilestones.filter((id: unknown) => id === "journey" || id === "frontiers");
+    else delete c.seenPatchMilestones;
     reconcileHistoricalImports(c);
     c.sponsorships ??= initialSponsorships(c);
     return c;
