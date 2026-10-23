@@ -2113,7 +2113,7 @@
           "sourceId": "4pzhhsXdvz_R02-M006",
           "container": "4pzhhsXdvz",
           "key": "R2M6",
-          "round": "Upper Bracket R1 (Bo1)",
+          "round": "Lower Bracket R2 (Bo1)",
           "timestamp": 1313745300,
           "date": "2011-08-19",
           "bestOf": 1
@@ -2122,7 +2122,7 @@
           "sourceId": "4pzhhsXdvz_R02-M007",
           "container": "4pzhhsXdvz",
           "key": "R2M7",
-          "round": "Upper Bracket R1 (Bo1)",
+          "round": "Lower Bracket R2 (Bo1)",
           "timestamp": 1313749800,
           "date": "2011-08-19",
           "bestOf": 1
@@ -2131,7 +2131,7 @@
           "sourceId": "4pzhhsXdvz_R02-M008",
           "container": "4pzhhsXdvz",
           "key": "R2M8",
-          "round": "Upper Bracket R1 (Bo1)",
+          "round": "Lower Bracket R2 (Bo1)",
           "timestamp": 1313755200,
           "date": "2011-08-19",
           "bestOf": 1
@@ -2167,7 +2167,7 @@
           "sourceId": "4pzhhsXdvz_R04-M004",
           "container": "4pzhhsXdvz",
           "key": "R4M4",
-          "round": "Upper Bracket R2 (Bo1)",
+          "round": "Lower Bracket R4 (Bo1)",
           "timestamp": 1313838000,
           "date": "2011-08-20",
           "bestOf": 1

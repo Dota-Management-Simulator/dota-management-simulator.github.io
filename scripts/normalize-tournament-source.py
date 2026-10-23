@@ -39,6 +39,18 @@ def match_id(bracket_id, key):
     return f"{bracket_id}_R{int(match[1]):02}-M{int(match[2]):03}" if match else f"{bracket_id}_{key}"
 
 
+def round_header(headers, key):
+    if key in headers:
+        return headers[key]
+    match = re.fullmatch(r"(R\w+)?M(\d+)", key)
+    if not match:
+        return ""
+    prefix, number = match[1] or "", int(match[2])
+    candidates = [(int(found[1]), text) for header, text in headers.items()
+                  if (found := re.fullmatch(re.escape(prefix) + r"M(\d+)", header)) and int(found[1]) <= number]
+    return max(candidates, default=(-1, headers.get(prefix, "")))[1]
+
+
 def parse_date(source):
     date = re.search(r"([A-Za-z]+ \d{1,2}, \d{4})(?:\s*-\s*(\d{1,2}):(\d\d))?", source)
     if not date:
@@ -90,8 +102,7 @@ def extract(document):
                 if not matches:
                     continue
                 match = matches[0]
-                round_key = re.match(r"R[^M]+", key)
-                header = headers.get(key, "") or next((v for k, v in headers.items() if round_key and k.startswith(round_key[0] + "M")), "")
+                header = round_header(headers, key)
                 header_bo = re.search(r"\bBo([12357])\b", header, re.I)
                 explicit = value(match, "bestof") or (header_bo[1] if header_bo else value(template, "bestof"))
                 fact = {"sourceId": match_id(bracket_id, key), "container": bracket_id, "key": key, "round": header, **parse_date(value(match, "date"))}

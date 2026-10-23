@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { advanceCalendarTo, advanceWeek, buildBattleConfig, createCampaign, DEFAULT_SETTINGS, events, negotiateContract, recruitmentBlocker, signPlayer, weeklyWages } from "../src/game";
 import { commitTournamentRun, earnedInvitations, enableHistoricalCalendar, enterHistoricalTournament, qualifiedForTournament, settleTournamentMatch, tournamentBattleConfig, tournamentEntryBlocker } from "../src/historical-game";
-import { fixtureTeams, groupStandings, historicalTournaments, nextTournamentFixture, recordTournamentSeries, seededTournamentFixtures, tournamentOpponentCondition } from "../src/tournaments";
+import { fixtureTeams, groupStandings, historicalTournaments, nextTournamentFixture, recordTournamentSeries, seededTournamentFixtures, tournamentOpponentCondition, tournamentForRun } from "../src/tournaments";
 import { campaignWeek, initialOffer, weeklyPractice } from "../src/contracts";
 import { seededRandom, simulateSeries } from "../src/battle";
 import type { GameSummary, SeriesSummary } from "../src/battle";
@@ -37,6 +37,12 @@ test("TI1 has its full field, round-robin groups, mixed playoff lengths, final a
   assert.equal(ti1.prizes.find(p => p.from === 1)!.usd, 1000000);
   assert.equal(ti1.prizes.find(p => p.from === 2)!.usd, 250000);
   assert.deepEqual(ti1.fixtures.at(-1)!.advantage, [1, 0]);
+  assert.ok(ti1.fixtures.filter(f => f.group).every(f => f.bestOf === 1));
+  assert.equal(ti1.fixtures.filter(f => !f.group && f.bestOf === 1).length, 18);
+  assert.deepEqual(ti1.fixtures.filter(f => !f.group && f.bestOf === 3).map(f => f.label), ["Upper Bracket Final (Bo3)", "Lower Bracket R5 (Bo3)", "Lower Bracket Final (Bo3)"]);
+  assert.equal(ti1.fixtures.at(-1)!.bestOf, 5);
+  assert.equal(ti1.fixtures.filter(f => f.label === "Lower Bracket R2 (Bo1)").length, 4);
+  assert.equal(ti1.fixtures.filter(f => f.label === "Lower Bracket R4 (Bo1)").length, 2);
 });
 
 test("Valve's reviewed TI graphs include every group pair, exact series formats, era identities and reconciled allocation", () => {
@@ -160,7 +166,7 @@ test("TI2024 uses a five-match four-way placement tie and omits dead games in a 
 
 test("every playable sourced tournament resolves alternate outcomes into a complete, unique placement field", () => {
   for (const event of historicalTournaments.filter(e => e.status === "ready")) {
-    for (let seed = 1; seed <= 3; seed++) {
+    for (let seed = 1; seed <= 8; seed++) {
       let run = modelRun(event, seed);
       const random = seededRandom(seed);
       for (let count = 0; run.state === "playing" && count < 2000; count++) {
@@ -174,6 +180,67 @@ test("every playable sourced tournament resolves alternate outcomes into a compl
       assert.equal(run.placements.filter(p => p.from === 1).length, 1, event.name);
     }
   }
+});
+
+test("all ready events have complete round-robin pairs, legal formats, reconciled prizes and chronological dependencies", () => {
+  for (const event of historicalTournaments.filter(e => e.status === "ready")) {
+    assert.equal(event.limitations.length, 0, event.name);
+    assert.equal(event.placements.length, event.teams.length, event.name);
+    assert.ok(Math.abs(event.prizes.reduce((sum, p) => sum + p.usd * (p.to - p.from + 1), 0) - event.pool) <= Math.max(1, event.teams.length * 0.51), event.name);
+    const fixtureById = new Map(event.fixtures.map(f => [f.id, f]));
+    assert.equal(fixtureById.size, event.fixtures.length, event.name);
+    for (const fixture of event.fixtures) {
+      assert.ok([1, 2, 3, 5, 7].includes(fixture.bestOf), event.name);
+      assert.ok((fixture.advantage ?? [0, 0]).every(n => n >= 0 && Number.isInteger(n) && n < Math.floor(fixture.bestOf / 2) + 1), event.name);
+      if (fixture.bestOf === 2) assert.ok(!fixture.advantage?.some(Boolean), event.name);
+      for (const slot of fixture.slots) if ("match" in slot) {
+        assert.ok(fixtureById.has(slot.match), event.name);
+        assert.ok(fixtureById.get(slot.match)!.at.slice(0, 10) <= fixture.at.slice(0, 10), `${event.name}: dependency dates`);
+      }
+    }
+    for (const group of event.groups) {
+      assert.equal(group.mode, "round-robin", event.name);
+      const pairs = new Map<string, number>();
+      const slotKey = (slot: typeof group.teams[number]) => JSON.stringify(slot);
+      for (const fixture of event.fixtures.filter(f => f.group === group.id)) {
+        assert.equal(fixture.bestOf, group.games, event.name);
+        const key = fixture.slots.map(slotKey).sort().join("|");
+        assert.notEqual(slotKey(fixture.slots[0]), slotKey(fixture.slots[1]), event.name);
+        pairs.set(key, (pairs.get(key) ?? 0) + 1);
+      }
+      assert.equal(pairs.size, group.teams.length * (group.teams.length - 1) / 2, event.name);
+      assert.ok([...pairs.values()].every(count => count === group.legs), event.name);
+    }
+  }
+});
+
+test("regular groups cannot inherit qualifier or tiebreak lengths, and default wins remain separate from maps", () => {
+  for (const name of ["GosuLeague Season 1", "The Defense Season 4", "DreamLeague Season 4"])
+    assert.ok(historicalTournaments.find(e => e.name === name)!.groups.every(g => g.games === 2), name);
+  assert.ok(historicalTournaments.find(e => e.name === "EPICENTER 2017")!.groups.every(g => g.games === 3));
+  for (const name of ["GosuLeague Season 1", "GosuLeague Season 4 Divison 1", "GosuLeague Season 5 Division 1"])
+    assert.equal(historicalTournaments.find(e => e.name === name)!.groups[0].tieBreak!.twoTeamBestOf, 3, name);
+  const kickoff = historicalTournaments.find(e => e.name === "DreamLeague Kick-Off Season")!;
+  assert.equal(kickoff.groups[0].games, 1);
+  assert.equal(kickoff.groups[0].legs, 2);
+  assert.equal(kickoff.fixtures.filter(f => f.group).length, 30);
+  for (const name of ["StarLadder StarSeries Season 4", "Electronic Sports Prime Shock Therapy Cup", "ECL 2014 Spring"])
+    assert.deepEqual(historicalTournaments.find(e => e.name === name)!.fixtures.at(-1)!.advantage, [1, 0], name);
+});
+
+test("unverified group schedules and unsupported formats cannot be entered while old registered rules stay pinned", () => {
+  const c = enableHistoricalCalendar(createCampaign(DEFAULT_SETTINGS));
+  for (const name of ["The Premier League Season 2", "The Summit 3", "MLG World Finals", "The Shanghai Major 2016", "DOTA Summit 8", "DreamLeague Kick-Off Season", "Armaggeddon Dota 2 Grand Slam Asia 2013"]) {
+    const event = historicalTournaments.find(e => e.name === name)!;
+    assert.equal(event.status, "needs-review", name);
+    assert.match(tournamentEntryBlocker(c, event)!, /verification pending/, name);
+    assert.throws(() => enterHistoricalTournament(c, event.id), /verification pending/, name);
+  }
+  const registered = enterHistoricalTournament(c, ti1.id, 123).calendar!.runs[0];
+  const original = JSON.stringify(registered);
+  const restored = JSON.parse(original) as TournamentRun;
+  assert.equal(tournamentForRun(restored)!.fixtures.length, registered.fixtures.length);
+  assert.equal(JSON.stringify(restored), original, "catalog reads never migrate registered results or rules");
 });
 
 test("real weeks pay once across dates and year boundaries; legacy campaigns retain their original clock", () => {

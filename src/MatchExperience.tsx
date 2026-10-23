@@ -13,13 +13,12 @@ import {
 } from "lucide-react";
 import { BASES, LANES, matchClock } from "./battle";
 import type {
-  GameSummary,
   PlayerScore,
   ReplayFrame,
   ResourcePoint,
   SimulatedSeries,
 } from "./battle";
-import type { Result } from "./game";
+import type { ScoreboardGame, ScoreboardResult } from "./scoreboards";
 import { heroById } from "./heroes";
 import { heroIconFor } from "./hero-icons";
 import TeamBadge from "./TeamBadge";
@@ -235,7 +234,7 @@ function Scoreboard({
   game,
   teams,
 }: {
-  game: GameSummary;
+  game: ScoreboardGame;
   teams: [string, string];
 }) {
   return (
@@ -309,13 +308,19 @@ export function SeriesResults({
   onClose,
   managedTeamId,
   closeLabel = "Back to management",
+  perspective = 0,
+  teamIds,
 }: {
-  result: Result;
+  result: ScoreboardResult;
   onClose: () => void;
   managedTeamId?: string;
   closeLabel?: string;
+  perspective?: 0 | 1 | null;
+  teamIds?: [string | undefined, string | undefined];
 }) {
   const [selected, setSelected] = useState(0);
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => { heading.current?.focus(); }, [result.eventId]);
   const series = result.series;
   if (!series)
     return (
@@ -334,27 +339,28 @@ export function SeriesResults({
     );
   const game = series.games[Math.min(selected, series.games.length - 1)];
   const drawn = series.winner === null;
+  const neutral = perspective === null;
   return (
     <div className="series-results">
       <div className="match-heading">
         <div className="eyebrow">
           {result.event} · {result.year} · BEST OF {series.bestOf ?? 3}
         </div>
-        <h2 id="modal-title">
-          {drawn ? "The series ends level." : result.won ? "A series to remember." : "A lesson for the next one."}
+        <h2 id="modal-title" ref={heading} tabIndex={-1}>
+          {drawn ? "The series ends level." : neutral ? `${series.teams[series.winner!]} win the series.` : result.won ? "A series to remember." : "A lesson for the next one."}
         </h2>
         <div className="series-scoreline">
-          <strong><TeamBadge teamId={managedTeamId} name={series.teams[0]} year={result.year} size="small" />{series.teams[0]}</strong>
+          <strong><TeamBadge teamId={teamIds ? teamIds[0] : managedTeamId} name={series.teams[0]} year={result.year} size="small" />{series.teams[0]}</strong>
           <span>
             {series.score[0]} <i>—</i> {series.score[1]}
           </span>
-          <strong><TeamBadge teamId={managedTeamId ? teamIdForName(series.teams[1], result.year) : undefined} name={series.teams[1]} year={result.year} size="small" />{series.teams[1]}</strong>
+          <strong><TeamBadge teamId={teamIds ? teamIds[1] : managedTeamId ? teamIdForName(series.teams[1], result.year) : undefined} name={series.teams[1]} year={result.year} size="small" />{series.teams[1]}</strong>
         </div>
         <div
-          className={`series-outcome ${result.won ? "series-victory" : "series-defeat"}`}
+          className={`series-outcome ${neutral || drawn || result.won ? "series-victory" : "series-defeat"}`}
         >
           <Trophy size={14} />
-          {drawn ? "SERIES DRAW" : result.won ? "SERIES VICTORY" : "SERIES DEFEAT"}
+          {drawn ? "SERIES DRAW" : neutral ? "SERIES COMPLETE" : result.won ? "SERIES VICTORY" : "SERIES DEFEAT"}
           <span>
             {result.prize > 0 && `+$${result.prize.toLocaleString()}`}{result.points > 0 && ` · +${result.points} points`}
           </span>
@@ -369,8 +375,8 @@ export function SeriesResults({
             onClick={() => setSelected(i)}
           >
             Game {i + 1}
-            <span className={g.winner === 0 ? "game-win" : "game-loss"}>
-              {g.winner === 0 ? "W" : "L"}
+            <span className={g.winner === (perspective ?? 0) ? "game-win" : "game-loss"}>
+              {neutral ? series.teams[g.winner] : g.winner === perspective ? "W" : "L"}
             </span>
             <small>{matchClock(g.duration)}</small>
           </button>
@@ -385,14 +391,14 @@ export function SeriesResults({
           <Swords size={14} />
           {game.kills[0]} – {game.kills[1]}
         </span>
-        <span>
+        {game.towers && <span>
           <Flag size={14} />
           Towers {game.towers[0]} – {game.towers[1]}
-        </span>
-        <span>Ancient destroyed{game.overtime ? " · Overtime siege" : ""}</span>
+        </span>}
+        {game.ancientHealth && <span>Ancient destroyed{game.overtime ? " · Overtime siege" : ""}</span>}
       </div>
       <Scoreboard game={game} teams={series.teams} />
-      <div className="match-graphs" key={selected}>
+      {game.timeline?.length ? <div className="match-graphs" key={selected}>
         <ResourceGraph
           timeline={game.timeline}
           resource="gold"
@@ -403,11 +409,11 @@ export function SeriesResults({
           resource="xp"
           teams={series.teams}
         />
-      </div>
+      </div> : <p className="field-note">Resource timelines were not retained for this simulated match. The scoreboard shows its recorded player statistics.</p>}
       <p className="match-footnote">
         {series.advantage?.some(Boolean) && `The series began ${series.advantage.join("–")} under the tournament's upper-bracket advantage rule. Only played maps have scoreboards. `}
-        Graphs use recorded simulation totals. Positive advantage favors your
-        team. Gold includes starting resources, passive income, farm, kills, and
+        {game.timeline?.length ? `Graphs use recorded simulation totals. Positive advantage favors ${series.teams[0]}. ` : ""}
+        Gold includes starting resources, passive income, farm, kills, and
         objectives; item power is abstract. Assists count recent damage
         contributors. Prototype abilities and balance are simplified.
       </p>

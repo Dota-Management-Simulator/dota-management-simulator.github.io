@@ -1,6 +1,27 @@
 {
   "reviewedOn": "2026-10-22",
   "events": {
+    "https://liquipedia.net/dota2/Electronic_Sports_Prime/Shock_Therapy_Cup": {
+      "fixtureRules": [{"teams": ["SadBoys", "Team Empire"], "bestOf": 5, "advantage": [1, 0]}],
+      "sources": ["https://www.gosugamers.net/dota2/news/26793-sadboys-win-esp-shock-therapy-cup/"],
+      "note": "The archived format and contemporary final report agree: BO5 with a default upper-bracket win; SadBoys played two maps for the recorded 3–0."
+    },
+    "https://liquipedia.net/dota2/ESL_One/Genting/2018": {
+      "limitations": ["Recovered elimination-group graph requires event-specific entry and stage review before play."]
+    },
+    "https://liquipedia.net/dota2/DreamLeague/Kick-Off_Season": {
+      "limitations": ["Archived playoff winning scores conflict with the published BO3 round description; per-round lengths require review."]
+    },
+    "https://liquipedia.net/dota2/The_International/2011": {
+      "matchRules": {
+        "4pzhhsXdvz_R02-M006": {"round": "Lower Bracket R2 (Bo1)"},
+        "4pzhhsXdvz_R02-M007": {"round": "Lower Bracket R2 (Bo1)"},
+        "4pzhhsXdvz_R02-M008": {"round": "Lower Bracket R2 (Bo1)"},
+        "4pzhhsXdvz_R04-M004": {"round": "Lower Bracket R4 (Bo1)"}
+      },
+      "sources": ["https://cdn.dota2.com/apps/dota2/international2011_static/games/27_p1_v3.html"],
+      "note": "Four cached lower-bracket fixtures inherited an upper-bracket heading. Their slot dependencies identify the lower round; this corrects labels only. TI1 retains BO1 groups and early playoffs, BO3 upper final/lower round five/lower final, and BO5 grand final with the upper winner's default win."
+    },
     "https://liquipedia.net/dota2/The_International/2014": {
       "fields": {"Start Date": "2014-07-09"},
       "excludeBrackets": [0],

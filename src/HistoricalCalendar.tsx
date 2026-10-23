@@ -14,6 +14,7 @@ import { advanceManagerWeek } from "./office";
 import "./tournaments.css";
 import TournamentSources from "./TournamentSources";
 import TournamentOutlook from "./TournamentOutlook";
+import { tournamentScoreboard } from "./scoreboards";
 
 function EventFacts({ event }: { event: HistoricalTournament }) {
   return <details className="tournament-facts"><summary>Format, prize distribution & source</summary>
@@ -32,7 +33,8 @@ export function TournamentHistory({ campaign, eventId, onClose }: { campaign: Ca
   const [selected, setSelected] = useState<string | null>(null);
   if (!event || !run) return <div className="text-modal"><h2 id="modal-title">Tournament archive unavailable</h2><button className="button secondary" onClick={onClose}>Back</button></div>;
   const match = run.matches.find(m => m.id === selected);
-  if (match?.series) return <SeriesResults key={match.id} result={{ eventId: match.id, event: `${event.name} · ${run.fixtures.find(f => f.id === match.id)?.stage}`, year: event.year, week: 0, won: match.series.winner === 0, prize: 0, points: 0, opponent: match.series.teams[1], score: match.series.score.join(" – "), series: match.series }} managedTeamId={campaign.world?.managedTeamId} onClose={() => setSelected(null)} />;
+  const scoreboard = match && tournamentScoreboard(event, run, match);
+  if (scoreboard) return <SeriesResults key={match.id} {...scoreboard} closeLabel="Back to tournament results" onClose={() => setSelected(null)} />;
   return <div className="tournament-history"><div className="eyebrow">TOURNAMENT RESULTS · {event.year}</div><h2 id="modal-title">{event.name}</h2>
     <TournamentStandings event={event} run={run} onSeries={setSelected} />
     <TournamentOutlook campaign={campaign} run={run} at={campaign.calendar!.now} />
@@ -40,7 +42,7 @@ export function TournamentHistory({ campaign, eventId, onClose }: { campaign: Ca
     <button className="button secondary full" onClick={onClose}>Back to management</button></div>;
 }
 
-function TournamentStandings({ event, run, onSeries }: { event: HistoricalTournament; run: TournamentRun; onSeries?: (id: string) => void }) {
+function TournamentStandings({ event, run, onSeries, busy = false }: { event: HistoricalTournament; run: TournamentRun; onSeries?: (id: string) => void; busy?: boolean }) {
   const name = (key: string) => run.teams.find(t => t.id === key)?.name ?? key;
   const place = run.placements.find(p => p.team === run.managed);
   const standings = (group: string) => {
@@ -51,9 +53,21 @@ function TournamentStandings({ event, run, onSeries }: { event: HistoricalTourna
   return <>
     {place && <div className="qualification-banner"><Trophy size={26} /><div><strong>{place.from === 1 ? "Tournament champions" : `${place.from === place.to ? place.from : `${place.from}–${place.to}`} place`}</strong><p>{money(place.prize)} gross prize · player shares use the registered contracts.</p></div></div>}
     <div className="tournament-groups">{event.groups.map(group => <section className="tournament-group" key={group.id}><h3>{group.name}</h3><table><thead><tr><th>Team</th><th>Series</th><th>Maps</th><th>Pts</th></tr></thead><tbody>{standings(group.id).map(row => <tr key={row.team} className={row.team === run.managed ? "managed-row" : ""}><th scope="row">{name(row.team)}</th><td>{row.wins}–{row.draws}–{row.losses}</td><td>{row.gamesWon}–{row.gamesLost}</td><td>{row.points}</td></tr>)}</tbody></table></section>)}</div>
-    <details className="tournament-fixtures" open><summary>Matches · {run.matches.length} completed</summary><div>{run.matches.map(match => { const fixture = run.fixtures.find(f => f.id === match.id)!;return <div className={`tournament-match ${match.teams.includes(run.managed) ? "managed-row" : ""}`} key={match.id}><span><small>{fixture.stage} · BO{fixture.bestOf}</small>{name(match.teams[0])} <strong>{match.score.join(" – ")}</strong> {name(match.teams[1])}</span>{match.series && onSeries && <button className="text-link" onClick={() => onSeries(match.id)}>Scoreboards</button>}</div>;})}</div></details>
+    <details className="tournament-fixtures" open><summary>Matches · {run.matches.length} completed</summary><div>{run.matches.map(match => { const fixture = run.fixtures.find(f => f.id === match.id);return <div className={`tournament-match ${match.teams.includes(run.managed) ? "managed-row" : ""}`} key={match.id}><span><small>{fixture?.stage} · {fixture?.label} · BO{fixture?.bestOf}</small>{name(match.teams[0])} <strong>{match.score.join(" – ")}</strong> {name(match.teams[1])}</span>{(match.series?.games.length || match.performance?.games.length) && onSeries ? <button className="text-link" disabled={busy} aria-label={`Scoreboards: ${name(match.teams[0])} vs ${name(match.teams[1])}, ${fixture?.label ?? fixture?.stage ?? "Series"}`} onClick={() => onSeries(match.id)}>Scoreboards</button> : <small>Detailed stats not recorded</small>}</div>;})}</div></details>
     {run.state === "complete" && <details className="tournament-fixtures"><summary>Final placements</summary><table><thead><tr><th>Place</th><th>Team</th><th>Prize</th></tr></thead><tbody>{[...run.placements].sort((a, b) => a.from - b.from).map(p => <tr key={p.team} className={p.team === run.managed ? "managed-row" : ""}><td>{p.from === p.to ? p.from : `${p.from}–${p.to}`}</td><th scope="row">{name(p.team)}</th><td>{formatPrize(p.prize)}</td></tr>)}</tbody></table></details>}
   </>;
+}
+
+function TournamentRounds({ run }: { run: TournamentRun }) {
+  const rounds = new Map<string, { name: string; bestOf: number; count: number; advantage?: [number, number] }>();
+  for (const fixture of run.fixtures) {
+    const name = fixture.group ? "Group stage" : fixture.label.replace(/\s*\(Bo\d+\)/gi, "");
+    const key = `${name}-${fixture.bestOf}`;
+    const round = rounds.get(key);
+    if (round) round.count++;
+    else rounds.set(key, { name, bestOf: fixture.bestOf, count: 1, advantage: fixture.advantage });
+  }
+  return <details className="tournament-fixtures" open><summary>Series format by round</summary><table><thead><tr><th>Round</th><th>Format</th><th>Series</th></tr></thead><tbody>{[...rounds].map(([key, round]) => <tr key={key}><th scope="row">{round.name}</th><td>BO{round.bestOf}{round.advantage?.some(Boolean) && ` · ${round.advantage.join("–")} starting score`}</td><td>{round.count}</td></tr>)}</tbody></table></details>;
 }
 
 export default function HistoricalCalendar({ campaign, onChange, onHistory, focusEventId, focusRequest, onBusyChange }: { campaign: Campaign; onChange: (c: Campaign) => void; onHistory: (result: Result) => void; focusEventId?: string; focusRequest?: number; onBusyChange?: (busy: boolean) => void }) {
@@ -63,7 +77,8 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
   const [computing, setComputing] = useState(false);
   const [progress, setProgress] = useState("");
   const [simulation, setSimulation] = useState<SimulatedSeries | null>(null);
-  useEffect(() => { onBusyChange?.(computing || simulation !== null); }, [computing, simulation, onBusyChange]);
+  const [selectedScoreboard, setSelectedScoreboard] = useState<{ eventId: string; fixtureId: string } | null>(null);
+  useEffect(() => { onBusyChange?.(computing || simulation !== null || selectedScoreboard !== null); }, [computing, simulation, selectedScoreboard, onBusyChange]);
   useEffect(() => () => onBusyChange?.(false), [onBusyChange]);
   const worker = useRef<Worker | null>(null);
   const latestCampaign = useRef(campaign);
@@ -82,7 +97,7 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
   useEffect(() => { if (focusEventId && campaign.calendar!.runs.some(r => r.eventId === focusEventId && r.state === "playing")) setActiveId(focusEventId); }, [focusEventId, focusRequest]);
   useEffect(() => () => { worker.current?.terminate(); }, []);
   useEffect(() => {
-    if (!run || managedReady || worker.current || error || earlierCommitment) return;
+    if (!run || managedReady || worker.current || error || earlierCommitment || selectedScoreboard) return;
     const nextWorker = new Worker(new URL("./tournament.worker.ts", import.meta.url), { type: "module" });
     worker.current = nextWorker; setComputing(true); setProgress("Simulating the other tournament matches…");
     const templates: TournamentWorkerInput["templates"] = {};
@@ -101,7 +116,7 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
     nextWorker.onerror = () => fail("The tournament worker could not finish. Your saved progress is unchanged.");
     nextWorker.postMessage({ run: withTournamentStrength(pinTournamentRun(run)), templates, year: event!.year, heroPoolThroughYear: Math.min(2026, Math.max(2010, ...campaign.calendar!.shuffledYears)), through: otherCommitment?.at } satisfies TournamentWorkerInput);
     return () => { if (worker.current === nextWorker) { nextWorker.terminate(); worker.current = null; } };
-  }, [run, managedReady, error, earlierCommitment?.eventId, otherCommitment?.at]); // Progress messages do not restart a batch.
+  }, [run, managedReady, error, earlierCommitment?.eventId, otherCommitment?.at, selectedScoreboard]); // Progress messages do not restart a batch.
 
   const startSeries = (skip: boolean) => {
     if (!run || !fixture || worker.current || !managedReady || earlierCommitment) return;
@@ -122,9 +137,19 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
   };
   const finishSeries = (result: SimulatedSeries) => {
     if (!run || !fixture) return;
-    try { onChange(settleTournamentMatch(latestCampaign.current, run.eventId, fixture.id, result.summary)); setSimulation(null); }
+    try {
+      const next = settleTournamentMatch(latestCampaign.current, run.eventId, fixture.id, result.summary);
+      setSelectedScoreboard({ eventId: run.eventId, fixtureId: fixture.id });
+      onChange(next);
+      setSimulation(null);
+    }
     catch (e) { setError(e instanceof Error ? e.message : "Could not record this series."); }
   };
+  const selectedRun = campaign.calendar!.runs.find(r => r.eventId === selectedScoreboard?.eventId);
+  const selectedMatch = selectedRun?.matches.find(m => m.id === selectedScoreboard?.fixtureId);
+  const selectedEvent = selectedRun && tournamentForRun(selectedRun);
+  const scoreboard = selectedRun && selectedMatch && selectedEvent && tournamentScoreboard(selectedEvent, selectedRun, selectedMatch);
+  if (scoreboard) return <section className="panel tournament-viewer"><SeriesResults key={`${selectedRun.eventId}-${selectedMatch.id}`} {...scoreboard} closeLabel="Continue tournament" onClose={() => setSelectedScoreboard(null)} /></section>;
   if (simulation && run) return <section className="panel tournament-viewer"><MatchViewer key={`${run.eventId}-${fixture?.id}`} simulation={simulation} year={event!.year} managedTeamId={campaign.world?.managedTeamId} onFinish={() => finishSeries(simulation)} /></section>;
   return <div className="historical-calendar">
     <div className="qualification-banner"><CalendarDays size={28} /><div><strong>{formatDate(campaign.calendar!.now, campaign.calendar!.nowHasTime)}</strong><p>Real tournament dates. Weekly advances stop at invited or reserved openings and scheduled series. Lineups remain committed through their tournament run.</p>{advanceNotice && <p role="status">{advanceNotice}</p>}</div><button className="button secondary small-button" disabled={computing} onClick={() => { const next = advanceManagerWeek(campaign); setAdvanceNotice(next.calendar!.now === campaign.calendar!.now ? "A decision is due: play your next series, or open your invited/reserved event below to enter or decline it." : `Advanced to ${formatDate(next.calendar!.now)}. Club updates are in your inbox.`); onChange(next); }}>Advance up to 7 days</button></div>
@@ -140,7 +165,8 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
       </> : earlierCommitment ? <p>Play the earlier commitment at {tournamentById(earlierCommitment.eventId)?.name} before continuing this bracket.</p> : <p>Preparing the next stage…</p>}
       <p className="field-note">Progress is saved after every series. Reloading during a match returns to that series. Players whose terms expire stay on the same pay and registered prize share until this run ends. Unscouted opponents use clearly labeled placeholder players.</p>
       <TournamentOutlook campaign={campaign} run={run} at={fixture?.at ?? campaign.calendar!.now} />
-      <TournamentStandings event={event} run={run} /><EventFacts event={event} />
+      <TournamentRounds run={run} />
+      <TournamentStandings event={event} run={run} busy={computing} onSeries={fixtureId => setSelectedScoreboard({ eventId: run.eventId, fixtureId })} /><EventFacts event={event} />
     </section>}
     <TournamentCalendarBoard campaign={campaign} onChange={next => {
       const entered = next.calendar?.runs.find(r => r.state === "playing" && !campaign.calendar!.runs.some(old => old.eventId === r.eventId));

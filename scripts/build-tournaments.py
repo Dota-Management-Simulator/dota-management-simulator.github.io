@@ -12,12 +12,13 @@ import json
 from pathlib import Path
 import re
 from urllib.parse import unquote
+from tournament_formats import group_descriptions, group_format, is_gsl, starting_advantage
 
 ROOT = Path(__file__).resolve().parent.parent
 RAW = ROOT / "scripts/data/tournament-facts.json.gz"
 RULES = ROOT / "scripts/data/tournament-source-rules.json"
 OUT = ROOT / "src/data/tournaments.json"
-REVIEWED = "2026-10-22"
+REVIEWED = "2026-10-23"
 source_rules = json.loads(RULES.read_text(encoding="utf8"))["pages"] if RULES.exists() else []
 match_rules = {match["sourceId"]: match for page in source_rules for match in page["matches"]}
 correction_path = ROOT / "scripts/data/tournament-corrections.json"
@@ -144,7 +145,7 @@ def compile_event(raw):
         for prize in prizes:
             if prize["from"] == payout["from"] and prize["to"] == payout["to"]:
                 prize.update(payout)
-    limitations = list(raw.get("limitations", []))
+    limitations = list(raw.get("limitations", [])) + correction.get("limitations", [])
     if not format_text:
         limitations.append("The source does not provide a complete format.")
     if not prizes and raw.get("kind") != "qualifier":
@@ -160,20 +161,9 @@ def compile_event(raw):
     stage = 0
     # Tables enumerate historical final standings, used solely to recover the
     # group-size and advancement slots. Historical wins never decide a game.
-    gsl = bool(re.search(r"GSL|double.elimination group", format_text, re.I))
+    gsl = any(is_gsl(description) for _, description in group_descriptions(format_text))
     raw_groups = [g for g in raw.get("groups", []) if len(g.get("rows", [])) >= 2
                   and not re.search(r"tiebreak", g.get("name", "") or "", re.I)]
-    group_description = re.split(r"Playoffs?|Main Event|Grand Final", format_text, flags=re.I)[0]
-    def group_format(stage_number):
-        markers = list(re.finditer(r"(?:Group Stage\s*#?\s*[123]|First Group Stage|Second Group Stage)", group_description, re.I))
-        description = group_description
-        if len(markers) > stage_number:
-            description = group_description[markers[stage_number].start():markers[stage_number + 1].start() if len(markers) > stage_number + 1 else len(group_description)]
-        match = re.search(r"\bBo([123])\b|best.of.(1|2|3|one|two|three)", description, re.I)
-        number = (match[1] or match[2]).lower() if match else None
-        games = int(number) if number and number.isdigit() else {"one": 1, "two": 2, "three": 3}.get(number, 2 if re.search(r"(?:2|two) times|twice", description, re.I) else 1)
-        legs = 2 if re.search(r"double round.robin", description, re.I) and games != 2 else 1
-        return games, legs
     if not gsl:
         for index, source_group in enumerate(raw_groups):
             rows = [r for r in source_group["rows"] if r.get("team")]
@@ -192,10 +182,21 @@ def compile_event(raw):
                 slots.append(previous_stage.get(key, {"team": key}))
                 source_ranks[key] = {"group": gid, "rank": rank + 1}
                 current_stage_names.add(key)
+            format_info = group_format(format_text, stage, source_group.get("name", ""))
+            if "games" not in source_group and format_info["games"] is None:
+                limitations.append("The regular group-series length has not been verified; qualifier/tiebreak rules cannot supply it.")
+            if format_info["fixedMaps"] == 3:
+                limitations.append("Fixed three-map groups and cross-group wildcard selection require separate rules before play.")
             groups.append({"id": gid, "name": source_group.get("name", f"Group {index + 1}"),
-                           "teams": slots, "mode": "swiss" if "swiss" in group_description.lower() else "round-robin",
-                           "games": source_group.get("games", group_format(stage)[0]), "legs": group_format(stage)[1],
+                           "teams": slots, "mode": "swiss" if "swiss" in format_info["description"].lower() else "round-robin",
+                           "games": source_group.get("games", format_info["games"] or 1), "legs": source_group.get("legs", format_info["legs"]),
                            **{key: source_group[key] for key in ["start", "end", "scoring", "tieBreak"] if key in source_group}})
+            if "tieBreak" not in source_group and re.search(r"tie.?break(?:er)?.*?\(?bo3", format_info["description"], re.I):
+                groups[-1]["tieBreak"] = {"boundaries": [], "twoTeamBestOf": 3}
+            if "scoring" not in source_group and re.search(r"win grants? 3 point|3 points? for (?:a )?win", format_info["description"], re.I):
+                games = groups[-1]["games"]
+                target = games // 2 + 1
+                groups[-1]["scoring"] = {**{f"{target}-{lost}": 3 for lost in range(target)}, **{f"{lost}-{target}": 0 for lost in range(target)}} if games != 2 else {"2-0": 3, "1-1": 1, "0-2": 0}
             group_stages[gid] = stage
     matches = []
     for bracket_index, bracket in enumerate(raw.get("brackets", [])):
@@ -210,7 +211,7 @@ def compile_event(raw):
             if len(scores) != 2 or None in scores or scores[0] == scores[1]:
                 limitations.append("A bracket match has no usable advancement result.")
                 continue
-            rule = match_rules.get(match.get("sourceId"), {})
+            rule = {**match_rules.get(match.get("sourceId"), {}), **correction.get("matchRules", {}).get(match.get("sourceId"), {})}
             rule = {**rule, **next((item for item in correction.get("fixtureRules", []) if item["teams"] == match["teams"] and item.get("bestOf") == min(7, max(scores) * 2 - 1)), {})}
             date_verified = False
             try:
@@ -251,7 +252,7 @@ def compile_event(raw):
             last_output[team(name)] = {"match": match["id"], "outcome": "winner" if side == winner else "loser"}
         fixture = {k: match[k] for k in ["id", "stage", "label", "at", "timeVerified", "dateVerified", "bestOf"]}
         fixture["slots"] = slots
-        if match["advantage"] or re.search(r"1.0 lead|one.game advantage|1.game advantage", match["details"], re.I):
+        if match["advantage"] or starting_advantage(match["details"]):
             fixture["advantage"] = match["advantage"] or [1, 0]
         fixtures.append(fixture)
     # Once the documented paid placements exhaust the pool, all omitted teams
@@ -381,6 +382,10 @@ def compile_event(raw):
                         fixtures.insert(0, {"id": f"{group['id']}-{leg}-{a}-{b}", "stage": group["name"], "label": "Group series",
                             "at": day.isoformat(), "timeVerified": False, "dateVerified": False, "bestOf": group["games"],
                             "slots": [group["teams"][a], group["teams"][b]], "group": group["id"]})
+    fixture_lookup = {fixture["id"]: fixture for fixture in fixtures}
+    if any(fixture_lookup.get(slot.get("match"), {}).get("at", "")[:10] > fixture["at"][:10]
+           for fixture in fixtures for slot in fixture["slots"] if "match" in slot):
+        limitations.append("Source match dates reverse a bracket dependency; the stage timetable requires review.")
     invited = []
     if rules:
         invited.extend(team(p["team"]) for p in rules["participants"] if re.fullmatch(r"invite[ds]?|direct invite", p["qualification"], re.I) and team(p["team"]) in entrants)
