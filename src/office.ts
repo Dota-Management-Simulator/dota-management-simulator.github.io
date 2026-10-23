@@ -6,7 +6,7 @@ import { managedSponsorTeam, sponsorBlocker, sponsorMarket, sponsors } from "./s
 import { historicalTournaments, nextTournamentFixture, tournamentById, utcTime } from "./tournaments";
 import type { HistoricalTournament } from "./tournament-types";
 import { CALENDAR_DAY, calendarDay } from "./calendar-layout";
-import { announcedPatches, patchAnnouncement } from "./patch-announcements";
+import { announcedPatches, patchAnnouncement, syncPatchIntroductions } from "./patch-announcements";
 import { campaignPatch } from "./patches";
 
 export type OfficeAction = { kind: "tournament"; eventId: string } | { kind: "player"; playerId: string } | { kind: "page"; page: Page } | { kind: "patch"; patchId: string };
@@ -170,6 +170,7 @@ export function advanceManagerWeek(current: Campaign): Campaign {
 
 /** Idempotent reconciliation: transitions and reloads create each notice only once. */
 export function syncOffice(current: Campaign): Campaign {
+  current = syncPatchIntroductions(current);
   const previous = current.office;
   const office = previous ? structuredClone(previous) : emptyOffice();
   const next = { ...current, office };

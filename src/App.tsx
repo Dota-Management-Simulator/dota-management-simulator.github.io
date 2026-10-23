@@ -76,6 +76,7 @@ import { ComputingMatch, MatchViewer, SeriesResults } from "./MatchExperience";
 import type { SimulatedSeries } from "./battle";
 import PatchMeta from "./PatchMeta";
 import PatchArrival from "./PatchArrival";
+import { dismissPatchIntroduction } from "./patch-announcements";
 import PlayerTalents from "./PlayerTalents";
 import StaffOffice from "./StaffOffice";
 import WorldTeams from "./WorldTeams";
@@ -575,8 +576,8 @@ export default function App() {
         <div className="nav-scrim" onClick={() => setMobileMenu(false)} />
       )}
       {campaign && !setup && <PatchArrival campaign={campaign} busy={modalOpen || calendarBusy || simulating}
-        onDismiss={id => update(c => ({ ...c, seenPatchMilestones: [...new Set([...(c.seenPatchMilestones ?? []), id])] }))}
-        onRead={() => go("patch")} />}
+        onDismiss={id => update(c => dismissPatchIntroduction(c, id))}
+        onRead={id => { go("patch"); setPatchTarget(id); }} />}
       <aside className={`sidebar ${mobileMenu ? "open" : ""}`}>
         <a
           className="brand"

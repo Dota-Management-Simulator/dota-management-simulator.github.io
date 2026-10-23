@@ -5,7 +5,7 @@ import { patchAxes, patchForSeason } from "./patches";
 import type { SeasonPatch } from "./patches";
 import { managedPatchObserver, patchReport } from "./patch-knowledge";
 import { frontiersEnabled, milestoneForPatch, patchHeroArrivals, talentsEnabled } from "./patch-milestones";
-import { PatchTrailer } from "./PatchArrival";
+import { PatchMedia } from "./PatchArrival";
 import { simplifiedHeroNote } from "./patch-notes";
 
 export default function PatchNotes({ patch, campaign, onPlayer }: { patch: SeasonPatch; campaign: Campaign; onPlayer: (id: string) => void }) {
@@ -20,8 +20,8 @@ export default function PatchNotes({ patch, campaign, onPlayer }: { patch: Seaso
     <p>{patch.generated ? "Fictional future balance." : `Includes ${patch.versions}.`} {previous ? `Changes from ${previous.id} are summarized below.` : "The opening rules of the campaign are summarized below."} These notes describe the simulator; exact Dota spells and items are not reproduced.</p>
     {milestone && <section className="patch-milestone-note"><h3>{milestone.version} · {milestone.title}</h3><p>{milestone.summary}</p>
       <p>Historical release: {milestone.releasedOn}. This campaign introduces it with composite {patch.id} on {patch.startsOn}; the season calendar compresses real updates.</p>
-      <PatchTrailer milestone={milestone} />
     </section>}
+    <PatchMedia key={patch.id} patch={patch} />
     <section><h3>New heroes · {arrivals.length ? arrivals.length : "no additions"}</h3>
       <p>{arrivals.length ? "This opening patch adds the previous calendar year's Dota 2 releases in one batch. All are eligible for auto-drafting from this composite onward." : "The existing hero pool carries forward. Releases enter with the next season's opening composite, alongside the post-TI shuffle."}</p>
       {!!arrivals.length && <div className="patch-arrivals">{arrivals.map(hero => { const icon = heroIconFor(hero.id); return <span key={hero.id}>{icon && <img src={`${import.meta.env.BASE_URL}${icon.path}`} alt="" loading="lazy" />}<strong>{hero.name}</strong></span>; })}</div>}

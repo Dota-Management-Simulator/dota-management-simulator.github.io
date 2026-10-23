@@ -63,13 +63,19 @@
 .patch-player-links { display:flex; flex-wrap:wrap; gap:8px; margin-top:18px; }
 .patch-player-links .button { font-size:12px; }
 .patch-trailer { margin:16px 0; }
-.patch-trailer iframe { width:100%; aspect-ratio:16/9; border:0; border-radius:8px; background:#101812; display:block; }
+.patch-trailer iframe, .patch-trailer video { width:100%; aspect-ratio:16/9; border:0; border-radius:8px; background:#101812; display:block; }
 .patch-trailer p { font-size:12px; line-height:1.7; color:var(--muted); }
 .patch-arrival-dialog { max-width:760px; width:calc(100% - 32px); max-height:90vh; overflow:auto; border:1px solid var(--line); border-radius:14px; padding:30px; background:var(--bg); color:var(--ink); }
 .patch-arrival-dialog::backdrop { background:#07110bba; backdrop-filter:blur(4px); }
 .patch-arrival-dialog h2 { font-size:30px; margin:14px 0; }
 .patch-arrival-dialog > p { font-size:14px; line-height:1.8; }
 .patch-arrival-actions { display:flex; flex-wrap:wrap; justify-content:space-between; gap:14px; margin-top:24px; }
+.patch-popup-heroes, .patch-arrival-dialog .patch-media { border-top:1px solid var(--line); margin-top:20px; padding-top:18px; }
+.patch-arrival-dialog h3 { font-size:16px; margin:0 0 12px; }
+.patch-popup-heroes p { font-size:13px; line-height:1.7; color:var(--muted); }
+.patch-video-picker { display:flex; flex-wrap:wrap; gap:8px; margin:14px 0; }
+.patch-video-picker .button { font-size:12px; padding:9px 12px; }
+.patch-video-picker [aria-pressed="true"] { border-color:var(--gold); background:color-mix(in srgb,var(--gold) 14%,var(--bg)); }
 .player-talents { margin:28px 0; padding:22px 0; border-block:1px solid var(--line); }
 .player-talents h3 { font-size:18px; }
 .player-talents p { color:var(--muted); font-size:13px; line-height:1.7; }

@@ -26,6 +26,8 @@ import { staffCatalog, oppositionStaff } from "./staff";
 import { managedPatchObserver } from "./patch-knowledge";
 import { automaticTalents, normalizeTalentPlan } from "./talents";
 import type { TalentPlan } from "./talents";
+import { normalizePatchIntroductions } from "./patch-announcements";
+import type { PatchIntroductions } from "./patch-announcements";
 
 export const ROLES = [
   "Carry",
@@ -82,6 +84,7 @@ export interface Campaign {
   version: 1;
   talentPlans?: Record<string, TalentPlan>;
   seenPatchMilestones?: string[];
+  patchIntroductions?: PatchIntroductions;
   settings: Settings;
   year: number;
   week: number;
@@ -633,6 +636,11 @@ export function readSave(): Campaign | null {
     } else delete c.talentPlans;
     if (Array.isArray(c.seenPatchMilestones)) c.seenPatchMilestones = c.seenPatchMilestones.filter((id: unknown) => id === "journey" || id === "frontiers");
     else delete c.seenPatchMilestones;
+    if (c.patchIntroductions !== undefined) {
+      const introductions = normalizePatchIntroductions(c.patchIntroductions);
+      if (introductions) c.patchIntroductions = introductions;
+      else delete c.patchIntroductions;
+    }
     reconcileHistoricalImports(c);
     c.sponsorships ??= initialSponsorships(c);
     return c;
