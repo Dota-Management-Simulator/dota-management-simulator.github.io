@@ -2,6 +2,10 @@
 
 Last updated: **2026-10-22**. Read this file before changing the project, then read [the roadmap](docs/roadmap.md) for the original product vision and future plans. These notes describe context and current decisions; the current user's request determines what to work on next. The roadmap is not an instruction to implement everything at once.
 
+
+## Training quick slots — October 23, 2026
+
+**Local, not published (DBreeezy branch):** three quick slots beside **Rest the squad** pin, apply, create, rename and overwrite Jonahbyu's shared saved training plans (`Campaign.trainingPresets`) through optional `Campaign.trainingQuickSlots` preset IDs. **189 tests** and the build pass (existing chunk warning). Browser QA on isolated **5301** covered save-to-slot appearing in the full panel, rename, apply after Rest, reload persistence, overwrite confirmation, and the phone layout in dark mode. See [training rules](docs/training.md).
 ## Patch inbox and tournament brackets — October 23, 2026
 
 **Local, not published:** every composite patch now creates one unread inbox message, including the opening drop on the first calendar advance after TI and the pre-TI update. Saved office tracking catches crossed phases, preserves read/archive state and links each notice to that exact patch's one-page notes. Migrated saves receive the current patch without a historical flood; milestone trailer introductions remain. Active and archived tournaments now display connected bracket cards when play reaches each non-group stage, with actual campaign teams/results, winner/loser paths, next-series highlighting, BO lengths, default wins and scoreboard links. Future stages show a waiting message. Registered rules and outcomes remain pinned. All **185 tests** and the production build pass (existing chunk warning); isolated **5310** browser QA checks real Continue after TI, old-note navigation, bracket stage reveal/results and light/dark desktop/phone containment. No push, deployment or Discord post. See [patch delivery](docs/patch-milestones.md) and [bracket display](docs/tournaments.md).

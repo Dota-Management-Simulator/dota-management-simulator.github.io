@@ -94,6 +94,7 @@ import { teamIdForName } from "./team-logos";
 import { trainingEffect, trainingOptions } from "./training";
 import TrainingWorkload from "./TrainingWorkload";
 import TrainingPresets from "./TrainingPresets";
+import TrainingQuickSlots from "./TrainingQuickSlots";
 import { PlayerProfileTabs } from "./PlayerPerformance";
 import { getStartingTeams, rosterYearForStart, sourceFor, customClubNameAvailable } from "./history";
 import ClubBrandingEditor from "./ClubBrandingEditor";
@@ -1000,22 +1001,25 @@ export default function App() {
                         title="The weekly plan"
                         sub="Individual focus. A shared goal."
                         action={
-                          <button
-                            className="button secondary small-button"
-                            onClick={() => {
-                              update((c) => ({
-                                ...c,
-                                training: Object.fromEntries(
-                                  c.players.map((p) => [p.id, "Rest"]),
-                                ),
-                              }));
-                              notify(
-                                "The squad is scheduled for a recovery week.",
-                              );
-                            }}
-                          >
-                            <Leaf size={15} /> Rest the squad
-                          </button>
+                          <div className="training-plan-actions">
+                            <TrainingQuickSlots campaign={campaign} onChange={update} notify={notify} />
+                            <button
+                              className="button secondary small-button"
+                              onClick={() => {
+                                update((c) => ({
+                                  ...c,
+                                  training: Object.fromEntries(
+                                    c.players.map((p) => [p.id, "Rest"]),
+                                  ),
+                                }));
+                                notify(
+                                  "The squad is scheduled for a recovery week.",
+                                );
+                              }}
+                            >
+                              <Leaf size={15} /> Rest the squad
+                            </button>
+                          </div>
                         }
                       />
                       <TrainingPresets campaign={campaign} onChange={update} notify={notify} />
