@@ -2,6 +2,10 @@
 
 Last updated: **2026-10-22**. Read this file before changing the project, then read [the roadmap](docs/roadmap.md) for the original product vision and future plans. These notes describe context and current decisions; the current user's request determines what to work on next. The roadmap is not an instruction to implement everything at once.
 
+## Automatic deploys — October 23, 2026
+
+Pushes to `main` now test, build and deploy through `.github/workflows/deploy.yml`; see [Canonical repository and deployment](#canonical-repository-and-deployment). Before the workflow existed, the patch, staff, talents, training preset, bracket and hero balance work was published manually: source `8c65458`, Pages `cd5dfa3`. Pages reported **built**, and the public HTML, CSS and all seven JavaScript chunks matched `dist/` by SHA-256. The Discord summary for that release was **not** posted: the agent's permission check blocked reading the webhook file.
+
 ## Patch inbox and tournament brackets — October 23, 2026
 
 **Local, not published:** every composite patch now creates one unread inbox message, including the opening drop on the first calendar advance after TI and the pre-TI update. Saved office tracking catches crossed phases, preserves read/archive state and links each notice to that exact patch's one-page notes. Migrated saves receive the current patch without a historical flood; milestone trailer introductions remain. Active and archived tournaments now display connected bracket cards when play reaches each non-group stage, with actual campaign teams/results, winner/loser paths, next-series highlighting, BO lengths, default wins and scoreboard links. Future stages show a waiting message. Registered rules and outcomes remain pinned. All **185 tests** and the production build pass (existing chunk warning); isolated **5310** browser QA checks real Continue after TI, old-note navigation, bracket stage reveal/results and light/dark desktop/phone containment. No push, deployment or Discord post. See [patch delivery](docs/patch-milestones.md) and [bracket display](docs/tournaments.md).
@@ -126,10 +130,12 @@ npm run dev             # local Vite app; normally http://127.0.0.1:5173/
 npm test                # meaningful engine and campaign checks
 npm run build           # TypeScript checks + production build into dist/
 npm run preview         # serve the production build locally
-npm run deploy          # build and publish dist/ to the explicit gh-pages remote
+npm run deploy          # manual deploy; pushes to main deploy automatically via Actions
 ```
 
-Commit/push source to `main` when publishing authorized changes, then run `npm run deploy` for application changes. **Pushing `main` alone does not update the live app.** Documentation-only changes do not require a site deployment. The deploy script uses a checked temporary directory and preserves deployment history without force-pushing. No custom Actions workflow is required. Relative Vite asset paths and `public/.nojekyll` are intentional.
+**Every push to `main` deploys the live app.** `.github/workflows/deploy.yml` runs `npm ci`, `npm test` and `npm run build`, then `scripts/deploy-pages.mjs` pushes `dist/` to `gh-pages` with the job's `GITHUB_TOKEN`. A failing test or build stops the deploy. Only push `main` when the work is meant to go live; keep unfinished work on a branch. Documentation-only pushes also run the workflow, but the deploy script skips the commit when the build is unchanged. `npm run deploy` still works for a manual deploy from this machine. The deploy script uses a checked temporary directory and preserves deployment history without force-pushing. Pages remains **Deploy from a branch → gh-pages → /**. Relative Vite asset paths and `public/.nojekyll` are intentional.
+
+After a push, check the **Test and deploy** run (`gh run list --workflow deploy.yml`), then the Pages build and public site, before calling a release live.
 
 See [hosting notes](docs/github-pages.md). Before claiming a new application deployment is live, check the Pages build and public site, including the background worker when relevant. Initial publication passed HTTP checks for HTML, CSS, JS, favicon and worker, plus a real hosted-browser campaign and match simulation.
 

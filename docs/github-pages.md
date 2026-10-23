@@ -12,6 +12,7 @@ Live website: [dota-management-simulator.github.io](https://dota-management-simu
 - `docs/`: design and implementation notes.
 - `reference/`: preserved earlier prototypes, kept separate from the new app.
 - `scripts/deploy-pages.mjs`: publishes the production build to `gh-pages`.
+- `.github/workflows/deploy.yml`: tests, builds and runs the deploy script on every push to `main`.
 
 ## Build and publish
 
@@ -27,7 +28,9 @@ Pages is configured as **Deploy from a branch → gh-pages → / (root)** with H
 
 ## Updating the site
 
-Commit and push source changes to `main`, then run `npm run deploy` from the project directory. The deploy command builds locally and pushes only `dist/` to the explicit organization repository's `gh-pages` branch. It preserves deployment history and does not force-push. It does not require a token with the `workflow` scope or change the parent workspace's Git remote. Git and an authenticated GitHub credential helper must be available.
+Push source changes to `main`. The **Test and deploy** workflow (`.github/workflows/deploy.yml`) runs `npm ci`, `npm test` and `npm run build`, then `scripts/deploy-pages.mjs` pushes only `dist/` to `gh-pages` using the job's `GITHUB_TOKEN`. A failing test or build stops the deploy. Runs are queued one at a time, so two quick pushes never race on `gh-pages`. It can also be started by hand from the Actions tab (`workflow_dispatch`).
+
+`npm run deploy` still deploys manually from this machine. It builds locally and pushes only `dist/` to the explicit organization repository's `gh-pages` branch, preserves deployment history and does not force-push. Git and an authenticated GitHub credential helper must be available. Changing files under `.github/workflows/` needs a credential with the `workflow` scope.
 
 The app runs entirely in the browser, including its simulation worker. Campaign saves and theme choices stay in the browser that created them; localhost saves do not automatically transfer to the hosted site's different origin.
 
