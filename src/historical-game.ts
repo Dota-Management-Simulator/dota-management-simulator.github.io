@@ -5,6 +5,7 @@ import type { BattleConfig, SeriesSummary } from "./battle";
 import { patchAtDate } from "./patches";
 import { managedPatchObserver } from "./patch-knowledge";
 import { oppositionStaff } from "./staff";
+import { withDraftKnowledge, campaignDraftExperience } from "./draft";
 import { activeClubs } from "./history";
 import { campaignWeek } from "./contracts";
 import { fixtureTeams, historicalTournaments, hashSeed, isoTime, nextTournamentFixture, recordTournamentSeries, seededTournamentFixtures, tournamentById, tournamentForRun, tournamentOpponentCondition, utcTime } from "./tournaments";
@@ -216,11 +217,12 @@ export function withTournamentStrength(run: TournamentRun): TournamentRun {
 }
 
 export function tournamentTeamTemplate(c: Campaign, original: TournamentRun, key: string) {
+  const experience=campaignDraftExperience(c);
   const run = withTournamentStrength(original);
   const team = run.teams.find(t => t.id === key)!;
   return { name: team.name, players: team.roster.map((id, role) => {
     const p = c.players.find(p => p.id === id);
-    return { id, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
+    return { id, heroExperience:experience.get(id)??{}, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
       role, skills: { ...(p?.stats ?? startingAttributes(id)) }, talents: c.talentPlans?.[id] ? normalizeTalentPlan(c.talentPlans[id]) : key === run.managed ? {} : automaticTalents(role), energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
   }), bonus: key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) : 0,
   patchObserver: key === run.managed ? managedPatchObserver(c) : { teamKey: key, staffIds: oppositionStaff(key) },
@@ -242,10 +244,10 @@ export function tournamentBattleConfig(c: Campaign, original: TournamentRun, fix
   const players: BattleConfig["players"] = [playerRows(0), playerRows(1)];
   const bonus = (side: number) => templates[side].bonus + tournamentCombatBonus(run, teamData[side], fixture.at, templates[side].form);
   const through = Math.max(2010, ...c.calendar!.shuffledYears);
-  return { seed: run.seed ^ hashSeed(fixture.id), year: event.year, heroPoolThroughYear: Math.min(2026, through), patchId: run.patchId ?? patchAtDate(event.start).id,
+  return withDraftKnowledge(c, { seed: run.seed ^ hashSeed(fixture.id), year: event.year, heroPoolThroughYear: Math.min(2026, through), patchId: run.patchId ?? patchAtDate(event.start).id,
     teams: [teamData[0].name, teamData[1].name], players, bonuses: [bonus(0), bonus(1)],
     patchObservers: [templates[0].patchObserver, templates[1].patchObserver],
-    seriesFormat: { bestOf: fixture.bestOf, ...(fixture.advantage ? { advantage: reverse ? [fixture.advantage[1], fixture.advantage[0]] : fixture.advantage } : {}) } };
+    seriesFormat: { bestOf: fixture.bestOf, ...(fixture.advantage ? { advantage: reverse ? [fixture.advantage[1], fixture.advantage[0]] : fixture.advantage } : {}) } }, keys.includes(run.managed) ? keys.indexOf(run.managed) as 0|1 : null);
 }
 
 export function commitTournamentRun(current: Campaign, run: TournamentRun): Campaign {

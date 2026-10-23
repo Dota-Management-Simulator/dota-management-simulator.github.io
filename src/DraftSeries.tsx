@@ -1,0 +1,111 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { BattleConfig, SimulatedSeries } from "./battle";
+import { assignDraftRoles, automaticDraftAction, completeMapDraft, createMapDraft, draftSuggestions, nextDraftStep, normalizeDraftPreparation, takeDraftAction } from "./draft";
+import type { DraftPreparation, MapDraft } from "./draft";
+import { getHeroPool, heroById, heroRoles } from "./heroes";
+import { HeroName } from "./DraftRecord";
+import { patchById } from "./patches";
+import { captainsRulesFor } from "./captains-mode";
+import { MatchViewer, SeriesResults } from "./MatchExperience";
+import "./draft.css";
+
+export default function DraftSeries({config,preparation,skipPlayback=false,onPreparation,onComplete,onCancel,managedTeamId}: {
+  config:BattleConfig; preparation?:DraftPreparation; skipPlayback?:boolean;
+  onPreparation:(prep:DraftPreparation)=>void; onComplete:(series:SimulatedSeries)=>void;
+  onCancel:()=>void; managedTeamId?:string;
+}){
+  const [prep,setPrep]=useState(()=>normalizeDraftPreparation(preparation));
+  const [maps,setMaps]=useState<SimulatedSeries[]>([]);
+  const [mode,setMode]=useState<"auto"|"manual"|null>(null);
+  const [state,setState]=useState<MapDraft>(()=>createMapDraft(config));
+  const [query,setQuery]=useState("");const [role,setRole]=useState("all");
+  const [busy,setBusy]=useState(false);const [error,setError]=useState("");
+  const [current,setCurrent]=useState<SimulatedSeries|null>(null);const [watching,setWatching]=useState(false);
+  const worker=useRef<Worker|null>(null);const completed=useRef(false);
+  useEffect(()=>()=>{worker.current?.terminate();},[]);
+  const patch=patchById(config.patchId),rules=captainsRulesFor(patch);
+  const pool=useMemo(()=>getHeroPool(config.year,patch?Math.min(config.heroPoolThroughYear??patch.year-1,patch.year-1):config.heroPoolThroughYear,patch),[config,patch]);
+  const cfg=useMemo<BattleConfig>(()=>({...config,draftPreparations:[prep,config.draftPreparations?.[1]],
+    players:config.players.map(side=>side.map(p=>{
+      const heroExperience={...p.heroExperience};
+      for(const m of maps)for(const row of m.summary.games[0].players)if(row.id===p.id)heroExperience[row.heroId]=(heroExperience[row.heroId]??0)+1;
+      return {...p,heroExperience};
+    })) as BattleConfig["players"]}),[config,prep,maps]);
+  const step=nextDraftStep(cfg,state);
+  const choices=useMemo(()=>mode==="manual"&&!busy&&!current&&step?.side===0?draftSuggestions(cfg,state):[],[cfg,state,mode,busy,current,step?.side]);
+  const initial=config.seriesFormat?.advantage??[0,0];const score:[number,number]=[initial[0],initial[1]];
+  for(const m of maps)score[m.summary.games[0].winner]++;
+  const bestOf=config.seriesFormat?.bestOf??3;
+  const done=bestOf===2?maps.length===2:Math.max(...score)>=Math.floor(bestOf/2)+1;
+  const launch=()=>{
+    if(worker.current||current)return;
+    try{
+      const draft=completeMapDraft(cfg,state);setBusy(true);setError("");
+      const w=new Worker(new URL("./battle.worker.ts",import.meta.url),{type:"module"});worker.current=w;
+      const fail=(message:string)=>{w.terminate();worker.current=null;setBusy(false);setError(message);};
+      w.onmessage=({data})=>{
+        if(worker.current!==w)return;
+        if(data.type==="complete"){
+          w.terminate();worker.current=null;setBusy(false);
+          setMaps(previous=>[...previous,data.simulation]);setCurrent(data.simulation);setWatching(!skipPlayback);
+        }else if(data.type==="error")fail(data.message);
+      };
+      w.onerror=()=>fail("The map worker could not finish. Your campaign result has not changed; retry this draft.");
+      w.postMessage({...cfg,seed:(config.seed+state.map*7919)>>>0,draft:draft.heroes,draftRecord:draft,seriesFormat:{bestOf:1}} satisfies BattleConfig);
+    }catch(e){worker.current?.terminate();worker.current=null;setBusy(false);setError(e instanceof Error?e.message:"Could not start map.");}
+  };
+  useEffect(()=>{
+    if(!mode||busy||current||error)return;
+    if(!step){if(mode==="auto")launch();return;}
+    if(mode==="auto"||step.side===1){
+      const timer=setTimeout(()=>{try{setState(previous=>automaticDraftAction(cfg,previous));}catch(e){setError(e instanceof Error?e.message:"Draft failed.");}},mode==="auto"?85:240);
+      return()=>clearTimeout(timer);
+    }
+  },[mode,state,cfg,busy,current,error]);
+  const continueMap=()=>{
+    if(done){
+      if(completed.current)return;completed.current=true;
+      const first=maps[0];
+      onComplete({summary:{...first.summary,seed:config.seed,bestOf,advantage:initial as [number,number],score,
+        winner:score[0]===score[1]?null:score[0]>score[1]?0:1,games:maps.map(m=>m.summary.games[0])},frames:maps.map(m=>m.frames[0])});
+    }else{setCurrent(null);setWatching(false);setMode(null);setState(createMapDraft(cfg,maps.length));setQuery("");setError("");}
+  };
+  if(current&&watching)return <MatchViewer simulation={current} year={config.year} managedTeamId={managedTeamId} onFinish={()=>setWatching(false)}/>;
+  if(current)return <SeriesResults result={{eventId:"draft-map",event:`Map ${maps.length} · series ${score.join("–")}`,year:config.year,week:0,
+    won:current.summary.winner===0,prize:0,points:0,opponent:config.teams[1],score:current.summary.score.join("–"),series:current.summary}}
+    managedTeamId={managedTeamId} mapOnly closeLabel={done?"Finish series":`Draft map ${maps.length+1}`} onClose={continueMap}/>;
+  const filtered=choices.filter(({hero:h})=>h.name.toLowerCase().includes(query.toLowerCase())&&(role==="all"||h.roles.includes(+role)));
+  const start=(m:"auto"|"manual")=>{onPreparation(prep);setMode(m);setError("");};
+  return <section className="draft-room" aria-label="Match draft">
+    <div className="eyebrow">CAPTAIN’S MODE · PATCH {config.patchId??"LEGACY"} · BO{bestOf}</div>
+    <h2 id="modal-title">Map {maps.length+1} · {config.teams[0]} vs {config.teams[1]}</h2>
+    <p className="draft-score">Series {score.join(" – ")} · {config.teams[state.firstPick]} has first pick{initial.some(Boolean)?" · Includes a default upper-bracket win":""}</p>
+    <p>{rules.summary} <a href={rules.source} target="_blank" rel="noreferrer">Draft rules source ↗</a></p>
+    {!mode?<>
+      <div className="draft-preparation"><h3>Draft preparation</h3><label>Approach<select value={prep.approach} onChange={e=>setPrep({...prep,approach:e.target.value as DraftPreparation["approach"]})}>
+        {(["balanced","teamfight","push","pickoff","scaling"] as const).map(v=><option key={v} value={v}>{v[0].toUpperCase()+v.slice(1)}</option>)}
+      </select></label>
+      <div className="draft-preferred">{heroRoles.map((name,r)=><label key={r}>{name}<select aria-label={`${name} preferred hero`} value={prep.preferred[r][0]??""} onChange={e=>setPrep({...prep,preferred:prep.preferred.map((p,i)=>i===r?(e.target.value?[e.target.value]:[]):p)})}>
+        <option value="">Coach’s choice</option>{pool.filter(h=>h.roles.includes(r)).map(h=><option key={h.id} value={h.id}>{h.name}</option>)}
+        {prep.preferred[r][0]&&!pool.some(h=>h.id===prep.preferred[r][0]&&h.roles.includes(r))&&<option value={prep.preferred[r][0]} disabled>{heroById(prep.preferred[r][0])?.name} · unavailable here</option>}
+      </select></label>)}</div>
+      <label>Priority bans<select aria-label="Add priority ban" value="" onChange={e=>{if(e.target.value)setPrep({...prep,bans:[...new Set([...prep.bans,e.target.value])].slice(0,6)});}}><option value="">Add a hero…</option>{pool.filter(h=>!prep.bans.includes(h.id)).map(h=><option key={h.id} value={h.id}>{h.name}</option>)}</select></label>
+      <div className="draft-ban-chips">{prep.bans.map(id=><button className="button secondary small-button" key={id} onClick={()=>setPrep({...prep,bans:prep.bans.filter(h=>h!==id)})}><HeroName id={id}/> ×</button>)}</div>
+      <button className="button secondary small-button" onClick={()=>onPreparation(prep)}>Save preparation</button>
+      <p className="field-note">Preferences guide the coach. Bans, role fit and availability can force another pick. Both teams work from their own uncertain patch research.</p></div>
+      <div className="draft-mode-buttons"><button className="button primary" onClick={()=>start("auto")}>Follow preparation · fast draft</button><button className="button secondary" onClick={()=>start("manual")}>Draft for my team</button></div>
+      {!maps.length&&<button className="text-link" onClick={onCancel}>Back without playing</button>}
+    </>:<>
+      <div className="draft-turn" role="status">{busy?"Playing the map in the lane engine…":step?`Phase ${step.phase} · ${config.teams[step.side]} ${step.kind==='ban'?'bans':'picks'}${mode==="auto"?" · fast draft":""}`:"Draft complete · five roles assigned"}</div>
+      <div className="draft-lineups">{([0,1] as const).map(side=>{const lineup=assignDraftRoles(cfg,side,state.picks[side])?.heroes??[];return <div key={side}><h3>{config.teams[side]}</h3>{heroRoles.map((name,r)=><div className="draft-lineup-row" key={r}><small>{name}</small>{lineup[r]?<HeroName id={lineup[r]}/>:<span className="muted">Not picked</span>}</div>)}</div>;})}</div>
+      <div className="draft-ban-chips" aria-label="Banned heroes"><strong>Bans · {state.bans.length}</strong>{state.bans.map(id=><HeroName key={id} id={id}/>)}</div>
+      {mode==="manual"&&step?.side===0&&!busy&&<><div className="draft-filters"><label>Search heroes<input value={query} onChange={e=>setQuery(e.target.value)} placeholder="Find a hero"/></label><label>Position<select value={role} onChange={e=>setRole(e.target.value)}><option value="all">All roles</option>{heroRoles.map((name,r)=><option key={r} value={r}>{name}</option>)}</select></label></div>
+        <p className="field-note">Listed by your coach’s uncertain assessment. Flex picks are reassigned as the lineup develops. Picks and bans must leave a legal five for both teams.</p>
+        <div className="draft-choices">{filtered.map(({hero})=><button className="button secondary" key={hero.id} onClick={()=>{try{setState(takeDraftAction(cfg,state,hero.id));}catch(e){setError(String(e));}}}><HeroName id={hero.id}/><small>{step.kind==="ban"?"Ban":hero.roles.map(r=>heroRoles[r]).join(" / ")}</small></button>)}</div>
+      </>}
+      {mode==="manual"&&!step&&!busy&&<button className="button primary" onClick={launch}>Confirm lineup & play map</button>}
+      {!!state.actions.length&&<details className="draft-record"><summary>Pick/ban sequence · {state.actions.length} actions</summary><ol>{state.actions.map((a,i)=><li key={i}>{config.teams[a.side]} · {a.kind} · {heroById(a.heroId)?.name}</li>)}</ol></details>}
+    </>}
+    {error&&<div role="alert"><p>{error}</p><button className="button secondary" onClick={()=>{setError("");if(!step)launch();}}>Retry</button></div>}
+  </section>;
+}

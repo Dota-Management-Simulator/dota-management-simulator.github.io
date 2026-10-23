@@ -154,7 +154,7 @@ test("tournaments pin one patch across both workers, date changes and reload, in
   const direct=simulateSeries({...cfg,captureReplay:false});
   const first=batch.matches[0];assert.ok(first.performance?.patch);
   assert.throws(()=>recordTournamentSeries(run,fixture.id,{...direct.summary,patch:{...direct.summary.patch!,id:"2012.1"}}),/different tournament patch/);
-  assert.deepEqual(first.performance?.games,direct.summary.games.map(({winner,duration,kills,players})=>({winner,duration,kills,players})));
+  assert.deepEqual(first.performance?.games,direct.summary.games.map(({winner,duration,kills,players,draft})=>({winner,duration,kills,players,...(draft?{draft}:{})})));
   assert.deepEqual(tournamentScoreboard(ti1,batch,first)?.result.series?.patch,direct.summary.patch);
   const old=structuredClone(run);delete old.patchId;
   assert.equal(tournamentBattleConfig(c,old,fixture).patchId,run.patchId);

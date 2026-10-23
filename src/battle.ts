@@ -10,6 +10,8 @@ import { createFarmCamps } from "./battle-map";
 import type { FarmCamp } from "./battle-map";
 import { talentBonuses } from "./talents";
 import type { TalentPlan } from "./talents";
+import { autoDraftMap } from "./draft";
+import type { CompletedDraft, DraftPreparation } from "./draft";
 
 export type Side = 0 | 1;
 export interface BattlePlayer {
@@ -17,6 +19,7 @@ export interface BattlePlayer {
   name: string;
   role: number;
   skills: Record<string, number>;
+  heroExperience?: Record<string, number>;
   energy: number;
   happiness: number;
   talents?: TalentPlan;
@@ -35,6 +38,8 @@ export interface BattleConfig {
   captureReplay?: boolean;
   /** Offline calibration and future manual drafts use the same combat path. */
   draft?: [string[], string[]];
+  draftRecord?: CompletedDraft;
+  draftPreparations?: [DraftPreparation|undefined,DraftPreparation|undefined];
   captureTimeline?: boolean;
 }
 export interface PlayerScore {
@@ -65,6 +70,7 @@ export interface ResourcePoint {
   xp: [number, number];
 }
 export interface GameSummary {
+  draft?: CompletedDraft;
   winner: Side;
   duration: number;
   kills: [number, number];
@@ -215,6 +221,7 @@ export class LaneBattle {
   private lanesMeasured = false;
   private random: () => number;
   private patch: SeasonPatch | undefined;
+  private drafted?: CompletedDraft;
   constructor(
     public config: BattleConfig,
     gameIndex = 0,
@@ -222,11 +229,13 @@ export class LaneBattle {
     this.random = seededRandom(config.seed + gameIndex * 7919);
     this.patch = patchById(config.patchId);
     this.camps = frontiersEnabled(this.patch) ? createFarmCamps() : [];
-    const pool = getHeroPool(config.year, this.patch ? Math.min(config.heroPoolThroughYear ?? this.patch.year - 1, this.patch.year - 1) : config.heroPoolThroughYear).slice();
-    if (config.draft) {
-      const ids = config.draft.flat();
-      if (config.draft.some(side => side.length !== 5) || new Set(ids).size !== 10 ||
-          config.draft.some(side => side.some((id, role) => !pool.some(h => h.id === id && h.roles.includes(role)))))
+    this.drafted = config.draftRecord ?? (this.patch && !config.draft ? autoDraftMap(config,gameIndex) : undefined);
+    const fixedDraft = config.draft ?? this.drafted?.heroes;
+    const pool = getHeroPool(config.year, this.patch ? Math.min(config.heroPoolThroughYear ?? this.patch.year - 1, this.patch.year - 1) : config.heroPoolThroughYear, this.patch).slice();
+    if (fixedDraft) {
+      const ids = fixedDraft.flat();
+      if (fixedDraft.some(side => side.length !== 5) || new Set(ids).size !== 10 ||
+          fixedDraft.some(side => side.some((id, role) => !pool.some(h => h.id === id && h.roles.includes(role)))))
         throw new Error("A fixed draft must contain ten unique, unlocked, position-eligible heroes.");
     }
     for (const team of [0, 1] as Side[]) {
@@ -254,7 +263,7 @@ export class LaneBattle {
         const choices = candidates.length ? candidates : pool;
         const weights = choices.map(h => draftWeight(h, draftPatch, player.skills.creativity ?? 50));
         let roll = this.random() * weights.reduce((sum, value) => sum + value, 0);
-        const hero = config.draft ? pool.find(h => h.id === config.draft![team][role])! : choices[weights.findIndex((weight, index) => (roll -= weight) < 0 || index === weights.length - 1)];
+        const hero = fixedDraft ? pool.find(h => h.id === fixedDraft[team][role])! : choices[weights.findIndex((weight, index) => (roll -= weight) < 0 || index === weights.length - 1)];
         pool.splice(pool.indexOf(hero), 1); // No duplicates across either draft.
         const s = player.skills;
         const skill =
@@ -872,6 +881,7 @@ export class LaneBattle {
       ) as [number, number],
       players: this.score(),
       timeline: this.timeline,
+      ...(this.drafted ? { draft: this.drafted } : {}),
       overtime: this.time > 540,
       ancientHealth: ([0, 1] as Side[]).map((t) =>
         Math.max(
@@ -907,7 +917,12 @@ export function simulateSeries(
   const games: GameSummary[] = [];
   const frames: ReplayFrame[][] = [];
   while (bestOf === 2 ? games.length < 2 : Math.max(...score) < target) {
-    const battle = new LaneBattle(config, games.length);
+    const players = config.players.map(side=>side.map(p=>{
+      const heroExperience={...p.heroExperience};
+      for(const game of games)for(const row of game.players)if(row.id===p.id)heroExperience[row.heroId]=(heroExperience[row.heroId]??0)+1;
+      return {...p,heroExperience};
+    })) as BattleConfig["players"];
+    const battle = new LaneBattle({...config,players}, games.length);
     const result = battle.run();
     games.push(result);
     frames.push(battle.frames);

@@ -7,7 +7,7 @@ import { heroBalanceSignature } from "../src/hero-balance";
 
 const job = workerData as { patchId: string; rounds: number; maps: number; validation: number; seed: number };
 const patch = patchById(job.patchId)!;
-const pool = getHeroPool(patch.year, patch.year - 1);
+const pool = getHeroPool(patch.year, patch.year - 1, patch);
 const rows = patch.heroBalance!;
 const skills = Object.fromEntries(["creativity", "stability", "confidence", "stamina", "heroPool", "laning", "teamfights", "farming", "skirmish", "vision", "intuition", "pushing"].map(key => [key, 50]));
 const players: BattleConfig["players"] = [0, 1].map(side => Array.from({ length: 5 }, (_, role) => ({ id: `benchmark-${side}-${role}`, name: `Position ${role + 1}`, role, skills, energy: 100, happiness: 100 }))) as BattleConfig["players"];

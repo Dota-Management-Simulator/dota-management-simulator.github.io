@@ -3,3 +3,4 @@ dist/
 *.tsbuildinfo
 .local/
 __pycache__/
+scripts/data/hero-role-sources/

@@ -69,14 +69,14 @@ test("historical snapshots retain actual counts separately from capped, sample-s
   const ti = patchForSeason(2015, 2), shanghai = patchForSeason(2016, 1);
   const bounty = ti.heroBalance!.find(h => h.id === "bounty_hunter")!;
   assert.deepEqual([bounty.observed!.played, bounty.observed!.wins, bounty.observed!.losses, bounty.observed!.rawWinRate], [48, 33, 15, 68.75]);
-  assert.equal(bounty.targetWinRate, 58);
+  assert.ok(bounty.targetWinRate > 53 && bounty.targetWinRate <= 58);
   assert.equal(ti.heroBalance!.find(h => h.id === "techies")!.observed!.rawWinRate, 87.5);
   assert.ok(ti.heroBalance!.find(h => h.id === "techies")!.targetWinRate < 58, "7–1 cannot outweigh sample shrinkage");
   assert.ok(ti.heroes.some(h => h.id === "bounty_hunter"));
   assert.ok(shanghai.heroBalance!.some(h => h.observed?.sourceUrl.includes("shanghai.txt")));
   assert.ok(patchForSeason(2015, 1).heroBalance!.every(h => !h.observed));
   assert.ok(patchForSeason(2016, 2).heroBalance!.every(h => !h.observed));
-  assert.equal(historicalPatches.filter(p => p.heroStatistics).length, 2);
+  assert.equal(historicalPatches.filter(p => p.heroStatistics).length, 15);
 });
 
 test("offline historical compiler validates aliases/counts, reproduces source observations and rejects malformed rows", () => {

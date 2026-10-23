@@ -22,6 +22,7 @@ import type { ScoreboardGame, ScoreboardResult } from "./scoreboards";
 import { heroById } from "./heroes";
 import { heroIconFor } from "./hero-icons";
 import TeamBadge from "./TeamBadge";
+import { DraftRecordView } from "./DraftRecord";
 import { teamIdForName } from "./team-logos";
 import { frontierBounds, frontierMargin, frontierSize } from "./battle-map";
 import { talentTiers } from "./talents";
@@ -313,6 +314,7 @@ export function SeriesResults({
   closeLabel = "Back to management",
   perspective = 0,
   teamIds,
+  mapOnly = false,
 }: {
   result: ScoreboardResult;
   onClose: () => void;
@@ -320,6 +322,7 @@ export function SeriesResults({
   closeLabel?: string;
   perspective?: 0 | 1 | null;
   teamIds?: [string | undefined, string | undefined];
+  mapOnly?: boolean;
 }) {
   const [selected, setSelected] = useState(0);
   const heading = useRef<HTMLHeadingElement>(null);
@@ -350,7 +353,7 @@ export function SeriesResults({
           {result.event} · {result.year} · BEST OF {series.bestOf ?? 3}
         </div>
         <h2 id="modal-title" ref={heading} tabIndex={-1}>
-          {drawn ? "The series ends level." : neutral ? `${series.teams[series.winner!]} win the series.` : result.won ? "A series to remember." : "A lesson for the next one."}
+          {mapOnly ? `${series.teams[series.winner!]} win the map.` : drawn ? "The series ends level." : neutral ? `${series.teams[series.winner!]} win the series.` : result.won ? "A series to remember." : "A lesson for the next one."}
         </h2>
         {series.patch && <p className="patch-match-label">Patch {series.patch.id} · {series.patch.name} · {series.patch.versions}</p>}
         <div className="series-scoreline">
@@ -364,7 +367,7 @@ export function SeriesResults({
           className={`series-outcome ${neutral || drawn || result.won ? "series-victory" : "series-defeat"}`}
         >
           <Trophy size={14} />
-          {drawn ? "SERIES DRAW" : neutral ? "SERIES COMPLETE" : result.won ? "SERIES VICTORY" : "SERIES DEFEAT"}
+          {mapOnly ? neutral ? "MAP COMPLETE" : result.won ? "MAP VICTORY" : "MAP DEFEAT" : drawn ? "SERIES DRAW" : neutral ? "SERIES COMPLETE" : result.won ? "SERIES VICTORY" : "SERIES DEFEAT"}
           <span>
             {result.prize > 0 && `+$${result.prize.toLocaleString()}`}{result.points > 0 && ` · +${result.points} points`}
           </span>
@@ -401,6 +404,7 @@ export function SeriesResults({
         </span>}
         {game.ancientHealth && <span>Ancient destroyed{game.overtime ? " · Overtime siege" : ""}</span>}
       </div>
+      {game.draft&&<DraftRecordView draft={game.draft} teams={series.teams}/>}
       <Scoreboard game={game} teams={series.teams} />
       {game.timeline?.length ? <div className="match-graphs" key={selected}>
         <ResourceGraph

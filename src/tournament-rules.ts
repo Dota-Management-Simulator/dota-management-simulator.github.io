@@ -204,7 +204,7 @@ export function recordTournamentSeries(current: TournamentRun, fixtureId: string
     ...(teams.includes(run.managed) ? { series } : { performance: {
       teams: [...series.teams] as [string, string],
       ...(series.patch ? { patch: series.patch } : {}),
-      games: series.games.map(({ winner, duration, kills, players }) => ({ winner, duration, kills, players })),
+      games: series.games.map(({ winner, duration, kills, players, draft }) => ({ winner, duration, kills, players, ...(draft ? { draft } : {}) })),
     } }) });
   completeGroups(run);
   if (!nextTournamentFixture(run)) {

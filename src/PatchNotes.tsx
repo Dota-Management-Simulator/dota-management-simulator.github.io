@@ -7,6 +7,7 @@ import { managedPatchObserver, patchReport } from "./patch-knowledge";
 import { frontiersEnabled, milestoneForPatch, patchHeroArrivals, talentsEnabled } from "./patch-milestones";
 import { PatchMedia } from "./PatchArrival";
 import { simplifiedHeroNote } from "./patch-notes";
+import { captainsRulesFor } from "./captains-mode";
 
 export default function PatchNotes({ patch, campaign, onPlayer }: { patch: SeasonPatch; campaign: Campaign; onPlayer: (id: string) => void }) {
   const previous = patch.id === "2011.1" ? undefined : patchForSeason(patch.phase === 1 ? patch.year - 1 : patch.year, patch.phase === 1 ? 2 : 1);
@@ -22,6 +23,11 @@ export default function PatchNotes({ patch, campaign, onPlayer }: { patch: Seaso
       <p>Historical release: {milestone.releasedOn}. This campaign introduces it with composite {patch.id} on {patch.startsOn}; the season calendar compresses real updates.</p>
     </section>}
     <PatchMedia key={patch.id} patch={patch} />
+    <section><h3>Captain’s Mode · {captainsRulesFor(patch).version}</h3>
+      <p>{previous&&captainsRulesFor(previous).id!==captainsRulesFor(patch).id?"Draft rules change with this composite. ":"Current draft rules: "}{captainsRulesFor(patch).summary}</p>
+      <p>Choose before each map: follow your saved preparation through a fast pick/ban sequence, or draft for your team. Both coaches use their own uncertain patch report. Real changes within a composite arrive together with that composite; pick/ban countdown timers are not simulated.</p>
+      <a className="text-link" href={captainsRulesFor(patch).source} target="_blank" rel="noreferrer">Draft rules source ↗</a>
+    </section>
     <section><h3>New heroes · {arrivals.length ? arrivals.length : "no additions"}</h3>
       <p>{arrivals.length ? "This opening patch adds the previous calendar year's Dota 2 releases in one batch. All are eligible for auto-drafting from this composite onward." : "The existing hero pool carries forward. Releases enter with the next season's opening composite, alongside the post-TI shuffle."}</p>
       {!!arrivals.length && <div className="patch-arrivals">{arrivals.map(hero => { const icon = heroIconFor(hero.id); return <span key={hero.id}>{icon && <img src={`${import.meta.env.BASE_URL}${icon.path}`} alt="" loading="lazy" />}<strong>{hero.name}</strong></span>; })}</div>}

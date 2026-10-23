@@ -7,7 +7,7 @@ import { fixtureTeams, formatDate, formatPrize, groupStandings, nextTournamentFi
 import type { HistoricalTournament, TournamentRun } from "./tournament-types";
 import type { SimulatedSeries } from "./battle";
 import type { TournamentWorkerInput } from "./tournament.worker";
-import { MatchViewer, SeriesResults } from "./MatchExperience";
+import { SeriesResults } from "./MatchExperience";
 import TeamBadge from "./TeamBadge";
 import TournamentCalendarBoard from "./TournamentCalendarBoard";
 import { advanceManagerWeek } from "./office";
@@ -17,6 +17,8 @@ import TournamentOutlook from "./TournamentOutlook";
 import { tournamentScoreboard } from "./scoreboards";
 import { patchAtDate, patchById } from "./patches";
 import TournamentBracket from "./TournamentBracket";
+import DraftSeries from "./DraftSeries";
+import type { BattleConfig } from "./battle";
 
 function EventFacts({ event }: { event: HistoricalTournament }) {
   return <details className="tournament-facts"><summary>Format, prize distribution & source</summary>
@@ -79,9 +81,9 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
   const [advanceNotice, setAdvanceNotice] = useState("");
   const [computing, setComputing] = useState(false);
   const [progress, setProgress] = useState("");
-  const [simulation, setSimulation] = useState<SimulatedSeries | null>(null);
+  const [draftRequest,setDraftRequest]=useState<{config:BattleConfig;skip:boolean}|null>(null);
   const [selectedScoreboard, setSelectedScoreboard] = useState<{ eventId: string; fixtureId: string } | null>(null);
-  useEffect(() => { onBusyChange?.(computing || simulation !== null || selectedScoreboard !== null); }, [computing, simulation, selectedScoreboard, onBusyChange]);
+  useEffect(() => { onBusyChange?.(computing || selectedScoreboard !== null || draftRequest !== null); }, [computing, selectedScoreboard, draftRequest, onBusyChange]);
   useEffect(() => () => onBusyChange?.(false), [onBusyChange]);
   const worker = useRef<Worker | null>(null);
   const latestCampaign = useRef(campaign);
@@ -123,20 +125,8 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
 
   const startSeries = (skip: boolean) => {
     if (!run || !fixture || worker.current || !managedReady || earlierCommitment) return;
-    setError(""); setComputing(true); setProgress(`Simulating ${fixture.stage} · BO${fixture.bestOf}…`);
-    const nextWorker = new Worker(new URL("./battle.worker.ts", import.meta.url), { type: "module" });
-    worker.current = nextWorker;
-    nextWorker.onmessage = ({ data: message }) => {
-      if (worker.current !== nextWorker) return;
-      if (message.type === "progress") setProgress(`${message.games} maps completed · BO${fixture.bestOf}`);
-      else if (message.type === "complete") {
-        nextWorker.terminate(); worker.current = null; setComputing(false);
-        if (skip) finishSeries(message.simulation);
-        else setSimulation(message.simulation);
-      } else if (message.type === "error") { nextWorker.terminate(); worker.current = null; setComputing(false); setError(message.message); }
-    };
-    nextWorker.onerror = () => { nextWorker.terminate(); worker.current = null; setComputing(false); setError("The match worker could not finish. Retry from your last saved series."); };
-    nextWorker.postMessage(tournamentBattleConfig(campaign, run, fixture));
+    setError("");
+    setDraftRequest({config:tournamentBattleConfig(campaign,run,fixture),skip});
   };
   const finishSeries = (result: SimulatedSeries) => {
     if (!run || !fixture) return;
@@ -144,7 +134,6 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
       const next = settleTournamentMatch(latestCampaign.current, run.eventId, fixture.id, result.summary);
       setSelectedScoreboard({ eventId: run.eventId, fixtureId: fixture.id });
       onChange(next);
-      setSimulation(null);
     }
     catch (e) { setError(e instanceof Error ? e.message : "Could not record this series."); }
   };
@@ -152,11 +141,15 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
   const selectedMatch = selectedRun?.matches.find(m => m.id === selectedScoreboard?.fixtureId);
   const selectedEvent = selectedRun && tournamentForRun(selectedRun);
   const scoreboard = selectedRun && selectedMatch && selectedEvent && tournamentScoreboard(selectedEvent, selectedRun, selectedMatch);
+  if(draftRequest&&run)return <section className="panel tournament-viewer"><DraftSeries key={`${run.eventId}-${fixture?.id}`}
+    config={draftRequest.config} preparation={campaign.draftPreparation} skipPlayback={draftRequest.skip}
+    managedTeamId={campaign.world?.managedTeamId}
+    onPreparation={draftPreparation=>onChange({...latestCampaign.current,draftPreparation})}
+    onCancel={()=>setDraftRequest(null)} onComplete={result=>{setDraftRequest(null);finishSeries(result);}}/></section>;
   if (scoreboard) return <section className="panel tournament-viewer"><SeriesResults key={`${selectedRun.eventId}-${selectedMatch.id}`} {...scoreboard} closeLabel="Continue tournament" onClose={() => setSelectedScoreboard(null)} /></section>;
-  if (simulation && run) return <section className="panel tournament-viewer"><MatchViewer key={`${run.eventId}-${fixture?.id}`} simulation={simulation} year={event!.year} managedTeamId={campaign.world?.managedTeamId} onFinish={() => finishSeries(simulation)} /></section>;
   return <div className="historical-calendar">
     <div className="qualification-banner"><CalendarDays size={28} /><div><strong>{formatDate(campaign.calendar!.now, campaign.calendar!.nowHasTime)}</strong><p>Real tournament dates. Weekly advances stop at invited or reserved openings and scheduled series. Lineups remain committed through their tournament run.</p>{advanceNotice && <p role="status">{advanceNotice}</p>}</div><button className="button secondary small-button" disabled={computing} onClick={() => { const next = advanceManagerWeek(campaign); setAdvanceNotice(next.calendar!.now === campaign.calendar!.now ? "A decision is due: play your next series, or open your invited/reserved event below to enter or decline it." : `Advanced to ${formatDate(next.calendar!.now)}. Club updates are in your inbox.`); onChange(next); }}>Advance up to 7 days</button></div>
-    {playing.length > 1 && <label className="tournament-run-selector">Active tournament<select value={run?.eventId} disabled={computing || !!simulation} onChange={e => { setActiveId(e.target.value); setError(""); }}>{playing.map(r => <option key={r.eventId} value={r.eventId}>{tournamentById(r.eventId)?.name ?? r.eventId}</option>)}</select></label>}
+    {playing.length > 1 && <label className="tournament-run-selector">Active tournament<select value={run?.eventId} disabled={computing || !!draftRequest} onChange={e => { setActiveId(e.target.value); setError(""); }}>{playing.map(r => <option key={r.eventId} value={r.eventId}>{tournamentById(r.eventId)?.name ?? r.eventId}</option>)}</select></label>}
     {error && <div role="alert" className="muted-callout"><p>{error}</p><button className="button secondary small-button" onClick={() => setError("")}>Retry</button></div>}
     {run && event && <section className="panel tournament-active"><div className="eyebrow">IN PROGRESS · REGISTERED LINEUP</div><h2>{event.name}</h2>
       <p className="patch-match-label">Patch {run.patchId ?? patchAtDate(event.start).id} · {patchById(run.patchId)?.name ?? patchAtDate(event.start).name} · Pinned for this tournament</p>

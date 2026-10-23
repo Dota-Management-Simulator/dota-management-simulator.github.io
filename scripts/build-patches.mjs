@@ -16,6 +16,7 @@ const after = date => new Date(Date.parse(date) + 86400000).toISOString().slice(
 const plain = text => text.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 const keys = ['tempo','economy','laning','teamfight','objectives','vision','splitpush'];
 const history = read('./data/hero-history-sources.json');
+const meta = JSON.parse(gunzipSync(readFileSync(new URL('./data/hero-meta-sources.json.gz', import.meta.url))));
 const patches = authored.profiles.map(([year,phase,versions,secondDrop,name,values,description,ids]) => {
   const firstDrop = year === 2011 ? '2011-01-01' : after(tiEnd(year - 1));
   const from = phase === 1 ? firstDrop : secondDrop;
@@ -46,7 +47,7 @@ const patches = authored.profiles.map(([year,phase,versions,secondDrop,name,valu
       ...(year === 2020 ? ['There was no TI in 2020; the next opening phase begins at the annual boundary.'] : []),
       ...(evidence === 'limited' ? ['No primary patch notes recovered for this phase; version lineage is a provisional reference.'] : []),
     ] };
-  const balance = buildHeroBalance(profile, heroes, history);
+  const balance = buildHeroBalance(profile, heroes, history, meta);
   profile.heroBalance = balance.rows;
   profile.heroStatistics = balance.source;
   if (balance.source) {
@@ -56,5 +57,5 @@ const patches = authored.profiles.map(([year,phase,versions,secondDrop,name,valu
   }
   return profile;
 });
-writeFileSync(new URL('../src/data/patches.json', import.meta.url), JSON.stringify({ reviewedOn: '2026-10-22', note: authored.note, seasons: Array.from({length:16},(_,i)=>({year:2011+i, endsOn:tiEnd(2011+i)})), patches }, null, 2) + '\n');
+writeFileSync(new URL('../src/data/patches.json', import.meta.url), JSON.stringify({ reviewedOn: '2026-10-23', note: authored.note, seasons: Array.from({length:16},(_,i)=>({year:2011+i, endsOn:tiEnd(2011+i)})), patches }, null, 2) + '\n');
 console.log(`Compiled ${patches.length} season patches; ${patches.filter(p=>p.evidence==='limited').length} have limited source coverage.`);

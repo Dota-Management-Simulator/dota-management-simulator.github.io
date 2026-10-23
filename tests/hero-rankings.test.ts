@@ -11,7 +11,7 @@ test("all 32 phases and future patches highlight ten unique unlocked heroes per 
   for (const patch of [...historicalPatches, patchForSeason(2036, 1)]) for (let role = 0; role < 5; role++) {
     const full = rankHeroesForRole(patch, role);
     const top = strongestHeroesForRole(patch, role);
-    const pool = getHeroPool(patch.year, Math.min(2026, patch.year - 1));
+    const pool = getHeroPool(patch.year, Math.min(2026, patch.year - 1), patch);
     assert.equal(top.length, 10);
     assert.equal(new Set(top.map(h => h.id)).size, 10);
     assert.equal(full.filter(h => h.highlighted).length, 10);

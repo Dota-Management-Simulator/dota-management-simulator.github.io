@@ -2,12 +2,13 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { getHeroPool, heroEra, heroRoles, heroUnlockYear, heroReleases, heroesArrivingIn } from "./heroes";
 import type { PatchReport } from "./patch-knowledge";
+import { patchById } from "./patches";
 
 export default function HeroPool({ year, week, throughYear, report }: { year: number; week: number; throughYear?: number; report?: PatchReport }) {
   const [search, setSearch] = useState("");
   const [role, setRole] = useState("all");
   const through = throughYear ?? heroUnlockYear(year, week);
-  const heroes = getHeroPool(year, through);
+  const heroes = getHeroPool(year, through, patchById(report?.patchId));
   const arriving = through < year ? heroesArrivingIn(year) : [];
   const filtered = heroes.filter(
     (h) =>
@@ -85,7 +86,7 @@ export default function HeroPool({ year, week, throughYear, report }: { year: nu
       )}
       <p className="match-footnote">
         {arriving.length ? `${arriving.length} more heroes enter with patch ${year + 1}.1 at the post-TI shuffle. ` : ""}
-        Dota 2 release-year additions enter together after TI, including releases later in that calendar year. This game rule does not follow Captain's Mode eligibility. Position preferences, attributes and combat archetypes are illustrative.
+        Dota 2 release-year additions enter together after TI, including releases later in that calendar year. This game rule does not follow Captain's Mode eligibility. Roles follow phase-specific event samples, with reviewed era estimates where evidence is missing. Attributes and combat archetypes remain simplified.
       </p>
       <p className="match-footnote"><a className="text-link" href={heroReleases.sources[0].url} target="_blank" rel="noreferrer">Hero release chronology ↗</a> · Coverage through 2026; no additional 2026 release recorded as of October 21.</p>
     </section>

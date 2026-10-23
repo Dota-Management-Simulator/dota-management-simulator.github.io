@@ -2,11 +2,12 @@
 import { build } from 'esbuild';
 import { Worker } from 'node:worker_threads';
 import { availableParallelism } from 'node:os';
-import { mkdir, readFile, writeFile, rename } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { correctPairedIntervals } from './calibration-stats.mjs';
+import { readCheckpoint, writeCheckpoint } from './checkpoint.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
 const value = (key, fallback) => { const i = args.indexOf(key); return i < 0 ? fallback : args[i + 1]; };
@@ -36,19 +37,19 @@ await mkdir(folder, { recursive: true });
 const workerFile = resolve(folder, 'worker.mjs');
 await build({ entryPoints: [resolve(root, 'scripts/hero-calibration-worker.ts')], outfile: workerFile, bundle: true, platform: 'node', format: 'esm', logLevel: 'silent' });
 const digest = createHash('sha256');
-for (const file of ['src/battle.ts', 'src/patches.ts', 'src/heroes.ts', 'src/hero-balance.ts', 'src/data/patches.json', 'scripts/hero-calibration-worker.ts']) digest.update(await readFile(resolve(root, file)));
+for (const file of ['src/battle.ts', 'src/battle-map.ts', 'src/talents.ts', 'src/patch-milestones.ts', 'src/patches.ts', 'src/heroes.ts', 'src/hero-roles.ts', 'src/data/hero-role-evidence.json', 'src/draft.ts', 'src/captains-mode.ts', 'src/hero-balance.ts', 'src/data/patches.json', 'scripts/hero-calibration-worker.ts']) digest.update(await readFile(resolve(root, file)));
 const fingerprint = digest.digest('hex');
 const statePath = resolve(folder, 'state.json');
 let state = { fingerprint, options, version: 1, method: 'Equal-player, role-legal, unique drafts; full lane combat with side-swapped pairs and separate holdout seeds.', patches: {} };
 if (args.includes('--resume')) {
-  const saved = JSON.parse(await readFile(statePath, 'utf8'));
+  const saved = await readCheckpoint(statePath);
   if (saved.fingerprint !== fingerprint || JSON.stringify(saved.options) !== JSON.stringify(options)) throw new Error('Checkpoint inputs changed; start a new run instead of mixing experiments.');
   state = saved;
 }
 const pending = selected.filter(p => !state.patches[p.id]);
 let journal = Promise.resolve();
 const save = () => { journal = journal.then(async () => {
-  const temp = `${statePath}.tmp`; await writeFile(temp, JSON.stringify(state, null, 2) + '\n'); await rename(temp, statePath);
+  await writeCheckpoint(statePath, state);
 }); return journal; };
 const started = Date.now();
 console.log(`Calibrating ${pending.length} patches with ${workers} CPU workers; ${options.rounds * options.maps + options.validation} real maps per patch. No network/model calls.`);

@@ -28,6 +28,8 @@ import { automaticTalents, normalizeTalentPlan } from "./talents";
 import type { TalentPlan } from "./talents";
 import { normalizePatchIntroductions } from "./patch-announcements";
 import type { PatchIntroductions } from "./patch-announcements";
+import { normalizeDraftPreparation, withDraftKnowledge } from "./draft";
+import type { DraftPreparation } from "./draft";
 
 export const ROLES = [
   "Carry",
@@ -81,6 +83,7 @@ export interface Result {
   tournamentId?: string;
 }
 export interface Campaign {
+  draftPreparation?: DraftPreparation;
   version: 1;
   talentPlans?: Record<string, TalentPlan>;
   seenPatchMilestones?: string[];
@@ -444,7 +447,7 @@ export function buildBattleConfig(
     talents: automaticTalents(role),
     happiness: 85,
   }));
-  return {
+  return withDraftKnowledge(c, {
     seed,
     year: c.year,
     heroPoolThroughYear: heroUnlockYear(c.year, c.week),
@@ -460,7 +463,7 @@ export function buildBattleConfig(
           : 0),
       0,
     ],
-  };
+  });
 }
 export function settleEvent(
   current: Campaign,
@@ -631,6 +634,7 @@ export function readSave(): Campaign | null {
       return null;
     if (c.settings.branding) c.settings.branding = normalizeBranding(c.settings.branding);
     if (c.trainingPresets !== undefined) c.trainingPresets = normalizeTrainingPresets(c.trainingPresets);
+    if (c.draftPreparation !== undefined) c.draftPreparation = normalizeDraftPreparation(c.draftPreparation);
     if (c.talentPlans && typeof c.talentPlans === "object" && !Array.isArray(c.talentPlans)) {
       c.talentPlans = Object.fromEntries(Object.entries(c.talentPlans).map(([id, plan]) => [id, normalizeTalentPlan(plan)]));
     } else delete c.talentPlans;

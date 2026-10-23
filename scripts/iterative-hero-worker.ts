@@ -7,9 +7,9 @@ import { heroBalanceSignature } from "../src/hero-balance";
 import { pairedWilson } from "./calibration-stats.mjs";
 
 const job = workerData as { patchId: string; rounds: number; maps: number; validation: number; seed: number;
-  initial: { rows: { id: string; power: number }[] } };
+  initial: { baselineMeanAbsoluteError?: number; rows: { id: string; power: number }[] } };
 const patch = patchById(job.patchId)!;
-const pool = getHeroPool(patch.year, patch.year - 1);
+const pool = getHeroPool(patch.year, patch.year - 1, patch);
 const rows = patch.heroBalance!;
 for (const row of rows) row.power = job.initial.rows.find(h => h.id === row.id)!.power;
 const skills = Object.fromEntries("creativity stability confidence stamina heroPool laning teamfights farming skirmish vision intuition pushing".split(" ").map(k => [k, 50]));
@@ -59,6 +59,16 @@ function batch(maps: number, seed: number) {
   return { counts, sideZeroWins };
 }
 const history: { round: number; meanAbsoluteError: number; ceilingExcess: number }[] = [];
+// Old coefficients are only starting values. Establish a fresh comparison on
+// the current engine and era roles, separate from fitting and final validation.
+let baselineMeanAbsoluteError = job.initial.baselineMeanAbsoluteError;
+let baselineMaps = 0;
+if (baselineMeanAbsoluteError === undefined) {
+  const { counts } = batch(job.validation, (offset + 900000011) >>> 0);
+  baselineMaps = job.validation;
+  baselineMeanAbsoluteError = round(rows.reduce((n, h) => n + Math.abs(counts[h.id].wins / counts[h.id].played * 100 - h.targetWinRate), 0) / rows.length);
+  parentPort!.postMessage({ type: "progress", patchId: patch.id, round: 0, meanAbsoluteError: baselineMeanAbsoluteError });
+}
 for (let r = 0; r < job.rounds; r++) {
   const { counts } = batch(job.maps, (offset + r * 10000019) >>> 0);
   let error = 0, excess = 0;
@@ -85,6 +95,7 @@ const measured = rows.map(h => {
 });
 parentPort!.postMessage({ type: "complete", patchId: patch.id, result: {
   signature: heroBalanceSignature(patch), seed: job.seed, trainMaps: job.maps * job.rounds, validationMaps: job.validation,
+  baselineMeanAbsoluteError, baselineMaps,
   intervalMethod: "95% Wilson; effective sample size = appearances / 2 for side-swapped pairs", training: history,
   sideZeroWinRate: round(sideZeroWins / job.validation * 100),
   meanAbsoluteError: round(measured.reduce((n, h) => n + Math.abs(h.winRate - h.targetWinRate), 0) / rows.length),
