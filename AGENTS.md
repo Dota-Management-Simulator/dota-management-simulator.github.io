@@ -1,6 +1,14 @@
 # Aegis Manager — project handoff
 
-Last updated: **2026-10-23**. Read this file before changing the project, then read [the roadmap](docs/roadmap.md) for the original product vision and future plans. These notes describe context and current decisions; the current user's request determines what to work on next. The roadmap is not an instruction to implement everything at once.
+Last updated: **2026-10-24**. Read this file before changing the project, then read [the roadmap](docs/roadmap.md) for the original product vision and future plans. These notes describe context and current decisions; the current user's request determines what to work on next. The roadmap is not an instruction to implement everything at once.
+
+## All completed work published — October 24, 2026
+
+**Published and verified at the user’s request to push everything:** final application source `95380d0`, Pages `e46ee9b`. This includes the evolving beta/Source 1/Reborn clients, dated TI/event menus and campaign-wide client styling, hero model gallery, draft portrait grid, era maps/paths and speeds, sponsor negotiator, OpenAI Five/All-Star Arcade modes, and the completed smooth-playback follow-up. Earlier local/unpublished entries below are implementation snapshots superseded by this release for publication status. The DEV-only disposable patch preview remains excluded from production.
+
+The initial hosted smoke check exposed weekly inbox labels being parsed as calendar dates. Follow-up `a8aac09` centralizes safe message-date formatting across both clients and the inbox; a regression test protects legacy saves. The final isolated source snapshot passes **279 tests** and TypeScript/production build (existing chunk warning), and **Test and deploy** run `40121864370` succeeds. Pages reports **built**. All **1,694 deployed files** match the release build in the branch; public HTML, CSS, all JS including both workers and sampled map/menu/icon/media assets pass HTTP/SHA-256 verification. Hosted Atlas Esports retains week 4, $90,000, Kestrel/Solace/Oak/Static/North and the Founders Open result. The live Staff page exposes Taylor Mercer; no hosted time advance or hire occurred. The final JS is `index-DDoF5tEt.js` and no new release browser errors were observed.
+
+The authorized Aegis Updates Discord summary was delivered (HTTP 200, receipt `1563624226605506582`). Credentials stayed external and were not printed or committed. Ignored release snapshots/receipts are in `.local/release-95380d0/`; see [release verification](docs/github-pages.md). Background jobs were preserved. This release does not certify simulation balance or complete historical coverage.
 
 ## Smooth match playback — October 24, 2026
 
