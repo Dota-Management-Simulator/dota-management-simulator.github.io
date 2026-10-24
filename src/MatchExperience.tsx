@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import {
   ArrowRight,
   Check,
@@ -31,6 +31,7 @@ import ItemInventory from "./ItemInventory";
 import { itemById } from "./items";
 import { strategyById } from "./tactics";
 import { patchById } from "./patches";
+import { replayPosition, replayWindow } from "./match-playback";
 import "./tactics.css";
 
 const COLORS = ["#c8b16f", "#9da6e2"];
@@ -39,7 +40,7 @@ export const PLAYBACK_SPEEDS = [0.5, 1, 2, 4, 8, 16, 32];
 export const speedLabel = (s: number) => s === 0.5 ? "½×" : `${s}×`;
 const compact = (n: number) =>
   Math.abs(n) >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
-export function HeroToken({ score }: { score: PlayerScore }) {
+export const HeroToken = memo(function HeroToken({ score }: { score: PlayerScore }) {
   const hero = heroById(score.heroId);
   const icon = heroIconFor(score.heroId);
   const [failedPath, setFailedPath] = useState<string>();
@@ -58,9 +59,9 @@ export function HeroToken({ score }: { score: PlayerScore }) {
         .join("")}
     </span>
   );
-}
+});
 
-function MapHeroToken({ heroId, name, color }: {
+const MapHeroToken = memo(function MapHeroToken({ heroId, name, color }: {
   heroId?: string; name: string; color: string;
 }) {
   const icon = heroIconFor(heroId);
@@ -79,7 +80,7 @@ function MapHeroToken({ heroId, name, color }: {
       )}
     </>
   );
-}
+});
 
 function ResourceGraph({
   timeline,
@@ -448,13 +449,70 @@ export function SeriesResults({
   );
 }
 
-export function MapReplay({
+const MapUnitAppearance = memo(function MapUnitAppearance({ unit, selected }: {
+  unit: ReplayFrame["units"][number]; selected: boolean;
+}) {
+  const dead = unit.hp <= 0, color = COLORS[unit.team];
+  return <>
+    <title>
+      {unit.name} · {Math.max(0, unit.hp)} / {unit.max} HP
+    </title>
+    {selected&&!dead&&<circle r="26" fill="none" stroke="#f2d27b" strokeWidth="2" strokeDasharray="4 3"/>}
+    {unit.kind === "tower" ? (
+      <>
+        <rect
+          x="-11"
+          y="-11"
+          width="22"
+          height="22"
+          rx="3"
+          fill={dead ? "#455344" : color}
+        />
+        <path
+          d="M-5 5V-4H5V5"
+          stroke="#18231c"
+          strokeWidth="2"
+          fill="none"
+        />
+      </>
+    ) : unit.kind === "base" ? (
+      <>
+        <circle r="29" fill={color} opacity=".14" />
+        <path
+          d="m0-22 19 11-4 23L0 25l-15-13-4-23Z"
+          fill="#243127"
+          stroke={color}
+          strokeWidth="3"
+        />
+      </>
+    ) : unit.kind === "hero" ? (
+      <MapHeroToken heroId={unit.heroId} name={unit.name} color={color} />
+    ) : (
+      <circle r="4" fill={color} opacity=".7" />
+    )}
+    {unit.kind !== "creep" && !dead && (
+      <>
+        <rect x="-17" y={unit.kind === "hero" ? -28 : -23} width="34" height="3" fill="#101812" />
+        <rect
+          x="-17"
+          y={unit.kind === "hero" ? -28 : -23}
+          width={34 * Math.max(0, unit.hp / unit.max)}
+          height="3"
+          fill={color}
+        />
+      </>
+    )}
+  </>;
+});
+
+export const MapReplay = memo(function MapReplay({
   before,
   after,
   ratio,
   expanded,
   patchId,
   selectedUnitIds = [],
+  transitionMs = 0,
 }: {
   before: ReplayFrame;
   after: ReplayFrame;
@@ -462,10 +520,104 @@ export function MapReplay({
   expanded: boolean;
   patchId?: string;
   selectedUnitIds?: number[];
+  /** Animate only unit transforms between snapshots, without React renders. */
+  transitionMs?: number;
 }) {
-  const nextUnits = new Map(after.units.map((u) => [u.id, u]));
+  const elements = useRef(new Map<number, SVGGElement>());
+  const positions = useRef(new Map<number, { x: number; y: number; dead: boolean }>());
+  const targets = useMemo(() => {
+    const nextUnits = new Map(after.units.map(u => [u.id, u]));
+    return before.units.map(unit => ({ unit, ...replayPosition(unit, nextUnits.get(unit.id), ratio) }));
+  }, [before, after, ratio]);
+  useLayoutEffect(() => {
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const duration = reducedMotion ? 0 : transitionMs;
+    const previous = positions.current;
+    positions.current = new Map();
+    const moves = targets.flatMap(({ unit, x, y }) => {
+      const element = elements.current.get(unit.id);
+      if (!element) return [];
+      const dead = unit.hp <= 0, last = previous.get(unit.id);
+      const from = duration > 0 && last?.dead === dead ? last : { x, y };
+      const position = { x: from.x, y: from.y, dead };
+      positions.current.set(unit.id, position);
+      element.setAttribute("transform", `translate(${from.x},${from.y})`);
+      return from.x === x && from.y === y ? [] : [{ element, position, fromX: from.x, fromY: from.y, x, y }];
+    });
+    if (!moves.length) return;
+    const start = performance.now();
+    let animation = 0;
+    const paint = (now: number) => {
+      const fraction = Math.min(1, (now - start) / duration);
+      for (const move of moves) {
+        move.position.x = move.fromX + (move.x - move.fromX) * fraction;
+        move.position.y = move.fromY + (move.y - move.fromY) * fraction;
+        move.element.setAttribute("transform", `translate(${move.position.x},${move.position.y})`);
+      }
+      if (fraction < 1) animation = requestAnimationFrame(paint);
+    };
+    animation = requestAnimationFrame(paint);
+    return () => cancelAnimationFrame(animation);
+  }, [targets, transitionMs]);
   // Patched maps show that era's Valve map art; legacy maps keep the sketch.
   const era = patchId ? mapEraForPatch({ id: patchId }) : undefined;
+  const terrain = useMemo(() => (<>
+    <defs>
+      <pattern
+        id="map-grid"
+        width="40"
+        height="40"
+        patternUnits="userSpaceOnUse"
+      >
+        <path
+          d="M40 0H0V40"
+          fill="none"
+          stroke="#d4dfa1"
+          strokeOpacity=".035"
+        />
+      </pattern>
+      <linearGradient id="map-bg" x2="1" y2="1">
+        <stop stopColor="#18291f" />
+        <stop offset="1" stopColor="#192126" />
+      </linearGradient>
+    </defs>
+    <rect x={expanded ? -frontierMargin : 0} y={expanded ? -frontierMargin : 0} width={expanded ? frontierSize : 800} height={expanded ? frontierSize : 800} fill="url(#map-bg)" />
+    <rect x={expanded ? -frontierMargin : 0} y={expanded ? -frontierMargin : 0} width={expanded ? frontierSize : 800} height={expanded ? frontierSize : 800} fill="url(#map-grid)" />
+    {expanded && <rect x="0" y="0" width="800" height="800" fill="none" stroke="#af995b" strokeDasharray="6 9" opacity=".25" />}
+    {era ? <>
+      {era.frontier && <path d="M-35 -35H835V835H-35Z M-35 220H90 M-35 480H90 M835 580H710 M835 320H710 M290 835V710 M510 835V710 M510 -35V90 M290 -35V90" fill="none" stroke="#8b9a63" strokeOpacity=".28" strokeWidth="26" strokeLinejoin="round" />}
+      <image className="battle-map-art" href={`${import.meta.env.BASE_URL}${era.image}`} x={era.box[0]} y={era.box[1]} width={era.box[2]} height={era.box[3]} preserveAspectRatio="none" />
+      <rect x={era.box[0]} y={era.box[1]} width={era.box[2]} height={era.box[3]} fill="#0c1410" opacity=".22" />
+    </> : <>
+    <path
+      d="M0 210Q240 180 400 400T800 590"
+      stroke="#608da0"
+      strokeWidth="36"
+      opacity=".14"
+      fill="none"
+    />
+    {LANES.map((lane, i) => (
+      <polyline
+        key={i}
+        points={lane.map((p) => p.join(",")).join(" ")}
+        fill="none"
+        stroke="#667959"
+        strokeOpacity=".25"
+        strokeWidth="49"
+        strokeLinejoin="round"
+      />
+    ))}
+    {Array.from({ length: 22 }, (_, i) => (
+      <g
+        key={i}
+        transform={`translate(${190 + ((i * 109) % 410)},${120 + ((i * 167) % 570)})`}
+        opacity=".14"
+      >
+        <path d="m0-13-9 17h18Zm0 0v24" fill="#92ae72" stroke="#92ae72" />
+      </g>
+    ))}
+    </>}
+  </>), [expanded, era]);
   return (
     <svg
       className="battle-map"
@@ -473,61 +625,7 @@ export function MapReplay({
       role="img"
       aria-label={`Match playback${era ? ` on the ${era.version} map` : ""}: heroes, creep waves, towers, and Ancients across three lanes${expanded ? "; New Frontiers expanded map and twelve neutral farm camps" : ""}`}
     >
-      <defs>
-        <pattern
-          id="map-grid"
-          width="40"
-          height="40"
-          patternUnits="userSpaceOnUse"
-        >
-          <path
-            d="M40 0H0V40"
-            fill="none"
-            stroke="#d4dfa1"
-            strokeOpacity=".035"
-          />
-        </pattern>
-        <linearGradient id="map-bg" x2="1" y2="1">
-          <stop stopColor="#18291f" />
-          <stop offset="1" stopColor="#192126" />
-        </linearGradient>
-      </defs>
-      <rect x={expanded ? -frontierMargin : 0} y={expanded ? -frontierMargin : 0} width={expanded ? frontierSize : 800} height={expanded ? frontierSize : 800} fill="url(#map-bg)" />
-      <rect x={expanded ? -frontierMargin : 0} y={expanded ? -frontierMargin : 0} width={expanded ? frontierSize : 800} height={expanded ? frontierSize : 800} fill="url(#map-grid)" />
-      {expanded && <rect x="0" y="0" width="800" height="800" fill="none" stroke="#af995b" strokeDasharray="6 9" opacity=".25" />}
-      {era ? <>
-        {era.frontier && <path d="M-35 -35H835V835H-35Z M-35 220H90 M-35 480H90 M835 580H710 M835 320H710 M290 835V710 M510 835V710 M510 -35V90 M290 -35V90" fill="none" stroke="#8b9a63" strokeOpacity=".28" strokeWidth="26" strokeLinejoin="round" />}
-        <image className="battle-map-art" href={`${import.meta.env.BASE_URL}${era.image}`} x={era.box[0]} y={era.box[1]} width={era.box[2]} height={era.box[3]} preserveAspectRatio="none" />
-        <rect x={era.box[0]} y={era.box[1]} width={era.box[2]} height={era.box[3]} fill="#0c1410" opacity=".22" />
-      </> : <>
-      <path
-        d="M0 210Q240 180 400 400T800 590"
-        stroke="#608da0"
-        strokeWidth="36"
-        opacity=".14"
-        fill="none"
-      />
-      {LANES.map((lane, i) => (
-        <polyline
-          key={i}
-          points={lane.map((p) => p.join(",")).join(" ")}
-          fill="none"
-          stroke="#667959"
-          strokeOpacity=".25"
-          strokeWidth="49"
-          strokeLinejoin="round"
-        />
-      ))}
-      {Array.from({ length: 22 }, (_, i) => (
-        <g
-          key={i}
-          transform={`translate(${190 + ((i * 109) % 410)},${120 + ((i * 167) % 570)})`}
-          opacity=".14"
-        >
-          <path d="m0-13-9 17h18Zm0 0v24" fill="#92ae72" stroke="#92ae72" />
-        </g>
-      ))}
-      </>}
+      {terrain}
       {expanded && before.camps?.map(camp => <g key={camp.id} transform={`translate(${camp.x},${camp.y})`} opacity={camp.readyAt <= before.time ? .85 : .25}>
         <title>Neutral camp · {camp.readyAt <= before.time ? `${Math.ceil(camp.hp)} HP · gold and experience` : "respawning"}</title>
         <circle r="17" fill="#314331" stroke="#c8b16f" strokeWidth="1.5" />
@@ -559,72 +657,16 @@ export function MapReplay({
       >
         DIRE
       </text>
-      {before.units.map((unit) => {
-        const next = nextUnits.get(unit.id);
-        const x =
-          unit.x +
-          (next && !(unit.hp <= 0 !== next.hp <= 0) ? next.x - unit.x : 0) *
-            ratio;
-        const y =
-          unit.y +
-          (next && !(unit.hp <= 0 !== next.hp <= 0) ? next.y - unit.y : 0) *
-            ratio;
+      {targets.map(({ unit, x, y }) => {
         const dead = unit.hp <= 0;
-        const color = COLORS[unit.team];
         return (
           <g
             key={unit.id}
+            ref={element => { if (element) elements.current.set(unit.id, element); else elements.current.delete(unit.id); }}
             transform={`translate(${x},${y})`}
             opacity={dead ? 0.17 : 1}
           >
-            <title>
-              {unit.name} · {Math.max(0, unit.hp)} / {unit.max} HP
-            </title>
-            {selectedUnitIds.includes(unit.id)&&!dead&&<circle r="26" fill="none" stroke="#f2d27b" strokeWidth="2" strokeDasharray="4 3"/>}
-            {unit.kind === "tower" ? (
-              <>
-                <rect
-                  x="-11"
-                  y="-11"
-                  width="22"
-                  height="22"
-                  rx="3"
-                  fill={dead ? "#455344" : color}
-                />
-                <path
-                  d="M-5 5V-4H5V5"
-                  stroke="#18231c"
-                  strokeWidth="2"
-                  fill="none"
-                />
-              </>
-            ) : unit.kind === "base" ? (
-              <>
-                <circle r="29" fill={color} opacity=".14" />
-                <path
-                  d="m0-22 19 11-4 23L0 25l-15-13-4-23Z"
-                  fill="#243127"
-                  stroke={color}
-                  strokeWidth="3"
-                />
-              </>
-            ) : unit.kind === "hero" ? (
-              <MapHeroToken heroId={unit.heroId} name={unit.name} color={color} />
-            ) : (
-              <circle r="4" fill={color} opacity=".7" />
-            )}
-            {unit.kind !== "creep" && !dead && (
-              <>
-                <rect x="-17" y={unit.kind === "hero" ? -28 : -23} width="34" height="3" fill="#101812" />
-                <rect
-                  x="-17"
-                  y={unit.kind === "hero" ? -28 : -23}
-                  width={34 * Math.max(0, unit.hp / unit.max)}
-                  height="3"
-                  fill={color}
-                />
-              </>
-            )}
+            <MapUnitAppearance unit={unit} selected={selectedUnitIds.includes(unit.id)} />
           </g>
         );
       })}
@@ -642,7 +684,7 @@ export function MapReplay({
       ))}
     </svg>
   );
-}
+});
 
 export function MatchViewer({
   simulation,
@@ -672,7 +714,7 @@ export function MatchViewer({
       const elapsed = (now - last) / 1000;
       last = now;
       setClock((t) => Math.min(game.duration, t + elapsed * 30 * speed));
-    }, 50);
+    }, 100);
     return () => clearInterval(timer);
   }, [playing, speed, game.duration, gameIndex]);
   useEffect(() => {
@@ -688,23 +730,7 @@ export function MatchViewer({
     }, 800);
     return () => clearTimeout(timer);
   }, [clock, game.duration, gameIndex, simulation.summary.games.length]);
-  let before = frames[0],
-    after = frames.at(-1)!;
-  if (clock >= game.duration) before = after;
-  else
-    for (let i = 1; i < frames.length; i++)
-      if (frames[i].time >= clock) {
-        before = frames[i - 1];
-        after = frames[i];
-        break;
-      }
-  const ratio =
-    after.time === before.time
-      ? 0
-      : Math.max(
-          0,
-          Math.min(1, (clock - before.time) / (after.time - before.time)),
-        );
+  const { before, after, ratio } = replayWindow(frames, clock);
   const kills = clock >= game.duration ? game.kills : before.kills;
   return (
     <div className="match-viewer">
@@ -741,7 +767,7 @@ export function MatchViewer({
       </div>
       <div className="watch-layout">
         <div className="map-wrap">
-          <MapReplay before={before} after={after} ratio={ratio} expanded={simulation.summary.mapLayout === "frontiers"} patchId={simulation.summary.patch?.id} />
+          <MapReplay key={gameIndex} before={before} after={after} ratio={ratio} transitionMs={playing && clock < game.duration ? 100 : 0} expanded={simulation.summary.mapLayout === "frontiers"} patchId={simulation.summary.patch?.id} />
           <span className="map-live-label">
             <i /> GAME {gameIndex + 1} · SIMULATION PLAYBACK
           </span>
