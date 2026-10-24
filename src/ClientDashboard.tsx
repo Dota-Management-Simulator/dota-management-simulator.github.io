@@ -1,3 +1,4 @@
+import { formatOfficeDate } from "./office-date";
 import { useEffect, useState } from "react";
 import { ArrowLeft, ChevronLeft, ChevronRight, Gem, List, Power, RotateCcw, Undo2, X } from "lucide-react";
 import type { Campaign, Page, Player } from "./game";
@@ -129,7 +130,7 @@ function InboxPanel({ campaign, messages, unread, roster, onPage, className }: {
     <h3>Inbox <span>{unread} unread</span></h3>
     <div className="client-chat-tabs"><span>{channel}</span><span>Office</span></div>
     <div className="client-chat-body">
-      <div className="client-chat-log">{messages.length ? messages.map(message => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatDate(message.at)}</time><b>{message.sender}:</b> {message.subject}</button>) : <p>Your desk is clear.</p>}</div>
+      <div className="client-chat-log">{messages.length ? messages.map(message => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatOfficeDate(message.at)}</time><b>{message.sender}:</b> {message.subject}</button>) : <p>Your desk is clear.</p>}</div>
       <ul className="client-chat-members" aria-label="Squad">{roster.map(player => <li key={player.id}>{player.name}</li>)}</ul>
     </div>
     <button className="client-chat-input" onClick={() => onPage("inbox")}>Open inbox<ChevronRight size={12} /></button>
@@ -157,7 +158,7 @@ function TodayPanel({ event, ti, variant, day, patchId, patchName, patchVersions
   return <div className={`client-panel client-today ${variant === "beta" ? "is-beta" : ""}`}>
     <div className="client-subtabs" role="tablist">{tabs.map(label => <button key={label} role="tab" aria-selected={tab === label} className={tab === label ? "is-active" : ""} onClick={() => setTab(label)}>{label}</button>)}<span className="client-subtab-icons" aria-hidden="true"><ArrowLeft size={12} /><RotateCcw size={12} /></span></div>
     {tab === "International" && ti ? <InternationalTab ti={ti} onPage={onPage} />
-      : tab === "News" ? <div className="client-news">{messages.length ? messages.map(message => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatDate(message.at)}</time><strong>{message.subject}</strong></button>) : <p>No club news yet.</p>}</div>
+      : tab === "News" ? <div className="client-news">{messages.length ? messages.map(message => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatOfficeDate(message.at)}</time><strong>{message.subject}</strong></button>) : <p>No club news yet.</p>}</div>
       : tab === "Updates" ? <UpdatesPanel patchId={patchId} patchName={patchName} versions={patchVersions} description={description} arrivals={arrivals} onPage={onPage} />
       : <div className="client-blog">
         <article className="client-article">
@@ -172,7 +173,7 @@ function TodayPanel({ event, ti, variant, day, patchId, patchName, patchVersions
           <button className="client-ti-banner" onClick={() => onPage("standings")}><span>The International</span><small>DOTA 2 CHAMPIONSHIPS · TI RACE</small></button>
           <button className="client-promo" onClick={onCompetition}><span>NEXT SERIES</span><small>Match centre & calendar</small></button>
           <button className="client-promo is-blue" onClick={() => onPage("next-series")}><span>SCOUTING</span><small>Prepare for your opponent</small></button>
-          <ul>{messages.slice(0, 4).map(message => <li key={message.id}><button onClick={() => onPage("inbox")}>{message.subject}<time>{formatDate(message.at)}</time></button></li>)}</ul>
+          <ul>{messages.slice(0, 4).map(message => <li key={message.id}><button onClick={() => onPage("inbox")}>{message.subject}<time>{formatOfficeDate(message.at)}</time></button></li>)}</ul>
         </aside>
         {notice && ti && <div className="client-compendium-notice" role="dialog" aria-label="The International Compendium">
           <button className="client-close" onClick={() => setNotice(false)}>Close<X size={11} /></button>

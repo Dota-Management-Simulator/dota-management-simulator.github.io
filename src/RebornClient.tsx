@@ -1,3 +1,4 @@
+import { formatOfficeDate } from "./office-date";
 import { useEffect, useState } from "react";
 import { botChallengeOpen } from "./bot-challenge";
 import { allStarEvent } from "./all-star";
@@ -166,14 +167,14 @@ function GridHome({ campaign, ti, event, d, onPage, onPlayer, onCompetition, ope
         : event ? <button className={`rb-feature rb-feature-${event.id}`} onClick={() => onPage("calendar")} style={event.background ? { backgroundImage: `url("${art(event.background)}")` } : undefined}><span className="rb-tag">Special event</span><strong>{event.name}</strong><small>Ends {formatDate(event.window.to)}</small><em>Play it now</em></button>
         : <button className="rb-feature rb-feature-ti" onClick={() => onPage("standings")} style={d.nextTi && d.nextTi.year <= 2019 && d.nextTi.year >= 2016 ? { backgroundImage: `url("${art(`ti${d.nextTi.year}.jpg`)}")` } : undefined}><span className="rb-tag">The International</span><strong>{d.tiDays ?? "—"}</strong><small>{d.tiDays === null ? "No International scheduled" : `days until ${d.nextTi?.name}`}</small><em>TI race & standings</em></button>}
       <section className="rb-card rb-feed"><button className="rb-feed-input" onClick={() => onPage("inbox")}>Say something on your feed…</button>
-        {d.messages.length ? d.messages.slice(0, 3).map(message => <button key={message.id} onClick={() => onPage("inbox")}><b>{message.sender}</b> posted: {message.subject}<time>{formatDate(message.at)}</time></button>) : <p>No club news yet.</p>}</section>
+        {d.messages.length ? d.messages.slice(0, 3).map(message => <button key={message.id} onClick={() => onPage("inbox")}><b>{message.sender}</b> posted: {message.subject}<time>{formatOfficeDate(message.at)}</time></button>) : <p>No club news yet.</p>}</section>
     </div>
   </div>;
 }
 
 function ChatPanel({ campaign, d, onPage }: { campaign: Campaign; d: Data; onPage: (page: Page) => void }) {
   return <section className="rb-card rb-chat-panel"><div className="rb-chat-tabs"><span>Party</span><span className="is-active">{campaign.settings.region}</span><span className="is-right">Channels +</span></div>
-    <div className="rb-chat-log">{d.messages.length ? d.messages.map((message: OfficeMessage) => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatDate(message.at)}</time><b>{message.sender}:</b> {message.subject}</button>) : <p>Your desk is clear.</p>}</div>
+    <div className="rb-chat-log">{d.messages.length ? d.messages.map((message: OfficeMessage) => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatOfficeDate(message.at)}</time><b>{message.sender}:</b> {message.subject}</button>) : <p>Your desk is clear.</p>}</div>
     <button className="rb-chat-input" onClick={() => onPage("inbox")}><b>To ({campaign.settings.region}):</b> Open the club inbox</button>
   </section>;
 }

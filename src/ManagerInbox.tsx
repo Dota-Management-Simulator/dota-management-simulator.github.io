@@ -1,9 +1,9 @@
+import { formatOfficeDate } from "./office-date";
 import { useState } from "react";
 import { Archive, ArrowRight, CheckCheck, Inbox, Mail, MailOpen } from "lucide-react";
 import type { Campaign } from "./game";
 import { markInboxRead, unreadMessages, updateMessage } from "./office";
 import type { OfficeAction, OfficeMessage } from "./office";
-import { formatDate } from "./tournaments";
 import "./office.css";
 
 export default function ManagerInbox({ campaign, onChange, onAction }: { campaign: Campaign; onChange: (c: Campaign) => void; onAction: (action: OfficeAction) => void }) {
@@ -20,11 +20,11 @@ export default function ManagerInbox({ campaign, onChange, onAction }: { campaig
     <div className="inbox-layout"><div className="inbox-list" aria-label="Messages">
       {!visible.length && <div className="inbox-empty"><Inbox size={30} /><h3>You're all caught up.</h3><p>New invitations and notices arrive as your campaign moves forward.</p></div>}
       {visible.map(m => <button key={m.id} className={`inbox-message ${!m.read && !m.expired ? "unread" : ""} ${current?.id === m.id ? "selected" : ""}`} aria-pressed={current?.id === m.id} onClick={() => open(m)}>
-        {m.read || m.expired ? <MailOpen size={17} /> : <Mail size={17} />}<span><small>{m.sender}{m.expired ? " · Expired" : ""}</small><strong>{m.subject}</strong><span>{m.body}</span><time>{m.at.includes("T") ? formatDate(m.at) : m.at}</time></span>{!m.read && !m.expired && <i className="inbox-unread-dot" aria-label="Unread" />}
+        {m.read || m.expired ? <MailOpen size={17} /> : <Mail size={17} />}<span><small>{m.sender}{m.expired ? " · Expired" : ""}</small><strong>{m.subject}</strong><span>{m.body}</span><time>{formatOfficeDate(m.at)}</time></span>{!m.read && !m.expired && <i className="inbox-unread-dot" aria-label="Unread" />}
       </button>)}
     </div><article className="inbox-detail" aria-live="polite">
-      {current ? <><span className="eyebrow">{current.category.toUpperCase()}</span><h2>{current.subject}</h2><p className="inbox-sender">{current.sender} · {current.at.includes("T") ? formatDate(current.at) : current.at}</p><p className="inbox-body">{current.body}</p>
-        {current.expired && <div className="inbox-expiry" role="status"><strong>Expired · no longer actionable</strong><p>{current.expired.reason}</p><small>{current.expired.at.includes("T") ? formatDate(current.expired.at) : current.expired.at}</small></div>}
+      {current ? <><span className="eyebrow">{current.category.toUpperCase()}</span><h2>{current.subject}</h2><p className="inbox-sender">{current.sender} · {formatOfficeDate(current.at)}</p><p className="inbox-body">{current.body}</p>
+        {current.expired && <div className="inbox-expiry" role="status"><strong>Expired · no longer actionable</strong><p>{current.expired.reason}</p><small>{formatOfficeDate(current.expired.at)}</small></div>}
         {current.action && !current.expired && <button className="button primary" onClick={() => onAction(current.action!)}>{current.actionLabel ?? "Review"} <ArrowRight size={16} /></button>}
         {!current.expired && <div className="inbox-message-actions"><button className="text-link" onClick={() => { onChange(updateMessage(campaign, current.id, { read: !current.read })); if (filter === "unread") setSelected(null); }}>{current.read ? "Mark unread" : "Mark read"}</button><button className="text-link" onClick={() => { onChange(updateMessage(campaign, current.id, { archived: !current.archived, read: true })); setSelected(null); }}><Archive size={14} />{current.archived ? "Move to inbox" : "Archive message"}</button></div>}
       </> : <div className="inbox-empty"><MailOpen size={36} /><h3>A little clarity for your next move.</h3><p>Select a message to read it and review its action.</p></div>}
