@@ -32,6 +32,12 @@ Attribute benefits scale by the existing practice volume ratio; they do not incr
 
 Example: one equipment deal and one analytics deal, training Vision at the original Normal workload, give `(1 + 0.10 + 0.10) × 0.90 = 1.08` growth with two total media hours. A furniture sponsor's +2 energy offsets those two media energy costs. No combat result is fabricated from the brand name.
 
+## Sponsor logos — October 24, 2026
+
+**Local, not published:** each sponsor name in the market cards, **Your partners** and the negotiation header has a 36px logo tile, the same size as small player portraits and team badges. **20 of 42** catalog brands use single-color marks from the pinned `simple-icons@13.21.0` package (CC0 icon data); very light brand colors switch to dark ink on the light tile. Acer Predator uses Acer's parent-brand mark and says so in its label. The other 22 show initials, with no guessed or borrowed logos: `eizo`, `gigabyte`, `monster`, `ggbet`, `jerseymikes`, `socios`, `secretlab`, `imc`, `backforce`, `thorne`, `whitemarket`, `valhalla`, `blacklyte`, `duelbits`, `hypersolid`, `limitless`, `zenni`, `privatbank`, `huya`, `vpgame`, `cherry`, `abios`. Legacy fictional sponsors also show initials.
+
+Logos are display only and change no sponsor rules or saves. Brand marks remain trademarks of their owners; the CC0 license covers the icon data, not trademark rights. Data is in `src/data/sponsor-logos.json`, regenerated with `node scripts/import-sponsor-logos.mjs`; the badge is `src/SponsorBadge.tsx`. Two tests check catalog coverage and icon validity.
+
 ## Compatibility and implementation
 
 `Campaign.sponsorships` is optional and contains active market deals and release timestamps using the existing `year * 18 + week - 1` clock. `sponsorIds` retains the original fictional MONOLITH/PULSE/ORBIT agreements. Already signed fictional deals preserve rolling income, incur no invented obligations and count toward five slots; new offers in the interface use the sourced catalog. The legacy `signSponsor` transition remains for compatibility and also checks capacity.

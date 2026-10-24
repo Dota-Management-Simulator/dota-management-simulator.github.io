@@ -3,6 +3,7 @@ import type { Campaign } from "./game";
 import { money } from "./game";
 import { activeSponsorDeals, benefitLabels, initialSponsorOffer, legacySponsors, managedSponsorTeam, negotiateSponsor, sponsorBenefits, sponsorBlocker, sponsorDate, sponsors, sponsorSlotsUsed, sponsorWeeksLeft, teamSponsorDeals } from "./sponsors";
 import type { Sponsor, SponsorOffer } from "./sponsors";
+import SponsorBadge from "./SponsorBadge";
 import "./sponsors.css";
 
 function Negotiation({ campaign, sponsor, onChange, onClose }: {
@@ -13,7 +14,7 @@ function Negotiation({ campaign, sponsor, onChange, onClose }: {
   const change = (key: keyof SponsorOffer, value: number) => { setOffer((o) => ({ ...o, [key]: value })); setResponse(null); };
   const blocker = sponsorBlocker(campaign, sponsor);
   return <section className="panel sponsor-negotiation" aria-label={`Negotiate with ${sponsor.name}`}>
-    <div className="sponsor-heading"><div><span className="eyebrow">Propose a partnership</span><h3>{sponsor.name}</h3></div><button type="button" className="button secondary small-button" onClick={onClose}>Close negotiation</button></div>
+    <div className="sponsor-heading"><div><span className="eyebrow">Propose a partnership</span><h3 className="sponsor-name"><SponsorBadge id={sponsor.id} name={sponsor.name} />{sponsor.name}</h3></div><button type="button" className="button secondary small-button" onClick={onClose}>Close negotiation</button></div>
     <p>Ask the sponsor for support in return for a fixed commitment. More media time or a longer deal can improve their budget. The agreement signs when your submitted terms are accepted.</p>
     <form onSubmit={(e) => {
       e.preventDefault();
@@ -61,8 +62,8 @@ export default function SponsorMarket({ campaign, onChange }: { campaign: Campai
     <div className="panel sponsor-portfolio">
       <h3>Your partners</h3>
       {!mine.length && !legacySponsors(campaign).length && <p>No active agreements. Explore available sponsors and negotiate a package.</p>}
-      {mine.map((d) => <div className="sponsor-portfolio-row" key={d.sponsorId}><strong>{sponsors.find((s) => s.id === d.sponsorId)?.name}</strong><span>{money(d.weekly)} / week · {d.mediaHours} media h</span><span>{sponsorWeeksLeft(campaign, d)} weeks left · ends {sponsorDate(d.expiresAt, campaign)}</span></div>)}
-      {legacySponsors(campaign).map((s) => <div className="sponsor-portfolio-row" key={s.id}><strong>{s.name}</strong><span>{money(s.weekly)} / week</span><span>Legacy rolling partnership · occupies one slot</span></div>)}
+      {mine.map((d) => <div className="sponsor-portfolio-row" key={d.sponsorId}><strong className="sponsor-name"><SponsorBadge id={d.sponsorId} name={sponsors.find((s) => s.id === d.sponsorId)?.name ?? d.sponsorId} />{sponsors.find((s) => s.id === d.sponsorId)?.name}</strong><span>{money(d.weekly)} / week · {d.mediaHours} media h</span><span>{sponsorWeeksLeft(campaign, d)} weeks left · ends {sponsorDate(d.expiresAt, campaign)}</span></div>)}
+      {legacySponsors(campaign).map((s) => <div className="sponsor-portfolio-row" key={s.id}><strong className="sponsor-name"><SponsorBadge id={s.id} name={s.name} />{s.name}</strong><span>{money(s.weekly)} / week</span><span>Legacy rolling partnership · occupies one slot</span></div>)}
       <p>Current weekly effects: {benefits.growth.toFixed(2)} general attribute development · {benefits.energy >= 0 ? "+" : ""}{benefits.energy} energy · +{benefits.happiness} happiness · +{benefits.reputation.toFixed(2)} reputation · {benefits.mediaHours} media hours per starter. Analytics bonuses depend on training focus. Training previews include these effects.</p>
     </div>
     {selection && <Negotiation key={selection.id} campaign={campaign} sponsor={selection} onChange={onChange} onClose={() => setSelected(null)} />}
@@ -76,7 +77,7 @@ export default function SponsorMarket({ campaign, onChange }: { campaign: Campai
         const holder = active.find((d) => d.sponsorId === s.id);
         const blocker = sponsorBlocker(campaign, s);
         return <article className="panel sponsor-market-card" key={s.id}>
-          <span className="eyebrow">{s.category}</span><h3>{s.name}</h3>
+          <span className="eyebrow">{s.category}</span><h3 className="sponsor-name"><SponsorBadge id={s.id} name={s.name} />{s.name}</h3>
           <span className="sponsor-era">Catalog era: {s.from} onward</span>
           <p>{benefitLabels[s.benefit]}</p>
           <div className="sponsor-quote"><strong>{money(s.weekly)} / week</strong><span>+ {money(s.bonus)} bonus · opening ask</span></div>

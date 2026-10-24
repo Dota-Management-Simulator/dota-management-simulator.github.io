@@ -25,3 +25,6 @@
 .sponsor-response { margin-top: 20px; border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 6px; padding: 18px; }
 @media (max-width: 1200px) { .sponsor-market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sponsor-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 650px) { .sponsor-market-grid, .sponsor-fields, .sponsor-filters { grid-template-columns: minmax(0, 1fr); } .sponsor-heading { align-items: start; flex-direction: column; } .sponsor-portfolio, .sponsor-negotiation, .sponsor-market-card { padding: 18px; } .sponsor-portfolio-row { flex-direction: column; gap: 8px; } }
+.sponsor-name { display: flex; align-items: center; gap: 10px; }
+.sponsorship-market .sponsor-portfolio-row .sponsor-name { min-width: 180px; }
+.sponsor-badge svg { width: 100%; height: 100%; }
