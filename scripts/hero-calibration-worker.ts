@@ -12,6 +12,7 @@ const rows = patch.heroBalance!;
 const skills = Object.fromEntries(["creativity", "stability", "confidence", "stamina", "heroPool", "laning", "teamfights", "farming", "skirmish", "vision", "intuition", "pushing"].map(key => [key, 50]));
 const players: BattleConfig["players"] = [0, 1].map(side => Array.from({ length: 5 }, (_, role) => ({ id: `benchmark-${side}-${role}`, name: `Position ${role + 1}`, role, skills, energy: 100, happiness: 100 }))) as BattleConfig["players"];
 const base: BattleConfig = { seed: 1, year: patch.year, heroPoolThroughYear: patch.year - 1, patchId: patch.id,
+  patchObservers: [{teamKey:"benchmark",staffIds:["c1","c2","c4","c5","c6"]},{teamKey:"benchmark",staffIds:["c1","c2","c4","c5","c6"]}],
   teams: ["Equal benchmark A", "Equal benchmark B"], players, bonuses: [0, 0], captureReplay: false, captureTimeline: false };
 const bounded = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));
 const rounded = (n: number) => Math.round(n * 10000) / 10000;

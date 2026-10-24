@@ -12,6 +12,10 @@ import { talentBonuses } from "./talents";
 import type { TalentPlan } from "./talents";
 import { autoDraftMap } from "./draft";
 import type { CompletedDraft, DraftPreparation } from "./draft";
+import { automaticBuild, bkbProtection, itemCatalog, itemForPatch } from "./items";
+import type { ItemId, ItemSnapshot, ItemEvent, MatchItem } from "./items";
+import { automaticTactics, normalizeTactics, phaseAt, strategyById, strategyUnlocked } from "./tactics";
+import type { ActivePlay, DroppedItem, RoshanState, Strategy, TacticalEvent, TacticalOrder, TacticalPreparation, TacticalSnapshot } from "./tactics";
 
 export type Side = 0 | 1;
 export interface BattlePlayer {
@@ -40,9 +44,10 @@ export interface BattleConfig {
   draft?: [string[], string[]];
   draftRecord?: CompletedDraft;
   draftPreparations?: [DraftPreparation|undefined,DraftPreparation|undefined];
+  tacticalPreparations?: [TacticalPreparation | undefined, TacticalPreparation | undefined];
   captureTimeline?: boolean;
 }
-export interface PlayerScore {
+export interface PlayerScore extends ItemSnapshot {
   id: string;
   player: string;
   heroId: string;
@@ -62,14 +67,19 @@ export interface PlayerScore {
   healing?: number;
   laneOutcome?: "win" | "draw" | "loss";
   neutralLastHits?: number;
+  neutralDeaths?: number;
   talents?: TalentPlan;
 }
 export interface ResourcePoint {
   time: number;
   gold: [number, number];
+  netWorth?: [number, number];
   xp: [number, number];
 }
 export interface GameSummary {
+  tacticalEvents?: TacticalEvent[];
+  itemEvents?: ItemEvent[];
+  roshanKills?: [number, number];
   draft?: CompletedDraft;
   winner: Side;
   duration: number;
@@ -104,6 +114,8 @@ export interface ReplayUnit {
   name: string;
 }
 export interface ReplayFrame {
+  roshan?: RoshanState;
+  droppedItems?: DroppedItem[];
   time: number;
   kills: [number, number];
   units: ReplayUnit[];
@@ -158,6 +170,19 @@ export function matchClock(seconds: number) {
 }
 
 interface Unit {
+  inventory: ItemId[];
+  purchasedItems: ItemId[];
+  spent: number;
+  itemPriority?: ItemId;
+  itemPrioritySource?: "manager" | "bot";
+  itemCooldowns: Partial<Record<ItemId, number>>;
+  bkbUntil: number;
+  aegisUntil: number;
+  lastDamagedAt: number;
+  reviveAt?: Point;
+  homeLane: number;
+  neutralDeaths: number;
+  regroupUntil: number;
   id: number;
   kind: ReplayUnit["kind"];
   team: Side;
@@ -207,6 +232,20 @@ const distance = (a: { x: number; y: number }, b: { x: number; y: number }) =>
 // Adapted from the user's Lane Siege: entity-level lane movement and combat,
 // with gold, assist attribution, bounded overtime, and separate replay capture.
 export class LaneBattle {
+  roshan: RoshanState = { x: 330, y: 405, hp: 4800, max: 4800, respawnAt: 0, kills: [0, 0] };
+  droppedItems: DroppedItem[] = [];
+  tacticalEvents: TacticalEvent[] = [];
+  itemEvents: ItemEvent[] = [];
+  private preparations: [TacticalPreparation, TacticalPreparation];
+  private plays: [ActivePlay | undefined, ActivePlay | undefined] = [undefined, undefined];
+  private playCooldowns: [Record<string, number>, Record<string, number>] = [{}, {}];
+  private nextDecision: [number, number] = [300, 300];
+  private nextShop = 0;
+  private playSerial = 0;
+  private roshanAttackAt = 0;
+  private roshanDamagedAt = -1000;
+  private sightCache: [Unit[] | undefined, Unit[] | undefined] = [undefined, undefined];
+  private itemTable: Map<ItemId,MatchItem>;
   units: Unit[] = [];
   camps: FarmCamp[] = [];
   time = 0;
@@ -228,6 +267,9 @@ export class LaneBattle {
   ) {
     this.random = seededRandom(config.seed + gameIndex * 7919);
     this.patch = patchById(config.patchId);
+    this.itemTable = new Map(itemCatalog.map(item=>[item.id,itemForPatch(item.id,this.patch)]));
+    this.preparations = ([0, 1] as Side[]).map(side => config.tacticalPreparations?.[side] ? normalizeTactics(config.tacticalPreparations[side])
+      : automaticTactics(config.players[side], config.patchObservers?.[side]?.staffIds ?? oppositionStaff(config.teams[side]))) as [TacticalPreparation,TacticalPreparation];
     this.camps = frontiersEnabled(this.patch) ? createFarmCamps() : [];
     this.drafted = config.draftRecord ?? (this.patch && !config.draft ? autoDraftMap(config,gameIndex) : undefined);
     const fixedDraft = config.draft ?? this.drafted?.heroes;
@@ -291,6 +333,7 @@ export class LaneBattle {
           hero,
           player,
           lane: team ? 2 - lane : lane,
+          homeLane: team ? 2 - lane : lane,
           x: base[0] + role * 5,
           y: base[1] - role * 5,
           range: hero.ranged ? 150 : 42,
@@ -345,6 +388,7 @@ export class LaneBattle {
       retreat: false,
       abilityCd: 0,
       contributions: new Map(),
+      inventory: [], purchasedItems: [], spent: 0, itemCooldowns: {}, bkbUntil: 0, aegisUntil: 0, lastDamagedAt: -1000, homeLane: 1, neutralDeaths: 0, regroupUntil:0,
       ...values,
     };
     this.units.push(u);
@@ -377,8 +421,9 @@ export class LaneBattle {
           ? u.agility
           : u.intelligence;
     const talents = this.talents(u);
-    u.damage = (25 + primary + u.gold * 0.0018 * axisFactor(this.patch, "economy", 0.2)) * u.power * talents.attack;
-    u.max = ((200 + u.strength * 22) * u.power + u.gold * 0.013) * talents.health;
+    const gear = u.inventory.map(id => this.item(id));
+    u.damage = (25 + primary + gear.reduce((sum, item) => sum + item.attack, 0)) * u.power * talents.attack;
+    u.max = ((200 + u.strength * 22) * u.power + gear.reduce((sum, item) => sum + item.health, 0)) * talents.health;
   }
   private talents(u: Unit) { return talentBonuses(talentsEnabled(this.patch) ? u.player?.talents : undefined, u.level); }
   private spawn() {
@@ -443,7 +488,8 @@ export class LaneBattle {
   private move(u: Unit, x: number, y: number) {
     const d = Math.hypot(x - u.x, y - u.y);
     if (d < 1) return;
-    const step = Math.min(d, u.speed * this.talents(u).speed * DT);
+    const gearSpeed = u.inventory.reduce((sum, id) => sum + (this.item(id).speed ?? 0), 0);
+    const step = Math.min(d, u.speed * (1 + gearSpeed) * this.talents(u).speed * DT);
     u.x += ((x - u.x) / d) * step;
     u.y += ((y - u.y) / d) * step;
   }
@@ -463,8 +509,13 @@ export class LaneBattle {
       u.hp = Math.min(u.max, u.hp + u.max - old + u.max * 0.08);
     }
   }
-  private damage(source: Unit, target: Unit, value: number) {
+  private damage(source: Unit, target: Unit, value: number, spell = false) {
     if (target.dead || this.winner !== null) return;
+    if (target.kind === "hero") {
+      if (spell && target.bkbUntil > this.clock) value *= bkbProtection(this.patch);
+      if (!spell && target.inventory.includes("butterfly")) value *= 1 - (this.item("butterfly").evasion ?? 0);
+      target.lastDamagedAt = this.clock;
+    }
     if (target.kind === "tower" || target.kind === "base") value *= this.talents(source).buildings;
     if (this.patch && source.player && source.hero && (target.kind === "tower" || target.kind === "base")) {
       const pushing = source.player.skills.pushing ?? 50;
@@ -483,7 +534,7 @@ export class LaneBattle {
       target.contributions.set(source.id, this.time);
     if (target.hp <= 0) this.die(target, source);
   }
-  private die(target: Unit, source: Unit) {
+  private die(target: Unit, source: Unit, neutral = false) {
     if (target.dead) return;
     target.dead = true;
     target.hp = 0;
@@ -496,8 +547,19 @@ export class LaneBattle {
     );
     if (target.kind === "hero") {
       target.farmCamp = undefined;
+      if (target.aegisUntil > this.clock) {
+        target.aegisUntil = 0; target.respawn = 5 / GAME_CLOCK; target.reviveAt = [target.x, target.y];
+        return;
+      }
+      if (target.inventory.includes("rapier")) {
+        target.inventory = target.inventory.filter(id => id !== "rapier");
+        this.recalculate(target);
+        this.droppedItems.push({ id: ++this.playSerial, x: target.x, y: target.y, item: "rapier" });
+        this.itemEvents.push({ time: this.clock, playerId: target.player!.id, item: "rapier", kind: "drop", gold: 0 });
+      }
       target.deaths++;
       target.respawn = 6 + target.level * 2;
+      if(neutral){target.neutralDeaths++;target.contributions.clear();return;}
       this.kills[source.team]++;
       const involved = allies.filter(
         (u) => this.time - (target.contributions.get(u.id) ?? -1000) <= 12,
@@ -568,16 +630,16 @@ export class LaneBattle {
       const partners = this.units.filter(a => a.kind === "hero" && !a.dead && a.team === u.team && a !== u && distance(a,u) < 240).length;
       execution *= 1 + (this.patch.axes.teamfight - 50) / 50 * Math.min(1, partners / 2) * 0.3;
     }
-    const spellPower = execution * this.talents(u).spells;
+    const spellPower = execution * this.talents(u).spells * (1 + u.inventory.reduce((sum, id) => sum + (this.item(id).spells ?? 0), 0));
     if (u.hero.ability === "nuke")
-      this.damage(u, target, (u.damage * 2 + u.level * 8) * spellPower);
+      this.damage(u, target, (u.damage * 2 + u.level * 8) * spellPower, true);
     else if (u.hero.ability === "stun") {
-      target.stun = 1.6 * (this.patch ? limit(execution, 0.7, 1.4) : 1);
-      this.damage(u, target, u.damage * spellPower);
+      target.stun = 1.6 * (this.patch ? limit(execution, 0.7, 1.4) : 1) * (target.bkbUntil > this.clock ? bkbProtection(this.patch) : 1);
+      this.damage(u, target, u.damage * spellPower, true);
     } else if (u.hero.ability === "area") {
       for (const e of this.units)
         if (this.canTarget(u, e) && distance(e, target) < 90)
-          this.damage(u, e, u.damage * 1.35 * spellPower);
+          this.damage(u, e, u.damage * 1.35 * spellPower, true);
     } else
       for (const ally of this.units)
         if (
@@ -623,9 +685,240 @@ export class LaneBattle {
     }
     return true;
   }
+  get clock() { return Math.round(this.time * GAME_CLOCK); }
+  private item(id:ItemId) { return this.itemTable.get(id)!; }
+  private heroes(side?: Side) { return this.units.filter(u => u.kind === "hero" && (side === undefined || u.team === side)); }
+  private staff(side: Side) { return this.config.patchObservers?.[side]?.staffIds ?? oppositionStaff(this.config.teams[side]); }
+  /** Shared local sight. Orders never inspect enemy inventory, builds or plans. */
+  private visibleEnemies(side: Side) {
+    if(this.sightCache[side])return this.sightCache[side]!;
+    const observers = this.units.filter(u => u.team === side && !u.dead && u.wait <= 0 && u.kind !== "base");
+    return this.sightCache[side] = this.heroes((1 - side) as Side).filter(e => !e.dead && observers.some(a => distance(a, e) <= (a.kind === "hero" ? 205 + (a.player!.skills.vision ?? 50) * .65 : 160)));
+  }
+  private buildFor(u: Unit) { return automaticBuild(u.hero!, u.player!.role, this.preparations[u.team].builds[u.player!.role]); }
+  private nextItem(u: Unit) { return u.itemPriority ?? this.buildFor(u).find(id => !u.purchasedItems.includes(id)); }
+  private shop() {
+    for (const u of this.heroes()) {
+      const id = this.nextItem(u);
+      if (!id) continue;
+      const item = this.item(id);
+      const disposable = u.inventory.find(i => ["bracer", "wraith", "null", "wand"].includes(i));
+      const sale = u.inventory.length >= 6 && disposable ? Math.floor(this.item(disposable).cost / 2) : 0;
+      if (u.gold - u.spent + sale < item.cost || (u.inventory.length >= 6 && !disposable)) continue;
+      if (sale && disposable) {
+        u.inventory.splice(u.inventory.indexOf(disposable), 1); u.spent -= sale;
+        this.itemEvents.push({ time: this.clock, playerId: u.player!.id, item: disposable, kind: "sale", gold: sale });
+      }
+      u.spent += item.cost; u.inventory.push(id); u.purchasedItems.push(id);
+      this.itemEvents.push({ time: this.clock, playerId: u.player!.id, item: id, kind: "purchase", gold: item.cost });
+      if (u.itemPriority === id) {
+        u.itemPriority = undefined;
+        this.logPlay(u.team, id === "bkb" ? "buy-bkb" : "buy-rapier", "completed", `${u.player!.name} purchased ${item.name} with match gold.`, u.itemPrioritySource ?? "bot");
+      }
+      const old = u.max; this.recalculate(u); u.hp = Math.min(u.max, u.hp + Math.max(0, u.max - old));
+    }
+  }
+  private useItems(u: Unit) {
+    const ready = (id: ItemId) => u.inventory.includes(id) && (u.itemCooldowns[id] ?? 0) <= this.clock;
+    if (ready("wand") && u.hp < u.max * .55) { u.hp = Math.min(u.max, u.hp + 55); u.itemCooldowns.wand = this.clock + 45; }
+    if (ready("mek")) {
+      const allies = this.heroes(u.team).filter(a => !a.dead && distance(a,u) < 190 && a.hp < a.max * .65);
+      if (allies.length >= 2) {
+        for (const a of allies) { const heal = Math.min(a.max - a.hp, 95); a.hp += heal; u.healing += heal; }
+        u.itemCooldowns.mek = this.clock + 70;
+      }
+    }
+    if (ready("bkb") && u.hp < u.max * .9 && this.visibleEnemies(u.team).some(e => distance(e,u) < 190)) {
+      u.bkbUntil = this.clock + (this.patch && this.patch.year >= 2023 ? 8 : 9); u.itemCooldowns.bkb = this.clock + 90;
+    }
+    if (u.retreat && ready("force") && this.clock - u.lastDamagedAt < 8) {
+      this.displace(u, {x:BASES[u.team][0],y:BASES[u.team][1]}, 65); u.itemCooldowns.force = this.clock + 45;
+    }
+    for (const drop of [...this.droppedItems]) if (distance(u,drop) < 35 && u.inventory.length < 6 && !u.inventory.includes(drop.item)) {
+      u.inventory.push(drop.item); this.droppedItems = this.droppedItems.filter(d => d.id !== drop.id);
+      this.itemEvents.push({ time:this.clock, playerId:u.player!.id, item:drop.item, kind:"pickup", gold:0 });
+      if(u.itemPriority===drop.item){this.logPlay(u.team,"buy-rapier","completed",`${u.player!.name} recovered Divine Rapier from the ground.`,u.itemPrioritySource);u.itemPriority=undefined;}
+      this.recalculate(u);
+    }
+  }
+  private displace(u: Unit, point: {x:number;y:number}, max: number) {
+    const d = distance(u,point); if (!d) return;
+    const f = Math.min(max,d) / d; u.x += (point.x-u.x)*f; u.y += (point.y-u.y)*f;
+  }
+  private logPlay(side: Side, strategyId: string, status: TacticalEvent["status"], message: string, source: "manager" | "bot" = this.plays[side]?.source ?? "bot") {
+    this.tacticalEvents.push({time:this.clock,side,strategyId,source,status,message});
+  }
+  private participants(side: Side, strategy: Strategy) {
+    return this.heroes(side).filter(u => strategy.roles.includes(u.player!.role) && !u.dead && !u.retreat && u.hp >= u.max * .5);
+  }
+  strategyReason(side: Side, order: TacticalOrder): string | null {
+    if (this.winner !== null) return "Map complete";
+    const strategy = strategyById(order.strategyId);
+    if (!strategy || !strategy.phases.includes(phaseAt(this.clock))) return "Unavailable in this phase";
+    if (!this.preparations[side].slots[phaseAt(this.clock)].includes(strategy.id)) return "Not equipped in this phase’s quick slots";
+    if (!strategyUnlocked(strategy,this.config.players[side],this.staff(side))) return "Requires specialist staff or a qualifying player trait";
+    const cooldown = this.playCooldowns[side][strategy.id] ?? 0;
+    if (cooldown > this.clock) return `Ready in ${Math.ceil(cooldown-this.clock)}s`;
+    if (strategy.kind === "item") {
+      const u = this.heroes(side).find(h => h.player!.id === order.targetPlayerId) ?? (!order.targetPlayerId ? this.heroes(side).find(h => h.player!.role === 0) : undefined);
+      if (!u) return "Choose a player on your team";
+      if (u.inventory.includes(strategy.item!)) return "Player already owns this item";
+      if (u.itemPriority === strategy.item) return "Already saving for this item";
+      if (u.inventory.length >= 6 && !u.inventory.some(id => ["bracer","wraith","null","wand"].includes(id))) return "Inventory full; no starter item to replace";
+      return null;
+    }
+    if (this.plays[side]) return "Finish or cancel the current team movement";
+    const members = this.participants(side,strategy);
+    if (members.length !== strategy.roles.length) return "Required players must be alive, recovered and not retreating";
+    if (strategy.kind === "roshan" && this.roshan.respawnAt > this.clock) return `Roshan returns in ${this.roshan.respawnAt-this.clock}s`;
+    if (strategy.id.startsWith("push-") && !this.units.some(u => u.kind === "tower" && u.team !== side && u.lane === strategy.lane && !u.dead)) return "Both towers in this lane are already destroyed";
+    if (strategy.kind === "protect" && !this.heroes(side).some(u => u.player!.role === 0 && !u.dead)) return "Carry is dead";
+    return null;
+  }
+  issueOrder(side: Side, order: TacticalOrder, source: "manager" | "bot" = "manager") {
+    const reason = this.strategyReason(side,order); if (reason) return {accepted:false,reason};
+    const strategy = strategyById(order.strategyId)!;
+    if (strategy.kind === "item") {
+      const u = this.heroes(side).find(h => h.player!.id === order.targetPlayerId) ?? this.heroes(side).find(h => h.player!.role === 0)!;
+      u.itemPriority = strategy.item; u.itemPrioritySource = source; this.playCooldowns[side][strategy.id] = this.clock + 30;
+      this.logPlay(side,strategy.id,"called",`${u.player!.name} is saving for ${this.item(strategy.item!).name}; the normal build waits.`,source);
+      return {accepted:true,reason:null};
+    }
+    const members = this.participants(side,strategy);
+    let lane = strategy.lane ?? 1;
+    if (strategy.id === "help-losing") lane = [0,2].sort((a,b) => this.lanePressure(side,b) - this.lanePressure(side,a))[0];
+    if (strategy.id === "split-push") {
+      const seen = this.visibleEnemies(side);
+      lane = [0,1,2].sort((a,b) => seen.filter(e=>e.homeLane===a).length - seen.filter(e=>e.homeLane===b).length)[0];
+    }
+    if (strategy.id === "high-ground") lane = [0,1,2].sort((a,b) => this.units.filter(u=>u.team!==side&&u.kind==="tower"&&!u.dead&&u.lane===a).length-this.units.filter(u=>u.team!==side&&u.kind==="tower"&&!u.dead&&u.lane===b).length)[0];
+    const target = strategy.kind === "push" ? this.units.filter(u => u.team !== side && u.kind === "tower" && u.lane === lane && !u.dead).sort((a,b)=>distance(a,{x:BASES[side][0],y:BASES[side][1]})-distance(b,{x:BASES[side][0],y:BASES[side][1]}))[0]
+      ?? this.units.find(u => u.team !== side && u.kind === "base") : undefined;
+    const lead = members.find(u=>u.player!.role===2) ?? members[0];
+    this.plays[side] = {id:++this.playSerial,strategyId:strategy.id,side,source,participants:members.map(u=>u.id),targetLane:lane,targetUnit:target?.id,
+      stage:"assembling",startedAt:this.clock,expiresAt:this.clock+(strategy.kind==="gank"?150:strategy.kind==="protect"?90:300),
+      baselineInvolvement:members.reduce((n,u)=>n+u.kills+u.assists,0),rally:{x:lead.x,y:lead.y}};
+    for(const u of members)u.farmCamp=undefined;
+    this.logPlay(side,strategy.id,"called",`${strategy.name}: ${members.map(u=>u.player!.name).join(", ")} assembling.`,source);
+    return {accepted:true,reason:null};
+  }
+  cancelOrder(side: Side) {
+    const play = this.plays[side]; if (!play) return;
+    this.logPlay(side,play.strategyId,"cancelled","Manager cancelled the movement; players resume normal duties.");
+    this.playCooldowns[side][play.strategyId] = this.clock+45; this.plays[side]=undefined;
+  }
+  cancelItemPriority(side: Side, playerId: string) {
+    const u = this.heroes(side).find(h=>h.player!.id===playerId); if (!u?.itemPriority) return;
+    this.logPlay(side,u.itemPriority==="bkb"?"buy-bkb":"buy-rapier","cancelled",`${u.player!.name} resumes the normal item build.`,"manager"); u.itemPriority=undefined;
+  }
+  private lanePressure(side: Side, lane: number) {
+    return this.heroes(side).filter(u=>u.homeLane===lane).reduce((n,u)=>n+u.deaths*3-u.kills,0)
+      + this.units.filter(u=>u.kind==="tower"&&u.team===side&&u.lane===lane&&u.dead).length*4;
+  }
+  private endPlay(side: Side, success: boolean, message: string) {
+    const play=this.plays[side]!;
+    this.logPlay(side,play.strategyId,success?"completed":"abandoned",message);
+    this.playCooldowns[side][play.strategyId]=this.clock+90; this.plays[side]=undefined;
+  }
+  private updatePlans() {
+    for (const side of [0,1] as Side[]) {
+      const play = this.plays[side];
+      if (play) {
+        const strategy = strategyById(play.strategyId)!;
+        const members = this.heroes(side).filter(u=>play.participants.includes(u.id));
+        const available=members.filter(u=>!u.dead&&!u.retreat);
+        const target=this.units.find(u=>u.id===play.targetUnit);
+        if (strategy.kind==="push"&&target?.dead) this.endPlay(side,true,"Target building destroyed. Players resume their lanes.");
+        else if (strategy.kind==="gank"&&members.reduce((n,u)=>n+u.kills+u.assists,0)>play.baselineInvolvement) this.endPlay(side,true,"The rotation contributed to a hero kill. Players return to normal duties.");
+        else if (strategy.kind==="protect"&&this.heroes(side).some(u=>u.player!.role===0&&u.dead)) this.endPlay(side,false,"Carry died; the escort has ended.");
+        else if (available.length < Math.ceil(members.length*.6)) this.endPlay(side,false,"Too many participants died or needed to retreat. Regrouping.");
+        else if (this.clock>=play.expiresAt) this.endPlay(side,strategy.kind==="protect",strategy.kind==="protect"?"Escort completed. Supports resume normal duties.":"No safe conversion before the play expired. Farm and travel time were spent.");
+        else if (play.stage==="assembling") {
+          const avg = members.reduce((n,u)=>n+(u.player!.skills.teamfights??50),0)/members.length;
+          const ready = this.clock-play.startedAt>=8+(100-avg)*.12 && (available.every(u=>distance(u,play.rally)<135)||this.clock-play.startedAt>=40);
+          if(ready){play.stage="moving";this.logPlay(side,play.strategyId,"moving","Players are rotating toward the objective.");}
+        }
+      }
+      if (this.clock<this.nextDecision[side]) continue;
+      const avg=this.config.players[side].reduce((n,p)=>n+(p.skills.intuition??50),0)/5;
+      this.nextDecision[side]=this.clock+55+(100-avg)*.25;
+      // Autonomous teams can only choose their own equipped, unlocked calls.
+      const choices=this.preparations[side].slots[phaseAt(this.clock)].map(strategyById).filter((s):s is Strategy=>!!s);
+      const healthy=this.heroes(side).filter(u=>!u.dead&&!u.retreat&&u.hp>u.max*.65);
+      const seen=this.visibleEnemies(side);
+      const ranked=choices.map(s=>({s,weight:s.kind==="item"?1:s.kind==="roshan"?healthy.length===5&&!seen.some(e=>distance(e,this.roshan)<220)?7:0:s.kind==="gank"?seen.some(e=>e.homeLane===(s.lane??1))?5:1:s.kind==="protect"?seen.some(e=>this.heroes(side).some(u=>u.player!.role===0&&distance(e,u)<250))?7:1:healthy.length>=3?4:0})).sort((a,b)=>b.weight-a.weight);
+      for(const {s,weight} of ranked) {
+        if(!weight)continue;
+        const base=this.units.find(u=>u.kind==="base"&&u.team===side)!;
+        const target=s.kind==="item"?this.heroes(side).filter(u=>!u.inventory.includes(s.item!)&&!u.itemPriority&&u.player!.role<=1&&
+          (s.item==="bkb"?(u.deaths>=2||u.hp<u.max*.65)&&this.clock-u.lastDamagedAt<90
+            :u.player!.role===0&&this.clock>=2700&&base.hp<base.max*.5&&!u.dead&&healthy.length>=3))
+          .sort((a,b)=>b.deaths-a.deaths||a.player!.role-b.player!.role)[0]:undefined;
+        if(s.kind==="item"&&!target)continue;
+        if(this.issueOrder(side,{strategyId:s.id,targetPlayerId:target?.player!.id},"bot").accepted)break;
+      }
+    }
+  }
+  private tacticalAction(u: Unit): boolean {
+    const play=this.plays[u.team]; if(!play?.participants.includes(u.id))return false;
+    const strategy=strategyById(play.strategyId)!;
+    const seen=this.visibleEnemies(u.team).filter(e=>distance(e,u)<230);
+    const friends=this.heroes(u.team).filter(a=>!a.dead&&distance(a,u)<230);
+    if(seen.length>friends.length+1&&(u.player!.skills.intuition??50)>=25){u.retreat=true;u.regroupUntil=this.clock+12;return false;}
+    // Local threats interrupt movement; generic combat below resolves the fight.
+    if(this.nearest(u,u.range+55)?.kind==="hero")return false;
+    let point=play.rally;
+    if(play.stage!=="assembling") {
+      const target=this.units.find(a=>a.id===play.targetUnit);
+      if(strategy.kind==="roshan")point=this.roshan;
+      else if(strategy.kind==="protect")point=this.heroes(u.team).find(a=>a.player!.role===0)!;
+      else if(target) {
+        const wave=this.units.filter(c=>c.kind==="creep"&&c.team===u.team&&!c.dead&&c.lane===play.targetLane&&c.wait<=0).sort((a,b)=>distance(a,target)-distance(b,target))[0];
+        point=wave&&distance(wave,target)>190?wave:target;
+      }else {
+        const enemy=seen.filter(e=>e.homeLane===play.targetLane).sort((a,b)=>distance(a,u)-distance(b,u))[0];
+        const ally=this.heroes(u.team).find(a=>a.homeLane===play.targetLane&&!play.participants.includes(a.id)&&!a.dead);
+        const fallback=this.lanePoint(play.targetLane,u.team?.55:.45);
+        point=enemy??ally??{x:fallback[0],y:fallback[1]};
+      }
+    }
+    if(strategy.kind==="roshan"&&play.stage!=="assembling"&&distance(u,this.roshan)<115) {
+      if(this.roshan.respawnAt>this.clock){this.endPlay(u.team,false,"Roshan is unavailable. Returning to normal duties.");return false;}
+      if(seen.length)return false;
+      if(play.stage!=="engaging"){play.stage="engaging";this.logPlay(u.team,play.strategyId,"engaging","The team is attacking Roshan. The pit can be contested.");}
+      if(u.cd<=0){u.cd=u.rate;this.roshan.hp-=u.damage*.8;this.roshanDamagedAt=this.clock;}
+      if(this.roshanAttackAt<=this.time){this.roshanAttackAt=this.time+1.2;u.hp-=55+this.clock/180;u.lastDamagedAt=this.clock;if(u.hp<=0)this.die(u,u,true);}
+      if(this.roshan.hp<=0) {
+        this.roshan.kills[u.team]++;this.roshan.respawnAt=this.clock+480;
+        const nearby=this.heroes(u.team).filter(a=>!a.dead&&distance(a,this.roshan)<180);
+        for(const a of this.heroes(u.team))a.gold+=150;
+        const holder=nearby.sort((a,b)=>a.player!.role-b.player!.role)[0];if(holder)holder.aegisUntil=this.clock+300;
+        this.endPlay(u.team,true,`Roshan defeated. Team gold awarded${holder?`; ${holder.player!.name} holds Aegis for five minutes`:""}.`);
+      }
+      return true;
+    }
+    const near=distance(u,point);
+    if(near<160&&play.stage==="moving") {play.stage="engaging";this.logPlay(u.team,play.strategyId,"engaging","Players reached the target area; looking for a safe engagement.");}
+    if(near<Math.max(60,u.range))return false;
+    if(u.inventory.includes("blink")&&(u.itemCooldowns.blink??0)<=this.clock&&this.clock-u.lastDamagedAt>12&&near>200) {
+      this.displace(u,point,90);u.itemCooldowns.blink=this.clock+30;
+    }
+    this.move(u,point.x,point.y);return true;
+  }
+  tacticalSnapshot(side: Side, targetPlayerId?: string): TacticalSnapshot {
+    const phase=phaseAt(this.clock);
+    return {phase,slots:this.preparations[side].slots[phase].map(strategyId=>({strategyId,reason:this.strategyReason(side,{strategyId,targetPlayerId})})),
+      ...(this.plays[side]?{active:structuredClone(this.plays[side])}:{}),events:this.tacticalEvents.filter(e=>e.side===side).slice(-8),
+      itemTargets:this.heroes(side).filter(u=>u.itemPriority).map(u=>({playerId:u.player!.id,item:u.itemPriority!}))};
+  }
   step() {
     if (this.winner !== null) return; // Team zero is a valid winner.
     this.time += DT;
+    this.sightCache = [undefined, undefined];
+    if(!this.roshan.respawnAt&&this.clock-this.roshanDamagedAt>20)this.roshan.hp=Math.min(this.roshan.max,this.roshan.hp+this.roshan.max*.02*DT);
+    if(this.roshan.respawnAt&&this.roshan.respawnAt<=this.clock){this.roshan.max=4800+this.clock;this.roshan.hp=this.roshan.max;this.roshan.respawnAt=0;}
+    if(this.clock>=this.nextShop){this.nextShop=this.clock+3;this.shop();}
+    this.updatePlans();
     if (this.time >= this.nextWave) {
       this.nextWave += 25;
       this.spawn();
@@ -635,7 +928,6 @@ export class LaneBattle {
       if (u.kind === "hero") {
         u.gold +=
           DT * GAME_CLOCK * (0.8 + (u.player?.skills.farming ?? 70) / 100) * axisFactor(this.patch, "economy", 0.25) * this.talents(u).resources;
-        this.recalculate(u);
       }
       if (u.dead) {
         if (u.kind === "hero") {
@@ -643,8 +935,9 @@ export class LaneBattle {
           if (u.respawn <= 0) {
             u.dead = false;
             u.hp = u.max;
-            u.x = BASES[u.team][0];
-            u.y = BASES[u.team][1];
+            u.x = u.reviveAt?.[0] ?? BASES[u.team][0];
+            u.y = u.reviveAt?.[1] ?? BASES[u.team][1];
+            u.reviveAt = undefined;
             u.retreat = false;
             u.contributions.clear();
           }
@@ -688,22 +981,34 @@ export class LaneBattle {
         continue;
       }
       const home = { x: BASES[u.team][0], y: BASES[u.team][1] };
+      this.useItems(u);
       u.hp = Math.min(
         u.max,
         u.hp +
-          (distance(u, home) < 100 ? u.max * 0.12 : 2 + 0.1 * u.strength) * DT,
+          (distance(u, home) < 100 ? u.max * 0.12 : (2 + 0.1 * u.strength) * (u.inventory.includes("heart") && this.clock-u.lastDamagedAt>12?1.3:1)) * DT,
       );
       if (u.hp < u.max * (0.24 + (u.player?.skills.intuition ?? 70) / 1000))
         u.retreat = true;
-      if (u.hp > u.max * 0.85) u.retreat = false;
+      if (u.hp > u.max * 0.85 && this.clock >= u.regroupUntil) u.retreat = false;
+      const enemies = this.visibleEnemies(u.team).filter(e=>distance(e,u)<220);
+      const partners = this.heroes(u.team).filter(a=>!a.dead&&distance(a,u)<220);
+      if(enemies.length > partners.length + 1 && (u.player!.skills.intuition??50)>=25) {u.retreat=true;u.regroupUntil=this.clock+12;}
       if (u.retreat) {
         u.farmCamp = undefined;
         this.move(u, home.x, home.y);
         continue;
       }
       const awareness = this.patch ? (this.patch.axes.vision - 50) / 50 * ((u.player?.skills.vision ?? 50) + (u.player?.skills.intuition ?? 50)) / 200 * 65 : 0;
+      if(this.tacticalAction(u))continue;
       if (this.camps.length && this.farm(u)) continue;
-      const target = this.nearest(u, u.range + 60 + awareness);
+      let target = this.nearest(u, u.range + 60 + awareness);
+      // Players recognize nearby opportunities; farming cores finish an easy
+      // last hit, while skirmish skill helps identify a vulnerable visible hero.
+      const vulnerable=enemies.filter(e=>distance(e,u)<u.range+45&&e.hp<e.max*(.3+(u.player!.skills.skirmish??50)/500)).sort((a,b)=>a.hp/a.max-b.hp/b.max)[0];
+      if(vulnerable)target=vulnerable;
+      if(target?.kind==="tower" && !this.units.some(c=>c.kind==="creep"&&c.team===u.team&&!c.dead&&distance(c,target!)<150) && enemies.length) {
+        this.move(u,home.x,home.y);continue;
+      }
       if (target) {
         if (u.abilityCd <= 0 && distance(u, target) < u.range + 30)
           this.cast(u, target);
@@ -783,7 +1088,7 @@ export class LaneBattle {
       this.lanesMeasured = true;
       const heroes = this.units.filter(u => u.kind === "hero");
       for (const hero of heroes) {
-        const value = (team: Side) => heroes.filter(u => u.team === team && u.lane === hero.lane)
+        const value = (team: Side) => heroes.filter(u => u.team === team && u.homeLane === hero.homeLane)
           .reduce((sum, u) => sum + Math.max(0, u.gold - 600) + u.totalXp, 0);
         const own = value(hero.team), enemy = value((1 - hero.team) as Side);
         // Assigned lane totals at 10:00, including both partners in side lanes.
@@ -812,6 +1117,12 @@ export class LaneBattle {
         deaths: u.deaths,
         assists: u.assists,
         gold: Math.round(u.gold),
+        inventory: [...u.inventory],
+        spendableGold: Math.max(0,Math.floor(u.gold-u.spent)),
+        netWorth: Math.max(0,Math.round(u.gold-u.spent+u.inventory.reduce((n,id)=>n+this.item(id).cost,0))),
+        ...(this.nextItem(u)?{nextItem:this.nextItem(u)}:{}),
+        bkbUntil:u.bkbUntil, aegisUntil:u.aegisUntil,
+        neutralDeaths:u.neutralDeaths,
         xp: Math.round(u.totalXp),
         lastHits: u.lastHits,
         heroDamage: Math.round(u.heroDamage),
@@ -829,6 +1140,7 @@ export class LaneBattle {
         this.timeline.push({
           time,
           gold: [this.resourceTotal(0, "gold"), this.resourceTotal(1, "gold")],
+          netWorth: ([0,1] as Side[]).map(side=>this.heroes(side).reduce((n,u)=>n+Math.max(0,Math.round(u.gold-u.spent+u.inventory.reduce((v,id)=>v+this.item(id).cost,0))),0)) as [number,number],
           xp: [
             this.resourceTotal(0, "totalXp"),
             this.resourceTotal(1, "totalXp"),
@@ -838,27 +1150,16 @@ export class LaneBattle {
     }
     if (this.config.captureReplay !== false && (final || this.time >= this.nextFrame)) {
       if (this.frames.at(-1)?.time !== time)
-        this.frames.push({
-          time,
-          kills: [...this.kills],
-          players: this.score(),
-          ...(this.camps.length ? { camps: this.camps.map(c => ({ ...c, readyAt: Math.round(c.readyAt * GAME_CLOCK) })) } : {}),
-          units: this.units
-            .filter((u) => u.wait <= 0)
-            .map((u) => ({
-              id: u.id,
-              kind: u.kind,
-              team: u.team,
-              x: Math.round(u.x),
-              y: Math.round(u.y),
-              hp: Math.round(u.hp),
-              max: Math.round(u.max),
-              name: u.hero?.name || u.kind,
-              ...(u.hero ? { heroId: u.hero.id } : {}),
-            })),
-        });
+        this.frames.push(this.snapshot());
       this.nextFrame = this.time + 3;
     }
+  }
+  /** Read-only live frame: observing a match never consumes RNG or advances it. */
+  snapshot(): ReplayFrame {
+    return { time:this.clock,kills:[...this.kills],players:this.score(),roshan:{...this.roshan,hp:Math.max(0,Math.round(this.roshan.hp)),kills:[...this.roshan.kills]},
+      droppedItems:this.droppedItems.map(d=>({...d})),
+      ...(this.camps.length?{camps:this.camps.map(c=>({...c,readyAt:Math.round(c.readyAt*GAME_CLOCK)}))}:{}),
+      units:this.units.filter(u=>u.wait<=0).map(u=>({id:u.id,kind:u.kind,team:u.team,x:Math.round(u.x),y:Math.round(u.y),hp:Math.round(u.hp),max:Math.round(u.max),name:u.hero?.name??u.kind,...(u.hero?{heroId:u.hero.id}:{})})) };
   }
   run() {
     while (this.winner === null && this.time < 1800) this.step();
@@ -871,6 +1172,7 @@ export class LaneBattle {
   summary(): GameSummary {
     if (this.winner === null) throw new Error("Game is still running");
     return {
+      tacticalEvents:this.tacticalEvents.map(e=>({...e})), itemEvents:this.itemEvents.map(e=>({...e})), roshanKills:[...this.roshan.kills],
       winner: this.winner,
       duration: Math.round(this.time * GAME_CLOCK),
       kills: [...this.kills],

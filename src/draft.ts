@@ -176,5 +176,6 @@ export function campaignDraftExperience(c:Campaign){
 export function withDraftKnowledge(c:Campaign,config:BattleConfig,managedSide:Side|null=0):BattleConfig{
   const experience=campaignDraftExperience(c);
   return {...config,players:config.players.map(side=>side.map(p=>({...p,heroExperience:experience.get(p.id)??{}}))) as BattleConfig["players"],
+    tacticalPreparations:[managedSide===0?c.tacticalPreparation:undefined,managedSide===1?c.tacticalPreparation:undefined],
     draftPreparations:[managedSide===0?normalizeDraftPreparation(c.draftPreparation):undefined,managedSide===1?normalizeDraftPreparation(c.draftPreparation):undefined]};
 }

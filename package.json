@@ -11,6 +11,7 @@
     "calibrate:heroes": "node scripts/calibrate-heroes.mjs",
     "balance:heroes": "node scripts/iterate-hero-balance.mjs",
     "rank:heroes": "node scripts/export-hero-rankings.mjs",
+    "audit:tactics": "node scripts/audit-tactics.mjs",
     "deploy": "npm run build && node scripts/deploy-pages.mjs"
   },
   "dependencies": {

@@ -1,0 +1,12 @@
+.heroes-panel .section-title { flex-wrap:wrap; gap:14px; }
+.heroes-explainer { padding:0 24px 20px; border-bottom:1px solid var(--line); }
+.heroes-explainer p { font-size:13px; color:var(--muted); line-height:1.7; }
+.heroes-list { padding:0 24px; }
+.hero-strength-row { display:grid; grid-template-columns:minmax(220px,1fr) minmax(240px,1fr); align-items:center; gap:32px; padding:20px 0; border-bottom:1px solid var(--line); }
+.hero-strength-row:last-child { border-bottom:0; }
+.hero-strength-identity { display:flex; gap:14px; align-items:center; min-width:0; }
+.hero-strength-identity .match-hero-token { flex-shrink:0; }
+.hero-strength-identity h3 { margin:0 0 5px; font-size:15px; }
+.hero-strength-identity p,.hero-strength-identity small { font-size:11px; color:var(--muted); line-height:1.7; margin:0; }
+@media(max-width:750px) { .hero-strength-row { grid-template-columns:minmax(0,1fr); gap:8px; } }
+@media(max-width:600px) { .heroes-explainer { padding:0 18px 18px; } .heroes-list { padding:0 18px; } .heroes-panel .hero-pool-filters { flex-wrap:wrap; } }

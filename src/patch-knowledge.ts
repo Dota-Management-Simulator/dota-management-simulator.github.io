@@ -27,6 +27,19 @@ export function managedPatchObserver(c: Campaign): PatchObserver {
   return { teamKey: c.world?.managedTeamId ?? c.settings.historicalTeamId ?? c.settings.team, staffIds: c.staffIds };
 }
 
+/** A stable broad read, narrowed for staff-discovered favorites. */
+export function heroKnowledgeEstimate(patch: SeasonPatch, observer: PatchObserver, id: string, scouted = false): Estimate {
+  const truth = heroTargetWinRate(patch, id);
+  const seed = `${observer.teamKey}:${patch.id}`;
+  const narrow = estimate(truth, 4, `${seed}:hero:${id}`, 4);
+  const minLow = Math.max(0, Math.ceil(truth + 4 - 16));
+  const maxLow = Math.min(84, Math.floor(truth - 4));
+  let n = hash(`${seed}:catalog:${id}`);
+  n = Math.imul(n ^ (n >>> 16), 0x85ebca6b);
+  let low = minLow + ((n ^ (n >>> 13)) >>> 0) % (maxLow - minLow + 1), high = low + 16;
+  return scouted ? narrow : { low, high, width: high - low };
+}
+
 /** Each smaller interval is nested inside the previous one, always retaining
  * truth. The midpoint need not equal the truth. Reloads and hires cannot
  * reroll a report or intersect independent intervals to expose exact values. */
@@ -55,7 +68,7 @@ export function patchReport(patch: SeasonPatch, observer: PatchObserver): PatchR
   })) as PatchReport["axes"];
   const count = Math.min(patch.heroes.length, 2 + staff.reduce((n, s) => n + s.extraHeroes, 0));
   const heroes = [...patch.heroes].sort((a, b) => hash(`${seed}:${a.id}`) - hash(`${seed}:${b.id}`) || a.id.localeCompare(b.id))
-    .slice(0, count).map(h => ({ id: h.id, winRate: estimate(heroTargetWinRate(patch, h.id), 4, `${seed}:hero:${h.id}`, 4) }));
+    .slice(0, count).map(h => ({ id: h.id, winRate: heroKnowledgeEstimate(patch, observer, h.id, true) }));
   return { patchId: patch.id, axes, heroes, totalHeroes: patch.heroes.length };
 }
 

@@ -8,6 +8,7 @@ import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { correctPairedIntervals } from './calibration-stats.mjs';
 import { readCheckpoint, writeCheckpoint } from './checkpoint.mjs';
+import { combatInputs } from './combat-inputs.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
 const value = (key, fallback) => { const i = args.indexOf(key); return i < 0 ? fallback : args[i + 1]; };
@@ -36,9 +37,12 @@ const folder = resolve(root, '.local/hero-calibration');
 await mkdir(folder, { recursive: true });
 const workerFile = resolve(folder, 'worker.mjs');
 await build({ entryPoints: [resolve(root, 'scripts/hero-calibration-worker.ts')], outfile: workerFile, bundle: true, platform: 'node', format: 'esm', logLevel: 'silent' });
-const digest = createHash('sha256');
-for (const file of ['src/battle.ts', 'src/battle-map.ts', 'src/talents.ts', 'src/patch-milestones.ts', 'src/patches.ts', 'src/heroes.ts', 'src/hero-roles.ts', 'src/data/hero-role-evidence.json', 'src/draft.ts', 'src/captains-mode.ts', 'src/hero-balance.ts', 'src/data/patches.json', 'scripts/hero-calibration-worker.ts']) digest.update(await readFile(resolve(root, file)));
-const fingerprint = digest.digest('hex');
+async function currentFingerprint() {
+  const digest = createHash('sha256');
+  for (const file of [...combatInputs, 'scripts/combat-inputs.mjs', 'scripts/hero-calibration-worker.ts']) digest.update(await readFile(resolve(root, file)));
+  return digest.digest('hex');
+}
+const fingerprint = await currentFingerprint();
 const statePath = resolve(folder, 'state.json');
 let state = { fingerprint, options, version: 1, method: 'Equal-player, role-legal, unique drafts; full lane combat with side-swapped pairs and separate holdout seeds.', patches: {} };
 if (args.includes('--resume')) {
@@ -79,7 +83,10 @@ const records = Object.values(state.patches);
 state.summary = { patches: records.length, maps: records.reduce((n, p) => n + p.trainMaps + p.validationMaps, 0), elapsedSeconds: Math.round((Date.now() - started) / 1000),
   aboveCeiling: records.reduce((n, p) => n + p.statisticallyAboveCeiling.length, 0) };
 await save();
-if (args.includes('--apply') && state.summary.aboveCeiling > 0) {
+if (args.includes('--apply') && await currentFingerprint() !== fingerprint) {
+  console.error('Calibration not applied: combat inputs changed during the frozen run. Results are retained as a warm start only.');
+  process.exitCode = 1;
+} else if (args.includes('--apply') && state.summary.aboveCeiling > 0) {
   console.error(`Calibration not applied: ${state.summary.aboveCeiling} significant hero/patch ceiling violations. Completed results remain in ${statePath}.`);
   process.exitCode = 1;
 } else if (args.includes('--apply')) {

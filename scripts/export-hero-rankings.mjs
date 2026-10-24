@@ -5,7 +5,8 @@ import { fileURLToPath, pathToFileURL } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const at = process.argv.indexOf('--candidate');
 const candidate = at < 0 ? null : JSON.parse(await readFile(resolve(process.argv[at + 1]), 'utf8'));
-const folder = resolve(root, '.local/hero-balance-rounds');
+const outAt = process.argv.indexOf('--out');
+const folder = resolve(root, outAt < 0 ? '.local/hero-balance-rounds' : process.argv[outAt + 1]);
 await mkdir(folder, { recursive: true });
 const bundle = resolve(folder, 'rankings-export.mjs');
 await build({ stdin: { contents: `export { historicalPatches, patchForSeason } from './src/patches'; export { heroRoles } from './src/heroes'; export { rankHeroesForRole } from './src/hero-rankings';`,

@@ -14,11 +14,20 @@ import { historicalLineupStrength } from "./historical-strength";
 import { historicalPower, lineupFormResults, tournamentCombatBonus, tournamentForm } from "./tournament-form";
 
 const DAY = 86400000;
+/** New starts get one calendar month of preparation; existing dated saves keep their clock. */
+export function historicalCampaignStart(year: number): string {
+  const ti = historicalTournaments.find(event => event.kind === "ti" && event.year === year);
+  if (!ti) return `${year}-01-01T00:00:00Z`;
+  const opening = new Date(utcTime(ti.start));
+  const month = opening.getUTCMonth();
+  const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
+  return new Date(Date.UTC(year, month - 1, Math.min(opening.getUTCDate(), lastDay))).toISOString().replace(".000Z", "Z");
+}
 export function enableHistoricalCalendar(current: Campaign): Campaign {
   if (current.calendar) return current;
   const c = structuredClone(current);
   const epoch = campaignWeek(c);
-  const start = c.year === 2011 ? "2011-08-17T00:00:00Z" : `${c.year}-01-01T00:00:00Z`;
+  const start = historicalCampaignStart(c.year);
   c.calendar = { now: start, origin: start, paidWeeks: 0, contractEpoch: epoch, runs: [], rankings: {}, invitations: {}, shuffledYears: Array.from({ length: Math.max(0, Math.min(2026, c.year - 1) - 2010) }, (_, i) => i + 2011) };
   c.week = Math.floor((utcTime(start) - Date.UTC(c.year, 0, 1)) / 604800000) + 1;
   c.points = 0; c.qualified = c.year === 2011;

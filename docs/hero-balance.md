@@ -1,5 +1,7 @@
 # Historical hero strength and engine calibration
 
+**October 23 live tactics/items, local:** the new live worker, reusable phase calls, inventories and Roshan change new-map combat. Older replay-only/abstract-item descriptions below are historical. Existing CPU work uses frozen prior mechanics; a separate fresh calibration is queued. The current pilot has balance flags, so no balanced-engine claim is made. See [current rules, balance status and validation](tactics-items.md).
+
 Local implementation, October 23, 2026. Not published.
 
 **Latest historical-meta correction:** 15 phases now have attached observations and 17 remain estimates. The 2026 Anti-Mage authored boosts are removed; TI2026's complete 147-map cache has zero picks/bans. See [sources, scope, inferred targets and limits](historical-meta.md). Internal observed-meta ranks now follow historical targets; measured engine output remains a separate visible audit. All 202 application tests, four Python importer tests and the build pass.

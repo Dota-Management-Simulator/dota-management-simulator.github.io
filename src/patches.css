@@ -54,6 +54,8 @@
 .patch-change-list { list-style:none; padding:0; margin:0; }
 .patch-change-list li { display:grid; grid-template-columns:170px minmax(0,1fr); column-gap:22px; padding:13px 0; border-bottom:1px solid var(--line); font-size:13px; line-height:1.65; }
 .patch-change-list small { grid-column:2; color:var(--muted); }
+.patch-change-ranges { grid-column:2; min-width:0; }
+.patch-favorite-range { grid-column:2 / -1; min-width:0; }
 .patch-arrivals { display:flex; flex-wrap:wrap; gap:10px; margin:18px 0; }
 .patch-arrivals > span { display:flex; align-items:center; gap:8px; padding:8px 12px; border:1px solid var(--line); border-radius:6px; font-size:13px; }
 .patch-arrivals img { width:28px; height:28px; object-fit:contain; }
@@ -89,4 +91,4 @@
 .talent-tree button small { font-size:10px; margin-top:8px; color:var(--muted); }
 .talent-tree fieldset:disabled button { cursor:default; opacity:.7; }
 .neutral-lh { display:block; font-size:9px; color:var(--muted); white-space:nowrap; }
-@media(max-width:600px) { .patch-notes { padding:20px; } .patch-change-list li { grid-template-columns:1fr; gap:4px; } .patch-change-list small { grid-column:1; } .patch-arrival-dialog { padding:20px; } .talent-tree fieldset { padding:8px; gap:6px; } .talent-tree button { padding:10px; } }
+@media(max-width:600px) { .patch-notes { padding:20px; } .patch-change-list li { grid-template-columns:1fr; gap:4px; } .patch-change-list small,.patch-change-ranges { grid-column:1; } .patch-favorite-range { grid-column:1 / -1; } .patch-arrival-dialog { padding:20px; } .talent-tree fieldset { padding:8px; gap:6px; } .talent-tree button { padding:10px; } }

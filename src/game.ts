@@ -30,6 +30,8 @@ import { normalizePatchIntroductions } from "./patch-announcements";
 import type { PatchIntroductions } from "./patch-announcements";
 import { normalizeDraftPreparation, withDraftKnowledge } from "./draft";
 import type { DraftPreparation } from "./draft";
+import { normalizeTactics } from "./tactics";
+import type { TacticalPreparation } from "./tactics";
 
 export const ROLES = [
   "Carry",
@@ -52,6 +54,7 @@ export type Page =
   | "calendar"
   | "standings"
   | "patch"
+  | "heroes"
   | "scouting"
   | "next-series"
   | "staff"
@@ -84,6 +87,7 @@ export interface Result {
   tournamentId?: string;
 }
 export interface Campaign {
+  tacticalPreparation?: TacticalPreparation;
   draftPreparation?: DraftPreparation;
   version: 1;
   talentPlans?: Record<string, TalentPlan>;
@@ -636,6 +640,7 @@ export function readSave(): Campaign | null {
     if (c.settings.branding) c.settings.branding = normalizeBranding(c.settings.branding);
     if (c.trainingPresets !== undefined) c.trainingPresets = normalizeTrainingPresets(c.trainingPresets);
     if (c.draftPreparation !== undefined) c.draftPreparation = normalizeDraftPreparation(c.draftPreparation);
+    if (c.tacticalPreparation !== undefined) c.tacticalPreparation = normalizeTactics(c.tacticalPreparation);
     if (c.talentPlans && typeof c.talentPlans === "object" && !Array.isArray(c.talentPlans)) {
       c.talentPlans = Object.fromEntries(Object.entries(c.talentPlans).map(([id, plan]) => [id, normalizeTalentPlan(plan)]));
     } else delete c.talentPlans;

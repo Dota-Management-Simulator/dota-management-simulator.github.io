@@ -97,6 +97,7 @@ test("TI2011–2019 retain complete main fields, TI2014's gauntlets, and TI2017'
 test("a club with a main-event invitation cannot consume another regional qualifying place", () => {
   const qualifier = historicalTournaments.find(e => e.source.endsWith("/The_International/2012/West_Qualifiers"))!;
   const c = enableHistoricalCalendar(createCampaign({ ...DEFAULT_SETTINGS, year: 2012 }));
+  c.calendar!.now = qualifier.start;
   const id = c.world!.replacedTeamId ?? c.world!.managedTeamId;
   c.calendar!.invitations[qualifier.parent!] = [id];
   assert.ok(!earnedInvitations(c, qualifier).includes(id));
@@ -120,7 +121,7 @@ test("other-team series respect a dated batch limit and advance payroll once ins
   const next = commitTournamentRun(c, played);
   assert.ok(Date.parse(next.calendar!.now) > Date.parse("2011-08-24T10:00:00Z"));
   assert.ok(Date.parse(next.calendar!.now) < Date.parse("2011-08-25T00:00:00Z"));
-  assert.equal(next.calendar!.paidWeeks, 1);
+  assert.equal(next.calendar!.paidWeeks, c.calendar!.paidWeeks + 1);
   assert.equal(next.cash, c.cash - weeklyWages(c));
   assert.equal(next.results.length, 0);
   assert.equal(commitTournamentRun(next, played), next);
@@ -246,9 +247,9 @@ test("unverified group schedules and unsupported formats cannot be entered while
 test("real weeks pay once across dates and year boundaries; legacy campaigns retain their original clock", () => {
   const legacy = createCampaign(DEFAULT_SETTINGS);
   const c = enableHistoricalCalendar(legacy);
-  assert.equal(c.calendar!.now, "2011-08-17T00:00:00Z");
+  assert.equal(c.calendar!.now, "2011-07-17T00:00:00Z");
   assert.equal(campaignWeek(c), campaignWeek(legacy));
-  const sixDays = advanceCalendarTo(c, "2011-08-23T23:59:59Z");
+  const sixDays = advanceCalendarTo(c, "2011-07-23T23:59:59Z");
   assert.equal(sixDays.cash, c.cash);
   const week = advanceWeek(c);
   assert.equal(week.cash, c.cash - weeklyWages(c));
@@ -283,7 +284,7 @@ test("registered players finish the tournament after expiry; transfers, duplicat
   while (run.state === "playing") { const f = nextTournamentFixture(run)!; run = recordTournamentSeries(run, f.id, modelSeries(run, f, random)); }
   const settled = commitTournamentRun(c, run);
   const prize = run.placements.find(p => p.team === run.managed)!.prize;
-  assert.equal(settled.cash, c.cash + prize - Math.floor(prize * 0.1));
+  assert.equal(settled.cash, c.cash + prize - Math.floor(prize * 0.1) - (settled.calendar!.paidWeeks - c.calendar!.paidWeeks) * weeklyWages(c));
   assert.equal(commitTournamentRun(settled, run), settled);
   assert.equal(settled.results.length, 1);
   assert.equal(settled.results[0].tournamentId, ti1.id);
@@ -330,6 +331,7 @@ test("a regional qualifier earns the correct main-event field slot, pays no inve
   assert.equal(qualifier.fixtures.at(-1)!.advantage, undefined);
   assert.equal(main.invited.length, 13);
   let c = enableHistoricalCalendar(createCampaign({ ...DEFAULT_SETTINGS, year: 2012 }));
+  c.calendar!.now = c.calendar!.origin = "2012-01-01T00:00:00Z"; // Existing qualifier/payroll scenario.
   const club = c.world!.managedTeamId;
   // An organizer-issued invitation is part of the fixture setup; all series
   // below still have to be won before the main-event place is awarded.

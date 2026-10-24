@@ -9,7 +9,13 @@ import { historicalTournaments } from "../src/tournaments";
 import type { HistoricalTournament } from "../src/tournament-types";
 import { managedSponsorTeam, sponsors } from "../src/sponsors";
 
-const newCampaign = () => enableHistoricalCalendar(createCampaign(DEFAULT_SETTINGS));
+// Existing office scenarios begin on tournament day, independently of new-game preparation time.
+const newCampaign = () => {
+  const c = enableHistoricalCalendar(createCampaign(DEFAULT_SETTINGS));
+  c.calendar!.now = c.calendar!.origin = "2011-08-17T00:00:00Z";
+  c.week = 33;
+  return c;
+};
 const ti1 = historicalTournaments.find(e => e.kind === "ti" && e.year === 2011)!;
 const sample = (id: string, start: string, end: string) => ({ ...ti1, id, start, end });
 

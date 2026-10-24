@@ -1,5 +1,7 @@
 # Historical roles and match drafting
 
+**October 23 live tactics/items, local:** the new live worker, reusable phase calls, inventories and Roshan change new-map combat. Older replay-only/abstract-item descriptions below are historical. Existing CPU work uses frozen prior mechanics; a separate fresh calibration is queued. The current pilot has balance flags, so no balanced-engine claim is made. See [current rules, balance status and validation](tactics-items.md).
+
 October 23, 2026 — local implementation; not published in this pass.
 
 Employed tactical staff can now propose preparation from **Scout your next series**, **Teams** profiles and before each managed map. Applying their plan saves an approach, legal hero preferences and observed priority bans; the existing controls remain editable. Opponent evidence comes from saved public campaign maps, with specialist coverage based on the current staff. See [team scouting](team-scouting.md).

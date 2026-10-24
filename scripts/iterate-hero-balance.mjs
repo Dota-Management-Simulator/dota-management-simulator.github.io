@@ -8,6 +8,7 @@ import { spawn } from 'node:child_process';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { readCheckpoint, writeCheckpoint } from './checkpoint.mjs';
+import { combatInputs } from './combat-inputs.mjs';
 const root = fileURLToPath(new URL('../', import.meta.url));
 const args = process.argv.slice(2);
 const option = (key, fallback) => { const i = args.indexOf(key); return i < 0 ? fallback : args[i + 1]; };
@@ -16,7 +17,7 @@ const options = { rounds: positive('--rounds', 4), maps: positive('--maps', 1024
   passes: positive('--passes', 3), seed: positive('--seed', 184721) };
 if (options.maps % 2 || options.validation % 2) throw Error('Map counts must be even');
 const workers = Math.min(positive('--workers', 12), availableParallelism());
-const folder = resolve(root, '.local/hero-balance-rounds');
+const folder = resolve(root, option('--out', '.local/hero-balance-rounds'));
 await mkdir(folder, { recursive: true });
 const profiles = JSON.parse(await readFile(resolve(root, 'src/data/patches.json'), 'utf8')).patches;
 const selected = option('--patches', 'all') === 'all' ? profiles : option('--patches', '').split(',').map(id => {
@@ -24,25 +25,28 @@ const selected = option('--patches', 'all') === 'all' ? profiles : option('--pat
 });
 if (new Set(selected.map(p => p.id)).size !== selected.length) throw Error('Duplicate patches');
 if (selected.some(p => options.maps < p.heroBalance.length * 2 || options.validation < p.heroBalance.length * 2)) throw Error('Not enough maps for every hero');
-let baseline;
-try { baseline = JSON.parse(await readFile(resolve(folder, 'baseline.json'), 'utf8')); }
+let baseline, baselineText;
+try { baselineText = await readFile(resolve(root, option('--baseline', resolve(folder, 'baseline.json'))), 'utf8'); baseline = JSON.parse(baselineText); }
 catch {
+  if (args.includes('--baseline')) throw Error('The explicit baseline could not be read; no experiment was started.');
   try {
     baseline = JSON.parse(await readFile(resolve(root, '.local/hero-calibration/state.json'), 'utf8'));
-    await writeFile(resolve(folder, 'baseline.json'), JSON.stringify(baseline, null, 2) + '\n');
+    baselineText = JSON.stringify(baseline, null, 2) + '\n';
+    await writeFile(resolve(folder, 'baseline.json'), baselineText);
   } catch { throw Error('Run npm run calibrate:heroes first; a completed first-run checkpoint is required for comparison.'); }
 }
 if (selected.some(p => !baseline.patches[p.id]?.rows || !Number.isFinite(baseline.patches[p.id]?.meanAbsoluteError)))
   throw Error('Baseline is incomplete: finish a calibration record for every requested patch first.');
 const workerFile = resolve(folder, 'iterative-worker.mjs');
 await build({ entryPoints: [resolve(root, 'scripts/iterative-hero-worker.ts')], outfile: workerFile, bundle: true, platform: 'node', format: 'esm', logLevel: 'silent' });
-const fingerprintPaths = ['src/battle.ts','src/battle-map.ts','src/talents.ts','src/patch-milestones.ts','src/patches.ts','src/heroes.ts','src/hero-roles.ts','src/data/hero-role-evidence.json','src/draft.ts','src/captains-mode.ts','src/hero-balance.ts','src/patch-knowledge.ts','src/data/patches.json','scripts/iterative-hero-worker.ts'];
+const fingerprintPaths = [...combatInputs, 'scripts/combat-inputs.mjs', 'scripts/iterative-hero-worker.ts'];
 const warmStartText = option('--warm-start', '') ? await readFile(resolve(option('--warm-start', '')), 'utf8') : '';
 const warmStart = warmStartText ? JSON.parse(warmStartText) : baseline;
 async function currentFingerprint() {
   const digest = createHash('sha256');
   for (const path of fingerprintPaths) digest.update(await readFile(resolve(root, path)));
   digest.update(warmStartText);
+  digest.update(baselineText);
   digest.update(JSON.stringify(selected.map(p => p.id)));
   return digest.digest('hex');
 }
@@ -120,7 +124,7 @@ for (const p of selected) report.push([p.id, state.patches[p.id].baselineMeanAbs
   state.patches[p.id].statisticallyAboveCeiling.length, good(state.patches[p.id], p.id)].join(','));
 await writeFile(resolve(folder, 'comparison.csv'), report.join('\n') + '\n');
 await new Promise((accept, reject) => {
-  const c = spawn(process.execPath, [resolve(root, 'scripts/export-hero-rankings.mjs'), '--candidate', resolve(folder, 'candidate.json')], { cwd: root, windowsHide: true, stdio: 'inherit' });
+  const c = spawn(process.execPath, [resolve(root, 'scripts/export-hero-rankings.mjs'), '--candidate', resolve(folder, 'candidate.json'), '--out', folder], { cwd: root, windowsHide: true, stdio: 'inherit' });
   c.on('error', reject); c.on('exit', code => code ? reject(Error('Ranking export failed')) : accept());
 });
 // Activation is deliberately all-or-nothing across the requested phases.
@@ -150,7 +154,7 @@ if (await currentFingerprint() !== fingerprint) {
     }
     await writeFile(resolve(folder, 'verification.log'), logs.join(''));
     await new Promise((accept, reject) => {
-      const c = spawn(process.execPath, [resolve(root, 'scripts/export-hero-rankings.mjs')], { cwd: root, windowsHide: true, stdio: 'inherit' });
+      const c = spawn(process.execPath, [resolve(root, 'scripts/export-hero-rankings.mjs'), '--out', folder], { cwd: root, windowsHide: true, stdio: 'inherit' });
       c.on('error', reject); c.on('exit', code => code ? reject(Error('Active ranking export failed')) : accept());
     });
     await status('complete', { summary: state.summary, runtimeApplied: true, tests: 'passed', build: 'passed' });

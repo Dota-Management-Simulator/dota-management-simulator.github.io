@@ -5,13 +5,14 @@ import { spawn } from 'node:child_process';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 const root = fileURLToPath(new URL('../', import.meta.url));
-const folder = resolve(root, '.local/hero-balance-rounds');
+const outAt = process.argv.indexOf('--out');
+const folder = resolve(root, outAt < 0 ? '.local/hero-balance-rounds' : process.argv[outAt + 1]);
 const pid = Number(process.argv[2]);
 if (!Number.isInteger(pid) || pid <= 0) throw Error('Expected the iterative process ID');
 const read = async name => { try { return await readCheckpoint(resolve(folder, name)); } catch { return null; } };
 const alive = () => { try { process.kill(pid, 0); return true; } catch { return false; } };
 const exportActive = () => new Promise((accept, reject) => {
-  const c = spawn(process.execPath, [resolve(root, 'scripts/export-hero-rankings.mjs')], { cwd: root, windowsHide: true, stdio: 'inherit' });
+  const c = spawn(process.execPath, [resolve(root, 'scripts/export-hero-rankings.mjs'), '--out', folder], { cwd: root, windowsHide: true, stdio: 'inherit' });
   c.on('error', reject); c.on('exit', code => code ? reject(Error('Could not refresh active rankings')) : accept());
 });
 while (true) {

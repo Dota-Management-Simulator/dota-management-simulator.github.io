@@ -91,7 +91,8 @@ import HistoricalCalendar, { TournamentHistory } from "./HistoricalCalendar";
 import ManagerInbox from "./ManagerInbox";
 import { advanceManagerWeek, syncOffice, unreadMessages } from "./office";
 import type { OfficeAction } from "./office";
-import { enableHistoricalCalendar, nextTournamentCommitment } from "./historical-game";
+import { enableHistoricalCalendar, historicalCampaignStart, nextTournamentCommitment } from "./historical-game";
+import Heroes from "./HeroDirectory";
 import { formatDate } from "./tournaments";
 import { weeklyPractice } from "./contracts";
 import { teamIdForName } from "./team-logos";
@@ -135,6 +136,7 @@ const navigation: {
   },
   { page: "calendar", label: "Season calendar", icon: CalendarDays },
   { page: "patch", label: "Patch & meta", icon: Sparkles },
+  { page: "heroes", label: "Heroes", icon: Shield },
   { page: "world", label: "Teams", icon: Globe2 },
   { page: "history", label: "Season history", icon: Trophy },
   {
@@ -148,6 +150,11 @@ const pageText: Record<
   Page,
   { eyebrow: string; title: string; description: string }
 > = {
+  heroes: {
+    eyebrow: "UNDERSTAND THE GAME",
+    title: "Find your next draft pick.",
+    description: "Browse your available heroes and compare your team's estimated strength ranges.",
+  },
   "next-series": {
     eyebrow: "MATCH PREPARATION",
     title: "Know your next opponent.",
@@ -790,7 +797,7 @@ export default function App() {
                       <span>2011 — 2026</span>
                     </div>
                     <p className="field-note">
-                      {settings.year === 2011 ? "Start at TI1. Regional players and 18 more heroes arrive after TI." : `Start with completed shuffles through ${rosterYearForStart(settings.year)}.`} Annual player and hero batches enter at the post-TI shuffle through 2026. Historical events use sourced formats, dates and placement prizes; gameplay ratings remain estimates.
+                      Start on {formatDate(historicalCampaignStart(settings.year))}, {historicalCampaignStart(settings.year).slice(5, 10) === "01-01" ? "with the dated calendar (no TI opening is catalogued for this year)" : "one month before TI to train and prepare"}. {settings.year === 2011 ? "Regional players and 18 more heroes arrive after TI." : `Completed shuffles through ${rosterYearForStart(settings.year)} are included.`} Annual player and hero batches enter at the post-TI shuffle through 2026. Historical events use sourced formats, dates and placement prizes; gameplay ratings remain estimates.
                     </p>
                   </section>
                   <section className="panel setup-section">
@@ -1186,6 +1193,7 @@ export default function App() {
                     </div>
                   </>
                 ))}
+                {page === "heroes" && <Heroes campaign={campaign} onStaff={() => go("staff")} onPatch={() => go("patch")} />}
                 {page === "patch" && <PatchMeta key={patchTarget ?? "current"} initialPatchId={patchTarget} campaign={campaign} onStaff={() => go("staff")} onPlayer={id => setPlayer(campaign.players.find(p => p.id === id) ?? null)} />}
                 {page === "world" && <WorldTeams campaign={campaign} onPlayer={setPlayer}
                   onStaff={() => go("staff")} onPreparation={draftPreparation => update(c => ({...c, draftPreparation}))} />}
@@ -1649,6 +1657,7 @@ export default function App() {
                 <DraftSeries campaign={campaign} config={draftConfig} preparation={campaign.draftPreparation}
                   managedTeamId={campaign.world?.managedTeamId}
                   onPreparation={draftPreparation=>update(c=>({...c,draftPreparation}))}
+                  onTactics={tacticalPreparation=>update(c=>({...c,tacticalPreparation}))}
                   onCancel={()=>{setDraftConfig(null);setSimulating(false);}}
                   onComplete={simulation=>{setDraftConfig(null);finishSimulation(simulation);}}/>
               ) : (

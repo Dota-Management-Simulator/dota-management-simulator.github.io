@@ -1,0 +1,10 @@
+.range-bars { width:100%; min-width:0; margin:12px 0 4px; }
+.range-bar-row { display:grid; grid-template-columns:56px minmax(0,1fr) 76px; align-items:center; gap:12px; margin:8px 0; font-size:12px; }
+.range-bar-label { color:var(--muted); }
+.range-bar-row > strong { font-size:12px; text-align:right; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.range-bar-track { position:relative; height:12px; border-radius:3px; background:color-mix(in srgb,var(--ink) 10%,var(--bg)); }
+.range-bar-track::before { content:""; position:absolute; left:50%; height:100%; border-left:1px solid color-mix(in srgb,var(--ink) 30%,transparent); }
+.range-bar-track > span { position:absolute; height:100%; border-radius:3px; background:var(--gold,#af995b); border-inline:2px solid color-mix(in srgb,var(--ink) 45%,var(--gold,#af995b)); }
+.range-bar-previous .range-bar-track > span { background:var(--muted); border-color:var(--muted); opacity:.8; }
+.range-bar-scale { display:flex; justify-content:space-between; margin:0 88px 0 68px; color:var(--muted); font-size:10px; }
+@media(max-width:600px) { .range-bar-row { grid-template-columns:48px minmax(0,1fr) 68px; gap:8px; } .range-bar-scale { margin:0 76px 0 56px; } }

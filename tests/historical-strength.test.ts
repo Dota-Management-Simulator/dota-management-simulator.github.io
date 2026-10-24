@@ -13,8 +13,11 @@ import type { TournamentFixture } from "../src/tournament-types";
 
 const ti1 = historicalTournaments.find(e => e.year === 2011 && e.kind === "ti")!;
 function entered(custom = false) {
-  return enterHistoricalTournament(enableHistoricalCalendar(createCampaign({ ...DEFAULT_SETTINGS,
-    difficulty: "Contender", ...(custom ? { clubMode: "custom", team: "Counterfactual" } as const : {}) })), ti1.id, 997);
+  const c = enableHistoricalCalendar(createCampaign({ ...DEFAULT_SETTINGS,
+    difficulty: "Contender", ...(custom ? { clubMode: "custom", team: "Counterfactual" } as const : {}) }));
+  // Isolate strength from the separately tested new-game preparation month.
+  c.calendar!.now = c.calendar!.origin = "2011-08-17T00:00:00Z";
+  return enterHistoricalTournament(c, ti1.id, 997);
 }
 const lineup = (c: Campaign, id: string) => c.calendar!.runs[0].teams.find(t => t.id === id)!;
 const fixture = (a: string, b: string, id = "test", at = "2011-08-18T10:00:00Z"): TournamentFixture => ({ id, at, stage: "Test", label: "Test", bestOf: 1, timeVerified: true, slots: [{ team: a }, { team: b }] });

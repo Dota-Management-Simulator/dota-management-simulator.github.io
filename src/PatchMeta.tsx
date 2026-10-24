@@ -9,6 +9,7 @@ import "./patches.css";
 import { managedPatchObserver, patchReport } from "./patch-knowledge";
 import { calibrationForPatch } from "./hero-balance";
 import PatchNotes from "./PatchNotes";
+import RangeBars from "./RangeBars";
 
 export default function PatchMeta({ campaign, onStaff, onPlayer, initialPatchId }: { campaign: Campaign; onStaff: () => void; onPlayer: (id: string) => void; initialPatchId?: string }) {
   const active = campaignPatch(campaign);
@@ -68,6 +69,7 @@ export default function PatchMeta({ campaign, onStaff, onPlayer, initialPatchId 
             <span className="match-hero-token">{icon && <img src={`${import.meta.env.BASE_URL}${icon.path}`} alt="" loading="lazy" />}</span>
             <div><strong>{hero.name}</strong><small>{hero.roles.map(r=>heroRoles[r]).join(" / ")} · {heroTags(hero).join(" / ")}</small><small>{unlocked ? "Available in your campaign" : `Available after ${hero.releasedYear} shuffle`}</small>
             </div><span className="meta-strength">{entry.winRate.low}–{entry.winRate.high}%<small>EST. WIN RATE</small></span>
+            <div className="patch-favorite-range"><RangeBars label={`${hero.name} estimated win rate`} current={entry.winRate} unit="%" lowLabel="0%" highLabel="100%" /></div>
           </div>;
         })}</div>
         {report.heroes.length < report.totalHeroes && <p className="patch-undiscovered">{report.totalHeroes - report.heroes.length} favored {report.totalHeroes - report.heroes.length === 1 ? "hero" : "heroes"} still undiscovered. An analyst, strategy scout or hero specialist can expand your shortlist.</p>}
