@@ -29,6 +29,7 @@ export default function ManagerDesk({ campaign, onPage, onAction, onPlayer, onCo
       <section className="panel desk-competition"><span className="eyebrow"><Trophy size={14} />{competition ? "NEXT COMPETITION" : "SEASON PLANNING"}</span><h2>{competition?.name ?? "Choose your next tournament"}</h2><p>{competition ? `${competition.stage}${competition.at ? ` · ${formatDate(competition.at)}` : ""}${competition.estimated ? " · estimated date" : ""}` : "Review invitations, qualification routes and upcoming dates."}</p>
         <div className="desk-matchup"><TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="large" /><strong>{campaign.settings.team}</strong>{competition?.opponent && <><span>vs</span><strong>{competition.opponent}</strong></>}</div>
         <button className="button secondary full" onClick={onCompetition}>{competition?.opponent ? "Open match centre" : competition ? "Review competition" : "Open season calendar"}<ArrowRight size={15} /></button>
+        <button className="text-link" onClick={() => onPage("next-series")}>Scout your next series <ArrowRight size={14} /></button>
         <div className="desk-qualification"><Trophy size={15} /><span>{campaign.calendar ? "Qualification follows each tournament’s entry rules." : campaign.qualified ? "Your place at TI is secured." : `${campaign.points} / 80 circuit points · or win the regional qualifier`}</span></div>
       </section>
     </div>

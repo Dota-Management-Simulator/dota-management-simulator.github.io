@@ -1,5 +1,8 @@
 import calibration from "./data/hero-calibration.json";
 import type { SeasonPatch } from "./patches";
+import { getHeroPool } from "./heroes";
+import { TACTICAL_ENGINE_VERSION, strategies } from "./tactics";
+import { itemCatalog } from "./items";
 
 export interface HeroBalance {
   id: string;
@@ -8,6 +11,9 @@ export interface HeroBalance {
   priority: number;
   basis: string;
   observed?: { played: number; wins: number; losses: number; rawWinRate: number; sourceUrl: string };
+  meta?: { picks: number; bans: number | null; matches: number; winSample: number; wins: number;
+    rawWinRate: number | null; pickRate: number; contestRate: number | null;
+    sourceUrl: string; sourceLabel: string; sourceKey: string };
   /** Used only by the offline optimizer in its isolated process. */
   power?: number;
 }
@@ -20,6 +26,8 @@ export interface HeroCalibration {
 const table = calibration as { version: number; patches: Record<string, HeroCalibration> };
 export function heroBalanceSignature(patch: SeasonPatch): string {
   const inputs: unknown[] = [patch.id, patch.axes, patch.heroBalance?.map(h => [h.id, h.targetWinRate, h.priority])];
+  inputs.push(TACTICAL_ENGINE_VERSION,itemCatalog,strategies);
+  inputs.push("historical-roles-v1", getHeroPool(patch.year,Math.min(2026,patch.year-1),patch).map(h=>[h.id,h.roles]));
   // Modern-era combat now has different rules. A frozen earlier CPU batch can
   // finish, but its records must not certify the new engine on activation.
   if (patch.year >= 2017) inputs.push(patch.year >= 2023 ? "player-talents-v1/frontier-camps-v1" : "player-talents-v1");

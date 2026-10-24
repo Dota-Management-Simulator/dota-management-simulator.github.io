@@ -3,8 +3,10 @@ import { nextEvent } from "./game";
 import { nextTournamentCommitment, tournamentEntryBlocker } from "./historical-game";
 import { CALENDAR_DAY, calendarDay } from "./calendar-layout";
 import { fixtureTeams, historicalTournaments, nextTournamentFixture, tournamentById, tournamentForRun } from "./tournaments";
+import { nextScrim } from "./scrim-state";
 
 export type ContinueAction =
+  | { kind: "scrim"; label: string; detail: string }
   | { kind: "advance"; label: "Continue"; detail: string }
   | { kind: "tournament"; label: string; detail: string; eventId: string }
   | { kind: "legacy-event"; label: string; detail: string; event: GameEvent };
@@ -24,6 +26,8 @@ function plannedEvents(c: Campaign) {
 }
 
 export function managerContinue(c: Campaign): ContinueAction {
+  const scrim = nextScrim(c);
+  if (c.calendar && scrim && Date.parse(scrim.at) <= Date.parse(c.calendar.now)) return { kind: "scrim", label: "Go to scrim", detail: `BO${scrim.bestOf} vs ${scrim.opponent}` };
   if (!c.calendar) {
     const event = nextEvent(c);
     if (event && event.week <= c.week && (event.kind !== "ti" || c.qualified))

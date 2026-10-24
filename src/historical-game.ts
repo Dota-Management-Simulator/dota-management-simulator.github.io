@@ -5,6 +5,7 @@ import type { BattleConfig, SeriesSummary } from "./battle";
 import { patchAtDate } from "./patches";
 import { managedPatchObserver } from "./patch-knowledge";
 import { oppositionStaff } from "./staff";
+import { withDraftKnowledge, campaignDraftExperience } from "./draft";
 import { activeClubs } from "./history";
 import { campaignWeek } from "./contracts";
 import { fixtureTeams, historicalTournaments, hashSeed, isoTime, nextTournamentFixture, recordTournamentSeries, seededTournamentFixtures, tournamentById, tournamentForRun, tournamentOpponentCondition, utcTime } from "./tournaments";
@@ -13,11 +14,20 @@ import { historicalLineupStrength } from "./historical-strength";
 import { historicalPower, lineupFormResults, tournamentCombatBonus, tournamentForm } from "./tournament-form";
 
 const DAY = 86400000;
+/** New starts get one calendar month of preparation; existing dated saves keep their clock. */
+export function historicalCampaignStart(year: number): string {
+  const ti = historicalTournaments.find(event => event.kind === "ti" && event.year === year);
+  if (!ti) return `${year}-01-01T00:00:00Z`;
+  const opening = new Date(utcTime(ti.start));
+  const month = opening.getUTCMonth();
+  const lastDay = new Date(Date.UTC(year, month, 0)).getUTCDate();
+  return new Date(Date.UTC(year, month - 1, Math.min(opening.getUTCDate(), lastDay))).toISOString().replace(".000Z", "Z");
+}
 export function enableHistoricalCalendar(current: Campaign): Campaign {
   if (current.calendar) return current;
   const c = structuredClone(current);
   const epoch = campaignWeek(c);
-  const start = c.year === 2011 ? "2011-08-17T00:00:00Z" : `${c.year}-01-01T00:00:00Z`;
+  const start = historicalCampaignStart(c.year);
   c.calendar = { now: start, origin: start, paidWeeks: 0, contractEpoch: epoch, runs: [], rankings: {}, invitations: {}, shuffledYears: Array.from({ length: Math.max(0, Math.min(2026, c.year - 1) - 2010) }, (_, i) => i + 2011) };
   c.week = Math.floor((utcTime(start) - Date.UTC(c.year, 0, 1)) / 604800000) + 1;
   c.points = 0; c.qualified = c.year === 2011;
@@ -126,6 +136,8 @@ export function tournamentEntryBlocker(c: Campaign, event: HistoricalTournament)
   if (!c.calendar) return "Start a historical-calendar campaign to enter this event. Your existing save is retained.";
   if (event.status !== "ready") return event.status === "scheduled" ? "This event is scheduled; its final format and prize distribution are not yet historical results." : `Historical verification pending: ${event.limitations.join(" ")}`;
   if (c.calendar.runs.some(r => r.eventId === event.id)) return "Your team has already entered this tournament.";
+  const practice = c.scrims?.sessions.find(s => s.status === "scheduled" && Date.parse(s.at) < Date.parse(event.end) + DAY && Date.parse(s.at) + (s.bestOf * 1.5 + 0.5) * 3600000 > Date.parse(event.start));
+  if (practice) return `Play or cancel your scheduled scrim vs ${practice.opponent} before entering this tournament.`;
   const commitments = c.calendar.runs.filter(r => r.state === "playing");
   for (const commitment of commitments) {
     const other = tournamentForRun(commitment)!;
@@ -153,6 +165,7 @@ export function tournamentEntryBlocker(c: Campaign, event: HistoricalTournament)
 export function enterHistoricalTournament(current: Campaign, eventId: string, seed = Math.floor(Math.random() * 4294967296)): Campaign {
   const event = tournamentById(eventId);
   if (!event) throw new Error("Unknown historical tournament.");
+  if (current.scrims?.sessions.some(s => s.status === "scheduled" && Date.parse(s.at) < Date.parse(event.start))) throw Error("Play or cancel your earlier scheduled scrim before advancing to this tournament.");
   const blocker = tournamentEntryBlocker(current, event);
   if (blocker) throw new Error(blocker);
   let c = advanceCalendarTo(current, isoTime(Math.max(utcTime(current.calendar!.now), utcTime(event.start))));
@@ -216,14 +229,15 @@ export function withTournamentStrength(run: TournamentRun): TournamentRun {
 }
 
 export function tournamentTeamTemplate(c: Campaign, original: TournamentRun, key: string) {
+  const experience=campaignDraftExperience(c);
   const run = withTournamentStrength(original);
   const team = run.teams.find(t => t.id === key)!;
   return { name: team.name, players: team.roster.map((id, role) => {
     const p = c.players.find(p => p.id === id);
-    return { id, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
+    return { id, heroExperience:experience.get(id)??{}, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
       role, skills: { ...(p?.stats ?? startingAttributes(id)) }, talents: c.talentPlans?.[id] ? normalizeTalentPlan(c.talentPlans[id]) : key === run.managed ? {} : automaticTalents(role), energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
   }), bonus: key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) : 0,
-  patchObserver: key === run.managed ? managedPatchObserver(c) : { teamKey: key, staffIds: oppositionStaff(key) },
+  patchObserver: key === run.managed ? managedPatchObserver(c, run.patchId ?? patchAtDate(tournamentForRun(run)!.start).id) : { teamKey: key, staffIds: oppositionStaff(key) },
   form: lineupFormResults(c.calendar?.runs.filter(other => other.eventId !== run.eventId) ?? [], team.roster) };
 }
 
@@ -242,10 +256,10 @@ export function tournamentBattleConfig(c: Campaign, original: TournamentRun, fix
   const players: BattleConfig["players"] = [playerRows(0), playerRows(1)];
   const bonus = (side: number) => templates[side].bonus + tournamentCombatBonus(run, teamData[side], fixture.at, templates[side].form);
   const through = Math.max(2010, ...c.calendar!.shuffledYears);
-  return { seed: run.seed ^ hashSeed(fixture.id), year: event.year, heroPoolThroughYear: Math.min(2026, through), patchId: run.patchId ?? patchAtDate(event.start).id,
+  return withDraftKnowledge(c, { seed: run.seed ^ hashSeed(fixture.id), year: event.year, heroPoolThroughYear: Math.min(2026, through), patchId: run.patchId ?? patchAtDate(event.start).id,
     teams: [teamData[0].name, teamData[1].name], players, bonuses: [bonus(0), bonus(1)],
     patchObservers: [templates[0].patchObserver, templates[1].patchObserver],
-    seriesFormat: { bestOf: fixture.bestOf, ...(fixture.advantage ? { advantage: reverse ? [fixture.advantage[1], fixture.advantage[0]] : fixture.advantage } : {}) } };
+    seriesFormat: { bestOf: fixture.bestOf, ...(fixture.advantage ? { advantage: reverse ? [fixture.advantage[1], fixture.advantage[0]] : fixture.advantage } : {}) } }, keys.includes(run.managed) ? keys.indexOf(run.managed) as 0|1 : null);
 }
 
 export function commitTournamentRun(current: Campaign, run: TournamentRun): Campaign {

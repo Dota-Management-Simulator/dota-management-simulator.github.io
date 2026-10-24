@@ -115,7 +115,7 @@ test("dated jumps and individual weeks develop the same world, including after i
   const jumped = advanceCalendarTo(start, stepped.calendar!.now);
   assert.deepEqual(jumped.players, stepped.players);
   assert.equal(jumped.cash, stepped.cash);
-  const partial = advanceCalendarTo(start, "2011-08-23T12:00:00Z");
+  const partial = advanceCalendarTo(start, new Date(Date.parse(start.calendar!.origin) + 6 * 86400000).toISOString());
   for (const p of start.players) assert.deepEqual(partial.players.find(other => other.id === p.id)!.stats, p.stats);
   const week = advanceWeek(start);
   assert.deepEqual(advanceCalendarTo(partial, week.calendar!.now).players, week.players);

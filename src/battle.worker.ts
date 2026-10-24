@@ -1,7 +1,15 @@
 import { simulateSeries } from "./battle";
 import type { BattleConfig } from "./battle";
-self.onmessage = (event: MessageEvent<BattleConfig>) => {
+import { LiveBattleSession } from "./live-battle";
+import type { LiveRequest } from "./live-battle";
+let session:LiveBattleSession|undefined;
+self.onmessage = (event: MessageEvent<BattleConfig | LiveRequest>) => {
   try {
+    if("type" in event.data){
+      if(event.data.type==="start-live"){session=new LiveBattleSession(event.data.config);self.postMessage(session.update());}
+      else {if(!session)throw Error("No live map is running");self.postMessage(session.command(event.data));}
+      return;
+    }
     const simulation = simulateSeries(event.data, (games) =>
       self.postMessage({ type: "progress", games }),
     );

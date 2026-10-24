@@ -6,13 +6,15 @@ import { managedSponsorTeam, sponsorBlocker, sponsorMarket, sponsors } from "./s
 import { historicalTournaments, nextTournamentFixture, tournamentById, utcTime } from "./tournaments";
 import type { HistoricalTournament } from "./tournament-types";
 import { CALENDAR_DAY, calendarDay } from "./calendar-layout";
-import { announcedPatches, patchAnnouncement } from "./patch-announcements";
+import { announcedPatches, patchAnnouncement, syncPatchIntroductions } from "./patch-announcements";
 import { campaignPatch } from "./patches";
+import { syncScrims } from "./scrims";
+import { nextScrim } from "./scrim-state";
 
 export type OfficeAction = { kind: "tournament"; eventId: string } | { kind: "player"; playerId: string } | { kind: "page"; page: Page } | { kind: "patch"; patchId: string };
 export interface OfficeMessage {
   id: string; at: string; sender: string; subject: string; body: string;
-  category: "tournaments" | "contracts" | "sponsors" | "club" | "patches";
+  category: "tournaments" | "contracts" | "sponsors" | "club" | "patches" | "scrims";
   action?: OfficeAction; actionLabel?: string; read?: boolean; archived?: boolean;
   createdWeek?: number;
   expired?: { at: string; reason: string };
@@ -77,6 +79,12 @@ function messageWeek(c: Campaign, message: OfficeMessage): number {
 
 /** Evaluate real club state, including notices saved before expiry metadata existed. */
 export function messageExpiryReason(c: Campaign, message: OfficeMessage): string | null {
+  if (message.category === "scrims") {
+    const s = c.scrims?.sessions.find(s => message.id === `scrim-request:${s.id}` || message.id === `scrim-due:${s.id}`);
+    if (!s || !["requested", "scheduled"].includes(s.status)) return "This scrim has been handled or its request has expired.";
+    if (message.id.startsWith("scrim-request:") && s.status !== "requested") return "This request has been handled.";
+    return null;
+  }
   // Patch announcements remain readable and link to their own historical notes.
   if (message.category === "patches") return null;
   const week = campaignWeek(c);
@@ -133,7 +141,8 @@ export function messageExpiryReason(c: Campaign, message: OfficeMessage): string
     if (invitation && c.office?.registrations[event.id]?.status === "reserved") return "You have accepted this invitation and reserved your place.";
     if (registration && c.office?.registrations[event.id]?.status !== "reserved") return "There is no longer an active reservation for this event.";
     const planning = { ...c, calendar: { ...c.calendar, runs: c.calendar.runs.filter(r => r.state === "complete") } };
-    return tournamentEntryBlocker(planning, event);
+    const reason = tournamentEntryBlocker(planning, event);
+    return reason?.includes("scheduled scrim") ? null : reason;
   }
   const result = /^result:(.*):(\d+)$/.exec(message.id);
   if (result && message.action?.kind === "tournament" && message.action.eventId !== result[1]) {
@@ -153,6 +162,8 @@ export function advanceManagerWeek(current: Campaign): Campaign {
   const now = utcTime(c.calendar.now);
   const planning = { ...c, calendar: { ...c.calendar, runs: c.calendar.runs.filter(r => r.state === "complete") } };
   let target = now + 7 * CALENDAR_DAY;
+  const scrim = nextScrim(c);
+  if (scrim) target = Math.min(target, Math.max(now, Date.parse(scrim.at)));
   for (const event of historicalTournaments) {
     const registration = c.office?.registrations[event.id];
     const hasInvitation = c.office?.messages.some(m => m.id === `invitation:${event.id}` && !m.expired);
@@ -170,6 +181,8 @@ export function advanceManagerWeek(current: Campaign): Campaign {
 
 /** Idempotent reconciliation: transitions and reloads create each notice only once. */
 export function syncOffice(current: Campaign): Campaign {
+  current = syncScrims(current);
+  current = syncPatchIntroductions(current);
   const previous = current.office;
   const office = previous ? structuredClone(previous) : emptyOffice();
   const next = { ...current, office };
@@ -184,6 +197,12 @@ export function syncOffice(current: Campaign): Campaign {
     }
     seen.add(message.id); office.seen.push(message.id); office.messages.unshift({ ...message, at, createdWeek: week });
   };
+  for (const s of current.scrims?.sessions ?? []) {
+    if (s.status === "requested") add({ id: `scrim-request:${s.id}`, category: "scrims", sender: `${s.opponent} · Practice coordinator`, subject: `Scrim request · BO${s.bestOf} vs ${s.opponent}`,
+      body: `Can we practice on ${s.at.slice(0, 16).replace("T", " ")} UTC? BO${s.bestOf}, with a ${s.bestOf === 2 ? "two-map block (a draw is possible)" : "best-of series"}. Choose a focus and accept or decline in Scrims. This fictional campaign request expires at its scheduled start.`, action: { kind: "page", page: "scrims" }, actionLabel: "Review scrim request" });
+    if (s.status === "scheduled") add({ id: `scrim-due:${s.id}`, category: "scrims", sender: "Practice coordinator", subject: `Scheduled scrim · ${s.opponent}`,
+      body: `BO${s.bestOf} on ${s.at.slice(0, 16).replace("T", " ")} UTC. Continue stops at the session. Prepare drafts, try calls and item builds, then review private training and hero observations. Cancel in Scrims if you need recovery or tournament dates.`, action: { kind: "page", page: "scrims" }, actionLabel: "Open scheduled scrim" });
+  }
   add({ id: "office-welcome", sender: "Club secretary", subject: "Your manager's inbox is ready", category: "club",
     body: "Tournament invitations, registration reminders, player terms and sponsor updates arrive here. Opening a message marks it read. Every action links back to your club's actual agreements and event entry rules." });
   for (const patch of announcedPatches(current, office.lastPatchId)) add({

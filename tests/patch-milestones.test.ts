@@ -33,7 +33,7 @@ test("opening patch notes account for all annual arrivals and pinned earlier dra
     for(const char of JSON.stringify([p.id,p.axes,p.heroBalance?.map(h=>[h.id,h.targetWinRate,h.priority])])) hash=Math.imul(hash^char.charCodeAt(0),16777619);
     return (hash>>>0).toString(16);
   };
-  assert.equal(heroBalanceSignature(patchForSeason(2016,1)),legacySignature(2016));
+  assert.notEqual(heroBalanceSignature(patchForSeason(2016,1)),legacySignature(2016)); // Historical roles now change every era's benchmark.
   assert.notEqual(heroBalanceSignature(patchForSeason(2017,1)),legacySignature(2017));
   assert.notEqual(heroBalanceSignature(patchForSeason(2023,1)),legacySignature(2023));
 });
@@ -124,7 +124,7 @@ test("managed and AI tournament workers share talents, hero gates and milestone 
   const templates=Object.fromEntries(run.teams.map(team=>[team.id,tournamentTeamTemplate(c,run,team.id)]));
   const batch=simulateOtherTournamentMatches({run,templates,year:2011,heroPoolThroughYear:2010,through:fixture.at});
   const direct=simulateSeries({...cfg,captureReplay:false});
-  assert.deepEqual(batch.matches[0].performance?.games,direct.summary.games.map(({winner,duration,kills,players})=>({winner,duration,kills,players})));
+  assert.deepEqual(batch.matches[0].performance?.games,direct.summary.games.map(({winner,duration,kills,players,draft})=>({winner,duration,kills,players,...(draft?{draft}:{})})));
   assert.equal(direct.summary.mapLayout,"frontiers");
   assert.ok(templates[run.managed].players[0].talents);
 });

@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
+  ClipboardList,
   Coins,
   Crosshair,
   Flame,
@@ -72,13 +73,16 @@ import type {
   Training,
   Result,
 } from "./game";
-import { ComputingMatch, MatchViewer, SeriesResults } from "./MatchExperience";
+import { SeriesResults } from "./MatchExperience";
+import DraftSeries from "./DraftSeries";
 import type { SimulatedSeries } from "./battle";
 import PatchMeta from "./PatchMeta";
 import PatchArrival from "./PatchArrival";
+import { dismissPatchIntroduction } from "./patch-announcements";
 import PlayerTalents from "./PlayerTalents";
 import StaffOffice from "./StaffOffice";
 import WorldTeams from "./WorldTeams";
+import NextSeriesScouting from "./TeamScouting";
 import TeamBadge from "./TeamBadge";
 import Avatar, { PortraitCredit } from "./PlayerAvatar";
 import ContractNegotiation from "./ContractNegotiation";
@@ -87,7 +91,9 @@ import HistoricalCalendar, { TournamentHistory } from "./HistoricalCalendar";
 import ManagerInbox from "./ManagerInbox";
 import { advanceManagerWeek, syncOffice, unreadMessages } from "./office";
 import type { OfficeAction } from "./office";
-import { enableHistoricalCalendar, nextTournamentCommitment } from "./historical-game";
+import { enableHistoricalCalendar, historicalCampaignStart, nextTournamentCommitment } from "./historical-game";
+import Heroes from "./HeroDirectory";
+import ScrimOffice from "./ScrimOffice";
 import { formatDate } from "./tournaments";
 import { weeklyPractice } from "./contracts";
 import { teamIdForName } from "./team-logos";
@@ -121,7 +127,9 @@ const navigation: {
   { page: "roster", label: "Squad", icon: Users },
   { page: "inbox", label: "Inbox", icon: Mail },
   { page: "training", label: "Training", icon: Crosshair },
-  { page: "scouting", label: "Scouting", icon: Search },
+  { page: "scrims", label: "Scrims", icon: CalendarDays },
+  { page: "scouting", label: "Player scouting", icon: Search },
+  { page: "next-series", label: "Scout your next series", icon: ClipboardList },
   { page: "staff", label: "Staff", icon: UserRound },
   {
     page: "standings",
@@ -131,7 +139,8 @@ const navigation: {
   },
   { page: "calendar", label: "Season calendar", icon: CalendarDays },
   { page: "patch", label: "Patch & meta", icon: Sparkles },
-  { page: "world", label: "World teams", icon: Globe2 },
+  { page: "heroes", label: "Heroes", icon: Shield },
+  { page: "world", label: "Teams", icon: Globe2 },
   { page: "history", label: "Season history", icon: Trophy },
   {
     page: "finances",
@@ -144,6 +153,21 @@ const pageText: Record<
   Page,
   { eyebrow: string; title: string; description: string }
 > = {
+  scrims: {
+    eyebrow: "PRACTICE & DISCOVERY",
+    title: "Make room to experiment.",
+    description: "Schedule team scrims, develop your players and build confidence in your hero reads.",
+  },
+  heroes: {
+    eyebrow: "UNDERSTAND THE GAME",
+    title: "Find your next draft pick.",
+    description: "Browse your available heroes and compare your team's estimated strength ranges.",
+  },
+  "next-series": {
+    eyebrow: "MATCH PREPARATION",
+    title: "Know your next opponent.",
+    description: "Scout the lineup, review campaign form and prepare your draft with your staff.",
+  },
   standings: {
     eyebrow: "THE COMPETITION",
     title: "The road to the Aegis.",
@@ -210,7 +234,7 @@ const pageText: Record<
   world: {
     eyebrow: "THE HISTORICAL WORLD",
     title: "The teams around you.",
-    description: "Follow every club's lineup as recruitment and the post-TI shuffle reshape the scene.",
+    description: "Browse team profiles, review their lineups and results, and scout the competition with your staff.",
   },
 };
 function Icon({
@@ -310,11 +334,8 @@ export default function App() {
   const [player, setPlayer] = useState<Player | null>(null);
   const [event, setEvent] = useState<GameEvent | null>(null);
   const [simulating, setSimulating] = useState(false);
-  const [progress, setProgress] = useState(0);
   const [simDone, setSimDone] = useState(false);
-  const [pendingSimulation, setPendingSimulation] =
-    useState<SimulatedSeries | null>(null);
-  const [workerError, setWorkerError] = useState("");
+  const [draftConfig,setDraftConfig]=useState<ReturnType<typeof buildBattleConfig>|null>(null);
   const [viewResult, setViewResult] = useState<Result | null>(null);
   const [help, setHelp] = useState(false);
   const [preferences, setPreferences] = useState(false);
@@ -326,8 +347,6 @@ export default function App() {
   const [patchTarget, setPatchTarget] = useState<string>();
   const [filter, setFilter] = useState("");
   const [roleFilter, setRoleFilter] = useState("All roles");
-  const workerRef = useRef<Worker | null>(null);
-  const skipRequested = useRef(false);
   const settled = useRef(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const notify = (message: string) => setToast(message);
@@ -370,12 +389,6 @@ export default function App() {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [setup, page]);
-  useEffect(
-    () => () => {
-      workerRef.current?.terminate();
-    },
-    [],
-  );
   const modalOpen = !!(
     player ||
     event ||
@@ -428,7 +441,7 @@ export default function App() {
       document.body.style.overflow = previousOverflow;
       previouslyFocused?.focus();
     };
-  }, [modalOpen, simulating, !!pendingSimulation, simDone, viewResult]);
+  }, [modalOpen, simulating, simDone, viewResult]);
   const go = (p: Page) => {
     if (!campaign || setup) return;
     if (p === "calendar") setCalendarTarget(undefined);
@@ -464,65 +477,20 @@ export default function App() {
   const openEvent = (e: GameEvent) => {
     setEvent(e);
     setSimDone(false);
-    setProgress(0);
-    setPendingSimulation(null);
-    setWorkerError("");
+    setDraftConfig(null);
     settled.current = false;
-    skipRequested.current = false;
   };
   const finishSimulation = (simulation: SimulatedSeries) => {
     if (!event || settled.current) return;
     settled.current = true;
     update((c) => settleEvent(c, event, simulation.summary));
-    setPendingSimulation(null);
-    setProgress(100);
     setSimulating(false);
     setSimDone(true);
   };
   const runSimulation = () => {
     if (!event || !campaign || simulating) return;
-    setSimulating(true);
-    setProgress(0);
-    setWorkerError("");
-    skipRequested.current = false;
-    settled.current = false;
-    try {
-      const worker = new Worker(
-        new URL("./battle.worker.ts", import.meta.url),
-        { type: "module" },
-      );
-      workerRef.current = worker;
-      const fail = (message: string) => {
-        worker.terminate();
-        workerRef.current = null;
-        setSimulating(false);
-        setWorkerError(message);
-      };
-      worker.onmessage = ({ data: message }) => {
-        if (workerRef.current !== worker) return;
-        if (message.type === "progress") setProgress((message.games / 3) * 100);
-        else if (message.type === "complete") {
-          worker.terminate();
-          workerRef.current = null;
-          if (skipRequested.current) finishSimulation(message.simulation);
-          else setPendingSimulation(message.simulation);
-        } else if (message.type === "error") fail(message.message);
-      };
-      worker.onerror = (error) => {
-        error.preventDefault();
-        fail(
-          "The match worker could not finish. Your campaign has not changed.",
-        );
-      };
-      worker.postMessage(
-        buildBattleConfig(prepareEvent(campaign, event), event),
-      );
-    } catch {
-      setSimulating(false);
-      setWorkerError(
-        "This browser could not start the match worker. Your campaign has not changed.",
-      );
-    }
+    settled.current=false; setSimulating(true);
+    setDraftConfig(buildBattleConfig(prepareEvent(campaign,event),event));
   };
   const advance = () => {
     if (campaign?.calendar) {
@@ -547,6 +515,7 @@ export default function App() {
   const continueCampaign = () => {
     if (!continueAction || calendarBusy || simulating) return;
     if (continueAction.kind === "tournament") inboxAction({ kind: "tournament", eventId: continueAction.eventId });
+    else if (continueAction.kind === "scrim") go("scrims");
     else if (continueAction.kind === "legacy-event") openEvent(continueAction.event);
     else advance();
   };
@@ -576,8 +545,8 @@ export default function App() {
         <div className="nav-scrim" onClick={() => setMobileMenu(false)} />
       )}
       {campaign && !setup && <PatchArrival campaign={campaign} busy={modalOpen || calendarBusy || simulating}
-        onDismiss={id => update(c => ({ ...c, seenPatchMilestones: [...new Set([...(c.seenPatchMilestones ?? []), id])] }))}
-        onRead={() => go("patch")} />}
+        onDismiss={id => update(c => dismissPatchIntroduction(c, id))}
+        onRead={id => { go("patch"); setPatchTarget(id); }} />}
       <aside className={`sidebar ${mobileMenu ? "open" : ""}`}>
         <a
           className="brand"
@@ -837,7 +806,7 @@ export default function App() {
                       <span>2011 — 2026</span>
                     </div>
                     <p className="field-note">
-                      {settings.year === 2011 ? "Start at TI1. Regional players and 18 more heroes arrive after TI." : `Start with completed shuffles through ${rosterYearForStart(settings.year)}.`} Annual player and hero batches enter at the post-TI shuffle through 2026. Historical events use sourced formats, dates and placement prizes; gameplay ratings remain estimates.
+                      Start on {formatDate(historicalCampaignStart(settings.year))}, {historicalCampaignStart(settings.year).slice(5, 10) === "01-01" ? "with the dated calendar (no TI opening is catalogued for this year)" : "one month before TI to train and prepare"}. {settings.year === 2011 ? "Regional players and 18 more heroes arrive after TI." : `Completed shuffles through ${rosterYearForStart(settings.year)} are included.`} Annual player and hero batches enter at the post-TI shuffle through 2026. Historical events use sourced formats, dates and placement prizes; gameplay ratings remain estimates.
                     </p>
                   </section>
                   <section className="panel setup-section">
@@ -1125,6 +1094,7 @@ export default function App() {
                   </>
                 )}
                 {page === "inbox" && <ManagerInbox campaign={campaign} onChange={setCampaign} onAction={inboxAction} />}
+                {page === "scrims" && <ScrimOffice campaign={campaign} onChange={setCampaign} onBusy={setCalendarBusy} onCalendar={() => go("calendar")} />}
                 {page === "calendar" && (campaign.calendar ? <HistoricalCalendar campaign={campaign} onChange={setCampaign} onHistory={setViewResult} focusEventId={calendarTarget} focusRequest={calendarRequest} onBusyChange={setCalendarBusy} /> : (
                   <>
                     <section className="panel calendar-board">
@@ -1236,8 +1206,13 @@ export default function App() {
                     </div>
                   </>
                 ))}
+                {page === "heroes" && <Heroes campaign={campaign} onStaff={() => go("staff")} onPatch={() => go("patch")} />}
                 {page === "patch" && <PatchMeta key={patchTarget ?? "current"} initialPatchId={patchTarget} campaign={campaign} onStaff={() => go("staff")} onPlayer={id => setPlayer(campaign.players.find(p => p.id === id) ?? null)} />}
-                {page === "world" && <WorldTeams campaign={campaign} onPlayer={setPlayer} />}
+                {page === "world" && <WorldTeams campaign={campaign} onPlayer={setPlayer}
+                  onStaff={() => go("staff")} onPreparation={draftPreparation => update(c => ({...c, draftPreparation}))} />}
+                {page === "next-series" && <NextSeriesScouting campaign={campaign} onPlayer={setPlayer}
+                  onStaff={() => go("staff")} onTeams={() => go("world")} onCalendar={() => go("calendar")}
+                  onPreparation={draftPreparation => update(c => ({...c, draftPreparation}))} />}
                 {page === "scouting" && (
                   <>
                     <div className="filter-bar">
@@ -1571,7 +1546,7 @@ export default function App() {
           }}
         >
           <div
-            className={`modal ${currentPlayer ? "profile-modal" : viewResult || (event && (pendingSimulation || simDone)) ? "match-modal" : ""}`}
+            className={`modal ${currentPlayer ? "profile-modal" : viewResult || (event && (draftConfig || simDone)) ? "match-modal" : ""}`}
             role="dialog"
             aria-modal="true"
             aria-labelledby="modal-title"
@@ -1691,28 +1666,13 @@ export default function App() {
                     go("history");
                   }}
                 />
-              ) : pendingSimulation ? (
-                <MatchViewer
-                  simulation={pendingSimulation}
-                  year={campaign.year}
+              ) : draftConfig ? (
+                <DraftSeries campaign={campaign} config={draftConfig} preparation={campaign.draftPreparation}
                   managedTeamId={campaign.world?.managedTeamId}
-                  onFinish={() => finishSimulation(pendingSimulation)}
-                />
-              ) : simulating || workerError ? (
-                <ComputingMatch
-                  progress={progress}
-                  error={workerError}
-                  onSkip={() => {
-                    skipRequested.current = true;
-                    notify(
-                      "Playback will be skipped. Waiting for the lane engine to finish.",
-                    );
-                  }}
-                  onCancel={() => {
-                    setWorkerError("");
-                    setEvent(null);
-                  }}
-                />
+                  onPreparation={draftPreparation=>update(c=>({...c,draftPreparation}))}
+                  onTactics={tacticalPreparation=>update(c=>({...c,tacticalPreparation}))}
+                  onCancel={()=>{setDraftConfig(null);setSimulating(false);}}
+                  onComplete={simulation=>{setDraftConfig(null);finishSimulation(simulation);}}/>
               ) : (
                 <div className="simulation-content">
                   <div className="event-emblem large">

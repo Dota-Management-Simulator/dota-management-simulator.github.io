@@ -119,7 +119,7 @@ test("AI tournament games retain compact career stats without timelines and cann
   assert.ok(saved.performance);
   assert.equal(saved.performance.games.length, played.games.length);
   for (const g of saved.performance.games) {
-    assert.deepEqual(Object.keys(g).sort(), ["duration", "kills", "players", "winner"]);
+    assert.deepEqual(Object.keys(g).sort(), ["draft", "duration", "kills", "players", "winner"]);
     assert.ok(!("timeline" in g));
     assert.ok(!("frames" in g));
   }

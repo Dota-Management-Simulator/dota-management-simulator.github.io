@@ -173,7 +173,7 @@ test("both tournament workers share each team's scoped research on the event's p
   const cfg = tournamentBattleConfig(c, run, fixture, false);
   const batch = simulateOtherTournamentMatches({ run, templates, year: 2011, heroPoolThroughYear: 2010, through: fixture.at });
   const direct = simulateSeries({ ...cfg, captureReplay: false });
-  assert.deepEqual(batch.matches[0].performance!.games, direct.summary.games.map(({ winner, duration, kills, players }) => ({ winner, duration, kills, players })));
+  assert.deepEqual(batch.matches[0].performance!.games, direct.summary.games.map(({ winner, duration, kills, players, draft }) => ({ winner, duration, kills, players, ...(draft?{draft}:{}) })));
   const later = { ...c, calendar: { ...c.calendar!, now: "2012-06-01T00:00:00Z" } };
   assert.deepEqual(tournamentBattleConfig(later, run, fixture).patchObservers, cfg.patchObservers);
   assert.equal(tournamentBattleConfig(later, run, fixture).patchId, run.patchId);

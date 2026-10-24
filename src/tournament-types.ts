@@ -4,7 +4,7 @@ import type { GameSummary, SeriesSummary } from "./battle";
 export interface TournamentPerformance {
   teams: SeriesSummary["teams"];
   patch?: SeriesSummary["patch"];
-  games: Pick<GameSummary, "winner" | "duration" | "kills" | "players">[];
+  games: Pick<GameSummary, "winner" | "duration" | "kills" | "players" | "draft">[];
 }
 
 export type TournamentSlot =

@@ -45,6 +45,7 @@ test("migration announces current rules only; jumps preserve both phases, milest
   assert.equal(next.week, 17);
   assert.ok(next.office!.messages.some(m => m.id === "patch:2012.1"));
   const modern = enableHistoricalCalendar(createCampaign({ ...DEFAULT_SETTINGS, year: 2023 }));
+  modern.calendar!.now = "2023-01-01T00:00:00Z"; // Test first-phase migration explicitly.
   const notice = syncOffice(modern).office!.messages.find(m => m.id === "patch:2023.1")!;
   assert.match(notice.body, /7.33.*New Frontiers/s);
   assert.match(notice.body, /official trailer/);

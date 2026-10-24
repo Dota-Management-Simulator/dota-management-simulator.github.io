@@ -7,7 +7,12 @@ import { historicalTournaments, nextTournamentFixture } from "../src/tournaments
 import { managerCompetition, managerContinue } from "../src/manager-view";
 
 const ti1 = historicalTournaments.find(event => event.kind === "ti" && event.year === 2011)!;
-const dated = () => syncOffice(enableHistoricalCalendar(createCampaign(DEFAULT_SETTINGS)));
+// Due-opening tests deliberately start on TI day; new-game preparation is tested separately.
+const dated = () => {
+  const c = enableHistoricalCalendar(createCampaign(DEFAULT_SETTINGS));
+  c.calendar!.now = "2011-08-17T00:00:00Z";
+  return syncOffice(c);
+};
 
 test("Continue reflects due invitations even when read or archived, without changing the save", () => {
   let c = dated();

@@ -2,6 +2,8 @@
 
 Implemented locally, October 23, 2026. Not published.
 
+Staff also support opponent scouting and draft preparation through **Scout your next series**, **Teams** profiles and the pre-map draft screen. Tactical roles add specialist insights from completed public campaign maps and a legal plan the manager can apply. The therapist keeps recovery duties. See [team scouting and preparation](team-scouting.md) for coverage, evidence and limits.
+
 Each patch has fixed, shared underlying axis values and favored-hero power. Teams receive incomplete information about those values. Research changes decisions, not the balance itself. Staff identities, specialties, salaries and AI staffing are fictional gameplay rules.
 
 ## Your report

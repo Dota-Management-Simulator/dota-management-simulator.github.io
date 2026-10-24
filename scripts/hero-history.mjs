@@ -12,10 +12,47 @@ export function parseHeroSnapshot(source, catalog) {
     return { id, played: Number(played), wins: Number(wins), losses: Number(losses) };
   });
 }
-export function buildHeroBalance(patch, catalog, cache) {
+export function selectMetaSource(patchId, sources = []) {
+  // Never carry strength through a different composite. A substantial complete
+  // pick/ban sample is preferred; tiny cached fragments do not replace TI data.
+  const samePhase = sources.filter(s => s.patchId === patchId && s.matches >= 80);
+  return samePhase.sort((a, b) => Number(!!b.representativeEvent) - Number(!!a.representativeEvent) || Number(b.completeBans) - Number(a.completeBans) || b.matches - a.matches)[0];
+}
+
+export function buildHeroBalance(patch, catalog, cache, meta = { sources: [] }) {
   const source = cache.sources.find(s => s.patchId === patch.id);
   const sample = source ? parseHeroSnapshot(source, catalog) : [];
   const eligible = catalog.filter(h => h.releasedYear == null || h.releasedYear < patch.year);
+  const tracked = selectMetaSource(patch.id, meta.sources);
+  if (tracked) {
+    const counts = eligible.map(h => tracked.rows.find(row => row.id === h.id) ?? { id: h.id, picks: 0, bans: tracked.completeBans ? 0 : null, wins: 0, winSample: 0 });
+    const demand = counts.map(h => h.picks + (h.bans ?? 0));
+    const rows = eligible.map((hero, index) => {
+      const h = counts[index];
+      // Tied demand gets a shared mid-rank. A high-ban/low-pick hero can be
+      // meta-defining, while a 3–0 niche pick cannot dominate on raw win rate.
+      const percentile = (demand.filter(n => n < demand[index]).length + demand.filter(n => n === demand[index]).length / 2) / demand.length;
+      const demandSignal = 8 * (percentile * demand[index] / (demand[index] + 12) - .5);
+      const result = ((h.wins + 20) / (h.winSample + 40) * 100 - 50) * .5;
+      const evidenceWeight = tracked.matches / (tracked.matches + 40);
+      const targetWinRate = Math.round(Math.min(58, Math.max(42, 50 + evidenceWeight * (demandSignal + Math.min(4, Math.max(-4, result)))))*100)/100;
+      const legacy = sample.find(row => row.id === hero.id);
+      return { id: hero.id, targetWinRate,
+        priority: Math.round(Math.max(0, targetWinRate - 50) * 100) / 100,
+        basis: tracked.completeBans ? 'observed-pro-meta' : 'observed-event-picks',
+        meta: { picks: h.picks, bans: h.bans, matches: tracked.matches, winSample: h.winSample, wins: h.wins,
+          rawWinRate: h.winSample ? Math.round(h.wins / h.winSample * 10000) / 100 : null,
+          pickRate: Math.round(h.picks / tracked.matches * 10000) / 100,
+          contestRate: tracked.completeBans ? Math.round((h.picks + h.bans) / tracked.matches * 10000) / 100 : null,
+          sourceUrl: tracked.url, sourceLabel: tracked.label, sourceKey: tracked.key },
+        // Preserve the earlier raw snapshots independently, even where their
+        // coverage differs from the new event/patch evidence.
+        ...(legacy ? { observed: { ...legacy, rawWinRate: Math.round(legacy.wins / legacy.played * 10000) / 100, sourceUrl: source.url } } : {}) };
+    });
+    return { rows, source: { label: tracked.label, url: tracked.url, from: tracked.from ?? null, through: tracked.through ?? null,
+      note: `${tracked.note} Internal 42–58% targets blend relative field demand and sample-shrunk results; they are game estimates, not observed win rates.`,
+      matches: tracked.matches, bansAvailable: tracked.completeBans, population: tracked.population } };
+  }
   const rows = eligible.map(hero => {
     const rank = patch.heroes.findIndex(h => h.id === hero.id);
     const a = patch.axes;

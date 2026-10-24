@@ -22,14 +22,20 @@ import type { ScoreboardGame, ScoreboardResult } from "./scoreboards";
 import { heroById } from "./heroes";
 import { heroIconFor } from "./hero-icons";
 import TeamBadge from "./TeamBadge";
+import { DraftRecordView } from "./DraftRecord";
 import { teamIdForName } from "./team-logos";
 import { frontierBounds, frontierMargin, frontierSize } from "./battle-map";
 import { talentTiers } from "./talents";
+import ItemInventory from "./ItemInventory";
+import { itemById } from "./items";
+import { strategyById } from "./tactics";
+import { patchById } from "./patches";
+import "./tactics.css";
 
 const COLORS = ["#c8b16f", "#9da6e2"];
 const compact = (n: number) =>
   Math.abs(n) >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
-function HeroToken({ score }: { score: PlayerScore }) {
+export function HeroToken({ score }: { score: PlayerScore }) {
   const hero = heroById(score.heroId);
   const icon = heroIconFor(score.heroId);
   const [failedPath, setFailedPath] = useState<string>();
@@ -88,10 +94,12 @@ function ResourceGraph({
     top = 16,
     bottom = 26;
   const maxTime = timeline.at(-1)?.time || 1;
+  const wealth = resource === "gold" && timeline.some(p=>p.netWorth);
+  const values = (p:ResourcePoint) => wealth ? p.netWorth ?? p.gold : p[resource];
   const maxValue =
     Math.max(
       1000,
-      ...timeline.map((p) => Math.abs(p[resource][0] - p[resource][1])),
+      ...timeline.map((p) => Math.abs(values(p)[0] - values(p)[1])),
     ) * 1.1;
   const x = (time: number) => left + (time / maxTime) * (width - left - right);
   const y = (value: number) =>
@@ -99,16 +107,16 @@ function ResourceGraph({
   const line = timeline
     .map(
       (p, i) =>
-        `${i ? "L" : "M"}${x(p.time).toFixed(1)},${y(p[resource][0] - p[resource][1]).toFixed(1)}`,
+        `${i ? "L" : "M"}${x(p.time).toFixed(1)},${y(values(p)[0] - values(p)[1]).toFixed(1)}`,
     )
     .join(" ");
   const fill = `${line} L${x(maxTime)},${y(0)} L${x(0)},${y(0)} Z`;
   const selected = hover === null ? timeline.at(-1) : timeline[hover];
   const advantage = selected
-    ? selected[resource][0] - selected[resource][1]
+    ? values(selected)[0] - values(selected)[1]
     : 0;
   const color = resource === "gold" ? "#cbb06d" : "#94abd5";
-  const label = resource === "gold" ? "Gold advantage" : "XP advantage";
+  const label = resource === "gold" ? wealth ? "Net worth advantage" : "Gold advantage" : "XP advantage";
   return (
     <section className="resource-chart">
       <div className="chart-heading">
@@ -220,11 +228,11 @@ function ResourceGraph({
         <div className="chart-totals">
           <span>
             <i style={{ background: COLORS[0] }} />
-            {teams[0]} <b>{compact(selected[resource][0])}</b>
+            {teams[0]} <b>{compact(values(selected)[0])}</b>
           </span>
           <span>
             <i style={{ background: COLORS[1] }} />
-            {teams[1]} <b>{compact(selected[resource][1])}</b>
+            {teams[1]} <b>{compact(values(selected)[1])}</b>
           </span>
         </div>
       )}
@@ -313,6 +321,7 @@ export function SeriesResults({
   closeLabel = "Back to management",
   perspective = 0,
   teamIds,
+  mapOnly = false,
 }: {
   result: ScoreboardResult;
   onClose: () => void;
@@ -320,6 +329,7 @@ export function SeriesResults({
   closeLabel?: string;
   perspective?: 0 | 1 | null;
   teamIds?: [string | undefined, string | undefined];
+  mapOnly?: boolean;
 }) {
   const [selected, setSelected] = useState(0);
   const heading = useRef<HTMLHeadingElement>(null);
@@ -350,7 +360,7 @@ export function SeriesResults({
           {result.event} · {result.year} · BEST OF {series.bestOf ?? 3}
         </div>
         <h2 id="modal-title" ref={heading} tabIndex={-1}>
-          {drawn ? "The series ends level." : neutral ? `${series.teams[series.winner!]} win the series.` : result.won ? "A series to remember." : "A lesson for the next one."}
+          {mapOnly ? `${series.teams[series.winner!]} win the map.` : drawn ? "The series ends level." : neutral ? `${series.teams[series.winner!]} win the series.` : result.won ? "A series to remember." : "A lesson for the next one."}
         </h2>
         {series.patch && <p className="patch-match-label">Patch {series.patch.id} · {series.patch.name} · {series.patch.versions}</p>}
         <div className="series-scoreline">
@@ -364,7 +374,7 @@ export function SeriesResults({
           className={`series-outcome ${neutral || drawn || result.won ? "series-victory" : "series-defeat"}`}
         >
           <Trophy size={14} />
-          {drawn ? "SERIES DRAW" : neutral ? "SERIES COMPLETE" : result.won ? "SERIES VICTORY" : "SERIES DEFEAT"}
+          {mapOnly ? neutral ? "MAP COMPLETE" : result.won ? "MAP VICTORY" : "MAP DEFEAT" : drawn ? "SERIES DRAW" : neutral ? "SERIES COMPLETE" : result.won ? "SERIES VICTORY" : "SERIES DEFEAT"}
           <span>
             {result.prize > 0 && `+$${result.prize.toLocaleString()}`}{result.points > 0 && ` · +${result.points} points`}
           </span>
@@ -401,7 +411,13 @@ export function SeriesResults({
         </span>}
         {game.ancientHealth && <span>Ancient destroyed{game.overtime ? " · Overtime siege" : ""}</span>}
       </div>
+      {game.draft&&<DraftRecordView draft={game.draft} teams={series.teams}/>}
       <Scoreboard game={game} teams={series.teams} />
+      {game.players.some(p=>p.inventory)&&<details className="match-item-history" open><summary>Final inventories & item purchases</summary>
+        {game.players.map(p=><div className="live-inventory-row" key={p.id}><strong>{p.player} · {p.hero}</strong><ItemInventory player={p} patch={patchById(series.patch?.id)} time={game.duration} showNext/></div>)}
+        {!!game.itemEvents?.length&&<details><summary>Purchase, sale and Rapier history · {game.itemEvents.length}</summary><ol>{game.itemEvents.map((e,i)=><li key={i}>{matchClock(e.time)} · {game.players.find(p=>p.id===e.playerId)?.player} · {e.kind} · {itemById(e.item)?.name}{e.gold?` · ${e.gold} gold`:""}</li>)}</ol></details>}
+      </details>}
+      {!!game.tacticalEvents?.length&&<details className="match-item-history"><summary>Tactical decisions · {game.tacticalEvents.length}{game.roshanKills?` · Roshan ${game.roshanKills.join("–")}`:""}</summary><ol>{game.tacticalEvents.map((e,i)=><li key={i}>{matchClock(e.time)} · {series.teams[e.side]} · {strategyById(e.strategyId)?.name} · {e.status} ({e.source}) · {e.message}</li>)}</ol></details>}
       {game.timeline?.length ? <div className="match-graphs" key={selected}>
         <ResourceGraph
           timeline={game.timeline}
@@ -416,9 +432,9 @@ export function SeriesResults({
       </div> : <p className="field-note">Resource timelines were not retained for this simulated match. The scoreboard shows its recorded player statistics.</p>}
       <p className="match-footnote">
         {series.advantage?.some(Boolean) && `The series began ${series.advantage.join("–")} under the tournament's upper-bracket advantage rule. Only played maps have scoreboards. `}
-        {game.timeline?.length ? `Graphs use recorded simulation totals. Positive advantage favors ${series.teams[0]}. ` : ""}
+        {game.timeline?.length ? `Graphs use recorded simulation totals. Positive advantage favors ${series.teams[0]}. ${game.timeline.some(p=>p.netWorth)?"Net worth includes current inventory and unspent gold; the GOLD column retains total earned resources. ":""}` : ""}
         Gold includes starting resources, passive income, farm, kills, and
-        objectives; item power is abstract. Assists count recent damage
+        objectives; {game.players.some(p=>p.inventory)?"inventories use simplified patch-specific item effects":"item power was abstract in this saved match"}. Assists count recent damage
         contributors. Prototype abilities and balance are simplified.
       </p>
       <button className="button primary full" onClick={onClose}>
@@ -428,16 +444,18 @@ export function SeriesResults({
   );
 }
 
-function MapReplay({
+export function MapReplay({
   before,
   after,
   ratio,
   expanded,
+  selectedUnitIds = [],
 }: {
   before: ReplayFrame;
   after: ReplayFrame;
   ratio: number;
   expanded: boolean;
+  selectedUnitIds?: number[];
 }) {
   const nextUnits = new Map(after.units.map((u) => [u.id, u]));
   return (
@@ -501,6 +519,12 @@ function MapReplay({
         <circle r="17" fill="#314331" stroke="#c8b16f" strokeWidth="1.5" />
         <path d="m-8 7 8-16 8 16Z" fill="#c8b16f" />
       </g>)}
+      {before.roshan&&<g transform={`translate(${before.roshan.x},${before.roshan.y})`} opacity={before.roshan.respawnAt>before.time?.3:1}>
+        <title>Roshan · {before.roshan.respawnAt>before.time?`Returns at ${matchClock(before.roshan.respawnAt)}`:`${before.roshan.hp} / ${before.roshan.max} HP`}</title>
+        <circle r="24" fill="#392a24" stroke="#c09a67" strokeWidth="2"/><text y="5" textAnchor="middle" fill="#dec394" fontSize="13">R</text>
+        <rect x="-20" y="-32" width={40*Math.max(0,before.roshan.hp/before.roshan.max)} height="4" fill="#c09a67"/>
+      </g>}
+      {before.droppedItems?.map(drop=><g key={drop.id} transform={`translate(${drop.x},${drop.y})`}><title>Dropped Divine Rapier · either team can recover it</title><path d="m0-12 4 10 8 4-8 3-4 10-4-10-8-3 8-4Z" fill="#f4d476"/></g>)}
       <text
         x="160"
         y="746"
@@ -542,6 +566,7 @@ function MapReplay({
             <title>
               {unit.name} · {Math.max(0, unit.hp)} / {unit.max} HP
             </title>
+            {selectedUnitIds.includes(unit.id)&&!dead&&<circle r="26" fill="none" stroke="#f2d27b" strokeWidth="2" strokeDasharray="4 3"/>}
             {unit.kind === "tower" ? (
               <>
                 <rect

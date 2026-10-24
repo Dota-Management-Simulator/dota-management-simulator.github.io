@@ -12,6 +12,7 @@ Live website: [dota-management-simulator.github.io](https://dota-management-simu
 - `docs/`: design and implementation notes.
 - `reference/`: preserved earlier prototypes, kept separate from the new app.
 - `scripts/deploy-pages.mjs`: publishes the production build to `gh-pages`.
+- `.github/workflows/deploy.yml`: tests, builds and runs the deploy script on every push to `main`.
 
 ## Build and publish
 
@@ -27,7 +28,9 @@ Pages is configured as **Deploy from a branch → gh-pages → / (root)** with H
 
 ## Updating the site
 
-Commit and push source changes to `main`, then run `npm run deploy` from the project directory. The deploy command builds locally and pushes only `dist/` to the explicit organization repository's `gh-pages` branch. It preserves deployment history and does not force-push. It does not require a token with the `workflow` scope or change the parent workspace's Git remote. Git and an authenticated GitHub credential helper must be available.
+Push source changes to `main`. The **Test and deploy** workflow (`.github/workflows/deploy.yml`) runs `npm ci`, `npm test` and `npm run build`, then `scripts/deploy-pages.mjs` pushes only `dist/` to `gh-pages` using the job's `GITHUB_TOKEN`. A failing test or build stops the deploy. Runs are queued one at a time, so two quick pushes never race on `gh-pages`. It can also be started by hand from the Actions tab (`workflow_dispatch`).
+
+`npm run deploy` still deploys manually from this machine. It builds locally and pushes only `dist/` to the explicit organization repository's `gh-pages` branch, preserves deployment history and does not force-push. Git and an authenticated GitHub credential helper must be available. Changing files under `.github/workflows/` needs a credential with the `workflow` scope.
 
 The app runs entirely in the browser, including its simulation worker. Campaign saves and theme choices stay in the browser that created them; localhost saves do not automatically transfer to the hosted site's different origin.
 
@@ -40,6 +43,14 @@ The user wants update summaries in their Discord channel **only when they explic
 The webhook stays outside the browser application and committed files. The user identified the local secret file `resend api .txt`; its confirmed path is recorded in [the project handoff](../AGENTS.md). Read the webhook into a local variable only when sending the authorized summary; never print it. The Discord webhook is named **Aegis Updates** and targets **#dota-management-simulator**. If the webhook is unavailable or delivery fails, report that the Discord summary remains unsent. No automatic notification hook has been installed and no setup/test message has been sent.
 
 ## October 23, 2026 release
+
+**Team scouting and staff draft preparation:** application source `f68562433560f191eca999a8896a5fbb6bc7db4d`, Pages `b41eb7750e7f3e85920bb07b37a95df42828fcb7`. The user explicitly requested pushing the change. [Test and deploy](https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io/actions/runs/40043054761) completed successfully, and Pages reports **built** without an error.
+
+- All **210 application tests** pass locally and in Actions; TypeScript and production build pass with the existing chunk-size warning. Prior isolated 5313 QA covered actual staff preparation, drafting/worker settlement, saved scouting evidence and desktop/390px light/dark layouts.
+- Public HTML, CSS, all JavaScript chunks including both workers, favicon and `hero-icons/axe.png` return HTTP 200 and match both `dist/` and the deployed branch by SHA-256. The ignored receipt is `.local/team-scouting-release-verification.json`.
+- A hosted-browser reload exposes **Scout your next series** and **Teams**. Atlas Esports retains week 4, $90,000 and its Kestrel/Solace/Oak/Static/North lineup and displayed condition values. The next-series view correctly identifies Nova Assembly for the legacy circuit, and the directory displays the club and opponent. No hosted clock advance, hiring or draft-plan application was performed.
+- The authorized **Aegis Updates** Discord summary was delivered successfully (HTTP 200, receipt `1563342829726601378`). The webhook remained in the external local secret file and was not printed or committed. No test message or unconditional posting hook was added.
+- The separate current-meta balance run was preserved and remains governed by its own status/verification gates. This release makes no balance-completion claim. Earlier local/unpublished scouting labels are pre-release snapshots.
 
 **Restored scoreboards and tournament format audit:** source `54cbeea`, Pages `996ff33351377a265fd6300d85c30267c062236c`. The user requested auditing other leagues and publishing the update. Watched/skipped managed matches now open saved map scoreboards, with active/archive reopening for managed and compact AI records. The format importer separates regular groups from qualifier/tiebreak/playoff rules, preserves BO1 double round robins, recovers missing default wins and fixes round headings. Coverage is **96 ready / 385 needing review / two scheduled** after restricting sixteen formerly accepted events with unsupported or incomplete rules; complete historical/DPC/world-event simulation is not claimed.
 

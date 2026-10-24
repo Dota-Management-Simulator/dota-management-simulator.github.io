@@ -1,0 +1,41 @@
+# Tests, builds and publishes the app to gh-pages on every push to main.
+# Pages stays configured as "Deploy from a branch → gh-pages → /".
+name: Test and deploy
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# One deployment at a time; a newer push waits rather than racing gh-pages.
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+      - run: npm test
+      - run: npm run build
+
+      # deploy-pages.mjs pushes from a temporary clone, so authenticate git
+      # globally for this runner with the job's own token.
+      - name: Configure git
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config --global url."https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
+      - run: node scripts/deploy-pages.mjs

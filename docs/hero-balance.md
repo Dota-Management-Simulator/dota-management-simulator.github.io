@@ -1,8 +1,22 @@
 # Historical hero strength and engine calibration
 
+**October 23 live tactics/items, local:** the new live worker, reusable phase calls, inventories and Roshan change new-map combat. Older replay-only/abstract-item descriptions below are historical. Existing CPU work uses frozen prior mechanics; a separate fresh calibration is queued. The current pilot has balance flags, so no balanced-engine claim is made. See [current rules, balance status and validation](tactics-items.md).
+
 Local implementation, October 23, 2026. Not published.
 
+**Latest historical-meta correction:** 15 phases now have attached observations and 17 remain estimates. The 2026 Anti-Mage authored boosts are removed; TI2026's complete 147-map cache has zero picks/bans. See [sources, scope, inferred targets and limits](historical-meta.md). Internal observed-meta ranks now follow historical targets; measured engine output remains a separate visible audit. All 202 application tests, four Python importer tests and the build pass.
+
+The preserved CPU **46256** run below uses targets frozen before this correction. Keep it and watcher **64024** alive; they do not certify the new targets. Follow-up **45140**, recorded in `.local/hero-meta-balance-queue.json`, archives their output after completion and starts fresh current-target calibration. Stale target signatures reject old measurements. Future runs also refuse activation when their source fingerprint changed during the run. Current-source balance is pending; the next section's older "current run" references describe the preserved frozen batch.
+
 ## Iterative follow-up and role rankings
+
+**Current October 23 role-aware run supersedes the earlier attempt described below.** That process stopped on a OneDrive checkpoint rename lock; its latest recoverable checkpoint retained 180,224 maps / 22 phases. It did not finish or establish balanced patches. Its checkpoint, logs and frozen worker are preserved under `.local/hero-balance-rounds/pre-roles-20261023/`.
+
+CPU process **46256** now uses those coefficients only as starting values. For each of all 32 phases it first measures a fresh **4,096-map baseline on the current engine and historical roles**, then runs four × 1,024 fitting maps and a separate 4,096-map validation batch. Remaining phases can receive up to three passes. Acceptance compares against that new baseline, rather than comparing different historical role pools/engine versions. A first pass requests **393,216 actual maps** including baselines. The status/progress files, not code presence or a live process alone, establish completed counts and final acceptance. Runtime signatures now include era role eligibility; previous measurements cannot silently activate under changed roles.
+
+Checkpoint writes now retry transient OneDrive `EPERM`/`EACCES`/`EBUSY` locks. A persistent destination lock writes a recovery snapshot; resume selects the newer valid primary/recovery record and still rejects changed inputs. The fresh run uses eight workers, `--rounds 4 --maps 1024 --validation 4096 --passes 3 --warm-start .local/hero-balance-rounds/pre-roles-20261023/state.json.tmp --apply`. To resume it, retain those exact arguments and add `--resume`. Do not start another concurrent run against the same output folder. Keep it and watcher **64024** alive unless the user stops them.
+
+Internal rankings now use era roles and show the role evidence separately from strength evidence. Historical role research, two draft modes, imperfect AI and remaining historical coverage gaps are documented in [drafting](drafting.md). All **198 tests** and the production build pass before launching the new batch. No completed balance claim is made for this new run. The following paragraphs retain the preceding attempt's method/history where useful; their older comparison and progress statements are superseded by this audit.
 
 The user requested several further rounds across every patch and internal top-ten lists per role. `npm run balance:heroes -- --workers 12 --apply` warm-starts from the preserved first-run checkpoint in `.local/hero-balance-rounds/baseline.json`. It runs four additional fitting rounds per pass and 4,096 separate validation maps per phase. Phases with remaining significant ceiling violations or without a lower measured target error can receive up to three passes (twelve further fitting rounds). Check `.local/hero-balance-rounds/status.json` and `run.log` for actual completion; this paragraph is not a claim that the results passed.
 
