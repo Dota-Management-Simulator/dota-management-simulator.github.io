@@ -33,6 +33,10 @@ import type { DraftPreparation } from "./draft";
 import { normalizeTactics } from "./tactics";
 import type { TacticalPreparation } from "./tactics";
 import { nextScrim, normalizeScrims } from "./scrim-state";
+import { normalizeBotChallenges } from "./bot-challenge";
+import type { BotChallengeState } from "./bot-challenge";
+import { normalizeAllStars } from "./all-star";
+import type { AllStarResult } from "./all-star";
 import type { ScrimState } from "./scrim-state";
 
 export const ROLES = [
@@ -63,7 +67,8 @@ export type Page =
   | "staff"
   | "finances"
   | "history"
-  | "world";
+  | "world"
+  | "arcade";
 export interface Settings {
   team: string;
   region: string;
@@ -91,6 +96,9 @@ export interface Result {
 }
 export interface Campaign {
   scrims?: ScrimState;
+  /** Exhibitions: they never move the clock or touch ratings (docs/event-modes.md). */
+  botChallenges?: BotChallengeState;
+  allStars?: Record<string, AllStarResult>;
   tacticalPreparation?: TacticalPreparation;
   draftPreparation?: DraftPreparation;
   version: 1;
@@ -615,7 +623,7 @@ export function dismissStaff(current: Campaign, id: string): Campaign {
   if (!s || !current.staffIds.includes(id)) return current;
   const c = structuredClone(current);
   c.staffIds = c.staffIds.filter(staffId => staffId !== id);
-  note(c, `${s.name} leaves your support staff. Future weekly wages stop; their research coverage is no longer available.`);
+  note(c, `${s.name} leaves your support staff. Future weekly wages and their staff benefits stop. Signed agreements keep their terms.`);
   return c;
 }
 export const SAVE_KEY = "aegis-manager-campaign-v1";
@@ -647,6 +655,8 @@ export function readSave(): Campaign | null {
     if (c.settings.branding) c.settings.branding = normalizeBranding(c.settings.branding);
     if (c.trainingPresets !== undefined) c.trainingPresets = normalizeTrainingPresets(c.trainingPresets);
     if (c.scrims !== undefined) c.scrims = normalizeScrims(c.scrims);
+    if (c.botChallenges !== undefined) { c.botChallenges = normalizeBotChallenges(c.botChallenges); if (!c.botChallenges) delete c.botChallenges; }
+    if (c.allStars !== undefined) { c.allStars = normalizeAllStars(c.allStars); if (!c.allStars) delete c.allStars; }
     if (c.draftPreparation !== undefined) c.draftPreparation = normalizeDraftPreparation(c.draftPreparation);
     if (c.tacticalPreparation !== undefined) c.tacticalPreparation = normalizeTactics(c.tacticalPreparation);
     if (c.talentPlans && typeof c.talentPlans === "object" && !Array.isArray(c.talentPlans)) {

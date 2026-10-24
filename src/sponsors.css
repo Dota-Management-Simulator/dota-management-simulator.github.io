@@ -23,5 +23,14 @@
 .sponsor-market-card summary { cursor: pointer; color: var(--green); }
 .sponsor-market-card details a { color: var(--green); line-height: 1.6; }
 .sponsor-response { margin-top: 20px; border: 1px solid var(--line); border-left: 3px solid var(--gold); border-radius: 6px; padding: 18px; }
+.sponsor-advice { padding: 24px; margin: 22px 0; min-width: 0; }
+.sponsor-advice-controls { grid-template-columns: repeat(2, minmax(0, 1fr)); max-width: 650px; }
+.sponsor-advice-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.sponsor-recommendation { display: flex; flex-direction: column; min-width: 0; padding: 18px; border: 1px solid var(--line); border-radius: 6px; overflow-wrap: anywhere; }
+.sponsor-recommendation h4 { margin: 10px 0 16px; font-size: 17px; }
+.sponsor-recommendation .button { margin-top: auto; white-space: normal; }
+.sponsor-advice-economics { border-left: 3px solid var(--gold); padding: 0 16px; margin: 24px 0; }
+@media (max-width: 1000px) { .sponsor-advice-grid { grid-template-columns: minmax(0, 1fr); } }
+@media (max-width: 650px) { .sponsor-advice { padding: 18px; } .sponsor-advice-controls { grid-template-columns: minmax(0, 1fr); } }
 @media (max-width: 1200px) { .sponsor-market-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } .sponsor-fields { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 650px) { .sponsor-market-grid, .sponsor-fields, .sponsor-filters { grid-template-columns: minmax(0, 1fr); } .sponsor-heading { align-items: start; flex-direction: column; } .sponsor-portfolio, .sponsor-negotiation, .sponsor-market-card { padding: 18px; } .sponsor-portfolio-row { flex-direction: column; gap: 8px; } }

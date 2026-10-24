@@ -1,0 +1,83 @@
+/* A game hub shared by desktop and touch. All colors follow the club/theme tokens. */
+.hub-shell { --hub-surface: var(--surface, #fffef9); --hub-soft: var(--surface-soft, #eef1e8); }
+.hub-shell .workspace { margin-left: 0; }
+.hub-shell .topbar { height: 62px; padding-inline: 32px; background: var(--hub-surface); }
+.hub-shell .breadcrumbs { min-width: 0; gap: 24px; }
+.hub-brand { display: flex; align-items: center; gap: 9px; padding: 0; border: 0; background: transparent; color: var(--green); text-align: left; }
+.hub-brand > svg { width: 30px; height: 34px; }
+.hub-brand > span { font-family: Manrope, sans-serif; font-weight: 800; font-size: 22px; line-height: 1; letter-spacing: 3px; }
+.hub-brand small { display: block; font-size: 7px; letter-spacing: 1.8px; margin-top: 6px; }
+.back-to-desk { display: flex; align-items: center; gap: 6px; border: 1px solid var(--line); border-radius: 20px; background: var(--hub-soft); padding: 8px 13px; font-size: 11px; color: var(--ink); white-space: nowrap; }
+.back-to-desk:hover { border-color: var(--green); transform: translateX(-2px); }
+.modal-hub-back { margin-bottom: 20px; background: var(--surface-soft, #eef1e8); }
+.hub-shell .manager-avatar { display: none; }
+.hub-shell .workspace main { max-width: 1480px; margin-inline: auto; }
+.hub-shell:not(.game-shell) .workspace main { padding: 32px; }
+.hub-shell .shell-header { position: sticky; top: 0; z-index: 24; }
+.hub-shell .game-page-heading h1:focus { outline: none; }
+.hub-shell .campaign-bar { padding: 13px 32px; }
+.hub-shell .campaign-date strong, .hub-shell .campaign-balance strong { font-size: 14px; }
+.hub-shell .campaign-continue { border-radius: 9px; box-shadow: 0 3px 0 color-mix(in srgb, var(--green) 55%, #101710); }
+.game-navigation { position: relative; background: var(--hub-surface); border-block: 1px solid var(--line); }
+.game-orbits { display: flex; align-items: flex-start; justify-content: center; gap: clamp(18px, 4vw, 60px); padding: 16px 24px 12px; }
+.orbit-group { --department-color: var(--green); }
+.department-squad { --department-color: #538577; }
+.department-practice { --department-color: #b18436; }
+.department-compete { --department-color: #a76d4b; }
+.department-world { --department-color: #637fb0; }
+.department-club { --department-color: #8b78a7; }
+:root[data-theme="dark"] .department-squad { --department-color: #89c3ad; }
+:root[data-theme="dark"] .department-practice { --department-color: #dec077; }
+:root[data-theme="dark"] .department-compete { --department-color: #e1aa83; }
+:root[data-theme="dark"] .department-world { --department-color: #9cb8e6; }
+:root[data-theme="dark"] .department-club { --department-color: #bba8d9; }
+.orbit-button { position: relative; display: flex; flex-direction: column; align-items: center; gap: 8px; border: 0; padding: 0 4px; background: transparent; color: var(--muted); min-width: 65px; font-size: 11px; font-weight: 600; }
+.orbit-medallion { position: relative; display: grid; place-items: center; width: 55px; height: 55px; border-radius: 50%; border: 2px solid color-mix(in srgb, var(--department-color, var(--green)) 35%, var(--line)); background: radial-gradient(circle at 35% 20%, var(--hub-surface), color-mix(in srgb, var(--department-color, var(--green)) 12%, var(--hub-soft))); color: var(--department-color, var(--green)); box-shadow: 0 3px 0 color-mix(in srgb, var(--department-color, var(--green)) 23%, var(--line)), inset 0 0 0 4px var(--hub-surface); transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease; }
+.orbit-button > span:last-child { display: flex; align-items: center; justify-content: center; gap: 3px; }
+.orbit-chevron { transition: transform 180ms ease; }
+.orbit-button:hover .orbit-medallion, .orbit-button.is-open .orbit-medallion { transform: translateY(-4px) rotate(-5deg); border-color: var(--department-color, var(--green)); box-shadow: 0 6px 0 color-mix(in srgb, var(--department-color, var(--green)) 20%, var(--line)), 0 0 18px color-mix(in srgb, var(--department-color, var(--green)) 13%, transparent), inset 0 0 0 4px var(--hub-surface); }
+.orbit-button:is(.is-current, .is-open) { color: var(--ink); }
+.orbit-button.is-current .orbit-medallion { border-color: var(--department-color, var(--green)); }
+.orbit-button.is-current::after { content: ""; position: absolute; width: 4px; height: 4px; bottom: -9px; border-radius: 50%; background: var(--department-color, var(--green)); }
+.orbit-button.is-open .orbit-chevron { transform: rotate(180deg); }
+.orbit-badge { position: absolute; top: -4px; right: -6px; display: grid; place-items: center; min-width: 20px; height: 20px; padding-inline: 4px; border: 2px solid var(--hub-surface); border-radius: 12px; color: var(--hub-surface); background: var(--green); font-size: 9px; font-variant-numeric: tabular-nums; }
+.department-popover { position: absolute; z-index: 3; top: calc(100% + 9px); left: 50%; width: min(620px, calc(100vw - 32px)); transform: translateX(-50%); padding: 20px; background: var(--hub-surface); border: 1px solid color-mix(in srgb, var(--department-color) 45%, var(--line)); border-radius: 18px; box-shadow: 0 18px 60px #0e21172e, 0 0 0 5px color-mix(in srgb, var(--hub-surface) 60%, transparent); animation: department-arrive 200ms cubic-bezier(.2,.8,.2,1); }
+.department-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 15px; margin-bottom: 17px; }
+.department-heading strong { font-family: Manrope, sans-serif; font-size: 19px; color: var(--ink); }
+.department-heading p { margin-top: 4px; font-size: 12px; color: var(--muted); }
+.department-options { display: grid; gap: 8px; }
+.department-options > button { display: flex; align-items: center; gap: 13px; width: 100%; padding: 12px; text-align: left; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--ink); }
+.department-options > button:hover, .department-options > button[aria-current="page"] { border-color: var(--department-color); background: color-mix(in srgb, var(--department-color) 8%, var(--hub-surface)); }
+.destination-symbol { display: grid; place-items: center; flex-shrink: 0; width: 40px; height: 40px; border-radius: 12px; background: color-mix(in srgb, var(--department-color) 12%, var(--hub-surface)); color: var(--department-color); }
+.department-options strong { display: block; font-size: 13px; font-weight: 600; }
+.department-options small { display: block; margin-top: 5px; color: var(--muted); font-size: 11px; }
+.department-options > button > svg { margin-left: auto; color: var(--department-color); }
+.hub-shell .manager-desk { grid-template-columns: minmax(0, 1fr); }
+@keyframes department-arrive { from { opacity: 0; transform: translate(-50%, -8px) scale(.96); } to { opacity: 1; transform: translate(-50%, 0) scale(1); } }
+@media (min-width: 1600px) { .hub-shell .topbar, .hub-shell .campaign-bar { padding-inline: max(32px, calc((100vw - 1428px) / 2)); } }
+@media (max-width: 650px) {
+  .hub-shell .topbar { height: 56px; padding-inline: 15px; }
+  .hub-shell .breadcrumbs { gap: 11px; }
+  .hub-brand > svg { width: 24px; height: 29px; }
+  .hub-brand > span { font-size: 16px; letter-spacing: 2px; }
+  .hub-brand small { font-size: 6px; letter-spacing: 1px; margin-top: 4px; }
+  .hub-shell .topbar-actions { gap: 4px; }
+  .hub-shell .topbar-actions > .icon-button { width: 36px; height: 40px; min-width: 36px; }
+  .hub-shell .breadcrumbs:has(.back-to-desk) .hub-brand > span { display: none; }
+  .back-to-desk { padding: 8px; font-size: 10px; gap: 1px; }
+  .game-orbits { justify-content: space-between; gap: 0; padding: 12px 10px; }
+  .orbit-button { min-width: 45px; font-size: 9px; padding-inline: 2px; gap: 7px; }
+  .orbit-medallion { width: 42px; height: 42px; box-shadow: 0 2px 0 var(--line), inset 0 0 0 3px var(--hub-surface); }
+  .orbit-medallion > svg { width: 19px; height: 19px; }
+  .orbit-chevron { width: 9px; }
+  .orbit-badge { min-width: 18px; height: 18px; font-size: 8px; }
+  .department-popover { top: calc(100% + 6px); padding: 15px; max-height: calc(100dvh - 160px); overflow-y: auto; }
+  .hub-shell .campaign-bar { padding: 10px 17px; gap: 9px 12px; }
+  .hub-shell .campaign-continue { min-height: 36px; height: auto; padding-block: 10px; }
+  .hub-shell .campaign-date strong, .hub-shell .campaign-balance strong { font-size: 12px; }
+  .hub-shell:not(.game-shell) .workspace main { padding: 22px 17px; }
+}
+@media (max-width: 360px) { .hub-brand > span { display: none; } .hub-shell .campaign-bar { gap: 8px; } .hub-shell .topbar-actions { gap: 0; } .hub-shell .topbar-actions > .icon-button { width: 32px; min-width: 32px; } .orbit-button { min-width: 42px; } .orbit-medallion { width: 39px; height: 39px; } }
+@media (prefers-reduced-motion: reduce) {
+  .hub-shell *, .hub-shell *::before, .hub-shell *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}

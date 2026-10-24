@@ -1,0 +1,345 @@
+{
+  "retrievedOn": "2026-10-24",
+  "owner": "Valve Corporation",
+  "references": [
+    "https://www.dota2.com/reborn/part1/",
+    "https://www.dota2.com/700/eng",
+    "https://www.dota2.com/newfrontiers",
+    "https://www.dota2.com/crownfall",
+    "https://www.dota2.com/nemestice",
+    "https://www.dota2.com/battlepass2022",
+    "https://www.dota2.com/aghanim",
+    "https://www.dota2.com/wraithnight",
+    "https://www.dota2.com/greeviling",
+    "https://www.dota2.com/newbloom/part1",
+    "https://www.dota2.com/tournaments/international2012/mainevent/results/champions/",
+    "https://www.dota2.com/international2015/overview/",
+    "https://www.dota2.com/diretide",
+    "https://www.dota2.com/international2016/battlepass",
+    "https://www.dota2.com/international2017/battlepass",
+    "https://www.dota2.com/pastupdates"
+  ],
+  "assets": [
+    {
+      "path": "public/dota-menu/antimage.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.png",
+      "bytes": 1621394,
+      "sha256": "d4fdd146d46d512142a655d3f2974136f21a0c09669a4cf8f238309c65bd2931"
+    },
+    {
+      "path": "public/dota-menu/antimage.webm",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.webm",
+      "bytes": 2831554,
+      "sha256": "af332eb27b65ce91bd2cd071223a4d29b12f95ebba1d80461f27cb2651e70088"
+    },
+    {
+      "path": "public/dota-menu/axe.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/axe.png",
+      "bytes": 1078761,
+      "sha256": "53b02e90c5cd0a32693d404534915eac3bda81227a794abc380be0d412deff4d"
+    },
+    {
+      "path": "public/dota-menu/axe.webm",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/axe.webm",
+      "bytes": 1346525,
+      "sha256": "bad5c7e0ce9cdd7dd688e9241dd7ecd5ffab1d6e6869a23f59894a50055a8a2f"
+    },
+    {
+      "path": "public/dota-menu/classic-stone.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/reborn/updates/background_stone.jpg",
+      "bytes": 598654,
+      "sha256": "c280ae6cd30c790375113b3381ab8b84bd63a06eed81c4f21f3bcab9646246d1"
+    },
+    {
+      "path": "public/dota-menu/crownfall-acts.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/crownfall/fouracts.png",
+      "bytes": 930380,
+      "sha256": "b7ef021ed682d67b200ba88b1117fea2b0c1d16ce945d861d1bba61ddb9efc28"
+    },
+    {
+      "path": "public/dota-menu/crownfall-clouds.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/crownfall/clouds_texture.png",
+      "bytes": 390371,
+      "sha256": "372fe1a6ad60ce8acfb0b48f346dde141b8093442b43afe072141f701544f6ba"
+    },
+    {
+      "path": "public/dota-menu/crownfall-heroes.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/crownfall/header_fg.png",
+      "bytes": 1335895,
+      "sha256": "4a71b5f4d5f0a6d7adbfc0fa9b6382fcdfa80b249f0c664446f517637a489de5"
+    },
+    {
+      "path": "public/dota-menu/crownfall-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/crownfall/logo_english.png",
+      "bytes": 2403711,
+      "sha256": "7dad64e2b0b4c92d788d807f037adc561d96eb55301057a7e5c49baf2b4c3f0b"
+    },
+    {
+      "path": "public/dota-menu/crystal_maiden.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/crystal_maiden.png",
+      "bytes": 1410432,
+      "sha256": "cc1c2f2da8ad1f2f2fd3728bab7bc0cbfcee9d1d1ab59060d495549b29e03ba1"
+    },
+    {
+      "path": "public/dota-menu/crystal_maiden.webm",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/crystal_maiden.webm",
+      "bytes": 7740783,
+      "sha256": "dae28e7ba2dc3a8cbb5d78fc30258d960e035ab50546b759dc4f6475031ec207"
+    },
+    {
+      "path": "public/dota-menu/diretide-header.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/diretide/diretide_snow_loop.jpg",
+      "bytes": 293120,
+      "sha256": "5b1a212d9005b64ba2d68fc164b98132af190dc180490efd34b3b73c8a8d7c2f"
+    },
+    {
+      "path": "public/dota-menu/diretide-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/logos/logo_diretide_english.png",
+      "bytes": 3475711,
+      "sha256": "402ee11b3de27bb7dca6fb7fa4818132b836953317c19322c9a6e32bb290a238"
+    },
+    {
+      "path": "public/dota-menu/dota-symbol.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "bytes": 22049,
+      "sha256": "249201f03e6045e5959996a2a76e9f07b040d5e3ccf24c6ebe726e86754636ad"
+    },
+    {
+      "path": "public/dota-menu/greeviling-sign.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/frostivus/greev_top.jpg",
+      "bytes": 308655,
+      "sha256": "15e50db75d38dae8cf4cd476aa1745a02790331829debd73f58c86dfcd0f58db"
+    },
+    {
+      "path": "public/dota-menu/greyfade.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/backgrounds/greyfade.jpg",
+      "bytes": 50439,
+      "sha256": "e150e6226ab7e8a3ecaf8e1cb72a12e21ae496bb549973f4033c625ee5125665"
+    },
+    {
+      "path": "public/dota-menu/journey-monkey-king.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/700/hub/bg_02.jpg",
+      "bytes": 406193,
+      "sha256": "44e19928ef944f0aa86d7bb82cac6991af8a3bd06eb6d9ede8f326a8a3b9658d"
+    },
+    {
+      "path": "public/dota-menu/labyrinth-header.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/aghs_share.png",
+      "bytes": 1058883,
+      "sha256": "94214ef6a0dda98513263ee95ec5355c50100cd41d10ec8c42a621d6a3b0801d"
+    },
+    {
+      "path": "public/dota-menu/monkey_king.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/monkey_king.png",
+      "bytes": 832572,
+      "sha256": "9097827d1e6f68bdbfca2b2c898bf1e51d3f64ae3874b7458b360ff54435b7d3"
+    },
+    {
+      "path": "public/dota-menu/monkey_king.webm",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/monkey_king.webm",
+      "bytes": 6216421,
+      "sha256": "336116b769f83eb089bc386ec3547d1bdfaa7ed26b715114895b45973d8400dc"
+    },
+    {
+      "path": "public/dota-menu/nemestice-landscape.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/nemestice_overview.jpg",
+      "bytes": 356001,
+      "sha256": "288de5516b643a07888582c6d9b61c50b1b684661023dc249a9e16e4d012dd82"
+    },
+    {
+      "path": "public/dota-menu/nemestice-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/nemestice_logo_nobp_en.png",
+      "bytes": 870595,
+      "sha256": "1c4bd3b9b238b31ab8c4dc6408732ef409f863ee4176828493d73b05a46c44a6"
+    },
+    {
+      "path": "public/dota-menu/new-bloom-sign.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/newbloom2015/day1/slice_0.jpg",
+      "bytes": 27583,
+      "sha256": "974cfbb93294e5064c8042c6de958daebe0cbd54faf2f524b0a03d038fa46cb2"
+    },
+    {
+      "path": "public/dota-menu/reborn-header.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/reborn/day1/day1_header.png",
+      "bytes": 953834,
+      "sha256": "3385d22e84023ec9bf498867cfa1a15950926fdbcaab32ea7b02d3705e5d7ab6"
+    },
+    {
+      "path": "public/dota-menu/ti2012-panel.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2012/bg_top.jpg",
+      "bytes": 223835,
+      "sha256": "82fad790f439e3af7a613025cdfaf9f0fbe4dcf4287d254b8c7f9c837a49c4d3"
+    },
+    {
+      "path": "public/dota-menu/ti2012-seattle.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2012/seattle.jpg",
+      "bytes": 146900,
+      "sha256": "3e9181e7b337b8bc8af144931e62c55e0e54ddf37d6d738ae48caaa138501564"
+    },
+    {
+      "path": "public/dota-menu/ti2015-compendium-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2015/overview/compendium_logo.png",
+      "bytes": 33570,
+      "sha256": "e6dcf6fd485fad91398bfdaca70fd23e9c3ae2534c5a6f569eac535c6d7e47d6"
+    },
+    {
+      "path": "public/dota-menu/ti2015.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2015/overview/ti5_image.jpg",
+      "bytes": 243096,
+      "sha256": "248b88a927e5c276c30bd3548c40b557521d9692f0000bdad315d68b833e6f71"
+    },
+    {
+      "path": "public/dota-menu/wraith-night.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/frostivus2013/03/bg_01.jpg",
+      "bytes": 317599,
+      "sha256": "3669646352a6194f44e4c7f33d6b75b83161dbb365e101b58f550b003df58548"
+    },
+    {
+      "path": "public/dota-menu/update-reborn.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/reborn_social.jpg",
+      "bytes": 35418,
+      "sha256": "a500ac4693bf575ef0267df5eda575b9f451e0114885bb82f08d0546d54ac5a9",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-700.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/700_social.jpg",
+      "bytes": 44817,
+      "sha256": "31e396905aa733ebbb0b67792a6c4056fa286642b029bcd4b6bf4d29f8b243b5",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-duelingfates.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/duelingfates_social.jpg",
+      "bytes": 50350,
+      "sha256": "624cbc8ecc92bd4dab87c49ef13a25719538456355fce914111f8c80c3314fdf",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-720.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/720_social.jpg",
+      "bytes": 52273,
+      "sha256": "cc9e40982420ea6213e00f1ab9428f00604d208f2aa9a102c568833244d9ec46",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-outlanders.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/outlanders_social.jpg",
+      "bytes": 65690,
+      "sha256": "30f8c080574365a6fdd670f3562155b596ce4f1957a7e19f50ea1140e5b229c6",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-mistwoods.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/hoodwink_social.jpg",
+      "bytes": 62085,
+      "sha256": "95e1c3b731fa66cb9c948f1bba9f86ee5ea10ff73f5bb39d63a9715454f4adab",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-primalbeast.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/primalbeast_social.jpg",
+      "bytes": 87485,
+      "sha256": "6aa0c116afd9611e7ca3781a142d5620cabf2bda812d7600f506c2b29e213b59",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-newfrontiers.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/newfrontiers_social.jpg",
+      "bytes": 56701,
+      "sha256": "6ef264e04cdb4395ecddb370f10da313d634715891439cb1e825b1778fe8aac4",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-facets.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/innates_facets_social.png",
+      "bytes": 72118,
+      "sha256": "aa9450cbf2e9b5a3085b2a83ec2381e1ff5a5904e9fcb1fcd7816a2128280e6b",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-wanderingwaters.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/wanderingwaters_social.png",
+      "bytes": 82411,
+      "sha256": "c75c8c558ce8557266929095eb4064f9b27bb3f38eb28938d495fa765ded5a1a",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/ti2016.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ti6_social.jpg",
+      "bytes": 53698,
+      "sha256": "b82c8a155e74ed24b8dc7f059401fd4322a08f4dfc8b808705856d9760620809",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/ti2017.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ti7_social.jpg",
+      "bytes": 58784,
+      "sha256": "436eea57c24f2cb3093bdbcc8847ee71628d3989aa929fd717645ee6ddbeaa0c",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/ti2018.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ti8_social.jpg",
+      "bytes": 53970,
+      "sha256": "e6ddd3d27b4f2d15e96d5c99cc6b08d3a46a13a823d34f28e14430a733f19c4b",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/ti2019.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ti9_social.jpg",
+      "bytes": 56822,
+      "sha256": "319a9bce1d1d82dfc321b9fa23c7a6e8b4694a5b5d3376541b6f7124233bacc7",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/ti2021.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ti10_social.jpg",
+      "bytes": 56860,
+      "sha256": "361456062cec1dd69f2f27ec322ead97de79f2d454b1dbea77c36780cf72dadb",
+      "note": "Resized/re-encoded locally; cropped to the top 405px"
+    },
+    {
+      "path": "public/dota-menu/ti2023.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/international2023_social.png",
+      "bytes": 62438,
+      "sha256": "2cf7ab72f20aa4fe7c5c9a4d54a449b071094c7b6e9eb7c93d80431f3af4092f",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/diretide2020.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/diretide2020/diretide_header.jpg",
+      "bytes": 70341,
+      "sha256": "21e68a9316f30c431d3367ee5870113c80fbf8bce91ff250f8de481b491ce30c",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/diretide2020-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/diretide2020/diretide_logo_en.png",
+      "bytes": 254625,
+      "sha256": "1bae44d1c39d2e6aaff3b95908e86ba004ab346ba29b2eade80084bbe60f84ce",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/siltbreaker.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/dungeon_a.jpg",
+      "bytes": 141266,
+      "sha256": "a10678abfc35f6ff3b441bbedf6a0b7be880547ea33181f1335130eed5c2a30c",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/ti-battlepass-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/logo.png",
+      "bytes": 129519,
+      "sha256": "02ac56c50529fd48adf4a60c27548d6daf6dc5efbf385443d5c27c00113a0901",
+      "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/ti-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/logos/ti_logo.png",
+      "bytes": 37398,
+      "sha256": "0269db94cb22dbed01cf335ad5d48581ce68674a68e8487a42d3acb467496911",
+      "note": "Resized/re-encoded locally"
+    }
+  ]
+}

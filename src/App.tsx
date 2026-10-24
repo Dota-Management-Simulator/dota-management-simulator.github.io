@@ -1,25 +1,22 @@
 import { useEffect, useRef, useState } from "react";
+import type { ReactNode } from "react";
 import {
   ArrowDownLeft,
   ArrowRight,
   ArrowUpRight,
-  BarChart3,
   CalendarDays,
   Check,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
   CircleHelp,
-  ClipboardList,
   Coins,
   Crosshair,
   Flame,
   Globe2,
   Heart,
-  LayoutDashboard,
   Mail,
   Leaf,
-  Menu,
   Moon,
   Plus,
   Search,
@@ -31,7 +28,6 @@ import {
   Target,
   TrendingUp,
   Trophy,
-  UserRound,
   Users,
   Wallet,
   X,
@@ -94,6 +90,7 @@ import type { OfficeAction } from "./office";
 import { enableHistoricalCalendar, historicalCampaignStart, nextTournamentCommitment } from "./historical-game";
 import Heroes from "./HeroDirectory";
 import ScrimOffice from "./ScrimOffice";
+import EventModes from "./EventModes";
 import { formatDate } from "./tournaments";
 import { weeklyPractice } from "./contracts";
 import { teamIdForName } from "./team-logos";
@@ -107,52 +104,24 @@ import ClubBrandingEditor from "./ClubBrandingEditor";
 import { ClubIdentityContext } from "./ClubIdentity";
 import { useClubAppearance } from "./useClubAppearance";
 import CampaignBar from "./CampaignBar";
+import ClientPageBar from "./ClientPageBar";
+import { DeskShellContext } from "./ClientShell";
 import ManagerDesk from "./ManagerDesk";
 import SquadWorkspace from "./SquadWorkspace";
 import { managerContinue, managerCompetition } from "./manager-view";
 import CompetitionStandings from "./CompetitionStandings";
+import GameNavigation, { navigation } from "./GameNavigation";
+import { campaignMenu } from "./menu-eras";
 
-const navigation: {
-  page: Page;
-  label: string;
-  icon: LucideIcon;
-  group?: string;
-}[] = [
-  {
-    page: "overview",
-    label: "Manager’s Desk",
-    icon: LayoutDashboard,
-    group: "YOUR ORGANIZATION",
-  },
-  { page: "roster", label: "Squad", icon: Users },
-  { page: "inbox", label: "Inbox", icon: Mail },
-  { page: "training", label: "Training", icon: Crosshair },
-  { page: "scrims", label: "Scrims", icon: CalendarDays },
-  { page: "scouting", label: "Player scouting", icon: Search },
-  { page: "next-series", label: "Scout your next series", icon: ClipboardList },
-  { page: "staff", label: "Staff", icon: UserRound },
-  {
-    page: "standings",
-    label: "TI race & standings",
-    icon: BarChart3,
-    group: "THE COMPETITION",
-  },
-  { page: "calendar", label: "Season calendar", icon: CalendarDays },
-  { page: "patch", label: "Patch & meta", icon: Sparkles },
-  { page: "heroes", label: "Heroes", icon: Shield },
-  { page: "world", label: "Teams", icon: Globe2 },
-  { page: "history", label: "Season history", icon: Trophy },
-  {
-    page: "finances",
-    label: "Finances & sponsors",
-    icon: Wallet,
-    group: "THE BUSINESS",
-  },
-];
 const pageText: Record<
   Page,
   { eyebrow: string; title: string; description: string }
 > = {
+  arcade: {
+    eyebrow: "EXHIBITIONS",
+    title: "Play for the story.",
+    description: "Challenge OpenAI Five and play The International All-Star match. No time passes.",
+  },
   scrims: {
     eyebrow: "PRACTICE & DISCOVERY",
     title: "Make room to experiment.",
@@ -321,13 +290,20 @@ function SectionTitle({
   );
 }
 
-export default function App() {
+export interface LocalPreview {
+  campaign: Campaign;
+  page: Page;
+  onPageChange: (page: Page) => void;
+  controls: (campaign: Campaign, onPage: (page: Page) => void, busy: boolean) => ReactNode;
+}
+
+export default function App({ preview }: { preview?: LocalPreview } = {}) {
   const [theme, setTheme] = useState<"light" | "dark">(() =>
     document.documentElement.dataset.theme === "dark" ? "dark" : "light",
   );
-  const [campaign, setCampaign] = useState<Campaign | null>(() => readSave());
-  const [setup, setSetup] = useState(() => !readSave());
-  const [page, setPage] = useState<Page>("overview");
+  const [campaign, setCampaign] = useState<Campaign | null>(() => preview ? preview.campaign : readSave());
+  const [setup, setSetup] = useState(() => !preview && !readSave());
+  const [page, setPage] = useState<Page>(preview?.page ?? "overview");
   const [calendarTarget, setCalendarTarget] = useState<string | undefined>();
   const [calendarRequest, setCalendarRequest] = useState(0);
   const [settings, setSettings] = useState<Settings>(DEFAULT_SETTINGS);
@@ -342,22 +318,29 @@ export default function App() {
   const [confirmNew, setConfirmNew] = useState(false);
   const [toast, setToast] = useState("");
   const [saveError, setSaveError] = useState(false);
-  const [mobileMenu, setMobileMenu] = useState(false);
   const [calendarBusy, setCalendarBusy] = useState(false);
   const [patchTarget, setPatchTarget] = useState<string>();
   const [filter, setFilter] = useState("");
   const [roleFilter, setRoleFilter] = useState("All roles");
   const settled = useRef(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const pageHeading = useRef<HTMLHeadingElement>(null);
+  const previousPage = useRef(page);
   const notify = (message: string) => setToast(message);
   useEffect(() => {
     if (campaign) setCampaign(current => current ? syncOffice(current) : current);
   }, [campaign]);
+  // Inside a campaign every page is the era's Dota client, which is dark only;
+  // the light/dark choice and club colors apply to campaign setup.
+  const inGame = !!campaign && !setup;
+  const shownTheme = inGame ? "dark" : theme;
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
+    document.documentElement.dataset.theme = shownTheme;
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute("content", theme === "dark" ? "#141a16" : "#f6f7f3");
+      ?.setAttribute("content", shownTheme === "dark" ? "#141a16" : "#f6f7f3");
+  }, [shownTheme]);
+  useEffect(() => {
     try {
       localStorage.setItem("aegis-manager-theme", theme);
     } catch {
@@ -370,9 +353,9 @@ export default function App() {
   const identityTeamId = setup ? (settings.clubMode === "custom" ? "managed-custom" : selectedClub.id) : campaign?.world?.managedTeamId;
   const clubBranding = useClubAppearance({ branding: identitySettings?.branding, teamId: identityTeamId,
     year: setup ? settings.year : campaign?.year ?? 2011, custom: identitySettings?.clubMode === "custom" || identityTeamId === "managed-custom",
-    theme, enabled: !!identitySettings });
+    theme: shownTheme, enabled: !!identitySettings && !inGame });
   useEffect(() => {
-    if (campaign) {
+    if (campaign && !preview) {
       try {
         localStorage.setItem(SAVE_KEY, JSON.stringify(campaign));
         setSaveError(false);
@@ -380,7 +363,10 @@ export default function App() {
         setSaveError(true);
       }
     }
-  }, [campaign]);
+  }, [campaign, preview]);
+  useEffect(() => {
+    preview?.onPageChange(page);
+  }, [page, preview?.onPageChange]);
   useEffect(() => {
     if (!toast) return;
     const timer = setTimeout(() => setToast(""), 4500);
@@ -388,6 +374,8 @@ export default function App() {
   }, [toast]);
   useEffect(() => {
     window.scrollTo(0, 0);
+    if (previousPage.current !== page) pageHeading.current?.focus({ preventScroll: true });
+    previousPage.current = page;
   }, [setup, page]);
   const modalOpen = !!(
     player ||
@@ -443,11 +431,10 @@ export default function App() {
     };
   }, [modalOpen, simulating, simDone, viewResult]);
   const go = (p: Page) => {
-    if (!campaign || setup) return;
+    if (!campaign || setup || calendarBusy || simulating) return;
     if (p === "calendar") setCalendarTarget(undefined);
     if (p === "patch") setPatchTarget(undefined);
     setPage(p);
-    setMobileMenu(false);
     setFilter("");
     setRoleFilter("All roles");
     window.scrollTo(0, 0);
@@ -470,9 +457,9 @@ export default function App() {
     notify("Your campaign has begun. Welcome to the organization.");
   };
   const newCampaign = () => {
+    if (calendarBusy || simulating) return;
     setPreferences(false);
     setSetup(true);
-    setMobileMenu(false);
   };
   const openEvent = (e: GameEvent) => {
     setEvent(e);
@@ -538,95 +525,35 @@ export default function App() {
     (roleFilter === "All roles" || p.role === roleFilter) &&
     `${p.name} ${p.firstName} ${p.lastName} ${p.region} ${playerTeam(campaign, p.id)} ${p.historical?.aliases.join(" ") ?? ""}`.toLowerCase().includes(filter.toLowerCase());
 
+  // On the Desk the copied Dota client replaces the app's top bar and Continue footer.
+  const deskClient = !!campaign && !setup && page === "overview" && campaignMenu(campaign).era.layout !== "showcase";
+  const saveStatus = preview ? "Preview · not saved" : saveError ? "Save unavailable" : campaign ? "Saved on this browser" : "A fresh start";
+  const deskShell = { action: continueAction, busy: calendarBusy || simulating, onContinue: continueCampaign,
+    onHelp: () => setHelp(true), onSettings: () => setPreferences(true), saveStatus };
+
   return (
     <ClubIdentityContext.Provider value={{ teamId: identityTeamId, name: identitySettings?.team ?? "", branding: clubBranding }}>
-    <div className={`app-shell ${campaign && !setup ? "game-shell" : ""}`}>
-      {mobileMenu && (
-        <div className="nav-scrim" onClick={() => setMobileMenu(false)} />
-      )}
+    <DeskShellContext.Provider value={deskShell}>
+    <div className={`app-shell hub-shell ${campaign && !setup ? `game-shell menu-era-${campaignMenu(campaign).era.id} ${page === "overview" ? "hub-home" : ""} ${deskClient ? "desk-client-mode" : ""}` : ""}`}>
       {campaign && !setup && <PatchArrival campaign={campaign} busy={modalOpen || calendarBusy || simulating}
         onDismiss={id => update(c => dismissPatchIntroduction(c, id))}
         onRead={id => { go("patch"); setPatchTarget(id); }} />}
-      <aside className={`sidebar ${mobileMenu ? "open" : ""}`}>
-        <a
-          className="brand"
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            if (campaign && !setup) go("overview");
-          }}
-        >
-          <Aegis />
-          <span>
-            AEGIS<small>TEAM MANAGER</small>
-          </span>
-        </a>
-        <div className="organization">
-          {campaign && !setup ? <TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="small" /> : <div className="org-mark"><Shield size={19} /></div>}
-          <div>
-            <strong>
-              {campaign && !setup
-                ? campaign.settings.team
-                : "Your next dynasty"}
-            </strong>
-            <small>
-              {campaign && !setup
-                ? `${campaign.settings.region} · ${campaign.year} season`
-                : "An unwritten story"}
-            </small>
-          </div>
-        </div>
-        <nav aria-label="Main navigation">
-          {navigation.map((n) => (
-            <div key={n.page}>
-              {n.group && <div className="nav-label">{n.group}</div>}
-              <button
-                className={`nav-link ${!setup && page === n.page ? "active" : ""}`}
-                onClick={() => go(n.page)}
-                disabled={!campaign || setup}
-              >
-                <Icon icon={n.icon} />
-                <span>{n.label}</span>
-                {n.page === "inbox" && campaign && unreadMessages(campaign) > 0 && <span className="inbox-count">{unreadMessages(campaign)}</span>}
-                {!setup && page === n.page && <span className="active-dot" />}
-              </button>
-            </div>
-          ))}
-        </nav>
-        <div className="sidebar-bottom">
-          <button onClick={() => setHelp(true)}>
-            <CircleHelp size={17} /> Manager's handbook{" "}
-            <ArrowUpRight size={14} />
-          </button>
-          <div className="build-label">
-            <span className="status-dot" /> PROTOTYPE 0.1 <span>LOCAL</span>
-          </div>
-        </div>
-      </aside>
       <div className="workspace">
         <div className="shell-header">
-        <header className="topbar">
+        {preview && campaign && preview.controls(campaign, go, modalOpen || calendarBusy || simulating)}
+        {inGame && !deskClient && <ClientPageBar campaign={campaign} page={page} onPage={go} />}
+        {!inGame && <header className="topbar">
           <div className="breadcrumbs">
-            <button
-              className="mobile-toggle"
-              aria-label="Open navigation"
-              onClick={() => setMobileMenu(!mobileMenu)}
-            >
-              <Menu size={20} />
-            </button>
-            <span>{campaign && !setup ? "Club office" : "Workspace"}</span>
-            <ChevronRight size={13} />
-            <strong>
-              {setup
-                ? "New campaign"
-                : navigation.find((n) => n.page === page)?.label}
-            </strong>
+            <button className="hub-brand" aria-label={setup ? "Aegis Team Manager" : "Back to Manager’s Desk"} disabled={calendarBusy || simulating} onClick={() => go("overview")}><Aegis /><span>AEGIS<small>TEAM MANAGER</small></span></button>
+            {campaign && !setup && page !== "overview" && <button className="back-to-desk" onClick={() => go("overview")} disabled={calendarBusy || simulating}><ChevronLeft size={16} /><span>Back to Desk</span></button>}
           </div>
+          {campaign && !setup && <GameNavigation page={page} unread={unreadMessages(campaign)} busy={calendarBusy || simulating} onPage={go} />}
           <div className="topbar-actions">
-            {campaign && !setup && <button className="icon-button inbox-shortcut" aria-label={`Open inbox, ${unreadMessages(campaign)} unread messages`} onClick={() => go("inbox")}><Mail size={18} />{unreadMessages(campaign) > 0 && <span className="inbox-count">{unreadMessages(campaign)}</span>}</button>}
+            <button className="icon-button" aria-label="Manager’s handbook" title="Manager’s handbook" onClick={() => setHelp(true)}><CircleHelp size={18} /></button>
+            {campaign && !setup && <button className="icon-button inbox-shortcut" disabled={calendarBusy || simulating} aria-label={`Open inbox, ${unreadMessages(campaign)} unread messages`} onClick={() => go("inbox")}><Mail size={18} />{unreadMessages(campaign) > 0 && <span className="inbox-count">{unreadMessages(campaign)}</span>}</button>}
             <span className="save-indicator">
               <span className={`status-dot ${saveError ? "warning" : ""}`} />
-              {saveError
+              {preview ? "Preview · not saved" : saveError
                 ? "Save unavailable"
                 : campaign
                   ? "Saved on this browser"
@@ -650,8 +577,8 @@ export default function App() {
             </button>
             <div className="manager-avatar">GM</div>
           </div>
-        </header>
-        {campaign && !setup && continueAction && <CampaignBar campaign={campaign} action={continueAction} busy={calendarBusy || simulating} onContinue={continueCampaign} onPatch={() => go("patch")} />}
+        </header>}
+        {campaign && !setup && continueAction && !deskClient && <CampaignBar campaign={campaign} action={continueAction} busy={calendarBusy || simulating} onContinue={continueCampaign} onPatch={() => go("patch")} />}
         </div>
         <main>
           {setup ? (
@@ -937,8 +864,8 @@ export default function App() {
             campaign && (
               <>
                 <div className="page-heading game-page-heading">
-                  <div><div className="eyebrow">{pageText[page].eyebrow}</div><h1>{navigation.find(n => n.page === page)?.label}</h1></div>
-                  <span className="game-page-note">{page === "overview" ? "Assess. Decide. Continue." : page === "roster" ? "Five players. One shared ambition." : pageText[page].description}</span>
+                  <div><div className="eyebrow">{page === "overview" ? "YOUR HEADQUARTERS" : pageText[page].eyebrow}</div><h1 ref={pageHeading} tabIndex={-1}>{navigation.find(n => n.page === page)?.label}</h1></div>
+                  <span className="game-page-note">{page === "overview" ? "Your club. Your calls. Your road to the Aegis." : page === "roster" ? "Five players. One shared ambition." : pageText[page].description}</span>
                 </div>
                 {campaign.cash < 0 && (
                   <div className="alert warning">
@@ -1095,6 +1022,7 @@ export default function App() {
                 )}
                 {page === "inbox" && <ManagerInbox campaign={campaign} onChange={setCampaign} onAction={inboxAction} />}
                 {page === "scrims" && <ScrimOffice campaign={campaign} onChange={setCampaign} onBusy={setCalendarBusy} onCalendar={() => go("calendar")} />}
+                {page === "arcade" && <EventModes campaign={campaign} onChange={setCampaign} onBusy={setCalendarBusy} />}
                 {page === "calendar" && (campaign.calendar ? <HistoricalCalendar campaign={campaign} onChange={setCampaign} onHistory={setViewResult} focusEventId={calendarTarget} focusRequest={calendarRequest} onBusyChange={setCalendarBusy} /> : (
                   <>
                     <section className="panel calendar-board">
@@ -1303,9 +1231,9 @@ export default function App() {
                     </section>
                   </>
                 )}
-                {page === "staff" && <StaffOffice campaign={campaign} onPatch={() => go("patch")}
-                  onHire={id => { update(c => hireStaff(c, id)); notify("Staff hired. Your patch report has been updated."); }}
-                  onDismiss={id => { update(c => dismissStaff(c, id)); notify("Staff released. Research coverage and future payroll updated."); }} />}
+                {page === "staff" && <StaffOffice campaign={campaign} onPatch={() => go("patch")} onSponsors={() => go("finances")}
+                  onHire={id => { update(c => hireStaff(c, id)); notify("Staff hired. Staff benefits and future payroll updated."); }}
+                  onDismiss={id => { update(c => dismissStaff(c, id)); notify("Staff released. Staff benefits and future payroll updated."); }} />}
                 {page === "finances" && (
                   <>
                     <div className="metrics-grid financial-metrics">
@@ -1347,7 +1275,7 @@ export default function App() {
                         </div>
                       ))}
                     </div>
-                    <SponsorMarket campaign={campaign} onChange={(c) => update(() => c)} />
+                    <SponsorMarket campaign={campaign} onChange={(c) => update(() => c)} onStaff={() => go("staff")} />
                     <section className="panel transaction-panel">
                       <SectionTitle
                         title="The ledger"
@@ -1508,7 +1436,7 @@ export default function App() {
                     {campaign.world ? "2011–2026 rosters · Estimated gameplay ratings" : "Legacy fictional world"} ·{" "}
                     {campaign.settings.difficulty} difficulty
                   </span>
-                  <button onClick={newCampaign}>
+                  <button onClick={newCampaign} disabled={calendarBusy || simulating}>
                     New campaign <Plus size={13} />
                   </button>
                 </footer>
@@ -1569,6 +1497,9 @@ export default function App() {
                 <X size={20} />
               </button>
             )}
+            {!simulating && !calendarBusy && campaign && !setup && <button className="back-to-desk modal-hub-back" onClick={() => {
+              setPlayer(null); setViewResult(null); setEvent(null); setHelp(false); setPreferences(false); setConfirmNew(false); go("overview");
+            }}><ChevronLeft size={16} />Back to Desk</button>}
             {currentPlayer && campaign && (
               <>
                 <div className={`profile-heading ${currentPlayer.color}`}>
@@ -1794,7 +1725,7 @@ export default function App() {
                     ? `${campaign.settings.team} · ${campaign.settings.region} · ${campaign.settings.difficulty} difficulty`
                     : "Create a campaign to begin your story."}
                 </p>
-                <div className="settings-row">
+                {inGame ? <p className="field-note">Inside a campaign every page uses the Dota client of its era. Light mode and club colors apply to campaign setup.</p> : <div className="settings-row">
                   <span>Appearance</span>
                   <div
                     className="theme-options"
@@ -1814,7 +1745,7 @@ export default function App() {
                       <Moon size={14} /> Dark
                     </button>
                   </div>
-                </div>
+                </div>}
                 {identitySettings && (!setup || settings.clubMode === "custom") && <ClubBrandingEditor value={clubBranding}
                   name={identitySettings.team} teamId={identityTeamId} year={setup ? settings.year : campaign?.year ?? 2011}
                   onChange={branding => { if (setup) setSettings(current => ({ ...current, branding }));
@@ -1841,7 +1772,7 @@ export default function App() {
                   Starting a replacement campaign will ask before overwriting
                   your current save. No account or server is required.
                 </p>
-                <button className="button primary full" onClick={newCampaign}>
+                <button className="button primary full" onClick={newCampaign} disabled={calendarBusy || simulating}>
                   Set up a new campaign <Plus size={16} />
                 </button>
               </div>
@@ -1872,6 +1803,7 @@ export default function App() {
         </div>
       )}
     </div>
+    </DeskShellContext.Provider>
     </ClubIdentityContext.Provider>
   );
 }

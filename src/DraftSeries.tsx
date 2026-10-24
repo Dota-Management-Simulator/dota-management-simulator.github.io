@@ -15,6 +15,7 @@ import "./draft.css";
 import type { Campaign } from "./game";
 import { StaffDraftPreparation } from "./TeamScouting";
 import { scoutingTeamForConfig } from "./team-scouting";
+import DraftPreparationGrid from "./DraftPreparation";
 
 export default function DraftSeries({campaign,config,preparation,skipPlayback=false,onPreparation,onTactics,onComplete,onCancel,managedTeamId}: {
   campaign: Campaign;
@@ -98,17 +99,7 @@ export default function DraftSeries({campaign,config,preparation,skipPlayback=fa
     <p>{rules.summary} <a href={rules.source} target="_blank" rel="noreferrer">Draft rules source ↗</a></p>
     {!mode?<>
       <StaffDraftPreparation campaign={campaign} config={cfg} team={opponent} onApply={plan=>{setPrep(plan);onPreparation(plan);}} />
-      <div className="draft-preparation"><h3>Draft preparation</h3><label>Approach<select value={prep.approach} onChange={e=>setPrep({...prep,approach:e.target.value as DraftPreparation["approach"]})}>
-        {(["balanced","teamfight","push","pickoff","scaling"] as const).map(v=><option key={v} value={v}>{v[0].toUpperCase()+v.slice(1)}</option>)}
-      </select></label>
-      <div className="draft-preferred">{heroRoles.map((name,r)=><label key={r}>{name}<select aria-label={`${name} preferred hero`} value={prep.preferred[r][0]??""} onChange={e=>setPrep({...prep,preferred:prep.preferred.map((p,i)=>i===r?(e.target.value?[e.target.value]:[]):p)})}>
-        <option value="">Coach’s choice</option>{pool.filter(h=>h.roles.includes(r)).map(h=><option key={h.id} value={h.id}>{h.name}</option>)}
-        {prep.preferred[r][0]&&!pool.some(h=>h.id===prep.preferred[r][0]&&h.roles.includes(r))&&<option value={prep.preferred[r][0]} disabled>{heroById(prep.preferred[r][0])?.name} · unavailable here</option>}
-      </select></label>)}</div>
-      <label>Priority bans<select aria-label="Add priority ban" value="" onChange={e=>{if(e.target.value)setPrep({...prep,bans:[...new Set([...prep.bans,e.target.value])].slice(0,6)});}}><option value="">Add a hero…</option>{pool.filter(h=>!prep.bans.includes(h.id)).map(h=><option key={h.id} value={h.id}>{h.name}</option>)}</select></label>
-      <div className="draft-ban-chips">{prep.bans.map(id=><button className="button secondary small-button" key={id} onClick={()=>setPrep({...prep,bans:prep.bans.filter(h=>h!==id)})}><HeroName id={id}/> ×</button>)}</div>
-      <button className="button secondary small-button" onClick={()=>onPreparation(prep)}>Save preparation</button>
-      <p className="field-note">Preferences guide the coach. Bans, role fit and availability can force another pick. Both teams work from their own uncertain patch research.</p></div>
+      <DraftPreparationGrid pool={pool} preparation={prep} onChange={setPrep} onSave={()=>onPreparation(prep)} />
       <div className="draft-mode-buttons"><button className="button primary" onClick={()=>start("auto")}>Follow preparation · fast draft</button><button className="button secondary" onClick={()=>start("manual")}>Draft for my team</button></div>
       {!maps.length&&<button className="text-link" onClick={onCancel}>Back without playing</button>}
     </>:<>

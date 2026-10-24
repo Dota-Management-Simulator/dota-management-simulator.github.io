@@ -117,7 +117,8 @@ test("all seven axes change real combat mechanics and featured power changes bot
       if(axis==="laning"){x.attack(a,e);return e.hp;}
       if(axis==="objectives"||axis==="splitpush"){if(axis==="splitpush"){a.x=400;a.y=400;}x.damage(a,t,100);return t.hp;}
       if(axis==="teamfight"){a.hero=heroById("storm_spirit")!;base.units.filter(u=>u.player&&u.team===a.team).forEach(u=>{u.x=a.x;u.y=a.y;});x.cast(a,e);return e.hp;}
-      base.units=base.units.filter(u=>u===a||u===e);a.x=400;a.y=400;e.x=a.x+a.range+80;e.y=400;e.stun=100;a.abilityCd=100;base.step();return a.x;
+      // Top lane: open ground, so terrain routing cannot hide the target choice.
+      base.units=base.units.filter(u=>u===a||u===e);a.x=300;a.y=90;e.x=a.x+a.range+80;e.y=90;e.stun=100;a.abilityCd=100;base.step();return a.x;
     };
     for(const {key} of patchAxes.filter(a=>a.key!=="tempo")) assert.notEqual(metric(key,50),metric(key,100),key);
     const slow=build(),fast=build("tempo");assert.ok(fast.units.find(u=>u.player)!.speed>slow.units.find(u=>u.player)!.speed);

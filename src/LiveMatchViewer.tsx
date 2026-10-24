@@ -3,7 +3,7 @@ import { Pause, Play, SkipForward } from "lucide-react";
 import { matchClock } from "./battle";
 import type { BattleConfig, SimulatedSeries } from "./battle";
 import type { LiveRequest, LiveUpdate } from "./live-battle";
-import { HeroToken, MapReplay } from "./MatchExperience";
+import { HeroToken, MapReplay, PLAYBACK_SPEEDS, speedLabel } from "./MatchExperience";
 import ItemInventory from "./ItemInventory";
 import { itemById } from "./items";
 import { patchById } from "./patches";
@@ -40,7 +40,8 @@ export default function LiveMatchViewer({config,onComplete,managedTeamId}:{confi
   };
   useEffect(()=>{
     if(!playing||!live||busy||finishing||error)return;
-    const timer=setTimeout(()=>send({type:"advance",seconds:6*speed}),100);
+    // 1× is thirty game seconds per real second; faster speeds take bigger steps.
+    const timer=setTimeout(()=>send({type:"advance",seconds:6*Math.max(1,speed/2)}),Math.max(100,200/speed));
     return()=>clearTimeout(timer);
   },[playing,live,busy,speed,finishing,error]);
   const patch=patchById(config.patchId);
@@ -51,8 +52,8 @@ export default function LiveMatchViewer({config,onComplete,managedTeamId}:{confi
     <div className="watch-heading"><div><div className="eyebrow">LIVE MATCH · PATCH {config.patchId??"LEGACY"}</div><h2 id="modal-title">Read the map. Call the play.</h2><p className="patch-match-label">{phaseLabels[tactics.phase]} · {playing?"Playing":"Paused"}</p></div>
       <button className="button secondary small-button" disabled={busy||finishing} onClick={()=>{setPlaying(false);setFinishing(true);send({type:"finish-live"});}}><SkipForward size={15}/>{finishing?"Finishing map…":"Simulate remainder"}</button></div>
     <div className="live-score"><strong><TeamBadge teamId={managedTeamId} name={config.teams[0]} year={config.year} size="small"/>{config.teams[0]}</strong><span><b>{frame.kills[0]}</b><small>{matchClock(frame.time)}</small><b>{frame.kills[1]}</b></span><strong><TeamBadge teamId={teamIdForName(config.teams[1],config.year)} name={config.teams[1]} year={config.year} size="small"/>{config.teams[1]}</strong></div>
-    <div className="watch-controls"><button className="icon-button" aria-label={playing?"Pause match":"Resume match"} onClick={()=>setPlaying(p=>!p)}>{playing?<Pause size={18}/>:<Play size={18}/>}</button><div role="group" aria-label="Match speed">{[1,2,4].map(s=><button key={s} aria-pressed={speed===s} className={speed===s?"selected":""} onClick={()=>setSpeed(s)}>{s}×</button>)}</div><button className="text-link" disabled={playing||busy||finishing} onClick={()=>send({type:"advance",seconds:60})}>Advance 1 minute</button><span>Both teams act autonomously · Orders affect future play</span></div>
-    <div className="watch-layout"><div className="map-wrap"><MapReplay before={frame} after={frame} ratio={0} expanded={(patch?.year??0)>=2023} selectedUnitIds={active?.participants}/><span className="map-live-label"><i/>LIVE · {matchClock(frame.time)}</span></div>
+    <div className="watch-controls"><button className="icon-button" aria-label={playing?"Pause match":"Resume match"} onClick={()=>setPlaying(p=>!p)}>{playing?<Pause size={18}/>:<Play size={18}/>}</button><div role="group" aria-label="Match speed">{PLAYBACK_SPEEDS.map(s=><button key={s} aria-pressed={speed===s} className={speed===s?"selected":""} onClick={()=>setSpeed(s)}>{speedLabel(s)}</button>)}</div><button className="text-link" disabled={playing||busy||finishing} onClick={()=>send({type:"advance",seconds:60})}>Advance 1 minute</button><span>Both teams act autonomously · Orders affect future play</span></div>
+    <div className="watch-layout"><div className="map-wrap"><MapReplay before={frame} after={frame} ratio={0} expanded={(patch?.year??0)>=2023} patchId={config.patchId} selectedUnitIds={active?.participants}/><span className="map-live-label"><i/>LIVE · {matchClock(frame.time)}</span></div>
     <section className="tactics-console" aria-label="Live tactical calls">
       <div className="tactics-console-head"><div className="eyebrow">{phaseLabels[tactics.phase]} · THREE QUICK SLOTS</div><label>Purchase order target<select aria-label="Purchase order target" disabled={busy||finishing} value={target} onChange={e=>{setTarget(e.target.value);send({type:"inspect",playerId:e.target.value});}}>{config.players[0].map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label></div>
       <div className="tactic-quick-slots">{tactics.slots.map((slot,i)=>{const s=strategyById(slot.strategyId)!;return <button key={s.id} className="button secondary" disabled={busy||finishing||!!slot.reason} title={slot.reason??s.description} onClick={()=>send({type:"order",at:frame.time,order:{strategyId:s.id,...(s.kind==="item"?{targetPlayerId:target}:{})}})}><strong>{i+1}. {s.name}</strong><small>{slot.reason??s.description}</small></button>;})}</div>

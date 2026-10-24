@@ -1,17 +1,19 @@
 import { useState } from "react";
 import type { Campaign } from "./game";
 import { money } from "./game";
-import { activeSponsorDeals, benefitLabels, initialSponsorOffer, legacySponsors, managedSponsorTeam, negotiateSponsor, sponsorBenefits, sponsorBlocker, sponsorDate, sponsors, sponsorSlotsUsed, sponsorWeeksLeft, teamSponsorDeals } from "./sponsors";
+import { activeSponsorDeals, benefitLabels, initialSponsorOffer, legacySponsors, managedSponsorTeam, negotiateSponsor, recommendedSponsorOffer, sponsorBenefits, sponsorBlocker, sponsorDate, sponsorNegotiator, sponsorRecommendations, sponsors, sponsorSlotsUsed, sponsorWeeksLeft, teamSponsorDeals } from "./sponsors";
 import type { Sponsor, SponsorOffer } from "./sponsors";
 import "./sponsors.css";
 
-function Negotiation({ campaign, sponsor, onChange, onClose }: {
-  campaign: Campaign; sponsor: Sponsor; onChange: (c: Campaign) => void; onClose: () => void;
+function Negotiation({ campaign, sponsor, initialOffer, onChange, onClose }: {
+  campaign: Campaign; sponsor: Sponsor; initialOffer?: SponsorOffer; onChange: (c: Campaign) => void; onClose: () => void;
 }) {
-  const [offer, setOffer] = useState<SponsorOffer>(() => initialSponsorOffer(sponsor));
+  const [offer, setOffer] = useState<SponsorOffer>(() => initialOffer ?? initialSponsorOffer(sponsor));
   const [response, setResponse] = useState<ReturnType<typeof negotiateSponsor> | null>(null);
   const change = (key: keyof SponsorOffer, value: number) => { setOffer((o) => ({ ...o, [key]: value })); setResponse(null); };
   const blocker = sponsorBlocker(campaign, sponsor);
+  const negotiator = sponsorNegotiator(campaign);
+  const suggestion = recommendedSponsorOffer(campaign, sponsor, offer.weeks, offer.mediaHours, offer.bonus);
   return <section className="panel sponsor-negotiation" aria-label={`Negotiate with ${sponsor.name}`}>
     <div className="sponsor-heading"><div><span className="eyebrow">Propose a partnership</span><h3>{sponsor.name}</h3></div><button type="button" className="button secondary small-button" onClick={onClose}>Close negotiation</button></div>
     <p>Ask the sponsor for support in return for a fixed commitment. More media time or a longer deal can improve their budget. The agreement signs when your submitted terms are accepted.</p>
@@ -28,6 +30,7 @@ function Negotiation({ campaign, sponsor, onChange, onClose }: {
         <label>Media per player / week<select value={offer.mediaHours} onChange={(e) => change("mediaHours", Number(e.target.value))}>{[0, 1, 2].map((n) => <option key={n} value={n}>{n} {n === 1 ? "hour" : "hours"}</option>)}</select></label>
       </div>
       <p><strong>{money(offer.weekly * offer.weeks + offer.bonus)} total support</strong> over {offer.weeks} weeks · {money(offer.bonus)} on signing.</p>
+      {negotiator && suggestion && <div className="sponsor-response"><strong>{negotiator.name} recommends</strong><p>{money(suggestion.weekly)} / week and {money(suggestion.bonus)} on signing with your selected length and media time. The 15% negotiated budget increase is included. This uses the available package budget while retaining your requested bonus where possible.</p><button type="button" className="button secondary" onClick={() => { setOffer(suggestion); setResponse(null); }}>Use negotiator’s terms</button></div>}
       <p>{benefitLabels[sponsor.benefit]}. Each media hour costs every starter 1 weekly energy and reduces attribute and playstyle development by 5%. Media still occurs during Rest. Commitments add across deals, with a 50% development reduction cap.</p>
       <p>Attribute benefits scale with practice volume and stop during Rest. Combined benefits cap at +0.30 attribute development, +6 energy, +3 happiness and +0.50 reputation per week. Full terms end at expiry; early renewal and poaching are unavailable.</p>
       {blocker && response?.status !== "accepted" && <p role="status">{blocker}</p>}
@@ -41,15 +44,46 @@ function Negotiation({ campaign, sponsor, onChange, onClose }: {
   </section>;
 }
 
-export default function SponsorMarket({ campaign, onChange }: { campaign: Campaign; onChange: (c: Campaign) => void }) {
+function NegotiatorAdvice({ campaign, onStaff, onRecommend }: {
+  campaign: Campaign; onStaff: () => void; onRecommend: (s: Sponsor, offer: SponsorOffer) => void;
+}) {
+  const [weeks, setWeeks] = useState(18);
+  const [mediaHours, setMediaHours] = useState(1);
+  const negotiator = sponsorNegotiator(campaign);
+  const recommendations = sponsorRecommendations(campaign, weeks, mediaHours);
+  const portfolio = recommendations.slice(0, Math.max(0, 5 - sponsorSlotsUsed(campaign)));
+  const extra = portfolio.reduce((sum, r) => sum + r.extraTotal, 0) / weeks;
+  return <section className="panel sponsor-advice" aria-label="Sponsor negotiator advice">
+    <span className="eyebrow">Commercial staff</span><h3>{negotiator ? `${negotiator.name} · sponsor recommendations` : "Get more from your sponsors"}</h3>
+    {!negotiator ? <><p>Hire a sponsor negotiator for $400 / week in Staff. They raise the budget for new agreements by 15%, suggest terms and rank eligible brands by financial support. Existing agreements keep their signed terms.</p><button className="button secondary" onClick={onStaff}>Find a sponsor negotiator</button></> : <>
+      <p>Ranked by total guaranteed support on matching terms, including the signing bonus. Recommendations respect your reputation, era, sponsor ownership and available slots. Benefits are listed separately; media time and longer commitments remain tradeoffs.</p>
+      <div className="sponsor-fields sponsor-advice-controls"><label>Compare contract length<select value={weeks} onChange={e => setWeeks(Number(e.target.value))}>{[6, 18, 36].map(n => <option key={n} value={n}>{n} weeks</option>)}</select></label><label>Compare media per player / week<select value={mediaHours} onChange={e => setMediaHours(Number(e.target.value))}>{[0, 1, 2].map(n => <option key={n} value={n}>{n} {n === 1 ? "hour" : "hours"} per deal</option>)}</select></label></div>
+      {!!portfolio.length && <p className="sponsor-advice-economics">Signing the best {portfolio.length} available {portfolio.length === 1 ? "deal" : "deals"} for your remaining slots could add <strong>{money(extra)} / week</strong> in support above unassisted packages, with bonuses spread over {weeks} weeks. After {negotiator.name}’s {money(negotiator.weekly)} weekly wage, that is <strong>{money(extra - negotiator.weekly)} / week</strong> from these new deals. The wage is paid once across your portfolio. Media commitments add across deals; extra support continues on signed terms after releasing the negotiator.</p>}
+      <div className="sponsor-advice-grid">{recommendations.slice(0, 3).map((r, i) => <article className="sponsor-recommendation" key={r.sponsor.id}>
+        <span className="eyebrow">#{i + 1} for financial support</span><h4>{r.sponsor.name}</h4><strong>{money(r.total)} over {weeks} weeks</strong>
+        <p>{money(r.offer.weekly)} / week + {money(r.offer.bonus)} signing bonus · {money(r.weeklyValue)} / week including bonus.</p>
+        <p>Negotiator adds {money(r.extraTotal)} across the term before staff wages. {benefitLabels[r.sponsor.benefit]}.</p>
+        <p>{mediaHours === 0 ? "No media obligations or media-related energy / development costs." : `${mediaHours} media ${mediaHours === 1 ? "hour" : "hours"} per starter / week: −${mediaHours} energy and −${mediaHours * 5}% development before combined caps.`}</p>
+        <button className="button secondary full" onClick={() => onRecommend(r.sponsor, r.offer)}>Review {r.sponsor.name} terms</button>
+      </article>)}</div>
+      {!recommendations.length && <p>{sponsorSlotsUsed(campaign) >= 5 ? "All five sponsor slots are occupied. Recommendations return when an agreement expires." : "No sponsors are eligible right now. Improve your reputation or check again as rival agreements expire and new brands enter the catalog."}</p>}
+    </>}
+  </section>;
+}
+
+export default function SponsorMarket({ campaign, onChange, onStaff }: { campaign: Campaign; onChange: (c: Campaign) => void; onStaff: () => void }) {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("era");
-  const [selected, setSelected] = useState<string | null>(null);
+  const [selected, setSelected] = useState<{ id: string; offer?: SponsorOffer } | null>(null);
+  const openNegotiation = (s: Sponsor, offer?: SponsorOffer) => {
+    setSelected({ id: s.id, offer });
+    window.setTimeout(() => document.querySelector(".sponsor-negotiation")?.scrollIntoView({ block: "center", behavior: "smooth" }), 0);
+  };
   const active = activeSponsorDeals(campaign);
   const mine = teamSponsorDeals(campaign);
   const managed = managedSponsorTeam(campaign);
   const benefits = sponsorBenefits(campaign);
-  const selection = sponsors.find((s) => s.id === selected);
+  const selection = sponsors.find((s) => s.id === selected?.id);
   const visible = sponsors.filter((s) => {
     if (!`${s.name} ${s.category} ${s.association}`.toLowerCase().includes(query.toLowerCase())) return false;
     const holder = active.find((d) => d.sponsorId === s.id);
@@ -65,7 +99,8 @@ export default function SponsorMarket({ campaign, onChange }: { campaign: Campai
       {legacySponsors(campaign).map((s) => <div className="sponsor-portfolio-row" key={s.id}><strong>{s.name}</strong><span>{money(s.weekly)} / week</span><span>Legacy rolling partnership · occupies one slot</span></div>)}
       <p>Current weekly effects: {benefits.growth.toFixed(2)} general attribute development · {benefits.energy >= 0 ? "+" : ""}{benefits.energy} energy · +{benefits.happiness} happiness · +{benefits.reputation.toFixed(2)} reputation · {benefits.mediaHours} media hours per starter. Analytics bonuses depend on training focus. Training previews include these effects.</p>
     </div>
-    {selection && <Negotiation key={selection.id} campaign={campaign} sponsor={selection} onChange={onChange} onClose={() => setSelected(null)} />}
+    <NegotiatorAdvice campaign={campaign} onStaff={onStaff} onRecommend={openNegotiation} />
+    {selection && <Negotiation key={`${selection.id}:${JSON.stringify(selected?.offer)}`} campaign={campaign} sponsor={selection} initialOffer={selected?.offer} onChange={onChange} onClose={() => setSelected(null)} />}
     <div className="sponsor-filters">
       <label>Search brands<input type="search" placeholder="Brand, category, historical association…" value={query} onChange={(e) => setQuery(e.target.value)} /></label>
       <label>Show<select value={filter} onChange={(e) => setFilter(e.target.value)}><option value="era">This era</option><option value="free">Available this era</option><option value="mine">Your partners</option><option value="rivals">With other teams</option><option value="all">All eras</option></select></label>
@@ -82,7 +117,7 @@ export default function SponsorMarket({ campaign, onChange }: { campaign: Campai
           <div className="sponsor-quote"><strong>{money(s.weekly)} / week</strong><span>+ {money(s.bonus)} bonus · opening ask</span></div>
           <p>{holder ? <><strong>{holder.teamId === managed ? "Your team" : holder.teamName}</strong> · {sponsorWeeksLeft(campaign, holder)} weeks left · ends {sponsorDate(holder.expiresAt, campaign)}<br />Simulated exclusive agreement</> : s.from > campaign.year ? `Enters the catalog in ${s.from}` : "Available · negotiate terms"}</p>
           <p className="sponsor-gate">{blocker ?? (s.requirement ? `${s.requirement} reputation required · you have ${Number(campaign.reputation.toFixed(2))}` : "Open to emerging clubs")}</p>
-          <button className="button secondary full" disabled={!!blocker} aria-expanded={selected === s.id} onClick={() => { setSelected(s.id); window.setTimeout(() => document.querySelector(".sponsor-negotiation")?.scrollIntoView({ block: "center", behavior: "smooth" }), 0); }}>Negotiate with {s.name}</button>
+          <button className="button secondary full" disabled={!!blocker} aria-expanded={selected?.id === s.id} onClick={() => openNegotiation(s)}>Negotiate with {s.name}</button>
           <details><summary>Historical evidence</summary><p>{s.association}</p><p>{s.evidence}. This is an era reference, not a continuous real-world contract.</p><a href={s.source} target="_blank" rel="noreferrer">{s.sourceTitle}</a></details>
         </article>;
       })}

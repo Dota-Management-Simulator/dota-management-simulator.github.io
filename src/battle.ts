@@ -8,6 +8,10 @@ import { oppositionStaff } from "./staff";
 import { frontiersEnabled, talentsEnabled } from "./patch-milestones";
 import { createFarmCamps } from "./battle-map";
 import type { FarmCamp } from "./battle-map";
+import { mapEraForPatch, roshanPit } from "./map-eras";
+import type { MapEra } from "./map-eras";
+import { pathsForEra } from "./map-paths";
+import type { MapPaths } from "./map-paths";
 import { talentBonuses } from "./talents";
 import type { TalentPlan } from "./talents";
 import { autoDraftMap } from "./draft";
@@ -261,6 +265,8 @@ export class LaneBattle {
   private random: () => number;
   private patch: SeasonPatch | undefined;
   private drafted?: CompletedDraft;
+  private mapEra?: MapEra;
+  private paths?: MapPaths;
   constructor(
     public config: BattleConfig,
     gameIndex = 0,
@@ -271,6 +277,11 @@ export class LaneBattle {
     this.preparations = ([0, 1] as Side[]).map(side => config.tacticalPreparations?.[side] ? normalizeTactics(config.tacticalPreparations[side])
       : automaticTactics(config.players[side], config.patchObservers?.[side]?.staffIds ?? oppositionStaff(config.teams[side]))) as [TacticalPreparation,TacticalPreparation];
     this.camps = frontiersEnabled(this.patch) ? createFarmCamps() : [];
+    // Patched maps use that era's terrain and Roshan pit; legacy maps keep open ground.
+    if (this.patch) {
+      this.mapEra = mapEraForPatch(this.patch); this.paths = pathsForEra(this.mapEra);
+      [this.roshan.x, this.roshan.y] = roshanPit(this.mapEra, 0);
+    }
     this.drafted = config.draftRecord ?? (this.patch && !config.draft ? autoDraftMap(config,gameIndex) : undefined);
     const fixedDraft = config.draft ?? this.drafted?.heroes;
     const pool = getHeroPool(config.year, this.patch ? Math.min(config.heroPoolThroughYear ?? this.patch.year - 1, this.patch.year - 1) : config.heroPoolThroughYear, this.patch).slice();
@@ -486,6 +497,7 @@ export class LaneBattle {
     return best;
   }
   private move(u: Unit, x: number, y: number) {
+    if (u.kind === "hero" && this.paths) [x, y] = this.paths.waypoint(u.x, u.y, x, y);
     const d = Math.hypot(x - u.x, y - u.y);
     if (d < 1) return;
     const gearSpeed = u.inventory.reduce((sum, id) => sum + (this.item(id).speed ?? 0), 0);
@@ -917,6 +929,8 @@ export class LaneBattle {
     this.sightCache = [undefined, undefined];
     if(!this.roshan.respawnAt&&this.clock-this.roshanDamagedAt>20)this.roshan.hp=Math.min(this.roshan.max,this.roshan.hp+this.roshan.max*.02*DT);
     if(this.roshan.respawnAt&&this.roshan.respawnAt<=this.clock){this.roshan.max=4800+this.clock;this.roshan.hp=this.roshan.max;this.roshan.respawnAt=0;}
+    // Two-pit eras: Roshan changes pit with day and night, never mid-fight.
+    if(this.mapEra?.roshan.night&&this.clock-this.roshanDamagedAt>20)[this.roshan.x,this.roshan.y]=roshanPit(this.mapEra,this.clock);
     if(this.clock>=this.nextShop){this.nextShop=this.clock+3;this.shop();}
     this.updatePlans();
     if (this.time >= this.nextWave) {

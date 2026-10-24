@@ -1,0 +1,31 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "aegis-dev",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "vite",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5330",
+        "--strictPort"
+      ],
+      "port": 5330
+    },
+    {
+      "name": "aegis-5323",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "vite",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5323",
+        "--strictPort"
+      ],
+      "port": 5323
+    }
+  ]
+}

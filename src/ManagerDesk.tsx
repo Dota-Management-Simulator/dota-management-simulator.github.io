@@ -8,6 +8,8 @@ import { managerCompetition } from "./manager-view";
 import TeamBadge from "./TeamBadge";
 import { SquadTable } from "./SquadWorkspace";
 import { TIRaceBrief } from "./CompetitionStandings";
+import Headquarters from "./Headquarters";
+import { campaignMenu } from "./menu-eras";
 
 export default function ManagerDesk({ campaign, onPage, onAction, onPlayer, onCompetition }: {
   campaign: Campaign; onPage: (page: Page) => void; onAction: (action: OfficeAction) => void;
@@ -20,6 +22,9 @@ export default function ManagerDesk({ campaign, onPage, onAction, onPlayer, onCo
   const tired = roster.filter(p => p.energy < 60);
   const latest = campaign.results.at(-1);
   return <div className="manager-desk">
+    <Headquarters campaign={campaign} onPage={onPage} onPlayer={onPlayer} onCompetition={onCompetition} />
+    {/* The copied clients already carry this data in their own panels and tabs. */}
+    {campaignMenu(campaign).era.layout === "showcase" && <details className="desk-briefings"><summary>Club briefings <span>Decisions, standings & squad details</span><ArrowRight size={15} /></summary><div className="desk-briefing-content">
     <div className="desk-topline"><span><Shield size={16} />{campaign.settings.team} <span className="workspace-divider">/</span> Your alternate history</span><span><Zap size={15} />{average(roster.map(p => p.energy))}% squad energy</span></div>
     <div className="desk-columns">
       <section className="panel desk-decisions"><div className="desk-panel-heading"><div><span className="eyebrow">CLUB OFFICE</span><h2>On your desk</h2></div><button className="text-link" onClick={() => onPage("inbox")}><Mail size={15} />{unreadMessages(campaign)} unread <ArrowRight size={14} /></button></div>
@@ -37,5 +42,6 @@ export default function ManagerDesk({ campaign, onPage, onAction, onPlayer, onCo
     <section className="panel desk-squad"><div className="desk-panel-heading"><div><h2>Squad readiness</h2><p>Your starting five, at a glance.</p></div><button className="text-link" onClick={() => onPage("roster")}>Manage squad <ArrowRight size={14} /></button></div><SquadTable campaign={campaign} onSelect={onPlayer} compact /></section>
     <div className="desk-bottom"><section className="panel desk-activity"><div className="desk-panel-heading"><h2>Club report</h2></div>{campaign.log.slice(0, 3).map((entry, i) => <p key={`${i}-${entry}`}><span className="activity-dot" />{entry}</p>)}</section>
       <section className="panel desk-result"><span className="eyebrow">LATEST RESULT</span>{latest ? <><h2>{latest.event}</h2><strong className="desk-result-score">{latest.won ? "WIN" : "LOSS"} · {latest.score ?? "Archived result"}</strong><p>{latest.opponent} · {money(latest.prize)} prize</p><button className="text-link" onClick={() => onPage("history")}>Season history <ArrowRight size={14} /></button></> : <><h2>A season to write.</h2><p>Your first completed event will appear here.</p></>}</section></div>
+    </div></details>}
   </div>;
 }

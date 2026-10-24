@@ -1,5 +1,8 @@
 import type { PatchAxis } from "./patches";
 
+export const SPONSOR_NEGOTIATOR_ID = "c7";
+export const SPONSOR_NEGOTIATION_BONUS = 0.15;
+
 export interface StaffMember {
   id: string;
   name: string;
@@ -32,6 +35,9 @@ export const staffCatalog: StaffMember[] = [
   { id: "c6", name: "Alex Rowan", role: "Hero specialist", weekly: 550, color: "lilac",
     specialty: "Hero research", benefit: "Discovers 2 additional favored heroes",
     coverage: {}, extraHeroes: 2 },
+  { id: SPONSOR_NEGOTIATOR_ID, name: "Taylor Mercer", role: "Sponsor negotiator", weekly: 400, color: "sand",
+    specialty: "Commercial terms & sponsor recommendations", benefit: "+15% budget for new sponsor agreements",
+    coverage: {}, extraHeroes: 0 },
 ];
 
 /** AI clubs receive a stable, modest research staff; no omniscient draft. */

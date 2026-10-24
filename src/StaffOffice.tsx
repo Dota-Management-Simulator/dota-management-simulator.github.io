@@ -8,8 +8,8 @@ import "./patches.css";
 import { draftStaffBenefits } from "./team-scouting";
 import { strategies } from "./tactics";
 
-export default function StaffOffice({ campaign, onHire, onDismiss, onPatch }: {
-  campaign: Campaign; onHire: (id: string) => void; onDismiss: (id: string) => void; onPatch: () => void;
+export default function StaffOffice({ campaign, onHire, onDismiss, onPatch, onSponsors }: {
+  campaign: Campaign; onHire: (id: string) => void; onDismiss: (id: string) => void; onPatch: () => void; onSponsors: () => void;
 }) {
   const report = patchReport(campaignPatch(campaign), managedPatchObserver(campaign));
   const hiredStaff = staffCatalog.filter(s => campaign.staffIds.includes(s.id));
@@ -32,7 +32,8 @@ export default function StaffOffice({ campaign, onHire, onDismiss, onPatch }: {
       return <article className="panel staff-card" key={s.id}>
         <div className={`staff-portrait ${s.color}`}><UserRound size={42} strokeWidth={1} /><span className="badge">{s.role}</span></div>
         <div className="staff-content"><h3>{s.name}</h3><p>{s.specialty}</p>
-          <p>{draftStaffBenefits[s.id]}</p>
+          {draftStaffBenefits[s.id] && <p>{draftStaffBenefits[s.id]}</p>}
+          {s.role === "Sponsor negotiator" && <><p>Ranks eligible sponsors by total support on matching terms, suggests offers and compares the extra support with their wage. Signed deals retain their terms after release.</p><button className="text-link" onClick={onSponsors}>View sponsor recommendations <ArrowRight size={15} /></button></>}
           {strategies.some(play=>play.staff===s.id)&&<p>Playbook unlock: {strategies.filter(play=>play.staff===s.id).map(play=>play.name).join(" · ")}. Equip these before a map.</p>}
           <ul className="staff-specialties">{patchAxes.filter(axis => s.coverage[axis.key] != null).map(axis => {
             const current = report.axes[axis.key].width;

@@ -141,11 +141,13 @@ export function draftSuggestions(config:BattleConfig,state:MapDraft):{hero:Hero;
     return {hero,score};
   }).sort((a,b)=>b.score-a.score||a.hero.id.localeCompare(b.hero.id));
 }
+export const BOT_DRAFT_TEMPERATURE=.1;
 export function automaticDraftAction(config:BattleConfig,state:MapDraft):MapDraft{
   const step=nextDraftStep(config,state);if(!step)return state;
   const choices=draftSuggestions(config,state);if(!choices.length)throw Error("No legal draft completion remains.");
   const skill=config.players[step.side].reduce((n,p)=>n+(p.skills.creativity??50),0)/5;
-  const temperature=3.8-Math.min(99,Math.max(0,skill))/99*1.3; // Never perfect, even at 99.
+  // Never perfect, even at 99. Omniscient exhibition bots draft almost greedily.
+  const temperature=config.patchObservers?.[step.side]?.omniscient?BOT_DRAFT_TEMPERATURE:3.8-Math.min(99,Math.max(0,skill))/99*1.3;
   const weights=choices.map(c=>Math.exp(Math.max(-8,(c.score-choices[0].score)/temperature)));
   const rng=random((config.seed^((state.map+1)*1103515245)^((state.actions.length+1)*2654435761))>>>0);
   let roll=rng()*weights.reduce((n,v)=>n+v,0),index=0;

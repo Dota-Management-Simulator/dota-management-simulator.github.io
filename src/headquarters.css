@@ -1,0 +1,199 @@
+/* Dota-style client shell. Actual Valve showcase media is credited in docs/dota-menu.md. */
+.hub-shell.game-shell { --client-bg: #141b21; --client-surface: #202b34; --client-line: #43505a; --client-ink: #d6dedf; --client-muted: #9ba9ad; --client-red: #b74a38; background: radial-gradient(ellipse at 50% 10%, #263b4555, transparent 60%), #141b21; }
+.hub-shell.game-shell .workspace { margin-right: 0; }
+.hub-shell.game-shell .shell-header { background: #151d24; box-shadow: 0 8px 30px #0004; border-bottom: 1px solid #49545b; }
+.hub-shell.game-shell .topbar { min-height: 68px; height: auto; padding-inline: 26px; gap: 22px; border: 0; background: linear-gradient(180deg, #222d35, #151e26); }
+.hub-shell.game-shell .hub-brand { color: #bd5844; }
+.hub-shell.game-shell .hub-brand > span { color: #dddacf; font-family: Georgia, serif; font-size: 23px; letter-spacing: 3px; }
+.hub-shell.game-shell .hub-brand small { color: #7e8b90; font-family: "DM Sans", sans-serif; font-size: 6px; letter-spacing: 1.5px; }
+.hub-shell.game-shell .topbar-actions { gap: 10px; color: #aab5bb; }
+.hub-shell.game-shell .topbar-actions .icon-button { color: #a4afb5; }
+.hub-shell.game-shell .topbar-actions .icon-button:hover { background: #ffffff0b; color: #eee4d6; }
+.hub-shell.game-shell .save-indicator { display: none; }
+.hub-shell.game-shell .back-to-desk { border-radius: 2px; border-color: #53616b; background: #25313c; color: #d8e0e0; }
+.hub-shell.game-shell .breadcrumbs { gap: 14px; flex-shrink: 0; }
+.hub-shell.game-shell .game-navigation { --hub-surface: #202b34; --hub-soft: #26343e; --ink: #dbe2e2; --muted: #9eafb6; --line: #47545d; --bg: #18232c; --green: #b7c4ca; position: relative; flex: 1; min-width: 0; background: transparent; border: 0; box-shadow: none; }
+.hub-shell.game-shell .game-orbits { display: flex; flex-direction: row; align-items: center; justify-content: center; gap: clamp(5px, 1.9vw, 28px); padding: 0; }
+.hub-shell.game-shell .orbit-button { min-width: 0; height: 68px; justify-content: center; padding: 0 5px; gap: 0; border-bottom: 3px solid transparent; border-radius: 0; color: #9daeb7; font-family: Georgia, serif; font-size: 14px; letter-spacing: 1px; text-transform: uppercase; font-weight: 400; }
+.hub-shell.game-shell .orbit-medallion, .hub-shell.game-shell .orbit-chevron { display: none; }
+.hub-shell.game-shell .orbit-button:is(.is-current, .is-open) { color: #f2e5d0; border-bottom-color: #c46248; text-shadow: 0 0 18px #e3895d55; background: linear-gradient(0deg, #cb633a10, transparent); }
+.hub-shell.game-shell .orbit-button:hover { color: #f2e5d0; }
+.hub-shell.game-shell .orbit-button.is-current::after { display: none; }
+.hub-shell.game-shell .department-popover { position: absolute; left: 50%; right: auto; top: calc(100% + 8px); bottom: auto; transform: translateX(-50%); width: min(460px, calc(100vw - 28px)); max-height: calc(100dvh - 185px); overflow-y: auto; padding: 20px; border-radius: 0; border: 1px solid #66737a; border-top: 2px solid #b9573e; background: linear-gradient(140deg, #26323c, #15212a); box-shadow: 0 16px 45px #0009; animation: department-arrive 180ms ease-out; }
+.hub-shell.game-shell .department-heading strong { font-family: Georgia, serif; font-size: 22px; letter-spacing: 1.5px; font-weight: 400; text-transform: uppercase; color: #e9dfd0; }
+.hub-shell.game-shell .department-heading p { color: #a1b0b8; }
+.hub-shell.game-shell .department-options > button { border-radius: 0; border-color: #4b5b65; background: #202d37; color: #d9e0df; }
+.hub-shell.game-shell .department-options > button:hover { border-color: #bd755c; background: #35404a; }
+.hub-shell.game-shell .destination-symbol { color: #b9c8d2; background: #34424d; border-radius: 0; }
+.hub-shell.game-shell .department-options small { color: #a7b6be; }
+.hub-shell.game-shell .department-options > button > svg { color: #adbfc9; }
+.hub-shell.game-shell .campaign-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 25; min-height: 88px; gap: 30px; padding: 15px 27px; border-top: 1px solid #4f5f66; border-bottom: 0; background: linear-gradient(180deg, #25313aef, #151f27fb); color: #c9d5d7; box-shadow: 0 -8px 30px #0006; backdrop-filter: blur(14px); }
+.hub-shell.game-shell .campaign-bar svg { color: #b2c4cb; }
+.hub-shell.game-shell .campaign-bar :is(.campaign-date span, .campaign-balance span, .campaign-next > span) { color: #a2b1b9; }
+.hub-shell.game-shell .campaign-bar .text-link { color: #bf9b76; }
+.hub-shell.game-shell .campaign-balance { border-color: #46535b; }
+.hub-shell.game-shell .campaign-bar .button.primary.campaign-continue { height: 52px; min-width: 224px; padding-inline: 28px; color: #dcebd3; background: linear-gradient(180deg, #4c633d, #304524); border: 1px solid #88a26e; border-radius: 0; font-family: Georgia, serif; font-size: 17px; font-weight: 400; text-transform: uppercase; letter-spacing: 1.6px; box-shadow: inset 0 0 0 3px #91b8740b, 0 0 22px #79994e16; }
+.hub-shell.game-shell .campaign-bar .button.primary.campaign-continue:hover:not(:disabled) { background: linear-gradient(180deg, #627e4c, #3c572e); color: #f0f9e7; border-color: #b2c891; }
+.hub-shell.game-shell .campaign-continue svg { color: #d4e3cb; }
+.hub-shell.game-shell .workspace main { padding-bottom: 115px; max-width: 1660px; }
+.hub-shell.game-shell .game-page-heading h1, :root[data-theme] .hub-shell.game-shell .game-page-heading h1 { color: #e5e4db; }
+.hub-shell.game-shell .game-page-note { color: #a4afb5; }
+.hub-home .game-page-heading { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip-path: inset(50%); }
+.hub-home .workspace main { padding: 0 27px 112px; }
+.hub-shell .manager-desk { grid-template-columns: minmax(0, 1fr); }
+.dota-lobby { --lobby-paper: #deded3; --lobby-muted: #a0adb3; position: relative; min-width: 0; color: var(--lobby-paper); }
+.lobby-main { position: relative; isolation: isolate; overflow: clip; display: grid; grid-template-columns: minmax(190px, .8fr) minmax(280px, 1.7fr) minmax(235px, .9fr); gap: 22px; min-height: clamp(530px, calc(100dvh - 300px), 740px); }
+.lobby-main::before { content: ""; position: absolute; z-index: -4; inset: 0 -27px; pointer-events: none; background: linear-gradient(90deg, #141b21e8, #141b2188 35%, #141b2155 65%, #141b21f0), linear-gradient(0deg, #141b21, #141b2100 30%), url("/dota-menu/greyfade.jpg") center / cover; opacity: .9; }
+.lobby-profile { position: relative; z-index: 2; padding-top: 45px; }
+.lobby-team-badge { display: flex; flex-direction: column; align-items: flex-start; gap: 22px; }
+.lobby-team-badge .team-badge { width: 65px; height: 65px; border: 1px solid #aaa58a55; border-radius: 1px; box-shadow: 0 6px 18px #0006; }
+.lobby-kicker { display: block; color: #aaa38e; font-size: 9px; font-weight: 600; letter-spacing: 2.2px; line-height: 1.5; }
+.dota-lobby .lobby-profile h2, :root[data-theme] .dota-lobby .lobby-profile h2 { color: #e8e1d3; font-family: Georgia, serif; font-size: clamp(28px, 3vw, 45px); font-weight: 400; text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.15; margin-top: 9px; overflow-wrap: anywhere; }
+.lobby-season { color: #a0afb6 !important; font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 14px; }
+.lobby-season > span { padding-inline: 4px; color: #b1523f; }
+.lobby-red-rule { height: 3px; width: 49px; background: #ae4b38; margin-block: 27px 22px; box-shadow: 0 0 15px #b54c3722; }
+.dota-lobby .lobby-tagline { color: #d4d8d8; font-family: Georgia, serif; font-size: 25px; line-height: 1.3; }
+.dota-lobby .lobby-intro { color: #899aa3; font-size: 11px; line-height: 1.85; margin-top: 15px; }
+.lobby-outline-button { display: flex; align-items: center; gap: 10px; padding: 11px 13px; margin-top: 24px; width: 100%; max-width: 210px; border: 1px solid #6d7b83; border-radius: 0; background: linear-gradient(110deg, #3b485155, #24303999); color: #c4cfd2; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; }
+.lobby-outline-button > svg:last-child { margin-left: auto; }
+.lobby-outline-button:hover { border-color: #d0bba0; color: #f1e4cf; background: #37444c; }
+.lobby-condition { margin-top: 23px; max-width: 210px; display: grid; grid-template-columns: 1fr auto; gap: 8px; align-items: center; }
+.lobby-condition > span { display: flex; gap: 5px; align-items: center; color: #859da2; font-size: 8px; letter-spacing: 1px; }
+.lobby-condition > strong { color: #adcaa2; font-size: 11px; font-weight: 400; }
+.lobby-condition > div { grid-column: 1 / -1; height: 2px; background: #3e4a50; }
+.lobby-condition > div > span { display: block; height: 100%; background: linear-gradient(90deg, #4b6452, #a0b889); }
+.lobby-showcase { position: relative; min-width: 0; min-height: 520px; }
+.lobby-hero-render { position: absolute; z-index: -1; left: 50%; bottom: 0; transform: translateX(-50%); width: 145%; height: 100%; object-fit: contain; object-position: center bottom; pointer-events: none; filter: drop-shadow(0 25px 25px #0006); mask-image: linear-gradient(0deg, #0000, #000 18%); }
+.lobby-hero-halo { position: absolute; z-index: -3; inset: 5% -35% 0; background: radial-gradient(ellipse at 50% 50%, #73939c20, #923d2814 35%, transparent 66%); }
+.lobby-hero-plinth { position: absolute; z-index: -2; left: 2%; right: 2%; bottom: 12%; height: 35px; background: #83989511; border-radius: 50%; box-shadow: 0 0 50px 15px #aeb5a208; transform: perspective(250px) rotateX(30deg); }
+.lobby-hero-caption { position: absolute; left: 0; right: 0; bottom: 73px; text-align: center; text-shadow: 0 3px 10px #000; }
+.dota-lobby .lobby-hero-caption h3, :root[data-theme] .dota-lobby .lobby-hero-caption h3 { font-family: Georgia, serif; font-size: 37px; font-weight: 400; text-transform: uppercase; color: #eee7d5; letter-spacing: 3px; margin-top: 4px; }
+.lobby-showcase-note { display: block; color: #90a2ac; font-size: 9px; margin-top: 6px; }
+.lobby-hero-controls { position: absolute; bottom: 17px; left: 0; right: 0; display: flex; justify-content: center; align-items: center; gap: 11px; }
+.lobby-hero-controls > div { display: flex; gap: 6px; }
+.lobby-hero-controls > div > button { display: grid; place-items: center; width: 35px; height: 35px; background: #1f2d35; border: 1px solid #647178; border-radius: 0; padding: 3px; }
+.lobby-hero-controls > div > button[aria-pressed="true"] { border-color: #c69c74; box-shadow: 0 0 12px #da846522; background: #4d4137; }
+.lobby-hero-controls img { width: 25px; height: 25px; object-fit: contain; }
+.lobby-motion-button, .lobby-view-heroes { height: 32px; display: flex; align-items: center; justify-content: center; gap: 7px; color: #b5c6ca; background: #25313b80; border: 1px solid #53606b; border-radius: 0; padding-inline: 8px; font-size: 9px; text-transform: uppercase; letter-spacing: .6px; }
+.lobby-briefing { position: relative; z-index: 2; padding-top: 31px; display: flex; flex-direction: column; gap: 10px; }
+.lobby-event { padding: 18px; border: 1px solid #5b6267; border-top: 2px solid #b15a42; background: linear-gradient(145deg, #35424acc, #1c2730e8); box-shadow: 0 8px 25px #0002; }
+.lobby-card-kicker { display: flex; gap: 7px; align-items: center; font-size: 8px; letter-spacing: 1.1px; color: #bdad92; }
+.lobby-event-art { display: flex; align-items: center; gap: 12px; justify-content: center; color: #bea47d; padding-block: 18px; margin: 14px -18px 17px; background: radial-gradient(ellipse at 50% 30%, #bfa66e1c, #10191f66), repeating-linear-gradient(135deg, #ac9a7605 0 1px, transparent 1px 9px); border-block: 1px solid #71818b22; }
+.lobby-event-art > span { font-family: Georgia, serif; font-size: 20px; letter-spacing: 1px; line-height: 1.2; }
+.dota-lobby .lobby-event h3, :root[data-theme] .dota-lobby .lobby-event h3 { font-family: Georgia, serif; font-size: 20px; font-weight: 400; line-height: 1.3; color: #e7dfd0; }
+.dota-lobby .lobby-event p { color: #acb9bf; font-size: 11px; line-height: 1.65; margin-top: 10px; }
+.lobby-event > small { display: block; margin-top: 8px; font-size: 9px; color: #92a5ae; }
+.lobby-match-button { display: flex; align-items: center; justify-content: space-between; gap: 10px; width: 100%; padding: 12px; margin-top: 17px; border: 1px solid #788891; color: #d4dedf; background: linear-gradient(180deg, #52616a, #2b3c46); border-radius: 0; font-size: 10px; letter-spacing: .4px; text-transform: uppercase; }
+.lobby-match-button:hover { background: #5a6d77; border-color: #d4c6ae; }
+.lobby-briefing-row { display: flex; align-items: center; gap: 12px; border: 1px solid #46555e; border-left: 2px solid #61747d; border-radius: 0; background: linear-gradient(105deg, #29363fde, #1c2831c9); padding: 13px; color: #a5b9c1; text-align: left; }
+.lobby-briefing-row > span:not(.lobby-message-count) { flex: 1; min-width: 0; }
+.lobby-briefing-row strong { display: block; font-size: 11px; font-weight: 500; color: #d2dcdf; }
+.lobby-briefing-row small { display: block; font-size: 9px; color: #93a4ad; margin-top: 5px; }
+.lobby-briefing-row:hover { border-color: #bd9c7c; background: #37464f; }
+.lobby-patch-row { border-left-color: #aa5b41; }
+.lobby-message-count { display: grid; place-items: center; min-width: 19px; height: 19px; padding-inline: 4px; color: #e2d6be; background: #5f3b2e; border: 1px solid #a57250; border-radius: 0; font-size: 9px; }
+.lobby-party { position: relative; padding: 18px 20px 20px; border: 1px solid #47555d; background: linear-gradient(180deg, #25333cc7, #1a262fcf); box-shadow: 0 8px 24px #0002; }
+.lobby-party-heading { display: flex; gap: 9px; align-items: center; margin-bottom: 13px; color: #8fa7b1; }
+.lobby-party-heading > span { font-size: 9px; letter-spacing: 1.5px; color: #bdcbd0; }
+.lobby-party-heading > small { margin-left: auto; font-size: 9px; color: #8298a2; }
+.lobby-party-slots { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px; }
+.lobby-player { position: relative; min-width: 0; display: flex; align-items: center; gap: 10px; padding: 12px 10px 20px; border: 1px solid #4b5b64; border-top: 2px solid #70827b; background: linear-gradient(110deg, #35434c99, #172831aa); color: #d7dedc; border-radius: 0; text-align: left; }
+.lobby-player:hover { border-color: #b49d7c; background: #3a4e56; transform: translateY(-2px); }
+.lobby-player-position { color: #617882; font-size: 9px; }
+.lobby-player .avatar { width: 34px; height: 40px; flex-shrink: 0; border: 1px solid #7f8e8d66; border-radius: 0; }
+.lobby-player-name { min-width: 0; }
+.lobby-player-name strong { display: block; font-size: 12px; font-weight: 500; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lobby-player-name small { display: block; font-size: 9px; color: #8ea3aa; margin-top: 5px; }
+.lobby-player-energy { position: absolute; bottom: 6px; right: 8px; display: flex; align-items: center; gap: 4px; font-size: 8px; color: #9aba90; }
+.lobby-player-energy.is-tired { color: #d7a06e; }
+.desk-briefings { border: 1px solid #3e4e57; background: #202d35; }
+.desk-briefings > summary { display: flex; gap: 14px; align-items: center; padding: 16px 20px; color: #c8d2d3; cursor: pointer; font-size: 12px; list-style: none; }
+.desk-briefings > summary::-webkit-details-marker { display: none; }
+.desk-briefings > summary > span { font-size: 10px; color: #8da0aa; }
+.desk-briefings > summary > svg { margin-left: auto; }
+.desk-briefings[open] > summary > svg { transform: rotate(90deg); }
+.desk-briefing-content { padding: 20px; display: grid; gap: 18px; background: var(--bg); }
+@media (max-width: 1150px) {
+  .hub-shell.game-shell .topbar { flex-wrap: wrap; gap: 0 15px; padding-inline: 20px; }
+  .hub-shell.game-shell .breadcrumbs { min-height: 54px; }
+  .hub-shell.game-shell .topbar-actions { margin-left: auto; }
+  .hub-shell.game-shell .game-navigation { order: 3; flex-basis: 100%; }
+  .hub-shell.game-shell .game-orbits { justify-content: center; gap: 33px; }
+  .hub-shell.game-shell .orbit-button { height: 46px; font-size: 12px; }
+  .lobby-main { grid-template-columns: 190px minmax(180px, 1fr) 240px; gap: 12px; min-height: clamp(510px, calc(100dvh - 320px), 650px); }
+  .lobby-profile { padding-top: 31px; }
+  .lobby-briefing { padding-top: 25px; }
+  .lobby-party { padding: 15px; }
+  .lobby-player { gap: 7px; padding-inline: 7px; }
+  .lobby-player-position { display: none; }
+}
+@media (max-width: 850px) {
+  .lobby-main { grid-template-columns: minmax(170px, .7fr) minmax(220px, 1.3fr); }
+  .lobby-showcase { min-height: 510px; }
+  .lobby-briefing { grid-column: 1 / -1; display: grid; grid-template-columns: 1.1fr 1fr; padding-block: 0 20px; align-items: start; }
+  .lobby-event { grid-row: span 3; }
+  .lobby-event-art { padding-block: 10px; }
+  .lobby-event-art > svg { width: 45px; height: 45px; }
+  .lobby-party-slots { overflow-x: auto; display: flex; padding-bottom: 5px; }
+  .lobby-player { flex: 0 0 150px; }
+  .hub-shell.game-shell .campaign-next { display: none; }
+  .hub-shell.game-shell .campaign-bar { gap: 16px; }
+  .hub-shell.game-shell .campaign-bar .button.primary.campaign-continue { margin-left: auto; min-width: 170px; font-size: 14px; padding-inline: 15px; }
+}
+@media (max-width: 650px) {
+  .hub-shell.game-shell .topbar { padding-inline: 15px; }
+  .hub-shell.game-shell .breadcrumbs { min-height: 52px; }
+  .hub-shell.game-shell .topbar-actions { gap: 1px; }
+  .hub-shell.game-shell .hub-brand > span { font-size: 18px; }
+  .hub-shell.game-shell .hub-brand small { font-size: 5px; }
+  .hub-shell.game-shell .game-orbits { gap: 0; justify-content: space-between; }
+  .hub-shell.game-shell .orbit-group { flex: 1; min-width: 0; }
+  .hub-shell.game-shell .orbit-button { height: 43px; font-size: 9px; letter-spacing: .5px; padding-inline: 2px; width: 100%; }
+  .hub-shell.game-shell .orbit-desk { flex: 1; }
+  .hub-shell.game-shell .department-popover { top: calc(100% + 7px); padding: 15px; max-height: calc(100dvh - 235px); }
+  .hub-shell.game-shell .campaign-bar { min-height: 0; gap: 10px 14px; padding: 11px 17px max(12px, env(safe-area-inset-bottom)); }
+  .hub-shell.game-shell .campaign-date strong, .hub-shell.game-shell .campaign-balance strong { font-size: 11px; }
+  .hub-shell.game-shell .campaign-date span, .hub-shell.game-shell .campaign-balance span { font-size: 8px; }
+  .hub-shell.game-shell .campaign-bar .button.primary.campaign-continue { margin: 0; width: 100%; min-height: 42px; height: 42px; font-size: 14px; }
+  .hub-home .workspace main { padding: 0 17px 155px; }
+  .hub-shell.game-shell .workspace main { padding-bottom: 155px; }
+  .lobby-main { grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); gap: 0; }
+  .lobby-main::before { inset-inline: -17px; }
+  .lobby-profile { padding-top: 26px; padding-bottom: 30px; }
+  .lobby-team-badge { gap: 17px; }
+  .lobby-team-badge .team-badge { width: 46px; height: 46px; }
+  .lobby-kicker { font-size: 7px; letter-spacing: 1.1px; }
+  .dota-lobby .lobby-profile h2, :root[data-theme] .dota-lobby .lobby-profile h2 { font-size: 24px; letter-spacing: .8px; }
+  .lobby-season { font-size: 7px; line-height: 1.8; letter-spacing: .8px; margin-top: 9px; }
+  .lobby-red-rule { margin-block: 19px 17px; width: 36px; }
+  .dota-lobby .lobby-tagline { font-size: 22px; }
+  .dota-lobby .lobby-intro { font-size: 9px; margin-top: 13px; }
+  .lobby-outline-button { font-size: 8px; gap: 6px; padding-inline: 8px; margin-top: 20px; }
+  .lobby-condition { margin-top: 17px; }
+  .lobby-condition > span { font-size: 6px; letter-spacing: .4px; }
+  .lobby-condition > strong { font-size: 9px; }
+  .lobby-showcase { min-height: 465px; overflow: hidden; }
+  .lobby-hero-render { width: 200%; height: 95%; bottom: 25px; }
+  .lobby-hero-caption { bottom: 88px; left: -20px; }
+  .dota-lobby .lobby-hero-caption h3, :root[data-theme] .dota-lobby .lobby-hero-caption h3 { font-size: 26px; letter-spacing: 1px; }
+  .lobby-showcase-note { display: none; }
+  .lobby-hero-controls { bottom: 28px; flex-wrap: wrap; gap: 6px; }
+  .lobby-hero-controls > div { gap: 4px; }
+  .lobby-hero-controls > div > button { width: 29px; height: 29px; }
+  .lobby-hero-controls img { width: 21px; height: 21px; }
+  .lobby-motion-button { height: 28px; padding-inline: 5px; }
+  .lobby-view-heroes { display: none; }
+  .lobby-briefing { grid-template-columns: minmax(0, 1fr); gap: 9px; padding-bottom: 18px; }
+  .lobby-event { padding: 16px; grid-row: auto; }
+  .lobby-event-art { margin: 12px -16px; padding-block: 12px; }
+  .lobby-event-art > span { font-size: 18px; }
+  .lobby-briefing-row { padding: 13px; }
+  .lobby-party { padding: 14px 12px; }
+  .lobby-party-heading > small { display: none; }
+  .lobby-player { flex-basis: 144px; }
+  .desk-briefings > summary { padding: 14px; }
+  .desk-briefings > summary > span { display: none; }
+  .desk-briefing-content { padding: 12px; }
+}
+@media (max-width: 360px) { .hub-shell.game-shell .hub-brand > span { display: none; } .lobby-profile { padding-right: 4px; } .dota-lobby .lobby-profile h2, :root[data-theme] .dota-lobby .lobby-profile h2 { font-size: 21px; } .lobby-outline-button { padding-inline: 5px; gap: 3px; font-size: 7px; } .lobby-outline-button > svg { width: 12px; } .lobby-hero-controls { left: -10px; right: -10px; } }
+@media (prefers-reduced-motion: reduce) { .dota-lobby *, .game-navigation * { animation: none !important; transition: none !important; } }

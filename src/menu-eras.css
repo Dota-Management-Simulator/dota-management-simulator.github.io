@@ -1,0 +1,36 @@
+/* Representative dashboard eras follow the same composite updates as the game. */
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) { background: radial-gradient(ellipse at 50% 0, #62351b33, transparent 60%), linear-gradient(#151514cc, #151514ee), url("/dota-menu/classic-stone.jpg") repeat; }
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .shell-header { border-bottom-color: #625442; }
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .topbar { background: linear-gradient(180deg, #282a28, #161816); }
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .orbit-button { height: 42px; padding-inline: 13px; border: 1px solid #53524a; background: linear-gradient(180deg, #2e302c, #151714); color: #b9ab82; font-size: 11px; box-shadow: inset 0 0 0 2px #0005; }
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .orbit-button:is(.is-current, .is-open) { background: radial-gradient(ellipse at 50% 10%, #a44738, #45251f); color: #e6d9b6; border-color: #886750; box-shadow: inset 0 0 0 2px #0005, 0 0 14px #b94d2822; }
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .game-orbits { gap: 5px; }
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .department-popover { background: linear-gradient(135deg, #35332c, #171c19); border-color: #655e4c; border-top-color: #a45135; }
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .campaign-bar { background: linear-gradient(180deg, #30312a, #171c18); border-top-color: #6a5e44; }
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .campaign-bar .button.primary.campaign-continue { background: linear-gradient(180deg, #754831, #48291d); color: #e0d1a3; border-color: #a18450; }
+.hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .campaign-bar .button.primary.campaign-continue:hover:not(:disabled) { background: linear-gradient(180deg, #96623e, #623927); border-color: #ceb07b; }
+.hub-shell.game-shell.menu-era-journey { background: radial-gradient(ellipse at 60% 0, #91592922, transparent 65%), #141c22; }
+.hub-shell.game-shell.menu-era-journey .orbit-button:is(.is-current, .is-open) { color: #f2d7a0; border-bottom-color: #d49744; }
+.hub-shell.game-shell.menu-era-frontiers { background: radial-gradient(ellipse at 50% 0, #176b6b33, transparent 65%), #111e24; }
+.menu-era-frontiers .lobby-hero-halo { background: radial-gradient(ellipse at 50% 40%, #5cc4bd30, #247c8422 35%, transparent 68%); }
+.menu-era-frontiers .lobby-red-rule { background: #68bcb0; }
+.menu-era-frontiers .lobby-era-strip { border-color: #558d8b; color: #b0dbce; background: linear-gradient(90deg, #214a4d, #173137); }
+.menu-era-future .lobby-era-strip { border-color: #716589; background: linear-gradient(90deg, #383248, #202a38); }
+.lobby-era-strip { display: flex; align-items: center; gap: 16px; padding: 12px 15px; margin-top: 15px; border: 1px solid #526472; color: #bacbd1; background: linear-gradient(90deg, #2a3a46, #1b2833); font-size: 10px; }
+.lobby-era-strip > span { font-family: Georgia, serif; font-size: 15px; text-transform: uppercase; letter-spacing: .7px; }
+.lobby-era-strip > strong { flex: 1; font-size: 10px; font-weight: 400; color: #a4b6bd; }
+.lobby-era-strip > button { display: flex; align-items: center; gap: 6px; border: 0; background: transparent; color: #cfb796; font-size: 9px; white-space: nowrap; }
+@media (max-width: 1150px) {
+  .hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .orbit-button { height: 38px; }
+}
+@media (max-width: 850px) {
+  .lobby-era-strip { flex-wrap: wrap; gap: 6px 10px; }
+  .lobby-era-strip > strong { font-size: 9px; }
+}
+@media (max-width: 650px) {
+  .hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .orbit-button { font-size: 8px; padding-inline: 3px; height: 37px; }
+  .hub-shell.game-shell:is(.menu-era-classic, .menu-era-source1) .game-orbits { gap: 3px; padding-bottom: 6px; }
+  .lobby-era-strip { gap: 6px; padding: 10px; margin-top: 12px; }
+  .lobby-era-strip > span { font-size: 13px; width: 100%; }
+  .lobby-era-strip > strong { font-size: 8px; }
+}

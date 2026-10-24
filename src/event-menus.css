@@ -1,0 +1,106 @@
+/* Dota's home mark anchors the client navigation in every menu era. */
+.hub-shell.game-shell .game-orbits .orbit-button.orbit-desk { position:relative; display:flex; justify-content:center; align-items:center; width:68px; min-width:58px; padding:8px 16px; border:1px solid #80543b; border-bottom:2px solid #a86b3d; background:radial-gradient(ellipse at 50% 0,#c279433b,#3a2b23 65%,#192027); box-shadow:inset 0 0 16px #0006,0 0 18px #dc78351c; clip-path:polygon(0 0,100% 0,90% 100%,10% 100%); }
+.desk-dota-symbol { display:block; width:34px; height:34px; object-fit:contain; filter:brightness(0) saturate(100%) invert(51%) sepia(56%) saturate(1305%) hue-rotate(333deg) brightness(89%) contrast(88%) drop-shadow(0 0 7px #e66b3544); transition:transform .2s; }
+.hub-shell.game-shell .game-orbits .orbit-button.orbit-desk:hover,.hub-shell.game-shell .game-orbits .orbit-button.orbit-desk.is-current { border-color:#c89460; background:radial-gradient(ellipse at 50% 0,#de974e6b,#5c3723 60%,#292323); }
+.orbit-desk:hover .desk-dota-symbol { transform:scale(1.08); }
+.desk-client { min-width:0; }
+.hub-shell.game-shell:has(.event-nemestice) { background:radial-gradient(ellipse at 60% 0,#5c347946,transparent 70%),#121724; }
+.hub-shell.game-shell:has(.event-labyrinth) { background:radial-gradient(ellipse at 60% 0,#24528640,transparent 70%),#101b28; }
+.hub-shell.game-shell:has(.event-diretide) { background:radial-gradient(ellipse at 60% 0,#35798140,transparent 70%),#102027; }
+.hub-shell.game-shell:has(.event-crownfall) { background:radial-gradient(ellipse at 60% 0,#6d705430,transparent 70%),#111e29; }
+.desk-theme-bar { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:10px 20px; padding:15px 0 13px; border-bottom:1px solid #58616a66; margin-bottom:15px; color:#c9d3d5; }
+.desk-theme-bar>span { font-size:10px; letter-spacing:1.5px; }
+.desk-theme-bar>span>small { margin-left:12px; color:#8f9fa8; font-size:8px; letter-spacing:.7px; }
+.desk-theme-bar label { display:flex; align-items:center; gap:12px; margin-left:auto; color:#9eafb8 !important; font-size:9px; letter-spacing:.4px; }
+.desk-theme-bar select,:root[data-theme] .desk-theme-bar select { width:245px; max-width:100%; min-width:0; padding:7px 28px 7px 10px; font-size:10px; color:#d4d9d6; background:#202b34; border:1px solid #50606a; border-radius:0; }
+.desk-theme-bar>button { border:0; padding:5px 0; color:#c7af81; background:transparent; font-size:9px; }
+.event-dashboard { --event-accent:#b7a16b; --event-light:#e5d5ab; --event-line:#58636c; --event-bg:#131d29; display:grid; grid-template-columns:192px minmax(0,1fr); align-items:start; gap:16px; color:#d6dddc; min-width:0; }
+.event-nemestice { --event-accent:#b68fdb; --event-light:#dfc5f2; --event-line:#685d83; --event-bg:#1b1b31; }
+.event-diretide { --event-accent:#8fc8ca; --event-light:#b9e4dc; --event-line:#4e7b80; --event-bg:#13252c; }
+.event-labyrinth { --event-accent:#7ca8d9; --event-light:#bfdcff; --event-line:#496784; --event-bg:#101f32; }
+.event-crownfall { --event-accent:#cbad76; --event-light:#f0dfb1; --event-line:#6d685e; --event-bg:#182a35; }
+.event-profile { min-width:0; border:1px solid #47555b; background:linear-gradient(135deg,#24313a,#15202a); box-shadow:0 10px 25px #0003; }
+.event-team { padding:18px 14px 12px; }
+.event-team .team-badge { display:block; width:50px; height:50px; margin-bottom:15px; border-radius:0; }
+.event-team>span { font-size:8px; color:#91a2a8; letter-spacing:1.5px; }
+.event-dashboard .event-team h2,:root[data-theme] .event-dashboard .event-team h2 { color:#dce4df; font-size:17px; line-height:1.4; margin:5px 0; font-weight:500; }
+.event-dashboard .event-team p { color:#9badb4 !important; font-size:9px; line-height:1.7; }
+.event-team>button { display:flex; align-items:center; gap:5px; margin-top:13px; padding:0; border:0; background:transparent; color:var(--event-light); font-size:9px; }
+.event-readiness { display:grid; grid-template-columns:1fr auto; gap:8px; padding:14px; border-block:1px solid #58666b55; background:#080e1633; }
+.event-readiness>span { display:flex; align-items:center; gap:5px; color:#91a8ac; font-size:7px; letter-spacing:.5px; }
+.event-readiness>strong { font-size:10px; color:#bad0ad; font-weight:400; }
+.event-readiness>div { grid-column:1/-1; height:4px; background:#07110f; }
+.event-readiness>div>span { display:block; height:100%; background:linear-gradient(90deg,#557756,#a4bd83); }
+.event-players { padding:13px 10px 7px; }
+.event-dashboard .event-players h3,:root[data-theme] .event-dashboard .event-players h3 { color:#9dadae; font-size:8px; font-weight:400; letter-spacing:1px; padding:0 3px 8px; }
+.event-players>button { display:flex; align-items:center; width:100%; gap:7px; padding:9px 3px; color:#d0d9d6; border:0; border-bottom:1px solid #46545b55; background:transparent; text-align:left; }
+.event-players>button:hover { background:#ffffff08; }
+.event-players>button>span { min-width:0; flex:1; }
+.event-players .avatar { width:29px; height:34px; border-radius:0; flex-shrink:0; }
+.event-players strong { display:block; font-size:10px; font-weight:500; overflow-wrap:anywhere; }
+.event-players small { display:block; margin-top:4px; font-size:8px; color:#8e9fa7; }
+.event-players>button>svg { color:#85969f; }
+.event-sidebar-link { display:flex; align-items:center; gap:9px; width:100%; padding:13px; background:#ffffff06; border:0; border-top:1px solid #44525b; color:var(--event-light); font-size:10px; text-align:left; }
+.event-sidebar-link>svg:last-child { margin-left:auto; }
+.event-main { min-width:0; }
+.event-stage { position:relative; isolation:isolate; overflow:hidden; min-height:560px; border:1px solid var(--event-line); background:var(--event-bg); box-shadow:0 12px 25px #0003; }
+.event-background { position:absolute; z-index:-4; width:100%; height:100%; inset:0; object-fit:cover; object-position:center top; }
+.event-stage::after { content:""; position:absolute; z-index:-2; inset:0; background:linear-gradient(0deg,#081018ee,transparent 65%); pointer-events:none; }
+.event-atmosphere { position:absolute; z-index:-1; pointer-events:none; inset:-15px; opacity:.25; background:radial-gradient(circle at 15% 25%,#c3dfff 0 1px,transparent 3px),radial-gradient(circle at 85% 60%,#e4b6ff 0 2px,transparent 4px),radial-gradient(circle at 40% 75%,#9ba9ff 0 1px,transparent 3px); background-size:183px 211px,253px 307px,377px 263px; }
+.has-atmosphere .event-atmosphere { animation:event-drift 16s ease-in-out infinite alternate; }
+.event-stage-top { position:relative; z-index:2; display:flex; align-items:start; justify-content:space-between; gap:10px; padding:15px 18px; }
+.event-stage-top>span { font-size:8px; color:#d4d9d2; letter-spacing:1.4px; text-shadow:0 1px 5px #000; }
+.event-stage-top small { display:block; margin-top:5px; font-size:8px; letter-spacing:.3px; color:#b2bdc3; }
+.event-stage-top button { display:flex; align-items:center; justify-content:center; padding:7px; color:#c5d3d8; background:#101b27aa; border:1px solid #a0b6bc55; border-radius:0; }
+.event-title-art { position:relative; display:block; margin:8px auto 0; width:min(54%,450px); height:150px; object-fit:contain; filter:drop-shadow(0 3px 8px #0005); }
+.event-nemestice .event-title-art { margin-top:0; height:125px; width:min(66%,570px); }
+.event-feature-copy { position:absolute; left:28px; right:28px; bottom:52px; }
+.event-feature-copy>span { display:block; font-size:9px; letter-spacing:2px; color:var(--event-light); }
+.event-dashboard .event-feature-copy h2,:root[data-theme] .event-dashboard .event-feature-copy h2 { max-width:570px; color:#f2ebe1; font-family:Georgia,serif; font-weight:400; font-size:clamp(29px,3.6vw,49px); line-height:1.15; letter-spacing:.3px; margin:12px 0; text-shadow:0 2px 10px #000; }
+.event-dashboard .event-feature-copy p { color:#c3c8d2 !important; font-size:12px; max-width:460px; text-shadow:0 1px 5px #000; }
+.event-feature-copy>div { display:flex; flex-wrap:wrap; gap:12px; margin-top:22px; }
+.event-primary,.event-secondary { display:flex; align-items:center; justify-content:center; gap:10px; min-height:42px; padding:11px 15px; font-size:11px; border-radius:0; }
+.event-primary { border:1px solid var(--event-accent); color:var(--event-light); background:linear-gradient(180deg,#344556ee,#172735ee); box-shadow:inset 0 0 0 2px #b6a9830c; }
+.event-primary:hover { border-color:var(--event-light); background:#435165; }
+.event-secondary { border:1px solid #a4aeb333; background:#111b26bb; color:#bfccd2; }
+.event-secondary:hover { border-color:#b0bdc5; }
+.event-adaptation-note { position:absolute; bottom:13px; left:18px; font-size:8px; color:#92a3ad; }
+.event-accessible-title { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); }
+.event-labyrinth .event-background { object-position:center top; }
+.event-labyrinth .event-feature-copy { bottom:44px; }
+.event-labyrinth .event-feature-copy h2 { font-size:32px !important; }
+.event-labyrinth .event-stage::after { background:linear-gradient(0deg,#07101df5,transparent 78%); }
+.event-crownfall .event-background { opacity:.35; object-fit:cover; }
+.event-crown-heroes { position:absolute; z-index:-3; width:100%; height:420px; object-fit:cover; object-position:center top; top:60px; left:0; opacity:.85; }
+.event-crownfall .event-title-art { height:155px; width:340px; margin-top:-10px; }
+.event-chapter-content { position:relative; z-index:1; margin-top:18px; }
+.event-dashboard .event-chapter-intro { text-align:center; color:#eed9ad !important; font-family:Georgia,serif; font-size:21px; text-shadow:0 2px 8px #07111b; }
+.event-chapter-intro>span { display:block; font-family:"DM Sans",sans-serif; font-size:8px; color:#a4b6bd; letter-spacing:2px; margin-top:8px; }
+.event-chapters { position:relative; width:100%; max-width:720px; margin:-3px auto 0; aspect-ratio:1423/768; background-size:100% 100%; background-repeat:no-repeat; }
+.event-chapters>button { display:flex; flex-direction:column; align-items:center; justify-content:end; position:absolute; top:22%; bottom:24%; width:19.5%; gap:5px; min-width:0; padding:0 5px 10px; border:0; background:transparent; color:#eed8a2; text-align:center; transition:filter .2s,transform .2s; }
+.event-chapters>button:nth-child(1) { left:8.5%; width:24%; }
+.event-chapters>button:nth-child(2) { left:32.5%; }
+.event-chapters>button:nth-child(3) { left:52%; }
+.event-chapters>button:nth-child(4) { left:71.5%; }
+.event-chapters>button:hover { background:linear-gradient(0deg,#dfbd7733,transparent); transform:translateY(-4px); filter:drop-shadow(0 0 8px #e7bf65aa); }
+.event-chapters>button:focus-visible { outline:2px solid #d6ba7d; outline-offset:3px; }
+.event-chapters>button>span { font-size:8px; letter-spacing:1px; }
+.event-chapters strong { font-family:Georgia,serif; font-size:clamp(11px,1.25vw,18px); font-weight:400; }
+.event-chapters small { color:#9baeb9; font-size:8px; }
+.event-chapters>button>svg { margin-top:5px; color:#bea975; }
+.event-briefing-grid { display:grid; grid-template-columns:1.2fr 1.2fr 1fr; gap:10px; margin-top:12px; }
+.event-briefing-grid>button { display:flex; align-items:center; gap:12px; min-width:0; text-align:left; padding:17px 14px; color:var(--event-accent); border:1px solid #4f606a; background:linear-gradient(120deg,#26333d,#18232c); border-radius:0; }
+.event-briefing-grid>button:hover { background:#2e3b45; border-color:var(--event-accent); }
+.event-briefing-grid>button>span { flex:1; min-width:0; }
+.event-briefing-grid small { display:block; font-size:7px; color:#99aeb8; letter-spacing:.8px; }
+.event-briefing-grid strong { display:block; color:#d8ddd7; font-size:11px; font-weight:500; margin:6px 0; line-height:1.5; }
+.event-briefing-grid>button>span>span { display:block; font-size:9px; color:#91a6b0; }
+.event-footer-links { display:flex; flex-wrap:wrap; align-items:center; gap:13px 22px; padding:15px 0 5px; }
+.event-footer-links>button { display:flex; align-items:center; gap:7px; padding:0; background:transparent; border:0; color:#b0c1c7; font-size:10px; }
+.event-footer-links>span { margin-left:auto; color:#81949e; font-size:8px; }
+@keyframes event-drift { from { transform:translate3d(-5px,10px,0); opacity:.2; } to { transform:translate3d(8px,-15px,0); opacity:.5; } }
+@media(min-width:1700px) { .event-stage { min-height:650px; } }
+@media(max-width:1100px) { .event-dashboard { grid-template-columns:166px minmax(0,1fr); gap:12px; } .event-stage { min-height:520px; } .event-title-art { height:120px; } .event-briefing-grid { grid-template-columns:1fr; gap:7px; } .event-briefing-grid>button { padding:12px; } .event-chapter-content { margin-top:95px; } .event-chapters small { display:none; } }
+@media(max-width:750px) { .event-dashboard { grid-template-columns:minmax(0,1fr); } .event-profile { display:grid; grid-template-columns:1fr 1fr; } .event-team { grid-row:span 2; padding:14px; } .event-team .team-badge { width:35px; height:35px; margin-bottom:8px; } .event-players { display:none; } .event-readiness { border-left:1px solid #58666b55; border-top:0; padding:14px 10px; align-content:center; } .event-sidebar-link { padding:12px 10px; font-size:9px; border-left:1px solid #58666b55; } .event-stage { min-height:540px; } .event-chapter-content { margin-top:100px; } .event-title-art { height:125px; } .event-briefing-grid { grid-template-columns:1fr; } .event-footer-links>span { width:100%; margin:0; line-height:1.8; } }
+@media(max-width:650px) { .hub-shell.game-shell .game-orbits .orbit-button.orbit-desk { width:41px; min-width:35px; height:37px; padding:4px; } .desk-dota-symbol { width:25px; height:25px; } .desk-theme-bar { padding-top:13px; gap:12px; } .desk-theme-bar>span { font-size:8px; } .desk-theme-bar label { width:100%; margin:0; gap:9px; } .desk-theme-bar select,:root[data-theme] .desk-theme-bar select { flex:1; width:0; padding-right:20px; font-size:9px; } .event-stage-top { padding:12px; } .event-stage-top>span { font-size:7px; letter-spacing:1px; } .event-stage-top small { font-size:7px; } .event-feature-copy { left:18px; right:18px; bottom:48px; } .event-dashboard .event-feature-copy h2 { font-size:32px !important; } .event-feature-copy>div { gap:9px; } .event-primary,.event-secondary { padding:10px; font-size:10px; } .event-crownfall .event-title-art { width:240px; height:110px; margin-top:5px; } .event-crown-heroes { height:300px; top:95px; width:150%; left:-25%; object-fit:cover; } .event-chapter-content { margin-top:120px; } .event-dashboard .event-chapter-intro { padding-inline:12px; font-size:18px; } .event-chapter-intro>span { font-size:6px; letter-spacing:1px; } .event-chapters { aspect-ratio:auto; height:230px; padding:0; background-size:100% 100%; } .event-chapters>button { padding:0 2px 10px; gap:5px; } .event-chapters>button>span { font-size:6px; } .event-chapters strong { font-size:11px; line-height:1.3; } .event-chapters>button>svg { width:11px; } .event-adaptation-note { font-size:7px; left:12px; } .event-nemestice .event-title-art { width:90%; height:110px; margin-top:15px; } .event-diretide .event-title-art { width:85%; height:140px; margin-top:15px; } .event-labyrinth .event-background { object-position:60% top; } }
+@media(prefers-reduced-motion:reduce) { .event-dashboard *, .desk-dota-symbol { animation:none !important; transition:none !important; } }

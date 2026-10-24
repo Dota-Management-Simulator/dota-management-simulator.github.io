@@ -18,6 +18,7 @@ Without research staff, every axis has a **35-point total spread** on its 0–10
 | Reese Park, economy coach (`c4`) | $500 | Economy and objectives: 4-point spread | 0 | Research only |
 | Jamie Vale, strategy scout (`c5`) | $425 | Split push and vision: 5-point spread | 1 | Research only |
 | Alex Rowan, hero specialist (`c6`) | $550 | None | 2 | Research only |
+| Taylor Mercer, sponsor negotiator (`c7`) | $400 | None | 0 | +15% new sponsor package budget and financial recommendations; no tactical scouting. See [sponsors](sponsors.md). |
 
 Overlapping specialties use the smallest width; they do not add or multiply. Narrower intervals are nested inside the wider interval, including the overlap between 5-point and 4-point vision research. Reloading, reordered/duplicate staff IDs and hiring/releasing/re-hiring cannot reroll estimates. Unknown staff IDs have no effect. Boundary values retain full-width bounded ranges. Even a full staff never displays exact axis ratings.
 

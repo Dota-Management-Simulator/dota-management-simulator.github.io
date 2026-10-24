@@ -1,0 +1,182 @@
+/* Every campaign page inside the era's Dota client: the client top bar
+ * (ClientPageBar.tsx) and client panels, buttons and fields over the page
+ * content. Colors follow the Desk clients in reborn-client.css and
+ * client-menus.css. Club colors and light mode apply to campaign setup only. */
+
+/* Era palettes. Reborn 2015–2017 is blue slate; 2018 onward is charcoal; the
+ * Source 1 client is warm grey with red; the beta frame is stone and bronze. */
+.hub-shell.game-shell {
+  --bg: #0b0f13; --ink: #c4ced3; --muted: #7e8a90; --line: #2d353c; --green: #8fcf6c; --gold: #d9b25c; --sidebar: #0a0d10;
+  --surface: #161b20; --surface-raised: #1e252b; --surface-soft: #11161a;
+  --hub-surface: #161b20; --hub-soft: #1e252b;
+  --client-page: radial-gradient(ellipse at 50% 0, #1f355055, transparent 60%), linear-gradient(180deg, #0f1820, #0a0d11 70%);
+  --client-panel: linear-gradient(180deg, #181e24, #12161a);
+  --client-head: #0e1216; --client-title: #c7d0d5; --client-serif: Georgia, "Times New Roman", serif;
+  --client-button: linear-gradient(180deg, #4d5860, #2b3339); --client-button-line: #6f7b82; --client-button-ink: #e6ecef;
+  --client-primary: linear-gradient(180deg, #5f9a3b, #366b23); --client-primary-line: #77b25b; --client-primary-ink: #f1f6ee;
+  --client-accent: #8fcf6c; --client-field: #0b0e11; --client-select: #2f6f9e;
+  background: var(--client-page); color: var(--ink);
+}
+.hub-shell.game-shell:is(.menu-era-modern, .menu-era-frontiers, .menu-era-future) {
+  --bg: #0c0d0f; --line: #2e3237; --surface: #17191c; --surface-raised: #202327; --surface-soft: #121416; --hub-surface: #17191c; --hub-soft: #202327;
+  --client-page: radial-gradient(ellipse at 50% 0, #2a242055, transparent 60%), linear-gradient(180deg, #16181b, #0b0c0e);
+  --client-panel: linear-gradient(180deg, #1a1c1f, #131416); --client-head: #101113;
+}
+.hub-shell.game-shell.menu-era-source1 {
+  --bg: #090b0d; --ink: #c9c7c2; --muted: #8d8a84; --line: #34353a; --green: #9bd27a; --gold: #d2ae64;
+  --surface: #1a1b1d; --surface-raised: #242528; --surface-soft: #141517; --hub-surface: #1a1b1d; --hub-soft: #242528;
+  --client-page: radial-gradient(ellipse at 75% 0, #26313a, transparent 60%), linear-gradient(#11161a, #07090a);
+  --client-panel: linear-gradient(180deg, #1d1e20, #141517); --client-head: linear-gradient(180deg, #2a2c2f, #17181a); --client-title: #c3beb5;
+  --client-button: linear-gradient(180deg, #353638, #1d1e20); --client-button-line: #4a4b4d; --client-button-ink: #d8d4cc;
+  --client-primary: radial-gradient(ellipse at 50% 120%, #e2564a, #a3271f 45%, #4a1511 90%); --client-primary-line: #d06a5a; --client-primary-ink: #fff6ee;
+  --client-accent: #e0806c; --client-select: #8a3026;
+}
+.hub-shell.game-shell.menu-era-classic {
+  --bg: #17181a; --ink: #d2cec4; --muted: #9a958a; --line: #3d3f43; --green: #c9b27a; --gold: #d8b06a;
+  --surface: #222426; --surface-raised: #2c2e31; --surface-soft: #1a1b1d; --hub-surface: #222426; --hub-soft: #2c2e31;
+  --client-page: linear-gradient(#151514cc, #151514ee), url("/dota-menu/classic-stone.jpg") repeat;
+  --client-panel: linear-gradient(180deg, #232527, #17181a); --client-head: linear-gradient(180deg, #6a4329, #3c2414 60%, #2a190e); --client-title: #ebe6da;
+  --client-button: linear-gradient(180deg, #2e3134, #3b3e42 70%, #2a2c2f); --client-button-line: #4a4d51; --client-button-ink: #ebe6da;
+  --client-primary: linear-gradient(180deg, #a85a2c, #6a3317); --client-primary-line: #d0572c; --client-primary-ink: #f6e3c4;
+  --client-accent: #d0872c; --client-select: #6a4329;
+}
+
+/* Shell: the client bar replaces the app header; no rounded app chrome. */
+:root[data-theme] .hub-shell.game-shell .shell-header { background: transparent; border-bottom: 0; box-shadow: none; }
+.client-page-bar { --rb-serif: var(--client-serif); position: relative; z-index: 2; color: var(--ink); }
+.client-page-bar button { font-family: inherit; }
+.client-page-bar :is(button, .rb-icon):disabled { cursor: default; opacity: .55; }
+.client-page-bar .rb-top { padding-left: 6px; }
+.client-page-bar .rb-logo-tab { cursor: pointer; }
+.client-page-bar .rb-logo-tab:not(:hover) { background: radial-gradient(ellipse at 50% 70%, #8d3a1e, #3d150a 70%); box-shadow: none; }
+.client-page-bar .rb-logo-tab:hover { background: radial-gradient(ellipse at 50% 70%, #d1582a, #7a2410 70%); box-shadow: 0 0 18px #e0662f88; }
+.client-page-bar .rb-top > nav > .client-tab > button.is-active { color: #fff; text-shadow: 0 0 12px #ffffff66; background: linear-gradient(0deg, #ffffff12, transparent); }
+.client-page-bar .rb-top > nav > .client-tab > button.is-active::before { content: ""; position: absolute; left: 18px; right: 18px; bottom: 0; height: 2px; background: #c4ced3; box-shadow: 0 0 8px #fff8; }
+.client-page-bar .rb-icon.is-active { color: #fff; background: #ffffff10; }
+.client-page-bar .rb-shards { border: 0; background: transparent; cursor: pointer; }
+.client-page-bar.is-modern .rb-top { background: linear-gradient(180deg, #24262a, #121315); }
+.client-page-bar .s1-top { margin: 0; }
+.client-page-bar .s1-top > nav > .client-tab > button { width: 150px; }
+.client-page-bar .beta-top { height: 70px; }
+.client-page-bar .beta-corner { width: 52px; height: 52px; margin: 8px 10px; }
+.client-page-bar .beta-top > nav > .client-tab > button { width: 150px; padding-bottom: 12px; font-size: 17px; }
+.client-page-mail { position: relative; cursor: pointer; }
+.client-page-mail > i { position: absolute; right: -6px; top: -6px; min-width: 16px; padding: 1px 4px; border-radius: 8px; background: #b3221a; color: #fff; font-size: 9px; font-style: normal; line-height: 14px; }
+
+/* Sub-tabs: the pages under the current client tab. */
+.client-page-subtabs { display: flex; align-items: stretch; min-width: 0; overflow-x: auto; scrollbar-width: none; padding: 0 22px; background: #0e1216f2; border-bottom: 1px solid #000; box-shadow: 0 3px 10px #0007; }
+.client-page-subtabs > button { position: relative; flex: 0 0 auto; padding: 11px 20px 10px; border: 0; background: transparent; color: #8d989e; font-size: 11px; letter-spacing: 1.8px; text-transform: uppercase; cursor: pointer; }
+.client-page-subtabs > button:hover { color: #e6ecef; }
+.client-page-subtabs > button.is-active { color: #fff; }
+.client-page-subtabs > button.is-active::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: -1px; height: 2px; background: #c4ced3; }
+.is-source1 .client-page-subtabs, .is-beta .client-page-subtabs { padding: 0; background: #141517; }
+.is-source1 .client-page-subtabs > button, .is-beta .client-page-subtabs > button { min-width: 150px; padding: 9px 18px; border-right: 1px solid #000; background: linear-gradient(180deg, #2a2b2e, #1a1b1d); color: #c8c5be; letter-spacing: 1.5px; }
+.is-source1 .client-page-subtabs > button.is-active { background: linear-gradient(180deg, #8a3026, #4f1912); color: #f4d9cf; }
+.is-beta .client-page-subtabs > button.is-active { background: linear-gradient(180deg, #6a4329, #3c2414); color: #f6d9a7; }
+.client-page-subtabs > button.is-active::after { display: var(--subtab-rule, block); }
+.is-source1 .client-page-subtabs, .is-beta .client-page-subtabs { --subtab-rule: none; }
+
+/* Page title, set like the client's page headers. */
+:root[data-theme] .hub-shell.game-shell .game-page-heading { align-items: flex-end; padding-bottom: 12px; border-bottom: 1px solid #ffffff14; box-shadow: 0 1px 0 #000; }
+:root[data-theme] .hub-shell.game-shell .game-page-heading h1 { color: var(--client-title); font-family: var(--client-serif); font-size: 30px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; }
+:root[data-theme] .hub-shell.game-shell .game-page-heading .eyebrow { color: var(--muted); font-size: 9px; letter-spacing: 2px; }
+:root[data-theme] .hub-shell.game-shell .game-page-note:not(.desk-client *, .local-patch-preview *) { color: var(--muted); }
+
+/* Panels and their title rows. */
+:root[data-theme] .hub-shell.game-shell :is(.panel, .modal, .text-modal):not(.desk-client *, .local-patch-preview *) { background: var(--client-panel); border: 1px solid #000; border-radius: 0; box-shadow: inset 0 0 0 1px #ffffff0a, 0 8px 22px #0007; color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell .panel > .section-title:not(.desk-client *, .local-patch-preview *) { background: var(--client-head); border-bottom: 1px solid #000; padding-block: 14px 13px; }
+:root[data-theme] .hub-shell.game-shell :is(.section-title h2, .panel h2):not(.desk-client *, .local-patch-preview *) { color: var(--client-title); font-family: var(--client-serif); font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
+:root[data-theme] .hub-shell.game-shell :is(h1, h2, h3, h4):not(.desk-client *, .local-patch-preview *) { color: var(--client-title); }
+:root[data-theme] .hub-shell.game-shell :is(p, .field-note, .section-title p):not(.desk-client *, .local-patch-preview *) { color: var(--muted); }
+:root[data-theme] .hub-shell.game-shell .eyebrow:not(.desk-client *, .local-patch-preview *) { color: var(--muted); }
+:root[data-theme] .hub-shell.game-shell :is(.text-link, .positive):not(.desk-client *, .local-patch-preview *) { color: var(--client-accent); }
+:root[data-theme] .hub-shell.game-shell .text-link:hover:not(.desk-client *, .local-patch-preview *) { color: #fff; }
+
+/* Buttons: grey client buttons, with the era's play button for primary actions. */
+:root[data-theme] .hub-shell.game-shell :is(.button, .small-button):not(.desk-client *, .local-patch-preview *) { border-radius: 0; font-family: inherit; letter-spacing: 1.2px; text-transform: uppercase; }
+:root[data-theme] .hub-shell.game-shell :is(.button.secondary, .button.cream):not(.desk-client *, .local-patch-preview *) { background: var(--client-button); border: 1px solid #000; box-shadow: inset 0 0 0 1px var(--client-button-line); color: var(--client-button-ink); }
+:root[data-theme] .hub-shell.game-shell :is(.button.secondary, .button.cream):hover:not(:disabled):not(.desk-client *, .local-patch-preview *) { background: var(--client-button); border-color: #000; filter: brightness(1.25); }
+:root[data-theme] .hub-shell.game-shell .button.primary:not(.desk-client *, .local-patch-preview *) { background: var(--client-primary); border: 1px solid #000; box-shadow: inset 0 0 0 1px var(--client-primary-line), 0 3px 10px #0007; color: var(--client-primary-ink); }
+:root[data-theme] .hub-shell.game-shell .button.primary:hover:not(:disabled):not(.desk-client *, .local-patch-preview *) { background: var(--client-primary); border-color: #000; filter: brightness(1.18); }
+:root[data-theme] .hub-shell.game-shell .button:disabled:not(.desk-client *, .local-patch-preview *) { filter: saturate(.3) brightness(.75); }
+:root[data-theme] .hub-shell.game-shell .icon-button:not(.desk-client *, .local-patch-preview *) { border-radius: 0; color: var(--muted); }
+:root[data-theme] .hub-shell.game-shell .icon-button:hover:not(.desk-client *, .local-patch-preview *) { background: #ffffff10; color: #fff; }
+
+/* Fields. */
+:root[data-theme] .hub-shell.game-shell :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), select, textarea, .search-field input, .filter-bar > select, .year-stepper):not(.desk-client *, .local-patch-preview *) { background-color: var(--client-field); border: 1px solid #000; border-radius: 0; box-shadow: inset 0 0 0 1px #ffffff12; color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell :is(input, select, textarea):focus:not(.desk-client *, .local-patch-preview *) { outline: 1px solid var(--client-button-line); outline-offset: 0; }
+:root[data-theme] .hub-shell.game-shell input::placeholder { color: #6c777d; }
+:root[data-theme] .hub-shell.game-shell :is(input[type="checkbox"], input[type="radio"], input[type="range"]):not(.desk-client *, .local-patch-preview *) { accent-color: var(--client-select); }
+:root[data-theme] .hub-shell.game-shell label:not(.desk-client *, .local-patch-preview *) { color: var(--ink); }
+
+/* Badges, meters, callouts and rows. */
+:root[data-theme] .hub-shell.game-shell .badge:not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: #0b0e11; border-color: #000; color: var(--ink); letter-spacing: 1px; }
+:root[data-theme] .hub-shell.game-shell .badge.gold:not(.desk-client *, .local-patch-preview *) { color: var(--gold); }
+:root[data-theme] .hub-shell.game-shell .badge.green:not(.desk-client *, .local-patch-preview *) { color: var(--green); }
+:root[data-theme] .hub-shell.game-shell .badge.red:not(.desk-client *, .local-patch-preview *) { color: #e58a74; }
+:root[data-theme] .hub-shell.game-shell :is(.meter, .style-blocks > span):not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: #0b0e11; box-shadow: inset 0 0 0 1px #000; }
+:root[data-theme] .hub-shell.game-shell :is(.meter > span, .style-blocks > .filled):not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: linear-gradient(90deg, #3e9fd8, #9ed6f5); }
+:root[data-theme] .hub-shell.game-shell .meter.gold > span:not(.desk-client *, .local-patch-preview *) { background: linear-gradient(90deg, #a77d2e, #e3c16f); }
+:root[data-theme] .hub-shell.game-shell :is(.info-strip, .patch-teaser, .staff-benefit, .profile-contract, .alert, .muted-callout, .qualification-banner, .little-note, .empty-state):not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: #0e1216cc; border: 1px solid #000; box-shadow: inset 0 0 0 1px #ffffff0d; color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell :is(.alert.warning, .event-emblem):not(.desk-client *, .local-patch-preview *) { background: #2a1f12; color: #e7c27e; border-color: #000; }
+:root[data-theme] .hub-shell.game-shell :is(.info-strip strong, .profile-contract strong, .qualification-banner strong, .empty-state h3):not(.desk-client *, .local-patch-preview *) { color: var(--client-title); }
+:root[data-theme] .hub-shell.game-shell :is(.mini-player, .training-row, .table-head, .scout-row, .patch-attribute, .meta-hero, .transactions > div, .results-list > div, .player-card-footer, .settings-row):not(.desk-client *, .local-patch-preview *) { border-color: #ffffff12; }
+:root[data-theme] .hub-shell.game-shell .mini-player:hover:not(.desk-client *, .local-patch-preview *) { background: #ffffff08; }
+:root[data-theme] .hub-shell.game-shell :is(.difficulty, .era-card, .sim-rewards, .patch-version):not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: var(--surface-soft); border-color: #000; color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell :is(.difficulty.selected, .era-card.selected):not(.desk-client *, .local-patch-preview *) { background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--client-button-line); }
+:root[data-theme] .hub-shell.game-shell .result-mark:not(.desk-client *, .local-patch-preview *) { border-radius: 0; }
+:root[data-theme] .hub-shell.game-shell .result-mark.win:not(.desk-client *, .local-patch-preview *) { background: #1f3a1a; color: #9fe07c; }
+:root[data-theme] .hub-shell.game-shell .result-mark.loss:not(.desk-client *, .local-patch-preview *) { background: #3a1a16; color: #e58a74; }
+:root[data-theme] .hub-shell.game-shell .result-mark.neutral:not(.desk-client *, .local-patch-preview *) { background: #1c2228; color: #9aa6ab; }
+:root[data-theme] .hub-shell.game-shell :is(table th):not(.desk-client *, .local-patch-preview *) { color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; }
+:root[data-theme] .hub-shell.game-shell .modal-backdrop { background: #000000b8; }
+:root[data-theme] .hub-shell.game-shell .modal-close:not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: #0e1216; }
+:root[data-theme] .hub-shell.game-shell .app-footer:not(.desk-client *, .local-patch-preview *) { color: var(--muted); border-color: #ffffff12; }
+
+/* Page-specific frames that hard-code the old palette. */
+:root[data-theme] .hub-shell.game-shell .hero-showcase:not(.desk-client *, .local-patch-preview *) { border: 1px solid #000; background: linear-gradient(135deg, #1e2a33, #0d1216 70%); box-shadow: inset 0 0 0 1px #ffffff0d, 0 12px 35px #0008; }
+
+/* Continue bar: the client's bottom bar with the era's play button. */
+:root[data-theme] .hub-shell.game-shell .campaign-bar { border-top: 1px solid #000; background: linear-gradient(180deg, #161b20f2, #0b0e11fc); box-shadow: inset 0 1px 0 #ffffff12, 0 -8px 30px #0008; color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell .campaign-bar .button.primary.campaign-continue { min-width: 260px; height: 50px; border: 1px solid #8b979e; background: linear-gradient(180deg, #5c6870, #313a41); box-shadow: inset 0 0 0 1px #ffffff1c, 0 4px 14px #0008; color: #eef3f5; font-family: var(--client-serif); font-size: 18px; letter-spacing: 3px; }
+:root[data-theme] .hub-shell.game-shell .campaign-bar .button.primary.campaign-continue:hover:not(:disabled) { filter: brightness(1.18); }
+:root[data-theme] .hub-shell.game-shell:is(.menu-era-modern, .menu-era-frontiers, .menu-era-future) .campaign-bar .button.primary.campaign-continue { border-color: #77b25b; background: linear-gradient(180deg, #4e9a3c, #24561b); }
+:root[data-theme] .hub-shell.game-shell.menu-era-source1 .campaign-bar { background: linear-gradient(180deg, #1d1e20f2, #0c0c0dfc); }
+:root[data-theme] .hub-shell.game-shell.menu-era-source1 .campaign-bar .button.primary.campaign-continue { border-color: #000; background: linear-gradient(180deg, #4f8f36, #24561b); box-shadow: inset 0 0 0 1px #8fd07a, 0 0 14px #6fdc4133; font-size: 16px; }
+:root[data-theme] .hub-shell.game-shell.menu-era-classic .campaign-bar { background: linear-gradient(180deg, #3c2414f2, #1a0f08fc); }
+:root[data-theme] .hub-shell.game-shell.menu-era-classic .campaign-bar .button.primary.campaign-continue { border-color: #000; background: linear-gradient(180deg, #a85a2c, #5a2a12); box-shadow: inset 0 0 0 2px #d0872c88; color: #f6e3c4; }
+
+@media (max-width: 850px) {
+  .client-page-bar .rb-top > nav > .client-tab > button { padding: 0 16px; font-size: 13px; letter-spacing: 1.6px; }
+  .client-page-bar .rb-arrows, .client-page-bar .rb-power { display: none; }
+  .client-page-bar .rb-logo-tab { width: 70px; }
+  .client-page-bar .s1-top > nav > .client-tab > button, .client-page-bar .beta-top > nav > .client-tab > button { width: 116px; font-size: 13px; }
+  :root[data-theme] .hub-shell.game-shell .game-page-heading { align-items: flex-start; }
+  :root[data-theme] .hub-shell.game-shell .game-page-heading h1 { font-size: 23px; letter-spacing: 2px; }
+}
+@media (max-width: 650px) {
+  .client-page-bar .rb-top { height: 46px; }
+  .client-page-bar .rb-logo-tab { width: 54px; margin-inline: 2px; }
+  .client-page-bar .rb-logo-tab img { width: 30px; height: 30px; }
+  .client-page-bar .rb-top > nav > .client-tab > button { padding: 0 11px; font-size: 11px; letter-spacing: 1px; }
+  .client-page-bar .rb-shards { display: none; }
+  .client-page-bar .rb-icon { width: 36px; }
+  .client-page-bar .s1-top > nav { padding: 0 4px; }
+  .client-page-bar .s1-top > nav::before, .client-page-bar .s1-top > nav::after { display: none; }
+  .client-page-bar .s1-top > nav > .client-tab > button, .client-page-bar .beta-top > nav > .client-tab > button { width: 92px; font-size: 11px; letter-spacing: .6px; }
+  .client-page-bar .beta-top { height: 56px; }
+  .client-page-bar .beta-corner { width: 38px; height: 38px; margin: 8px 6px; }
+  .client-page-subtabs { padding: 0 8px; }
+  .client-page-subtabs > button { padding: 10px 11px 9px; font-size: 10px; letter-spacing: 1.2px; }
+  .is-source1 .client-page-subtabs > button, .is-beta .client-page-subtabs > button { min-width: 0; padding: 9px 12px; font-size: 10px; }
+  :root[data-theme] .hub-shell.game-shell .campaign-bar .button.primary.campaign-continue { min-width: 0; height: 44px; font-size: 14px; letter-spacing: 2px; }
+}
+
+/* Leftover hard-coded colors from the old dark theme. */
+:root[data-theme] .hub-shell.game-shell .training-quick-slot:not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: var(--client-button); border-color: #000; box-shadow: inset 0 0 0 1px var(--client-button-line); }
+:root[data-theme] .hub-shell.game-shell :is(.training-quick-apply, .training-quick-icon):not(.desk-client *, .local-patch-preview *) { color: var(--client-button-ink); }
+:root[data-theme] .hub-shell.game-shell :is(.training-quick-icon, .training-quick-confirm):not(.desk-client *, .local-patch-preview *) { border-left-color: #000; }
+:root[data-theme] .hub-shell.game-shell :is(.training-quick-apply:hover, .training-quick-icon:hover:not(:disabled), .training-quick-confirm:hover):not(.desk-client *, .local-patch-preview *) { background: #ffffff14; }
+:root[data-theme] .hub-shell.game-shell :is(.moss):not(.desk-client *, .local-patch-preview *) { background: #24323b; color: #9dbdc9; }
+:root[data-theme] .hub-shell.game-shell .tiny-square:not(.desk-client *, .local-patch-preview *) { background: var(--client-accent); border-radius: 0; }
+:root[data-theme] .hub-shell.game-shell .team-badge:not(.team-badge-custom):not(.desk-client *, .local-patch-preview *) { border-radius: 2px; background: #dfe3e5; box-shadow: inset 0 0 0 1px #0004; }

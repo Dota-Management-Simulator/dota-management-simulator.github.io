@@ -1098,3 +1098,5 @@
     flex-basis: auto;
   }
 }
+/* Seven playback speeds wrap instead of widening the bar on phones. */
+.watch-controls > div[role="group"] { flex-wrap: wrap; }

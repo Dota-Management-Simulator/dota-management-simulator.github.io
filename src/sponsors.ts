@@ -2,6 +2,7 @@ import records from "./data/sponsors.json";
 import world from "./data/world.json";
 import type { Campaign, Training } from "./game";
 import { campaignWeek } from "./contracts";
+import { SPONSOR_NEGOTIATOR_ID, SPONSOR_NEGOTIATION_BONUS, staffCatalog } from "./staff";
 
 export type SponsorBenefit = "training" | "recovery" | "morale" | "analytics" | "audience";
 export interface Sponsor {
@@ -73,12 +74,43 @@ export function sponsorBlocker(c: Campaign, s: Sponsor): string | null {
 export function initialSponsorOffer(s: Sponsor): SponsorOffer {
   return { weekly: s.weekly, bonus: s.bonus, weeks: 18, mediaHours: 1 };
 }
+export const sponsorNegotiator = (c: Campaign) => c.staffIds.includes(SPONSOR_NEGOTIATOR_ID)
+  ? staffCatalog.find(s => s.id === SPONSOR_NEGOTIATOR_ID) : undefined;
+
+/** Total package budget per week, including the amortized signing bonus. */
+function sponsorBudget(c: Campaign, s: Sponsor, weeks: number, mediaHours: number, assisted = !!sponsorNegotiator(c)) {
+  return Math.floor((s.weekly + s.bonus / 18) * (0.8 + Math.min(100, Math.max(0, c.reputation)) * 0.004 + mediaHours * 0.1 + (weeks === 36 ? 0.1 : weeks === 6 ? -0.1 : 0))
+    * (assisted ? 1 + SPONSOR_NEGOTIATION_BONUS : 1));
+}
+
+/** Advice uses the same budget and legal gates as signing. It never signs. */
+export function recommendedSponsorOffer(c: Campaign, s: Sponsor, weeks = 18, mediaHours = 1, requestedBonus = s.bonus): SponsorOffer | null {
+  if (!sponsorNegotiator(c) || sponsorBlocker(c, s) || ![6, 18, 36].includes(weeks) || ![0, 1, 2].includes(mediaHours)
+    || !Number.isSafeInteger(requestedBonus) || requestedBonus < 0 || requestedBonus > 1000000) return null;
+  const budget = sponsorBudget(c, s, weeks, mediaHours);
+  const bonus = Math.min(requestedBonus, Math.max(0, (budget - 100) * weeks));
+  return { weekly: Math.min(100000, Math.max(100, Math.floor(budget - bonus / weeks))), bonus, weeks, mediaHours };
+}
+
+export function sponsorRecommendations(c: Campaign, weeks = 18, mediaHours = 1) {
+  if (!sponsorNegotiator(c)) return [];
+  return sponsors.flatMap(sponsor => {
+    const offer = recommendedSponsorOffer(c, sponsor, weeks, mediaHours);
+    if (!offer) return [];
+    const total = offer.weekly * weeks + offer.bonus;
+    const unassistedBudget = sponsorBudget(c, sponsor, weeks, mediaHours, false);
+    // Compare complete packages, so a short-term bonus is never mistaken for weekly income.
+    const extraTotal = Math.max(0, total - unassistedBudget * weeks);
+    return [{ sponsor, offer, total, weeklyValue: total / weeks, extraTotal }];
+  }).sort((a, b) => b.total - a.total || a.sponsor.id.localeCompare(b.sponsor.id));
+}
+
 export function assessSponsorOffer(c: Campaign, s: Sponsor, o: SponsorOffer): { status: "accepted" | "counter" | "blocked"; message: string; counter?: SponsorOffer } {
   if (!Number.isSafeInteger(o.weekly) || o.weekly < 100 || o.weekly > 100000 || !Number.isSafeInteger(o.bonus) || o.bonus < 0 || o.bonus > 1000000 || ![6, 18, 36].includes(o.weeks) || ![0, 1, 2].includes(o.mediaHours))
     return { status: "blocked", message: "Use whole-dollar weekly support ($100–$100,000), a $0–$1,000,000 bonus, 6/18/36 weeks, and 0/1/2 media hours." };
   const blocker = sponsorBlocker(c, s);
   if (blocker) return { status: "blocked", message: blocker };
-  const budget = Math.floor((s.weekly + s.bonus / 18) * (0.8 + Math.min(100, Math.max(0, c.reputation)) * 0.004 + o.mediaHours * 0.1 + (o.weeks === 36 ? 0.1 : o.weeks === 6 ? -0.1 : 0)));
+  const budget = sponsorBudget(c, s, o.weeks, o.mediaHours);
   if (o.weekly + o.bonus / o.weeks <= budget) return { status: "accepted", message: "Package agreed. Your signing bonus is paid now; weekly support and benefits end at expiry." };
   const bonus = Math.min(o.bonus, Math.max(0, (budget - 100) * o.weeks));
   const counter = { ...o, bonus, weekly: Math.max(100, Math.floor(budget - bonus / o.weeks)) };

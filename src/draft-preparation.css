@@ -1,0 +1,363 @@
+/* Role preferences and priority bans in the pre-match hero picker. */
+.prep-heading,.prep-picker-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.prep-heading h3,.prep-picker-toolbar h4 {
+  margin: 0 0 5px;
+}
+
+.prep-heading p,.prep-picker-toolbar p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.prep-heading>label {
+  min-width: 180px;
+}
+
+.prep-slots {
+  display: grid;
+  grid-template-columns: repeat(5,minmax(0,1fr));
+  gap: 10px;
+  margin: 20px 0 14px;
+}
+
+.prep-slot,.prep-ban-target,.prep-hero-card,.prep-coach-choice,.prep-ban-chip {
+  font: inherit;
+  color: var(--ink);
+  border: 1px solid var(--line);
+  background: var(--surface-soft,var(--bg));
+  cursor: pointer;
+}
+
+.prep-slot {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  text-align: left;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.prep-slot-role {
+  font-size: 11px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 10px 10px 8px;
+  font-weight: 700;
+}
+
+.prep-slot-art {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: linear-gradient(135deg,#202c33,#0c1116);
+  overflow: hidden;
+}
+
+.prep-slot-art img,.prep-hero-art img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prep-slot-art img.is-fallback,.prep-hero-art img.is-fallback {
+  object-fit: contain;
+  padding: 10px;
+}
+
+.prep-slot-empty {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  font-size: 32px;
+  color: #73848e;
+}
+
+.prep-slot strong {
+  font-size: 13px;
+  padding: 9px 10px 0;
+  overflow-wrap: anywhere;
+}
+
+.prep-slot>small {
+  font-size: 10px;
+  color: var(--muted);
+  padding: 5px 10px 10px;
+}
+
+.prep-slot.is-active,.prep-ban-target.is-active {
+  border-color: var(--client-select,var(--green));
+  box-shadow: 0 0 0 1px var(--client-select,var(--green)),inset 0 0 20px #8bb9c512;
+}
+
+.prep-slot.is-active .prep-slot-role {
+  color: var(--client-accent,var(--green));
+}
+
+.prep-ban-bar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+
+.prep-ban-target {
+  padding: 12px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 44px;
+}
+
+.prep-ban-target span {
+  color: #e58c7e;
+}
+
+.prep-ban-bar .draft-ban-chips {
+  margin: 0;
+  gap: 6px;
+  flex: 1;
+}
+
+.prep-ban-chip {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.prep-ban-chip>span:last-child {
+  font-size: 18px;
+  color: #e58c7e;
+}
+
+.prep-ban-chip .draft-hero-name img {
+  height: 23px;
+  width: 23px;
+}
+
+.prep-picker {
+  padding: 16px;
+  border: 1px solid var(--line);
+  background: var(--surface-soft,var(--bg));
+}
+
+.prep-picker-toolbar {
+  margin-bottom: 14px;
+}
+
+.prep-picker-toolbar>div {
+  flex: 1;
+  min-width: 170px;
+}
+
+.prep-picker-toolbar>label {
+  width: 220px;
+}
+
+.prep-coach-choice {
+  font-size: 11px;
+  padding: 11px;
+  min-height: 40px;
+}
+
+.prep-coach-choice[aria-pressed=true] {
+  color: var(--client-accent,var(--green));
+  border-color: var(--client-select,var(--green));
+}
+
+.prep-hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill,minmax(110px,1fr));
+  gap: 8px;
+  max-height: 440px;
+  overflow: auto;
+  padding: 3px;
+  scrollbar-gutter: stable;
+  align-content: start;
+}
+
+.prep-hero-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 0;
+  text-align: left;
+  overflow: hidden;
+  transition: border-color .12s,background .12s;
+}
+
+.prep-hero-art {
+  position: relative;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: #10171d;
+  overflow: hidden;
+}
+
+.prep-hero-card strong {
+  font-size: 12px;
+  line-height: 1.2;
+  padding: 8px 8px 0;
+  overflow-wrap: anywhere;
+}
+
+.prep-hero-card>small {
+  font-size: 10px;
+  line-height: 1.35;
+  color: var(--muted);
+  padding: 4px 8px 8px;
+}
+
+.prep-hero-card.is-selected {
+  border-color: var(--client-select,var(--green));
+  box-shadow: inset 0 0 0 1px var(--client-select,var(--green));
+  background: var(--surface-raised,var(--bg));
+}
+
+.prep-hero-mark {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #204531ed;
+  color: #c6f5cc;
+  padding: 4px 5px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: .6px;
+}
+
+.prep-hero-mark.is-ban {
+  background: #672b26ed;
+  color: #ffe1da;
+}
+
+.is-banning .prep-hero-card.is-selected {
+  border-color: #d77867;
+  box-shadow: inset 0 0 0 1px #d77867;
+}
+
+.prep-hero-card:disabled {
+  opacity: .35;
+  cursor: default;
+}
+
+.prep-slot:hover,.prep-ban-target:hover,.prep-coach-choice:hover,.prep-ban-chip:hover,.prep-hero-card:hover:not(:disabled) {
+  border-color: var(--client-accent,var(--green));
+  background: var(--surface-raised,var(--bg));
+}
+
+.prep-slot:focus-visible,.prep-ban-target:focus-visible,.prep-coach-choice:focus-visible,.prep-ban-chip:focus-visible,.prep-hero-card:focus-visible {
+  outline: 2px solid var(--client-accent,var(--green));
+  outline-offset: 2px;
+}
+
+.prep-save {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.prep-save>span {
+  font-size: 12px;
+  color: var(--client-accent,var(--green));
+}
+
+.prep-limit {
+  font-size: 12px;
+  color: #e58c7e;
+}
+
+.prep-no-results {
+  padding: 20px 0;
+  text-align: center;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+}
+
+@media(max-width:650px) {
+  .prep-slots {
+    grid-template-columns: repeat(3,minmax(0,1fr));
+    gap: 7px;
+  }
+
+  .prep-slot-role {
+    font-size: 9px;
+    padding: 8px 7px;
+  }
+
+  .prep-slot strong {
+    font-size: 11px;
+    padding: 7px 7px 0;
+  }
+
+  .prep-slot>small {
+    font-size: 9px;
+    padding: 4px 7px 8px;
+  }
+
+  .prep-heading>label {
+    width: 100%;
+  }
+
+  .prep-picker {
+    padding: 10px;
+  }
+
+  .prep-picker-toolbar {
+    gap: 10px;
+  }
+
+  .prep-picker-toolbar>label {
+    width: 100%;
+  }
+
+  .prep-hero-grid {
+    grid-template-columns: repeat(auto-fill,minmax(90px,1fr));
+    max-height: 380px;
+    gap: 6px;
+  }
+
+  .prep-ban-bar .draft-ban-chips {
+    flex-basis: 100%;
+  }
+
+  .prep-ban-target {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .prep-slot-art {
+    aspect-ratio: 4/3;
+  }
+
+  .prep-hero-card strong {
+    font-size: 11px;
+  }
+
+  .prep-hero-card>small {
+    font-size: 9px;
+  }
+
+  .prep-hero-mark {
+    font-size: 8px;
+    letter-spacing: 0;
+  }
+
+}

@@ -1,0 +1,73 @@
+{
+  "retrievedOn": "2026-10-24",
+  "owner": "Valve Corporation (map art); collected by OpenDota, odota/web (MIT code)",
+  "alignment": "Tower positions in odota/web src/components/Match/BuildingMap/buildingData*.ts",
+  "assets": [
+    {
+      "path": "public/dota-maps/detailed_682.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_682.webp",
+      "bytes": 77054,
+      "sha256": "fbf2f635fd424605461f0877e22639564114f5e77df7d9fea431ffd6bbdf82c3"
+    },
+    {
+      "path": "public/dota-maps/detailed_686.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_686.webp",
+      "bytes": 89360,
+      "sha256": "4f372e114938c97c9181829d4146a4b6479d42c1fd890916f0e63d1295921c02"
+    },
+    {
+      "path": "public/dota-maps/detailed_700.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_700.webp",
+      "bytes": 84486,
+      "sha256": "b7793d4c7b091064445a3d092df5d0c86c80b7693dc6673d9b0b7cde01c186ff"
+    },
+    {
+      "path": "public/dota-maps/detailed_707.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_707.webp",
+      "bytes": 83234,
+      "sha256": "ba856f97e437da8c1303c4efb1efaa55700ec571f83e68b446e7509c01f71b7c"
+    },
+    {
+      "path": "public/dota-maps/detailed_720.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_720.webp",
+      "bytes": 90234,
+      "sha256": "5e16d66d5cdd9c8b79f33100cd1a53e2295f24b1d9f8a7f77891497434f3a56a"
+    },
+    {
+      "path": "public/dota-maps/detailed_723.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_723.webp",
+      "bytes": 81896,
+      "sha256": "90bc311507bf3389692ba665d169e9e031375eb03fe519320052ecd7f571c1d2"
+    },
+    {
+      "path": "public/dota-maps/detailed_732.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_732.webp",
+      "bytes": 355114,
+      "sha256": "9b07d1d3fb90a522ebdf945916713759dce73c41ce9b391387b294b9ff727c1f"
+    },
+    {
+      "path": "public/dota-maps/detailed_733.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_733.webp",
+      "bytes": 965832,
+      "sha256": "a26b6d52c2905d637373dafb40c08be22afdc7c2c133f6e55dbf058fb0001764"
+    },
+    {
+      "path": "public/dota-maps/detailed_738.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_738.webp",
+      "bytes": 107842,
+      "sha256": "77fa2907f68545ec416363954d80bcec7a0e8d504c7204d3b451840d263e4ac6"
+    },
+    {
+      "path": "public/dota-maps/detailed_740.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_740.webp",
+      "bytes": 115944,
+      "sha256": "cceee8cea4e7137a3274d89a443c1983d8c18261d6222f1bd4be7e9b125b11dc"
+    },
+    {
+      "path": "public/dota-maps/detailed_pre682.webp",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/detailed_pre682.webp",
+      "bytes": 78618,
+      "sha256": "bd18caceace808007cb0f40e41c482fe473a99428aa650d54ea09a668c7e62d5"
+    }
+  ]
+}

@@ -130,7 +130,7 @@ export const draftStaffBenefits: Record<string, string> = {
 /** Advice uses our uncertain patch report and completed public maps. Never
  * inspect the opponent's private preparations, staff, or true hero strengths. */
 export function staffDraftAdvice(c: Campaign, config: BattleConfig, team: ScoutTeam | null) {
-  const staff = staffCatalog.filter(s => c.staffIds.includes(s.id) && s.id !== "c3");
+  const staff = staffCatalog.filter(s => c.staffIds.includes(s.id) && ["c1", "c2", "c4", "c5", "c6"].includes(s.id));
   const patch = patchById(config.patchId) ?? campaignPatch(c);
   const observer = config.patchObservers?.[0] ?? managedPatchObserver(c);
   const view = perceivedPatch(patch, { ...observer, staffIds: c.staffIds });

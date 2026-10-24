@@ -4,7 +4,9 @@ import type { PatchAxis, SeasonPatch } from "./patches";
 import { staffCatalog } from "./staff";
 import { heroTargetWinRate } from "./hero-balance";
 
-export interface PatchObserver { teamKey: string; staffIds: string[]; heroSamples?: Record<string, number>; researchPatchId?: string }
+export interface PatchObserver { teamKey: string; staffIds: string[]; heroSamples?: Record<string, number>; researchPatchId?: string;
+  /** Exhibition bots only (bot-challenge.ts): read the true patch, not a range. */
+  omniscient?: boolean }
 export interface Estimate { low: number; high: number; width: number }
 export interface PatchReport {
   patchId: string;
@@ -84,6 +86,7 @@ export function patchReport(patch: SeasonPatch, observer: PatchObserver): PatchR
 
 /** A decision model only. Combat must keep using the original patch. */
 export function perceivedPatch(patch: SeasonPatch, observer: PatchObserver): SeasonPatch {
+  if (observer.omniscient) return patch;
   const report = patchReport(patch, observer);
   return { ...patch, axes: Object.fromEntries(patchAxes.map(({ key }) => [key, (report.axes[key].low + report.axes[key].high) / 2])) as SeasonPatch["axes"],
     heroBalance: report.heroes.map(h => ({ id: h.id, targetWinRate: (h.winRate.low + h.winRate.high) / 2, priority: Math.max(0, (h.winRate.low + h.winRate.high) / 2 - 50), basis: "team-estimate" })),

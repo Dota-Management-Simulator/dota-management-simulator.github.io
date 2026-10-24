@@ -25,6 +25,7 @@ import TeamBadge from "./TeamBadge";
 import { DraftRecordView } from "./DraftRecord";
 import { teamIdForName } from "./team-logos";
 import { frontierBounds, frontierMargin, frontierSize } from "./battle-map";
+import { mapEraForPatch } from "./map-eras";
 import { talentTiers } from "./talents";
 import ItemInventory from "./ItemInventory";
 import { itemById } from "./items";
@@ -33,6 +34,9 @@ import { patchById } from "./patches";
 import "./tactics.css";
 
 const COLORS = ["#c8b16f", "#9da6e2"];
+/** Shared by replays and live maps: 1× is thirty game seconds per real second. */
+export const PLAYBACK_SPEEDS = [0.5, 1, 2, 4, 8, 16, 32];
+export const speedLabel = (s: number) => s === 0.5 ? "½×" : `${s}×`;
 const compact = (n: number) =>
   Math.abs(n) >= 1000 ? `${(n / 1000).toFixed(1)}k` : String(n);
 export function HeroToken({ score }: { score: PlayerScore }) {
@@ -449,21 +453,25 @@ export function MapReplay({
   after,
   ratio,
   expanded,
+  patchId,
   selectedUnitIds = [],
 }: {
   before: ReplayFrame;
   after: ReplayFrame;
   ratio: number;
   expanded: boolean;
+  patchId?: string;
   selectedUnitIds?: number[];
 }) {
   const nextUnits = new Map(after.units.map((u) => [u.id, u]));
+  // Patched maps show that era's Valve map art; legacy maps keep the sketch.
+  const era = patchId ? mapEraForPatch({ id: patchId }) : undefined;
   return (
     <svg
       className="battle-map"
       viewBox={expanded ? frontierBounds : "0 0 800 800"}
       role="img"
-      aria-label={`Match playback: heroes, creep waves, towers, and Ancients across three lanes${expanded ? "; New Frontiers expanded map and twelve neutral farm camps" : ""}`}
+      aria-label={`Match playback${era ? ` on the ${era.version} map` : ""}: heroes, creep waves, towers, and Ancients across three lanes${expanded ? "; New Frontiers expanded map and twelve neutral farm camps" : ""}`}
     >
       <defs>
         <pattern
@@ -487,6 +495,11 @@ export function MapReplay({
       <rect x={expanded ? -frontierMargin : 0} y={expanded ? -frontierMargin : 0} width={expanded ? frontierSize : 800} height={expanded ? frontierSize : 800} fill="url(#map-bg)" />
       <rect x={expanded ? -frontierMargin : 0} y={expanded ? -frontierMargin : 0} width={expanded ? frontierSize : 800} height={expanded ? frontierSize : 800} fill="url(#map-grid)" />
       {expanded && <rect x="0" y="0" width="800" height="800" fill="none" stroke="#af995b" strokeDasharray="6 9" opacity=".25" />}
+      {era ? <>
+        {era.frontier && <path d="M-35 -35H835V835H-35Z M-35 220H90 M-35 480H90 M835 580H710 M835 320H710 M290 835V710 M510 835V710 M510 -35V90 M290 -35V90" fill="none" stroke="#8b9a63" strokeOpacity=".28" strokeWidth="26" strokeLinejoin="round" />}
+        <image className="battle-map-art" href={`${import.meta.env.BASE_URL}${era.image}`} x={era.box[0]} y={era.box[1]} width={era.box[2]} height={era.box[3]} preserveAspectRatio="none" />
+        <rect x={era.box[0]} y={era.box[1]} width={era.box[2]} height={era.box[3]} fill="#0c1410" opacity=".22" />
+      </> : <>
       <path
         d="M0 210Q240 180 400 400T800 590"
         stroke="#608da0"
@@ -514,6 +527,7 @@ export function MapReplay({
           <path d="m0-13-9 17h18Zm0 0v24" fill="#92ae72" stroke="#92ae72" />
         </g>
       ))}
+      </>}
       {expanded && before.camps?.map(camp => <g key={camp.id} transform={`translate(${camp.x},${camp.y})`} opacity={camp.readyAt <= before.time ? .85 : .25}>
         <title>Neutral camp · {camp.readyAt <= before.time ? `${Math.ceil(camp.hp)} HP · gold and experience` : "respawning"}</title>
         <circle r="17" fill="#314331" stroke="#c8b16f" strokeWidth="1.5" />
@@ -657,7 +671,7 @@ export function MatchViewer({
       const now = performance.now();
       const elapsed = (now - last) / 1000;
       last = now;
-      setClock((t) => Math.min(game.duration, t + elapsed * 60 * speed));
+      setClock((t) => Math.min(game.duration, t + elapsed * 30 * speed));
     }, 50);
     return () => clearInterval(timer);
   }, [playing, speed, game.duration, gameIndex]);
@@ -727,7 +741,7 @@ export function MatchViewer({
       </div>
       <div className="watch-layout">
         <div className="map-wrap">
-          <MapReplay before={before} after={after} ratio={ratio} expanded={simulation.summary.mapLayout === "frontiers"} />
+          <MapReplay before={before} after={after} ratio={ratio} expanded={simulation.summary.mapLayout === "frontiers"} patchId={simulation.summary.patch?.id} />
           <span className="map-live-label">
             <i /> GAME {gameIndex + 1} · SIMULATION PLAYBACK
           </span>
@@ -772,14 +786,14 @@ export function MatchViewer({
           {playing ? <Pause size={18} /> : <Play size={18} />}
         </button>
         <div role="group" aria-label="Playback speed">
-          {[1, 2, 4].map((s) => (
+          {PLAYBACK_SPEEDS.map((s) => (
             <button
               key={s}
               aria-pressed={speed === s}
               className={speed === s ? "selected" : ""}
               onClick={() => setSpeed(s)}
             >
-              {s}×
+              {speedLabel(s)}
             </button>
           ))}
         </div>

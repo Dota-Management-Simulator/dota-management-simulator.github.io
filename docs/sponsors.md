@@ -16,6 +16,16 @@ The catalog contains **42 real brands** from Dota and other esports. An entry ye
 - Archived AI clubs release their brands on the next weekly market reconciliation. Historical roster imports never overwrite a managed sponsor agreement.
 - AI clubs participate in sponsor ownership only: the existing game has no AI financial ledger or weekly AI training economy. Sponsorships do not add direct combat damage or independent win rolls.
 
+## Sponsor negotiator — October 24, 2026 (local)
+
+Taylor Mercer (`c7`) is a fictional **Sponsor negotiator**, hired/released in Staff at **$400/week** with the existing four-week reserve ($1,600) and no signing fee. The role raises the package budget for **new** agreements by **15%**, after reputation/media/term factors and before whole-dollar rounding. The budget still includes the signing bonus spread over the contract. All era, reputation, exclusivity, capacity and input gates remain. There is no stacking or retroactive change to existing/legacy agreements; released negotiators stop improving future offers, while previously signed terms remain in force until expiry. No patch knowledge, combat, training or tactical drafting ability is granted.
+
+**Finances & sponsors** shows their top three eligible recommendations. Managers can compare 6/18/36 weeks and 0/1/2 media hours; ranking uses total support on those identical terms, including bonuses. Each recommendation lists weekly pay, bonus, total, extra support above the unassisted package, sponsor benefit and media cost. This is a financial ranking, not a valuation of player development or sponsor benefits. The portfolio summary compares the best available deals for remaining slots, spreads bonuses over the chosen term and subtracts the negotiator wage once. It describes those new opportunities, excluding any gains already locked into active agreements; availability and future reputation can change.
+
+Reviewing a recommendation only fills an editable negotiation. A manager must explicitly submit to sign. The in-negotiation **Use negotiator’s terms** button recalculates the best supported weekly pay for the selected term/media and retains the requested bonus where budget permits. Advice and hire/release never advance the clock; normal payroll pays the wage. Existing `staffIds` and signed offer fields persist everything without a new save schema.
+
+Validation: six focused negotiator tests cover hiring/reserves/payroll, actual budget improvement/counters, all legal term/media combinations across three eras, legal rankings, ownership/capacity/reputation gates, invalid inputs, read-only advice, release, save round trips, single bonus/payment and expiry, plus exclusion from tactical/research effects. The full **267-test** suite and production build pass (existing chunk warning). Sandbox browser checks on **5330** cover hiring, comparison, review/signing, shortlist refresh, release with retained terms and 390px/320px containment. A missing `arcade` entry in App's page metadata from parallel feature work was added to keep the shared build type-safe. No deployment.
+
 ## Benefits and commitments
 
 All amounts and benefits are **gameplay placeholders**, not researched prices, real company promises, claims of endorsement or measured product effects.

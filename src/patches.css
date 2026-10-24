@@ -92,3 +92,7 @@
 .talent-tree fieldset:disabled button { cursor:default; opacity:.7; }
 .neutral-lh { display:block; font-size:9px; color:var(--muted); white-space:nowrap; }
 @media(max-width:600px) { .patch-notes { padding:20px; } .patch-change-list li { grid-template-columns:1fr; gap:4px; } .patch-change-list small,.patch-change-ranges { grid-column:1; } .patch-favorite-range { grid-column:1 / -1; } .patch-arrival-dialog { padding:20px; } .talent-tree fieldset { padding:8px; gap:6px; } .talent-tree button { padding:10px; } }
+.patch-map-body { display:grid; grid-template-columns:160px minmax(0,1fr); gap:18px; align-items:start; }
+.patch-map-body img { width:160px; height:160px; border-radius:6px; border:1px solid var(--line); object-fit:cover; }
+.patch-map-body ul { margin:8px 0; padding-left:18px; font-size:13px; line-height:1.7; }
+@media (max-width:560px) { .patch-map-body { grid-template-columns:minmax(0,1fr); } .patch-map-body img { width:100%; height:auto; aspect-ratio:1; } }

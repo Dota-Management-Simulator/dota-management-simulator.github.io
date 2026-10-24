@@ -9,6 +9,7 @@ import { PatchMedia } from "./PatchArrival";
 import { simplifiedHeroNote } from "./patch-notes";
 import { captainsRulesFor } from "./captains-mode";
 import RangeBars from "./RangeBars";
+import { mapChangeForPatch, mapEraForPatch } from "./map-eras";
 
 export default function PatchNotes({ patch, campaign, onPlayer }: { patch: SeasonPatch; campaign: Campaign; onPlayer: (id: string) => void }) {
   const previous = patch.id === "2011.1" ? undefined : patchForSeason(patch.phase === 1 ? patch.year - 1 : patch.year, patch.phase === 1 ? 2 : 1);
@@ -16,6 +17,7 @@ export default function PatchNotes({ patch, campaign, onPlayer }: { patch: Seaso
   const oldReport = previous && patchReport(previous, managedPatchObserver(campaign));
   const arrivals = patchHeroArrivals(patch);
   const milestone = milestoneForPatch(patch.id);
+  const map = mapEraForPatch(patch), newMap = mapChangeForPatch(patch);
   return <article className="panel patch-notes" aria-label="Patch notes">
     <div className="eyebrow">PATCH {patch.id} · UPDATE SUMMARY</div>
     <h2>{patch.name}</h2><p className="patch-notes-lead">{patch.description}</p>
@@ -28,6 +30,13 @@ export default function PatchNotes({ patch, campaign, onPlayer }: { patch: Seaso
       <p>{previous&&captainsRulesFor(previous).id!==captainsRulesFor(patch).id?"Draft rules change with this composite. ":"Current draft rules: "}{captainsRulesFor(patch).summary}</p>
       <p>Choose before each map: follow your saved preparation through a fast pick/ban sequence, or draft for your team. Both coaches use their own uncertain patch report. Real changes within a composite arrive together with that composite; pick/ban countdown timers are not simulated.</p>
       <a className="text-link" href={captainsRulesFor(patch).source} target="_blank" rel="noreferrer">Draft rules source ↗</a>
+    </section>
+    <section className="patch-map-note"><h3>Map · {newMap ? `new in ${map.version}` : `${map.version} map carries forward`}</h3>
+      <div className="patch-map-body"><img src={`${import.meta.env.BASE_URL}${map.image}`} alt={`The ${map.version} Dota map`} loading="lazy" width="160" height="160" />
+        <div><strong>{map.title}</strong>
+          {newMap ? <ul>{map.changes.map(change => <li key={change}>{change}</li>)}</ul> : <p>No map changes in this composite. Matches still use the {map.version} layout from composite {map.firstPatch}.</p>}
+          <p>Heroes follow this map's lanes, river and jungle trails instead of walking through trees. Roshan uses this era's {map.roshan.night ? "two pits" : "pit"}. The path network is a simplified approximation of the real terrain.</p>
+          <a className="text-link" href={map.source} target="_blank" rel="noreferrer">Patch {map.version} notes ↗</a></div></div>
     </section>
     <section><h3>New heroes · {arrivals.length ? arrivals.length : "no additions"}</h3>
       <p>{arrivals.length ? "This opening patch adds the previous calendar year's Dota 2 releases in one batch. All are eligible for auto-drafting from this composite onward." : "The existing hero pool carries forward. Releases enter with the next season's opening composite, alongside the post-TI shuffle."}</p>

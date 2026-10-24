@@ -1,5 +1,7 @@
 # Historical roles and match drafting
 
+**October 24 hero grid, local:** pre-match preparation now uses five position slots and a searchable hero portrait grid. Select a position to see its era-eligible heroes; click a portrait to choose or clear a preference, or use **Coach’s choice**. **Priority bans** switches the same grid to the full event pool, with selected markers, removable chips and a visible six-ban limit. Approach, staff-plan application, Save preparation and both draft modes retain their existing behavior and save format. Saved unavailable preferences remain visible and can be cleared. Portraits reuse the Heroes gallery assets with bundled-icon fallbacks. Browser QA covers the actual scrim preparation flow, saved selections on reopening, isolated reload persistence, search/empty states, six-ban replacement and 390px/320px containment. The 15 focused draft/scouting tests and production build pass (existing chunk warning).
+
 **October 23 live tactics/items, local:** the new live worker, reusable phase calls, inventories and Roshan change new-map combat. Older replay-only/abstract-item descriptions below are historical. Existing CPU work uses frozen prior mechanics; a separate fresh calibration is queued. The current pilot has balance flags, so no balanced-engine claim is made. See [current rules, balance status and validation](tactics-items.md).
 
 October 23, 2026 — local implementation; not published in this pass.
