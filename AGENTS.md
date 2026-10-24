@@ -2,6 +2,10 @@
 
 Last updated: **2026-10-23**. Read this file before changing the project, then read [the roadmap](docs/roadmap.md) for the original product vision and future plans. These notes describe context and current decisions; the current user's request determines what to work on next. The roadmap is not an instruction to implement everything at once.
 
+
+## Sponsor logos — October 24, 2026
+
+**Local, not published (DBreeezy branch):** sponsor names in the market, partner list and negotiation header show 36px logo tiles. 20 of 42 brands use pinned `simple-icons@13.21.0` marks (new devDependency, `scripts/import-sponsor-logos.mjs`); the rest show initials and are listed as missing. **242 tests** and the build pass. Browser QA on **5301** covered all-eras cards, a signed partner row and the negotiation header in light and dark themes. See [sponsor logos](docs/sponsors.md).
 ## Heroes tab, range bars and preparation month — October 23, 2026
 
 **Local, not published:** **Heroes** lists the available current-patch pool with icons, era roles, search/position filters and estimated-strength sorting. All heroes have uncertain win-rate bars: broad 16-point observations, with existing four-point reads for discovered favorites. Staff discovery narrows consistently; catalog observations never enter drafting/combat. Main patch summaries now show current/previous bars for all seven axes and discovered hero outlooks. New dated campaigns open one calendar month before the catalogued TI (TI1: **July 17, 2011**); years without TI dates retain January 1. Existing saves keep their clock. Normal weekly training/payroll runs through preparation; later starts can miss earlier qualifiers. **227 tests**, TypeScript and build pass (existing chunk warning); isolated **5322** browser QA covers filters/reload, real Continue/patch crossing and desktop/390px light/dark layouts. See [rules and validation](docs/heroes-preseason.md). Separate CPU jobs preserved. No push, deployment or Discord post.
