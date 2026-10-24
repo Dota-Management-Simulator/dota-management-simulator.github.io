@@ -1,6 +1,6 @@
 # Team scouting and staff draft preparation
 
-October 23, 2026 — implemented locally; not published.
+October 23, 2026 — published and verified at the user's request. Application source `f685624`, Pages `b41eb77`; see [release verification](github-pages.md).
 
 **Scout your next series** is a dedicated navigation entry and a Manager’s Desk shortcut. It shows the next registered commitment, confirmed opponent, stage, series length and date. Registered lineups and the tournament’s pinned patch drive preparation, even if the club roster or current patch has changed. An unresolved bracket shows a waiting state; an unregistered campaign shows no scheduled series and links to the calendar and team directory. Legacy weekly circuits retain their existing opponent selection.
 
