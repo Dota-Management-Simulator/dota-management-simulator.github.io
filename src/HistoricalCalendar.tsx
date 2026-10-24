@@ -142,7 +142,7 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
   const selectedEvent = selectedRun && tournamentForRun(selectedRun);
   const scoreboard = selectedRun && selectedMatch && selectedEvent && tournamentScoreboard(selectedEvent, selectedRun, selectedMatch);
   if(draftRequest&&run)return <section className="panel tournament-viewer"><DraftSeries key={`${run.eventId}-${fixture?.id}`}
-    config={draftRequest.config} preparation={campaign.draftPreparation} skipPlayback={draftRequest.skip}
+    campaign={campaign} config={draftRequest.config} preparation={campaign.draftPreparation} skipPlayback={draftRequest.skip}
     managedTeamId={campaign.world?.managedTeamId}
     onPreparation={draftPreparation=>onChange({...latestCampaign.current,draftPreparation})}
     onCancel={()=>setDraftRequest(null)} onComplete={result=>{setDraftRequest(null);finishSeries(result);}}/></section>;

@@ -1,0 +1,59 @@
+.team-scouting { display: grid; gap: 18px; min-width: 0; }
+.scout-profile, .scout-next, .scout-directory, .scout-saved, .scout-empty { padding: 24px; min-width: 0; }
+.scout-section-heading, .scout-team-heading { display: flex; gap: 16px; justify-content: space-between; align-items: flex-start; }
+.scout-team-heading { justify-content: flex-start; align-items: center; }
+.team-scouting h2 { font-size: 21px; margin: 5px 0 8px; }
+.team-scouting h3, .scout-staff h3 { margin-bottom: 10px; }
+.team-scouting p, .scout-staff p { line-height: 1.65; margin: 8px 0; color: var(--muted); }
+.scout-actions, .scout-filters { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 18px; }
+.scout-filters label { display: grid; gap: 7px; flex: 1; min-width: 150px; }
+.scout-filters input, .scout-filters select { width: 100%; min-width: 0; padding: 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); color: var(--ink); }
+.scout-team-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(250px,1fr)); gap: 14px; }
+.scout-team-card { text-align: left; color: var(--ink); display: flex; align-items: center; gap: 16px; padding: 20px; min-width: 0; }
+.scout-team-card:hover { border-color: var(--green); }
+.scout-team-card > span { display: grid; gap: 8px; min-width: 0; }
+.scout-team-card strong { font-size: 17px; overflow-wrap: anywhere; }
+.scout-team-card small, .scout-summary small, .scout-lineup > li > small { color: var(--muted); }
+.scout-summary { display: grid; grid-template-columns: repeat(4,1fr); border: 1px solid var(--line); border-radius: 10px; margin: 20px 0; }
+.scout-summary > div { display: grid; gap: 7px; padding: 15px; }
+.scout-summary strong { font-size: 20px; }
+.scout-profile-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.scout-lineup, .scout-results { list-style: none; padding: 0; margin: 0; }
+.scout-lineup li { display: grid; grid-template-columns: 100px minmax(0,1fr); align-items: center; min-height: 54px; border-bottom: 1px solid var(--line); }
+.scout-lineup button { display: flex; align-items: center; gap: 10px; text-align: left; }
+.scout-results li { display: flex; align-items: center; gap: 12px; min-height: 60px; border-bottom: 1px solid var(--line); }
+.scout-results li > div { display: grid; gap: 5px; min-width: 0; }
+.scout-results small { color: var(--muted); font-size: 11px; }
+.scout-outcome { padding: 7px; border: 1px solid var(--line); border-radius: 6px; color: var(--green); font-weight: 700; }
+.scout-outcome.outcome-L { color: var(--muted); }
+.scout-common { padding: 20px 0; border-bottom: 1px solid var(--line); }
+.scout-common > span { display: inline-flex; gap: 9px; align-items: center; flex-wrap: wrap; margin: 5px 18px 5px 0; }
+.scout-common small { color: var(--muted); }
+.scout-staff { padding: 20px 0; border-top: 1px solid var(--line); margin-top: 16px; min-width: 0; }
+.scout-notes { display: grid; grid-template-columns: repeat(auto-fit,minmax(230px,1fr)); gap: 12px; margin: 16px 0; }
+.scout-notes article { border: 1px solid var(--line); border-radius: 8px; padding: 14px; min-width: 0; }
+.scout-notes strong small { color: var(--muted); font-weight: 400; }
+.scout-plan { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+.scout-plan-heroes { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 12px; margin: 18px 0; }
+.scout-plan-heroes > div { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.scout-plan-heroes small { color: var(--muted); }
+.scout-plan p > .draft-hero-name, .scout-saved p > .draft-hero-name { margin: 5px 10px; }
+.scout-player-pools { border-top: 1px solid var(--line); padding: 20px 0; }
+.scout-player-pools > div { display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.scout-player-pools strong { display: grid; gap: 5px; }
+.scout-player-pools small { color: var(--muted); font-weight: 400; }
+.scout-player-pools > div > span { display: flex; gap: 16px; flex-wrap: wrap; }
+.scout-player-pools > div > span > span { display: flex; align-items: center; gap: 6px; }
+.scout-reserves { display: flex; gap: 10px; flex-wrap: wrap; }
+.scout-profile .text-link { white-space: normal; }
+.scout-team-heading h2, .scout-section-heading h2, .scout-results strong { overflow-wrap: anywhere; }
+@media(max-width: 760px) {
+  .scout-profile, .scout-next, .scout-directory, .scout-saved { padding: 17px; }
+  .scout-profile-columns { grid-template-columns: 1fr; gap: 22px; }
+  .scout-summary { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .scout-plan-heroes { grid-template-columns: repeat(2,minmax(0,1fr)); }
+  .scout-notes, .scout-team-grid { grid-template-columns: minmax(0,1fr); }
+  .scout-actions { align-items: flex-start; flex-direction: column; }
+  .scout-filters label { flex-basis: 100%; }
+  .scout-team-heading { align-items: flex-start; }
+}

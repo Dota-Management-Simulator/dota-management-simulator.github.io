@@ -53,6 +53,7 @@ export type Page =
   | "standings"
   | "patch"
   | "scouting"
+  | "next-series"
   | "staff"
   | "finances"
   | "history"

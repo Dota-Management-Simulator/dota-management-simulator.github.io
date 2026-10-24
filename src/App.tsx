@@ -10,6 +10,7 @@ import {
   ChevronLeft,
   ChevronRight,
   CircleHelp,
+  ClipboardList,
   Coins,
   Crosshair,
   Flame,
@@ -81,6 +82,7 @@ import { dismissPatchIntroduction } from "./patch-announcements";
 import PlayerTalents from "./PlayerTalents";
 import StaffOffice from "./StaffOffice";
 import WorldTeams from "./WorldTeams";
+import NextSeriesScouting from "./TeamScouting";
 import TeamBadge from "./TeamBadge";
 import Avatar, { PortraitCredit } from "./PlayerAvatar";
 import ContractNegotiation from "./ContractNegotiation";
@@ -122,7 +124,8 @@ const navigation: {
   { page: "roster", label: "Squad", icon: Users },
   { page: "inbox", label: "Inbox", icon: Mail },
   { page: "training", label: "Training", icon: Crosshair },
-  { page: "scouting", label: "Scouting", icon: Search },
+  { page: "scouting", label: "Player scouting", icon: Search },
+  { page: "next-series", label: "Scout your next series", icon: ClipboardList },
   { page: "staff", label: "Staff", icon: UserRound },
   {
     page: "standings",
@@ -132,7 +135,7 @@ const navigation: {
   },
   { page: "calendar", label: "Season calendar", icon: CalendarDays },
   { page: "patch", label: "Patch & meta", icon: Sparkles },
-  { page: "world", label: "World teams", icon: Globe2 },
+  { page: "world", label: "Teams", icon: Globe2 },
   { page: "history", label: "Season history", icon: Trophy },
   {
     page: "finances",
@@ -145,6 +148,11 @@ const pageText: Record<
   Page,
   { eyebrow: string; title: string; description: string }
 > = {
+  "next-series": {
+    eyebrow: "MATCH PREPARATION",
+    title: "Know your next opponent.",
+    description: "Scout the lineup, review campaign form and prepare your draft with your staff.",
+  },
   standings: {
     eyebrow: "THE COMPETITION",
     title: "The road to the Aegis.",
@@ -211,7 +219,7 @@ const pageText: Record<
   world: {
     eyebrow: "THE HISTORICAL WORLD",
     title: "The teams around you.",
-    description: "Follow every club's lineup as recruitment and the post-TI shuffle reshape the scene.",
+    description: "Browse team profiles, review their lineups and results, and scout the competition with your staff.",
   },
 };
 function Icon({
@@ -1179,7 +1187,11 @@ export default function App() {
                   </>
                 ))}
                 {page === "patch" && <PatchMeta key={patchTarget ?? "current"} initialPatchId={patchTarget} campaign={campaign} onStaff={() => go("staff")} onPlayer={id => setPlayer(campaign.players.find(p => p.id === id) ?? null)} />}
-                {page === "world" && <WorldTeams campaign={campaign} onPlayer={setPlayer} />}
+                {page === "world" && <WorldTeams campaign={campaign} onPlayer={setPlayer}
+                  onStaff={() => go("staff")} onPreparation={draftPreparation => update(c => ({...c, draftPreparation}))} />}
+                {page === "next-series" && <NextSeriesScouting campaign={campaign} onPlayer={setPlayer}
+                  onStaff={() => go("staff")} onTeams={() => go("world")} onCalendar={() => go("calendar")}
+                  onPreparation={draftPreparation => update(c => ({...c, draftPreparation}))} />}
                 {page === "scouting" && (
                   <>
                     <div className="filter-bar">
@@ -1634,7 +1646,7 @@ export default function App() {
                   }}
                 />
               ) : draftConfig ? (
-                <DraftSeries config={draftConfig} preparation={campaign.draftPreparation}
+                <DraftSeries campaign={campaign} config={draftConfig} preparation={campaign.draftPreparation}
                   managedTeamId={campaign.world?.managedTeamId}
                   onPreparation={draftPreparation=>update(c=>({...c,draftPreparation}))}
                   onCancel={()=>{setDraftConfig(null);setSimulating(false);}}

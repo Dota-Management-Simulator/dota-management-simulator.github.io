@@ -2,6 +2,8 @@
 
 October 23, 2026 — local implementation; not published in this pass.
 
+Employed tactical staff can now propose preparation from **Scout your next series**, **Teams** profiles and before each managed map. Applying their plan saves an approach, legal hero preferences and observed priority bans; the existing controls remain editable. Opponent evidence comes from saved public campaign maps, with specialist coverage based on the current staff. See [team scouting](team-scouting.md).
+
 Every managed map now starts with a choice: **Follow preparation · fast draft** runs the actual picks and bans visibly at 85 ms per action, or **Draft for my team** lets the manager choose their team's bans and picks. The opponent acts automatically. The choice returns before each map of BO2/BO3/BO5/BO7 series. Watching/skipping match playback remains a separate choice. A completed manual draft must be confirmed before the map runs.
 
 Preparation saves one approach, a preferred hero for each position and up to six priority bans. Preferences guide automatic choices; they cannot force an unavailable hero or an illegal lineup. They persist across reloads, are editable before each map and do not advance time, spend money or modify attributes. Optional malformed preparation normalizes without rejecting an otherwise valid save. Prior draft records are absent in older saved matches rather than fabricated.

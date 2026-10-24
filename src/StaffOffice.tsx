@@ -5,6 +5,7 @@ import { staffCatalog } from "./staff";
 import { campaignPatch, patchAxes } from "./patches";
 import { managedPatchObserver, patchReport } from "./patch-knowledge";
 import "./patches.css";
+import { draftStaffBenefits } from "./team-scouting";
 
 export default function StaffOffice({ campaign, onHire, onDismiss, onPatch }: {
   campaign: Campaign; onHire: (id: string) => void; onDismiss: (id: string) => void; onPatch: () => void;
@@ -30,6 +31,7 @@ export default function StaffOffice({ campaign, onHire, onDismiss, onPatch }: {
       return <article className="panel staff-card" key={s.id}>
         <div className={`staff-portrait ${s.color}`}><UserRound size={42} strokeWidth={1} /><span className="badge">{s.role}</span></div>
         <div className="staff-content"><h3>{s.name}</h3><p>{s.specialty}</p>
+          <p>{draftStaffBenefits[s.id]}</p>
           <ul className="staff-specialties">{patchAxes.filter(axis => s.coverage[axis.key] != null).map(axis => {
             const current = report.axes[axis.key].width;
             const target = s.coverage[axis.key]!;

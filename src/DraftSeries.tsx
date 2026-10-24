@@ -8,13 +8,18 @@ import { patchById } from "./patches";
 import { captainsRulesFor } from "./captains-mode";
 import { MatchViewer, SeriesResults } from "./MatchExperience";
 import "./draft.css";
+import type { Campaign } from "./game";
+import { StaffDraftPreparation } from "./TeamScouting";
+import { scoutingTeamForConfig } from "./team-scouting";
 
-export default function DraftSeries({config,preparation,skipPlayback=false,onPreparation,onComplete,onCancel,managedTeamId}: {
+export default function DraftSeries({campaign,config,preparation,skipPlayback=false,onPreparation,onComplete,onCancel,managedTeamId}: {
+  campaign: Campaign;
   config:BattleConfig; preparation?:DraftPreparation; skipPlayback?:boolean;
   onPreparation:(prep:DraftPreparation)=>void; onComplete:(series:SimulatedSeries)=>void;
   onCancel:()=>void; managedTeamId?:string;
 }){
   const [prep,setPrep]=useState(()=>normalizeDraftPreparation(preparation));
+  const opponent = useMemo(() => scoutingTeamForConfig(campaign, config), [campaign, config]);
   const [maps,setMaps]=useState<SimulatedSeries[]>([]);
   const [mode,setMode]=useState<"auto"|"manual"|null>(null);
   const [state,setState]=useState<MapDraft>(()=>createMapDraft(config));
@@ -82,6 +87,7 @@ export default function DraftSeries({config,preparation,skipPlayback=false,onPre
     <p className="draft-score">Series {score.join(" – ")} · {config.teams[state.firstPick]} has first pick{initial.some(Boolean)?" · Includes a default upper-bracket win":""}</p>
     <p>{rules.summary} <a href={rules.source} target="_blank" rel="noreferrer">Draft rules source ↗</a></p>
     {!mode?<>
+      <StaffDraftPreparation campaign={campaign} config={cfg} team={opponent} onApply={plan=>{setPrep(plan);onPreparation(plan);}} />
       <div className="draft-preparation"><h3>Draft preparation</h3><label>Approach<select value={prep.approach} onChange={e=>setPrep({...prep,approach:e.target.value as DraftPreparation["approach"]})}>
         {(["balanced","teamfight","push","pickoff","scaling"] as const).map(v=><option key={v} value={v}>{v[0].toUpperCase()+v.slice(1)}</option>)}
       </select></label>
