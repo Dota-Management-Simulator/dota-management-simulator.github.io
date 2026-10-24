@@ -8,6 +8,7 @@ export function heroScoutReport(patch: SeasonPatch, observer: PatchObserver, her
   const known = patchReport(patch, observer).heroes;
   return heroes.map(hero => {
     const scouted = known.find(entry => entry.id === hero.id);
-    return { hero, winRate: scouted?.winRate ?? heroKnowledgeEstimate(patch, observer, hero.id), scouted: !!scouted };
+    const samples = observer.researchPatchId && observer.researchPatchId !== patch.id ? 0 : observer.heroSamples?.[hero.id] ?? 0;
+    return { hero, winRate: scouted?.winRate ?? heroKnowledgeEstimate(patch, observer, hero.id), scouted: !!scouted, samples };
   });
 }

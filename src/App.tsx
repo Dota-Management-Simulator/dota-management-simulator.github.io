@@ -93,6 +93,7 @@ import { advanceManagerWeek, syncOffice, unreadMessages } from "./office";
 import type { OfficeAction } from "./office";
 import { enableHistoricalCalendar, historicalCampaignStart, nextTournamentCommitment } from "./historical-game";
 import Heroes from "./HeroDirectory";
+import ScrimOffice from "./ScrimOffice";
 import { formatDate } from "./tournaments";
 import { weeklyPractice } from "./contracts";
 import { teamIdForName } from "./team-logos";
@@ -125,6 +126,7 @@ const navigation: {
   { page: "roster", label: "Squad", icon: Users },
   { page: "inbox", label: "Inbox", icon: Mail },
   { page: "training", label: "Training", icon: Crosshair },
+  { page: "scrims", label: "Scrims", icon: CalendarDays },
   { page: "scouting", label: "Player scouting", icon: Search },
   { page: "next-series", label: "Scout your next series", icon: ClipboardList },
   { page: "staff", label: "Staff", icon: UserRound },
@@ -150,6 +152,11 @@ const pageText: Record<
   Page,
   { eyebrow: string; title: string; description: string }
 > = {
+  scrims: {
+    eyebrow: "PRACTICE & DISCOVERY",
+    title: "Make room to experiment.",
+    description: "Schedule team scrims, develop your players and build confidence in your hero reads.",
+  },
   heroes: {
     eyebrow: "UNDERSTAND THE GAME",
     title: "Find your next draft pick.",
@@ -507,6 +514,7 @@ export default function App() {
   const continueCampaign = () => {
     if (!continueAction || calendarBusy || simulating) return;
     if (continueAction.kind === "tournament") inboxAction({ kind: "tournament", eventId: continueAction.eventId });
+    else if (continueAction.kind === "scrim") go("scrims");
     else if (continueAction.kind === "legacy-event") openEvent(continueAction.event);
     else advance();
   };
@@ -1082,6 +1090,7 @@ export default function App() {
                   </>
                 )}
                 {page === "inbox" && <ManagerInbox campaign={campaign} onChange={setCampaign} onAction={inboxAction} />}
+                {page === "scrims" && <ScrimOffice campaign={campaign} onChange={setCampaign} onBusy={setCalendarBusy} onCalendar={() => go("calendar")} />}
                 {page === "calendar" && (campaign.calendar ? <HistoricalCalendar campaign={campaign} onChange={setCampaign} onHistory={setViewResult} focusEventId={calendarTarget} focusRequest={calendarRequest} onBusyChange={setCalendarBusy} /> : (
                   <>
                     <section className="panel calendar-board">

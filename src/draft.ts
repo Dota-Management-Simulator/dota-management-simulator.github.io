@@ -169,6 +169,7 @@ export function autoDraftMap(config:BattleConfig,map=0):CompletedDraft{
 export function campaignDraftExperience(c:Campaign){
   const experience=new Map<string,Record<string,number>>();
   const games=[...c.results.filter(r=>!r.tournamentId).flatMap(r=>r.series?.games??[]),
+    ...(c.scrims?.sessions??[]).filter(s=>s.status==="complete").flatMap(s=>s.series?.games??[]),
     ...(c.calendar?.runs??[]).flatMap(r=>r.matches.flatMap(m=>m.series?.games??m.performance?.games??[]))];
   for(const game of games)for(const row of game.players){const known=experience.get(row.id)??{};known[row.heroId]=(known[row.heroId]??0)+1;experience.set(row.id,known);}
   return experience;

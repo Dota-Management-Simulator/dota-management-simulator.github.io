@@ -1,10 +1,10 @@
 import type { Campaign } from "./game";
-import { patchAxes } from "./patches";
+import { campaignPatch, patchAxes } from "./patches";
 import type { PatchAxis, SeasonPatch } from "./patches";
 import { staffCatalog } from "./staff";
 import { heroTargetWinRate } from "./hero-balance";
 
-export interface PatchObserver { teamKey: string; staffIds: string[] }
+export interface PatchObserver { teamKey: string; staffIds: string[]; heroSamples?: Record<string, number>; researchPatchId?: string }
 export interface Estimate { low: number; high: number; width: number }
 export interface PatchReport {
   patchId: string;
@@ -23,11 +23,12 @@ function rangeHash(seed: string): number {
   return (n ^ (n >>> 16)) >>> 0;
 }
 
-export function managedPatchObserver(c: Campaign): PatchObserver {
-  return { teamKey: c.world?.managedTeamId ?? c.settings.historicalTeamId ?? c.settings.team, staffIds: c.staffIds };
+export function managedPatchObserver(c: Campaign, patchId = campaignPatch(c).id): PatchObserver {
+  return { teamKey: c.world?.managedTeamId ?? c.settings.historicalTeamId ?? c.settings.team, staffIds: c.staffIds,
+    heroSamples: c.scrims?.research[patchId], researchPatchId: patchId };
 }
 
-/** A stable broad read, narrowed for staff-discovered favorites. */
+/** A stable broad read, then incremental debriefs. Never expose an exact target. */
 export function heroKnowledgeEstimate(patch: SeasonPatch, observer: PatchObserver, id: string, scouted = false): Estimate {
   const truth = heroTargetWinRate(patch, id);
   const seed = `${observer.teamKey}:${patch.id}`;
@@ -37,6 +38,13 @@ export function heroKnowledgeEstimate(patch: SeasonPatch, observer: PatchObserve
   let n = hash(`${seed}:catalog:${id}`);
   n = Math.imul(n ^ (n >>> 16), 0x85ebca6b);
   let low = minLow + ((n ^ (n >>> 13)) >>> 0) % (maxLow - minLow + 1), high = low + 16;
+  const samples = Math.max(0, observer.researchPatchId && observer.researchPatchId !== patch.id ? 0 : observer.heroSamples?.[id] ?? 0);
+  // Broad reports converge towards the existing specialist read over 24 maps.
+  const width = Math.max(4, 16 - Math.floor(samples / 2));
+  for (let size = 16; size > width; size--) {
+    if (low < narrow.low && (high <= narrow.high || rangeHash(`${seed}:learn:${id}:${size}`) % 2 === 0)) low++;
+    else high--;
+  }
   return scouted ? narrow : { low, high, width: high - low };
 }
 
@@ -69,7 +77,9 @@ export function patchReport(patch: SeasonPatch, observer: PatchObserver): PatchR
   const count = Math.min(patch.heroes.length, 2 + staff.reduce((n, s) => n + s.extraHeroes, 0));
   const heroes = [...patch.heroes].sort((a, b) => hash(`${seed}:${a.id}`) - hash(`${seed}:${b.id}`) || a.id.localeCompare(b.id))
     .slice(0, count).map(h => ({ id: h.id, winRate: heroKnowledgeEstimate(patch, observer, h.id, true) }));
-  return { patchId: patch.id, axes, heroes, totalHeroes: patch.heroes.length };
+  // Only heroes actually seen in at least two practice maps enter coach decisions.
+  for (const [id, samples] of Object.entries(observer.researchPatchId && observer.researchPatchId !== patch.id ? {} : observer.heroSamples ?? {})) if (samples >= 2 && !heroes.some(h => h.id === id)) heroes.push({ id, winRate: heroKnowledgeEstimate(patch, observer, id) });
+  return { patchId: patch.id, axes, heroes, totalHeroes: new Set([...patch.heroes.map(h => h.id), ...heroes.map(h => h.id)]).size };
 }
 
 /** A decision model only. Combat must keep using the original patch. */

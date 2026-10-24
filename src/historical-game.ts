@@ -136,6 +136,8 @@ export function tournamentEntryBlocker(c: Campaign, event: HistoricalTournament)
   if (!c.calendar) return "Start a historical-calendar campaign to enter this event. Your existing save is retained.";
   if (event.status !== "ready") return event.status === "scheduled" ? "This event is scheduled; its final format and prize distribution are not yet historical results." : `Historical verification pending: ${event.limitations.join(" ")}`;
   if (c.calendar.runs.some(r => r.eventId === event.id)) return "Your team has already entered this tournament.";
+  const practice = c.scrims?.sessions.find(s => s.status === "scheduled" && Date.parse(s.at) < Date.parse(event.end) + DAY && Date.parse(s.at) + (s.bestOf * 1.5 + 0.5) * 3600000 > Date.parse(event.start));
+  if (practice) return `Play or cancel your scheduled scrim vs ${practice.opponent} before entering this tournament.`;
   const commitments = c.calendar.runs.filter(r => r.state === "playing");
   for (const commitment of commitments) {
     const other = tournamentForRun(commitment)!;
@@ -163,6 +165,7 @@ export function tournamentEntryBlocker(c: Campaign, event: HistoricalTournament)
 export function enterHistoricalTournament(current: Campaign, eventId: string, seed = Math.floor(Math.random() * 4294967296)): Campaign {
   const event = tournamentById(eventId);
   if (!event) throw new Error("Unknown historical tournament.");
+  if (current.scrims?.sessions.some(s => s.status === "scheduled" && Date.parse(s.at) < Date.parse(event.start))) throw Error("Play or cancel your earlier scheduled scrim before advancing to this tournament.");
   const blocker = tournamentEntryBlocker(current, event);
   if (blocker) throw new Error(blocker);
   let c = advanceCalendarTo(current, isoTime(Math.max(utcTime(current.calendar!.now), utcTime(event.start))));
@@ -234,7 +237,7 @@ export function tournamentTeamTemplate(c: Campaign, original: TournamentRun, key
     return { id, heroExperience:experience.get(id)??{}, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
       role, skills: { ...(p?.stats ?? startingAttributes(id)) }, talents: c.talentPlans?.[id] ? normalizeTalentPlan(c.talentPlans[id]) : key === run.managed ? {} : automaticTalents(role), energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
   }), bonus: key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) : 0,
-  patchObserver: key === run.managed ? managedPatchObserver(c) : { teamKey: key, staffIds: oppositionStaff(key) },
+  patchObserver: key === run.managed ? managedPatchObserver(c, run.patchId ?? patchAtDate(tournamentForRun(run)!.start).id) : { teamKey: key, staffIds: oppositionStaff(key) },
   form: lineupFormResults(c.calendar?.runs.filter(other => other.eventId !== run.eventId) ?? [], team.roster) };
 }
 

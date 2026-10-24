@@ -32,6 +32,8 @@ import { normalizeDraftPreparation, withDraftKnowledge } from "./draft";
 import type { DraftPreparation } from "./draft";
 import { normalizeTactics } from "./tactics";
 import type { TacticalPreparation } from "./tactics";
+import { nextScrim, normalizeScrims } from "./scrim-state";
+import type { ScrimState } from "./scrim-state";
 
 export const ROLES = [
   "Carry",
@@ -51,6 +53,7 @@ export type Page =
   | "inbox"
   | "roster"
   | "training"
+  | "scrims"
   | "calendar"
   | "standings"
   | "patch"
@@ -87,6 +90,7 @@ export interface Result {
   tournamentId?: string;
 }
 export interface Campaign {
+  scrims?: ScrimState;
   tacticalPreparation?: TacticalPreparation;
   draftPreparation?: DraftPreparation;
   version: 1;
@@ -332,6 +336,8 @@ export function advanceCalendarTo(current: Campaign, at: string, tournamentProgr
   if (!current.calendar) return current;
   const target = Date.parse(at);
   if (!Number.isFinite(target) || target <= Date.parse(current.calendar.now)) return current;
+  const scrim = nextScrim(current);
+  if (scrim && target > Math.max(Date.parse(current.calendar.now), Date.parse(scrim.at))) return current;
   if (!tournamentProgress) {
     const next = current.calendar.runs.filter(r => r.state === "playing").map(r => nextTournamentFixture(r)).filter(f => !!f).map(f => utcTime(f!.at));
     if (next.length && target > Math.max(Date.parse(current.calendar.now), Math.min(...next))) return current;
@@ -639,6 +645,7 @@ export function readSave(): Campaign | null {
       return null;
     if (c.settings.branding) c.settings.branding = normalizeBranding(c.settings.branding);
     if (c.trainingPresets !== undefined) c.trainingPresets = normalizeTrainingPresets(c.trainingPresets);
+    if (c.scrims !== undefined) c.scrims = normalizeScrims(c.scrims);
     if (c.draftPreparation !== undefined) c.draftPreparation = normalizeDraftPreparation(c.draftPreparation);
     if (c.tacticalPreparation !== undefined) c.tacticalPreparation = normalizeTactics(c.tacticalPreparation);
     if (c.talentPlans && typeof c.talentPlans === "object" && !Array.isArray(c.talentPlans)) {
