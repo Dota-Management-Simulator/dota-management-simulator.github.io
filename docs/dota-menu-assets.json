@@ -17,9 +17,33 @@
     "https://www.dota2.com/diretide",
     "https://www.dota2.com/international2016/battlepass",
     "https://www.dota2.com/international2017/battlepass",
-    "https://www.dota2.com/pastupdates"
+    "https://www.dota2.com/pastupdates",
+    "https://www.dota2.com/international2023",
+    "https://www.dota2.com/summer2023",
+    "https://www.dota2.com/frosthaven",
+    "https://www.dota2.com/datafeed/patchnoteslist",
+    "https://www.dota2.com/winter2016",
+    "https://www.dota2.com/darkrift",
+    "https://www.dota2.com/newsentry/3819571008275061152",
+    "https://www.dota2.com/newsentry/3819571008275060282",
+    "https://www.dota2.com/newsentry/2842216343260937830",
+    "https://www.dota2.com/diretide/2012"
   ],
   "assets": [
+    {
+      "path": "public/dota-menu/ti2011-header.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international/top_bg.jpg",
+      "bytes": 127319,
+      "sha256": "c9ab62c27cc755c9e8311bc6dc57f88aa435695d8eea688af381a2f2bd8eceae",
+      "note": "Original Valve TI1 website art, adapted for the 2011.1 Today feature."
+    },
+    {
+      "path": "public/dota-menu/beta-relief.svg",
+      "source": "Original project vector; beta silhouette references in docs/dota-menu-references.md",
+      "bytes": 1141,
+      "sha256": "ca2896d270c1bce4329a00560f077b24ce328ac2f3d47bd76df3fab09a66937c",
+      "owner": "Project-authored approximation"
+    },
     {
       "path": "public/dota-menu/antimage.png",
       "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/heroes/renders/antimage.png",
@@ -171,6 +195,19 @@
       "sha256": "82fad790f439e3af7a613025cdfaf9f0fbe4dcf4287d254b8c7f9c837a49c4d3"
     },
     {
+      "path": "public/dota-menu/ti2012-repeat.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2012/bg_repeat.jpg",
+      "bytes": 28202,
+      "sha256": "9316e91e229da9e1518e632be04b0d09de9c14cfa8134ab537cfa98780b7bb6d"
+    },
+    {
+      "path": "public/dota-menu/ti2012-surround.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2012/bg_top_sides.jpg",
+      "bytes": 94873,
+      "sha256": "d4dc643032c8853f131de9db91ceb1b22b405b5c1cbb2ca9926356634e4438ff",
+      "note": "Original event website surround, adapted as the TI2 client backdrop."
+    },
+    {
       "path": "public/dota-menu/ti2012-seattle.jpg",
       "source": "https://cdn.steamstatic.com/apps/dota2/images/international2012/seattle.jpg",
       "bytes": 146900,
@@ -265,6 +302,55 @@
       "note": "Resized/re-encoded locally"
     },
     {
+      "path": "public/dota-menu/update-ringmaster.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ringmaster_social.png",
+      "bytes": 87389,
+      "sha256": "428f88378519606f681b7ab931a97aaa16eb79adc5f1d048c4cc6886d05d06bb",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-kez.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/kez_social.png",
+      "bytes": 63166,
+      "sha256": "bb82e31a9b0fbc185716ad2e67e838464ceccd4b9dfac382fad67f7f35a11b66",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/frostivus2024.jpg",
+      "source": "https://clan.akamai.steamstatic.com/images/3703047/2bf8a24917d425169d6c9b541482de91c28f5290.png",
+      "bytes": 106588,
+      "sha256": "50b8ed999008e165e5db464d51a2f18b3dbbecfad03401f75187b4739c74826d",
+      "note": "Header of Valve's 'Frostivus is Upon Us' announcement (Dec 19, 2024); re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/update-springforward.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/spring_forward_social.png",
+      "bytes": 62231,
+      "sha256": "2d98c52ad5c40b932882935634cc479751f05d94eb4d0a93f6bb3ff76e48cdff",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-largo.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/largo_social.png",
+      "bytes": 86553,
+      "sha256": "cbffd9bdadaee41399e8127908c02b24a59672eba2a8d9f132c341f71839e7cc",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/dark-carnival.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/darkcarnival/overworld/dark_carnival_train.png",
+      "bytes": 108312,
+      "sha256": "18a3ec128855475df8cb7be24a6c0052b42646ea742910ce615aa0b1002aa1a5",
+      "note": "Cropped to its visible area, flattened on navy, resized to 1600px wide (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/dark-carnival-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/darkcarnival/logos/darkcarnival_logo_en.png",
+      "bytes": 255254,
+      "sha256": "d1aa86a26443133e32bd2d0be9bb9987ee6abcb8b9fb87ba8127d65bb2f8edc8",
+      "note": "Cropped and resized to 560px wide (October 24, 2026)"
+    },
+    {
       "path": "public/dota-menu/ti2016.jpg",
       "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ti6_social.jpg",
       "bytes": 53698,
@@ -340,6 +426,447 @@
       "bytes": 37398,
       "sha256": "0269db94cb22dbed01cf335ad5d48581ce68674a68e8487a42d3acb467496911",
       "note": "Resized/re-encoded locally"
+    },
+    {
+      "path": "public/dota-menu/frostivus2023.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/winter2023/frostivus_2023_header_bg.jpg + winter2023/2023frostivus_fg.png",
+      "bytes": 93128,
+      "sha256": "da48de54a0c6ff83aa3cd5e47f059389c33d85e568b0ba4ed8dd018346e29b30",
+      "note": "Foreground composited over the header background, resized to 1600x900 (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/frostivus2023-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/winter2023/frostivus_2023_logo_en.png",
+      "bytes": 177036,
+      "sha256": "e64c0031373ea982e542240162e5e4c5b64731ef27b97d910c7e27dbb0d97eea",
+      "note": "Cropped and resized to 560px wide (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-summer2023.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/summer_2023_social.png",
+      "bytes": 67183,
+      "sha256": "5ef92a9a660780f6a2a12a3b2e9582b6eeab610b79fd810b5744773a7b1f88ea",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-ti2023.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/international2023_social.png",
+      "bytes": 66293,
+      "sha256": "e7ad651b72e2e8ebf2f77b582a654b0fb2512bf345d3f9be6f9dfa8e7ef25630",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-frostivus2023.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/frostivus_2023_social.png",
+      "bytes": 55187,
+      "sha256": "2445437bbccc7d2e7ae8463ea1fdc1255a6b05163a254d99a83f24d3c800c619",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2024-aegis.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2024/compendium/rewards_aegis2024.png",
+      "bytes": 253858,
+      "sha256": "bcdd95cb95a69afab3d0529cddc9dbe130fe8f9083cb3df58c5d1f0b526292f8",
+      "note": "Cropped and resized to 460px wide (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2024-compendium-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2024/compendium/logo_ti_compendium_01.png",
+      "bytes": 14171,
+      "sha256": "4cab1c3f3875f0e50a057cd621becb14d870c3aa96469e10b8d8de9e714ef477",
+      "note": "Cropped, resized to 420px, 256 colours (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2024-reward-hud.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2024/compendium/ti2024_rewards_hud.png",
+      "bytes": 11288,
+      "sha256": "c4891c84f81e83ed250d7703cbba3243960de9fb7e2aada02baed8ebc20c0a76",
+      "note": "Cropped, resized, 256 colours (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2024-reward-versus.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2024/compendium/ti2024_rewards_versus_screen.png",
+      "bytes": 13791,
+      "sha256": "ae8291575a8a8e051350ad59df9ee926a33ba40de8ecf45004de4b251e5bd014",
+      "note": "Cropped, resized, 256 colours (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2024-reward-loading.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2024/compendium/ti2024_rewards_loading_screens.png",
+      "bytes": 7979,
+      "sha256": "dffc4f3b23e31b63ba3ac627dedf679c9b99c00e8e3c68cc2a2175089f309994",
+      "note": "Cropped, resized, 256 colours (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2024-reward-teleport.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2024/compendium/ti2024_rewards_teleport.png",
+      "bytes": 16187,
+      "sha256": "e8603c4b98814e892c8ae050d7ad684287a5aa639adf621a3742400169e1f6f3",
+      "note": "Cropped, resized, 256 colours (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2024-reward-chatwheel.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2024/compendium/ti2024_rewards_permenent_chatwheels.png",
+      "bytes": 12983,
+      "sha256": "875f67ae417ebc82244a30b02e394c70a0f787da166810cff6d943a1ff900d03",
+      "note": "Cropped, resized, 256 colours (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2024-reward-effigy.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2024/compendium/ti2024_team_effigy_block.png",
+      "bytes": 15046,
+      "sha256": "0abd6f87b8e4b1878a12f8c938c3684e7cb0faa49828cb540194eb2a32224a8c",
+      "note": "Cropped, resized, 256 colours (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/greeviling-paper.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/frostivus/greev_content_1.jpg?x=1",
+      "bytes": 252982,
+      "sha256": "9cb95769c8242f5536e2f049cc0dce2470bad80974200d171e3c9f7b21170ebc",
+      "note": "Original 2012 Greeviling website parchment, adapted for the Play card."
+    },
+    {
+      "path": "public/dota-menu/diretide-original.jpg",
+      "source": "https://media.steampowered.com/apps/dota2/posts/diretide_fb_image.jpg",
+      "bytes": 123755,
+      "sha256": "3506e14751d23247f27f9069bc68dd88bc6f2aab9bfb02a266611245a08723e0",
+      "note": "Valve original Diretide promotional artwork, reused for the classic event blog. Placement adapted, not a screenshot."
+    },
+    {
+      "path": "public/dota-menu/ti2013-compendium.jpg",
+      "source": "https://media.steampowered.com/apps/dota2/images/blogfiles/inline_compendium.jpg",
+      "bytes": 79459,
+      "sha256": "850c75d4cc5a5e7a8164df053a967d38be6bc75d98abfc164ff95ba1da3fb2bf",
+      "note": "Valve May 8, 2013 Compendium announcement artwork."
+    },
+    {
+      "path": "public/dota-menu/update-deadreckoning.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/deadreckoning_social.png",
+      "bytes": 75646,
+      "sha256": "839bb6f9115227c522a062c7a408f39aaaebb88f032f66c956c078f1d0633aaa",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-battlepass2022.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/battlepass2022_social.png",
+      "bytes": 60767,
+      "sha256": "575f6f0029a71f157837903c244f1a14f64d82a9ac99167a403172429497d90f",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-continuum.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/labyrinth_social.jpg",
+      "bytes": 130286,
+      "sha256": "d7eb262d7100c7385a35682b908113166974c45953930674d1d338b8dd95a2b6",
+      "note": "Resized locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-marci.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/marci_social.jpg",
+      "bytes": 119692,
+      "sha256": "668454d53a2bdb6008ea63328fa22d4e72647a6874b365438ca613fca5683c25",
+      "note": "Resized locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/anniversary10.jpg",
+      "source": "https://clan.akamai.steamstatic.com/images/3703047/6e70042d518c9ef41230861320ff8d7312232f95.png",
+      "bytes": 83102,
+      "sha256": "0494eab20c96c33598a94e0fe9caedf47513370972a9e517a76f3feb776cf326",
+      "note": "Re-encoded locally from the 10-Year Anniversary announcement (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2023-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2023/ti_logo_color.png",
+      "bytes": 129069,
+      "sha256": "d36d25afb89dbdb19a6e79e060ec725e2b7ca354b0e09a9b50b5317a9321870e",
+      "note": "Resized locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2023-crest.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2023/ti_logo_color.png",
+      "bytes": 38622,
+      "sha256": "046cd2e73b83b9597e9d3cd2ad39ab776d50c075b945643b38b19e8bffd41397",
+      "note": "Crest cropped and resized locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2022-battlepass-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/logos/logo_battlepass_english.png",
+      "bytes": 50997,
+      "sha256": "f74a41ab6e08c3d4aea2d1c6138b882c811c0b1bc7804ab61f418bba1429ce1e",
+      "note": "Resized locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/nemestice-keyart.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/nemestice_overview.jpg",
+      "bytes": 134948,
+      "sha256": "cc9fa94e2dd6da6687726cb89eed90e8c5597ac14e8182e5aa15d88ae21dae4d",
+      "note": "Top of the existing nemestice-landscape.jpg, cropped locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/nemestice-portrait.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/nemestice_overview.jpg",
+      "bytes": 58530,
+      "sha256": "c8e08203f93a2e6f63998cc5b4c82924cd6a3f2992103d1c48fe1b2ff780fbdd",
+      "note": "Crystal crop of the existing nemestice-landscape.jpg (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-labyrinth2020.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/aghs_share.png",
+      "bytes": 160258,
+      "sha256": "99363481da25483b172e7030d7c6a36cb13cb3a92c90ac30fc6e4446741d89e7",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-dawnbreaker.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/dawnbreaker_social.jpg",
+      "bytes": 70728,
+      "sha256": "16239504b2be3a6a9aa5ad2406ef71d90b19959fd086191f13bfc7c55674f16b",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-diretide2020.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/diretide_twitter.png",
+      "bytes": 90439,
+      "sha256": "3f0f25299b195ebaaf5a1f5e78644ce37b7f35b0d92c43031dea8f6df8f3a33f",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-nemestice.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/nemestice_social.jpg",
+      "bytes": 53919,
+      "sha256": "72c6b61de5fb7625b43f47c3dae380e8f9d848229037cb43404766f2198f3efa",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-ti10bp.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ti10_social.jpg",
+      "bytes": 82894,
+      "sha256": "c5d9a5283798bdcba83de14770dac07203dede85bb5979ed1ca319d791c8c480",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/new-bloom-2014-sign.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/newbloom2014/01/bg_01a.jpg?3",
+      "bytes": 158804,
+      "sha256": "f65e289623a31934a387a6055fa2f7398c81635bb46e42b7989c19e6428335f4",
+      "note": "Original Valve 2014 festival website art, adapted to the captured event card layout."
+    },
+    {
+      "path": "public/dota-menu/new-bloom-2014-beast.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/newbloom2014/01/bg_02.jpg",
+      "bytes": 231607,
+      "sha256": "f1ad7666eee6220c69521d0648ccf483c79b3bec3b70cdca1dbee04dd64300f9",
+      "note": "Original Valve 2014 festival website art, adapted to the captured event card layout."
+    },
+    {
+      "path": "public/dota-menu/ti2015-book-closed.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2015/compendium/purchase_compendium1.png",
+      "bytes": 178499,
+      "sha256": "0694d515cbdae0f1b6acae6db93e59f9901f45ac0c2cf19dd1fe8cb2a06a97da",
+      "note": "Original Valve 2015 Compendium purchase art, used with campaign navigation rather than a store transaction."
+    },
+    {
+      "path": "public/dota-menu/ti2015-book-open.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2015/compendium/purchase_compendium2.png",
+      "bytes": 211499,
+      "sha256": "6d4d9618fd37c5ceeec7d26dd32c282c0ed421196e860338fbdf661f9d46f5f5",
+      "note": "Original Valve 2015 Compendium purchase art, used with campaign navigation rather than a store transaction."
+    },
+    {
+      "path": "public/dota-menu/new-bloom-2014-relief.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/newbloom2014/01/bg_01b.jpg",
+      "bytes": 422482,
+      "sha256": "d55e0d8198415869868be40df6b1b97cf4450754dc01940138cc14ed9ee920ef",
+      "note": "2014 opening festival relief, before the February 5 Year Beast presentation."
+    },
+    {
+      "path": "public/dota-menu/update-fall2015.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/fall_season_2015_compendium.png",
+      "bytes": 692446,
+      "sha256": "233430f0bde15fcf19f13fac32196544048f91a2bf60520c26f4be7859e75d4c",
+      "note": "Original Valve 2015 update promotion for the Reborn home card."
+    },
+    {
+      "path": "public/dota-menu/update-balanceofpower.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/686/update_image.jpg",
+      "bytes": 240683,
+      "sha256": "5653548814105a3b1c600a6c1245e2ad55ed97c77bf067d9fdfb2e7a9310dfd4",
+      "note": "Original Valve 2015 update promotion for the Reborn home card."
+    },
+    {
+      "path": "public/dota-menu/three-spirits-2013.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/threespirits/bg_01.jpg?x=3",
+      "bytes": 248480,
+      "sha256": "d145112ab1731b0d7265e0a41cb1112633d9dd9e4a202b03721e07dddc745d0d",
+      "note": "Valve original November 2013 Three Spirits website header, used in the classic event blog."
+    },
+    {
+      "path": "public/dota-menu/update-plus.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/plus_social.jpg",
+      "bytes": 80470,
+      "sha256": "7d5ed74dafd78cc3f174bae1f410878a51e6a9261c2697265ae65c29ed7ee779",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-ti8bp.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ti8_social.jpg",
+      "bytes": 64318,
+      "sha256": "c9c55d314a6c5444246392ef407c60edc66e6600e2fbc6625ccb9342dc666305",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-grimstroke.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/grimstroke_social.jpg",
+      "bytes": 52642,
+      "sha256": "aa5204922060fbeb84999f4d2bce2c05d1a4718cbcf22bc2ded3d480e4ef26cf",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-frosthaven.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/frosthaven_social.jpg",
+      "bytes": 78158,
+      "sha256": "2bb25e8c74cd3f339c2be5389152dcc119a5c71ab15874d854cd8cfeda4ee25e",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-mars.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/mars_social.jpg",
+      "bytes": 62282,
+      "sha256": "78270aa5a2b1b54f03cc0ab24d98eab080da5e5152d37579a4269b50e907dbf3",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-ti9bp.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/ti9_social.jpg",
+      "bytes": 68934,
+      "sha256": "ab15d52eaca5dcff8b9cad7b9bb1d448416f9cc9e08ad3b8c38d05c22fa8a0a1",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/newbloom2019.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/nbnybhr_newbloom_blog.png",
+      "bytes": 62281,
+      "sha256": "3fe915592e33a02c5a325cf154cb2723906286b4a4cd1b6bcd5c3b725a4661f0",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/frosthaven-logo.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/rubick_arcana/frosthavenLogo.png",
+      "bytes": 119140,
+      "sha256": "a524edbcccc736c7aee263f733c4b920060fe20a0e7dacbea76bde0aa057cacf",
+      "note": "Copied (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-winterbp.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/winterbp_social.jpg",
+      "bytes": 51453,
+      "sha256": "ebe0c97cdd01e3bc47234a1028c76299f202cdfc36edad038101abe43c1f204f",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-darkrift.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/pastupdates/darkrift_social.jpg",
+      "bytes": 57156,
+      "sha256": "0ba6065e53b854b2620e608bcf98bbed9ec9d9f0d1ce3be950556944b9ed911d",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/update-fall2016.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/fbpblg.jpg",
+      "bytes": 92331,
+      "sha256": "00506b8b89ab87bf150e12b0bfcc99e28f8b540cb9bf9e25d8027b34d7f0102c",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/darkmoon.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/dm_blogimg.jpg",
+      "bytes": 28903,
+      "sha256": "f1ff5f11ae0e34687db7a8ef67ff9e4e790e8ef995cba43e14b8fc8c2ffb64da",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/underhollow.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/blogfiles/bpti8_underhollow_blimxvi.jpg",
+      "bytes": 73333,
+      "sha256": "15d269b475cfe4353c6991e5f374e011d7db0ca96b63ed65b8df06614aacbf7b",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/diretide-logo-2012.png",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/diretide/bg_01.jpg",
+      "bytes": 81429,
+      "sha256": "cf5623b00079c63c5d469a58a3a6ab0b622dee604254c0cf123f22f442ca4b23",
+      "note": "Logo cropped from the page background, black keyed to transparency (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-troll.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/keyart_troll.jpg",
+      "bytes": 98002,
+      "sha256": "ec54b364540f89ed3fc18443a4c1e090981c56a2ef41af525396b05b3fb789da",
+      "note": "Resized to 1280 px wide (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-troll-inline.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/inline_hero_troll.jpg",
+      "bytes": 37437,
+      "sha256": "9c238ce9d5a65438ffb2cb91ebebbbf4e33bf851671827794faba21acd7961be",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-bristleback.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/keyart_bristleback.jpg",
+      "bytes": 95241,
+      "sha256": "98028ecb6125c9cf9ba240adb882dc75a7c591ed66b658b00bff6b55815f434d",
+      "note": "Resized to 1280 px wide (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-bristleback-inline.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/inline_bristleback.jpg",
+      "bytes": 46501,
+      "sha256": "1885e6762c72dd20a29c4991794b290729848066a3396bfe3f8f220c0ff37845",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-skywrath.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/keyart_skywramg001.jpg",
+      "bytes": 82186,
+      "sha256": "77a7ff6f838a388f29ffbe81a478bb6a5550cadbe0fe72c9f2e5eea7f698333b",
+      "note": "Resized to 1280 px wide (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-skywrath-inline.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/inline_skywramg001.jpg",
+      "bytes": 43256,
+      "sha256": "4979c22479e32b6d6c68bfe9c8bab505089baa031d9572f8242ba7f450b3ca43",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-eldertitan.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/keyart_eldr_ttn.jpg",
+      "bytes": 62331,
+      "sha256": "8dff9f41fa4d13fc83e881dd8930ced741bc2fe4e59617f8ba1b82e94bca2cad",
+      "note": "Resized to 1280 px wide (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-eldertitan-inline.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/inline_eldr_ttn.jpg",
+      "bytes": 49515,
+      "sha256": "0d07cad5cd2e3d68e715149ca957cf2bbf7d323cddf162f982607e563d5ff181",
+      "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-beastmaster.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/keyart_beastmaster.jpg",
+      "bytes": 97829,
+      "sha256": "0415440d7c9f0257f95084ed6f8647d8f5aa64ff542af347a4f3adb54766ea83",
+      "note": "Resized to 1280 px wide (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/blog2013-beastmaster-inline.jpg",
+      "source": "http://media.steampowered.com/apps/dota2/images/blogfiles/inline_beastmaster.jpg",
+      "bytes": 39401,
+      "sha256": "2e21bc17f562a7466234946e6907cbe3b756fb269e3401bd9ca822ee12f82655",
+      "note": "Re-encoded locally (October 24, 2026)"
     }
   ]
 }

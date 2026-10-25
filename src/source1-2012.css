@@ -1,0 +1,80 @@
+/* First Source 1 dashboard: July/August 2012 captures in menu references.
+ * Shared proportions continue through Source 1; dated themes remain independent. */
+.desk-client .s1-client.s1-refined { padding: 0 26px 30px; font-family: Arial, sans-serif; }
+.desk-client .s1-refined.s1-theme-default .s1-backdrop { background: radial-gradient(ellipse at 38% 8%, #7a161a99, transparent 48%), radial-gradient(ellipse at 90% 70%, #5a100f66, transparent 40%), linear-gradient(#360608, #17070a 70%, #08090b); }
+.desk-client .s1-refined .s1-top { margin-inline: -26px; }
+.desk-client .s1-refined .s1-top > nav { flex: 1; max-width: 1120px; }
+.desk-client .s1-refined .s1-top .client-tab { flex: 1 0 100px; }
+.desk-client .s1-refined .s1-top .client-tab > button { width: 100%; font-family: Georgia, serif; }
+.desk-client .s1-refined .s1-logo { padding: 16px 0 14px; gap: 12px; }
+.desk-client .s1-refined .s1-logo > span { font-size: 43px; letter-spacing: 9px; }
+.desk-client .s1-refined .s1-logo > img { width: 47px; height: 47px; filter: brightness(0) saturate(100%) invert(39%) sepia(68%) saturate(903%) hue-rotate(331deg) brightness(90%) contrast(85%); }
+.desk-client .s1-refined .s1-body { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 24px; }
+.desk-client .s1-refined .s1-side { gap: 9px; }
+.desk-client .s1-refined .s1-profile { grid-template-columns: 47px minmax(0, 1fr); padding: 8px 10px; gap: 4px 10px; }
+.desk-client .s1-refined .s1-profile > .team-badge { width: 47px; height: 47px; }
+.desk-client .s1-refined .s1-profile > div { padding-right: 68px; }
+.desk-client .s1-refined .s1-profile strong { font-size: 20px; }
+.desk-client .s1-refined .s1-games { top: 10px; font-size: 10px; }
+.desk-client .s1-refined .s1-profile > div > span { margin: 1px 0 4px; font-size: 11px; }
+.desk-client .s1-refined .s1-chat .client-chat-body { height: 270px; grid-template-columns: minmax(0, 1fr) 90px; }
+.desk-client .s1-refined .s1-chat .client-chat-log > button { font-size: 11px; line-height: 1.6; }
+.desk-client .s1-refined .client-chat-members { font-size: 10px; }
+:root .desk-client .s1-refined .s1-panel > h3 { margin: 0; padding: 7px 12px; font-size: 19px; letter-spacing: 1.3px; }
+.desk-client .s1-refined .s1-friends .client-friends { max-height: 245px; }
+.desk-client .s1-refined .client-friends > div > div { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px 8px; }
+.desk-client .s1-refined .client-friends strong { font-size: 12px; }
+.desk-client .s1-refined .client-friends button .avatar { width: 30px; height: 30px; flex-basis: 30px; }
+.desk-client .s1-refined .client-subtabs > button { flex: 0 1 150px; min-width: 0; padding: 8px 12px; font-size: 10px; letter-spacing: 1px; }
+.desk-client .s1-refined .client-blog { grid-template-columns: minmax(0, 1fr) 145px; gap: 0; padding: 0; min-height: 620px; align-content: start; }
+.desk-client .s1-refined .client-article { margin: 0 0 12px 12px; padding: 18px 16px; border-top: 7px solid #51221b; }
+:root .desk-client .s1-refined .client-article h2 { font-size: 27px; }
+:root .desk-client .s1-refined .client-article p { font-size: 13px; }
+.desk-client .s1-refined .client-blog-side { padding: 12px 10px; gap: 8px; background: #1a1d20; grid-template-columns: minmax(0, 1fr); }
+.desk-client .s1-refined .client-blog-side ul { grid-column: auto; }
+.desk-client .s1-refined .client-ti-banner { padding: 15px 6px; background: radial-gradient(ellipse at 50% 0, #26577b, #071f35); }
+.desk-client .s1-refined .client-ti-banner > span { font-size: 17px; }
+.desk-client .s1-refined .client-promo { padding: 14px 5px; }
+.desk-client .s1-refined .client-promo > span { font-size: 11px; }
+.desk-client .s1-refined .client-counter > span { font-size: 8px; line-height: 1.5; display: block; }
+.desk-client .s1-refined .s1-2012-feature { display: flex; flex-direction: column; justify-content: flex-end; align-items: flex-start; grid-column: 1 / -1; min-width: 0; width: 100%; height: 195px; padding: 12px 18px; border: 0; border-bottom: 1px solid #03080b; background: #071b29 url('/dota-menu/ti2012-panel.jpg') center top / max(100%, 660px) auto no-repeat; color: #d5e2e6; text-shadow: 0 2px 3px #000; }
+/* 2013 Today banner: Valve's blog key art with the hero name set in the client's spaced capitals. */
+.desk-client .s1-refined .s1-2013-feature { display: flex; flex-direction: column; justify-content: center; align-items: flex-start; grid-column: 1 / -1; min-width: 0; width: 100%; height: 230px; padding: 0 30px; border: 0; border-bottom: 1px solid #03080b; background: #0b0807 center 25% / cover no-repeat; box-shadow: inset 380px 0 120px -160px #000c; color: #e6dccb; text-align: left; }
+.desk-client .s1-refined .s1-2013-feature > span { font: 30px Georgia, serif; letter-spacing: 8px; text-transform: uppercase; text-shadow: 0 2px 6px #000; }
+.desk-client .s1-refined .s1-2013-feature > small { margin-top: 6px; color: #d8cdb8; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; text-shadow: 0 1px 3px #000; }
+.desk-client .s1-refined .s1-2012-feature > span { font: 13px Georgia, serif; letter-spacing: 2px; }
+.desk-client .s1-refined .s1-2012-feature > small { display: flex; align-items: center; gap: 4px; margin-top: 4px; color: #afc6d4; font-size: 10px; }
+.desk-client .s1-refined button:focus-visible { outline: 2px solid #d7b482; outline-offset: -2px; }
+@media (max-width: 1100px) {
+  .desk-client .s1-refined .s1-body { grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); gap: 16px; }
+  .desk-client .s1-refined .client-blog { grid-template-columns: minmax(0, 1fr); }
+  .desk-client .s1-refined .client-article { margin-right: 12px; }
+  .desk-client .s1-refined .client-blog-side { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .desk-client .s1-refined .client-blog-side ul { grid-column: 1 / -1; }
+  .desk-client .s1-refined .s1-profile > div { padding-right: 0; }
+  .desk-client .s1-refined .s1-games { position: static; grid-column: 2; }
+}
+@media (max-width: 850px) {
+  .desk-client .s1-client.s1-refined { padding: 0 12px 30px; }
+  .desk-client .s1-refined .s1-top { margin-inline: -12px; }
+  .desk-client .s1-refined .s1-body { grid-template-columns: minmax(0, 1fr); }
+  .desk-client .s1-refined .client-blog { min-height: 0; }
+  .desk-client .s1-refined .s1-chat .client-chat-body { height: 190px; }
+}
+@media (max-width: 850px) {
+  .desk-client .s1-refined .s1-top { height: auto; min-height: 70px; }
+  .desk-client .s1-refined .s1-top > nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; padding: 3px; }
+  .desk-client .s1-refined .s1-top > nav::before, .desk-client .s1-refined .s1-top > nav::after { display: none; }
+  .desk-client .s1-refined .s1-top .client-tab { min-width: 0; }
+  .desk-client .s1-refined .s1-top .client-tab > button { min-width: 0; height: 30px; padding: 5px 2px; font-size: 10px; letter-spacing: .4px; }
+  .desk-client .s1-refined .s1-top .s1-corner { margin-top: 8px; }
+  .desk-client .s1-refined .s1-logo { padding: 12px 0; }
+  .desk-client .s1-refined .s1-logo > span { font-size: 32px; letter-spacing: 6px; }
+  .desk-client .s1-refined .s1-logo > img { width: 37px; height: 37px; }
+  .desk-client .s1-refined .client-subtabs > button { flex: 1 1 auto; padding: 9px 5px; font-size: 9px; letter-spacing: .6px; }
+  .desk-client .s1-refined .client-article { margin: 0; padding: 16px; }
+  .desk-client .s1-refined .s1-2013-feature { height: 150px; padding: 0 16px; }
+  .desk-client .s1-refined .s1-2013-feature > span { font-size: 20px; letter-spacing: 4px; }
+  .desk-client .s1-refined .s1-2012-feature { height: 160px; padding: 12px; background-size: max(100%, 440px) auto; }
+  .desk-client .s1-refined .client-friends > div > div { grid-template-columns: minmax(0, 1fr); }
+}

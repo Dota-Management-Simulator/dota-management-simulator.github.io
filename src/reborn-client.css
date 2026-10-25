@@ -125,7 +125,7 @@
 .rb-feature:hover { border-color: #9bb7c5; }
 .rb-feature-ti > strong { bottom: 110px; font-size: 64px; color: #f2e3b7; text-shadow: 0 0 22px #e0a24a; }
 .rb-feature-ti > small { color: #e9dfc5; }
-.rb-feature-darkmoon { background: radial-gradient(circle at 50% 32%, #e8d8ff 0 13%, #6d3aa0 14%, #241034 45%, #0d0612 80%); }
+.rb-feature-darkmoon { background-color: #12071c; background-position: 40% center; }
 .rb-feed { display: grid; }
 .rb-feed-input { margin: 8px; padding: 8px; border: 1px solid #000; background: #0b0e11; color: #6f7b81; text-align: left; }
 .rb-feed > button:not(.rb-feed-input) { padding: 8px 12px; border: 0; border-top: 1px solid #ffffff08; background: none; color: #d8e0e3; font-size: 11px; line-height: 1.5; text-align: left; }
@@ -158,12 +158,67 @@
 .rb-show { padding: 8px 20px; border: 0; background: none; color: #f0d690; font-family: var(--rb-serif); font-size: 15px; letter-spacing: 2px; text-transform: uppercase; text-shadow: 0 1px 4px #000; }
 .rb-show:hover { color: #fff; }
 .rb-stage-copy.is-update { padding: 18px 28px; background: #000a; border: 1px solid #ffffff22; }
+/* Update art carries its own painted title: show it whole, over a blurred copy, with a slim caption bar. */
+.rb-stage.is-update { padding-bottom: 26px; background-color: #0b0d10; background-size: contain; background-position: center 38%; }
+.rb-stage.is-update::before { content: ""; position: absolute; z-index: -2; inset: -24px; background: var(--rb-art) center / cover no-repeat; filter: blur(18px) brightness(.45) saturate(1.2); }
+.rb-stage.is-update > .rb-stage-fx { inset: 0 0 64px; background: var(--rb-art) center / contain no-repeat; }
+.rb-stage-copy.is-update { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 4px 16px; padding: 10px 20px; }
+.rb-stage-copy.is-update > p { margin: 0; }
+.rb-stage-copy.is-update > .rb-show { padding: 4px 8px; font-size: 13px; }
+.rb-stage.is-lastmatch { align-items: center; padding: 24px; }
+.rb-stage.is-lastmatch > .rb-stage-fx { display: none; }
+.rb-lastmatch { width: min(100%, 640px); background: #0b0d10e6; border: 1px solid #ffffff1f; box-shadow: 0 10px 40px #000a; }
+.rb-lastmatch > header { display: grid; gap: 2px; padding: 14px 18px; border-bottom: 1px solid #ffffff14; background: linear-gradient(90deg, #1f5e2a66, transparent 70%); }
+.rb-lastmatch.is-loss > header { background: linear-gradient(90deg, #6a1f1f66, transparent 70%); }
+.rb-lastmatch > header > small { color: #9aa4aa; font-size: 10px; letter-spacing: 1.6px; }
+:root .desk-client .rb-lastmatch > header > strong { color: #8fd35d; font-family: var(--rb-serif); font-size: 30px; font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
+:root .desk-client .rb-lastmatch.is-loss > header > strong { color: #e0614f; }
+.rb-lastmatch > header > span { color: #d6dadc; font-size: 13px; }
+.rb-lastmatch > ol { display: grid; margin: 0; padding: 6px 0; list-style: none; }
+.rb-lastmatch > ol > li { display: grid; grid-template-columns: 40px minmax(0, 1fr) auto; align-items: center; gap: 12px; padding: 5px 18px; }
+.rb-lastmatch > ol > li:nth-child(odd) { background: #ffffff08; }
+.rb-lastmatch > ol > li > .match-hero-token { width: 40px; height: 40px; }
+.rb-lastmatch > ol > li > span { display: grid; min-width: 0; }
+.rb-lastmatch > ol > li > span > b { overflow: hidden; color: #eef0f0; font-size: 13px; font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+.rb-lastmatch > ol > li > span > small { color: #8d979c; font-size: 11px; }
+.rb-lastmatch > ol > li > em { color: #d6dadc; font-size: 13px; font-style: normal; font-variant-numeric: tabular-nums; }
+.rb-lastmatch > footer { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 16px; padding: 10px 18px; border-top: 1px solid #ffffff14; color: #8d979c; font-size: 10px; letter-spacing: 1.2px; }
+.rb-lastmatch > footer b { color: #eef0f0; font-size: 12px; letter-spacing: 0; }
+.rb-lastmatch > footer > button { padding: 0; border: 0; background: none; color: #f0d690; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+.rb-lastmatch > footer > button:first-of-type { margin-left: auto; }
+.rb-lastmatch > footer > button:hover { color: #fff; }
+.rb-stage-copy > .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Frostivus 2023: Valve's snowman clearing, logo and the Spirit Meter. */
+.rb-stage.is-frostivus2023 { background-color: #0a1428; background-position: center 30%; }
+.rb-stage.is-frostivus2023::after { background: linear-gradient(180deg, transparent 40%, #060c1ccc), linear-gradient(90deg, #060c1c88, transparent 15%, transparent 85%, #060c1c88); }
+.rb-stage.is-frostivus2023 .rb-stage-copy > img { max-height: 150px; }
+.rb-spirit { display: grid; gap: 4px; width: min(100%, 340px); justify-items: center; }
+.rb-spirit > small { color: #bfe3ff; font-size: 10px; letter-spacing: 1.6px; text-shadow: 0 1px 3px #000; }
+.rb-spirit > span { width: 100%; height: 10px; padding: 1px; border: 1px solid #9fd2ff88; background: #06101fcc; }
+.rb-spirit > span > i { display: block; height: 100%; background: linear-gradient(90deg, #4fb7ff, #c7ecff); box-shadow: 0 0 8px #6cc4ff; }
+.rb-spirit.is-newbloom > small:first-child { color: #ffd27a; }
+.rb-spirit.is-newbloom > small { color: #ffe9c4; }
+.rb-event-column > h2 > img { display: block; width: min(100%, 300px); margin: 0 auto; filter: drop-shadow(0 2px 8px #000); }
+:root .desk-client .rb-event-column.is-frosthaven > h2 { text-shadow: none; }
+.rb-event-frostivus2023 .rb-show { color: #cfeaff; }
+/* Dark Carnival (2026): Valve's night convoy panorama under the carnival logo. */
+.rb-stage.is-darkcarnival { justify-content: center; padding-bottom: 30px; background-color: #0b1226; background-size: cover; background-position: center 45%; }
+.rb-stage.is-darkcarnival::after { background: linear-gradient(180deg, #0b122655, transparent 25%, transparent 55%, #070a18ee), linear-gradient(90deg, #070a1888, transparent 15%, transparent 85%, #070a1888); }
+.rb-stage.is-darkcarnival .rb-stage-copy > img { max-height: 170px; }
+.rb-event-darkcarnival .rb-show { margin-top: 2px; padding: 9px 26px; border: 1px solid #d7a64a; background: linear-gradient(180deg, #7a2430, #4a1119); color: #f7e2b0; }
+.rb-event-darkcarnival .rb-show:hover { background: linear-gradient(180deg, #932c3a, #5a1520); color: #fff; }
 .rb-stage.is-crownfall { background-color: #2a3c55; background-position: top; }
 .rb-crown-heroes { position: absolute; z-index: -1; left: 50%; bottom: 0; width: min(110%, 900px); transform: translateX(-50%); opacity: .9; }
 .rb-acts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; width: min(100%, 600px); padding: 6px; background: #1b1714 center / cover; border: 1px solid #c49b56; }
 .rb-acts > button { display: grid; gap: 3px; padding: 10px 6px; border: 1px solid #ffffff22; background: #120d0bcc; color: #f2e0b5; font-size: 11px; }
 .rb-acts > button > small { color: #d3a24f; font-size: 8px; letter-spacing: 1.2px; }
 .rb-acts > button:hover { background: #3a2a1acc; }
+.rb-acts > button.is-now { border-color: #e5bf72; box-shadow: inset 0 0 12px #e5bf7244; }
+.rb-acts > button.is-soon { color: #a69c8a; background: #0b0908dd; }
+.rb-acts > button.is-soon > small { color: #8a7f6c; }
+.rb-final-bow { color: #f0d690; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; text-shadow: 0 1px 4px #000; }
+/* Update art in a promo: show the whole image (its title is painted in) above the caption. */
+.rb-promo.is-update { background-color: #0d1013; background-size: 100% auto; background-position: center 26px; }
 .rb-promos { display: grid; align-content: start; gap: 8px; padding: 18px 18px 0 0; }
 .rb-promo { position: relative; height: 250px; overflow: hidden; padding: 0; border: 1px solid #000; background: radial-gradient(ellipse at 50% 30%, #3b4e63, #10161d) center / cover no-repeat; color: #fff; text-align: left; }
 .rb-promo::after { content: ""; position: absolute; inset: 50% 0 0; background: linear-gradient(180deg, transparent, #000e); }
@@ -223,9 +278,10 @@
 .rb-frost-track > button > b { position: absolute; right: 8px; bottom: 2px; color: #fff; font-family: var(--rb-serif); font-size: 18px; font-style: italic; }
 
 /* Nemestice Battle Pass page */
-.rb-bp { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(180px, 26%) minmax(0, 1fr); grid-template-rows: auto auto 1fr; min-height: 640px; margin: -22px -24px 0; background: radial-gradient(ellipse at 60% 10%, #6d4b9e, #2d1f4a 45%, #120d22); overflow: hidden; }
+.rb-bp { position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(180px, 26%) minmax(0, 1fr); grid-template-rows: auto auto 1fr; min-height: 640px; margin: -22px -24px 0; background: linear-gradient(180deg, #1a1030cc, #120d22f2 70%), var(--rb-sky, none) center top / cover no-repeat, #120d22; overflow: hidden; }
 .rb-bp::before { content: ""; position: absolute; z-index: -1; inset: 0; background-image: radial-gradient(1px 1px at 30px 40px, #fff, transparent), radial-gradient(1px 1px at 140px 90px, #fff, transparent), radial-gradient(2px 2px at 220px 20px, #fde, transparent); background-size: 260px 160px; opacity: .6; }
-.rb-bp-art { grid-row: 3; grid-column: 1; width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: 30% center; mask-image: linear-gradient(90deg, #000 70%, transparent); filter: hue-rotate(20deg) saturate(1.2); }
+.rb-bp-art { grid-row: 3; grid-column: 1; width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: 50% top; clip-path: polygon(0 0, 78% 0, 100% 100%, 0 100%); }
+.rb-bp-note { margin: -4px 0 8px; color: #d9b8ff; font-size: 11px; text-align: center; }
 .rb-bp-head { grid-row: 1; grid-column: 1 / -1; display: flex; align-items: flex-end; gap: 8px; padding: 14px 22px 8px; }
 .rb-bp-head img { height: 68px; object-fit: contain; filter: drop-shadow(0 0 10px #c36cff); }
 .rb-bp-head small { color: #fff; font-size: 11px; letter-spacing: 1.5px; }
@@ -272,11 +328,20 @@
 .rb-event-column.is-siltbreaker > ol { background: #0e1620; border-color: #23384a; }
 .rb-event-column.is-siltbreaker > ol > li { background: #18283a; }
 .rb-event-column.is-siltbreaker > ol > li + li::before { background: #3d93c9; }
+.rb-event-column.is-underhollow { background: linear-gradient(180deg, #10201ddd, #08100eee); }
+:root .desk-client .rb-event-column.is-underhollow > h2 { color: #f2d27a; font-size: 26px; text-shadow: 0 0 14px #3fb59a; }
+.rb-event-column.is-underhollow > ol { background: #0b1714; border-color: #24443b; }
+.rb-event-column.is-underhollow > ol > li { background: #14302a; }
+.rb-event-column.is-underhollow > ol > li + li::before { background: #e3b84f; }
+.rb-event-column.is-frosthaven { background: linear-gradient(180deg, #13222add, #08121aee); }
+.rb-event-column.is-frosthaven > ol { background: #0b1820; border-color: #2a4a58; }
+.rb-event-column.is-frosthaven > ol > li { background: #15303c; }
+.rb-event-column.is-frosthaven > ol > li + li::before { background: #5fc0d8; }
 .rb-event-column.is-labyrinth { background: linear-gradient(180deg, #1c1830dd, #0f0c1cee); }
 :root .desk-client .rb-event-column.is-labyrinth > h2 { color: #c8c3ff; font-size: 26px; text-shadow: 0 0 14px #6b5bd8; }
 .rb-modes { display: flex; flex-direction: column; gap: 6px; width: 340px; padding: 0 14px 14px; background: #0c0f12f2; border-left: 1px solid #000; overflow-y: auto; }
 .rb-modes-art { flex: 0 0 170px; margin: 0 -14px 4px; background: radial-gradient(ellipse at 50% 60%, #2b4b67, #0c141c 75%) center / cover no-repeat; }
-.rb-modes-art.is-darkmoon { background: radial-gradient(circle at 50% 50%, #f0e2ff 0 14%, #8a4fc4 15%, #3b1658 38%, #12071c 70%); }
+.rb-modes-art.is-darkmoon { background-color: #12071c; background-position: center 40%; }
 .rb-modes > button { display: flex; align-items: center; gap: 8px; padding: 12px 14px; border: 1px solid #000; background: linear-gradient(180deg, #262c31, #1a1e22); color: #c8d0d4; font-family: var(--rb-serif); font-size: 16px; letter-spacing: 2px; text-align: left; text-transform: uppercase; }
 .rb-modes > button.rb-mode { color: #8c969b; }
 .rb-modes > button:hover { color: #fff; border-color: #6b767c; }
@@ -294,6 +359,8 @@
 .rb-close { position: absolute; z-index: 2; top: 10px; right: 10px; display: grid; place-items: center; width: 34px; height: 34px; border: 0; background: #000; color: #fff; }
 .rb-bpass > header { display: grid; place-items: center; height: 150px; background: radial-gradient(ellipse at 50% 100%, #5a2a1a, #19100d 70%) center 12% / cover no-repeat; }
 .rb-bpass > header > img { max-width: 70%; max-height: 120px; filter: drop-shadow(0 2px 10px #000); }
+/* Valve's 2016 and 2017 art puts "The International" above BATTLE PASS: keep both in view. */
+.rb-bpass.is-2016 > header, .rb-bpass.is-2017 > header { height: 200px; background-position: center top; }
 .rb-bundles { display: grid; grid-template-columns: 1.4fr 1fr; }
 .rb-bundles > section { padding: 0 24px 22px; text-align: center; }
 .rb-bundles > section.is-mega { background: linear-gradient(180deg, #3c1716, #1d0d0c); }
@@ -348,7 +415,7 @@
 .rb-csb-side { display: grid; align-content: start; gap: 10px; padding: 20px 22px; background: #050a10cc; }
 .rb-csb-logo { display: grid; justify-items: center; text-align: center; }
 .rb-csb-logo img { width: 210px; }
-.rb-csb-logo strong { color: var(--accent); font-family: var(--rb-serif); font-size: 28px; font-weight: 400; letter-spacing: 7px; text-transform: uppercase; }
+.rb-csb-logo strong { color: var(--accent); font-family: var(--rb-serif); font-size: clamp(20px, 2.1vw, 28px); font-weight: 400; letter-spacing: .25em; text-transform: uppercase; }
 .rb-csb-logo small { color: #d23c32; font-size: 8px; letter-spacing: 2px; }
 .rb-csb-side > nav { display: grid; padding: 14px 16px; background: var(--side); }
 .rb-csb-side > nav button { display: block; width: 100%; padding: 4px 0; border: 0; background: none; color: #fff; font-size: 15px; font-weight: 600; letter-spacing: 2.5px; text-align: left; text-transform: uppercase; }
@@ -388,6 +455,39 @@
 .rb-csb-prizes > li { display: flex; justify-content: space-between; padding: 12px 14px; border: 1px solid #ffffff30; background: #0006; color: #fff; font-size: 14px; }
 .rb-csb-prizes > li > b { color: var(--accent); font-weight: 500; }
 .rb-csb-total { display: block; margin-top: 18px; color: var(--accent); font-size: 34px; font-weight: 400; }
+/* TI 2024 theatre Compendium (capture): Aegis medallion, shield level, Aegis stage with reward pedestals. */
+.rb-csb-logo.is-2024 { gap: 2px; }
+.rb-csb-logo.is-2024 .rb-csb-medallion { width: 92px; filter: drop-shadow(0 4px 10px #000); }
+.rb-csb-logo.is-2024 img:last-child { width: 230px; }
+.rb-csb-level.is-shield > b { border-radius: 8px 8px 50% 50% / 8px 8px 60% 60%; border-color: #c9a85a; background: linear-gradient(180deg, #2f6b31, #0f3013); }
+.rb-csb-logo.is-2023 img { width: 240px; }
+.rb-csb-level.is-crest > b { flex-basis: 78px; height: 78px; border: 0; border-radius: 0; background: center / contain no-repeat; font-size: 28px; text-shadow: 0 2px 4px #000, 0 0 10px #000; }
+.rb-csb-level.is-crest button { justify-self: end; padding: 2px 10px; border: 1px solid #8fd6ff88; background: #0f3a58; color: #cfeaff; font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; }
+.rb-csb-gift { justify-self: start; padding: 3px 16px; border: 1px solid #8fd6ff; background: linear-gradient(180deg, #3a9fd0, #1f6f9f); color: #fff; font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; }
+.rb-csb-gift:hover { filter: brightness(1.15); }
+.rb-treasures { display: grid; justify-items: center; gap: 6px; margin-top: 4px; }
+.rb-treasures > span { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+.rb-treasures i { display: grid; place-items: center; width: 30px; height: 30px; border: 1px solid #c9a65a66; background: #0009; color: #c9a65a99; font-size: 11px; font-style: normal; }
+.rb-treasures i.is-done { border-color: #f3cf7a; background: linear-gradient(180deg, #a8742a, #5a3a12); color: #fff; box-shadow: 0 0 8px #f3cf7a66; }
+.rb-treasures small { color: #f3dca8; font-size: 11px; letter-spacing: 1.5px; }
+.rb-bpass.is-2022 > header { height: 190px; align-content: center; gap: 8px; background-size: max(100%, 720px) auto; background-position: center 30%; box-shadow: inset 0 0 0 2000px #0008; }
+.rb-bpass.is-2022 > header > img { max-height: 86px; }
+.rb-bpass.is-2022 > header > small { color: #f0a58e; font-size: 11px; letter-spacing: 2px; text-align: center; }
+.rb-csb-level.is-shield button { justify-self: end; padding: 2px 10px; border: 1px solid #6fbf5a; background: #1f5a22; color: #e8f5d8; font-size: 10px; letter-spacing: 1.2px; text-transform: uppercase; }
+.rb-c24-stage { display: grid; grid-template-columns: minmax(0, 1fr) minmax(220px, 1.3fr) minmax(0, 1fr); align-items: center; gap: 12px; margin-top: 8px; padding: 18px 8%; background: radial-gradient(ellipse at 50% 85%, #f6d77a33, transparent 55%); }
+.rb-c24-col { display: grid; gap: 14px; }
+.rb-c24-reward { display: grid; justify-items: center; gap: 4px; background: radial-gradient(ellipse 60% 22% at 50% 62%, #f7dc8a66, transparent 70%); }
+.rb-c24-reward > img { height: 92px; max-width: 100%; object-fit: contain; filter: drop-shadow(0 6px 10px #000c); }
+.rb-c24-reward > small { color: #f1e3b5; font-size: 11px; letter-spacing: .5px; }
+.rb-c24-reward > button, .rb-c24-actions > button { padding: 4px 18px; border: 1px solid #f3d27a; background: linear-gradient(180deg, #c99a3e, #7d5419); color: #fff6dc; font-size: 11px; letter-spacing: 1.4px; text-transform: uppercase; box-shadow: 0 0 10px #f3c46a55; }
+.rb-c24-reward > button:hover, .rb-c24-actions > button:hover { filter: brightness(1.2); }
+.rb-c24-aegis { display: grid; justify-items: center; gap: 4px; }
+.rb-c24-aegis > img { width: 100%; max-width: 320px; filter: drop-shadow(0 10px 30px #000); }
+.rb-c24-aegis > b { color: var(--accent); font-size: 30px; font-weight: 400; }
+.rb-c24-aegis > small { padding: 1px 10px; border-radius: 9px; background: #000a; color: #fff; font-size: 11px; letter-spacing: 1px; }
+.rb-c24-actions { display: flex; justify-content: center; gap: 10px; margin-top: 10px; }
+.rb-c24-actions > button { padding: 10px 26px; border-color: #6fbf5a; background: linear-gradient(180deg, #2a6b2c, #123f16); font-size: 13px; box-shadow: none; }
+.rb-c24-actions > button > b { margin-left: 8px; padding: 0 6px; background: #3f9a3a; }
 
 @media (prefers-reduced-motion: reduce) { .rb-client .rb-snow { animation: none !important; } }
 @media (max-width: 1100px) {
@@ -408,7 +508,8 @@
   .rb-top { padding-left: 4px; }
   .rb-arrows, .rb-top-right > .rb-icon:not(.rb-power):not(.rb-ti-icon):not([aria-label^="Inbox"]), .rb-shards > small { display: none; }
   .rb-logo-tab { width: 66px; }
-  .rb-grid, .rb-featured, .rb-c21, .rb-csb, .rb-bp { grid-template-columns: minmax(0, 1fr); }
+  .rb-grid, .rb-featured, .rb-c21, .rb-csb, .rb-bp, .rb-c24-stage { grid-template-columns: minmax(0, 1fr); }
+  .rb-c24-col { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .rb-featured { margin: -22px -24px 0; }
   .rb-left { padding: 12px; }
   .rb-stage { min-height: 380px; }

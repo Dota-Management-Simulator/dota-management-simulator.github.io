@@ -6,10 +6,10 @@ import { unreadMessages } from "./office";
 import { navigation } from "./GameNavigation";
 import { ClientSystemMenu, ClientTabButton, useDeskShell } from "./ClientShell";
 import type { ClientTab } from "./ClientShell";
+import { rebornGamesLabel, source1TabLabels } from "./source1-navigation";
 
 const art = (name: string) => `${import.meta.env.BASE_URL}dota-menu/${name}`;
 /** Same switch dates as the Desk clients (RebornClient.tsx, ClientDashboard.tsx). */
-const SOURCE1_STORE = "2013-08-12";
 const SHARDS = "2020-10-29";
 const ARMORY = "2023-09-12";
 
@@ -20,17 +20,17 @@ type Group = { label: string; pages: Page[] };
 function groups(layout: string, day: string): Group[] {
   if (layout === "beta") return [{ label: "Watch", pages: ["standings", "calendar", "history"] },
     { label: "Learn", pages: ["heroes", "patch", "training", "scrims", "next-series"] },
-    { label: "Socialize", pages: ["world", "roster", "scouting", "staff", "finances", "inbox"] }];
+    { label: "Socialize", pages: ["world", "roster", "scouting", "staff", "finances", "inbox", "arcade"] }];
   if (layout === "source1") {
-    const modern = day >= SOURCE1_STORE;
-    return [{ label: modern ? "Store" : "Customize", pages: ["finances", "scouting", "staff"] },
+    const labels = source1TabLabels(day);
+    return [{ label: labels.store, pages: ["finances", "scouting", "staff"] },
       { label: "Watch", pages: ["standings", "calendar", "history"] },
-      { label: modern ? "Library" : "Learn", pages: ["heroes", "patch", "training", "next-series"] },
-      { label: modern ? "Community" : "Socialize", pages: ["world", "roster", "scrims", "inbox"] }];
+      { label: labels.library, pages: ["heroes", "patch", "training", "next-series"] },
+      { label: labels.community, pages: ["world", "roster", "scrims", "inbox", "arcade"] }];
   }
   return [{ label: "Heroes", pages: ["heroes", "patch"] }, { label: day >= ARMORY ? "Armory" : "Store", pages: ["finances", "scouting", "staff"] },
     { label: "Watch", pages: ["standings", "calendar", "history"] }, { label: "Learn", pages: ["training", "scrims", "next-series"] },
-    { label: "Arcade", pages: ["world"] }, { label: "Party", pages: ["roster", "inbox"] }];
+    { label: rebornGamesLabel(day), pages: ["arcade", "world"] }, { label: "Party", pages: ["roster", "inbox"] }];
 }
 
 /** Every page away from the Desk sits inside the era's Dota client: its top bar,

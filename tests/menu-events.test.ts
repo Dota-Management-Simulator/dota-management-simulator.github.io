@@ -13,8 +13,8 @@ test("Reborn event themes appear in their explicit composite windows and leave t
 
 test("client events follow the campaign date, inclusive at both ends, and never overlap", () => {
   const dated = menuEvents;
-  assert.deepEqual(dated.map(event => event.id), ["diretide2012", "greeviling", "diretide2013", "wraithnight", "newbloom2015",
-    "darkmoon", "siltbreaker", "frostivus2019", "labyrinth", "diretide2020", "nemestice", "diretide", "crownfall", "curios2025"]);
+  assert.deepEqual(dated.map(event => event.id), ["diretide2012", "greeviling", "diretide2013", "wraithnight", "newbloom2014", "newbloom2015",
+    "darkmoon", "siltbreaker", "underhollow", "frosthaven", "newbloom2019", "frostivus2019", "labyrinth", "diretide2020", "nemestice", "diretide", "anniversary10", "frostivus2023", "crownfall", "curios2025", "darkcarnival"]);
   for (const event of dated) {
     const { from, to } = event.window;
     assert.ok(from <= to, event.id);

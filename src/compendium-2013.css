@@ -1,0 +1,59 @@
+.client-modal { border: 0; max-width: none; max-height: none; }
+.client-modal::backdrop { background: #030707d9; backdrop-filter: blur(3px); }
+.compendium13-modal[open] { position: fixed; inset: 0; display: grid; align-content: start; justify-items: center; gap: 15px; width: 100%; height: 100dvh; margin: 0; padding: 60px 45px 25px; overflow-y: auto; background: transparent; color: #302e24; }
+.compendium13-close { position: fixed; top: 16px; right: 18px; display: grid; place-items: center; width: 34px; height: 34px; padding: 0; background: #19221e; border: 1px solid #869a83; color: #e0e5d9; }
+.compendium13-book { display: grid; grid-template-columns: 1fr 1fr; width: min(1150px, 100%); min-height: 640px; padding: 8px; border: 6px solid #344236; background: linear-gradient(90deg, #b4bdab, #d7d8b9 47%, #546053 50%, #b5bda8 53%, #dbdcc2); box-shadow: 0 14px 45px #000c, inset 0 0 0 2px #7b886c; font-family: Georgia, serif; }
+.compendium13-page { position: relative; min-width: 0; padding: 40px 45px; border: 1px solid #8d997477; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='320' height='320'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.012 .02' numOctaves='4' seed='7' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .32 0 0 0 0 .33 0 0 0 0 .27 0 0 0 .55 -.18'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"), radial-gradient(ellipse at 30% 25%, #f1efe2, transparent 70%), linear-gradient(180deg, #dcdcd0, #c9ccbd); }
+.compendium13-page::before { content: ""; position: absolute; inset: 7px; border: 1px solid #8d997455; pointer-events: none; }
+:root .desk-client .compendium13-page h2 { margin: 10px 0 40px; color: #302e24; font: small-caps 36px/1.1 Georgia, serif; letter-spacing: 2px; }
+:root .desk-client .compendium13-page h2 > small { display: block; font: 21px Georgia, serif; color: #915338; letter-spacing: 5px; }
+:root .desk-client .compendium13-page h3 { margin: 28px 0 14px; font: small-caps 18px Georgia, serif; color: #8a4c2f; }
+.compendium13-entry { display: flex; align-items: center; gap: 20px; width: 100%; padding: 10px 0; border: 0; border-bottom: 1px solid #747c5c33; background: none; text-align: left; color: #30352d; font: 14px Georgia, serif; }
+.compendium13-entry > span { color: #915338; font-size: 16px; }
+.compendium13-entry:hover { background: #6c7e5922; }
+.compendium13-inside { display: grid; align-content: center; min-height: 530px; text-align: center; opacity: .4; }
+.compendium13-inside > span { font: 15px Georgia, serif; letter-spacing: 3px; }
+.compendium13-inside > small { margin-top: 7px; font-size: 9px; letter-spacing: 1px; }
+:root .desk-client .compendium13-inside p { margin-top: 150px; color: #424d37; font: italic 16px Georgia, serif; }
+.compendium13-title { display: grid; justify-items: center; align-content: center; min-height: 530px; text-align: center; }
+.compendium13-title > img { width: 70px; filter: brightness(0) saturate(100%) invert(37%) sepia(95%) saturate(1050%) hue-rotate(355deg); }
+:root .desk-client .compendium13-title h2 { margin: 18px 0 7px; font: italic 42px Georgia, serif; letter-spacing: -2px; }
+.compendium13-title > span { font-size: 12px; letter-spacing: 3px; }
+.compendium13-title > em { margin: 14px 0 45px; color: #a8612f; letter-spacing: 9px; }
+:root .desk-client .compendium13-title p { width: 100%; padding: 22px 4px; border-block: 1px solid #77816177; color: #955d3e; font: small-caps 20px Georgia, serif; }
+/* The cover's pale band between two dark rules, as in the TI3 capture. */
+.compendium13-band { width: 100%; padding: 4px 0; border-block: 2px solid #5b5f55; }
+.compendium13-band > * { display: block; }
+:root .desk-client .compendium13-band p { padding: 20px 8px 10px; border: 0; background: #c3cfcc99; color: #b23a2b; font: 15px/1.7 Georgia, serif; letter-spacing: 2px; text-transform: uppercase; }
+.compendium13-title .compendium13-band > small { margin: 0; padding: 4px 8px 20px; background: #c3cfcc99; color: #2f312a; font-size: 9px; font-weight: 700; line-height: 1.9; letter-spacing: 1.5px; text-transform: uppercase; }
+.compendium13-title > small { margin-top: 24px; line-height: 1.8; letter-spacing: 1px; }
+.compendium13-title button, .compendium13-link { display: flex; align-items: center; justify-content: center; gap: 5px; margin: 22px auto 0; padding: 10px 16px; background: #40533d; border: 1px solid #7c8b68; color: #eff0d6; }
+.compendium13-teams { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.compendium13-teams li { display: flex; align-items: center; gap: 12px; min-height: 35px; border-bottom: 1px solid #717d5c44; padding-bottom: 8px; font-size: 15px; }
+.compendium13-teams .is-managed { color: #684923; font-weight: 700; }
+.compendium13-total { display: block; text-align: center; font: 40px Georgia, serif; color: #3c5135; overflow-wrap: anywhere; }
+:root .desk-client .compendium13-caption { text-align: center; color: #46553c; font-size: 10px; letter-spacing: 1px; }
+.compendium13-prizes { display: grid; gap: 10px; padding: 0; margin-top: 30px; list-style: none; }
+.compendium13-prizes li { display: flex; justify-content: space-between; gap: 10px; padding: 10px; border-block: 1px solid #8e947177; color: #394332; }
+.compendium13-prizes strong { font-weight: 400; }
+:root .desk-client :is(.compendium13-note, .compendium13-road) { margin-top: 35px; color: #3c4934; font: 17px/1.8 Georgia, serif; }
+.compendium13-nav { position: sticky; bottom: 0; display: flex; align-items: center; justify-content: center; gap: 5px; padding: 5px; background: #17211cf5; border: 1px solid #6a7f61; color: #dee5d5; box-shadow: 0 4px 20px #000a; }
+.compendium13-nav button { display: grid; place-items: center; min-width: 46px; height: 40px; padding: 5px 10px; color: #d6e0cd; border: 1px solid #54624b; background: #2c3a2e; }
+.compendium13-nav button:disabled { opacity: .35; }
+.compendium13-nav span { padding: 0 15px; font: 13px Georgia, serif; }
+.compendium13-modal button:focus-visible { outline: 2px solid #bd8e53; outline-offset: 2px; }
+.s1-theme-ti-green .s1-backdrop { background: radial-gradient(ellipse at 40% 15%, #226e40, #0c281a 60%, #040b09); }
+.s1-theme-ti-green .s1-layer-a { background: radial-gradient(ellipse at 70% 20%, #528b4833, transparent 65%); }
+.ti2013-feature { position: relative; grid-column: 1 / -1; display: block; width: 100%; padding: 0; border: 0; background: #102719; color: #dfe8ce; }
+.ti2013-feature img { display: block; width: 100%; max-height: 270px; object-fit: cover; object-position: 50% 30%; }
+.ti2013-feature > span { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 12px; background: #244a2c; letter-spacing: 1px; }
+@media (max-width: 750px) {
+  .compendium13-modal[open] { padding: 58px 10px 15px; }
+  .compendium13-book { grid-template-columns: minmax(0, 1fr); min-height: 0; background: #d0d3b7; }
+  .compendium13-book.spread-0 > .compendium13-page:first-child { display: none; }
+  .compendium13-page { padding: 26px 24px; }
+  .compendium13-title { min-height: 460px; }
+  :root .desk-client .compendium13-title h2 { font-size: 33px; }
+  .compendium13-nav { gap: 3px; width: 100%; }
+  .compendium13-nav span { display: none; }
+}

@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 400" fill="none">
+  <!-- Original vector relief, based on the beta frame's curled corner silhouette. -->
+  <defs><linearGradient id="stone" x2="1" y2="1"><stop stop-color="#687078"/><stop offset=".4" stop-color="#343a41"/><stop offset="1" stop-color="#15191e"/></linearGradient></defs>
+  <g id="curl" stroke-linejoin="round">
+    <path d="M2 4H60V19C43 14 23 21 20 34C15 55 40 68 48 49C52 39 39 31 34 39C30 46 40 49 40 43" stroke="#080b0e" stroke-width="12"/>
+    <path d="M2 4H60V19C43 14 23 21 20 34C15 55 40 68 48 49C52 39 39 31 34 39C30 46 40 49 40 43" stroke="#664042" stroke-width="9"/>
+    <path d="M2 4H60V19C43 14 23 21 20 34C15 55 40 68 48 49C52 39 39 31 34 39C30 46 40 49 40 43" stroke="url(#stone)" stroke-width="6"/>
+    <path d="M10 66Q20 73 18 91L4 111" stroke="#14191d" stroke-width="6"/>
+    <path d="M10 66Q20 73 18 91L4 111" stroke="#5e3b3e" stroke-width="2"/>
+  </g>
+  <use href="#curl" transform="translate(0 400) scale(1 -1)"/>
+  <path d="M2 126H58V274H2" stroke="#0c1013" stroke-width="5"/>
+  <path d="M2 129H54V271H2" stroke="#5b4346" stroke-width="2"/>
+</svg>

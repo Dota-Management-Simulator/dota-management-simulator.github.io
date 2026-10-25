@@ -1,6 +1,7 @@
+import { rebornGamesLabel, source1TabLabels } from "../src/source1-navigation";
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { campaignMenu, menuEraForPatch } from "../src/menu-eras";
+import { campaignMenu, menuEraForPatch, SOURCE1_CLIENT_DATE } from "../src/menu-eras";
 import { historicalPatches, patchForSeason } from "../src/patches";
 import { createCampaign, DEFAULT_SETTINGS, readSave, SAVE_KEY } from "../src/game";
 import { enableHistoricalCalendar } from "../src/historical-game";
@@ -37,6 +38,23 @@ test("a dated save changes menu at its active patch even while its campaign year
   assert.equal(campaignMenu(campaign).era.id, "source1");
   campaign.calendar!.now = "2015-09-09";
   assert.equal(campaignMenu(campaign).era.id, "reborn");
+});
+
+test("the beta dashboard persists until Valve's May 24 redesign, including the May 1 composite change", () => {
+  const campaign = enableHistoricalCalendar(createCampaign({ ...DEFAULT_SETTINGS, year: 2012 }));
+  for (const now of ["2011-08-22", "2012-04-30", "2012-05-01", "2012-05-23"]) {
+    campaign.calendar!.now = `${now}T00:00:00Z`;
+    assert.equal(campaignMenu(campaign).era.layout, "beta", now);
+  }
+  assert.equal(campaignMenu(campaign).patch.id, "2012.2");
+  campaign.calendar!.now = `${SOURCE1_CLIENT_DATE}T00:00:00Z`;
+  const saved = JSON.stringify(campaign);
+  const menu = campaignMenu(campaign);
+  assert.equal(menu.era.layout, "source1");
+  assert.equal(menu.era.historicalRelease, "2012-05-24");
+  assert.equal(menu.patch.id, "2012.2");
+  assert.equal(JSON.stringify(campaign), saved, "presentation must not advance or migrate the campaign");
+  assert.equal(campaignMenu({ year: 2012, week: 9 }).era.layout, "source1", "undated saves keep the composite mapping");
 });
 
 test("every historical phase has a presentation and no opening showcase exposes Monkey King before his composite arrival", () => {
@@ -80,4 +98,13 @@ test("uncatalogued future menus remain explicitly fictional and do not borrow a 
   assert.equal(menu.era.source, "");
   assert.equal(menu.patch.generated, true);
   assert.match(menu.era.subtitle, /future/);
+});
+
+
+test("Source 1 navigation keeps captured labels in the same tab positions", () => {
+  assert.deepEqual(source1TabLabels("2012-12-19"), { store: "Customize", library: "Learn", community: "Socialize" });
+  assert.deepEqual(source1TabLabels("2013-01-24"), { store: "Store", library: "Learn", community: "Community" });
+  assert.deepEqual(source1TabLabels("2013-11-14"), { store: "Store", library: "Library", community: "Community" });
+  assert.equal(rebornGamesLabel("2015-09-09"), "Custom games");
+  assert.equal(rebornGamesLabel("2015-12-16"), "Arcade");
 });

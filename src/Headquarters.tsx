@@ -21,6 +21,7 @@ const showcaseHeroes = [
 
 type HeadquartersProps = {
   campaign: Campaign; onPage: (page: Page) => void; onPlayer: (player: Player) => void; onCompetition: () => void;
+  onTournament?: (id: string) => void;
 };
 
 export default function Headquarters(props: HeadquartersProps) {

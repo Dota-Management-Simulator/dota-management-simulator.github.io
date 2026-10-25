@@ -22,7 +22,7 @@ export default function ManagerDesk({ campaign, onPage, onAction, onPlayer, onCo
   const tired = roster.filter(p => p.energy < 60);
   const latest = campaign.results.at(-1);
   return <div className="manager-desk">
-    <Headquarters campaign={campaign} onPage={onPage} onPlayer={onPlayer} onCompetition={onCompetition} />
+    <Headquarters campaign={campaign} onPage={onPage} onPlayer={onPlayer} onCompetition={onCompetition} onTournament={eventId => onAction({ kind: "tournament", eventId })} />
     {/* The copied clients already carry this data in their own panels and tabs. */}
     {campaignMenu(campaign).era.layout === "showcase" && <details className="desk-briefings"><summary>Club briefings <span>Decisions, standings & squad details</span><ArrowRight size={15} /></summary><div className="desk-briefing-content">
     <div className="desk-topline"><span><Shield size={16} />{campaign.settings.team} <span className="workspace-divider">/</span> Your alternate history</span><span><Zap size={15} />{average(roster.map(p => p.energy))}% squad energy</span></div>

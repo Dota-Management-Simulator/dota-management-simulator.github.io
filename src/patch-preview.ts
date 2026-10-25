@@ -2,7 +2,8 @@ import { createCampaign, DEFAULT_SETTINGS } from "./game";
 import { enableHistoricalCalendar } from "./historical-game";
 import { historicalPatches, patchAtDate, patchForSeason } from "./patches";
 import { menuEvents } from "./menu-events";
-import { historicalCampaignStart as tiPreparation } from "./historical-game";
+import { tiMenuStart } from "./menu-ti";
+import { REBORN_CLIENT_DATE, SOURCE1_CLIENT_DATE } from "./menu-eras";
 
 // Keep the preview finite, with a clearly fictional sample after the archive.
 export const previewPatches = [...historicalPatches, patchForSeason(2027, 1), patchForSeason(2027, 2)];
@@ -11,10 +12,27 @@ export function previewPatch(id: string | null) {
   return previewPatches.find(patch => patch.id === id) ?? previewPatches[0];
 }
 
-/** Dated menu screens: each client event's first day and each TI's preparation month. */
+/** Inspect both sides of the actual dashboard change without advancing a save. */
+export const previewClientTransitions = [
+  { label: "Last day of the original beta dashboard", date: "2012-05-23" },
+  { label: "New Source 1 dashboard", date: SOURCE1_CLIENT_DATE },
+  { label: "Store and Community tabs · January reference", date: "2013-01-24" },
+  { label: "New Bloom · the Year Beast arrives", date: "2014-02-05" },
+  { label: "Last day of the Source 1 client", date: "2015-09-08" },
+  { label: "Reborn replaces Source 1", date: REBORN_CLIENT_DATE },
+  { label: "Fall Season 2015 Compendium promotion", date: "2015-10-02" },
+  { label: "Fall Compendium ends · default dashboard returns", date: "2015-11-24" },
+  { label: "Balance of Power · 6.86", date: "2015-12-16" },
+  { label: "Winter Battle Pass", date: "2016-01-27" },
+  { label: "Fall 2016 Battle Pass", date: "2016-10-05" },
+  { label: "7.00 · The New Journey", date: "2016-12-12" },
+];
+
+/** Dated menu screens: transitions, client events and TI preparation months. */
 export const previewMoments = [
+  ...previewClientTransitions,
   ...menuEvents.map(event => ({ label: `${event.name} · ${event.window.from.slice(0, 4)}`, date: event.window.from })),
-  ...[2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025, 2026].map(year => ({ label: `The International ${year}`, date: tiPreparation(year).slice(0, 10) })),
+  ...[2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025, 2026].map(year => ({ label: `The International ${year}`, date: tiMenuStart(year) })),
 ].sort((a, b) => a.date.localeCompare(b.date));
 
 export function previewMoment(date: string | null) {

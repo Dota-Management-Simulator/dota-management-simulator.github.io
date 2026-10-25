@@ -1,0 +1,88 @@
+/* Seasonal scenery follows the captured Source 1 client, not a new shell. */
+.s1-backdrop .source1-scenery { position: absolute; inset: 0; width: 100%; height: 100%; }
+.source1-scenery .scenery-distance { fill: #092b37; opacity: .65; }
+.source1-scenery .scenery-near { fill: #030e14; opacity: .92; }
+.source1-scenery.is-winter .scenery-distance { fill: #264977; opacity: .7; }
+.source1-scenery.is-winter .scenery-near { fill: #071831; opacity: .85; }
+.source1-scenery .scenery-ground { fill: #061123; }
+.s1-client.s1-theme-diretide2012 .s1-backdrop { background: radial-gradient(ellipse at 12% 18%, #12839c88, transparent 60%), radial-gradient(ellipse at 80% 95%, #a34d2355, transparent 42%), linear-gradient(#063344, #051118 78%, #160c08); }
+.s1-client.s1-theme-diretide2012 .s1-layer-b { background: none; }
+.s1-client.s1-theme-greeviling .s1-layer-b { background: none; }
+.s1-client.s1-theme-greeviling .s1-backdrop { background: radial-gradient(ellipse at 45% 10%, #568cc0, transparent 70%), linear-gradient(#163d77, #1c3b65 60%, #071328); }
+.s1-client.s1-theme-diretide2013 .s1-backdrop { background: radial-gradient(ellipse at 15% 20%, #23596188, transparent 50%), radial-gradient(ellipse at 95% 65%, #4c3d1b66, transparent 40%), linear-gradient(#0a1f25, #050b10 75%, #080a0b); }
+.s1-client .client-greeviling { border: 1px solid #4b6254; box-shadow: inset 0 0 0 4px #0b120e, 0 3px 10px #0008; }
+.s1-client .client-greeviling > img { aspect-ratio: 1600 / 583; }
+.client-greeviling .greevil-story { display: grid; align-content: center; gap: 12px; min-height: 205px; padding: 28px 24%; background: #c7c9b5 url('/dota-menu/greeviling-paper.jpg') center / 100% 100% no-repeat; color: #27362d; text-align: left; }
+:root .desk-client .greevil-story h3 { font: 20px Georgia, serif; color: #2d4434; }
+:root .desk-client .greevil-story p { font: 12px/1.6 Georgia, serif; color: #27362d; }
+.client-greeviling .greevil-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; padding: 0 12px 16px; }
+.client-greeviling .greevil-actions button { min-width: 100px; padding: 8px 14px; background: #1b3024; border: 1px solid #4e6b54; color: #cce4cb; }
+.s1-client button:focus-visible { outline: 2px solid #d7b482; outline-offset: -2px; }
+.s1-refined .client-parchment { height: auto; min-height: 200px; padding-top: 35px; }
+:root .desk-client .s1-refined .client-parchment > h3 { padding: 0 18px; font-size: clamp(29px, 4vw, 52px); }
+/* Valve's gothic Diretide logo, cut from the 2012 event page. */
+.s1-refined .client-parchment > h3 > img { display: block; width: clamp(180px, 30vw, 330px); height: auto; margin-top: -8px; filter: drop-shadow(0 2px 4px #000); }
+.diretide-sketch { display: block; width: 100%; height: auto; color: #665234; opacity: .75; }
+.s1-refined .client-wraith { min-height: 0; padding: 0 12px 20px; border-color: #286578; background: linear-gradient(#0b2933, #07131b); box-shadow: inset 0 0 0 3px #1b444e; }
+.s1-refined .client-wraith::after { display: none; }
+.s1-refined .client-wraith-art { display: block; width: calc(100% + 24px); max-width: none; margin-inline: -12px; height: auto; }
+.s1-refined .client-wraith-progress { position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: min(300px, calc(100% - 32px)); }
+.s1-refined .client-fragments { margin: -12px 0 14px; }
+.s1-refined .client-fragments > * { padding: 8px; gap: 3px 6px; }
+.s1-refined .client-fragments strong { font-size: 24px; }
+.s1-refined .client-fragments > button > strong { font-size: 14px; }
+.s1-refined .client-wraith .client-play-now { font-size: 20px; }
+.s1-refined .client-learn-more { padding: 5px; border: 1px solid #6c4b38; background: #1e100dcf; font: 9px Arial, sans-serif; cursor: pointer; }
+.s1-theme-newbloom2014 .s1-backdrop { background: radial-gradient(ellipse at 7% 75%, #b55c3e66, transparent 45%), radial-gradient(ellipse at 95% 10%, #643e4f, transparent 50%), linear-gradient(#171424, #210e17 75%, #572c22); }
+.client-bloom14 { overflow: hidden; border: 3px solid #7d432b; background: #211517; box-shadow: inset 0 0 0 2px #b07a46, 0 3px 10px #000a; }
+.client-bloom14 > img { display: block; width: 100%; }
+.client-bloom14-beast { position: relative; isolation: isolate; min-height: 290px; display: grid; align-items: center; padding: 25px 18px; background: #160b15; }
+.client-bloom14-beast::before { content: ""; position: absolute; inset: 0; z-index: -2; background: url('/dota-menu/new-bloom-2014-beast.jpg') center bottom / 210% auto no-repeat; transform: scaleX(-1); }
+.client-bloom14-beast::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(90deg, #100b13e6, #140b1477 55%, transparent); }
+.client-bloom14-beast > div { width: 65%; text-align: center; }
+.client-bloom14-beast.is-opening::before { background-image: url('/dota-menu/new-bloom-2014-relief.jpg'); background-size: cover; background-position: center; transform: none; }
+:root .desk-client .client-bloom14 h3 { color: #e5dcc7; font: 23px/1.2 Georgia, serif; }
+:root .desk-client .client-bloom14 p { margin-top: 16px; color: #e2d7ca; font: 13px/1.5 Georgia, serif; }
+.client-bloom14 small { display: block; margin-top: 8px; color: #b9aa97; }
+.client-bloom14-beast button { display: block; width: 100%; margin-top: 16px; padding: 12px 8px; border: 1px solid #af9455; background: linear-gradient(#796b3e, #4b452b); color: #ede7d7; font-family: Georgia, serif; }
+.client-bloom14-beast button.bloom14-about { display: flex; justify-content: center; align-items: center; gap: 3px; padding: 4px; margin-top: 8px; border: 0; background: none; color: #c6b48a; font-size: 11px; }
+.client-bloom14-preparation { display: flex; align-items: stretch; flex-wrap: wrap; gap: 5px; padding: 12px 8px; border-top: 3px solid #875033; background: linear-gradient(110deg, #551c22, #2b131b); }
+.client-bloom14-preparation button { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; min-width: 85px; padding: 8px; border: 1px solid #8c6b40; background: #332416; color: #becf65; }
+.client-bloom14-preparation button span { display: grid; gap: 5px; font-size: 9px; }
+.client-bloom14-preparation b { font: 24px Georgia, serif; }
+.desk-client .client-book-overlay.client-modal[open] { position: fixed; inset: 0; display: grid; align-content: start; justify-items: center; gap: 20px; width: 100%; height: 100dvh; margin: 0; padding: 60px 24px 16px; overflow-y: auto; background: transparent; }
+.desk-client .client-book-overlay.client-modal .client-book-nav { position: sticky; left: auto; bottom: 0; transform: none; margin: 0; }
+.desk-client .client-book-overlay.client-modal .client-book-close { position: fixed; }
+.s1-refined .client-book-page { background: repeating-linear-gradient(115deg, #71604705 0 1px, transparent 1px 5px); }
+@media (max-width: 650px) { .desk-client .client-book-overlay.client-modal[open] { padding-inline: 10px; } }
+.source1-lanterns { position: absolute; inset: 0; width: 100%; height: 100%; }
+.s1-theme-newbloom2015 .s1-layer-a { background: none; filter: none; }
+.s1-theme-newbloom2015 .s1-backdrop { background: radial-gradient(ellipse at 30% 0, #593c73, transparent 70%), linear-gradient(#35263f, #925338 65%, #260e10); }
+.s1-theme-newbloom2015.has-motion .source1-lanterns { animation: lantern-drift 8s ease-in-out infinite alternate; }
+@keyframes lantern-drift { to { transform: translateY(5px); } }
+.s1-theme-ti-red .client-blog:has(> .client-compendium-notice) { min-height: 680px; display: block; background: radial-gradient(ellipse at 50% 10%, #6d542b44, transparent 65%), #090807; padding: 22px 12px; }
+.s1-theme-ti-red .client-blog:has(> .client-compendium-notice) > :is(.client-article, .client-blog-side) { display: none; }
+.s1-refined .client-compendium-notice { position: relative; left: auto; top: auto; transform: none; width: min(570px, 100%); margin: 0 auto; padding: 36px 16px 24px; background: linear-gradient(#3a2b1e, #241b13); }
+:root .desk-client .s1-refined .client-compendium-notice h3 { font: 16px Arial, sans-serif; letter-spacing: 2px; }
+.s1-refined .client-compendium-notice > .ti2015-options { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.ti2015-options > div { min-width: 0; text-align: center; }
+.ti2015-options > div + div { border-left: 1px solid #806b4e77; padding-left: 18px; }
+.ti2015-options img { display: block; width: 100%; height: auto; aspect-ratio: 1.2; object-fit: contain; }
+:root .desk-client .ti2015-options h4 { margin: 12px 0 20px; min-height: 40px; color: #cfc6b8; font: 13px/1.25 Arial, sans-serif; letter-spacing: 1px; text-transform: uppercase; }
+:root .desk-client .ti2015-options p { margin-top: 18px; color: #b7a995; font-size: 12px; line-height: 1.8; }
+.ti2015-options button { font-size: 10px; max-width: 100%; padding: 8px; }
+.ti2015-calendar { margin-top: 12px; border: 1px solid #746245; background: #3d3020; color: #d2c7b3; }
+.ti2015-book .client-book { filter: sepia(.3); color: #59452c; }
+.ti2015-book .client-book-page { background-color: #e4d9bf44; }
+.s1-refined .s1-compendium-icon > img.is-book { width: 100%; height: 100%; object-fit: cover; filter: none; }
+.s1-theme-ti-green .s1-compendium-icon { border-color: #6c8553; background: radial-gradient(#30623c, #11251b); }
+@media (max-width: 550px) {
+  .s1-refined .client-compendium-notice > .ti2015-options { grid-template-columns: 1fr; gap: 24px; }
+  .ti2015-options > div + div { border-left: 0; border-top: 1px solid #806b4e77; padding: 20px 0 0; }
+  .ti2015-options img { max-height: 180px; }
+}
+@media (max-width: 650px) {
+  .s1-refined .client-fragments { grid-template-columns: 1fr 1fr; }
+  .s1-refined .client-fragments > button { grid-column: 1 / -1; }
+  .s1-refined .client-parchment { min-height: 150px; }
+}

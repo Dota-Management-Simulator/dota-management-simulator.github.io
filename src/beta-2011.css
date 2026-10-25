@@ -1,0 +1,100 @@
+/* Original beta through May 23, 2012: references in docs/dota-menu-references.md.
+ * Keep these selectors scoped so later clients can be developed independently. */
+.desk-client .beta-client.beta-2011 { background: #16191c; font-family: Arial, sans-serif; }
+.desk-client .beta-2011 .beta-top { height: 68px; background: repeating-linear-gradient(4deg, #fff2 0 1px, transparent 1px 5px), linear-gradient(#684c31, #362519 72%, #21150d); border-bottom: 4px solid #0c0b0a; }
+.desk-client .beta-2011 .beta-corner { width: 48px; height: 48px; margin: 7px 10px; color: #c6b991; border-radius: 3px; box-shadow: inset 0 0 0 2px #616266, 0 1px 4px #000; }
+.desk-client .beta-2011 .beta-top > nav { flex: 1; max-width: 1000px; gap: 3px; padding: 0 3px; background: #151719; }
+.desk-client .beta-2011 .beta-top .client-tab { flex: 1 0 100px; }
+.desk-client .beta-2011 .beta-top .client-tab > button { width: 100%; padding: 0 12px 12px; font: 16px Georgia, serif; letter-spacing: 1px; border-width: 2px; background: linear-gradient(110deg, #ffffff05, transparent 50%), linear-gradient(#303337, #222629); }
+.desk-client .beta-2011 .beta-top .client-tab > button.is-active { color: #c7eff2; text-shadow: 0 0 9px #78cbd5; box-shadow: inset 0 0 0 1px #719097, inset 0 -7px 12px #4e9eaa30; }
+.desk-client .beta-2011 .beta-status { min-height: 38px; margin: 0; padding: 5px 16px; background: #190d09; border-bottom: 1px solid #463532; }
+.desk-client .beta-2011 .client-status-date { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px; }
+.desk-client .beta-2011 .client-status-continue { min-height: 30px; padding: 5px 18px; color: #f0e7d3; border: 1px solid #b39262; background: linear-gradient(#6b5439, #38281a); font-size: 12px; }
+.desk-client .beta-2011 .beta-frame { grid-template-columns: 64px minmax(0, 1fr) 64px; gap: 8px; padding: 10px 0 8px; background: #1a1c20; border-bottom: 4px ridge #535458; }
+.desk-client .beta-2011 .beta-ornament { position: relative; min-height: 0; border: 4px ridge #55565b; border-radius: 0; background: url('/dota-menu/beta-relief.svg') center / 100% 100% no-repeat, linear-gradient(25deg, #292e34, #181d23); box-shadow: inset 0 0 0 2px #542c2c, inset 0 0 18px #000; }
+.desk-client .beta-2011 .beta-ornament > img { width: 40px; padding: 8px 4px; max-width: none; border: 4px ridge #67676b; background: #343a41; filter: grayscale(1) brightness(.65); box-sizing: content-box; }
+.desk-client .beta-2011 .beta-centre { padding: 4px; border: 3px ridge #55585e; background: #101316; box-shadow: 0 0 0 1px #542a28, inset 0 0 20px #000; }
+.desk-client .beta-2011 .beta-centre :is(.client-panel, .client-play) { min-height: 340px; }
+.desk-client .beta-2011 .beta-centre .client-updates { padding: 22px; }
+.desk-client .beta-2011 .beta-today-layout { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 8px; }
+.desk-client .beta-2011 :is(.beta-feature, .beta-match-rail) { min-width: 0; border: 2px ridge #444b50; background: linear-gradient(120deg, #242a30, #101417); }
+.desk-client .beta-2011 .beta-feature > header { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; justify-content: space-between; padding: 7px 12px; border-bottom: 1px solid #4c5054; background: repeating-linear-gradient(125deg, #ffffff07 0 1px, #0000 1px 4px), #151d21; }
+:root .desk-client .beta-2011 :is(.beta-feature h2, .beta-match-rail h2) { margin: 0; color: #b4e3ec; font: 14px Georgia, serif; letter-spacing: 1.2px; text-transform: uppercase; text-shadow: 0 0 5px #9fdbe45e; }
+.desk-client .beta-2011 .beta-feature > header nav { display: flex; gap: 15px; }
+.desk-client .beta-2011 .beta-feature > header button { padding: 2px 0; border: 0; background: none; color: #b9b9b3; font-size: 9px; letter-spacing: .7px; text-transform: uppercase; }
+.desk-client .beta-2011 .beta-ti-feature { display: flex; flex-direction: column; align-items: center; justify-content: flex-end; width: 100%; height: 190px; padding: 0 12px 15px; border: 0; border-bottom: 2px solid #45201a; background: #170402 url('/dota-menu/ti2011-header.jpg') center top / clamp(850px, 120%, 1250px) auto no-repeat; color: #dfd5bf; text-shadow: 0 2px 3px #000; }
+.desk-client .beta-2011 .beta-ti-feature > span { font: 15px Georgia, serif; }
+.desk-client .beta-2011 .beta-ti-feature > small { margin-top: 5px; font-size: 10px; letter-spacing: 1px; }
+.desk-client .beta-2011 .beta-dispatch { padding: 16px 20px; background: linear-gradient(100deg, #222a30, #141a1e); }
+.desk-client .beta-2011 .beta-dispatch-label { color: #a1a8aa; font-size: 9px; letter-spacing: 1.3px; }
+:root .desk-client .beta-2011 .beta-dispatch h3 { margin: 7px 0; color: #cd7a4e; font: 25px Georgia, serif; }
+:root .desk-client .beta-2011 .beta-dispatch p { margin: 0; max-width: 66ch; color: #c4c7c7; font-size: 12px; line-height: 1.65; }
+.desk-client .beta-2011 :is(.beta-dispatch > button, .beta-feature-footer button) { display: inline-flex; align-items: center; gap: 5px; padding: 5px 0; border: 0; background: none; color: #bddee3; font-size: 11px; }
+.desk-client .beta-2011 .beta-dispatch > button { margin-top: 7px; }
+.desk-client .beta-2011 .beta-feature-footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 6px; padding: 7px 15px; border-top: 1px solid #3d4145; color: #aeb2af; font-size: 10px; background: #101518; }
+.desk-client .beta-2011 .beta-match-rail h2 { padding: 8px; border-bottom: 1px solid #4c5054; background: #121b20; text-align: center; }
+.desk-client .beta-2011 .beta-next-series { display: grid; gap: 6px; width: 100%; min-height: 125px; padding: 13px 12px; border: 0; background: #0d1114; color: #c3c5c2; text-align: left; }
+.desk-client .beta-2011 .beta-next-series small { color: #a9b9be; font-size: 10px; }
+.desk-client .beta-2011 .beta-next-series strong { color: #e2e1d8; font-size: 14px; font-weight: 400; }
+.desk-client .beta-2011 .beta-next-series :is(span, time) { font-size: 10px; line-height: 1.5; }
+.desk-client .beta-2011 .beta-next-series b { display: flex; align-items: center; gap: 4px; color: #c2cfa3; font-size: 11px; font-weight: 400; }
+.desk-client .beta-2011 .beta-recent-events { min-height: 73px; padding: 8px 12px; background: #0d1114; }
+:root .desk-client .beta-2011 .beta-recent-events p { margin: 0; color: #999fa0; font-size: 11px; line-height: 1.7; }
+.desk-client .beta-2011 .beta-recent-events button { display: flex; justify-content: space-between; gap: 8px; width: 100%; padding: 5px 0; color: #b6bec2; background: none; border: 0; font-size: 10px; text-align: left; }
+.desk-client .beta-2011 .beta-ti-prize { display: grid; justify-items: center; gap: 7px; width: 100%; padding: 13px 8px; border: 0; border-top: 1px solid #44474a; background: #201a13; color: #d3c09c; }
+.desk-client .beta-2011 .beta-ti-prize strong { font: 23px Georgia, serif; }
+.desk-client .beta-2011 .beta-ti-prize small { font-size: 8px; letter-spacing: .8px; }
+.desk-client .beta-2011 .beta-ti-prize span { display: flex; align-items: center; font-size: 10px; }
+.desk-client .beta-2011 .beta-bottom { grid-template-columns: minmax(0, 24fr) minmax(0, 52fr) minmax(0, 24fr); gap: 6px; padding: 6px; }
+:root .desk-client .beta-2011 .beta-panel > h3 { margin: 0; padding: 7px 10px; font-size: 16px; letter-spacing: 3px; background: repeating-linear-gradient(125deg, #ffffff08 0 1px, transparent 1px 4px), #141e22; }
+.desk-client .beta-2011 .beta-profile-card { width: 100%; border: 0; background: none; text-align: left; padding: 10px; }
+.desk-client .beta-2011 .beta-profile-card .team-badge { width: 36px; height: 36px; }
+.desk-client .beta-2011 .beta-profile-card strong { font-size: 12px; }
+.desk-client .beta-2011 .beta-profile-card small { font-size: 10px; }
+.desk-client .beta-2011 .beta-level { margin: 0 8px; padding: 4px; font-size: 8px; letter-spacing: 0; }
+.desk-client .beta-2011 .beta-record { padding: 7px; }
+.desk-client .beta-2011 .beta-record strong { font-size: 22px; }
+.desk-client .beta-2011 .beta-record span { font-size: 8px; }
+.desk-client .beta-2011 .beta-profile table { width: calc(100% - 16px); margin: 0 8px; font-size: 10px; }
+.desk-client .beta-2011 .client-chat-body { height: 162px; grid-template-columns: minmax(0, 1fr) 100px; }
+.desk-client .beta-2011 .client-chat-log > button { font-size: 11px; }
+.desk-client .beta-2011 .client-friends { max-height: 220px; }
+.desk-client .beta-2011 .client-friends > div > div { grid-template-columns: minmax(0, 1fr); gap: 3px; background: #101519; padding: 5px 0; }
+:root .desk-client .beta-2011 .client-friends h4 { font-size: 9px; padding: 5px; background: #0b1014; color: #aaa; }
+.desk-client .beta-2011 .client-friends button .avatar { width: 25px; height: 25px; flex-basis: 25px; }
+.desk-client .beta-2011 .client-friends strong { font-size: 11px; }
+.desk-client .beta-2011 .client-friends small { font-size: 9px; }
+.desk-client .beta-2011 button { cursor: pointer; }
+.desk-client .beta-2011 button:hover:not(:disabled) { filter: brightness(1.17); }
+.desk-client .beta-2011 button:focus-visible { outline: 2px solid #b5e1e8; outline-offset: -2px; }
+@media (max-width: 1050px) {
+  .desk-client .beta-2011 .beta-frame { grid-template-columns: 30px minmax(0, 1fr) 30px; }
+  .desk-client .beta-2011 .beta-ornament { display: grid; overflow: hidden; }
+  .desk-client .beta-2011 .beta-ornament > img { width: 20px; padding: 4px; }
+  .desk-client .beta-2011 .beta-today-layout { grid-template-columns: minmax(0, 1fr) 185px; }
+  .desk-client .beta-2011 .beta-bottom { grid-template-columns: minmax(0, 1fr) minmax(0, 1.8fr) minmax(0, 1fr); }
+  .desk-client .beta-2011 .beta-chat { grid-column: auto; grid-row: auto; }
+}
+@media (max-width: 700px) {
+  .desk-client .beta-2011 .beta-top { height: auto; min-height: 58px; }
+  .desk-client .beta-2011 .beta-corner { width: 38px; height: 38px; margin: 9px 6px; }
+  .desk-client .beta-2011 .beta-top > nav { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 2px; padding: 3px; }
+  .desk-client .beta-2011 .beta-top .client-tab { min-width: 0; }
+  .desk-client .beta-2011 .beta-top .client-tab > button { min-height: 31px; padding: 7px 3px; font-size: 11px; letter-spacing: .5px; }
+  .desk-client .beta-2011 .beta-frame { grid-template-columns: minmax(0, 1fr); padding: 6px; }
+  .desk-client .beta-2011 .beta-ornament { display: none; }
+  .desk-client .beta-2011 .beta-today-layout { grid-template-columns: minmax(0, 1fr); }
+  .desk-client .beta-2011 .beta-ti-feature { height: 175px; background-size: 850px auto; }
+  .desk-client .beta-2011 .beta-match-rail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .desk-client .beta-2011 .beta-match-rail > :nth-child(3) { grid-column: 2; grid-row: 1; }
+  .desk-client .beta-2011 .beta-match-rail > :nth-child(4) { grid-column: 2; grid-row: 2; }
+  .desk-client .beta-2011 .beta-ti-prize { grid-column: 1 / -1; padding: 8px; }
+  .desk-client .beta-2011 .beta-ti-prize strong { font-size: 19px; }
+  .desk-client .beta-2011 .beta-bottom { grid-template-columns: minmax(0, 1fr); }
+  .desk-client .beta-2011 .beta-profile table { display: none; }
+  .desk-client .beta-2011 .beta-record { padding: 4px 10px; }
+  .desk-client .beta-2011 .beta-status { margin: 0; padding: 6px 10px; }
+  .desk-client .beta-2011 .client-status-date { display: grid; gap: 2px; }
+  .desk-client .beta-2011 .client-status-date b { font-size: 11px; }
+  .desk-client .beta-2011 .client-status-date small { font-size: 9px; }
+}

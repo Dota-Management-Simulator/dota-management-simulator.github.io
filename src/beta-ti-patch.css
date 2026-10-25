@@ -1,0 +1,50 @@
+/* Three-column beta Today screen, carried from 2011.2 to May 23, 2012.
+ * Real campaign controls replace the original public matchmaking statistics. */
+.desk-client .beta-ti-patch .beta-today-layout { grid-template-columns: 185px minmax(0, 1fr) 195px; }
+.desk-client .beta-ti-patch .beta-feature { display: flex; flex-direction: column; }
+.desk-client .beta-ti-patch .beta-dispatch { flex: 1; padding: 13px 16px; }
+.desk-client .beta-ti-patch .beta-ti-feature { height: 166px; flex-shrink: 0; background-size: 850px auto; padding-bottom: 12px; }
+.desk-client .beta-ti-patch .beta-matchmaking { min-width: 0; border: 2px ridge #444b50; background: linear-gradient(120deg, #242a30, #101417); }
+:root .desk-client .beta-ti-patch .beta-matchmaking h2 { margin: 0; padding: 8px 5px; color: #b4e3ec; background: repeating-linear-gradient(125deg, #ffffff07 0 1px, transparent 1px 4px), #151d21; border-bottom: 1px solid #4c5054; font: 14px Georgia, serif; letter-spacing: 1px; text-transform: uppercase; text-align: center; text-shadow: 0 0 5px #9fdbe45e; }
+.desk-client .beta-ti-patch :is(.beta-region, .beta-preparation) { display: grid; justify-items: center; gap: 7px; padding: 12px 8px; border-bottom: 3px ridge #343a3f; background: linear-gradient(#24292f, #101418); text-align: center; }
+.desk-client .beta-ti-patch :is(.beta-region, .beta-preparation) > small { color: #bdc2c5; font-size: 9px; letter-spacing: .8px; }
+.desk-client .beta-ti-patch .beta-region > strong { color: #e0ded7; font: 16px Georgia, serif; }
+.desk-client .beta-ti-patch :is(.beta-region, .beta-preparation) > span { color: #9fa9ad; font-size: 10px; line-height: 1.4; }
+.desk-client .beta-ti-patch .beta-preparation > strong { color: #e2e2d9; font-size: 26px; font-weight: 400; }
+.desk-client .beta-ti-patch .beta-preparation > strong > span { color: #8e999e; font-size: 13px; }
+.desk-client .beta-ti-patch .beta-preparation meter { display: block; width: 100%; height: 9px; accent-color: #5c9ba5; }
+.desk-client .beta-ti-patch :is(.beta-region, .beta-preparation) button { display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 4px 6px; width: 100%; color: #c1dce1; background: linear-gradient(#3b4349, #1d252b); border: 1px solid #667078; box-shadow: 0 0 0 1px #090d10, inset 0 0 0 1px #ffffff09; font-size: 10px; }
+.desk-client .beta-ti-patch :is(.beta-matchmaking-action, .beta-private-games) { display: block; width: calc(100% - 20px); margin: 11px 10px; padding: 9px 6px; border: 2px ridge #898271; background: linear-gradient(#5b594e, #272923); color: #e5e1d7; font: 12px Georgia, serif; text-align: center; }
+.desk-client .beta-ti-patch .beta-private-games { padding: 0 0 5px; border: 0; background: none; color: #a7b9bf; font: 10px Arial, sans-serif; }
+.desk-client .beta-ti-patch .beta-shortcut-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px; padding: 6px; background: #0b0f12; }
+.desk-client .beta-ti-patch .beta-shortcut-tiles > button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; min-width: 0; min-height: 100px; padding: 12px 6px; color: #e6e1d4; background: radial-gradient(ellipse at 50% 0, #59616a55, transparent 70%), linear-gradient(#2a2e33, #151a1e); border: 3px ridge #766e58; font: 14px Georgia, serif; text-transform: uppercase; letter-spacing: .6px; }
+.desk-client .beta-ti-patch .beta-shortcut-tiles svg { width: 30px; height: 30px; color: #a5a394; stroke-width: 1.5; filter: drop-shadow(0 2px 2px #000); }
+.desk-client .beta-ti-patch .client-play .client-modes { background: #141a1e; }
+.desk-client .beta-ti-patch .client-play .client-modes h4 { color: #9dced6; }
+.desk-client .beta-ti-patch .client-play .client-modes button { color: #c4cdd0; }
+.desk-client .beta-ti-patch .client-play .client-modes button:hover { background: #253039; color: #d3edf1; }
+.desk-client .beta-ti-patch .client-play .client-green { color: #eee6d4; border: 2px ridge #94876a; background: linear-gradient(#6b6049, #332d22); }
+:root .desk-client .beta-ti-patch .client-find > h3 { color: #b4e3ec; font-family: Georgia, serif; letter-spacing: 2px; }
+@media (max-width: 1100px) {
+  .desk-client .beta-ti-patch .beta-today-layout { grid-template-columns: 155px minmax(0, 1fr) 165px; }
+  .desk-client .beta-ti-patch .beta-shortcut-tiles > button { font-size: 11px; min-height: 90px; }
+}
+@media (max-width: 850px) {
+  .desk-client .beta-ti-patch .beta-today-layout { grid-template-columns: minmax(0, 1fr) 175px; }
+  .desk-client .beta-ti-patch .beta-matchmaking { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .desk-client .beta-ti-patch .beta-matchmaking h2 { grid-column: 1 / -1; }
+  .desk-client .beta-ti-patch :is(.beta-region, .beta-preparation) { padding: 10px 5px; }
+  .desk-client .beta-ti-patch .beta-matchmaking-action { grid-column: 1 / 3; }
+  .desk-client .beta-ti-patch .beta-private-games { align-self: center; }
+}
+@media (max-width: 700px) {
+  .desk-client .beta-ti-patch .beta-today-layout { grid-template-columns: minmax(0, 1fr); }
+  .desk-client .beta-ti-patch .beta-feature { grid-row: 1; }
+  .desk-client .beta-ti-patch .beta-matchmaking { grid-row: 2; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .desk-client .beta-ti-patch .beta-region { grid-column: 1 / -1; }
+  .desk-client .beta-ti-patch .beta-matchmaking-action { grid-column: 1 / -1; }
+  .desk-client .beta-ti-patch .beta-private-games { grid-column: 1 / -1; margin-top: 0; }
+  .desk-client .beta-ti-patch .beta-shortcut-tiles { gap: 3px; padding: 4px; }
+  .desk-client .beta-ti-patch .beta-shortcut-tiles > button { min-height: 83px; padding: 8px 3px; font-size: 10px; letter-spacing: 0; }
+  .desk-client .beta-ti-patch .beta-shortcut-tiles svg { width: 25px; height: 25px; }
+}

@@ -1,0 +1,4 @@
+/* 2015 client grid, checked against both the beta presentation and a later client capture. */
+.rb-client.rb-2015 .rb-news { background-color: #0b121d; background-size: contain; background-position: center top; background-repeat: no-repeat; }
+.rb-client.rb-2015 .rb-news > strong { padding-top: 8px; background: linear-gradient(transparent, #080d15 35%); font-size: 13px; }
+.rb-client.rb-2015 .rb-top > nav .client-tab:last-child > button { font-size: 11px; letter-spacing: .8px; }

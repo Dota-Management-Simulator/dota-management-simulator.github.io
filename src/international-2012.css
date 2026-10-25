@@ -1,0 +1,38 @@
+/* August 2012 International capture and Valve's archived event stylesheet. */
+.desk-client .s1-2012.s1-theme-ti-blue .s1-backdrop { background: radial-gradient(ellipse at 20% 0, #1b4967, transparent 65%), linear-gradient(#092738, #07131e); }
+.desk-client .s1-2012.s1-theme-ti-blue .s1-layer-a { background: url('/dota-menu/ti2012-surround.jpg') center top / cover no-repeat; mix-blend-mode: screen; filter: blur(10px); opacity: .65; animation: none; }
+.desk-client .s1-2012 .ti2-international { min-height: 640px; padding-bottom: 20px; background: url('/dota-menu/ti2012-panel.jpg') center top / 100% auto no-repeat, url('/dota-menu/ti2012-repeat.jpg') center top / 100% auto repeat-y; }
+.desk-client .ti2-international .client-international-head { aspect-ratio: 936 / 222; }
+.desk-client .ti2-international > nav:first-of-type { display: grid; grid-template-columns: 1.15fr .85fr .85fr .95fr 1.25fr; gap: 4px; margin: 0 10%; padding: 8px 0 16px; }
+.desk-client .ti2-international > nav:first-of-type > button { min-width: 0; padding: 8px 0; color: #a9b1bb; font-size: clamp(9px, 1vw, 13px); letter-spacing: .7px; }
+.desk-client .ti2-international > nav:first-of-type > button.is-active { color: #b9e2ff; }
+.desk-client .ti2-international .ti2-location-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 3px; margin: 0 3% 12px; padding: 0; }
+.desk-client .ti2-international .ti2-location-tabs > button { padding: 10px 2px; border: 1px solid #070c12; background: linear-gradient(#222d38, #141c25); color: #929da9; font-size: 10px; letter-spacing: 1px; }
+.desk-client .ti2-international .ti2-location-tabs > button.is-active { color: #cce1f3; background: linear-gradient(#2e3a47, #1b2632); box-shadow: inset 0 1px #53637255; }
+.desk-client .ti2-event { margin: 0 5%; padding: 7px 7px 14px; border: 1px solid #080c11; background: #0a1018; box-shadow: 0 0 0 4px #28323c, 0 0 0 5px #0d1116; text-align: center; }
+.desk-client .ti2-event > img { display: block; width: 100%; }
+:root .desk-client .ti2-event > p { margin: 14px 0 6px; color: #c6d2dc; font-size: 11px; line-height: 1.8; letter-spacing: 2px; text-transform: uppercase; }
+.desk-client .ti2-content { min-height: 355px; margin: 5px 5% 0; padding: 24px; border: 1px solid #080d13; background: linear-gradient(#121c27ed, #0b111bec); box-shadow: inset 0 0 0 3px #29323e55; }
+:root .desk-client .ti2-content > h2 { margin: 0 0 18px; color: #c5dcf0; font: 25px Georgia, serif; }
+:root .desk-client .ti2-content > h3 { margin: 24px 0 6px; color: #c5dcf0; font-size: 14px; }
+:root .desk-client .ti2-content > p { margin: 12px 0; color: #b7c4d0; font-size: 13px; line-height: 1.8; }
+.desk-client .ti2-content > strong { display: block; color: #e2ebf4; font: 40px Georgia, serif; }
+.desk-client .ti2-content > small { color: #9ab9d3; font-size: 10px; letter-spacing: 3px; }
+.desk-client .ti2-about { text-align: center; }
+.desk-client .ti2-action { display: inline-flex; align-items: center; justify-content: center; gap: 6px; margin: 8px 6px 0 0; max-width: 100%; padding: 9px 12px; border: 1px solid #080b10; background: linear-gradient(#364756, #202d3a); box-shadow: inset 0 1px #65849a66; color: #d1e2f1; font-size: 10px; letter-spacing: .7px; text-transform: uppercase; }
+.desk-client .ti2-action:hover { background: linear-gradient(#466176, #2a3e50); }
+.desk-client .ti2-field { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px; margin: 20px 0; padding: 0; list-style: none; }
+.desk-client .ti2-field > li { display: flex; align-items: center; gap: 8px; min-width: 0; padding: 7px; border-bottom: 1px solid #3a485455; color: #b8c7d4; font-size: 12px; }
+.desk-client .ti2-field > li > span:last-child { overflow-wrap: anywhere; }
+.desk-client .ti2-field > .is-managed { color: #d7bc82; background: #b4975420; }
+.desk-client .ti2-field small { display: block; margin-top: 3px; color: #e4c796; font-size: 9px; }
+.desk-client .ti2-international button:focus-visible { outline: 2px solid #a2d7ff; outline-offset: -2px; }
+@media (max-width: 650px) {
+  .desk-client .s1-2012 .ti2-international { min-height: 490px; }
+  .desk-client .ti2-international > nav:first-of-type { margin-inline: 3%; padding: 5px 0 12px; }
+  .desk-client .ti2-international > nav:first-of-type > button { font-size: 9px; letter-spacing: 0; }
+  .desk-client .ti2-content { padding: 18px 14px; }
+  .desk-client .ti2-field { grid-template-columns: minmax(0, 1fr); }
+  .desk-client .ti2-event { padding-inline: 4px; }
+  :root .desk-client .ti2-event > p { font-size: 10px; letter-spacing: 1px; }
+}
