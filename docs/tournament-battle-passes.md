@@ -66,6 +66,10 @@ Valve’s [Winter 2016 page](https://www.dota2.com/winter2016), [TI2017 page](ht
 
 The tournament chapter controls remain a manager-game adaptation. The reward showcases above now provide cosmetic reveals and original animation previews; paid levels, wagering, fantasy scoring, cavern crawls and predictions remain unimplemented. Browsing a reveal does not grant an Arcana. Original website art is adapted to the client stage; exact historical page geometry and every subsection are not certified. The 2022 companion currently uses its first-part ember treatment throughout the guide’s availability.
 
+## Publication
+
+Published at the user’s request on October 24, 2026: source `bd23b9b`, Pages `8e2acca`. The exact committed snapshot passes all 291 tests and the production build; GitHub Actions and Pages succeed. All 2,194 deployed files match the build, public scripts/workers/art pass hash checks, and actual hosted reward/search/animation/tournament interactions pass in an isolated campaign while preserving the regular hosted save. See [release verification](github-pages.md#october-24-2026-battle-pass-release).
+
 ## Validation
 
 All **287 tests** and TypeScript/production build pass (existing large-chunk warning). The production output was built in ignored `.local/tournament-pass-build` to avoid the existing OneDrive lock on the usual `dist/team-logos` cleanup. New selector tests cover all eleven guides, archived pass associations, postponed TI10 and pinned alternate-campaign fields/results without mutation.

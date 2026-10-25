@@ -42,6 +42,18 @@ The user wants update summaries in their Discord channel **only when they explic
 
 The webhook stays outside the browser application and committed files. The user identified the local secret file `resend api .txt`; its confirmed path is recorded in [the project handoff](../AGENTS.md). Read the webhook into a local variable only when sending the authorized summary; never print it. The Discord webhook is named **Aegis Updates** and targets **#dota-management-simulator**. If the webhook is unavailable or delivery fails, report that the Discord summary remains unsent. No automatic notification hook has been installed and no setup/test message has been sent.
 
+## October 24, 2026 Battle Pass release
+
+At the user’s request to push live, application source [`bd23b9b`](https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io/commit/bd23b9b0d9b6dd57078071551e84fb86fadd0ac9) publishes all eleven Battle Pass reward showcases and tournament companions. Pages commit: `8e2acca3a6680b19ae3ba0d32b71948d2deeddd9`. [Test and deploy 40167248858](https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io/actions/runs/40167248858) succeeds; Pages reports **built** without an error.
+
+- An immutable archive of the exact source passes **291 tests** and TypeScript/production build, with the existing chunk warning. The public entry is `index-g5ciicnm.js`.
+- All **2,194 deployed files** match that isolated build by Git blob hash, with no stale/missing files. **21 public resources** return HTTP 200 and match SHA-256: HTML, CSS, every JavaScript chunk including both workers, favicon and sampled reward artwork.
+- A sandboxed iframe loads the actual production app with an opaque origin, preventing it from reading or writing the normal hosted save. A temporary 2022 campaign confirms Highlights, the 24-item reward gallery, four golden search matches, tournament chapters and actual Void Arcana video playback. It is not a DEV preview or a modified production bundle.
+- The normal hosted app loads the new entry with no browser errors and retains Atlas Esports, week 4, $90,000, Kestrel/Solace/Oak/Static/North and the Founders Open win. No campaign time was advanced.
+- The authorized **Aegis Updates** summary was delivered (HTTP 200, receipt `1563793827683106857`). The webhook remains external and was neither printed nor committed. Build/test logs, public verification and browser screenshot are ignored under `.local/release-bd23b9b/`.
+
+Earlier local/unpublished Battle Pass notes are pre-release snapshots superseded by this publication record. Existing work and background jobs remain intact. Reward coverage and adaptation limits remain documented in [Battle Passes](tournament-battle-passes.md).
+
 ## October 24, 2026 release
 
 The user requested **pushing everything and making it live on Pages**. Final application source [`95380d0`](https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io/commit/95380d09680b0e24f16cd50b909ef65396c6e3c4), Pages `e46ee9bb602852882d0b5fc2a02b98cdf5b43f5a`. [Test and deploy run 40121864370](https://github.com/Dota-Management-Simulator/dota-management-simulator.github.io/actions/runs/40121864370) succeeds and Pages reports **built** without an error.
