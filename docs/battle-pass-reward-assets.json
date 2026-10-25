@@ -1,0 +1,2960 @@
+{
+  "retrievedOn": "2026-10-24",
+  "owner": "Valve Corporation and credited workshop creators",
+  "assets": [
+    {
+      "path": "public/dota-menu/rewards/000f5218f10b68b3e5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/slardar_gold.png",
+      "bytes": 107630,
+      "sha256": "f6953a0d21ae38a32fe8195f4330b6b47055b871aeb31642d7f14c88bbafada6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/009642d2a45fd695c9.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_luna.png",
+      "bytes": 97714,
+      "sha256": "4d601edd2fc22593deeb79060a4d92a7e6b39fca3ff84b68353a1022145dd715",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0115e9d8e608236bb1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/bane_ti6_bvx33j0.png",
+      "bytes": 76740,
+      "sha256": "a4370f8d063f5269189b83517f5ea9bc553a68f90b5b801731fd06df84214d5d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0143532580237dfd18.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/morphling_ti6_crown_tears.png",
+      "bytes": 83276,
+      "sha256": "dbcd320805727dcb71b1f514e31b45884ffcecc19e2845454e6b6e987f45316a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/01ea477503cd467880.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_terror_blade.png",
+      "bytes": 110254,
+      "sha256": "f2e1eb007fd3e0e53bd908362e848580fdc65c795f6098587734ce278ea7ee41",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/02c58b0cf3fb9f0cec.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_emblem.jpg",
+      "bytes": 42826,
+      "sha256": "6269a3f939974404056716518d17557ee816ebb44d51ed91824eeabcdbd9d19c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/030345621c863d8c31.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/venomancer.jpg",
+      "bytes": 139656,
+      "sha256": "6df75d8b67ed8ddcc89199f1a2d6144a0671b592802f303c086ffee33486f4b3",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/03f3997b2f37b19ee8.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/c_necrolyte.png",
+      "bytes": 193688,
+      "sha256": "18d54b06e62f064863301ebeb2463f2e5b07eeb0dc161e69d4782279c5ba7c6a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/045e9c3913fc509982.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/hoodwink.png",
+      "bytes": 102698,
+      "sha256": "1577fc1228e9d6a2e4c94990d7c7076e9f1225452908f464f5ca9558a6981901",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/05f825d2fd42c2bdf7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_riki.png",
+      "bytes": 47384,
+      "sha256": "f1b7a28a3cfebf105353888468bf172cbf93c31e0ca6058b631b9fc72f49b65e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/060c0c6477b060e712.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/queenofpain.png",
+      "bytes": 164814,
+      "sha256": "4ed01f7918065b9176c60cb6f16d3d0213ad8fe8c1f223542a5af1f150e6886d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/06563e5355428ff09e.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH_vVxMSgIXqC9xln9YDx1Vbhfgv-kpXh8y1k4fO6YbJoM8-EC2aAzuA5ouBuSha8kyIxvDGGm4H2HiXGKl9mX9EfArJb8k_mjILiYerq4lOL2ogUm3qsiChKuCxi4OlQBPIl86Dejg_INudus8MKcPy5DUPZGAUnyhc",
+      "bytes": 3018,
+      "sha256": "c91411a3a26c7a6ede9b79d38967bf11295e4247760f5c6eb453a33de71f2b51",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/06751baa4a2d7d8f7f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/lich.png",
+      "bytes": 91176,
+      "sha256": "959e8f4e0dad602b0efeda804655f4dacb7affb97c40c9602f5267aa1b3615db",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0726d55493264580e6.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/terrain/screenshot1.jpg",
+      "bytes": 78426,
+      "sha256": "81e055aeca4151f9f8fa03a770b653c966982121925bc5fba8f3a3e888f4403e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0768bf40fe15916e33.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/c_batrider.jpg",
+      "bytes": 46726,
+      "sha256": "4fe4e909e5f13a10223698bc5d1ee3ed30ce5cba269acdc3cc3c5e83186634e5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/076f460083f8242566.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH_DVz8aeOHqd6kRKptelv2bhTQjlipPy9Cxc0PGva6xobqKSCj-RwL0m5uNoS3vqkxt_tWyDmdaveXrGOwN1D8F0RLNetBTtlIb5d7S1GV_wu9o",
+      "bytes": 7590,
+      "sha256": "77546d612776effc1c2d8dbfd512fadae15a886420c8778faa706169a68c85b8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/077ec4073beb511b76.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_viper.jpg",
+      "bytes": 45064,
+      "sha256": "a2732c060c7eef3e4f59eaa33038a017d44484f425842db954ab35b0753e6556",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/09225fd9b02a0f7241.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_abyssal_underlord.png",
+      "bytes": 86392,
+      "sha256": "9fac5fdc50db56934f54c7988a882da7eaebb6632e455c1f4d499ae654513b86",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/099a8f8c8b690473a4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/a_crystalmaiden.jpg",
+      "bytes": 24944,
+      "sha256": "37ecb2131e64613ebd1cb5e7817d173bae37f328044b221acaaed0290ffdd3f6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/09a33b3f8078b75b3e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/arcana/razor_keyart.png",
+      "bytes": 96838,
+      "sha256": "e36e68b2d70c6d9b5d8b06eb4c8fa69f05fe26404cf73050b3d1e2ad535f24d4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0a4d9798ff1febd69c.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH-LB0MGgJ2nY51dn5o7x-EvoRgj0oYL17ilk7uCge-tvIeKBB2KC0-FxpeRWWzygniImoTOW1ImucXyeOlIiDZpxReVZtxO-k4exP-_msQyKg41Mmy2qjSof7i5s6ukcEf1ySCER8XE",
+      "bytes": 4878,
+      "sha256": "83f5d3bd222c1c1ded4d49bac08cad8b69f9c856d515493ba17d99fd6a914d53",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0a674f765cb80c1851.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH-PG0MvuM3KS91Vwy4_x60vzfgr0n4bv821d5ve8a6FSKPWSHHOv1ut3oO5nAXvgzB5y5G7SyY2gdniQO1InWJVzEeAC4Ra5wdLlYuq0swGK3oJAyy_gznQeBvydPNg",
+      "bytes": 5530,
+      "sha256": "f16a7bd50fc57c6d30788d5044a7b2837ac00d06a56ed6c563dff81d8d804985",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0afbfbf68dffa84337.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/witchdoctor.jpg",
+      "bytes": 65152,
+      "sha256": "35afc092f75c2fb5fe958aace0da266eaee3d7e2b4a22db35b50f14b19104fc0",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0bcbfe4d1d05dde56a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_viper.png",
+      "bytes": 56688,
+      "sha256": "ed2a226fcfb703e699324c7e5661dfd1d105c68fe7a1b4c1b4ce5b50e99db3c5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0bf2c9bfab42b69008.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_leshrac.jpg",
+      "bytes": 55010,
+      "sha256": "0d65604338cd7f218e01bc7af75fa347ec0d8d4be5837ae60902e3e1128fc951",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0d02465d7c852dd638.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/templar_assassin.png",
+      "bytes": 151756,
+      "sha256": "675ebb9105585810c589e2fe4ce2ee61d00e24add34a29b8eec8e77128c08078",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0d7287228bf2df207b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_grimstroke.png",
+      "bytes": 75066,
+      "sha256": "513814c63041e9f4049149adb8c628a6c916a780e15af525d77d20ea12b32a3b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0dd6f64d9bdf8b1f02.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/tidehunter.png",
+      "bytes": 102572,
+      "sha256": "9aba500b156abe0799a2785f5bd0dc25c9452b733ca40c31a08113ba1ff35437",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0ef215fa3f11abd37d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/dark_seer.jpg",
+      "bytes": 102732,
+      "sha256": "405799eaa0714c62c8021bf1db24d819683a29df725b1740df8037be0c226499",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/0fe997a109e5e36c0c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_warlock.png",
+      "bytes": 84084,
+      "sha256": "08fa8e95277dcd1887238808c915f7757c8db41cad59cc29a9a678d265a4a1b6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/10aee3d2d1ae4d90f6.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/silencer.png",
+      "bytes": 58274,
+      "sha256": "6fb842ea095303086499514f3484d6fe0927c93e87bfa0fb98f05fdef4573c60",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/10dd7f85b105066678.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/razor_ti6_lash.png",
+      "bytes": 150896,
+      "sha256": "5d4dd32e5797565a2ae57ede976c56cb731b1d0d098075c5416871d655ae1d25",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/10e82ffc740c9bd44d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/broodmother.png",
+      "bytes": 204104,
+      "sha256": "771fff7b6e302fc9e5c201ed2e7adcb27d0234e7a3886c1b19d00f89ea943a3c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/10efc198df0338c370.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_jugg.jpg",
+      "bytes": 62222,
+      "sha256": "ec2309719c8578a04fe5bc09bb7901b34e350f393cd4143f6f1bdae55da8b32f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/12175379a908e84f68.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/colosseum_images/5.jpg",
+      "bytes": 86956,
+      "sha256": "fdb642356a441843e6e5cf4126c4359dcddaf844922ad83e9ed1ea04939152e8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/12c092a42cf9553e52.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/a_slark.jpg",
+      "bytes": 31762,
+      "sha256": "cd54a2f64d1fa420218362aece26c78f66a0afccf738ee74634151174139e346",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1331dac9bbe0bd604b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/c_viper.png",
+      "bytes": 88694,
+      "sha256": "3ea73d4d2707e2e3d19e12ae9017bbc10654ca25bf5d4920ac283911dbaa2431",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/143c70ca7cc25c7b50.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_terror_blade.jpg",
+      "bytes": 34432,
+      "sha256": "f579c49d426f160b4e43a3d60d0a124c6559646ab9db9a178e34420d4f0da022",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/148f63f447efc88b26.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/a_monkeyking.jpg",
+      "bytes": 30712,
+      "sha256": "c1d2b9c23794be616b98ae9e76fef24e946d2dfeb974301fbe285670f1643b3b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/14f2d5f6cdc25c6020.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/nightstalker_gold.jpg",
+      "bytes": 42782,
+      "sha256": "1604adfb1a4d3944b35123923f09acac99698a1ad735638de5ae1255c6b6bfc4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1626fb2dd0a704c49b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/omni_wingfall.png",
+      "bytes": 63094,
+      "sha256": "96cdbddacd7b0a5fca6ac58797f968b12955ae042f1163442b82a433009a3e7d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1665d2b23a46a3c8cf.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/b_pudge.jpg",
+      "bytes": 23086,
+      "sha256": "d2d94d4252103fdf01b512c79bd48990b0034fbd5b5d30ae10eb2314354ade03",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/16c22d671233ea45f8.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/rewards/spec_style2.png",
+      "bytes": 173164,
+      "sha256": "ed83b9abee49694dba8bfaffa8ae98356a50b63f7d21000a4e4897070e030146",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/16cc0278087fd99d4f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/b_chaosknight.jpg",
+      "bytes": 26418,
+      "sha256": "7ede8ff26b1504655e2451a23c4f56d66d2d2dba90340a4385f8c496c4430f04",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/195994e46fe59bf40d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/dark_willow.jpg",
+      "bytes": 85896,
+      "sha256": "2d33199fdaf900b37b32c9424a7bda64c461cad399af7435caf26f9a835d14d9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1a4bb0f4cf3b3e5884.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/c_necrolyte.jpg",
+      "bytes": 50044,
+      "sha256": "9d784e6b0215cee22b93b6ea4e9afb5a5b95e6f6e6284c68214da754ef0486b4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1a952ee5b8eb85a2c2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/dragon_knight.png",
+      "bytes": 160476,
+      "sha256": "e21429e0c18472708c78d49a8ed96d73c931bb9744d8afefbea891ea99260f42",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1aabdb288514aca5c3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/b_eldertitan.png",
+      "bytes": 92842,
+      "sha256": "4af880a0cb73f390699f4f07cd2134d7fe7f5c47c4ffd746635522be887100d9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1d8861b1bdd14c08b2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/c_witch_doctor.png",
+      "bytes": 79410,
+      "sha256": "7e26cce5d66e31b6338aae42554ebbb124ec51e8f090c5cc040c9ec1107bfc2e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1dc044f79708188b66.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/persona/pa_persona_keyart.jpg",
+      "bytes": 73504,
+      "sha256": "dce0496b76761fe4e6de0b0e19ea70a02d611fd962312bf7a95a400c83a2fd81",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1dc17e71a87d5ef0b4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_timbersaw_gold.jpg",
+      "bytes": 66776,
+      "sha256": "43f34b9a0e0cb04fac1a41cba8f8e5559fc90bf2ef045b6b3f398410b4bc6e78",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1e077873ec38f34df3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/huskar.png",
+      "bytes": 85006,
+      "sha256": "c7fe5bedae14e081ef33fc9f34b5537b5843baa3e9167e6cc8e31e34de65e49b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1ede57e77d8f447a8e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_omniknight.jpg",
+      "bytes": 44092,
+      "sha256": "f9596f051cbb3ee1a2c23396b617234f0ba858a5a6abea2bfb06f9aa621f133b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1ef2c8bfcfd5b6a23e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/persona/cm_persona_keyart.jpg",
+      "bytes": 111974,
+      "sha256": "76da735f70dfe2a9adcb754a05a784585869dbd3c54df6222429ccde6bb1afaa",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/1febf133f73d0c0066.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/c_sven.jpg",
+      "bytes": 27932,
+      "sha256": "ffcd86b95ed349c4d9a35c3542710d1957907f04f772d5b683fb9ad16b2bc483",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2302e85fce23702409.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/c_mars.jpg",
+      "bytes": 54144,
+      "sha256": "3d0285a08684d227e803a165844572de8bd534a9ac9871d6343975a2329e9d32",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/23b3d56263adf47d0b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/emblem.jpg",
+      "bytes": 96510,
+      "sha256": "d66ccb6fb6b1ebb7156182e8c2e651cfa07ef0ec3330ca792bb732118196e781",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/243474e2fa952c55ec.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/battlepass/dkaltmodel.png",
+      "bytes": 56798,
+      "sha256": "98f323e47d177a3407ef936fdb405538970ad4ae3042ade3e8b87725f828c5a5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/249e4caa01133a2f10.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_wraith_king.jpg",
+      "bytes": 46796,
+      "sha256": "c323fdba53bbf20e1fa83fd77d3d6875e2e7cf572d1a2152de80462f0d85c0bb",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/26435de68df7200605.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/a_lifestealer_gold.png",
+      "bytes": 71494,
+      "sha256": "0676064e935ec8fc671eb16aaa40c685fea00654bcea7818988b8c61733abdde",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/26a5968a8d7ddf77c4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_jakiro.png",
+      "bytes": 80578,
+      "sha256": "08592333ab20859d29a0224a889b9a8ee6436c8aff03762aa12c14caf7c910ce",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/26ab81c587b19dd8a1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/b_chaos_pudge_lina_gold.png",
+      "bytes": 149564,
+      "sha256": "631c6f5ad8df84542842af8cd48e187b5e70406897c6c33384f248fe04dda284",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/26dc0138316795ad42.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/a_lifestealer_gold.jpg",
+      "bytes": 25156,
+      "sha256": "5447f6db9dcf24951bc035b208eb53edf3efd28ef72a85e34fd6d7dbc4e3fc3f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/26e7f0089a4fb59822.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/faceless_void_aeons.png",
+      "bytes": 60580,
+      "sha256": "2039650a328db069754cdc4a13d22b29fa2ec9c413f4ca4a8f3fe344f7a23a75",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2720d49bf2f15116e5.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH-Ldx8-pIHWD4EQ69Yn341zpVSL9m4Dp_DZT7vyRf6FsMP-dQWaewudzvvVWQyylnBwzuzyLpZj8IDvIMBgmCZF0RONZuxjultfiYuO04FPcj4NGxXj4h3hAvHo64b1RAKck_KWGkUifZua8baMq",
+      "bytes": 3388,
+      "sha256": "fff61d487bfce29382ec786aa7563ac7f0f7c6fe92ea0c85008322f2f0355a9e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/27589c71bd12826fec.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/slark_ti6_kt8wnmklr0_gold.png",
+      "bytes": 79918,
+      "sha256": "9484af1473c22c4142e53719db316d24ee1c77c4e28304f3402e1c6c0259241e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/27cabe929cff040883.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/dragon_knight.jpg",
+      "bytes": 91614,
+      "sha256": "b74ffa7e3d8337e70d302baae319d031cc16b36adf4af0c1f9c15eaaf2f6b0a8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/28404176abe0e2075c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/sven.jpg",
+      "bytes": 46116,
+      "sha256": "66e4d84c7372798f7aea385d6753ee36303950605ad472c34f8b522059d50659",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2975b049b5a87829ee.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_wraith_king.png",
+      "bytes": 131770,
+      "sha256": "de292610bc07daaeb86274f121c576df99171c36fbc1caebfc4f38dada94e2b9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2b2b45ed294f8910a6.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/a_sniper.jpg",
+      "bytes": 27002,
+      "sha256": "a6a744939480661e14a7b9b4f6225ebdb436b0fddff9346893638c75e338b942",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2b3968f88389104d65.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/c_axe.png",
+      "bytes": 170094,
+      "sha256": "a28ae2ae7eecf36f7b88fb0ddb58b3cd72fff7d51ccca0d343e7d6702634453d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2b4263d6d61a062412.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/c_queenofpain_gold.jpg",
+      "bytes": 36206,
+      "sha256": "0278c256dd2ef06c6c69cd7d69c5b54950311d1a13a12229a5fedf04c32a64d2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2bf253f1c6a6de5d5b.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH_DVz8aeOHqd6kRKptelv2b0Thzjl5jnwiFa7PqrJvE-d6nGWGXBwrkmtrlrGy_jzEsl5WvTnourcXmRPQElCsNxQrEOsUSm0oqwENnOLSM",
+      "bytes": 5644,
+      "sha256": "b409af03540b50b66ace985dbd4ab2d4857fe72243801207a464683a3e472c00",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2c1f1d3a881d1cb653.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/slark_ti6_latch_immortal_gold.png",
+      "bytes": 56636,
+      "sha256": "63b7a8a78775e9d0f35ef4b811429ca77de9a76337541728e0f3d80ae3517247",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2e0e7a9d1032a46c5e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/emblem.png",
+      "bytes": 193184,
+      "sha256": "f0ec70e121e42d7414cdab8512caf281c06150ba76a85fef9d9df65aa4eb8b67",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2e3b73091f014569aa.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/timbersaw_burn.png",
+      "bytes": 88934,
+      "sha256": "215ac9bb81727ea3bc7a0c9d099f0f1b4645ebbe5843e8cec8a9b2b104793703",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/2f6baebbe458f7b332.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/oracle.png",
+      "bytes": 48692,
+      "sha256": "142a436d54b68fe4cb5942dcce074b68370575a6378e9debf3c52e24827db82d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3084f278dc086cb038.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/persona_mirana_logo_en.png",
+      "bytes": 27678,
+      "sha256": "ce351d41bfd99036423398fd613e379f6f6f8b2963feab1b75148fc1db57a52e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/310bf63db6736a0f78.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/gyrocopter.png",
+      "bytes": 59430,
+      "sha256": "4c4b85f72c0e0b40c391134ca0ed3570a7d5386cb2334b1ba28a3c2f8a375a5b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/33a5e0c517b55b06e3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/divine_path_bg.png",
+      "bytes": 115798,
+      "sha256": "8798276cf094ee577af7a2bfec9c6e488f95320b396123393317a5d5c9bb756d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/33b1e1a3f0cd94c3f7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/meepo.jpg",
+      "bytes": 89698,
+      "sha256": "8e873f9ec98eadc7a78f1679c35b164d4e574d52c61608064ae76d6f183e61c5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/33e3ddfdba46cfdd64.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_vengeful_spirit.jpg",
+      "bytes": 63992,
+      "sha256": "830233ca9bed9a560d3902e063a53fb13aae8d6f443d7b42a8d27056dc68c0a6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/343c75ce71dba20f0e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/c_sandking.png",
+      "bytes": 75768,
+      "sha256": "f61c84b6994238850091bde9022631f316ad1d2ab7f43f376447eafcd2f6fa6f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3491d184d14bd41c1b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/lone_druid.jpg",
+      "bytes": 92320,
+      "sha256": "9d19644889460b23597f399badfa1afcdb98d18761c26cb8a7a5d2e89d78ed6c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/34e1e1f1cb5923a1da.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/weaver_pique.png",
+      "bytes": 50358,
+      "sha256": "19c47c2e63ea574a08807645bd29f7b0e304f05e548eb1844a640a1adba64a57",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/34faa39ab08fd8103c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/pudge_arcana_bg.png",
+      "bytes": 100190,
+      "sha256": "8a3ced23b753cbf951e3ca0c526f09cd30f25739d75b33c903bc7415ab3f073f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/35bde91130b4481322.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/b_bloodseeker.png",
+      "bytes": 57592,
+      "sha256": "df41d88571fa7f50d02a08597ebe42351c874df9b6a82ac2ac3bc869976907ee",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/35c04b2575ac79eb31.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/zuus_gold.png",
+      "bytes": 69300,
+      "sha256": "27b3630a30599a8d5fe22f31e1534358bac204a2ceccb4f4339f4b85ac57ec28",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/36039b5228099b3f5c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/phoenix.jpg",
+      "bytes": 48478,
+      "sha256": "0ae8a14992b02d64612f4173093bdfd9ef60ea12ce3967ce3f9e74b8058418cb",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3640123b2706be04ea.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_nyx_assassin.jpg",
+      "bytes": 60494,
+      "sha256": "2cc39da0d49f85a45d09e102c64faf40528de8309a5612ca4625558c773a462c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3640deb1a1c30d0538.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/jakiro.jpg",
+      "bytes": 36902,
+      "sha256": "fd4b8cd435a891ac09cf209250a0a7aef7b4379cd68ffe78821d197185c67650",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/36872e243a56116b8c.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH_DVz8aeOHqd6kRKptelv2buTBD-jILh8R1P_feve7F_Jc_CQDCSkO9zsrg5SSuwk00m6mzXmNj7dCmUaw9yXMN3Q-UNtxm7lNK1Nuz8p1uJlWyXGIk",
+      "bytes": 5538,
+      "sha256": "c7e74de48b58fdab02c903ff2b7dc912f3437a8daa370bcf496bfb6f1dbe3ecb",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/373b9601fc6db8a686.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_earthshaker.png",
+      "bytes": 143450,
+      "sha256": "a60a5a6ef277d7e1cce5aa5bfa1ad42163babd9370ab1f8c94bcbb5a92cb5377",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/38d8bcaaaaed3f3d0d.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH-XExsm1J37Y9V50-pP1-VTmTSL1l4Xy6DJP5v2ge5t6JfGDAWnf0eZ3vvVoXCSymSIjui6Xj5_tKCTJLWlnX8MwGrkUu0Xul9DmYruw5w3e3YhDxHj33yhPu3064L0CV_Igr6TU3Q2TNbRosI5DeqgrdXoVtg",
+      "bytes": 2770,
+      "sha256": "3fbf7d0d91b15bcc9eb0b2d6effc61b61995b5642a9b701439aa0e0150be5cd3",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3971f3c19fbd80849e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_grimstroke.jpg",
+      "bytes": 62140,
+      "sha256": "b5efcc86d3551b252ad16f7ca2b098fe1fa9db564ae5c84b4eaa41ae35ef5121",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/39cea4f5d78c9e0731.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_emblem.png",
+      "bytes": 82,
+      "sha256": "a6ea17e1c231bc3b25cb5a4d482786214c355083f83646da9f7f3472b2a19ea1",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/39ff41d3773bbcfd92.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/clockwerk.jpg",
+      "bytes": 40336,
+      "sha256": "6888e7621f7855ff639a9f52ce32438c338832cd57ee89a7d3d38e98ee895afc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3a77a93f61fabf413d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/a_monkeyking.png",
+      "bytes": 70060,
+      "sha256": "1c904cde020d4f6108f1cfcae00f2e26d19e62fb0e3055735c4459f89ff1d2c3",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3c2592a001cfcda000.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/c_weaver.png",
+      "bytes": 56096,
+      "sha256": "2fa51f00508e28da2d655fe2f9126bf299d2d3ea161de654b61c76f167c3ee1b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3c915c6cda0a5e1279.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/a_bristleback.png",
+      "bytes": 50690,
+      "sha256": "abba9d9e29fa7f437ec445b897bb353920d2156799de6fe356a6acfa0b576853",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3d617b1059b07e91bc.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/naga_siren.png",
+      "bytes": 97518,
+      "sha256": "2dfed861886db57c75c169ff0806bc5f64ef580fee0a9317ba96a3b6872db6c2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/3d69a2e88b43e7ca89.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/c_legioncommander.png",
+      "bytes": 82968,
+      "sha256": "ece5a614a2fc06cd8fadbd9d7e2ce980280c07c1b019e18126f4bc9cb0d54ca5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/40350013da68b92892.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/centaur.jpg",
+      "bytes": 78738,
+      "sha256": "ccee006b02a06642e4a9fb9dbad96cec0db6c623c8e72c9c1238f7cc3c4f3674",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/404b45b4d9e80a65ac.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/riki.png",
+      "bytes": 138316,
+      "sha256": "37ad976d2f155ab3463ee26977aad20a512e30bb8ea0fb156844614dc459b7bf",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/41c40fdfc4b41553a4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/riki_gold.png",
+      "bytes": 119850,
+      "sha256": "7d8ef08056cdec05d23f4c71949a5ae64b8c8002f260c1f3cb8da0a63fc6b1da",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/42411f7acc498a02a5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/kotl.jpg",
+      "bytes": 60956,
+      "sha256": "f4425ecbc6635b593b5ad48f2353cc8ad58823a700477a65ce02b24f15f591ac",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4412f7e8d8edd02694.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/elder_titan.jpg",
+      "bytes": 70474,
+      "sha256": "546077d34f87cf0506ea10723df1d6f67407b20c08db8201ba2a772d6bed9667",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4596b66785e30cbbec.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_doom_bringer.png",
+      "bytes": 97588,
+      "sha256": "f905c8470b0e19b694117e58e2d02cf1d2488992d39f698de37c2c60b0d6345a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/45bbde5b8bdd2e3e30.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/logos/fv_arcana_logo_english.png",
+      "bytes": 64884,
+      "sha256": "b63d892bc0620c8c6d4e0b66fb567cee5e97156db118d5db90fb4a920959dcf2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4655fd5fdaeb2db23d.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH_rR0MKzNHjY4Vdn_5P85Uvpfg_0mZfs9CNk7fOtY-tpIeKYGm-f0-BJouRuTiW6lCIlsj6O1Nj7JXvBPVd0CJNwTLUKshS5wYbuZO3iswaIjIlAmy-oh3xLuy1s4rwcEf1yjsJf8FE",
+      "bytes": 5530,
+      "sha256": "ac229c8e2fe010a71bc9af2d2d3fed87ebd89b4c6a79863da403ea91c055984a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/469e97d0797df25b84.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/c_queenofpain_gold.png",
+      "bytes": 77276,
+      "sha256": "69baa47afb0f247d8bc42ac9be5fca48ccd2c6a4435ab32edf8cbbe5eef684a4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/46ccf0f617a3b44d7b.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH_rdzcvuN36A7EJ2_I767WbhTRz8m6ni-C5PoPCrf615I_iaAGCvx-J3veRWTSy_gVMltj6EmYqscC7BP1clX8MkFrMJtka_mtXuPr-x51fYg4NEzSr3j3xI8G81tMJk0NuQ",
+      "bytes": 6524,
+      "sha256": "51143bb2ed59b3af3de3a58d38279d4caedd7d2d8fcd70c9e4a7d38e8857c9ec",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4783d0ee235de1cc3f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_spirit_breaker.png",
+      "bytes": 72198,
+      "sha256": "c4bd2c5a61e2de18239a1451b24b999f11b7b6c3d9c4f1d9015b8c3c12f1c0e8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/47a321bd8635672966.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/necrolyte_gold.jpg",
+      "bytes": 138260,
+      "sha256": "07edfb29f35edfb9dc633c7e7c321780aa4eec4dda1c3442d6707ec29e70c02d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/47a3a92631d4d77d22.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/a_clinkz.png",
+      "bytes": 54092,
+      "sha256": "2b18511766a7d0468e11ae6092f7346eee89cacdf0b2922fddbe7229f80b92b2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/47f1ffa58f25bd3034.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/witchdoctor_gold.png",
+      "bytes": 57590,
+      "sha256": "3c44e153c40a51b5a440f9b06a86e9af42cc71c537ea13ea723a47bcd830eec7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/48e025c63c4493f6c4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_life_stealer_gold.jpg",
+      "bytes": 56012,
+      "sha256": "ab38d03932207da5735e4dae1ad880f6c9ce0f3a1ac2a0a56791321e301d98e5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4922f856a8d3484749.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/Lich_Shearing_Deposition.png",
+      "bytes": 74704,
+      "sha256": "228d511509546bdb8f0fd26632b5cd4c238b87ecaf9ffef7cebee50c375dea11",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/49a1ed42c83f3d964a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/sven.png",
+      "bytes": 70266,
+      "sha256": "153ea6630d0cec21e5c00f7d666797ffec4d1c2ea25b3f8cc2d17527bc2dc413",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4ad475634e2fb1aec3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/necrolyte_gold.png",
+      "bytes": 175166,
+      "sha256": "79695110877e15bbc9f0177a229628369ecb82258bc340fde0a6a80fa524f80a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4bb68e06264e67689f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/elder_titan.png",
+      "bytes": 81384,
+      "sha256": "f876bed45a60fe2ddc01d8e81672eac81b5ba866f96a03fcb49e1611edf3079c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4cbcad0aea1b28398e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/c_dark_willow.jpg",
+      "bytes": 57444,
+      "sha256": "0f9303392d452184f3fba8acfad545a9e4168ee0c914ad356776164fae04b520",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4cea8d080a7e0a11a8.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/c_sandking.jpg",
+      "bytes": 33012,
+      "sha256": "f6607e0d053777ee59e285b380c97840cd0d22069694addd1df348623b559e6a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4e1f5da00a0b95664f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/tidehunter_gold.png",
+      "bytes": 112780,
+      "sha256": "5e92fb2812d2f0e4aea25b5206127423b9f006f86531f9d850207dc40de84360",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4e7f6148a861b81b11.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/b_lina.jpg",
+      "bytes": 25356,
+      "sha256": "f7a84ca66f3766e64850ed89bee8a3630695d2de8da447681e4a746cf72b0a24",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/4fd0a6f10dc4ba1de8.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/hoodwink.jpg",
+      "bytes": 103566,
+      "sha256": "39a02e156c63e99818b3cb4195731f9a13f4c7e0a16e2ec84ef08f3847ab7846",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/503a533516837c9ea2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_riki_gold.jpg",
+      "bytes": 37452,
+      "sha256": "3875bf790bde26672afec177e9f5ad33af7f9cff98e2a29a1899020aabd4a4d9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/509c656205724dc53c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/rewards/invoker_frame2.png",
+      "bytes": 87168,
+      "sha256": "3cea81cb7ed5333d1507dd9ac6406f36b004c8f5c9ad8707696342cd4bf7e04b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/514966c8ce214056ca.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/void_spirit.jpg",
+      "bytes": 107200,
+      "sha256": "48df56e540d4f3bc76661b51c40eaf18b50c804b2090b91532929b64e90ea3e7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/518e1ea935c3c3ca00.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/templar_assassin_gold.png",
+      "bytes": 62844,
+      "sha256": "9bac72e139785c26b49cc911da70335e660f40d2400ccf149b0d433b2dff1a79",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/51ee7e426c36dcb3fc.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/c_terrorblade.jpg",
+      "bytes": 52410,
+      "sha256": "f3b123983364b7b92e715ce36bbe0d253331884ff3cb9ffc4fb4218a43043588",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/52115c3ca8655c4f1a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_lion.png",
+      "bytes": 63952,
+      "sha256": "6f3273fcc548bd73f35aa05ac2bb179edde5953aedd1d240a142760c90ae13cc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/52259a3263a5928352.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_vengeful_spirit.png",
+      "bytes": 97162,
+      "sha256": "ad21e4063298f5fc919ed626b74e93211403c6a7df9547471b397bdfd7f964ff",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5341e1897a5d5a2417.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/Phoenix_SolarForge_final.png",
+      "bytes": 63230,
+      "sha256": "a8bd58a3d8c55db8524b3fc42ce2ac63eb1fa7a6257cb7de60fff7376a4e3984",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/54f8e51db8db61d4d4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/ancient_apparition.jpg",
+      "bytes": 87128,
+      "sha256": "3a97d92fa1338a7eab8811e0fc36dbf560ef7bc4bfa1b3978468deeb2fadce07",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5644e0dacfa6e66102.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/c_naga_siren.jpg",
+      "bytes": 63934,
+      "sha256": "80789cf9deb87345c3cc3dae367bbce41065b2713f5afa7f589bf70c1e7bcb79",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/566082ebfc24ef5b5a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/c_zeus.jpg",
+      "bytes": 58768,
+      "sha256": "2f38d63463b1141e7e964986cf6e5c427e42c7b6a291994aef2b3a79276eeec6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5719391a496a9cf6c8.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_drow.jpg",
+      "bytes": 64468,
+      "sha256": "c0af101a536c7e1f04ba15bd3e9b1aef0f454e008c5960179fd455afe9783c7e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/575d73b0b6740838e0.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/c_shadow_shaman.jpg",
+      "bytes": 69666,
+      "sha256": "458dc92542cdc982f8128b9b9d1ae5a82171bc94b9611947d234db33877cc035",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/591336ab71061aab4b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/qop_title_english.png",
+      "bytes": 38654,
+      "sha256": "192f860686ffa0f480a72daba1ec259aee20a75d3ed56f07a18205763df6eb6c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5935b08799d82238ea.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/rewards/dragon_knight_logo_english.png",
+      "bytes": 119274,
+      "sha256": "c694c9a031a41cf8210887d942a5c28beb1269615a43d69333d96c30e6741bdc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5aec84884536a1e481.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/medusa.png",
+      "bytes": 140130,
+      "sha256": "51132fcb5b24f4f7ba3e513beac8e5a56da86df61a1f3fa0ba40ca1b1404a240",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5aff6d489b1acdf660.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_timbersaw_gold.png",
+      "bytes": 193566,
+      "sha256": "2b7903dc09a0c6f50f1bce6da45b8fb62fae0eea319fdf116a6f74c41e327cd8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5b4375f0af376f9a8d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/huskar.jpg",
+      "bytes": 75500,
+      "sha256": "b4f0e75cd33830630cf7c5c15d4444c965527ee0784446da7f9589ecb31ba7f6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5bb422c30bdb32e6fe.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/terrain/screenshot_2.jpg",
+      "bytes": 57458,
+      "sha256": "e092a1e49f09cf010bc7b3e396f6d64a8958843b7b1d870c507543d82e3d86ff",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5c7c0cf75b5f6d55ee.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/a_sniper.png",
+      "bytes": 39984,
+      "sha256": "8ac8a9a9f14e7be841ccff4a10ee219c44f90c98d9ea61b003536e767d8d12f3",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5d3d758c1c9fe26309.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/c_naga.png",
+      "bytes": 139340,
+      "sha256": "65275f7ffd549e26ae526a6e1242c95cc7531439de7d68b76273b8b11f27ace3",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5e2957e6ace0366d55.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/arcana/fv_keyart.jpg",
+      "bytes": 89570,
+      "sha256": "a5d5a21e62f74a8569cad5c20dfae4c5ab6f41db54562e29fa8e04af82f5d23b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5e9bb60a57204ef111.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/ursa.png",
+      "bytes": 99862,
+      "sha256": "b0bba7097c0bcf4bb0c0f29c4e1f46bd51f54d14a6f481f92dd9bd4374552167",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/5f337f1fd3c9819ddb.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/a_broodmother.jpg",
+      "bytes": 21332,
+      "sha256": "13b4812c7f741f168444e57b89af16ae2387f646229d6c998344bdaee0e11f4e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/60e6bf6fd1fa717aca.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/lina_ti6_fekupj0.png",
+      "bytes": 65676,
+      "sha256": "94f97bc9efb8036a8ae6e2aeaa54093dd755914e8b9e93b723f33b739b4fc5cc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/60eb019158b3ce902b.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH-Hdzd6kJ0SU5FV98bim1Qu3EEu_n8ex_HIJvfP9Ofw1d6iWDTPHl70v6OBoH37mk0Vw4WvTzterJX3EbBhgVMX0VeRG0A",
+      "bytes": 5424,
+      "sha256": "32df8230c2938dbfbede93b01d249dd89b9210680e2217e7aae218e493e34efc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/610b5aed45c20b0312.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_skywrath_mage_gold.png",
+      "bytes": 212748,
+      "sha256": "02db6e2aaecfa410e3035f98a4a3963c287606f8c79a2d3c6dde89b13e7d470f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/619ab91dced9475f75.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH-DRzc2kM26b9kZ85o7gpV_rSBr5iprl7jFk6ee8cZt6JfGDAWnfx-J_t-l9QyyghiIhpi-cpZj8IDvIMBgoCMR1F-cMtkS5koXhNujg5VDc2toWm36qhitLuChusrsLV6si-_DQkUifZjUHK_ny",
+      "bytes": 3228,
+      "sha256": "bc1f8277d08a6cbd5090665b518724aae2af714a38cfddbb6b82d3499f68c069",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/61dd115400e0bde10d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/pugna.jpg",
+      "bytes": 45994,
+      "sha256": "f6baa825f3f22e5e5f998719c8c962e8e7c7ccfb4b6ef8603a7fc02231b87e46",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/620cbd82452d1f52d2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/medusa_ti6_hydro.png",
+      "bytes": 55372,
+      "sha256": "44ebff8bb048e65ee31b572bae7711242d12dcee3032e80c7d7c5360e00c9f2d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/626c9c426efac77964.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_nyx_assassin.png",
+      "bytes": 114912,
+      "sha256": "b2b89b96390fc2a9773c963034e96c36df2ed1747fc4f76dea0df0c4e70c7c21",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/62bf04067a16b3682f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/broodmother.jpg",
+      "bytes": 100750,
+      "sha256": "1a2559a65cc2abff079f87c4c8cb68210e0c18f0738a89a90d5c03509af218de",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/62c56ce71636f6337d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_warlock.jpg",
+      "bytes": 59882,
+      "sha256": "65d73ed7471c00e30dbf09f1ba8595510e41608793f11c6e246e2210fe236a0c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6318ee81a61ae29bd2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/b_lina.png",
+      "bytes": 97136,
+      "sha256": "86f3362509773237e6b5b26fc32dc4be6ed56989da7df44d30a02c5195be5986",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/63d62e0438d1c5b836.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_lion.jpg",
+      "bytes": 63676,
+      "sha256": "91b907a98402b6d972a8e4121cc9b251a2d9cf1ce10761f5d1b073b611b036c5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/63e1ada028cf3b0986.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/battlepass/linamodel.png",
+      "bytes": 65996,
+      "sha256": "4b4dbff31e26da3b5013a36ab778ecacbf893cfba484dd90324b072951d4c2e8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6722b47d24d3ec4279.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/dark_seer.png",
+      "bytes": 202158,
+      "sha256": "26b1dc320a01c5d9db2c7b14ad1161a60a60adb25c4874730bda3e65153230b9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/673f6c98697270931f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_jugg.png",
+      "bytes": 57308,
+      "sha256": "8cc69b73648f2fe0c5aef00546a2477a92f226c8b1b295497e01d619942f648f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/676a28301e9edec045.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/mirana.png",
+      "bytes": 97572,
+      "sha256": "27449b4f1b7feb47a891806a0cc8210045d9746a710fe9c073d109658fbad2d8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6789cfe3f3160331d7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/earth_spirit_ti6_reckoning.png",
+      "bytes": 49368,
+      "sha256": "b5ccbba8a9386a097e68ede18eeefb805a9bdc38146dc3f9fc5b048542928487",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/67bc136f50b0874c9a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/c_sven.png",
+      "bytes": 126452,
+      "sha256": "a8701dd0f98f15c6683eacb4d8989e3239c22ee3bf36588fba5dabd7e60144f0",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/67c0e087f485e49380.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/terrain/screenshot2.jpg",
+      "bytes": 80520,
+      "sha256": "817ee2de3f70ae57fa04633d9105aa0f95604d8327e2a986a456ec8412517fc8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6830158e2998aeedd4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/antimage_arcana_bg.png",
+      "bytes": 42994,
+      "sha256": "ec02df6e14f5cf1f4a40457e643077dc4579e5b9851367b4aad9043754478d39",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/693964b3037449b62d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/morphling_ti6_lm39ien90.png",
+      "bytes": 94412,
+      "sha256": "13639d179273882977b31b0c84ac8c5fe79adf3d038fcc7d4357764c2f2b1385",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6a629b31023025d2c9.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/kotl.png",
+      "bytes": 170194,
+      "sha256": "2e296c2baad9469fd4aa1fdfd219c31b99d4f907c7d78ba52adf33cfbc25164a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6a952633afa1e07bf9.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/bg_io.jpg",
+      "bytes": 30944,
+      "sha256": "084154cb51ae7e12b18edb9934a5b22b73e2fe2d4156bebc093eecfe0b235361",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6c26af45659bca0567.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/c_shadow_shaman.png",
+      "bytes": 79324,
+      "sha256": "5ceef6f3d1bfe3e05926aab5fa84f080182da3243d59716d69a0a19ea48fb16a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6cfb0b5ca4442d2bca.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/c_dark_willow.png",
+      "bytes": 85518,
+      "sha256": "0954b9dc000d8d445458c3138ab6f5bfd0d5464af4b9f46c8c1df74a84241e31",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6e4057928258c455ea.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/enchantress.jpg",
+      "bytes": 119736,
+      "sha256": "a616928e12f727354fe07e39d8e708b83bea5fc43427676c72d2c28656ca5d9e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6eea5a4c82ca784375.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/colosseum_images/4.jpg",
+      "bytes": 89464,
+      "sha256": "20f1adbbc9c1b2fde36dc5e7f1b22507e650fb8a0fe09972a7faee0b25bf6491",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/6fd4f0df90ff43d550.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_jugg_gold.jpg",
+      "bytes": 59620,
+      "sha256": "f455f4b4f1bead048348c8eccc783a634282b774a7bf88d0eb3c6d56c1f43819",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7119b661de8d5e8ba2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/templar_assassin_gold.jpg",
+      "bytes": 95076,
+      "sha256": "2a384abb4fa59f406ca1b8be6f78aa8f687391ac447bb62fa06fdf09dc84753b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/71f79e478b5b4257f0.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/b_keeperofthelight.png",
+      "bytes": 82286,
+      "sha256": "e6932b8ca176bf50aac53b0897b5f117d0b97c605906f4d61f9daac1ce1aefab",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/71fcd22d650514d4ef.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_death_prophet.png",
+      "bytes": 127756,
+      "sha256": "0c7440868c31c44ee2d50076cb732228cdbac1aec85fc4fd4b0ae4b0d551fc8b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/732471b3ae41064422.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_ancient_apparition.jpg",
+      "bytes": 37478,
+      "sha256": "46aef7f786dc3b0a97ee183e9795a818566ea15a51f01df011d687519c495856",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/74d1311dd97f40253c.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH_DVz8aeOHqd6kRKptelv2buTBD-jILh8R1P_feve7F_Jc_BQGXAx-ou6OcwTSu3xk504mSAmNurJCmSaQVxDsF4F7QC5ka6kdPkM-78p1uJrk1ahpw",
+      "bytes": 5806,
+      "sha256": "8c31a169d6b14c06bbcdb0a40a88d38036018b150716c43d07b90b66f3a7521a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/75d885c4b7fd1ef6c8.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/a_broodmother.png",
+      "bytes": 84278,
+      "sha256": "40bdecf9cf7e026c572dfc071bc0402dca158b904c1596d7ece88b0dfbce6b21",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/773daf64b2b634fb49.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2020/wk_arc_banner.webm",
+      "bytes": 31374,
+      "sha256": "dc0c7ca39c270846f09d6e0533fd62bb2d0d4e99cb2b09aebd618b52d7d67676",
+      "note": "Still frame at 1 second from Valve’s original reveal animation, scaled within 1200x900 as WebP."
+    },
+    {
+      "path": "public/dota-menu/rewards/77dfc76a918fd0ed9d.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH-Xcws6uImif5Ft0-sjx81zjQBPym4Tf6jBa-_qRYKFsJL-WF2KUwOB1tfNWWDuygRUYuziEnsGveHvGbVcmW5oiFrQM4BKxwdPlP-2x4gXbg4MRnH322y9Ovy9jtuhXT-N7rbg7xIWK",
+      "bytes": 5204,
+      "sha256": "de05b84d5e181642506f14c3f4e3cf7f58bf97a7b8a6550c33d1ee76071c9fff",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/781b3233a323787a6b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/huskar_gold.jpg",
+      "bytes": 100866,
+      "sha256": "c8876add42cb21c9a44ed36f5368cdfcb95a7a469864ede93ddbfd221baa46c7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/797bc67164a9cc6816.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/lifestealer.png",
+      "bytes": 57736,
+      "sha256": "59386fc228dd95e23e814e877dd9fedfeb03da3915a2324599f672537df546c7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7a274fe124cbbe8311.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/jugg_tout_gold.png",
+      "bytes": 83302,
+      "sha256": "e52173980bf1b56ee0fc45feca97e839927121f5498a50d2f23eb9e7c6febaaa",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7a62871c17f2f31af4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/trollwarlord.png",
+      "bytes": 51082,
+      "sha256": "a72b9d8912a3c0928c77ea52e6ec2ef79674fe5db15b1a698a7f5db9db14cf65",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7aaa25d43d563b760b.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH_TV19ioMX6FqlB88ZXt1VHiQA_loZvv6CxPoPSnbbZ0H_iWD3WE_uN5pe99AS21xU9x4muEnN_6J3_FbANzWcYhEeIIsBW8m4fkMbm04w3XjolAySzgznQeQblRmr4",
+      "bytes": 3624,
+      "sha256": "e97284ee1e2021a849d6525583615cd7839dabb529896a0d7391e4b91b1ef633",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7bed60a9c5669a0c99.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/c_axe.jpg",
+      "bytes": 50672,
+      "sha256": "8ced401b0288d44256034da2cfc1cb048f52b7afde52ed647fbcfe7b9cc89aa5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7caae705a91ab6c86e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/doom_bringer.jpg",
+      "bytes": 82606,
+      "sha256": "b6bbff7ce7ffccfa98a5eb0b0ceceaf676a72711027d1a0fa7b76b5f1063d8f1",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7cc464ae5009a5e9cc.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_obsidian_destroyer.png",
+      "bytes": 124486,
+      "sha256": "2755588ea6111ba7b91e6e95e3b440cb31b803cc69da9e5585725cdfb17ee96a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7ec40f2de5f0807e49.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/phoenix.png",
+      "bytes": 188492,
+      "sha256": "092b846ffaf9393c511c6b6b186b38f0f6770aeaeea1fe2b560592061d5bc98c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7f6f9667b7373751a3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/c_terrorblade.png",
+      "bytes": 113494,
+      "sha256": "4e1152e52eba0f64e1fc64f959b5a001c27c99a68c7f84d32c7a6d584433c5b9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7f84a33c7e90fd630f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/queenofpain.jpg",
+      "bytes": 82512,
+      "sha256": "6a0ba590fcc882c20b8f483ab1bf857c28aa497e732b82e5d03e24eb9af18985",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/7fdc308a7e8e09496c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_skywrath_mage.jpg",
+      "bytes": 70738,
+      "sha256": "419a0accdd47a33e32217405b6abf8c2567fecc38b0e6cc7e4d7cba24f3a3336",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8002a9c37885167ec7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/c_axe_gold.png",
+      "bytes": 243918,
+      "sha256": "28a0d9cd36f1d4d52a9c0764634cc1165f4c26353a0d8f299dbb8d1e124d580a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/80893118b5cb8cbe12.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/slardar_gold.jpg",
+      "bytes": 41430,
+      "sha256": "5b8685008d3969c43dc77fe82b45216aba5ea7d96d91b0fb9ccf6aac1c943fcc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/815a9638dcc77d0243.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/tinker.jpg",
+      "bytes": 43040,
+      "sha256": "f989af687e8ca1055237ea679d9536417a7964eefacc35a234b9c9856b38f70e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/829073e44cd17a3499.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/rewards/invoker_frame.png",
+      "bytes": 116580,
+      "sha256": "c505321f842c1cbe08b7f4d6ec1d4be5a1b1b032baac7c9a3a3c1aadc578b32f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/82c908233bdb78cdf1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/battlepass/dkmodel.png",
+      "bytes": 54176,
+      "sha256": "4ed7e864062112a1f3581b4d0a2046b41d2216f06418911690008f5f0f2bdf3f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/82cc799c41e575d2a1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_skywrath_mage_gold.jpg",
+      "bytes": 56356,
+      "sha256": "f84aa748d5ff4d4ef27840360cab1c7a985fa257e9c62e9435fe8629f6d9552b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/82cf615ee4542963e7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/beastmaster.png",
+      "bytes": 116962,
+      "sha256": "7e6eaaa4ee43b92206d3c8365c3c5b11734369ecd9fd46c9f514621fb96e7a6b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/837e56f9c712d9ef1c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/battlepass/linaaltmodel.png",
+      "bytes": 65906,
+      "sha256": "dbab0153dd0380444a4aa5ca017aeb9c6135abe7e684beda9de323f690237fb6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/837e5e089e5c0f87e5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_timbersaw.jpg",
+      "bytes": 60812,
+      "sha256": "f5aba187e941476c1dfabc26b4a688976d0c279e3e82af7d703623fbd1fd8722",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/841706ea161b5e8727.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/c_weaver.jpg",
+      "bytes": 20080,
+      "sha256": "0f0525f3c94455994944672da48f6e3073b2aa5cb723eb83e3cfe65b95749b5e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8490a3f32c5d2eaa93.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/legion_large.png",
+      "bytes": 64596,
+      "sha256": "2ea66f6d98148bd9ba982d9b3f761a6e77b674911703f8b16e83c3236736a56e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8520ba6549f12ed42a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_earthshaker.jpg",
+      "bytes": 72610,
+      "sha256": "c142cb417834aa75aa16e84085b696f3f1be8f8ed0a7b40d9d322f50a235eade",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/853b847ded2efb4102.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/tidehunter.jpg",
+      "bytes": 97920,
+      "sha256": "1ef500a87023393d1948f16f4b9bbfe88e7afddcf80618e6b112d8ce7d48ed4c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/85b2e7fb73156a14ba.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/phantom_lancer_concord.png",
+      "bytes": 76078,
+      "sha256": "a7c91379c3f1b1d9f6834ee2ddab71327f9ea9af468c8bb98a0e4848f35e80ab",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8674a20497a1c8da5f.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIm52k-5XvHr0MmzMH6Z9hl05Ijn_lXifhL3oYLo-B1P6v--bbd5H_ycD2OZz-lJo-J7Siy92x8j5TvdzdurJ3mWOAVyCpEjTOIIuxXux9W1Me3m7wPf3d4RzC36iChXrnE82PdlLQI",
+      "bytes": 10418,
+      "sha256": "89bcf3415a781330be255e87d1beb990494aebd3cb303a16684b9ba5d4a9d0f6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/874524b61b673fcc74.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/emblem.jpg",
+      "bytes": 99034,
+      "sha256": "f66b5226bad417a75ce5664e6e903cf3db2846a691af7506fb79b5a1375fb9ba",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8758a5b98179806e63.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/lone_druid.png",
+      "bytes": 99052,
+      "sha256": "68510abb3a9ec009049acb90c12f59d3ced2c714d6d420e9f61a27265e1d165f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/87a0ea2ba5467eb925.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/c_slardar.png",
+      "bytes": 275414,
+      "sha256": "e26ba89633bd30621184e0d033385636d3ce42cd719e94090c93f88b3cd0fb61",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/884f622a8ffa7625c7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/a_bristleback.jpg",
+      "bytes": 22724,
+      "sha256": "6515dbe1f886387fdbb6df46f02af147e5b7c21f3b5ba469a9b31bdb97d0c190",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/88d80083c03019c4ee.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_dazzle.jpg",
+      "bytes": 65890,
+      "sha256": "9209c2bf663c12ae7fd0f77a3b9454decabc0cf6b74c2b49b9063a10fbf1bbcd",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/891017c33b245694ad.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/windranger_ti6_bow.png",
+      "bytes": 121170,
+      "sha256": "ddb0246720cab4d5e51a3195b5d0eeaee5e72a8027cc26bf8b753864816cda45",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/892f59696071a56366.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/Mirana_Starstorm.png",
+      "bytes": 111216,
+      "sha256": "68395335ae558cd69c3f12ed17a244e2543dbf2917895cfec564048b2cfbf0f5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8945ea34fd51bc8266.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/meepo.png",
+      "bytes": 329028,
+      "sha256": "31df9fe498cf358cd2ec8bf81d87ad7b8aa4549dc25a7773d1b1bda8f36c4f16",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8a036f7284263d4f52.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/rewards/dk_persona.jpg",
+      "bytes": 75994,
+      "sha256": "aac294294fe00b9f5a072467dd50bcbb3513dd83feb2dbb6d185b37fac5e4c31",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8abacbeedf5014e855.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/undying_augur_immortal_ti6.png",
+      "bytes": 47102,
+      "sha256": "5c26df53c297542d9a302febafa7fd39cd88595ab200fda95b7e037979317cd9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8b45e2dfa7e564f4c9.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/bristleback.jpg",
+      "bytes": 93922,
+      "sha256": "1f13707ceaa00fb406eeaaaa649eeb43f3c9f4e106058960ccce58968d1d3689",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8b75fabf26ee16017f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/warlock.png",
+      "bytes": 116844,
+      "sha256": "4a7b242fd406cfb586902229db7628f62c5e9194249d32ec4316b9335d3e30d8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8bd49cdb396e21ca96.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/c_slardar.jpg",
+      "bytes": 38458,
+      "sha256": "f26fe3e3429b5c469f590ba8190e79a16f9e3adab440a526d628864fe3899b4a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8c1b48affc8a7e64b0.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/templar_assassin.jpg",
+      "bytes": 82158,
+      "sha256": "14315c25a19245712e5ad34bf01fb3e3456515661932a5627d1f124b93260c29",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8cbdeed3721ed64cbe.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/earth_spirit_ti6_pletf34.png",
+      "bytes": 63690,
+      "sha256": "13d307d83f727352858739191f6c2dc7a02e196c17ce1e3fc21dc3b43f551f4a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8cdac3cf5b7db4aea0.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/medusa_ti6_ijwd5g3.png",
+      "bytes": 44318,
+      "sha256": "11be81089ab64836962919d282115e481ad0ec436e3c01ca70f7ec9b522d9562",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8d6cd078b3e883cbb3.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH_DVz8bzZSrB2lR04JP470nmUg7OioTl_DFO_ff6JvVsc6iRCDfGkrZ15LQ8HSyyxUUmsGjRyYv_eX-ValJxCpJ3FucK5hmm0oqwQPHntM8",
+      "bytes": 8832,
+      "sha256": "f8ba824ea049e7a4d106d13d41c7f3a005a567717badd08e266164dfa102f715",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8e069989e7a495b872.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/terrain/screenshot_1.jpg",
+      "bytes": 60214,
+      "sha256": "fa6281f0263061c9a8d22dcbe738c5bd220ca7cc55de72304ae3d511781e5389",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8e4b463f5d087e37b3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/lifestealer_gold.png",
+      "bytes": 56966,
+      "sha256": "5bdf71c84eda6568e13a567840c663502546804474e92010ef7bc14af5b3a578",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8e4f36f662d5183425.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/c_winterwyvern.png",
+      "bytes": 54974,
+      "sha256": "b6e84fbd5d7027275472cd0f551423a4e5cc5dab3bc6707db7ec96707bf87030",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/8ea21c797d1e4ddbeb.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/invoker_ti6_nn7890kd0.png",
+      "bytes": 79218,
+      "sha256": "5360aaecf5db0b9f73cef228e9abc3f4782588c6159b6ac99e0a65fc7b94dc94",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/900b7e41ac494c7b09.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/c_spectre.png",
+      "bytes": 57820,
+      "sha256": "8bf145a08c5232dd230aab86ae4d9a3ceefb3bfe588a2c239acc80ee149f4fd0",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/911f7ff9b755bfa2f1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/b_keeperofthelight.jpg",
+      "bytes": 26734,
+      "sha256": "baa74e9961f6e1fc546122467995b823d21802550157d7006abdfbfbc720776b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/91ee95458eb7171a15.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/magnus.png",
+      "bytes": 64250,
+      "sha256": "c9df59e8c0276b24fd54cabdff85ea16279c86988ee3fb6a47e7b09849fc744e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/92630357205cfe6cf7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/a_clinkz.jpg",
+      "bytes": 22854,
+      "sha256": "140e705428df53362bf2242dcebaf6e1e3d6b76f56949898939bc42d4aa37803",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/92dc1bfc5116cc4d19.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH_LGzN3uNGmB5Fp89ZTL5lzgQB7ooYHl_DJU4b2verJsLPmSHVicxOl3s_hWWCyyhRIp_TjVz4qgcy-VbQUlCscjTeIKuhO_w9a2Zr-ztQDej98WxCn8jSlL6ih1o7FVISnKptY",
+      "bytes": 5998,
+      "sha256": "2110d9b2bbbdd53ff1c12476bc1bf290db976b15ffff6e31c5c1f73992365b2b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/93099b19a13cb30010.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/huskar.jpg",
+      "bytes": 92452,
+      "sha256": "203e5c813a72c75e6fe5e1a3bb2b17d36915f931d2fa32304f0d3f986ec362f1",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/9319d926284f716a34.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/Juggernaut_FortunesTout_final.png",
+      "bytes": 48922,
+      "sha256": "a44bafeb7267a23d82d45a740d3984a581b26c27fa206a8ebc4b02169150c799",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/9346110d16237682f9.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/nightstalker.jpg",
+      "bytes": 42730,
+      "sha256": "85007c3121f2f921135a4dfb1ae4e13a171fa82996c24bb487229fd9379b5ebf",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/93b7c90a1111afa13f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/omniknight.png",
+      "bytes": 66672,
+      "sha256": "07751fa4f7a92725279f00418e237c7c8a77fd16cae6b4e17835a68259a97499",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/93c908ee483c57661a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/c_batrider_orange.png",
+      "bytes": 120788,
+      "sha256": "c8322bdfbf5815ce936c41649b74ea4992f3faed18eeb61c32ab1716c6b37c8b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/93d0417f3c7f11a7be.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/arcana/fv_arcana_alt.png",
+      "bytes": 70502,
+      "sha256": "b75a75989b4e1920715500f1c4d41d7281ad828a836c5b1aa4ef2e6a18276464",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/94711134f985ff6786.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/dark_willow.png",
+      "bytes": 132274,
+      "sha256": "90d9980a853d7a2b3d109c50bb9e74ee5e0c47f8779d09510dd6426a13a826d0",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/949a17af52f9e80456.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/doom_bringer.png",
+      "bytes": 93648,
+      "sha256": "f5cf9658a3f29fc25b81641a4ba347ba9853252390ffafa7cd02605b2982e603",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/9553e14ff05a7ba038.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH_DVz8bzZSrB2lR04JP470nmUg7OioTl_DFO_ff8JvdvdfXBWz7Gl-gg57I7HS_qlEx-5znSmImscnyXaQZ0W8R5Q7UO5BGm0oqwsCgLIdc",
+      "bytes": 7842,
+      "sha256": "6071a5fdd3a85f16751cdf66b208893957eabce40c2ae5225de30420fd942c48",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/955be1118505f3b680.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIm52k-5XvHr0MmzMH6Z9hlh_ILL_0v0SBP0oZ718zZe_c2iZ6VpKf6UMXST0-tzvq88GnnrkE8i5m_Xntz6cS7GbFAiCJAlR-MCsULtmtbjMrm3tFSLjYsW02yg2e740n0Y",
+      "bytes": 11374,
+      "sha256": "adce0e4caab3da06981e1e7fb6b0e0514327b0acddcb46d4ef234e0b780d983a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/9650026c32285645bc.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH_DVz8bzZSrB2lR04JP470nmUg7OioTl_DFO_ff9Jvc1d6nFWT-WwLh34rlvGHqxk0x0tmTTmdb7cS-SP1MkWZIkRu8K5Bem0oqwdcqsq4E",
+      "bytes": 7852,
+      "sha256": "69dcad3953327c043cc2b88470917164871f6a6d43cea3225e3b082c403d90c9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/96592b2732b333aaa3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/puck.jpg",
+      "bytes": 28596,
+      "sha256": "7973908c410193ed0598677908ef8c3399ae611106aa2245fada574b1a5ed8dc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/969a0e7bdc21244f1d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/emblem.jpg",
+      "bytes": 47320,
+      "sha256": "e337589e1d6dca7c3609cc2615e7366f49915aa729b6888afd76d9df86322451",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/96c8737a87123dde9c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/labyrinth/rewards/drow_hero.webm",
+      "bytes": 31890,
+      "sha256": "7ce5b0ddf0dfaecb0dea55b459dc9982db54c136b9016d7775414c881805211c",
+      "note": "Still frame at 1 second from Valve’s original reveal animation, scaled within 1200x900 as WebP."
+    },
+    {
+      "path": "public/dota-menu/rewards/974478c3fa399f84ba.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/faceless_void_aeons.png",
+      "bytes": 57604,
+      "sha256": "5f3d5ac4721f3a2f23507334d7e3ead125ed87020026615a9c6fe2266756b5d9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/98424fc0bbdeda6cbd.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/witchdoctor.png",
+      "bytes": 66818,
+      "sha256": "997fd0044d86ca25602cd0300b0a1491375031a71e381ab7c548745deb5a76cb",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/9905fd068b9ffe22c7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_jakiro.jpg",
+      "bytes": 31912,
+      "sha256": "b3ae0568c383f9da1c8275dd8f27774ac36c27b2e50208ea51248f11970b1c1c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/99a41573daf4017c98.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/void_spirit.png",
+      "bytes": 148962,
+      "sha256": "02f3cf17430a77fec88a7cc9a576355f8b2a7150a43f195b0fbdb5d62eda9523",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/9c9795812e8aeeeac5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/slardar.jpg",
+      "bytes": 49490,
+      "sha256": "c8aa45bf5714f3453d4c3194b25f7de41a70bed72429ed6fb74ab2b64d0f869e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/9cc73acc3f3b5ff36e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_ember_spirit.png",
+      "bytes": 154350,
+      "sha256": "3d8ab467e5f57f2b655d62671170fa52978c03f87af293b3a49e4acb9549c1b4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/9de02fdabd2f2fbeef.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/b_chaosknight.png",
+      "bytes": 69670,
+      "sha256": "f372e246ec147daba9e7591704dfbcf029481994b31293b7cb8f8408ade604c6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/9e13442c147c7f1b24.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/venomancer.jpg",
+      "bytes": 87524,
+      "sha256": "b2577ca340f3213a7f2e717d435e86651a3ce1f8729abdf298c7b26aab9b5e57",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a0b61db4b92523f222.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/phoenix_forge.png",
+      "bytes": 61492,
+      "sha256": "5f6fe79df52593882f2ef1dea80b4cd27f0b41da9abff71b5a6e8d89c1dd059b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a108a2e5f01807452e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/b_eldertitan.jpg",
+      "bytes": 33444,
+      "sha256": "d3eb228e63a330a07e979d1982f680275ae4c6e452bea1f8ef9cb60572f08278",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a135d29456d397f132.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/pudge.png",
+      "bytes": 60790,
+      "sha256": "f8d54d443810e29ac2546baa4398b880e7e68cd2fe1f26672d2252ae5a4886ea",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a1a50196aac85e280c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/disruptor.png",
+      "bytes": 229442,
+      "sha256": "b57bc7f5847b09565454107b7a6eeb6c96e3e1083c02ef820633326a119b93b9",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a25d8dfee094d1bc48.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/a_lifestealer.jpg",
+      "bytes": 32746,
+      "sha256": "10e3c69ce3f399fa83dc2ac73fdf3816d4c7c8a3324ab2b4df86d28c5439bd25",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a283e37f9f19c098d6.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/naga_siren.jpg",
+      "bytes": 105128,
+      "sha256": "847f2977da7ccc1fcc23e924756ca88a311cda0610efac1d1afdf243a9ef2a13",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a2e1229288a89823cb.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/jakiro.png",
+      "bytes": 152876,
+      "sha256": "037e257e3b28c5542f339c73e8191dc2e0448a3b9e653d56c5dcc6def26cee9d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a3bf0d107603bc313d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/PhantomLancer_PhatomConchord_final.png",
+      "bytes": 65432,
+      "sha256": "c389b614e451dfce9330c86363cd19be1de74361e8dd29d610103ae7e50f838f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a3ee93a332da3a1bf4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/pugna.png",
+      "bytes": 60114,
+      "sha256": "2b82baeb3b303106abc63a5d0a7ed0bf8f0f8464dd61c22c23b3fca38772c8e5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a420a16e4976904ae6.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/a_crystalmaiden.png",
+      "bytes": 54268,
+      "sha256": "0e8a4af623df8509f598cd5fb998f0014ae73a9e7f9636e26c6a1f5ebabf27e2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a429ae8e88595b23e5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/c_mars.png",
+      "bytes": 83126,
+      "sha256": "e6f55141883b714baa7868df5ce767f384fa45f634c884c5f8b1eacb8213a3ae",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a44c7e9edb1eef5822.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/necrolyte.png",
+      "bytes": 196172,
+      "sha256": "28a3528a86c1908a1b774b1fc75780bb17f8407504c4187fcc2737d8a01fbc08",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a51b90a08858cac288.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_doom_bringer.jpg",
+      "bytes": 59520,
+      "sha256": "1c0ec07133ab565e8e0a266d5e0bc730fbd41a5a4a2bac41fee65f6df3620601",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a7b8775ce3b302d4ea.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_dark_seer.jpg",
+      "bytes": 50166,
+      "sha256": "fb9301f3f3951ab840f6d591a803d4cb1a8ec188a316ae963190074b66dc8fd0",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a7d5c79dc906224521.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/rewards/spectre_arcana.jpg",
+      "bytes": 54918,
+      "sha256": "00c908d91d855d46015500fdd9eb64df30fa374d6726b175753341146730dfd6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a9cfd5124d086c11e5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/zuus.png",
+      "bytes": 68792,
+      "sha256": "07c3012b8abe40b989194ecbca46a94e7970353f21b78026eab05ab0319ae01f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/a9d556a9387b7e3f87.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_riki.jpg",
+      "bytes": 35532,
+      "sha256": "08a8b8f59023f98304c48124d954f8bc0a082b567e79b9db108070f05a1964a0",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/aa479a749875031560.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/bane_slumber_terror_ti6_immortal.png",
+      "bytes": 45760,
+      "sha256": "f054fa8074bc2416fb4a71032ff28fe71f858aec07e036847574f56207c71fed",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/aa5cd92f78585fa6f1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/sections/kidinvoker_bg.jpg",
+      "bytes": 35594,
+      "sha256": "701236d1a9cadb834f1aab4ca830bcd91e140dcb8a2f9c5358518f67b172114f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/abcdaebcb26399e5cc.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH-bcwsS1Onao5EVm9ZTn41eoVRL9kqnv-x1P5_eRbqFsMvaGAliR0-d3j_JhQDy_kRg1_CmKloPGLi34Kl51ZcQlFKVc90zXw5a-ZoWhv1qb198QjzL9iCJO6io45OgBAqIg_PGB2wjEM-E04sYDdfbyThnfCkpevP8wEtvn0M5PCQtn2tXm",
+      "bytes": 3172,
+      "sha256": "261c1e96217eb83ef6efdc3ec71cd3b710b403d14d44815fc546fa86267566b2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ac3680c6828472906e.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIm52k-5XvHr0MmzMH6Z9hlg-o_15lXoVhj1oZjp-ipP4vO8bbdSLP-SCm6extFls_NsSif9kE0m5mTQwtepJC2WZ1IiDpIkF-UJshe6xoLjZbnn71PYj4MTnn743TQJsHgJOnpXFA",
+      "bytes": 7956,
+      "sha256": "1ab070362af24cc539b7a8b4914682dc710a90a61d737a306b38e7b3315d475e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/aca6a6769ea08f94db.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH_DVz8bzZSrB2lR04JP470nmUg7OioTl_DFO_ff_JvVrdfbHCj_Flu116OU7H3jmzEV1tj7Uytf9I3_GawIhCpZ2ROAJtkKm0oqwUP5ApnE",
+      "bytes": 6378,
+      "sha256": "c7788117abb703ce416b4d2d995f0ff59d3ca796d75a815092d4023e0dd9b84a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/acc8344471c7336bd3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/battlepass/lichmodel.png",
+      "bytes": 92104,
+      "sha256": "f8cd8dca81c7b34fe5d7d2fceee1908e1efb520b6961488e08f73a4a0af41b47",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/adcfd27b11dc4a5697.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_dazzle.png",
+      "bytes": 91934,
+      "sha256": "3b00f170ecdbd0626c458d06dea5ed84ba3fbfccb86cc6bce0f2b04cb60d9ecc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ae638841af9b6f3058.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/pudge.jpg",
+      "bytes": 42580,
+      "sha256": "cc7d8064cb70015ff8e5905ddd4f8a93cea732c381f4524119709305cd7917ae",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/aed10b16e4ff9791db.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_life_stealer_gold.png",
+      "bytes": 96498,
+      "sha256": "bd07a370cb3448219da480d70a6036ca261f36337f8c15276c235dcf25f7ddfc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/aefe2b2f4445745889.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/rewards/spectre_logo_en.png",
+      "bytes": 200552,
+      "sha256": "d973eb16f6a3bf86c5669bac74a0072b7edd0c046ab54232ea807a13d7ee7af7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b0c4fb74198256f1a8.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/zuus.jpg",
+      "bytes": 66852,
+      "sha256": "ac501fd1edbbae4b90ef21b7401c9e275bc3695a2feb9e2b844496413ae8ab88",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b1444fbb2d1cc1576e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_pugna.png",
+      "bytes": 124038,
+      "sha256": "001ba326d8e74da154592370059875843aafa15cbbadd7c835578b830751bf18",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b214ab1f3f5d193bc5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/a_slark.png",
+      "bytes": 66076,
+      "sha256": "08a553bddb11ab1745045bfbc514ed8e09ee413cd1e434a2c9e8a3a3334fcc21",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b2d4284e25e6f00cda.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_life_stealer.jpg",
+      "bytes": 60820,
+      "sha256": "d01bad347fa04b2d07d444abad2e8e45e9927c6118421632c895bd61a3cb6d13",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b3c2f0fd939a5a5e02.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/ancient_apparition.png",
+      "bytes": 291994,
+      "sha256": "5bd0e72395decd0705a248bfc451d66f50b186fb85c0fa3db5f057f2ccc47a3a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b42857422a048abcdf.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/silencer.jpg",
+      "bytes": 46406,
+      "sha256": "e3503d458287c85b094d5b2b544d2961ccca1fc92147d214948bb55307ff7dae",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b5ef67cf0e8a90f41a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/puck.png",
+      "bytes": 93284,
+      "sha256": "9d5e92b01037cd27d10bd8c93c21e01a466829dbe5a0bd2e978480832b7886bc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b7080e06802b341e88.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_lich.jpg",
+      "bytes": 52084,
+      "sha256": "c32790c5d69e3bc2cc70fe3d70e03564640c093ad6b7f72eb27221ecba43e3dc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b78039216539735651.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/arcana/razor_alt.jpg",
+      "bytes": 81468,
+      "sha256": "9559e1142b21942c45258557e6c9244a8713a5b26fac4a98df37a3c572db6cff",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b7b88e053db41227b2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/medusa.jpg",
+      "bytes": 48848,
+      "sha256": "9dd6f6015fe993bcdbb8925046f0d6675802e4c5e3e11009ac6782debddda050",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b7e7572df29427cf12.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/qop_arcana_bg.png",
+      "bytes": 156384,
+      "sha256": "eca410bc8dff68833387c7e5af4c8dacf6d0d0baede5571b4c50e5c74fd75ae7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b92c7b83b866c2675d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/enchantress_virga.png",
+      "bytes": 68816,
+      "sha256": "c4802786f40801f9a243a4cfc43c01504e20a87330f1e11ff5c298bfea1c70f1",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b95d3931cf32788ded.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/enchantress.png",
+      "bytes": 114876,
+      "sha256": "2b6b385817134b9638876a35237b55d60084df63cff64578d6197ca713e3e8e8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/b960feefa673bcdf50.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/pugna_gold.png",
+      "bytes": 72534,
+      "sha256": "dff6db85ceea77d9b7d436f9cc8b1f208aa69055512ee2fe978f3b916815cefd",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/bb57dfb227ac137ed5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_timbersaw.png",
+      "bytes": 117212,
+      "sha256": "f9758adca39e96f051da835eb106b8369075310656ffa9444af9846192f58885",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/bcc5cbffe888f3835f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/razor_ti6_njh2q30j0.png",
+      "bytes": 70426,
+      "sha256": "1626013490c49310daa802db12ba9c96a567ab52d3f52b6c2b4787177d774f63",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/bcd3bf5bb81ac23d28.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_luna.jpg",
+      "bytes": 45026,
+      "sha256": "12687e07adb3f2ac1fae8d03ec107a638ab79e8806d80da76b6217d601b5920a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/beae0740a941c32cb3.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIa5zlm5VeSby9-vIXee61E6_JL6_lXuTxq_zs6z_HdY7aOrOvQ5efPCCmbBl7gitLhoTHjrxk0i5GXcw4n6IH6VbhhgVMUc498pzQ",
+      "bytes": 5002,
+      "sha256": "ca3161ec3508b09256ec05e6a411dd90f51d8aae18c4ca88a145bc88483226e8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/bed89b53c98874a418.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_life_stealer.png",
+      "bytes": 121952,
+      "sha256": "2944025981c56271d8e9d4e1cd1425296ed723d22283774a015f02820547fa63",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/bf3fb17dd43c321593.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/c_clinkz.jpg",
+      "bytes": 46638,
+      "sha256": "02567fa3245113851196d450cf46e4dd6b8b20daf4c640f381c88a9fef15053f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/bf76f2d908d7952c76.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_centaur.png",
+      "bytes": 148600,
+      "sha256": "8924879b440f22db71aed7d2fda538500c8272ee0abcc7564ba2902a27e9d25a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/bf9316c81cf96149e6.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/logos/cm_persona_logo_english.png",
+      "bytes": 78202,
+      "sha256": "ea4fe4335b3f3c269a00e43b1c89493d24b86d0d8574323e837526739373f193",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/bf993496eef988ea8b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_drow_ranger.png",
+      "bytes": 168432,
+      "sha256": "c1c62085bd9ee1f9a651ac4cf03fec51de569bb5be19a4337fb433aafc134b50",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c03409a164447e2ca8.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/c_zeus.png",
+      "bytes": 116414,
+      "sha256": "b56308ff6edc9c84785e72e91023ebc0ecbf95ca67ca5baffb712dfe6aeae931",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c1b93effabdb5e34e2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_abyssal_underlord.jpg",
+      "bytes": 59620,
+      "sha256": "379fc5b92f355b38de7f9ac98968131f809a886889b8dfddb86b685c1437f0bc",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c1f17f03c7fce3ca71.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/riki_gold_ti6_juu4werp.png",
+      "bytes": 44296,
+      "sha256": "cfa94cc22cbb0b25c4907abc1c77e053027bb41061c6d82ebb07224ab03ab555",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c21158267b12b7b571.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/centaur_gold.png",
+      "bytes": 227756,
+      "sha256": "260773c868aefbfc0417fa6e28a0e9778ea550e6acb3284c350860e2a12f70e2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c26b2fe44c5a0988cf.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/b_necrolyte.jpg",
+      "bytes": 24658,
+      "sha256": "2e78014d83ca21df17a171a79fe1ac027a8b4256376a3711ec4123a0f84f9bc6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c3bbe57a8f977ac1b8.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_dark_seer_gold.jpg",
+      "bytes": 56286,
+      "sha256": "bfe35ef45f8d9a7227de911f797252da6779f2cca17a65f0a2a3d391fe9c5549",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c439ffb3aba242ae72.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/enchantress.jpg",
+      "bytes": 80832,
+      "sha256": "220d3abc8518c25b994a6c024441fd0aa8c17aa54db81e8a526abb5015a607aa",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c4cf18f933259c0323.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_riki_gold.png",
+      "bytes": 64802,
+      "sha256": "2258cd74c1b8205082646a2c21bcd9bd27f910b51f57f0ff58483f0465cb3fc4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c53ffcc6346a7839ed.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/b_chaos_pudge_lina_gold.jpg",
+      "bytes": 25106,
+      "sha256": "3d90df4628f7726fc59973d0841b9a2e93e332262c5032b4ceed404cc6585204",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c5607ee7f9de84c672.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/wraith_king_title_english.png",
+      "bytes": 17822,
+      "sha256": "f34272de8da3f23af78b8c88dbd1a242e4ceb961f0ea6a77e9c492771ec971d5",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c5a2a03b222d332817.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/centaur.png",
+      "bytes": 85108,
+      "sha256": "9d5698ca2c16ed43fa0a4168138605b838f9cda57b73d8f7c9b94a0bffc7635b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c5d94dce152041f2fc.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_jugg_gold.png",
+      "bytes": 88028,
+      "sha256": "2f89e87985cade799670c80f3380b773a72d6c120c18f1589dc033206e323573",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c6886984d0ebd4a7a9.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_luna_gold.jpg",
+      "bytes": 63454,
+      "sha256": "48170c2619310f6d7aa02488b3ce2d722761150d2f20c7c71caec8c202085032",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c68f9483fff9a354fa.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/c_viper.jpg",
+      "bytes": 22470,
+      "sha256": "27ecaa1ac1f397b60e627ca6860d55231e0e8df0703c2337d07d23be3e6b192f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c750f0d9c8fc126015.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/c_axe_gold.jpg",
+      "bytes": 58286,
+      "sha256": "db1815fb6f2ad2d01047f86d0a5643de236bb3b87256eb1f4fab7ead1e3c04fd",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c75e2614422c41332b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/magnus.jpg",
+      "bytes": 40982,
+      "sha256": "7cba97abf36acc9aad3e6eb965ae0501de0c848d3e38e093c3c4f6a6eac52325",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c81965e35185cbc74f.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH-Hdzd6kJ0SU5FV98bil1Qu3EEu_zpO1qiYC6fevOv1pcfbKVz_Jlrh3trU6F3ywkEUlsjyDz9ahdX2faBhgVMUoZHOP5w",
+      "bytes": 4572,
+      "sha256": "cfa8611429b430620461e60fb1add303ac2ba4e9d259d8491a406187d1fe0c8e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c8378a4e23c90b08df.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/riki_ti6_j92e45rj.png",
+      "bytes": 46530,
+      "sha256": "21715bd203bd5959c2817b3698e5917512021ec228c9ac066bc257dd5cce5dd0",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c8f35b0d33a1051061.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/lifestealer_gold.jpg",
+      "bytes": 39656,
+      "sha256": "a1d0b5093db2cfbcdb97ec6684484e40d5b0df8a2c32d3438f8a6856eaf6af94",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c914c5a11ab343e119.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/c_clinkz.png",
+      "bytes": 143794,
+      "sha256": "7c1a4d9d4cced5730175d3e364c25fa3c3489158b1c16a109a02486e019cab13",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/c9df536321e60515f0.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/invoker_darkartistry.png",
+      "bytes": 74812,
+      "sha256": "d465f1c7dcba0afcebdbf67c0158bf530440cfe52556c1bf627fe8965d6068f7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ca1c3c8b3f428d809e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/jugg_tout.png",
+      "bytes": 72730,
+      "sha256": "e0f746055f273c1a5bb8a6a09d03f0ba393f02e68f85b68edc87883e32464768",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cb3f00ce267cc98891.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/bristleback.png",
+      "bytes": 124276,
+      "sha256": "27294b6e4b282adc185c8665bea721fcc42ee8c4e87db7c49e4ca516a9977172",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cb67f2266779422571.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/c_weaver_gold.png",
+      "bytes": 77126,
+      "sha256": "b4ed660d18c79eff613c6225162044bbd8840177c30835370c7c9531231d9a44",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cbccbab4b994151cd6.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/enchantress_virga.png",
+      "bytes": 62168,
+      "sha256": "914af6b4189dc29fe82d381073810aff5d5f9e1826337a084f5e8d573f616b19",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cbccd522090f546737.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_omniknight.png",
+      "bytes": 76388,
+      "sha256": "f9fd5fe0e6e43de757087d44db86ea85ffdf99b058a9273946d39b185aa5bfc3",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cbf9817c3ec8926457.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/venomancer.png",
+      "bytes": 116948,
+      "sha256": "e5c2f861c560c1bebfff06f9417267c69a832140cc41f80c55cb45ce119de1f0",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cc25ba6bfebf971a27.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/b_treant.jpg",
+      "bytes": 30932,
+      "sha256": "8b94ebc48b89fb185712ee2ce4039205602a776691af467d20d6777c47fc71b3",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cde117ca409ff5d124.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/prestige/pb_prestige_header.jpg",
+      "bytes": 77448,
+      "sha256": "5c7ec9d5b9e7159db2ca7a0fa43631a1de35f9673903936e5aa7fdeb51cd2b40",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ce0dce01c0228607d3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/slark_ti6_kt8wnmklr0.png",
+      "bytes": 86084,
+      "sha256": "2bb525686b30e1b479c358ba614239ee618d5156f34f13b2252852b0583369bb",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cf0465c00e1e0a4894.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/b_necrolyte.png",
+      "bytes": 123326,
+      "sha256": "6f59dac7cb84423cfd123295edeea8d4dc1acfaa55a8cf1bead1b78b9c431ee7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cf4f66564a564a0761.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH-Hdzd6kJ0SU5FV98big1Qu3EEu_n5PhpXQPv_T3MKA9caSWCGPElrx3s7E6TnHrzB4i4zvRwtirIi_CZxhgVMXJk40FEg",
+      "bytes": 8132,
+      "sha256": "04a5e034d5792c2ae2857ea3a60f97793814b239db75adb032c84d198dd18f65",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cf91f28a06056ad930.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/undying_ti6_unwoer87.png",
+      "bytes": 62328,
+      "sha256": "d11ee90d67030b77b3daee2c5a25360bb76b08e12b15166e2cdd08fc7f3ec07e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/cfb4eab5441ec009af.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/nightstalker_gold.png",
+      "bytes": 97524,
+      "sha256": "0829aaf38f49e9c3a06fce4e710ed238c5127244df8f0bac3c4d8e3a014c9800",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d05daea3c8681786f7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/rewards/hoodwink_prestige_crop.png",
+      "bytes": 180680,
+      "sha256": "c9c540444478ae46107fcfff8aa3b4395e98795154f83d7f92ff5a196783f0af",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d07eec9d7c51824c1a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_dark_seer.png",
+      "bytes": 82502,
+      "sha256": "5f12ad1573adaf651fe94f09134696ed0488fb31a2c5cfa038f0d472d95e6920",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d171c8e5b976a4b889.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/mirana_ti6_3rejmr90.png",
+      "bytes": 39514,
+      "sha256": "68c7b66729183154269eee75671ac5e81be20d9e05b85a1ec2f6ec1f4ed59c12",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d1abcc1f2f6419d0c1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/nemestice/immortals/art/mirana_gold.png",
+      "bytes": 89974,
+      "sha256": "50787f7d30f7c7c58a3f72b37e60adb3010fc5e635e92bd4f80d17e366471477",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d21db92c5228ed6e4a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/b_bloodseeker.jpg",
+      "bytes": 28730,
+      "sha256": "dd770870ce87d35051fc753ee1f379d5fb4533a7af2621f9f43deddd9725a537",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d2862273494839eaf5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/labyrinth/mirana_persona2.webm",
+      "bytes": 34156,
+      "sha256": "7a875a4bc5a2c8c58f62cacc9c2a18c9456bfa5e874afa8b0b01820d5c5351da",
+      "note": "Still frame at 1 second from Valve’s original reveal animation, scaled within 1200x900 as WebP."
+    },
+    {
+      "path": "public/dota-menu/rewards/d286f78659f60b8624.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/huskar.png",
+      "bytes": 125262,
+      "sha256": "15cdb0378cbff347a1b3fdb6abf278f2ebf60736ab45b84dab1bdbd9d3187250",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d2f2a8e49fda05180c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/omniknight.jpg",
+      "bytes": 74166,
+      "sha256": "2ae83821418d56b8fc5305b186b7d3e7b4955791381c47e47b316d835a3e7b36",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d35d350fb6d6e1c250.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/treantprotector.png",
+      "bytes": 86050,
+      "sha256": "398bb1bdf6afe94be75f2e4fc5c7926ac86b171f8272ed64b7c305c2a570447d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d45d056a128f686c88.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_lich.png",
+      "bytes": 97040,
+      "sha256": "8b14f9e0aede95cc234e82329c8f50dcac946255a898539ceafdb8c9b7fed817",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d51d8ae5b75db52e6c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/Weaver_CrimsonPique_final.png",
+      "bytes": 60670,
+      "sha256": "ed4dc3b51ba8e6dd9bba7b514c967b411287826ebbeae69c3f7262c5eca5d959",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d5883b273152705cee.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/abyssal_underlord.jpg",
+      "bytes": 86092,
+      "sha256": "80e86dbeb87f1f0d0c53dfa3030977e516c3f5c5fa1baf6ddad97350ca2ea9a7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d6532ff35dd034a3ac.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_pugna.jpg",
+      "bytes": 44000,
+      "sha256": "3605e862336f08f8f66d5ff5125a9dbc8ea7335f72deb5c01c091467f2c9f90c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d67c68d8076a91c425.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/sections/tiny-bg.jpg",
+      "bytes": 37306,
+      "sha256": "16187d7e8e50b8cd11edb8b8b157166ee32df57e358992ce4f6642e34c264b6e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d67f602274d8216d59.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/witchdoctor_gold.jpg",
+      "bytes": 45312,
+      "sha256": "ba24c6c73531bf7e140cb6fc339dab6c69867747ff35b2ba4dcccce69a99d9d4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d788e938bbe4900a8b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/venomancer.png",
+      "bytes": 116920,
+      "sha256": "fb874716320b2d8f3df80d2f0933c91d552e887e289972f90dd0e1acd4063dc4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d84f9874be21723c93.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/pugna_gold.jpg",
+      "bytes": 45100,
+      "sha256": "32a1bc57b6f36b1c82c51d56e823a8f397721aaccfc570d588605fb4b4963549",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/d8e815cf1f7f036a41.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/kunkka.webm",
+      "bytes": 25002,
+      "sha256": "f21b3c4b1961199ab0a9bed3f36e59a00d545285902debb0d0ddf91bb446be46",
+      "note": "Still frame at 1 second from Valve’s original reveal animation, scaled within 1200x900 as WebP."
+    },
+    {
+      "path": "public/dota-menu/rewards/d9e8ef44fd56a9c992.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/c_witch_doctor.jpg",
+      "bytes": 50102,
+      "sha256": "ab4f9a5aa95167089492e1fddd4f4290abf91ecfd26509fd118a2dea9b7e3d82",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/db71984a6984e81587.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/centaur_gold.jpg",
+      "bytes": 94738,
+      "sha256": "506c508dd0ae6f5b672cf4f7bfc0a15315041c1e4c5f5f011c583a6597db21be",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/dbc49d45946a628173.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/bg_prestige_2.png",
+      "bytes": 44708,
+      "sha256": "3c5141c4458449bed6b2384a53ef050d1515cd529649f171f7af6f0ca87111e0",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/dc5b236c03326e41e4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/windranger_arcana_bg.png",
+      "bytes": 102364,
+      "sha256": "f66abc262d47991fe94c706d021f960ca10d5bedabcd9601ab1780d52332b0e2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/dd6773234744aae991.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/c_queenofpain.jpg",
+      "bytes": 37912,
+      "sha256": "1f074d879ccefb75ca4a2d4815f5b7cec07daa234985756b018c33cdc57a3e97",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/de58c51cc0050937c7.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/necrolyte.jpg",
+      "bytes": 94752,
+      "sha256": "713aa4f631186e8579c35435bbfc6cd43e5365f9d95bd460904e71303d7be626",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/de6d309989a37b7666.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_leshrac.png",
+      "bytes": 106032,
+      "sha256": "456849b816c2b5a98c0cf2d40b6c15e9f80182e43abc8770eb957ef0ca8d7590",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/dfcc162fffc08eff2d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/battlepass/lichaltmodel.png",
+      "bytes": 82312,
+      "sha256": "fb1ab071bd61923df302e7a1495107c172ad1a597266602f207143f4fa8fe6d1",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/dffd4760c5939292b1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/b_pudge.png",
+      "bytes": 110336,
+      "sha256": "f5e90154103ea44d82f7bdeab3ced8d71e33a36482ebe11f9cbe7727c2e5c54f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e1c997d69f094c47db.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/b_treant.png",
+      "bytes": 78290,
+      "sha256": "198f4b7315c602c38409368508366ee03166b91aaed93730fbceb6535bce8d8e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e26103564041acf4b9.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/tinker.png",
+      "bytes": 128892,
+      "sha256": "99a971e58a392b8d62bd8ef66c7f32613b8d619acda2b7c47a1d5ef5cb7179f4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e2d64e1bd5eb5ead88.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/Timbersaw_ControlledBurn_final.png",
+      "bytes": 62616,
+      "sha256": "0820244bbfc8075ba128f86c8631ad32d7978419aad47c4efbac73280878a9d8",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e2d71201ff258649c3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/lifestealer.jpg",
+      "bytes": 41386,
+      "sha256": "791faff74f948ee0acecfbf7b66ab1dfff5bd9faf9b485ce3bee4315b48cca2d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e2f25570f1af2268d2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/a_skywrath_mage.png",
+      "bytes": 146126,
+      "sha256": "0582a8d58fc3e8c27c3597eb1485543a1a22db275e8a248ba2b1164b5ad7594f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e3941ce59c9c817b05.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/sections/axe_bg.jpg",
+      "bytes": 33524,
+      "sha256": "7e5d08cfd0770283cfbe36ab70f3a6052e44d1fdc00d0de8cd0dd4f5d5624f9b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e3df2d1b0162f6b96f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/c_legioncommander.jpg",
+      "bytes": 29046,
+      "sha256": "1533b79601d47430543b8e1b30599e8d37045d394825c169222b24dd458550f7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e4524f927af7678313.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/clockwerk.png",
+      "bytes": 70278,
+      "sha256": "72d33479882723af4166dce6a76604a18b9dbcca6fc665a8509f4d286d379e7c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e4dcd1a45f0dfa23b4.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGJG51EejH-Hdzd6kJ0SU5FV98bin1Qu3EEu_z8TlpHRYu6f2avc_caTKCz_Cl7h05bgxSnyxxkwjtmndyd-ucn7FaBhgVMUWiN6m0w",
+      "bytes": 6534,
+      "sha256": "fd394c293e83888580fa9f04571c384e111c8a244d8954629e4fa71b9feced35",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e5f27e2186936a2569.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_centaur.jpg",
+      "bytes": 52608,
+      "sha256": "9bb72a63b95f65a482f170e4a875cb5e81f8e126f7a7fcf4095deaca66508f8c",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e65f72707f75510b2f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/Juggernaut_FortunesTout_regular_final.png",
+      "bytes": 56018,
+      "sha256": "5ef7c1a7043366b4a600693831489809342cf37c0ad8b859d6dc329948ac4987",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e6df4d2c5df0b16159.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/c_spectre.jpg",
+      "bytes": 26988,
+      "sha256": "fd46f0bab553de84c873c6794dc021630b734f42ce3cbee9ccde1fa510463bdf",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e76bb37bde29e7a2cf.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/c_winterwyvern.jpg",
+      "bytes": 30166,
+      "sha256": "afed77061aeaba9282284ea7421e82d539bcec80bd5674b1a061a75e64cfe81e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e7a4711cdf16083317.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2017/battlepass/immortals/c_weaver_gold.jpg",
+      "bytes": 21868,
+      "sha256": "3d824549ed75a7517efc555cc8c13e85f689a74bdffe72e3e4e74d78bd489191",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e7ba2e30c1545ebc67.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/ogre_magi_ti6_rw4w3fg6.png",
+      "bytes": 52282,
+      "sha256": "ee215839d55916a5155c158a453b35d542be91ccdbb7af6a89e19ade1f10788a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e8101c7c49a0e7c00e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/slark_ti6_latch_immortal.png",
+      "bytes": 57810,
+      "sha256": "673573f97cb1de21fab696ed2bec5073849168607b5bc241ebd90a3253f469b2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e818708959525db99b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/lich_ti6_jj98we8r0.png",
+      "bytes": 77658,
+      "sha256": "7f2e2dcb1e539835d200213b08cc59a820407f3d276d4b4768ddd68f043d56b3",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e84ad7b31ee557e3df.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/colosseum_images/3.jpg",
+      "bytes": 74816,
+      "sha256": "87c1bef415500608269af24a5b656c9cfc1d1852d9b1355ae3e118f7383984af",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e85385aed88f84078a.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_spirit_breaker.jpg",
+      "bytes": 48672,
+      "sha256": "cfa7bb177646bfb54e6b0fdaf7652605b2d915e513755dcd7b2382459931bf33",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/e9c3b091cea771ac51.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/ogre_ti6_auspice_immortal.png",
+      "bytes": 71002,
+      "sha256": "2ced93fd63eff3e14e6582d5d5f518b3e329c53be7bd36e111a992c26ba46f5a",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ea75894b5498711fad.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/b_obsidian_destroyer.jpg",
+      "bytes": 57232,
+      "sha256": "bd7d2cab4d953c83b86c9eeb5fb1b596c5b763ff73dbd8cfa3f301bd54ec9145",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ea9268c160fc418ff1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/slardar.png",
+      "bytes": 100172,
+      "sha256": "815e1401da42e0c6e348c878b593d1bd36c0055468943a8c7dd2f6fdfc1d350f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/eac540595e129ad17d.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/huskar_gold.png",
+      "bytes": 113402,
+      "sha256": "bec955b43716b233a0e4fbd8b41fb1856ed0aa107726ddb319decf8e962719c7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/eadda8533b9c33d1cf.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/lich.jpg",
+      "bytes": 43962,
+      "sha256": "c6df62218587f9d68740e0f613f1319c965049d3147e8dd117a48ed47c01008e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ebbb03301c9a583643.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/huskar_gold.png",
+      "bytes": 68270,
+      "sha256": "3888386106e9acb93efbe129adfdff4dbb3d0092c1721ad1d32e22f8c0a58b96",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ec4ef0cbe9203ca8ce.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/logos/pa_persona_logo_english.png",
+      "bytes": 67972,
+      "sha256": "c50358e8392b9a0653347a5cfbd0af48dbf47f8423c410a8b9a4739cbfbf3f3e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ee4c308ef69a79e82b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/sections/earthshaker_bg.jpg",
+      "bytes": 37136,
+      "sha256": "a2a7bb13ab6e7469896f2c263afd3afb16b2d3e7a1809d6517bf2651a4dd6f92",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ee6a79df9c791b0e8e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/logos/razor_logo_english.png",
+      "bytes": 63940,
+      "sha256": "50693bdaeea3faed3d5ff441bea03a45ec415f158d57aa3bac9febc46005d4d2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/efb2ca5c58afa6d80f.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/windranger_ti6_n3md890.png",
+      "bytes": 74160,
+      "sha256": "3a4ce53d0a29dc82c6f44001374c2f3cb1a566ecf42b1e3ee6ec5c985e22cb1b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/f0c2c7f7f32a389f60.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/lina_immortal_laguna_neck.png",
+      "bytes": 45604,
+      "sha256": "f87a62d0fae43700d55e411cad3dcdcf46809af1401b4bae36518be19e06f486",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/f309c62a46d009d1d5.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/a_death_prophet.jpg",
+      "bytes": 63354,
+      "sha256": "9111e6d4f05e28e5b892623d3a4b314b206a9f0a645c55f8e81f6a80848aee39",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/f3b94a472b12a5ba64.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_phantom_assassin.png",
+      "bytes": 106542,
+      "sha256": "d7f97704d26d8434016a06b414782fe3aa4e4b9c2e153045d89de5da4856d78f",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/f496eb2697fa54c534.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/warlock.jpg",
+      "bytes": 52994,
+      "sha256": "82256d66c2f503035fdef5fb57f65794380f88e1b6d7840a3d2b58938e12c895",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/f6f068fc342d0da39c.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/c_queenofpain.png",
+      "bytes": 87896,
+      "sha256": "1563563b6940c2a9372ae9744e817edeb69c0275a99b705153f2a7abaacb437d",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/f82f26d26500aac5a0.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/b_ember_spirit.jpg",
+      "bytes": 63154,
+      "sha256": "f5c56de581732ce4a02b74d8ad68e58ab5a51d1da7b576eb60f00396d696311b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/f97a3a5eec6d2c1a9b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/arcana_drow_logo_en.png",
+      "bytes": 100896,
+      "sha256": "908af08e9e7a6d7fdeba99113fb90cc0da58673d0ec859ffd44a9bf9c304b0f7",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fa81d3bc31eef0c1c3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/b_dark_seer_gold.png",
+      "bytes": 83464,
+      "sha256": "7884c9c043681cf8e2dde0ea2971eadeadd02624ae35d3b5fe2743f01cb11fe4",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/faff378f6fb24e229e.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/c_lycan.png",
+      "bytes": 157008,
+      "sha256": "0e6ceacced7a8fcb1946783b82ec63a876eaa99ce4562be435272ee10824343b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fb0af16c03fdcce5dc.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/immortals/a_lifestealer.png",
+      "bytes": 49202,
+      "sha256": "734152f0d8be7a6b46cda8202adeadaa60da6db0f03dee0d86517c5bfb571f68",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fb5397fd64ee4804b4.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/earth_shaker_immortal_ti6.png",
+      "bytes": 100142,
+      "sha256": "99f2caa4237af4725ad36c9b56ec57c14fcca8aa270239fcd81bd2cd5e7ee5a3",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fb779c3cb193cdcfa0.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/immortals/b_luna_gold.png",
+      "bytes": 94898,
+      "sha256": "4c5e24ab06b97daf619a49f935503874b5567bbf79e1b22e00bb4c3a31e09aed",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fc49329f099617bcf2.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2016/battle_pass/hero_videos/OmniKnight_AdoringWingfall_final.png",
+      "bytes": 58060,
+      "sha256": "f1ad4ccee9b9bf9998c898316c49e62de986569c440cfe2a903f129b7e7f3d5e",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fc4ad0efaad4c381b1.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/labyrinth/immortals/art/abyssal_underlord.png",
+      "bytes": 67046,
+      "sha256": "98598417c3d21eff45aee7489b8a14831260a89af9e54cefa35a3f9f98347def",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fc6a0b601c7904fb69.webp",
+      "source": "https://community.fastly.steamstatic.com/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH-XExsm1J37Y9V50-pP1-VTmTSL1l4Xy6DJP5v2ge5tlJfGXQXeYwOBisfJkTiWMkRQ0oSiVjob2Lzj4NlNxXowlTOYJ5Bm6ldyxZuzm7wDZiY1Cm32viixJuitp4OwCVfcm_fLR2l6SL_RjtiA2QE94",
+      "bytes": 4982,
+      "sha256": "1abe2e637dbede42201714456bcb4237bc8907f866ec9ea73c7cbe77615a8f2b",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fca3d581899d85ea27.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2016/battle_pass/hero_images/earthshaker_ti6_34mswdf9e.png",
+      "bytes": 66674,
+      "sha256": "721800f44f74aa06db3a5cdc15b52c6d25f5a14d630554a12556ddcb81b963fe",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fce41bfb022a852c21.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/enchantress.png",
+      "bytes": 95438,
+      "sha256": "18f80b745c4a87f204c1ec8da5df5523be5359dc17cd3a60b228a5739e86bab1",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fd046ff48d6d406c12.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2019/immortals/c_lycan.jpg",
+      "bytes": 47664,
+      "sha256": "f67715870d3b00d7a30e8013982daa6efd93caa401fede3ecb1387d187755533",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/fdebe79a0ecbb4158b.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/dota_react/international2022/immortals/disruptor.jpg",
+      "bytes": 103806,
+      "sha256": "caedc5d95b3cb8a6b663f39453e2de28dd72c3f94a632cad1cc2039a7e0a7617",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ff3ea62f8a833b24c3.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/videos/international2018/battlepass/immortals/a_phantom_assassin.jpg",
+      "bytes": 35008,
+      "sha256": "6c9f4ea8c61ebbd65864166f87df8cf79ad02374153d97b6adb03336c7c6d8e6",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ff6521bc1a16624333.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2020/immortals/art/nightstalker.png",
+      "bytes": 135242,
+      "sha256": "3895617023c6428dc15326e8ac0814fb9068a7ec7e4582077e96ae57028762b2",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    },
+    {
+      "path": "public/dota-menu/rewards/ff9576988d733e1023.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2018/battlepass/immortals/a_ancient_apparition.png",
+      "bytes": 118284,
+      "sha256": "083921137990ab0d4b0407b9708831cb85687e104b378e8e306266d359de76af",
+      "note": "Original reward preview, resized within 1200x900 and encoded as WebP; artwork © Valve / credited workshop creators."
+    }
+  ]
+}

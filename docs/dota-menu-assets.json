@@ -27,7 +27,11 @@
     "https://www.dota2.com/newsentry/3819571008275061152",
     "https://www.dota2.com/newsentry/3819571008275060282",
     "https://www.dota2.com/newsentry/2842216343260937830",
-    "https://www.dota2.com/diretide/2012"
+    "https://www.dota2.com/diretide/2012",
+    "https://www.dota2.com/international2019/battlepass",
+    "https://www.dota2.com/public/css/international2017/battlepass.css",
+    "https://www.dota2.com/public/css/international2019/battlepass.css",
+    "https://www.dota2.com/public/css/battle_pass.css"
   ],
   "assets": [
     {
@@ -867,6 +871,34 @@
       "bytes": 39401,
       "sha256": "2e21bc17f562a7466234946e6907cbe3b756fb269e3401bd9ca822ee12f82655",
       "note": "Re-encoded locally (October 24, 2026)"
+    },
+    {
+      "path": "public/dota-menu/ti2017-pass-background.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2017/battlepass/bg_01.jpg",
+      "bytes": 276220,
+      "sha256": "adb6fc31aee4de8bccbbc27ee7bcbbef382d30baf6bc157c405b1c605321b348",
+      "note": "Valve TI2017 website underwater Aegis backdrop; JPEG re-encoded to 1600px maximum. Placement in the tournament companion is adapted."
+    },
+    {
+      "path": "public/dota-menu/ti2019-pass-background.jpg",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/international2019/hero/hero_bg.jpg",
+      "bytes": 93220,
+      "sha256": "edc83f0596d0f1f879f3699d0b6f7cbba026976ee5e9dd06b0ae47b6db3abbd9",
+      "note": "Valve TI2019 website forest/ruins backdrop; reduced to 1200px high and JPEG re-encoded. Adapted in-client placement."
+    },
+    {
+      "path": "public/dota-menu/winter2016-lich.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/battlepass/lichmodel.png",
+      "bytes": 98114,
+      "sha256": "eb5d267238ec1a4953b6ea3336a70306c283676f423dc36feb64982a7c559c6e",
+      "note": "Original Winter 2016 website Lich illustration, converted to WebP. Adapted as a tournament companion feature."
+    },
+    {
+      "path": "public/dota-menu/ti2022-void.webp",
+      "source": "https://cdn.steamstatic.com/apps/dota2/images/dota_react/international2022/arcana/fv_arcana_alt.png",
+      "bytes": 67344,
+      "sha256": "24b3e0cfec72d31e7f89f1ccad7f3fef3edc52993e92397bffd5c071f4883763",
+      "note": "Original TI2022 website Faceless Void Arcana illustration, reduced to 1162x800 WebP. Decorative preview only; does not unlock a cosmetic."
     }
   ]
 }

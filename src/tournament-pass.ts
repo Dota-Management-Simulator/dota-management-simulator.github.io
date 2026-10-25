@@ -54,7 +54,7 @@ export function tournamentPassForMenu(day: string, promotionArt: string, tiMenu?
 /** Prefer pinned campaign rules/lineups to the historical reference field. */
 export function passTournaments(pass: TournamentPass, campaign: Pick<Campaign, "calendar">): HistoricalTournament[] {
   const events = pass.eventId ? historicalTournaments.filter(event => event.id === pass.eventId)
-    : historicalTournaments.filter(event => event.kind !== "qualifier" && event.start <= pass.to && event.end >= pass.from);
+    : historicalTournaments.filter(event => event.start <= pass.to && event.end >= pass.from);
   return events.map(event => {
     const run = campaign.calendar?.runs.find(run => run.eventId === event.id);
     return run ? tournamentForRun(run) ?? event : event;

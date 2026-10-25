@@ -24,8 +24,15 @@ export const previewClientTransitions = [
   { label: "Fall Compendium ends · default dashboard returns", date: "2015-11-24" },
   { label: "Balance of Power · 6.86", date: "2015-12-16" },
   { label: "Winter Battle Pass", date: "2016-01-27" },
+  { label: "TI2016 Battle Pass opens", date: "2016-05-16" },
   { label: "Fall 2016 Battle Pass", date: "2016-10-05" },
   { label: "7.00 · The New Journey", date: "2016-12-12" },
+  { label: "TI2017 Battle Pass opens", date: "2017-05-04" },
+  { label: "TI2018 Battle Pass opens", date: "2018-05-08" },
+  { label: "TI2019 Battle Pass opens", date: "2019-05-07" },
+  { label: "TI10 Battle Pass · postponed tournament", date: "2020-05-25" },
+  { label: "Aghanim’s Labyrinth Battle Pass", date: "2021-12-15" },
+  { label: "2022 Battle Pass opens", date: "2022-09-01" },
 ];
 
 /** Dated menu screens: transitions, client events and TI preparation months. */

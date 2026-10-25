@@ -1,64 +1,92 @@
-.tpass-modal[open] { position: fixed; inset: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 24px; overflow: auto; border: 0; background: transparent; color: #e5ddca; font-family: Arial, sans-serif; }
-.tpass-modal::backdrop { background: #020609dc; backdrop-filter: blur(4px); }
-.tpass-book { --tp-gold: #cfb578; width: min(1120px, 100%); margin: 0 auto; border: 1px solid #8d7847; background: #141b20; box-shadow: 0 20px 70px #000; }
-.tpass-cover { position: relative; display: flex; align-items: end; min-height: 190px; background-position: center 25%; background-size: cover; }
-.tpass-cover > div { width: 100%; padding: 45px 26px 16px; background: linear-gradient(transparent, #0a1016f5); }
-.tpass-cover small { color: #e7d29d; font-size: 10px; letter-spacing: 3px; }
-:root .tpass-modal h2 { margin: 5px 0 0; color: #f3e9cf; font: 28px/1.15 Georgia, serif; }
-.tpass-close { position: absolute; top: 12px; right: 12px; display: grid; place-items: center; width: 36px; height: 36px; padding: 0; border: 1px solid #a38e5c; background: #0d141eee; color: #fff; }
-.tpass-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 24px; border-block: 1px solid #8d784755; background: #090e13; }
-.tpass-toolbar > strong { font-size: 14px; font-weight: 400; }
-.tpass-toolbar > span { color: #afa585; font-size: 9px; letter-spacing: 1px; }
-.tpass-toolbar label { display: flex; align-items: center; gap: 14px; min-width: 0; color: #afa585; font-size: 11px; }
-.tpass-toolbar select { min-width: 0; width: min(460px, 100%); padding: 7px; background: #17202a; color: #f3e9cf; border: 1px solid #685d43; }
-.tpass-body { display: grid; grid-template-columns: 230px minmax(0, 1fr); min-height: 450px; max-height: 58dvh; overflow: auto; }
-.tpass-contents { padding: 22px 14px; border-right: 1px solid #a08b5044; background: linear-gradient(90deg, #192326, #111b20); }
-.tpass-contents > button { display: flex; align-items: center; gap: 12px; width: 100%; margin-bottom: 6px; padding: 13px 10px; border: 1px solid transparent; background: transparent; color: #b7c0c3; font-size: 12px; text-align: left; }
-.tpass-contents > button span { color: #9b895c; font-family: Georgia, serif; }
-.tpass-contents > button.is-active { border-color: #887544; background: #65532d33; color: #f0dca7; }
-:root .tpass-contents > p, :root .tpass-modal .tpass-note { color: #a99f87; font-size: 11px; line-height: 1.6; }
-.tpass-contents > p { margin: 24px 10px; }
-.tpass-page { min-width: 0; padding: 28px 32px 32px; background: radial-gradient(ellipse at top right, #61553730, transparent 75%), linear-gradient(90deg, #0002, transparent 6%); }
-:root .tpass-page h3 { margin: 0 0 24px; padding-bottom: 15px; border-bottom: 1px solid #9b895c55; color: #e5d4a7; font: small-caps 26px Georgia, serif; letter-spacing: 1px; }
-:root .tpass-page h4 { margin: 0 0 12px; color: #e2d4b4; font: 19px Georgia, serif; }
-:root .tpass-page p { color: #b6baba; font-size: 13px; line-height: 1.7; }
-.tpass-page button { padding: 10px 14px; border: 1px solid #8c7746; background: linear-gradient(#3d3926, #26291f); color: #eee0b7; font-size: 12px; }
-.tpass-chapters { display: grid; gap: 10px; margin-top: 24px; }
-.tpass-chapters > button { position: relative; display: grid; gap: 8px; padding: 16px 45px 16px 18px; background: linear-gradient(100deg, #263237, #192329); text-align: left; }
-.tpass-chapters small { color: #a39165; font-size: 9px; letter-spacing: 2px; }
-.tpass-chapters strong { font: 17px Georgia, serif; }
-.tpass-chapters svg { position: absolute; right: 15px; top: calc(50% - 10px); }
-.tpass-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 20px 0; }
-.tpass-facts > div { display: grid; gap: 10px; padding: 16px; background: #ffffff05; border: 1px solid #9b895c33; }
-.tpass-facts small { color: #9f916b; font-size: 9px; letter-spacing: 2px; }
-.tpass-facts strong { font: 17px/1.4 Georgia, serif; overflow-wrap: anywhere; }
+.tpass-modal[open] { position: fixed; inset: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; margin: 0; padding: 0; overflow: auto; border: 0; background: #07090c; color: #e1e4e5; font-family: Arial, sans-serif; }
+.tpass-modal::backdrop { background: #020609ed; }
+.tpass-book { --tp-accent: #e7b66d; --tp-rgb: 197, 135, 55; --tp-header: 104px; position: relative; isolation: isolate; display: grid; grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto auto minmax(0, 1fr) auto; min-height: 100dvh; background: #090b0f; }
+.tpass-book::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(#080a0dbb, #080a0df2), var(--tp-art) center top / cover; }
+.tpass-book[data-pass="fall-2015"] { --tp-accent: #bbd68a; --tp-rgb: 101, 132, 53; }
+.tpass-book[data-pass="winter-2016"] { --tp-accent: #a2dbf0; --tp-rgb: 70, 146, 186; }
+.tpass-book[data-pass="ti-2016"] { --tp-accent: #d8b07d; --tp-rgb: 150, 79, 51; }
+.tpass-book[data-pass="fall-2016"] { --tp-accent: #b9d27a; --tp-rgb: 105, 143, 48; }
+.tpass-book[data-pass="ti-2017"] { --tp-accent: #88d0df; --tp-rgb: 36, 118, 139; }
+.tpass-book[data-pass="ti-2018"] { --tp-accent: #b9d781; --tp-rgb: 107, 147, 53; }
+.tpass-book[data-pass="ti-2019"] { --tp-accent: #dac191; --tp-rgb: 142, 82, 191; }
+.tpass-book[data-pass="ti10-2020"] { --tp-accent: #e3c17d; --tp-rgb: 166, 128, 52; }
+.tpass-book[data-pass="nemestice"] { --tp-accent: #e0b5f3; --tp-rgb: 151, 102, 186; }
+.tpass-book[data-pass="continuum"] { --tp-accent: #a9e4ee; --tp-rgb: 58, 135, 164; }
+.tpass-book[data-pass="ti-2022"] { --tp-accent: #ed8b69; --tp-rgb: 201, 67, 36; }
+.tpass-cover { position: sticky; top: 0; z-index: 12; display: flex; align-items: center; justify-content: space-between; gap: 20px; height: var(--tp-header); min-height: var(--tp-header); padding: 12px 32px; background: linear-gradient(100deg, #080b10, rgba(var(--tp-rgb), .25), #080b10), #080b10; border-top: 2px solid var(--tp-accent); border-bottom: 1px solid #ffffff0d; }
+.tpass-back, .tpass-close { display: flex; align-items: center; justify-content: center; gap: 5px; padding: 8px; border: 0; background: #090c1155; color: #b5bdc4; font-size: 11px; }
+.tpass-close { width: 36px; height: 36px; }
+.tpass-brand { display: grid; justify-items: center; gap: 4px; text-align: center; }
+.tpass-brand > img { width: 275px; height: 64px; object-fit: contain; }
+.tpass-brand > small { color: var(--tp-accent); font: italic 16px Georgia, serif; }
+:root .tpass-brand h2 { margin: 0; color: var(--tp-accent); font: 30px/1.1 Georgia, serif; letter-spacing: 5px; }
+.tpass-brand > span { color: #a4abad; font-size: 8px; letter-spacing: 3px; }
+.tpass-contents { position: sticky; top: var(--tp-header); z-index: 11; display: flex; align-items: stretch; justify-content: center; gap: 2px; padding: 0 24px; background: #070a0df5; border-bottom: 1px solid rgba(var(--tp-rgb), .55); }
+.tpass-contents > button { flex: 0 1 auto; padding: 16px 19px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: #a6adb1; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; white-space: nowrap; }
+.tpass-contents > button.is-active { color: #fff; border-bottom-color: var(--tp-accent); background: linear-gradient(transparent, rgba(var(--tp-rgb), .32)); text-shadow: 0 0 12px rgba(var(--tp-rgb), .8); }
+.tpass-club { display: none; }
+.tpass-contents { scrollbar-width: thin; scrollbar-color: rgba(var(--tp-rgb), .6) #0b1117; }
+.tpass-contents::-webkit-scrollbar { height: 4px; }.tpass-contents::-webkit-scrollbar-thumb { background: rgba(var(--tp-rgb), .6); }
+.tpass-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 12px 4%; background: #080c1180; }
+.tpass-toolbar > strong { color: #bbc2c6; font-size: 11px; font-weight: 400; letter-spacing: 1px; text-transform: uppercase; }
+.tpass-toolbar > span { color: #8e9a9f; font-size: 8px; letter-spacing: 1px; white-space: nowrap; }
+.tpass-toolbar label { display: flex; align-items: center; gap: 14px; min-width: 0; color: #a9b1b7; font-size: 11px; }
+.tpass-toolbar select { min-width: 0; width: min(460px, 100%); padding: 7px; background: #151b22; color: #e3e8ea; border: 1px solid rgba(var(--tp-rgb), .6); }
+.tpass-body { min-width: 0; }
+.tpass-page { min-width: 0; width: min(1120px, 92%); min-height: 470px; margin: 20px auto 32px; padding: 30px; border: 1px solid rgba(var(--tp-rgb), .28); background: linear-gradient(120deg, #10171eef, #080b10ed); box-shadow: 0 8px 30px #0008; }
+:root .tpass-page h3 { margin: 0 0 24px; padding-bottom: 15px; border-bottom: 1px solid rgba(var(--tp-rgb), .4); color: #d6dbdd; font: 24px Georgia, serif; letter-spacing: 2px; text-transform: uppercase; }
+:root .tpass-page h4 { margin: 0 0 12px; color: var(--tp-accent); font: 21px Georgia, serif; }
+:root .tpass-page p { color: #b0bac1; font-size: 13px; line-height: 1.7; }
+.tpass-page button { padding: 11px 16px; border: 1px solid rgba(var(--tp-rgb), .65); background: linear-gradient(rgba(var(--tp-rgb), .55), rgba(var(--tp-rgb), .25)); color: #eef1ef; font-size: 11px; letter-spacing: 1px; text-transform: uppercase; }
+.tpass-page.tpass-home { width: min(1440px, 94%); padding: 0; margin-top: 8px; border: 0; background: transparent; box-shadow: none; }
+.tpass-showcase { display: grid; grid-template-columns: minmax(0, 1fr) minmax(250px, 29%); min-height: 340px; border-bottom: 1px solid rgba(var(--tp-rgb), .45); }
+.tpass-keyart { position: relative; display: grid; overflow: hidden; min-height: 340px; background: radial-gradient(ellipse, rgba(var(--tp-rgb), .15), transparent 70%); }
+.tpass-keyart > img { width: 100%; height: 100%; max-height: 360px; object-fit: contain; mask-image: linear-gradient(#000 80%, transparent); }
+.tpass-keyart.has-feature > img { object-fit: cover; object-position: center 30%; }
+.tpass-art-caption { position: absolute; bottom: 18px; left: 30px; right: 20px; display: grid; gap: 8px; padding-top: 35px; background: linear-gradient(transparent, #080b1077); text-shadow: 0 2px 5px #000; }
+.tpass-art-caption small { color: var(--tp-accent); font-size: 9px; letter-spacing: 3px; }
+.tpass-art-caption strong { font: 23px/1.25 Georgia, serif; color: #fff; }
+.tpass-event-card { align-self: center; padding: 18px; border: 1px solid rgba(var(--tp-rgb), .35); border-top: 2px solid var(--tp-accent); background: linear-gradient(130deg, rgba(var(--tp-rgb), .16), #090e16e8); box-shadow: 0 12px 35px #0007; }
+.tpass-event-card > small { color: var(--tp-accent); font-size: 9px; letter-spacing: 2px; }
+:root .tpass-event-card h3 { margin: 8px 0 12px; padding: 0; border: 0; color: #e5e5df; font-size: 19px; line-height: 1.2; letter-spacing: 1px; text-transform: none; }
+.tpass-pool { display: grid; gap: 6px; padding-block: 10px; border-block: 1px solid rgba(var(--tp-rgb), .35); }
+.tpass-pool small { color: #9da8ac; font-size: 8px; letter-spacing: 1px; }.tpass-pool strong { color: var(--tp-accent); font: 26px Georgia, serif; }
+:root .tpass-event-card p { margin: 10px 0; font-size: 10px; }
+.tpass-field-preview { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; min-height: 26px; margin: 10px 0; }.tpass-field-preview .team-badge { width: 24px; height: 24px; flex: 0 0 24px; padding: 2px; border-radius: 0; background: #cbd0ca; border-color: #ffffff20; color: #1a2530; }.tpass-field-preview img { max-width: 22px; max-height: 22px; object-fit: contain; }
+.tpass-event-card > button { display: flex; justify-content: center; align-items: center; width: 100%; gap: 4px; }
+.tpass-event-card .tpass-text-button { margin-top: 8px; border-color: transparent; background: transparent; color: #a5b0b8; font-size: 9px; }
+.tpass-chapter-heading { display: flex; align-items: center; justify-content: space-between; margin: 25px 0 12px; }.tpass-chapter-heading span { color: #b3bdc2; font-size: 10px; letter-spacing: 2px; }.tpass-chapter-heading small { color: #7e898f; font-size: 10px; }
+.tpass-chapters { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 9px; }
+.tpass-chapters > button { display: grid; align-content: start; gap: 8px; padding: 0 0 14px; background: linear-gradient(#131c25dd, #080d13); text-align: center; letter-spacing: 0; text-transform: none; }
+.tpass-chapter-art { position: relative; display: grid; place-items: center; height: 82px; margin-bottom: 4px; background: radial-gradient(ellipse at bottom, rgba(var(--tp-rgb), .42), transparent 75%), linear-gradient(135deg, #ffffff08, transparent); border-bottom: 1px solid rgba(var(--tp-rgb), .35); color: var(--tp-accent); }
+.tpass-chapter-art b { position: absolute; left: 10px; top: 8px; color: #e0e5e538; font: 13px Georgia, serif; }.tpass-chapters strong { padding-inline: 6px; font: 14px Georgia, serif; color: #d3d9da; }.tpass-chapters small { padding-inline: 8px; color: #86969e; font-size: 9px; line-height: 1.4; }
+.tpass-facts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; margin: 20px 0; }.tpass-facts > div { display: grid; gap: 10px; padding: 16px; background: #ffffff04; border: 1px solid rgba(var(--tp-rgb), .25); }.tpass-facts small { color: var(--tp-accent); font-size: 9px; letter-spacing: 2px; }.tpass-facts strong { font: 19px/1.4 Georgia, serif; overflow-wrap: anywhere; }
 .tpass-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 20px; }
-.tpass-teams { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 20px 0; }
-.tpass-teams > div { display: grid; justify-items: center; align-content: start; gap: 10px; padding: 18px 8px; border: 1px solid #8b7b4c44; background: #ffffff04; text-align: center; }
-.tpass-teams strong { font-size: 12px; overflow-wrap: anywhere; }
-.tpass-teams .is-managed { border-color: #b8ca75; }
-.tpass-teams small { color: #b8ca75; font-size: 9px; }
-.tpass-rounds { display: grid; gap: 12px; margin-block: 20px; }
-.tpass-rounds article { padding: 14px; border-left: 2px solid #887544; background: #ffffff05; }
-.tpass-rounds article small { color: #9babae; }
-.tpass-total { display: block; color: #e6cb8e; font: 38px Georgia, serif; }
-.tpass-table { max-width: 100%; overflow: auto; }
-.tpass-table table { width: 100%; border-collapse: collapse; font-size: 12px; }
-.tpass-table th, .tpass-table td { padding: 10px 8px; border-bottom: 1px solid #8a794438; color: #d4d5c9; text-align: left; }
-.tpass-table thead th { color: #a69974; font-size: 10px; font-weight: 400; text-transform: uppercase; }
-.tpass-results { display: grid; gap: 10px; padding: 0; list-style: none; }
-.tpass-results li { display: grid; gap: 7px; padding: 12px; background: #ffffff05; font-size: 12px; }
-.tpass-results small { color: #9f916b; }.tpass-results b { color: #e6cb8e; white-space: nowrap; }
-.tpass-navigation { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 14px; border-top: 1px solid #8d784766; background: #090e13; }
-.tpass-navigation button { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: #20292b; color: #d7cba9; border: 1px solid #7b6d43; font-size: 12px; }
-.tpass-navigation > span { color: #a3987b; font-size: 11px; white-space: nowrap; }
-.tpass-modal button:hover:not(:disabled) { filter: brightness(1.25); }.tpass-modal button:disabled { opacity: .3; cursor: default; }
-.tpass-modal :focus-visible { outline: 2px solid #ebcf7d; outline-offset: 3px; }
+.tpass-teams { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin: 20px 0; }.tpass-teams > div { display: grid; justify-items: center; align-content: start; gap: 10px; padding: 18px 8px; border: 1px solid rgba(var(--tp-rgb), .3); background: #ffffff04; text-align: center; }.tpass-teams strong { font-size: 12px; overflow-wrap: anywhere; }.tpass-teams .is-managed { border-color: var(--tp-accent); }.tpass-teams small { color: var(--tp-accent); font-size: 9px; }
+.tpass-rounds { display: grid; gap: 12px; margin-block: 20px; }.tpass-rounds article { padding: 14px; border-left: 2px solid var(--tp-accent); background: #ffffff05; }.tpass-rounds article small { color: #9babae; }.tpass-total { display: block; color: var(--tp-accent); font: 42px Georgia, serif; }
+.tpass-table { max-width: 100%; overflow: auto; }.tpass-table table { width: 100%; border-collapse: collapse; font-size: 12px; }.tpass-table th, .tpass-table td { padding: 10px 8px; border-bottom: 1px solid rgba(var(--tp-rgb), .22); color: #d4d9db; text-align: left; }.tpass-table thead th { color: var(--tp-accent); font-size: 10px; font-weight: 400; text-transform: uppercase; }
+.tpass-results { display: grid; gap: 10px; padding: 0; list-style: none; }.tpass-results li { display: grid; gap: 7px; padding: 12px; background: #ffffff05; font-size: 12px; }.tpass-results small { color: #87969e; }.tpass-results b { color: var(--tp-accent); white-space: nowrap; }
+:root .tpass-modal .tpass-note { margin: 20px 0 0; color: #9aa8b0; font-size: 10px; line-height: 1.6; }
+.tpass-navigation { display: flex; justify-content: center; align-items: center; gap: 20px; padding: 14px; border-top: 1px solid rgba(var(--tp-rgb), .25); background: #070a0ccc; }.tpass-navigation button { display: flex; align-items: center; gap: 8px; padding: 8px 12px; background: transparent; color: #c5cdd0; border: 1px solid #ffffff20; font-size: 11px; }.tpass-navigation > span { color: #7d8b93; font-size: 10px; white-space: nowrap; }
+.tpass-modal button:hover:not(:disabled) { filter: brightness(1.2); color: #fff; border-color: var(--tp-accent); }.tpass-modal button:disabled { opacity: .3; cursor: default; }.tpass-modal :focus-visible { outline: 2px solid var(--tp-accent); outline-offset: 3px; }
 .rb-bp-head .rb-open-tournament-pass { margin-top: 12px; padding: 9px 16px; border: 1px solid #c3b88c; background: #161c2a; color: #f4e7b9; font-size: 12px; }
-@media (max-width: 700px) {
-  .tpass-modal[open] { padding: 8px; }.tpass-cover { min-height: 150px; }.tpass-cover > div { padding: 45px 16px 16px; }:root .tpass-modal h2 { font-size: 23px; }
-  .tpass-toolbar { display: grid; gap: 8px; padding: 12px; }.tpass-toolbar label { display: grid; gap: 7px; }.tpass-toolbar select { width: 100%; }
-  .tpass-body { display: block; max-height: 60dvh; min-height: 0; }.tpass-contents { display: flex; gap: 6px; overflow-x: auto; padding: 10px; border-right: 0; border-bottom: 1px solid #8d784766; }.tpass-contents > button { width: auto; margin: 0; flex: 0 0 auto; padding: 9px; }.tpass-contents > p { display: none; }
-  .tpass-page { padding: 22px 16px; }.tpass-teams { grid-template-columns: repeat(2, minmax(0, 1fr)); }.tpass-facts { grid-template-columns: minmax(0, 1fr); }.tpass-navigation { gap: 10px; padding: 10px; }.tpass-navigation button { padding: 8px; }.tpass-navigation button > span { display: none; }
-  .tpass-total { font-size: 30px; }
+/* Later passes place navigation beside the stage; seasonal passes use a breadcrumb strip. */
+@media (min-width: 1001px) {
+  .tpass-book[data-layout="sidebar"] { grid-template-columns: 240px minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr) auto; }.tpass-book[data-layout="sidebar"] .tpass-cover { grid-column: 1 / -1; }
+  .tpass-book[data-layout="sidebar"] .tpass-contents { grid-column: 1; grid-row: 2 / 5; align-self: start; height: calc(100dvh - var(--tp-header)); flex-direction: column; justify-content: start; padding: 28px 0; border-right: 1px solid rgba(var(--tp-rgb), .3); border-bottom: 0; overflow-y: auto; background: linear-gradient(100deg, #0b1018, #080b10); }.tpass-book[data-layout="sidebar"] .tpass-contents > button { padding: 13px 24px; border-bottom: 0; border-left: 3px solid transparent; text-align: left; }.tpass-book[data-layout="sidebar"] .tpass-contents > button.is-active { border-left-color: var(--tp-accent); background: linear-gradient(90deg, rgba(var(--tp-rgb), .45), transparent); }
+  .tpass-book[data-layout="sidebar"] .tpass-club { display: grid; gap: 8px; margin: auto 20px 0; padding: 25px 5px 0; border-top: 1px solid rgba(var(--tp-rgb), .3); }.tpass-club small { color: var(--tp-accent); font-size: 8px; letter-spacing: 2px; }.tpass-club strong { color: #c3cdd1; font: 18px Georgia, serif; }.tpass-club span { color: #7e8e98; font-size: 10px; }
+  .tpass-book[data-layout="sidebar"] .tpass-toolbar, .tpass-book[data-layout="sidebar"] .tpass-body, .tpass-book[data-layout="sidebar"] .tpass-navigation { grid-column: 2; }
+  .tpass-book[data-pass="ti-2022"] .tpass-chapter-art { transform: skewX(-8deg); }.tpass-book[data-pass="ti-2022"] .tpass-chapter-art > * { transform: skewX(8deg); }
+  .tpass-book[data-layout="seasonal"] .tpass-cover { justify-content: start; }.tpass-book[data-layout="seasonal"] .tpass-brand { margin-right: auto; }.tpass-book[data-layout="seasonal"] .tpass-contents { justify-content: start; background: linear-gradient(90deg, rgba(var(--tp-rgb), .7), #080b1055); }
+}
+@media (max-width: 1000px) {
+  .tpass-cover { padding: 10px 20px; }.tpass-back { font-size: 0; }.tpass-back svg { width: 22px; height: 22px; }.tpass-contents { justify-content: start; overflow-x: auto; padding: 0 10px; }.tpass-contents > button { padding: 14px 13px; }
+  .tpass-showcase { grid-template-columns: minmax(0, 1fr) 250px; }.tpass-keyart { min-height: 330px; }.tpass-event-card { padding: 18px; }.tpass-art-caption { left: 15px; }.tpass-art-caption strong { font-size: 19px; }
+}
+@media (max-width: 600px) {
+  .tpass-book { --tp-header: 92px; }.tpass-cover { gap: 10px; padding: 10px; }.tpass-brand > img { width: min(220px, 60vw); height: 55px; }.tpass-brand > small { font-size: 12px; }:root .tpass-brand h2 { font-size: 22px; letter-spacing: 3px; }.tpass-brand > span { font-size: 7px; letter-spacing: 2px; }.tpass-close { flex: 0 0 30px; }.tpass-back { padding: 0; }
+  .tpass-toolbar { display: grid; gap: 8px; padding: 12px; }.tpass-toolbar label { display: grid; gap: 7px; }.tpass-toolbar select { width: 100%; }.tpass-toolbar > strong { font-size: 10px; line-height: 1.5; }
+  .tpass-showcase { grid-template-columns: minmax(0, 1fr); }.tpass-keyart { min-height: 225px; max-height: 300px; }.tpass-keyart > img { max-height: 300px; }.tpass-keyart.has-feature > img { height: 260px; }.tpass-event-card { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 10px; padding: 18px; }.tpass-event-card > small, :root .tpass-event-card h3 { grid-column: 1 / -1; margin: 0; }.tpass-event-card .tpass-field-preview { grid-column: 1 / -1; margin: 0; }.tpass-pool strong { font-size: 22px; }:root .tpass-event-card p { margin: 0; font-size: 10px; }.tpass-event-card > button { min-height: 40px; padding: 7px; font-size: 9px; }.tpass-event-card .tpass-text-button { margin: 0; }
+  .tpass-chapters { grid-template-columns: repeat(2, minmax(0, 1fr)); }.tpass-chapters > button:last-child { grid-column: 1 / -1; }.tpass-chapter-heading small { display: none; }
+  .tpass-page { width: 94%; padding: 22px 16px; min-height: 400px; }.tpass-teams { grid-template-columns: repeat(2, minmax(0, 1fr)); }.tpass-facts { grid-template-columns: minmax(0, 1fr); }.tpass-navigation { gap: 10px; padding: 10px; }.tpass-navigation button { padding: 8px; }.tpass-navigation button > span { display: none; }.tpass-total { font-size: 30px; }
 }
