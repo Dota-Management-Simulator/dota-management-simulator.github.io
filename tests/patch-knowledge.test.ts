@@ -79,10 +79,10 @@ test("research is stable per team and patch, overlaps never stack, and hiring ca
   assert.equal(patchReport(patch, { ...observer, staffIds: allStaff }).axes.vision.width, 4);
 });
 
-test("hero discovery expands a stable shortlist from two to six and keeps power estimates uncertain", () => {
+test("hero discovery requires research and staff expand a stable shortlist with uncertain estimates", () => {
   const patch = patchForSeason(2011, 2);
   let previous: string[] = [];
-  for (const [staffIds, count] of [[[], 2], [["c2"], 3], [["c2", "c5"], 4], [["c2", "c5", "c6"], 6]] as [string[], number][]) {
+  for (const [staffIds, count] of [[[], 0], [["c2"], 1], [["c2", "c5"], 2], [["c2", "c5", "c6"], 4]] as [string[], number][]) {
     const report = patchReport(patch, { ...observer, staffIds });
     assert.equal(report.heroes.length, count);
     assert.deepEqual(report.heroes.slice(0, previous.length).map(h => h.id), previous);
@@ -93,8 +93,8 @@ test("hero discovery expands a stable shortlist from two to six and keeps power 
     }
     previous = report.heroes.map(h => h.id);
   }
-  assert.equal(patchReport(patch, { ...observer, staffIds: ["c1", "c3", "c4"] }).heroes.length, 2);
-  assert.deepEqual(perceivedPatch(patch, observer).heroes.map(h => h.id), previous.slice(0, 2));
+  assert.equal(patchReport(patch, { ...observer, staffIds: ["c1", "c3", "c4"] }).heroes.length, 0);
+  assert.deepEqual(perceivedPatch(patch, observer).heroes, []);
 });
 
 test("staff hire/release is immutable and payroll-safe, preserves saves and removes the analyst's former flat combat bonus", () => {

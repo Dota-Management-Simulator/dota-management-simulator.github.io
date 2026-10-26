@@ -92,6 +92,8 @@ test("AI starters/reserves and free agents develop deterministically without usi
 
 test("world progression survives a year, recovers tired rivals, and feeds their actual battle skills", () => {
   const start = enableHistoricalCalendar(createCampaign(DEFAULT_SETTINGS));
+  start.cash = 1000000;
+  for (const id of start.roster) start.training[id] = "Rest";
   const rivalIds = start.world!.clubs.filter(club => club.id !== start.world!.managedTeamId).flatMap(club => club.roster);
   start.players.find(p => p.id === rivalIds[0])!.energy = 30;
   const week = advanceWeek(start);

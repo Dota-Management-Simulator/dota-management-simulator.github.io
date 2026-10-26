@@ -1,0 +1,17 @@
+.map-building image, .map-roshan image, .map-tormentor image { filter: drop-shadow(0 1px 2px #000); }
+.map-building.reference { opacity: .8; }
+.map-building.destroyed { opacity: .23; }
+.map-building.destroyed image { filter: grayscale(1); }
+.map-roshan { color: #e0b963; }
+.map-roshan.unavailable { opacity: .35; }
+.map-tormentor.pending { opacity: .4; }
+.spell-map-stage { flex-direction: column; align-items: center; }
+.spell-map-stage .map-wrap { flex-shrink: 0; }
+.map-objective-key { box-sizing: border-box; width: 100%; padding: 9px 12px 12px; color: #a6b0ad; font-size: 10px; line-height: 1.5; }
+.map-objective-status { display: flex; flex-wrap: wrap; column-gap: 16px; row-gap: 5px; }
+.map-objective-status > span { display: inline-flex; align-items: center; flex-wrap: wrap; gap: 4px; }
+.map-objective-status svg { width: 22px; height: 22px; flex: 0 0 22px; }
+.map-objective-status .roshan-key { color: #e0b963; }
+.map-objective-status .tormentor-key { color: #8dd7ef; }
+.map-objective-status small { font-size: inherit; }
+.map-objective-key p { margin: 5px 0 0; font-size: 10px; line-height: 1.5; }

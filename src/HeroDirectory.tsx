@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import { useEffect, useRef, useState } from "react";
 import { ChevronLeft, ChevronRight, Search } from "lucide-react";
 import type { Campaign } from "./game";
@@ -8,6 +9,7 @@ import { heroScoutReport } from "./hero-scouting";
 import { heroMedia } from "./hero-media";
 import RangeBars from "./RangeBars";
 import HeroModel from "./HeroModel";
+import { heroAbilities, abilitySummary } from './combat-model';
 import "./heroes.css";
 
 function Portrait({ id }: { id: string }) {
@@ -28,7 +30,7 @@ export default function Heroes({ campaign, onStaff, onPatch }: { campaign: Campa
   const report = heroScoutReport(patch, managedPatchObserver(campaign), pool);
   const selected = report.find(item => item.hero.id === selectedId) ?? report[0];
   const filtered = report.filter(({ hero }) => hero.name.toLowerCase().includes(search.trim().toLowerCase()) && (role === "all" || hero.roles.includes(Number(role))))
-    .sort((a, b) => (sort === "strength" ? (b.winRate.low + b.winRate.high) - (a.winRate.low + a.winRate.high) : 0) || a.hero.name.localeCompare(b.hero.name));
+    .sort((a, b) => (sort === "strength" ? (b.scouted||b.samples>0?b.winRate.low+b.winRate.high:0)-(a.scouted||a.samples>0?a.winRate.low+a.winRate.high:0) : 0) || a.hero.name.localeCompare(b.hero.name));
   useEffect(() => {
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const changed = () => { if (preference.matches) setMotion(false); };
@@ -46,7 +48,7 @@ export default function Heroes({ campaign, onStaff, onPatch }: { campaign: Campa
     if (next) setSelectedId(next.hero.id);
   }
   return <section className="panel heroes-panel">
-    <div className="section-title"><div><h2>Heroes · patch {patch.id}</h2><p>{pool.length} available heroes · {patch.name}</p></div><button className="text-link" onClick={onPatch}>Patch notes →</button></div>
+    <div className="section-title"><div><h2>Heroes · patch {patchLabel(patch)}</h2><p>{pool.length} available heroes · {patch.name}</p></div><button className="text-link" onClick={onPatch}>Patch notes →</button></div>
     <div className="hero-browser">
       {selected && <div className="hero-showcase" ref={showcase}>
         <div className="hero-showcase-title"><div><span>THE HERO ROSTER</span><h3 aria-live="polite">{selected.hero.name}</h3></div><div className="hero-browse-arrows"><button aria-label="Previous hero" disabled={!filtered.length} onClick={() => step(-1)}><ChevronLeft size={19} /></button><button aria-label="Next hero" disabled={!filtered.length} onClick={() => step(1)}><ChevronRight size={19} /></button></div></div>
@@ -54,9 +56,9 @@ export default function Heroes({ campaign, onStaff, onPatch }: { campaign: Campa
         <div className="hero-showcase-report">
           <div className="hero-showcase-roles">{selected.hero.roles.map(r => <span key={r}>{heroRoles[r]}</span>)}</div>
           <p className="hero-showcase-tags">{heroTags(selected.hero).join(" · ")}</p>
-          <div className="hero-scout-heading"><strong>PATCH {patch.id} · SCOUTING OUTLOOK</strong><span>{selected.samples ? `${selected.samples} scrim ${selected.samples === 1 ? "map" : "maps"}` : selected.scouted ? "Scouted favorite" : "Broad observation"}</span></div>
-          <RangeBars label={`${selected.hero.name} estimated win rate`} current={selected.winRate} unit="%" lowLabel="0%" highLabel="100%" />
-          <p className="hero-scout-note">Estimated strength with equal teams · {selected.winRate.width}-point spread. Overlapping ranges leave the ranking uncertain.</p>
+          <details className="hero-kit-guide"><summary>Spells &amp; how they play</summary>{heroAbilities(selected.hero.id,patch).filter(a=>!a.hidden||a.granted).map(a=><p key={a.id}><strong>{a.name}{a.granted?` (${a.granted})`:''}</strong> · {abilitySummary(a)}</p>)}</details>
+          <div className="hero-scout-heading"><strong>PATCH {patchLabel(patch)} · SCOUTING OUTLOOK</strong><span>{selected.samples ? `${selected.samples} scrim ${selected.samples === 1 ? "map" : "maps"}` : selected.scouted ? "Scouted favorite" : "Not researched"}</span></div>
+          {(selected.scouted||selected.samples>0)?<><RangeBars label={`${selected.hero.name} estimated win rate`} current={selected.winRate} unit="%" lowLabel="0%" highLabel="100%" /><p className="hero-scout-note">Estimated strength with equal teams · {selected.winRate.width}-point spread. Overlapping ranges leave the ranking uncertain.</p></>:<p className="hero-scout-note">No strength estimate yet. Public patch notes describe the changes; staff research or scrims provide an interpretation.</p>}
           <button className="text-link" onClick={onStaff}>Improve scouting with staff →</button>
         </div>
         <small className="hero-art-credit">Hero artwork & animation © Valve. Current appearances; era roles and availability follow your campaign.</small>
@@ -71,11 +73,10 @@ export default function Heroes({ campaign, onStaff, onPatch }: { campaign: Campa
         <div className="hero-portrait-grid" aria-label="Available heroes">{filtered.map(({ hero, winRate, scouted, samples }) => <button className={`hero-portrait-card ${selected?.hero.id === hero.id ? "is-selected" : ""}`} key={hero.id} aria-label={`Select ${hero.name}`} aria-pressed={selected?.hero.id === hero.id} onClick={() => selectHero(hero.id)}>
           <span className="hero-portrait-art"><Portrait id={hero.id} />{(scouted || samples > 0) && <span className="hero-portrait-read">{samples > 0 ? "PRACTICED" : "SCOUTED"}</span>}</span>
           <strong>{hero.name}</strong><span className="hero-card-roles">{hero.roles.map(r => heroRoles[r]).join(" / ")}</span>
-          <span className="hero-card-estimate">{winRate.low}–{winRate.high}% <span>estimated</span></span>
-          <span className="hero-card-range" role="img" aria-label={`${hero.name} estimated win rate: ${winRate.low} to ${winRate.high}% out of 100`}><span style={{ left: `${winRate.low}%`, width: `${winRate.width}%` }} /></span>
+          {(scouted||samples>0)?<><span className="hero-card-estimate">{winRate.low}–{winRate.high}% <span>estimated</span></span><span className="hero-card-range" role="img" aria-label={`${hero.name} estimated win rate: ${winRate.low} to ${winRate.high}% out of 100`}><span style={{ left: `${winRate.low}%`, width: `${winRate.width}%` }} /></span></>:<span className="hero-card-estimate">Not researched</span>}
         </button>)}</div>
         {!filtered.length && <div className="hero-pool-empty"><p>No heroes match these filters.</p><button onClick={() => { setSearch(""); setRole("all"); }}>Clear filters</button></div>}
-        <details className="heroes-explainer"><summary>About these scouting estimates</summary><p>All bars share a 0–100% scale. Broad observations begin with a 16-point spread. Scrim debriefs slowly narrow played heroes towards a 4-point read; staff can discover favorites sooner. Practice observations are specific to this patch.</p><p>These are game balance estimates. Player skill, drafts and opponents affect actual results.</p></details>
+        <details className="heroes-explainer"><summary>About these scouting estimates</summary><p>Unresearched heroes have no displayed strength rating. Practice observations begin with a 16-point spread and debriefs narrow played heroes towards a 4-point read; staff can discover favorites sooner. Observations are specific to this patch.</p><p>These are game balance estimates. Player skill, drafts and opponents affect actual results.</p></details>
       </div>
     </div>
   </section>;

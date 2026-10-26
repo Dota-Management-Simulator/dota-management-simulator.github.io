@@ -1,0 +1,122 @@
+.campaign-launcher, .campaign-boot { --launch-blue: #66c0f4; color: #d6d9df; font-family: Arial, sans-serif; background: #1b2028; min-height: 100dvh; color-scheme: dark; }
+.campaign-launcher * { box-sizing: border-box; }
+.launcher-dota-mark { display: block; flex-shrink: 0; background: currentColor; mask: url('/launcher/dota-symbol.png') center / contain no-repeat; }
+.campaign-launcher button, .campaign-boot button { font: inherit; color: inherit; cursor: pointer; border: 0; border-radius: 2px; }
+.campaign-launcher button:focus-visible, .campaign-boot button:focus-visible, .campaign-launcher input:focus-visible { outline: 2px solid #8dd4ff; outline-offset: 4px; }
+.campaign-launcher h1:focus { outline: none; }
+.launcher-topbar { min-height: 104px; padding: 22px 34px 0; background: #171b21; display: flex; flex-wrap: wrap; align-items: center; gap: 18px 40px; border-bottom: 1px solid #080c12; }
+.launcher-brand { display: flex; align-items: center; gap: 9px; background: transparent; font-size: 21px !important; font-weight: 700 !important; letter-spacing: 2px; }
+.launcher-brand > img { width: 113px; height: 34px; object-fit: contain; }
+.launcher-edition { margin-left: 9px; border-left: 1px solid #525963; padding-left: 15px; font-size: 10px; color: #8e98a6; letter-spacing: 1.4px; font-weight: 400; }
+.launcher-topbar nav { display: flex; gap: 30px; align-self: stretch; }
+.launcher-topbar nav button { background: transparent; border-bottom: 3px solid transparent; font-size: 17px; letter-spacing: 1px; font-weight: 600; padding: 15px 0 24px; color: #a6adb6; }
+.launcher-topbar nav button.active { color: #66c0f4; border-color: #66c0f4; }
+.launcher-local { display: flex; align-items: center; gap: 8px; margin-left: auto; color: #8c99a8; font-size: 12px; padding-bottom: 17px; }
+.launcher-library { display: grid; grid-template-columns: 235px minmax(0, 1fr); min-height: calc(100dvh - 142px); }
+.launcher-sidebar { padding: 27px 12px 20px; background: #20252d; border-right: 1px solid #10141b; display: flex; flex-direction: column; gap: 6px; }
+.launcher-sidebar-label { display: flex; justify-content: space-between; font-size: 11px; letter-spacing: 1px; color: #9ca5b1; padding: 0 12px 10px; }
+.launcher-sidebar-label > span { color: #687481; }
+.launcher-game-selected { padding: 11px 14px; display: flex; align-items: center; gap: 12px; background: linear-gradient(90deg, #374656, #2a3441); text-align: left; }
+.launcher-game-selected .launcher-dota-mark { width: 25px; height: 25px; color: #cf5546; flex-shrink: 0; }
+.launcher-game-selected > span { font-size: 14px; }
+.launcher-game-selected small, .launcher-sidebar-save small { display: block; color: #9faab8; margin-top: 5px; font-size: 11px; }
+.launcher-sidebar-rule { border-top: 1px solid #343b45; margin: 22px 12px 15px; }
+.launcher-sidebar-save { background: transparent; padding: 10px 12px; display: flex; gap: 10px; align-items: center; text-align: left; }
+.launcher-sidebar-save:hover { background: #303945; }
+.launcher-sidebar-save > span:last-child { min-width: 0; font-size: 12px; overflow-wrap: anywhere; }
+.launcher-sidebar-save .team-badge { width: 27px; height: 27px; min-width: 27px; }
+.launcher-sidebar-empty { color: #7f8a98; font-size: 12px; padding: 4px 12px; line-height: 1.6; }
+.launcher-sidebar-new { display: flex; align-items: center; gap: 8px; background: transparent; padding: 13px 12px; font-size: 12px !important; color: #a8c8db !important; }
+.launcher-sidebar-new:hover { background: #2e3743; }
+.launcher-sidebar-bottom { margin: auto 12px 0; padding-top: 55px; display: flex; align-items: center; gap: 12px; color: #6e7b8b; font-size: 12px; line-height: 1.6; }
+.launcher-main { min-width: 0; background: radial-gradient(ellipse at top, #323e4d, #1b2028 75%); }
+.launcher-hero { height: clamp(270px, 29vw, 430px); position: relative; display: flex; align-items: flex-end; padding: 40px; background-image: linear-gradient(0deg, #1b2028 0%, transparent 68%), linear-gradient(90deg, #151a2188, transparent 70%), url('/launcher/dota-library-hero.jpg'); background-size: cover; background-position: center 40%; }
+.launcher-hero-title { display: flex; gap: 23px; align-items: center; filter: drop-shadow(0 3px 12px #000); }
+.launcher-hero-title > .launcher-dota-mark { width: 66px; height: 66px; color: #db5c47; }
+.launcher-hero-title h1 { color: #eee7df; margin: 0; font-family: Georgia, serif; font-size: clamp(40px, 5vw, 72px); letter-spacing: 9px; font-weight: 400; line-height: 1; }
+.launcher-hero-title div > span { display: block; font-size: 11px; letter-spacing: 5px; margin-top: 13px; color: #c5b7a7; }
+.launcher-hero-caption { position: absolute; top: 25px; right: 30px; font-size: 10px; letter-spacing: 2px; color: #d4d0c5; text-shadow: 0 1px 5px #000; }
+.launcher-playbar { background: linear-gradient(90deg, #263445, #222b37); padding: 17px 34px; display: flex; gap: 32px; align-items: center; box-shadow: 0 5px 20px #0002; }
+.launcher-play { display: flex; align-items: center; justify-content: center; gap: 17px; min-width: 200px; padding: 13px 26px; font-size: 25px !important; font-weight: 600 !important; letter-spacing: 1px; color: #f2ffdf !important; background: linear-gradient(105deg, #80ad13, #5b8d13); box-shadow: 0 0 16px #8bb93017; }
+.launcher-play:hover { background: linear-gradient(105deg, #95c626, #71a521); }
+.launcher-playbar > div { display: grid; gap: 8px; }
+.launcher-playbar > div > span { color: #8c9caf; font-size: 10px; letter-spacing: .8px; }
+.launcher-playbar strong { color: #c3cdda; font-size: 13px; font-weight: 400; }
+.launcher-ready { margin-left: auto; display: flex; gap: 6px; align-items: center; font-size: 12px; color: #8c9faf; }
+.launcher-content { padding: 33px 34px 44px; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(250px, 1fr); gap: 35px; }
+.launcher-section-label { color: #8997aa; font-size: 10px; letter-spacing: 1.5px; }
+.launcher-welcome h2 { font-size: 28px; font-weight: 400; color: #ecedf0; margin: 17px 0 14px; }
+.launcher-welcome p { font-size: 14px; line-height: 1.85; max-width: 590px; color: #9eaaba; margin: 0; }
+.launcher-feature-row { display: flex; flex-wrap: wrap; gap: 17px 25px; border-top: 1px solid #39424e; padding-top: 22px; margin-top: 27px; }
+.launcher-feature-row > span { display: flex; gap: 8px; align-items: center; color: #a6b2c2; font-size: 11px; }
+.launcher-text-button { display: flex; align-items: center; gap: 10px; background: transparent; padding: 0; margin-top: 26px; color: #6cb8e6 !important; font-size: 12px !important; }
+.launcher-text-button:hover { color: #b5e6ff !important; }
+.launcher-recent { background: linear-gradient(120deg, #303d4e, #263140); box-shadow: 0 6px 22px #0002; padding: 23px; align-self: start; }
+.launcher-recent h2 { font-size: 19px; line-height: 1.3; font-weight: 400; margin: 14px 0; overflow-wrap: anywhere; }
+.launcher-recent-team { display: flex; gap: 13px; align-items: center; margin-top: 15px; }
+.launcher-recent-team h2 { margin: 0 0 7px; }
+.launcher-recent-team span { font-size: 12px; color: #a7b8c8; }
+.launcher-recent p { color: #c2cfdd; font-size: 14px; line-height: 1.65; }
+.launcher-recent p > span { display: block; color: #8797aa; font-size: 11px; }
+.launcher-recent > button { background: #ffffff0c; display: flex; align-items: center; justify-content: space-between; gap: 15px; padding: 12px 14px; width: 100%; font-size: 12px; }
+.launcher-recent > button:hover { background: #ffffff18; }
+.launcher-footer { min-height: 38px; padding: 12px 24px; display: flex; gap: 16px; justify-content: space-between; background: #171b21; color: #788596; font-size: 10px; }
+.launcher-footer > span:first-child { display: flex; align-items: center; gap: 7px; }
+.launcher-campaign-screen { background: linear-gradient(90deg, #141a21f5, #141a21de), url('/launcher/dota-library-hero.jpg') center top / cover fixed; min-height: calc(100dvh - 142px); padding: 30px max(28px, calc((100vw - 1160px) / 2)) 60px; }
+.launcher-back { display: flex; gap: 8px; align-items: center; background: transparent; color: #94a2b4 !important; font-size: 12px !important; padding: 0; }
+.launcher-picker-heading { display: flex; align-items: center; justify-content: space-between; gap: 25px; margin: 38px 0 32px; }
+.launcher-picker-heading h1 { font-family: Georgia, serif; font-weight: 400; color: #f0e7dc; font-size: 36px; margin: 12px 0; }
+.launcher-picker-heading p { color: #8d9aaa; font-size: 13px; margin: 0; line-height: 1.6; }
+.launcher-new { display: flex; align-items: center; justify-content: center; gap: 9px; padding: 13px 19px; background: linear-gradient(120deg, #49657d, #344a60); color: #dfedfa !important; font-size: 13px !important; white-space: nowrap; }
+.launcher-new:hover { background: #54748e; }
+.launcher-picker-grid { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(280px, 1fr); border: 1px solid #39404a; box-shadow: 0 15px 50px #0003; }
+.launcher-saves { background: #1d252ee8; min-width: 0; }
+.launcher-saves-header { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 15px; align-items: center; padding: 21px; border-bottom: 1px solid #35404b; }
+.launcher-saves-header h2 { margin: 0; font-size: 13px; font-weight: 400; }
+.launcher-saves-header h2 > span { color: #8494a8; margin-left: 7px; }
+.launcher-search { display: flex; align-items: center; gap: 7px; background: #111820; color: #768a9d; padding: 8px 10px; width: 185px; max-width: 100%; }
+.launcher-search input { width: 100%; min-width: 0; font: inherit; font-size: 11px; border: 0; background: transparent; color: #d6e0ea; padding: 0; box-shadow: none; border-radius: 0; }
+.launcher-search input::placeholder { color: #8e9bad; }
+:root[data-theme] .campaign-launcher .launcher-search input { background: transparent; color: #d6e0ea; }
+:root[data-theme] .campaign-launcher .launcher-search input::placeholder { color: #8e9bad; }
+.launcher-save-list { max-height: 530px; overflow-y: auto; padding: 10px; }
+.launcher-save { width: 100%; display: flex; align-items: center; gap: 15px; text-align: left; padding: 20px 15px; background: transparent; border: 1px solid transparent !important; border-left: 3px solid transparent !important; margin-bottom: 5px; }
+.launcher-save:hover { background: #ffffff08; }
+.launcher-save.selected { background: linear-gradient(90deg, #354858, #2a3542); border-color: #536779 !important; border-left-color: #82c6ef !important; }
+.launcher-save-name { display: grid; gap: 9px; flex: 1; min-width: 0; }
+.launcher-save-name strong { font-size: 15px; font-weight: 400; overflow-wrap: anywhere; color: #e1e7ee; }
+.launcher-save-name > span { color: #aebdcc; font-size: 12px; }
+.launcher-save-name small { color: #8494a5; font-size: 10px; }
+.launcher-save > svg { color: #8396a7; flex-shrink: 0; }
+.launcher-save-detail { background: #171f28eb; border-left: 1px solid #39404a; padding: 30px; min-width: 0; }
+.launcher-detail-team { margin: 27px 0 25px; display: flex; align-items: center; gap: 16px; }
+.launcher-detail-team h2 { color: #e8e1d7; font-size: 25px; font-family: Georgia, serif; font-weight: 400; margin: 0; overflow-wrap: anywhere; }
+.launcher-save-detail dl { margin: 0 0 30px; font-size: 12px; }
+.launcher-save-detail dl > div { display: flex; gap: 15px; justify-content: space-between; padding: 13px 0; border-bottom: 1px solid #ffffff0b; }
+.launcher-save-detail dt { color: #8b9aac; flex-shrink: 0; }
+.launcher-save-detail dd { color: #cfdae7; margin: 0; text-align: right; overflow-wrap: anywhere; }
+.launcher-load { display: flex; align-items: center; justify-content: center; gap: 12px; width: 100%; padding: 15px 20px; background: linear-gradient(100deg, #7da21c, #557d16); color: #f3ffdf !important; font-size: 15px !important; }
+.launcher-load:hover { background: #7ea42b; }
+.launcher-save-note { font-size: 11px; color: #8e9bac; line-height: 1.8; margin: 17px 0 0; }
+.launcher-empty { text-align: center; padding: 65px 20px; color: #788da1; }
+.launcher-empty h3 { color: #c5d0dc; font-weight: 400; font-size: 20px; }
+.launcher-empty p { font-size: 12px; line-height: 1.8; max-width: 260px; margin: 0 auto 25px; }
+.launcher-empty button { margin: 0 auto; }
+.launcher-detail-empty { padding: 55px 0; }
+.launcher-detail-empty .launcher-dota-mark { color: #af5143; width: 50px; height: 50px; }
+.launcher-detail-empty h2 { font-family: Georgia, serif; font-size: 31px; font-weight: 400; line-height: 1.4; color: #d2c5b5; }
+.launcher-detail-empty p { font-size: 12px; line-height: 1.9; color: #8394a6; }
+.launcher-error { padding: 14px 20px; margin: 20px; border: 1px solid #ac8654; background: #453720; color: #ead8b3; font-size: 12px; line-height: 1.7; }
+.campaign-boot { background: radial-gradient(ellipse, #211b1a, #090c10 68%); display: flex; align-items: center; justify-content: center; flex-direction: column; }
+.campaign-boot > .launcher-dota-mark { width: 100px; height: 100px; color: #bc503f; }
+.campaign-boot h1 { font-family: Georgia, serif; font-weight: 400; font-size: 43px; letter-spacing: 11px; margin: 29px 0 0 11px; color: #e4d5c1; }
+.campaign-boot p { font-size: 10px; letter-spacing: 4px; color: #a79888; margin: 14px 0 55px; }
+.campaign-boot > span:last-of-type { font-size: 11px; color: #7b838f; margin-top: 18px; }
+.boot-progress { width: 170px; height: 2px; background: #302824; overflow: hidden; }
+.boot-progress::after { content: ''; display: block; height: 100%; width: 70%; background: #a85340; animation: launcher-boot .85s ease-in-out forwards; }
+.campaign-boot button { background: transparent; font-size: 11px; margin-top: 28px; color: #82909f; padding: 10px; }
+@keyframes launcher-boot { from { transform: translateX(-100%); } to { transform: translateX(145%); } }
+@media (min-width: 1600px) { .launcher-content { grid-template-columns: minmax(0, 2fr) minmax(300px, 1fr); gap: 70px; } }
+@media (max-width: 1050px) { .launcher-library { grid-template-columns: 190px minmax(0, 1fr); } .launcher-ready { display: none; } .launcher-playbar { gap: 24px; padding-inline: 25px; } .launcher-play { min-width: 170px; } .launcher-content { grid-template-columns: 1fr; gap: 30px; } .launcher-recent { max-width: 540px; } .launcher-local { display: none; } }
+@media (max-width: 700px) { .launcher-topbar { padding: 16px 20px 0; gap: 12px; } .launcher-brand { width: 100%; font-size: 18px !important; } .launcher-topbar nav { gap: 26px; } .launcher-topbar nav button { font-size: 13px; padding: 12px 0 15px; } .launcher-library { display: block; } .launcher-sidebar { display: none; } .launcher-hero { height: 290px; padding: 28px 24px; background-position: 59% center; } .launcher-hero-title { gap: 16px; } .launcher-hero-title > .launcher-dota-mark { width: 43px; height: 43px; } .launcher-hero-title h1 { font-size: 42px; letter-spacing: 5px; } .launcher-hero-title div > span { font-size: 9px; letter-spacing: 3px; } .launcher-hero-caption { right: 20px; font-size: 8px; } .launcher-playbar { padding: 18px 20px; gap: 20px; flex-wrap: wrap; } .launcher-play { min-width: 142px; font-size: 22px !important; padding: 12px 18px; } .launcher-playbar > div:last-of-type { display: none; } .launcher-content { padding: 28px 22px 35px; } .launcher-welcome h2 { font-size: 26px; } .launcher-footer { flex-direction: column; gap: 8px; line-height: 1.5; padding: 14px 20px; } .launcher-campaign-screen { padding: 24px 16px 40px; } .launcher-picker-heading { margin: 30px 0 25px; align-items: flex-start; flex-direction: column; gap: 20px; } .launcher-picker-heading h1 { font-size: 29px; } .launcher-picker-grid { grid-template-columns: minmax(0, 1fr); } .launcher-save-detail { border-left: 0; border-top: 1px solid #39404a; padding: 25px 22px; } .launcher-saves-header { padding: 18px; } .launcher-search { width: 100%; } .launcher-save-list { max-height: 330px; } .launcher-save { gap: 12px; padding: 17px 10px; } .launcher-detail-empty { padding: 15px 0; } .launcher-detail-empty h2 { font-size: 25px; } .launcher-error { margin: 16px 0; } }
+@media (prefers-reduced-motion: reduce) { .boot-progress::after { animation: none; width: 100%; } }

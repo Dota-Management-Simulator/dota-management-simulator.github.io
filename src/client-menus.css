@@ -349,7 +349,7 @@ button.s1-corner:hover { color: #fff; }
   .s1-top > nav::before, .s1-top > nav::after { display: none; }
   .s1-top > nav > .client-tab > button { width: auto; height: 36px; padding: 0 12px; font-size: 11px; }
   .s1-corner { width: 28px; height: 28px; margin-top: 6px; }
-  .s1-top > .s1-corner:last-child { display: none; }
+  .s1-top > .s1-corner:last-child:not(.client-power-button) { display: none; }
   .s1-logo > img { width: 38px; height: 38px; }
   .s1-logo > span { font-size: 32px; letter-spacing: 7px; }
   .s1-logo > small { margin-left: 0; width: 100%; }
@@ -381,7 +381,7 @@ button.s1-corner:hover { color: #fff; }
   .client-book-nav > button { width: 52px; height: 46px; }
   .beta-top { height: 64px; }
   .beta-corner { width: 44px; height: 44px; margin: 8px 6px; }
-  .beta-corner:last-child { display: none; }
+  .beta-corner:last-child:not(.client-power-button) { display: none; }
   .beta-top > nav > .client-tab > button { width: auto; padding: 0 14px 10px; font-size: 13px; }
   .beta-frame { padding: 10px; }
   .beta-bottom { grid-template-columns: minmax(0, 1fr); }

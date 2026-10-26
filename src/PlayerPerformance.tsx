@@ -7,6 +7,7 @@ import { heroIconFor } from "./hero-icons";
 import { performanceGroups, playerPerformance, summarizePerformance } from "./performance";
 import type { PerformanceGame } from "./performance";
 import "./performance.css";
+import MatchHistory from "./MatchHistory";
 
 const number = (n: number | null, digits = 0) => n == null ? "—" : n.toLocaleString("en-US", { maximumFractionDigits: digits, minimumFractionDigits: digits });
 const percent = (n: number | null) => n == null ? "—" : `${number(n)}%`;
@@ -101,7 +102,7 @@ export default function PlayerPerformance({ campaign, playerId }: { campaign: Ca
 }
 
 export function PlayerProfileTabs({ campaign, playerId, children }: { campaign: Campaign; playerId: string; children: ReactNode }) {
-  const [performance, setPerformance] = useState(false);
-  return <><div className="profile-section-switch" role="group" aria-label="Player profile sections"><button type="button" aria-pressed={!performance} onClick={() => setPerformance(false)}>Profile & contract</button><button type="button" aria-pressed={performance} onClick={() => setPerformance(true)}><BarChart3 size={15} />Performance</button></div>
-    <div hidden={performance}>{children}</div>{performance && <PlayerPerformance campaign={campaign} playerId={playerId} />}</>;
+  const [section, setSection] = useState("profile");
+  return <><div className="profile-section-switch" role="group" aria-label="Player profile sections"><button type="button" aria-pressed={section === "profile"} onClick={() => setSection("profile")}>Profile & contract</button><button type="button" aria-pressed={section === "performance"} onClick={() => setSection("performance")}><BarChart3 size={15} />Performance</button><button type="button" aria-pressed={section === "history"} onClick={() => setSection("history")}>Match history</button></div>
+    <div hidden={section !== "profile"}>{children}</div>{section === "performance" && <PlayerPerformance campaign={campaign} playerId={playerId} />}{section === "history" && <MatchHistory campaign={campaign} playerId={playerId}/>}</>;
 }

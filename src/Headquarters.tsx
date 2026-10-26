@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import { useEffect, useState } from "react";
 import { ArrowRight, ChevronRight, ClipboardList, Mail, Pause, Play, Shield, Swords, Trophy, Users, Zap } from "lucide-react";
 import type { Campaign, Page, Player } from "./game";
@@ -37,7 +38,7 @@ export default function Headquarters(props: HeadquartersProps) {
   const client = event?.layout === "source1" || (!event && (era.layout === "beta" || era.layout === "source1"));
   const reborn = event?.layout === "reborn" || (!event && era.layout === "reborn");
   return <div className="desk-client">
-    {available.length > 0 && <div className="desk-theme-bar"><span>MANAGER’S DESK <small>PATCH {patch.id}</small></span><label>Event screens<select aria-label="Desk event screen" value={choice} onChange={e => setChoice(e.target.value)}><option value="current">Current update · {ti && choice === "current" ? `The International ${ti.year}` : current?.name ?? era.title}</option>{available.map(item => <option key={item.id} value={item.id}>{item.name} · {item.historicalRelease.slice(0, 4)}</option>)}</select></label>{choice !== "current" && <button onClick={() => setChoice("current")}>Return to current update</button>}</div>}
+    {available.length > 0 && <div className="desk-theme-bar"><span>MANAGER’S DESK <small>PATCH {patchLabel(patch)}</small></span><label>Event screens<select aria-label="Desk event screen" value={choice} onChange={e => setChoice(e.target.value)}><option value="current">Current update · {ti && choice === "current" ? `The International ${ti.year}` : current?.name ?? era.title}</option>{available.map(item => <option key={item.id} value={item.id}>{item.name} · {item.historicalRelease.slice(0, 4)}</option>)}</select></label>{choice !== "current" && <button onClick={() => setChoice("current")}>Return to current update</button>}</div>}
     {reborn ? <RebornClient {...props} event={event} ti={choice === "current" ? ti : undefined} archived={archived} />
       : client ? <ClientDashboard {...props} variant={event || era.layout === "source1" ? "source1" : "beta"} event={event} ti={choice === "current" ? ti : undefined} archived={archived} />
       : <StandardHeadquarters {...props} />}
@@ -64,7 +65,7 @@ function StandardHeadquarters({ campaign, onPage, onPlayer, onCompetition }: Hea
   }, []);
 
   return <section className="dota-lobby" aria-label="Manager’s Desk lobby">
-    <div className="lobby-era-strip"><span>{menu.era.title}</span><strong>Patch {patch.id} · {patch.name}</strong><button onClick={() => onPage("patch")}>View update<ArrowRight size={12} /></button></div>
+    <div className="lobby-era-strip"><span>{menu.era.title}</span><strong>Patch {patchLabel(patch)} · {patch.name}</strong><button onClick={() => onPage("patch")}>View update<ArrowRight size={12} /></button></div>
     <div className="lobby-main">
       <div className="lobby-profile">
         <div className="lobby-team-badge"><TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="large" /><span className="lobby-kicker">MANAGER’S DESK</span></div>
@@ -85,7 +86,7 @@ function StandardHeadquarters({ campaign, onPage, onPlayer, onCompetition }: Hea
       <aside className="lobby-briefing" aria-label="Club briefing">
         <section className="lobby-event"><span className="lobby-card-kicker"><Trophy size={14} />{competition?.opponent ? "NEXT SERIES" : "THE ROAD TO THE INTERNATIONAL"}</span><div className="lobby-event-art" aria-hidden="true"><Trophy size={66} /><span>{!competition || competition.name.includes("International") ? <>THE<br />INTERNATIONAL</> : <>YOUR<br />NEXT SERIES</>}</span></div><h3>{competition?.name ?? "Choose your next tournament"}</h3><p>{competition?.opponent ? `${campaign.settings.team} vs ${competition.opponent}` : "Review invitations and plan your tournament calendar."}</p>{competition && <small>{competition.stage}{competition.estimated ? " · Estimated date" : ""}</small>}<button className="lobby-match-button" onClick={onCompetition}>{competition?.opponent ? "Open match centre" : "Season calendar"}<ArrowRight size={15} /></button></section>
         <button className="lobby-briefing-row" onClick={() => onPage("next-series")}><ClipboardList size={20} /><span><strong>Prepare for your opponent</strong><small>Scouting & draft preparation</small></span><ChevronRight size={15} /></button>
-        <button className="lobby-briefing-row lobby-patch-row" onClick={() => onPage("patch")}><Shield size={20} /><span><strong>Patch {patch.id}</strong><small>{patch.name}</small></span><ChevronRight size={15} /></button>
+        <button className="lobby-briefing-row lobby-patch-row" onClick={() => onPage("patch")}><Shield size={20} /><span><strong>Patch {patchLabel(patch)}</strong><small>{patch.name}</small></span><ChevronRight size={15} /></button>
         <button className="lobby-briefing-row" onClick={() => onPage("inbox")}><Mail size={20} /><span><strong>Club inbox</strong><small>{unread} unread {unread === 1 ? "message" : "messages"}</small></span>{unread > 0 && <span className="lobby-message-count">{unread}</span>}<ChevronRight size={15} /></button>
       </aside>
     </div>

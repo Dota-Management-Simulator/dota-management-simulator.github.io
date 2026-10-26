@@ -76,7 +76,7 @@ export function patchReport(patch: SeasonPatch, observer: PatchObserver): PatchR
     return [key, { ...estimate(patch.axes[key], width, `${seed}:${key}`),
       staffNames: specialists.filter(s => s.coverage[key] === width).map(s => s.name) }];
   })) as PatchReport["axes"];
-  const count = Math.min(patch.heroes.length, 2 + staff.reduce((n, s) => n + s.extraHeroes, 0));
+  const count = Math.min(patch.heroes.length, staff.reduce((n, s) => n + s.extraHeroes, 0));
   const heroes = [...patch.heroes].sort((a, b) => hash(`${seed}:${a.id}`) - hash(`${seed}:${b.id}`) || a.id.localeCompare(b.id))
     .slice(0, count).map(h => ({ id: h.id, winRate: heroKnowledgeEstimate(patch, observer, h.id, true) }));
   // Only heroes actually seen in at least two practice maps enter coach decisions.

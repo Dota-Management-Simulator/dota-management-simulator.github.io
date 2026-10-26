@@ -11,12 +11,14 @@ import { tournamentForRun, tournamentById } from "./tournaments";
 import { roundTraining } from "./training";
 import { nextScrim, scrimFocuses, scrimHours } from "./scrim-state";
 import type { Scrim, ScrimFocus } from "./scrim-state";
+import { fullRosterBlocker } from "./player-welfare";
 
 const DAY = 86400000;
 const hash = (text: string) => [...text].reduce((n, ch) => Math.imul(n ^ ch.charCodeAt(0), 16777619) >>> 0, 2166136261);
 export const scrimOpponents = (c: Campaign) => c.world ? activeClubs(c.world).filter(t => t.id !== c.world!.managedTeamId && t.roster.length === 5 && new Set(t.roster).size === 5 && t.roster.every(id => !c.roster.includes(id) && c.players.some(p => p.id === id))) : [];
 
 export function scrimSlotBlocker(c: Campaign, opponentId: string, at: string, bestOf: number, ignoreId?: string): string | null {
+  if (fullRosterBlocker(c)) return fullRosterBlocker(c);
   if (!c.calendar) return "Use the dated calendar to schedule team scrims.";
   if (!scrimOpponents(c).some(t => t.id === opponentId)) return "This team no longer has an available starting five.";
   if (![1, 2, 3].includes(bestOf)) return "Choose BO1, BO2 or BO3.";

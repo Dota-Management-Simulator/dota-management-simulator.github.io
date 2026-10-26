@@ -181,7 +181,7 @@ export function validateSeries(fixture: TournamentFixture, series: SeriesSummary
   const counts = [0, 1].map(side => series.games.filter(g => g.winner === side).length + advantage[side]);
   const max = Math.floor(fixture.bestOf / 2) + 1;
   const winner = counts[0] === counts[1] ? null : counts[0] > counts[1] ? 0 : 1;
-  if (series.engine !== "lane-siege-v1" || series.games.some(g => g.winner !== 0 && g.winner !== 1) || counts.some((n, i) => n !== series.score[i]) || winner !== series.winner ||
+  if (series.engine !== "lane-siege-v1" || series.games.some(g => !Number.isFinite(g.duration) || g.duration <= 0 || (g.winner !== 0 && g.winner !== 1)) || counts.some((n, i) => n !== series.score[i]) || winner !== series.winner ||
       (fixture.bestOf === 2 ? series.games.length !== 2 : winner == null || counts[winner] !== max || counts[1 - winner] >= max || !series.games.length || series.games.at(-1)!.winner !== winner || series.games.slice(0, -1).filter(g => g.winner === winner).length + advantage[winner] >= max))
     throw new Error("The series result does not match this tournament fixture.");
 }

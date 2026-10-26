@@ -332,6 +332,9 @@ test("a regional qualifier earns the correct main-event field slot, pays no inve
   assert.equal(main.invited.length, 13);
   let c = enableHistoricalCalendar(createCampaign({ ...DEFAULT_SETTINGS, year: 2012 }));
   c.calendar!.now = c.calendar!.origin = "2012-01-01T00:00:00Z"; // Existing qualifier/payroll scenario.
+  // Long pre-event gap is a recovery block, avoiding unrelated resignations.
+  c.cash = 1000000;
+  for (const id of c.roster) c.training[id] = "Rest";
   const club = c.world!.managedTeamId;
   // An organizer-issued invitation is part of the fixture setup; all series
   // below still have to be won before the main-event place is awarded.

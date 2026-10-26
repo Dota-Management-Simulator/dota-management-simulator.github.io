@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import { useEffect, useRef, useState } from "react";
 import type { Campaign } from "./game";
 import { patchById } from "./patches";
@@ -51,11 +52,11 @@ export default function PatchArrival({ campaign, busy, onDismiss, onRead }: { ca
   const arrivals = patchHeroArrivals(patch);
   const dismiss = () => onDismiss(patch.id);
   return <dialog ref={dialog} className="patch-arrival-dialog" aria-labelledby="patch-arrival-title" onCancel={e => { e.preventDefault(); dismiss(); }}>
-    <div className="eyebrow">A NEW CHAPTER · PATCH {milestone?.version ?? patch.id}</div>
+    <div className="eyebrow">A NEW CHAPTER · PATCH {patchLabel(patch)}</div>
     <h2 id="patch-arrival-title">{milestone?.title ?? patch.name}</h2>
     <p>{milestone?.summary ?? patch.description}</p>
     {milestone && <p>{patch.description}</p>}
-    <p>Season composite {patch.id} · {patch.generated ? "Fictional future balance" : `Includes ${patch.versions}`}. Existing tournaments retain their opening rules.</p>
+    <p>Patch {patchLabel(patch)} · {patch.generated ? "Fictional future balance" : `Includes ${patch.versions}`}. Existing tournaments retain their opening rules.</p>
     <section className="patch-popup-heroes"><h3>{arrivals.length ? `New heroes · ${arrivals.length}` : "Hero pool"}</h3>
       {arrivals.length ? <><p>These heroes join auto-drafting with this opening patch.</p><div className="patch-arrivals">{arrivals.map(hero => { const icon = heroIconFor(hero.id); return <span key={hero.id}>{icon && <img src={`${import.meta.env.BASE_URL}${icon.path}`} alt="" />}<strong>{hero.name}</strong></span>; })}</div></> : <p>No new heroes in this drop. The current pool carries forward.</p>}
     </section>

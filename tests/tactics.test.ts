@@ -40,6 +40,8 @@ test("staff and actual player attributes unlock advanced plays; basic calls rema
 
 test("gank calls move real participants, cost time and can be cancelled and reused only after recovery",()=>{
   const c=config(),battle=new LaneBattle(c),control=new LaneBattle(c);
+  // Isolate travel/cancellation from changing hero kits and combat lethality.
+  for(const b of [battle,control])for(const u of heroes(b).filter(u=>u.team===1)){u.dead=true;u.respawn=9999;}
   const mid=heroes(battle).find(u=>u.team===0&&u.player!.role===1)!;
   const before={power:mid.power,damage:mid.damage,hp:mid.max};
   assert.equal(battle.issueOrder(0,{strategyId:"mid-bottom"}).accepted,true);
@@ -112,6 +114,7 @@ test("active BKB reduces actual spell damage and stuns rather than adding a hidd
     const battle=new LaneBattle(config()),all=heroes(battle),caster=all[0],target=all[5];
     for(const u of all)if(u!==caster&&u!==target){u.dead=true;u.respawn=999;}
     for(const u of battle.units){if(u.kind==="tower")u.cd=999;if(u.kind==="hero")u.gold=0;}
+    caster.spells=[];target.spells=[]; // Exercise compatibility for legacy maps without named spells.
     caster.hero={...caster.hero!,ability:"stun"};caster.x=390;caster.y=400;caster.abilityCd=0;caster.cd=999;
     target.x=400;target.y=400;target.bkbUntil=protectedByBkb?100:0;target.cd=999;target.abilityCd=999;
     const hp=target.hp;battle.step();return {damage:hp-target.hp,stun:target.stun};
@@ -169,11 +172,47 @@ test("live stepping, speed chunks, inspection and skip continue the identical se
 });
 
 test("tactical preparation survives reload without changing dates, finances, ratings or old results",()=>{
-  const c=createCampaign(DEFAULT_SETTINGS),prep=defaultTactics();prep.builds[2]="survival";prep.slots.mid[0]="push-0";c.tacticalPreparation=prep;
+  const c=createCampaign(DEFAULT_SETTINGS),prep=defaultTactics();prep.builds[2]="survival";prep.slots.mid[0]="push-0";prep.autoGlyph=false;c.tacticalPreparation=prep;
   const previous=globalThis.localStorage;
   Object.defineProperty(globalThis,"localStorage",{configurable:true,value:{getItem:(key:string)=>key===SAVE_KEY?JSON.stringify(c):null}});
   try{const loaded=readSave()!;assert.deepEqual(loaded.tacticalPreparation,prep);assert.equal(loaded.cash,c.cash);assert.equal(loaded.week,c.week);assert.deepEqual(loaded.results,c.results);assert.deepEqual(loaded.players.map(p=>p.stats),c.players.map(p=>p.stats));
     assert.deepEqual(buildBattleConfig(loaded,events[0],5).tacticalPreparations?.[0],prep);
   }finally{Object.defineProperty(globalThis,"localStorage",{configurable:true,value:previous});}
   const patch=patchById("2011.1")!;assert.equal(calibrationForPatch({...patch,axes:{...patch.axes,tempo:patch.axes.tempo+1}}),undefined);assert.ok(heroBalanceSignature(patch));
+});
+
+test("all-player quick-slot purchases skip owned, full and existing priorities and spend individual gold",()=>{
+  const battle=new LaneBattle(config());battle.time=150;
+  const own=heroes(battle).filter(u=>u.team===0),enemy=heroes(battle).filter(u=>u.team===1);
+  own[0].inventory=['bkb'];
+  own[1].inventory=['heart','butterfly','desolator','rapier','blink','force'];
+  own[2].itemPriority='bkb';
+  own[3].gold=0;own[4].gold=6000;
+  assert.equal(battle.strategyReason(0,{strategyId:'buy-bkb',targetPlayerId:'all'}),null);
+  assert.equal(battle.issueOrder(0,{strategyId:'buy-bkb',targetPlayerId:'all'}).accepted,true);
+  assert.deepEqual(own.map(u=>u.itemPriority),[undefined,undefined,'bkb','bkb','bkb']);
+  assert.ok(enemy.every(u=>!u.itemPriority));
+  assert.equal(battle.tacticalEvents.filter(e=>e.status==='called'&&e.source==='manager').length,2);
+  assert.match(battle.strategyReason(0,{strategyId:'buy-bkb',targetPlayerId:'all'})!,/Ready in/);
+  ticks(battle,4);
+  assert.ok(own[4].inventory.includes('bkb'));
+  assert.ok(!own[3].inventory.includes('bkb'));
+  assert.equal(own[3].itemPriority,'bkb');
+  battle.cancelItemPriority(0,own[3].player!.id);
+  assert.equal(own[3].itemPriority,undefined);
+  assert.equal(own[2].itemPriority,'bkb');
+});
+
+test("live all-player item priorities use the same eligible own-team targets",()=>{
+  const session=new LiveBattleSession(config());
+  const own=heroes(session.battle).filter(u=>u.team===0);
+  own[0].inventory=['blink'];
+  const update=session.command({type:'purchase-item',playerId:'all',itemId:'blink'});
+  assert.match(update.message!,/eligible players/);
+  assert.deepEqual(update.tactics.itemTargets.map(t=>t.playerId),own.slice(1).map(u=>u.player!.id));
+  assert.ok(heroes(session.battle).filter(u=>u.team===1).every(u=>!u.itemPriority));
+  assert.match(session.command({type:'purchase-item',playerId:'all',itemId:'blink'}).message!,/No eligible/);
+  session.battle.time=150;
+  assert.equal(session.command({type:'order',at:session.battle.clock,order:{strategyId:'buy-bkb',targetPlayerId:'all'}}).message,'Order accepted.');
+  assert.equal(session.update().tactics.itemTargets.length,5);
 });

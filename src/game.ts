@@ -7,6 +7,8 @@ import { heroUnlockYear, heroesArrivingIn } from "./heroes";
 import { attributeNames, roundTraining } from "./training";
 import { applyPlayerPractice, developWorldPlayers } from "./development";
 import type { TrainingSchedule } from "./training";
+import { campAttendance, finishCampWeek, normalizeBootcamp, normalizeCampReport } from "./bootcamp";
+import type { Bootcamp, CampReport } from "./bootcamp";
 import { normalizeTrainingPresets } from "./training-presets";
 import type { TrainingPreset } from "./training-presets";
 export type { Training } from "./training";
@@ -38,6 +40,9 @@ import type { BotChallengeState } from "./bot-challenge";
 import { normalizeAllStars } from "./all-star";
 import type { AllStarResult } from "./all-star";
 import type { ScrimState } from "./scrim-state";
+import { freshWelfare, fullRosterBlocker, normalizeWelfare, reviewPlayerWelfare, welfareRecord } from "./player-welfare";
+import type { PlayerWelfare } from "./player-welfare";
+import { normalizeOffice, normalizeSponsorships } from "./save-optional";
 
 export const ROLES = [
   "Carry",
@@ -54,6 +59,7 @@ export type Player = Omit<(typeof world.players)[number], "age"> & {
 };
 export type Page =
   | "overview"
+  | "profile"
   | "inbox"
   | "roster"
   | "training"
@@ -95,6 +101,7 @@ export interface Result {
   tournamentId?: string;
 }
 export interface Campaign {
+  welfare?: PlayerWelfare;
   scrims?: ScrimState;
   /** Exhibitions: they never move the clock or touch ratings (docs/event-modes.md). */
   botChallenges?: BotChallengeState;
@@ -116,6 +123,8 @@ export interface Campaign {
   roster: string[];
   training: Record<string, Training>;
   trainingSchedules?: Record<string, TrainingSchedule>;
+  bootcamp?: Bootcamp;
+  lastCampReport?: CampReport;
   trainingPresets?: TrainingPreset[];
   trainingQuickSlots?: (string | null)[];
   sponsorIds: string[];
@@ -260,6 +269,7 @@ export function createCampaign(settings: Settings): Campaign {
     transactions: [],
   };
   campaign.sponsorships = initialSponsorships(campaign);
+  campaign.welfare = { players: Object.fromEntries(campaign.roster.map(id => [id, freshWelfare(campaign)])), departures: [] };
   return campaign;
 }
 function note(c: Campaign, text: string) {
@@ -327,7 +337,8 @@ export function advanceWeek(current: Campaign): Campaign {
   return c;
 }
 
-function applyWeeklyManagement(c: Campaign) {
+function applyWeeklyManagement(c: Campaign, reviewWeek = campaignWeek(c) + 1, end?: number) {
+  const campRows = c.bootcamp ? campAttendance(c) : [];
   transaction(c, "Weekly payroll", -weeklyWages(c));
   if (weeklyIncome(c)) transaction(c, "Sponsor income", weeklyIncome(c));
   c.reputation = roundTraining(c.reputation + sponsorBenefits(c).reputation);
@@ -336,7 +347,9 @@ function applyWeeklyManagement(c: Campaign) {
     const practice = weeklyPractice(c, p, plan);
     applyPlayerPractice(p, plan, practice, c.cash < 0);
   }
+  finishCampWeek(c, campRows);
   developWorldPlayers(c);
+  for (const id of reviewPlayerWelfare(c, reviewWeek, end)) departPlayer(c, id, "quit", reviewWeek, end);
 }
 
 /** Real elapsed time pays and trains once per seven days, across year changes.
@@ -367,7 +380,7 @@ export function advanceCalendarTo(current: Campaign, at: string, tournamentProgr
     // Reconcile arrivals before the weekly tick, whether the manager advances
     // in one jump or stops between ticks. Newly available players train once.
     reconcileHistoricalImports(c, new Date(tick).toISOString());
-    applyWeeklyManagement(c);
+    applyWeeklyManagement(c, calendar.contractEpoch + calendar.paidWeeks + 1, tick);
     calendar.paidWeeks++;
     updateDate(tick);
     reconcileHistoricalImports(c);
@@ -405,9 +418,11 @@ export function simulateEvent(
   e: GameEvent,
   seed = Math.floor(Math.random() * 4294967296),
 ): Campaign {
+  if (fullRosterBlocker(current)) return current;
   if (eventResult(current, e.id) || e.week < current.week) return current;
   if (e.kind === "ti" && !current.qualified) return current;
   const prepared = prepareEvent(current, e);
+  if (fullRosterBlocker(prepared)) return prepared;
   return settleEvent(
     current,
     e,
@@ -428,7 +443,10 @@ export const opponentFor = (c: Campaign) => opponentClub(c)?.name ??
 export const playerTeam = (c: Campaign, id: string) =>
   clubForPlayer(c.world, id)?.name ?? (c.roster.includes(id) ? c.settings.team : "Free agent");
 export function recruitmentBlocker(c: Campaign, id: string): string | null {
+  const quit = c.welfare?.departures.filter(d => d.playerId === id && d.kind === "quit").at(-1);
+  if (quit && campaignWeek(c) - quit.week < 4) return "This player recently quit. Allow four weeks before approaching them again.";
   const outgoing = teamPlayers(c).find(p => p.role === c.players.find(v => v.id === id)?.role);
+  if (c.scrims?.sessions.some(s => s.status === "scheduled" && s.config?.players.flat().some(p => p.id === id || p.id === outgoing?.id))) return "Finish or cancel the prepared scrim before changing its registered lineup.";
   const lock = playerTournamentLock(c, id) ?? (outgoing ? playerTournamentLock(c, outgoing.id) : null);
   if (lock) return lock;
   if (!c.world) return null;
@@ -439,6 +457,8 @@ export function buildBattleConfig(
   e: GameEvent,
   seed = Math.floor(Math.random() * 4294967296),
 ): BattleConfig {
+  const rosterBlock = fullRosterBlocker(c);
+  if (rosterBlock) throw new Error(rosterBlock);
   const random = seededRandom(seed);
   const players = teamPlayers(c).map((p, role) => ({
     id: p.id,
@@ -508,6 +528,7 @@ export function settleEvent(
   )
     throw new Error("Invalid series result");
   let c = prepareEvent(current, e);
+  if (fullRosterBlocker(c)) return c;
   const won = series.winner === 0;
   const points = won ? e.points : Math.floor(e.points * 0.25);
   const prize = won ? e.prize : Math.floor(e.prize * 0.12);
@@ -551,26 +572,78 @@ export function signPlayer(current: Campaign, id: string): Campaign {
   const slot = c.roster.findIndex(
     (pid) => c.players.find((player) => player.id === pid)?.role === p.role,
   );
-  if (slot < 0) return current;
+  if (slot < 0 && c.roster.length >= 5) return current;
   const previousId = c.roster[slot];
-  const severance = releaseCost(c, previousId);
+  const severance = previousId ? releaseCost(c, previousId) : 0;
   if (c.cash < p.fee + severance) return current;
   const owner = playerTeam(c, id);
   if (c.world) {
     const reason = recruitHistoricalPlayer(c.world, c.players, id);
     if (reason) return current;
     c.roster = [...c.world.clubs.find((t) => t.id === c.world!.managedTeamId)!.roster];
-  } else c.roster[slot] = id;
+  } else if (slot < 0) c.roster.push(id);
+  else c.roster[slot] = id;
+  c.roster.sort((a, b) => ROLES.indexOf(c.players.find(p => p.id === a)!.role as Role) - ROLES.indexOf(c.players.find(p => p.id === b)!.role as Role));
   transaction(c, `${p.name} signing fee`, -p.fee);
   if (severance) transaction(c, `${c.players.find((v) => v.id === previousId)!.name} early release`, -severance);
-  if (c.contracts?.[previousId]) {
+  if (previousId && c.contracts?.[previousId]) {
     c.players.find((v) => v.id === previousId)!.wage = c.contracts[previousId].marketWage;
     delete c.contracts[previousId];
   }
+  c.welfare ??= { players: {}, departures: [] };
+  c.welfare.players[id] = freshWelfare(c);
+  if (previousId) delete c.welfare.players[previousId];
   note(
     c,
-    `${p.name} joins as ${p.role.toLowerCase()}. The previous starter leaves the lineup.${owner !== "Free agent" ? ` ${owner}'s lineup remains complete after regional recruitment.` : ""}`,
+    `${p.name} joins as ${p.role.toLowerCase()}.${previousId ? " The previous starter leaves the lineup." : " The vacant position is filled."}${owner !== "Free agent" ? ` ${owner}'s lineup remains complete after regional recruitment.` : ""}`,
   );
+  return c;
+}
+export function releasePlayerBlocker(c: Campaign, id: string): string | null {
+  if (!c.roster.includes(id)) return "This player is not in your starting lineup.";
+  const lock = playerTournamentLock(c, id);
+  if (lock) return lock;
+  if (c.scrims?.sessions.some(s => s.status === "scheduled" && s.config?.players.flat().some(p => p.id === id))) return "Finish or cancel the prepared scrim before changing its registered lineup.";
+  const cost = releaseCost(c, id);
+  return cost > 0 && c.cash < cost ? "Insufficient funds for the early-release payment." : null;
+}
+
+/** Shared removal keeps market ownership, wages and saved lineups consistent. */
+function departPlayer(c: Campaign, id: string, kind: "quit" | "kicked", week = campaignWeek(c), at?: number) {
+  const player = c.players.find(p => p.id === id);
+  if (!player || !c.roster.includes(id) || playerTournamentLock(c, id)) return;
+  if (c.scrims?.sessions.some(s => s.status === "scheduled" && s.config?.players.flat().some(p => p.id === id))) return;
+  const record = welfareRecord(c, id);
+  const reason = kind === "quit" ? record.concerns.join(" ") || "Persistent unhappiness after notice." : "Released by the manager.";
+  const severance = kind === "kicked" ? releaseCost(c, id) : 0;
+  if (severance) transaction(c, `${player.name} early release`, -severance);
+  if (c.contracts?.[id]) { player.wage = c.contracts[id].marketWage; delete c.contracts[id]; }
+  c.roster = c.roster.filter(pid => pid !== id);
+  if (c.world) {
+    for (const club of c.world.clubs) { club.roster = club.roster.filter(pid => pid !== id); club.bench = club.bench.filter(pid => pid !== id); }
+    c.world.protectedPlayerIds = [...new Set([...c.world.protectedPlayerIds, id])];
+  }
+  c.welfare ??= { players: {}, departures: [] };
+  c.welfare.departures.push({ id: `${id}:${week}:${c.welfare.departures.length}`, playerId: id, name: player.name, week, at: at === undefined ? c.calendar?.now ?? `${Math.floor(week / 18)} · Week ${week % 18 + 1}` : new Date(at).toISOString(), kind, reason, severance });
+  c.welfare.departures = c.welfare.departures.slice(-80);
+  delete c.welfare.players[id];
+  for (const other of Object.values(c.welfare.players)) delete other.conflicts[id];
+  note(c, `${player.name} ${kind === "quit" ? "quit after unresolved concerns and notice" : "was kicked from the team"}. ${player.role} is vacant; recruit a replacement before playing.`);
+}
+export function releasePlayer(current: Campaign, id: string): Campaign {
+  if (releasePlayerBlocker(current, id)) return current;
+  const c = structuredClone(current);
+  departPlayer(c, id, "kicked");
+  return c;
+}
+export function settlePlayerDepartures(current: Campaign): Campaign {
+  const due = current.roster.filter(id => {
+    const record = welfareRecord(current, id);
+    return record.noticeAt !== undefined && campaignWeek(current) >= record.noticeAt + 2 && record.satisfaction <= 30 && !playerTournamentLock(current, id);
+  });
+  if (!due.length) return current;
+  const c = structuredClone(current);
+  for (const id of due) departPlayer(c, id, "quit");
   return c;
 }
 export function negotiateContract(current: Campaign, id: string, offer: ContractOffer): {
@@ -628,8 +701,12 @@ export function dismissStaff(current: Campaign, id: string): Campaign {
 }
 export const SAVE_KEY = "aegis-manager-campaign-v1";
 export function readSave(): Campaign | null {
+  try { return decodeSave(localStorage.getItem(SAVE_KEY)); }
+  catch { return null; }
+}
+/** Shared validation and optional-field recovery for every local campaign slot. */
+export function decodeSave(value: string | null): Campaign | null {
   try {
-    const value = localStorage.getItem(SAVE_KEY);
     if (!value) return null;
     const c = JSON.parse(value);
     if (
@@ -646,14 +723,20 @@ export function readSave(): Campaign | null {
       !Number.isFinite(c.cash) ||
       !Number.isFinite(c.week) ||
       !Number.isFinite(c.year) ||
-      c.roster.length !== 5 ||
+      c.roster.length > 5 || new Set(c.roster).size !== c.roster.length ||
       !c.roster.every((id: string) =>
         c.players.some((p: Player) => p.id === id && p.stats),
       )
     )
       return null;
     if (c.settings.branding) c.settings.branding = normalizeBranding(c.settings.branding);
+    if (c.office !== undefined) c.office = normalizeOffice(c.office);
+    if (c.sponsorships !== undefined) c.sponsorships = normalizeSponsorships(c.sponsorships);
     if (c.trainingPresets !== undefined) c.trainingPresets = normalizeTrainingPresets(c.trainingPresets);
+    if (c.bootcamp !== undefined) c.bootcamp = normalizeBootcamp(c.bootcamp);
+    if (c.lastCampReport !== undefined) c.lastCampReport = normalizeCampReport(c.lastCampReport);
+    c.welfare = normalizeWelfare(c.welfare) ?? { players: {}, departures: [] };
+    for (const id of c.roster) c.welfare.players[id] ??= freshWelfare(c);
     if (c.scrims !== undefined) c.scrims = normalizeScrims(c.scrims);
     if (c.botChallenges !== undefined) { c.botChallenges = normalizeBotChallenges(c.botChallenges); if (!c.botChallenges) delete c.botChallenges; }
     if (c.allStars !== undefined) { c.allStars = normalizeAllStars(c.allStars); if (!c.allStars) delete c.allStars; }

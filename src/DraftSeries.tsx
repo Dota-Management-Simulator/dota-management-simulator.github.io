@@ -1,3 +1,5 @@
+import { startSimulationWorker } from "./simulation-worker";
+import { patchLabel } from "./patch-label";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { BattleConfig, SimulatedSeries } from "./battle";
 import { assignDraftRoles, automaticDraftAction, completeMapDraft, createMapDraft, draftSuggestions, nextDraftStep, normalizeDraftPreparation, takeDraftAction } from "./draft";
@@ -20,7 +22,7 @@ import DraftPreparationGrid from "./DraftPreparation";
 export default function DraftSeries({campaign,config,preparation,skipPlayback=false,onPreparation,onTactics,onComplete,onCancel,managedTeamId}: {
   campaign: Campaign;
   config:BattleConfig; preparation?:DraftPreparation; skipPlayback?:boolean;
-  onPreparation:(prep:DraftPreparation)=>void; onComplete:(series:SimulatedSeries)=>void;
+  onPreparation:(prep:DraftPreparation)=>void; onComplete:(series:SimulatedSeries)=>void | boolean;
   onTactics:(prep:TacticalPlan)=>void;
   onCancel:()=>void; managedTeamId?:string;
 }){
@@ -57,17 +59,15 @@ export default function DraftSeries({campaign,config,preparation,skipPlayback=fa
       const mapConfig:BattleConfig={...cfg,seed:(config.seed+state.map*7919)>>>0,draft:draft.heroes,draftRecord:draft,seriesFormat:{bestOf:1}};
       if(watch){setLiveConfig(mapConfig);return;}
       setBusy(true);
-      const w=new Worker(new URL("./battle.worker.ts",import.meta.url),{type:"module"});worker.current=w;
-      const fail=(message:string)=>{w.terminate();worker.current=null;setBusy(false);setError(message);};
-      w.onmessage=({data})=>{
+
+      const fail=(message:string)=>{worker.current?.terminate();worker.current=null;setBusy(false);setError(message);};
+      worker.current=startSimulationWorker(()=>new Worker(new URL("./battle.worker.ts",import.meta.url),{type:"module"}),mapConfig,({data},w)=>{
         if(worker.current!==w)return;
         if(data.type==="complete"){
           w.terminate();worker.current=null;setBusy(false);
           setMaps(previous=>[...previous,data.simulation]);setCurrent(data.simulation);
         }else if(data.type==="error")fail(data.message);
-      };
-      w.onerror=()=>fail("The map worker could not finish. Your campaign result has not changed; retry this draft.");
-      w.postMessage(mapConfig);
+      },()=>fail("The map worker could not finish. Your campaign result has not changed; retry this draft."));
     }catch(e){worker.current?.terminate();worker.current=null;setBusy(false);setError(e instanceof Error?e.message:"Could not start map.");}
   };
   useEffect(()=>{
@@ -82,18 +82,27 @@ export default function DraftSeries({campaign,config,preparation,skipPlayback=fa
     if(done){
       if(completed.current)return;completed.current=true;
       const first=maps[0];
-      onComplete({summary:{...first.summary,seed:config.seed,bestOf,advantage:initial as [number,number],score,
-        winner:score[0]===score[1]?null:score[0]>score[1]?0:1,games:maps.map(m=>m.summary.games[0])},frames:maps.map(m=>m.frames[0])});
+      try {
+        const recorded = onComplete({summary:{...first.summary,seed:config.seed,bestOf,advantage:initial as [number,number],score,
+          winner:score[0]===score[1]?null:score[0]>score[1]?0:1,games:maps.map(m=>m.summary.games[0])},frames:maps.map(m=>m.frames[0])});
+        if (recorded === false) {
+          completed.current=false;
+          setError("The series could not be recorded. Your completed maps are retained; retry Finish series.");
+        }
+      } catch (e) {
+        completed.current=false;
+        setError(e instanceof Error ? e.message : "The series could not be recorded. Your completed maps are retained; retry Finish series.");
+      }
     }else{setCurrent(null);setLiveConfig(null);setPreparing(false);setMode(null);setState(createMapDraft(cfg,maps.length));setQuery("");setError("");}
   };
-  if(liveConfig)return <LiveMatchViewer config={liveConfig} managedTeamId={managedTeamId} onComplete={simulation=>{setMaps(previous=>[...previous,simulation]);setCurrent(simulation);setLiveConfig(null);}}/>;
-  if(current)return <SeriesResults result={{eventId:"draft-map",event:`Map ${maps.length} · series ${score.join("–")}`,year:config.year,week:0,
+  if(liveConfig)return <LiveMatchViewer config={liveConfig} managedTeamId={managedTeamId} onAutoGlyphChange={enabled=>{const next={...tactics,autoGlyph:enabled};setTactics(next);onTactics(next);}} onComplete={simulation=>{setMaps(previous=>[...previous,simulation]);setCurrent(simulation);setLiveConfig(null);}}/>;
+  if(current)return <div><SeriesResults result={{eventId:"draft-map",event:`Map ${maps.length} · series ${score.join("–")}`,year:config.year,week:0,
     won:current.summary.winner===0,prize:0,points:0,opponent:config.teams[1],score:current.summary.score.join("–"),series:current.summary}}
-    managedTeamId={managedTeamId} mapOnly closeLabel={done?"Finish series":`Draft map ${maps.length+1}`} onClose={continueMap}/>;
+    managedTeamId={managedTeamId} playedAt={campaign.calendar?.now} mapOnly closeLabel={done?"Finish series":`Draft map ${maps.length+1}`} onClose={continueMap}/>{error&&<p role="alert">{error}</p>}</div>;
   const filtered=choices.filter(({hero:h})=>h.name.toLowerCase().includes(query.toLowerCase())&&(role==="all"||h.roles.includes(+role)));
   const start=(m:"auto"|"manual")=>{onPreparation(prep);setMode(m);setError("");};
   return <section className="draft-room" aria-label="Match draft">
-    <div className="eyebrow">CAPTAIN’S MODE · PATCH {config.patchId??"LEGACY"} · BO{bestOf}</div>
+    <div className="eyebrow">CAPTAIN’S MODE · PATCH {patchLabel(config.patchId)} · BO{bestOf}</div>
     <h2 id="modal-title">Map {maps.length+1} · {config.teams[0]} vs {config.teams[1]}</h2>
     <p className="draft-score">Series {score.join(" – ")} · {config.teams[state.firstPick]} has first pick{initial.some(Boolean)?" · Includes a default upper-bracket win":""}</p>
     <p>{rules.summary} <a href={rules.source} target="_blank" rel="noreferrer">Draft rules source ↗</a></p>

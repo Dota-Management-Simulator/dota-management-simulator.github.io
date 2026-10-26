@@ -4,6 +4,8 @@ import { getHeroPool } from "./heroes";
 import { TACTICAL_ENGINE_VERSION, strategies } from "./tactics";
 import { MAP_PATHS_VERSION } from "./map-paths";
 import { itemCatalog } from "./items";
+import { COMBAT_MODEL_VERSION, combatCatalogue } from "./combat-model";
+import { MATCH_RULES_VERSION, matchRules } from './match-rules';
 
 export interface HeroBalance {
   id: string;
@@ -28,6 +30,8 @@ const table = calibration as { version: number; patches: Record<string, HeroCali
 export function heroBalanceSignature(patch: SeasonPatch): string {
   const inputs: unknown[] = [patch.id, patch.axes, patch.heroBalance?.map(h => [h.id, h.targetWinRate, h.priority])];
   inputs.push(TACTICAL_ENGINE_VERSION,itemCatalog,strategies,MAP_PATHS_VERSION);
+  inputs.push(COMBAT_MODEL_VERSION,combatCatalogue(patch)?.signature);
+  inputs.push(MATCH_RULES_VERSION, matchRules(patch));
   inputs.push("historical-roles-v1", getHeroPool(patch.year,Math.min(2026,patch.year-1),patch).map(h=>[h.id,h.roles]));
   // Modern-era combat now has different rules. A frozen earlier CPU batch can
   // finish, but its records must not certify the new engine on activation.

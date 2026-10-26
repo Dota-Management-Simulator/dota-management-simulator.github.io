@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import { useMemo, useState } from "react";
 import { ArrowRight, ClipboardList, Search, Users } from "lucide-react";
 import type { Campaign, Player } from "./game";
@@ -22,7 +23,7 @@ export function StaffDraftPreparation({ campaign, config, team = null, onApply }
   const advice = useMemo(() => staffDraftAdvice(campaign, config, team), [campaign, config, team]);
   const [saved, setSaved] = useState(false);
   return <section className="scout-staff" aria-label="Staff draft preparation">
-    <div className="scout-section-heading"><div><span className="eyebrow">SUPPORT STAFF · PATCH {advice.patchId}</span><h3>Prepare with your staff</h3></div><ClipboardList size={22} /></div>
+    <div className="scout-section-heading"><div><span className="eyebrow">SUPPORT STAFF · PATCH {patchLabel(advice.patchId)}</span><h3>Prepare with your staff</h3></div><ClipboardList size={22} /></div>
     {advice.notes.length ? <>
       <div className="scout-notes">{advice.notes.map(n => <article key={n.id}><strong>{n.name} <small>· {n.role}</small></strong><p>{n.detail}</p></article>)}</div>
       {campaign.staffIds.some(id => ["c2", "c5", "c6"].includes(id)) && advice.threats.length > 0 && <div className="scout-common"><h3>Observed threats · current lineup</h3>{advice.threats.slice(0, 6).map(h => <span key={h.id}><HeroName id={h.id} /><small>{h.games} appearances · {h.wins} wins</small></span>)}</div>}

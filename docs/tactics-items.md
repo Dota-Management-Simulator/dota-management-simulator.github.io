@@ -98,3 +98,10 @@ Thirteen focused tests cover phases/normalization, unlocks, real movement and re
 Browser QA uses isolated **5321**, preserving earlier local and hosted saves. It exercises a real drafted tournament map, an accepted/completed support rotation, order-preserving skip, series settlement and preparation reload. A disposable equal-team fixture uses the production live worker to cross both boundaries, target item orders, inspect inventory and check light/dark desktop and 390px layouts. Artifacts remain ignored under `.local/`.
 
 Exact hero spells/items/recipes, terrain/wards, comprehensive historical item balance and learned tactical coordination remain future work.
+
+
+### All-player purchase targets — October 25, 2026
+
+Choose **All players** in the live purchase target selector to apply an item quick-slot call or **Save for item** to every eligible teammate. Players already owning the item, already saving for it, or lacking replaceable inventory space are skipped. Each eligible player spends their own earned match gold; current priorities can still be cancelled individually. The existing quick-slot phase, unlock and recovery requirements remain. Movement plays keep their defined roles. All 300 application tests and production build pass, including mixed eligibility and worker command coverage.
+
+Disposable browser QA on 5338 confirms All players stays selected through stepping, shop priorities reach all five allies, and the midgame BKB quick slot sets all five priorities with individual Cancel controls. Screenshot: `.local/target-all-quick-slot.png`.

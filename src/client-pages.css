@@ -48,14 +48,13 @@
 .client-page-bar :is(button, .rb-icon):disabled { cursor: default; opacity: .55; }
 .client-page-bar .rb-top { padding-left: 6px; }
 .client-page-bar .rb-logo-tab { cursor: pointer; }
-.client-page-bar .rb-logo-tab:not(:hover) { background: radial-gradient(ellipse at 50% 70%, #8d3a1e, #3d150a 70%); box-shadow: none; }
-.client-page-bar .rb-logo-tab:hover { background: radial-gradient(ellipse at 50% 70%, #d1582a, #7a2410 70%); box-shadow: 0 0 18px #e0662f88; }
 .client-page-bar .rb-top > nav > .client-tab > button.is-active { color: #fff; text-shadow: 0 0 12px #ffffff66; background: linear-gradient(0deg, #ffffff12, transparent); }
 .client-page-bar .rb-top > nav > .client-tab > button.is-active::before { content: ""; position: absolute; left: 18px; right: 18px; bottom: 0; height: 2px; background: #c4ced3; box-shadow: 0 0 8px #fff8; }
 .client-page-bar .rb-icon.is-active { color: #fff; background: #ffffff10; }
 .client-page-bar .rb-shards { border: 0; background: transparent; cursor: pointer; }
 .client-page-bar.is-modern .rb-top { background: linear-gradient(180deg, #24262a, #121315); }
 .client-page-bar .s1-top { margin: 0; }
+.client-corner-actions { display: flex; flex: 0 0 auto; align-items: flex-start; gap: 6px; }
 .client-page-bar .s1-top > nav > .client-tab > button { width: 150px; }
 .client-page-bar .beta-top { height: 70px; }
 .client-page-bar .beta-corner { width: 52px; height: 52px; margin: 8px 10px; }
@@ -80,61 +79,61 @@
 :root[data-theme] .hub-shell.game-shell .game-page-heading { align-items: flex-end; padding-bottom: 12px; border-bottom: 1px solid #ffffff14; box-shadow: 0 1px 0 #000; }
 :root[data-theme] .hub-shell.game-shell .game-page-heading h1 { color: var(--client-title); font-family: var(--client-serif); font-size: 30px; font-weight: 400; letter-spacing: 3px; text-transform: uppercase; }
 :root[data-theme] .hub-shell.game-shell .game-page-heading .eyebrow { color: var(--muted); font-size: 9px; letter-spacing: 2px; }
-:root[data-theme] .hub-shell.game-shell .game-page-note:not(.desk-client *, .local-patch-preview *) { color: var(--muted); }
+:root[data-theme] .hub-shell.game-shell .game-page-note:not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--muted); }
 
 /* Panels and their title rows. */
-:root[data-theme] .hub-shell.game-shell :is(.panel, .modal, .text-modal):not(.desk-client *, .local-patch-preview *) { background: var(--client-panel); border: 1px solid #000; border-radius: 0; box-shadow: inset 0 0 0 1px #ffffff0a, 0 8px 22px #0007; color: var(--ink); }
-:root[data-theme] .hub-shell.game-shell .panel > .section-title:not(.desk-client *, .local-patch-preview *) { background: var(--client-head); border-bottom: 1px solid #000; padding-block: 14px 13px; }
-:root[data-theme] .hub-shell.game-shell :is(.section-title h2, .panel h2):not(.desk-client *, .local-patch-preview *) { color: var(--client-title); font-family: var(--client-serif); font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
-:root[data-theme] .hub-shell.game-shell :is(h1, h2, h3, h4):not(.desk-client *, .local-patch-preview *) { color: var(--client-title); }
-:root[data-theme] .hub-shell.game-shell :is(p, .field-note, .section-title p):not(.desk-client *, .local-patch-preview *) { color: var(--muted); }
-:root[data-theme] .hub-shell.game-shell .eyebrow:not(.desk-client *, .local-patch-preview *) { color: var(--muted); }
-:root[data-theme] .hub-shell.game-shell :is(.text-link, .positive):not(.desk-client *, .local-patch-preview *) { color: var(--client-accent); }
-:root[data-theme] .hub-shell.game-shell .text-link:hover:not(.desk-client *, .local-patch-preview *) { color: #fff; }
+:root[data-theme] .hub-shell.game-shell :is(.panel, .modal, .text-modal):not(.desk-client *, .local-patch-preview *, .post-game *) { background: var(--client-panel); border: 1px solid #000; border-radius: 0; box-shadow: inset 0 0 0 1px #ffffff0a, 0 8px 22px #0007; color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell .panel > .section-title:not(.desk-client *, .local-patch-preview *, .post-game *) { background: var(--client-head); border-bottom: 1px solid #000; padding-block: 14px 13px; }
+:root[data-theme] .hub-shell.game-shell :is(.section-title h2, .panel h2):not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--client-title); font-family: var(--client-serif); font-weight: 400; letter-spacing: 2px; text-transform: uppercase; }
+:root[data-theme] .hub-shell.game-shell :is(h1, h2, h3, h4):not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--client-title); }
+:root[data-theme] .hub-shell.game-shell :is(p, .field-note, .section-title p):not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--muted); }
+:root[data-theme] .hub-shell.game-shell .eyebrow:not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--muted); }
+:root[data-theme] .hub-shell.game-shell :is(.text-link, .positive):not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--client-accent); }
+:root[data-theme] .hub-shell.game-shell .text-link:hover:not(.desk-client *, .local-patch-preview *, .post-game *) { color: #fff; }
 
 /* Buttons: grey client buttons, with the era's play button for primary actions. */
-:root[data-theme] .hub-shell.game-shell :is(.button, .small-button):not(.desk-client *, .local-patch-preview *) { border-radius: 0; font-family: inherit; letter-spacing: 1.2px; text-transform: uppercase; }
-:root[data-theme] .hub-shell.game-shell :is(.button.secondary, .button.cream):not(.desk-client *, .local-patch-preview *) { background: var(--client-button); border: 1px solid #000; box-shadow: inset 0 0 0 1px var(--client-button-line); color: var(--client-button-ink); }
-:root[data-theme] .hub-shell.game-shell :is(.button.secondary, .button.cream):hover:not(:disabled):not(.desk-client *, .local-patch-preview *) { background: var(--client-button); border-color: #000; filter: brightness(1.25); }
-:root[data-theme] .hub-shell.game-shell .button.primary:not(.desk-client *, .local-patch-preview *) { background: var(--client-primary); border: 1px solid #000; box-shadow: inset 0 0 0 1px var(--client-primary-line), 0 3px 10px #0007; color: var(--client-primary-ink); }
-:root[data-theme] .hub-shell.game-shell .button.primary:hover:not(:disabled):not(.desk-client *, .local-patch-preview *) { background: var(--client-primary); border-color: #000; filter: brightness(1.18); }
-:root[data-theme] .hub-shell.game-shell .button:disabled:not(.desk-client *, .local-patch-preview *) { filter: saturate(.3) brightness(.75); }
-:root[data-theme] .hub-shell.game-shell .icon-button:not(.desk-client *, .local-patch-preview *) { border-radius: 0; color: var(--muted); }
-:root[data-theme] .hub-shell.game-shell .icon-button:hover:not(.desk-client *, .local-patch-preview *) { background: #ffffff10; color: #fff; }
+:root[data-theme] .hub-shell.game-shell :is(.button, .small-button):not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; font-family: inherit; letter-spacing: 1.2px; text-transform: uppercase; }
+:root[data-theme] .hub-shell.game-shell :is(.button.secondary, .button.cream):not(.desk-client *, .local-patch-preview *, .post-game *) { background: var(--client-button); border: 1px solid #000; box-shadow: inset 0 0 0 1px var(--client-button-line); color: var(--client-button-ink); }
+:root[data-theme] .hub-shell.game-shell :is(.button.secondary, .button.cream):hover:not(:disabled):not(.desk-client *, .local-patch-preview *, .post-game *) { background: var(--client-button); border-color: #000; filter: brightness(1.25); }
+:root[data-theme] .hub-shell.game-shell .button.primary:not(.desk-client *, .local-patch-preview *, .post-game *) { background: var(--client-primary); border: 1px solid #000; box-shadow: inset 0 0 0 1px var(--client-primary-line), 0 3px 10px #0007; color: var(--client-primary-ink); }
+:root[data-theme] .hub-shell.game-shell .button.primary:hover:not(:disabled):not(.desk-client *, .local-patch-preview *, .post-game *) { background: var(--client-primary); border-color: #000; filter: brightness(1.18); }
+:root[data-theme] .hub-shell.game-shell .button:disabled:not(.desk-client *, .local-patch-preview *, .post-game *) { filter: saturate(.3) brightness(.75); }
+:root[data-theme] .hub-shell.game-shell .icon-button:not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; color: var(--muted); }
+:root[data-theme] .hub-shell.game-shell .icon-button:hover:not(.desk-client *, .local-patch-preview *, .post-game *) { background: #ffffff10; color: #fff; }
 
 /* Fields. */
-:root[data-theme] .hub-shell.game-shell :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), select, textarea, .search-field input, .filter-bar > select, .year-stepper):not(.desk-client *, .local-patch-preview *) { background-color: var(--client-field); border: 1px solid #000; border-radius: 0; box-shadow: inset 0 0 0 1px #ffffff12; color: var(--ink); }
-:root[data-theme] .hub-shell.game-shell :is(input, select, textarea):focus:not(.desk-client *, .local-patch-preview *) { outline: 1px solid var(--client-button-line); outline-offset: 0; }
+:root[data-theme] .hub-shell.game-shell :is(input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), select, textarea, .search-field input, .filter-bar > select, .year-stepper):not(.desk-client *, .local-patch-preview *, .post-game *) { background-color: var(--client-field); border: 1px solid #000; border-radius: 0; box-shadow: inset 0 0 0 1px #ffffff12; color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell :is(input, select, textarea):focus:not(.desk-client *, .local-patch-preview *, .post-game *) { outline: 1px solid var(--client-button-line); outline-offset: 0; }
 :root[data-theme] .hub-shell.game-shell input::placeholder { color: #6c777d; }
-:root[data-theme] .hub-shell.game-shell :is(input[type="checkbox"], input[type="radio"], input[type="range"]):not(.desk-client *, .local-patch-preview *) { accent-color: var(--client-select); }
-:root[data-theme] .hub-shell.game-shell label:not(.desk-client *, .local-patch-preview *) { color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell :is(input[type="checkbox"], input[type="radio"], input[type="range"]):not(.desk-client *, .local-patch-preview *, .post-game *) { accent-color: var(--client-select); }
+:root[data-theme] .hub-shell.game-shell label:not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--ink); }
 
 /* Badges, meters, callouts and rows. */
-:root[data-theme] .hub-shell.game-shell .badge:not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: #0b0e11; border-color: #000; color: var(--ink); letter-spacing: 1px; }
-:root[data-theme] .hub-shell.game-shell .badge.gold:not(.desk-client *, .local-patch-preview *) { color: var(--gold); }
-:root[data-theme] .hub-shell.game-shell .badge.green:not(.desk-client *, .local-patch-preview *) { color: var(--green); }
-:root[data-theme] .hub-shell.game-shell .badge.red:not(.desk-client *, .local-patch-preview *) { color: #e58a74; }
-:root[data-theme] .hub-shell.game-shell :is(.meter, .style-blocks > span):not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: #0b0e11; box-shadow: inset 0 0 0 1px #000; }
-:root[data-theme] .hub-shell.game-shell :is(.meter > span, .style-blocks > .filled):not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: linear-gradient(90deg, #3e9fd8, #9ed6f5); }
-:root[data-theme] .hub-shell.game-shell .meter.gold > span:not(.desk-client *, .local-patch-preview *) { background: linear-gradient(90deg, #a77d2e, #e3c16f); }
-:root[data-theme] .hub-shell.game-shell :is(.info-strip, .patch-teaser, .staff-benefit, .profile-contract, .alert, .muted-callout, .qualification-banner, .little-note, .empty-state):not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: #0e1216cc; border: 1px solid #000; box-shadow: inset 0 0 0 1px #ffffff0d; color: var(--ink); }
-:root[data-theme] .hub-shell.game-shell :is(.alert.warning, .event-emblem):not(.desk-client *, .local-patch-preview *) { background: #2a1f12; color: #e7c27e; border-color: #000; }
-:root[data-theme] .hub-shell.game-shell :is(.info-strip strong, .profile-contract strong, .qualification-banner strong, .empty-state h3):not(.desk-client *, .local-patch-preview *) { color: var(--client-title); }
-:root[data-theme] .hub-shell.game-shell :is(.mini-player, .training-row, .table-head, .scout-row, .patch-attribute, .meta-hero, .transactions > div, .results-list > div, .player-card-footer, .settings-row):not(.desk-client *, .local-patch-preview *) { border-color: #ffffff12; }
-:root[data-theme] .hub-shell.game-shell .mini-player:hover:not(.desk-client *, .local-patch-preview *) { background: #ffffff08; }
-:root[data-theme] .hub-shell.game-shell :is(.difficulty, .era-card, .sim-rewards, .patch-version):not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: var(--surface-soft); border-color: #000; color: var(--ink); }
-:root[data-theme] .hub-shell.game-shell :is(.difficulty.selected, .era-card.selected):not(.desk-client *, .local-patch-preview *) { background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--client-button-line); }
-:root[data-theme] .hub-shell.game-shell .result-mark:not(.desk-client *, .local-patch-preview *) { border-radius: 0; }
-:root[data-theme] .hub-shell.game-shell .result-mark.win:not(.desk-client *, .local-patch-preview *) { background: #1f3a1a; color: #9fe07c; }
-:root[data-theme] .hub-shell.game-shell .result-mark.loss:not(.desk-client *, .local-patch-preview *) { background: #3a1a16; color: #e58a74; }
-:root[data-theme] .hub-shell.game-shell .result-mark.neutral:not(.desk-client *, .local-patch-preview *) { background: #1c2228; color: #9aa6ab; }
-:root[data-theme] .hub-shell.game-shell :is(table th):not(.desk-client *, .local-patch-preview *) { color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; }
+:root[data-theme] .hub-shell.game-shell .badge:not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; background: #0b0e11; border-color: #000; color: var(--ink); letter-spacing: 1px; }
+:root[data-theme] .hub-shell.game-shell .badge.gold:not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--gold); }
+:root[data-theme] .hub-shell.game-shell .badge.green:not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--green); }
+:root[data-theme] .hub-shell.game-shell .badge.red:not(.desk-client *, .local-patch-preview *, .post-game *) { color: #e58a74; }
+:root[data-theme] .hub-shell.game-shell :is(.meter, .style-blocks > span):not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; background: #0b0e11; box-shadow: inset 0 0 0 1px #000; }
+:root[data-theme] .hub-shell.game-shell :is(.meter > span, .style-blocks > .filled):not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; background: linear-gradient(90deg, #3e9fd8, #9ed6f5); }
+:root[data-theme] .hub-shell.game-shell .meter.gold > span:not(.desk-client *, .local-patch-preview *, .post-game *) { background: linear-gradient(90deg, #a77d2e, #e3c16f); }
+:root[data-theme] .hub-shell.game-shell :is(.info-strip, .patch-teaser, .staff-benefit, .profile-contract, .alert, .muted-callout, .qualification-banner, .little-note, .empty-state):not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; background: #0e1216cc; border: 1px solid #000; box-shadow: inset 0 0 0 1px #ffffff0d; color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell :is(.alert.warning, .event-emblem):not(.desk-client *, .local-patch-preview *, .post-game *) { background: #2a1f12; color: #e7c27e; border-color: #000; }
+:root[data-theme] .hub-shell.game-shell :is(.info-strip strong, .profile-contract strong, .qualification-banner strong, .empty-state h3):not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--client-title); }
+:root[data-theme] .hub-shell.game-shell :is(.mini-player, .training-row, .table-head, .scout-row, .patch-attribute, .meta-hero, .transactions > div, .results-list > div, .player-card-footer, .settings-row):not(.desk-client *, .local-patch-preview *, .post-game *) { border-color: #ffffff12; }
+:root[data-theme] .hub-shell.game-shell .mini-player:hover:not(.desk-client *, .local-patch-preview *, .post-game *) { background: #ffffff08; }
+:root[data-theme] .hub-shell.game-shell :is(.difficulty, .era-card, .sim-rewards, .patch-version):not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; background: var(--surface-soft); border-color: #000; color: var(--ink); }
+:root[data-theme] .hub-shell.game-shell :is(.difficulty.selected, .era-card.selected):not(.desk-client *, .local-patch-preview *, .post-game *) { background: var(--surface-raised); box-shadow: inset 0 0 0 1px var(--client-button-line); }
+:root[data-theme] .hub-shell.game-shell .result-mark:not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; }
+:root[data-theme] .hub-shell.game-shell .result-mark.win:not(.desk-client *, .local-patch-preview *, .post-game *) { background: #1f3a1a; color: #9fe07c; }
+:root[data-theme] .hub-shell.game-shell .result-mark.loss:not(.desk-client *, .local-patch-preview *, .post-game *) { background: #3a1a16; color: #e58a74; }
+:root[data-theme] .hub-shell.game-shell .result-mark.neutral:not(.desk-client *, .local-patch-preview *, .post-game *) { background: #1c2228; color: #9aa6ab; }
+:root[data-theme] .hub-shell.game-shell :is(table th):not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--muted); letter-spacing: 1.2px; text-transform: uppercase; }
 :root[data-theme] .hub-shell.game-shell .modal-backdrop { background: #000000b8; }
-:root[data-theme] .hub-shell.game-shell .modal-close:not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: #0e1216; }
-:root[data-theme] .hub-shell.game-shell .app-footer:not(.desk-client *, .local-patch-preview *) { color: var(--muted); border-color: #ffffff12; }
+:root[data-theme] .hub-shell.game-shell .modal-close:not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; background: #0e1216; }
+:root[data-theme] .hub-shell.game-shell .app-footer:not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--muted); border-color: #ffffff12; }
 
 /* Page-specific frames that hard-code the old palette. */
-:root[data-theme] .hub-shell.game-shell .hero-showcase:not(.desk-client *, .local-patch-preview *) { border: 1px solid #000; background: linear-gradient(135deg, #1e2a33, #0d1216 70%); box-shadow: inset 0 0 0 1px #ffffff0d, 0 12px 35px #0008; }
+:root[data-theme] .hub-shell.game-shell .hero-showcase:not(.desk-client *, .local-patch-preview *, .post-game *) { border: 1px solid #000; background: linear-gradient(135deg, #1e2a33, #0d1216 70%); box-shadow: inset 0 0 0 1px #ffffff0d, 0 12px 35px #0008; }
 
 /* Continue bar: the client's bottom bar with the era's play button. */
 :root[data-theme] .hub-shell.game-shell .campaign-bar { border-top: 1px solid #000; background: linear-gradient(180deg, #161b20f2, #0b0e11fc); box-shadow: inset 0 1px 0 #ffffff12, 0 -8px 30px #0008; color: var(--ink); }
@@ -148,16 +147,16 @@
 
 @media (max-width: 850px) {
   .client-page-bar .rb-top > nav > .client-tab > button { padding: 0 16px; font-size: 13px; letter-spacing: 1.6px; }
-  .client-page-bar .rb-arrows, .client-page-bar .rb-power { display: none; }
+  .client-page-bar .rb-arrows { display: none; }
   .client-page-bar .rb-logo-tab { width: 70px; }
   .client-page-bar .s1-top > nav > .client-tab > button, .client-page-bar .beta-top > nav > .client-tab > button { width: 116px; font-size: 13px; }
   :root[data-theme] .hub-shell.game-shell .game-page-heading { align-items: flex-start; }
   :root[data-theme] .hub-shell.game-shell .game-page-heading h1 { font-size: 23px; letter-spacing: 2px; }
 }
 @media (max-width: 650px) {
+  .client-corner-actions .client-page-mail { display: none; }
   .client-page-bar .rb-top { height: 46px; }
   .client-page-bar .rb-logo-tab { width: 54px; margin-inline: 2px; }
-  .client-page-bar .rb-logo-tab img { width: 30px; height: 30px; }
   .client-page-bar .rb-top > nav > .client-tab > button { padding: 0 11px; font-size: 11px; letter-spacing: 1px; }
   .client-page-bar .rb-shards { display: none; }
   .client-page-bar .rb-icon { width: 36px; }
@@ -173,10 +172,10 @@
 }
 
 /* Leftover hard-coded colors from the old dark theme. */
-:root[data-theme] .hub-shell.game-shell .training-quick-slot:not(.desk-client *, .local-patch-preview *) { border-radius: 0; background: var(--client-button); border-color: #000; box-shadow: inset 0 0 0 1px var(--client-button-line); }
-:root[data-theme] .hub-shell.game-shell :is(.training-quick-apply, .training-quick-icon):not(.desk-client *, .local-patch-preview *) { color: var(--client-button-ink); }
-:root[data-theme] .hub-shell.game-shell :is(.training-quick-icon, .training-quick-confirm):not(.desk-client *, .local-patch-preview *) { border-left-color: #000; }
-:root[data-theme] .hub-shell.game-shell :is(.training-quick-apply:hover, .training-quick-icon:hover:not(:disabled), .training-quick-confirm:hover):not(.desk-client *, .local-patch-preview *) { background: #ffffff14; }
-:root[data-theme] .hub-shell.game-shell :is(.moss):not(.desk-client *, .local-patch-preview *) { background: #24323b; color: #9dbdc9; }
-:root[data-theme] .hub-shell.game-shell .tiny-square:not(.desk-client *, .local-patch-preview *) { background: var(--client-accent); border-radius: 0; }
-:root[data-theme] .hub-shell.game-shell .team-badge:not(.team-badge-custom):not(.desk-client *, .local-patch-preview *) { border-radius: 2px; background: #dfe3e5; box-shadow: inset 0 0 0 1px #0004; }
+:root[data-theme] .hub-shell.game-shell .training-quick-slot:not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 0; background: var(--client-button); border-color: #000; box-shadow: inset 0 0 0 1px var(--client-button-line); }
+:root[data-theme] .hub-shell.game-shell :is(.training-quick-apply, .training-quick-icon):not(.desk-client *, .local-patch-preview *, .post-game *) { color: var(--client-button-ink); }
+:root[data-theme] .hub-shell.game-shell :is(.training-quick-icon, .training-quick-confirm):not(.desk-client *, .local-patch-preview *, .post-game *) { border-left-color: #000; }
+:root[data-theme] .hub-shell.game-shell :is(.training-quick-apply:hover, .training-quick-icon:hover:not(:disabled), .training-quick-confirm:hover):not(.desk-client *, .local-patch-preview *, .post-game *) { background: #ffffff14; }
+:root[data-theme] .hub-shell.game-shell :is(.moss):not(.desk-client *, .local-patch-preview *, .post-game *) { background: #24323b; color: #9dbdc9; }
+:root[data-theme] .hub-shell.game-shell .tiny-square:not(.desk-client *, .local-patch-preview *, .post-game *) { background: var(--client-accent); border-radius: 0; }
+:root[data-theme] .hub-shell.game-shell .team-badge:not(.team-badge-custom):not(.desk-client *, .local-patch-preview *, .post-game *) { border-radius: 2px; background: #dfe3e5; box-shadow: inset 0 0 0 1px #0004; }

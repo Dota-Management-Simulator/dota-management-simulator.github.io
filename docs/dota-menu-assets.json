@@ -899,6 +899,13 @@
       "bytes": 67344,
       "sha256": "24b3e0cfec72d31e7f89f1ccad7f3fef3edc52993e92397bffd5c071f4883763",
       "note": "Original TI2022 website Faceless Void Arcana illustration, reduced to 1162x800 WebP. Decorative preview only; does not unlock a cosmetic."
+    },
+    {
+      "path": "public/dota-menu/dota-home-plate.webp",
+      "source": "https://raw.githubusercontent.com/linsisss/dota2-grid-toolkit/7a4013192c627f5b022f94749101c3a181b98c41/assets/dota-menu-ui/panorama/images/topbar/home_logo_hover_png.webp",
+      "bytes": 40398,
+      "sha256": "b9b9445f9275f2eb636a5fa5f3382ca13d74edf74711b37eaa144fc3100f44b8",
+      "note": "Original Valve Reborn home-tab hover plate and orange emblem, unchanged WebP from an extracted-client mirror. Browser heat and ember animation adapts the client home_button scene; it is not a recording or an exact reproduction of the Source 2 particle simulation. User-supplied October 25 reference guides the treatment; beta/Source 1 logos remain era-specific."
     }
   ]
 }

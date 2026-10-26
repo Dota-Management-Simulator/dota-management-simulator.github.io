@@ -1,3 +1,5 @@
+import { startSimulationWorker } from "./simulation-worker";
+import { patchLabel } from "./patch-label";
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight, CalendarDays, Trophy } from "lucide-react";
 import type { Campaign, Result } from "./game";
@@ -103,24 +105,22 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
   useEffect(() => () => { worker.current?.terminate(); }, []);
   useEffect(() => {
     if (!run || managedReady || worker.current || error || earlierCommitment || selectedScoreboard) return;
-    const nextWorker = new Worker(new URL("./tournament.worker.ts", import.meta.url), { type: "module" });
-    worker.current = nextWorker; setComputing(true); setProgress("Simulating the other tournament matches…");
+    setComputing(true); setProgress("Simulating the other tournament matches…");
     const templates: TournamentWorkerInput["templates"] = {};
     for (const team of run.teams) {
       templates[team.id] = tournamentTeamTemplate(campaign, run, team.id);
     }
-    const fail = (message: string) => { nextWorker.terminate(); worker.current = null; setComputing(false); setError(message); };
-    nextWorker.onmessage = ({ data: message }) => {
+    const fail = (message: string) => { worker.current?.terminate(); worker.current = null; setComputing(false); setError(message); };
+    const nextWorker = startSimulationWorker(() => new Worker(new URL("./tournament.worker.ts", import.meta.url), { type: "module" }), { run: withTournamentStrength(pinTournamentRun(run)), templates, year: event!.year, heroPoolThroughYear: Math.min(2026, Math.max(2010, ...campaign.calendar!.shuffledYears)), through: otherCommitment?.at } satisfies TournamentWorkerInput, ({ data: message }, nextWorker) => {
       if (worker.current !== nextWorker) return;
       if (message.type === "progress") setProgress(`${message.played} other series completed. Every map uses the lane engine.`);
       else if (message.type === "complete") {
         nextWorker.terminate(); worker.current = null; setComputing(false);
         try { latestChange.current(commitTournamentRun(latestCampaign.current, message.run)); } catch (e) { setError(e instanceof Error ? e.message : "Could not record tournament progress."); }
       } else if (message.type === "error") fail(message.message);
-    };
-    nextWorker.onerror = () => fail("The tournament worker could not finish. Your saved progress is unchanged.");
-    nextWorker.postMessage({ run: withTournamentStrength(pinTournamentRun(run)), templates, year: event!.year, heroPoolThroughYear: Math.min(2026, Math.max(2010, ...campaign.calendar!.shuffledYears)), through: otherCommitment?.at } satisfies TournamentWorkerInput);
-    return () => { if (worker.current === nextWorker) { nextWorker.terminate(); worker.current = null; } };
+    }, () => fail("The tournament worker could not finish. Your saved progress is unchanged."));
+    worker.current = nextWorker;
+    return () => { if (worker.current === nextWorker) { nextWorker?.terminate(); worker.current = null; } };
   }, [run, managedReady, error, earlierCommitment?.eventId, otherCommitment?.at, selectedScoreboard]); // Progress messages do not restart a batch.
 
   const startSeries = (skip: boolean) => {
@@ -129,13 +129,14 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
     setDraftRequest({config:tournamentBattleConfig(campaign,run,fixture),skip});
   };
   const finishSeries = (result: SimulatedSeries) => {
-    if (!run || !fixture) return;
+    if (!run || !fixture) return false;
     try {
       const next = settleTournamentMatch(latestCampaign.current, run.eventId, fixture.id, result.summary);
       setSelectedScoreboard({ eventId: run.eventId, fixtureId: fixture.id });
       onChange(next);
+      return true;
     }
-    catch (e) { setError(e instanceof Error ? e.message : "Could not record this series."); }
+    catch (e) { setError(e instanceof Error ? e.message : "Could not record this series."); return false; }
   };
   const selectedRun = campaign.calendar!.runs.find(r => r.eventId === selectedScoreboard?.eventId);
   const selectedMatch = selectedRun?.matches.find(m => m.id === selectedScoreboard?.fixtureId);
@@ -146,14 +147,14 @@ export default function HistoricalCalendar({ campaign, onChange, onHistory, focu
     managedTeamId={campaign.world?.managedTeamId}
     onPreparation={draftPreparation=>onChange({...latestCampaign.current,draftPreparation})}
     onTactics={tacticalPreparation=>onChange({...latestCampaign.current,tacticalPreparation})}
-    onCancel={()=>setDraftRequest(null)} onComplete={result=>{setDraftRequest(null);finishSeries(result);}}/></section>;
+    onCancel={()=>setDraftRequest(null)} onComplete={result=>{const recorded=finishSeries(result);if(recorded)setDraftRequest(null);return recorded;}}/>{error&&<p role="alert">{error}</p>}</section>;
   if (scoreboard) return <section className="panel tournament-viewer"><SeriesResults key={`${selectedRun.eventId}-${selectedMatch.id}`} {...scoreboard} closeLabel="Continue tournament" onClose={() => setSelectedScoreboard(null)} /></section>;
   return <div className="historical-calendar">
     <div className="qualification-banner"><CalendarDays size={28} /><div><strong>{formatDate(campaign.calendar!.now, campaign.calendar!.nowHasTime)}</strong><p>Real tournament dates. Weekly advances stop at invited or reserved openings and scheduled series. Lineups remain committed through their tournament run.</p>{advanceNotice && <p role="status">{advanceNotice}</p>}</div><button className="button secondary small-button" disabled={computing} onClick={() => { const next = advanceManagerWeek(campaign); setAdvanceNotice(next.calendar!.now === campaign.calendar!.now ? "A decision is due: play your next series, or open your invited/reserved event below to enter or decline it." : `Advanced to ${formatDate(next.calendar!.now)}. Club updates are in your inbox.`); onChange(next); }}>Advance up to 7 days</button></div>
     {playing.length > 1 && <label className="tournament-run-selector">Active tournament<select value={run?.eventId} disabled={computing || !!draftRequest} onChange={e => { setActiveId(e.target.value); setError(""); }}>{playing.map(r => <option key={r.eventId} value={r.eventId}>{tournamentById(r.eventId)?.name ?? r.eventId}</option>)}</select></label>}
     {error && <div role="alert" className="muted-callout"><p>{error}</p><button className="button secondary small-button" onClick={() => setError("")}>Retry</button></div>}
     {run && event && <section className="panel tournament-active"><div className="eyebrow">IN PROGRESS · REGISTERED LINEUP</div><h2>{event.name}</h2>
-      <p className="patch-match-label">Patch {run.patchId ?? patchAtDate(event.start).id} · {patchById(run.patchId)?.name ?? patchAtDate(event.start).name} · Pinned for this tournament</p>
+      <p className="patch-match-label">Patch {patchLabel(run.patchId ?? patchAtDate(event.start))} · {patchById(run.patchId)?.name ?? patchAtDate(event.start).name} · Pinned for this tournament</p>
       {computing ? <p role="status" aria-live="polite">{progress}</p> : managedReady && fixture ? <>
         <p>{fixture.stage} · {fixture.label} · BO{fixture.bestOf} · {formatDate(fixture.at, fixture.timeVerified)}{!fixture.timeVerified && (fixture.dateVerified ? " · Start time not recorded" : " · Estimated match date")}</p>
         <div className="tournament-next-match">{readyTeams!.map((key, i) => { const team = run.teams.find(t => t.id === key)!; return <span key={key}>{i === 1 && <small>vs</small>}<TeamBadge teamId={team.clubId} name={team.name} year={event.year} />{team.name}</span>; })}</div>

@@ -146,7 +146,7 @@ test("engine counts effective hero/building damage without overkill and excludes
   assert.equal(source.heroDamage, 30);
   combat.damage(source, target, 100);
   assert.equal(source.heroDamage, 30, "dead targets add no damage");
-  const tower = b.units.find(u => u.kind === "tower" && u.team === 1)!;
+  const tower = b.units.find(u => u.kind === "tower" && u.tier === 1 && u.team === 1)!;
   tower.hp = 50;
   combat.damage(source, tower, 999);
   assert.equal(source.buildingDamage, 50);

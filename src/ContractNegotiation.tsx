@@ -33,7 +33,7 @@ export default function ContractNegotiation({ campaign, player, onChange }: {
     <div className="contract-heading">
       <div>
         <h3>{managed ? "Player contract" : "Negotiate a signing"}</h3>
-        <p>{managed ? contract ? remaining ? `${remaining} weeks left · ${money(player.wage)} / week` : tournamentLock ? "Contract extended through the current tournament" : "Renewal due · terms continue week to week" : `Rolling weekly agreement · ${money(player.wage)} / week` : `Replaces ${outgoing?.name ?? "the starter in this position"}.`}</p>
+        <p>{managed ? contract ? remaining ? `${remaining} weeks left · ${money(player.wage)} / week` : tournamentLock ? "Contract extended through the current tournament" : "Renewal due · terms continue week to week" : `Rolling weekly agreement · ${money(player.wage)} / week` : outgoing ? `Replaces ${outgoing.name}.` : `Fills the vacant ${player.role.toLowerCase()} position.`}</p>
       </div>
       {!editing && <button className="button secondary small-button" onClick={() => {
         setOffer(initialOffer(campaign, player)); setResponse(null); setEditing(true);

@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import { useState } from "react";
 import { Sparkles } from "lucide-react";
 import type { Campaign } from "./game";
@@ -30,14 +31,14 @@ export default function PatchMeta({ campaign, onStaff, onPlayer, initialPatchId 
         {Array.from({ length: active.year - 2010 }, (_,i) => <option key={i} value={2011+i}>{2011+i}{2011+i > 2026 ? " · generated" : ""}</option>)}
       </select></label>
       <div role="group" aria-label="Patch phase" className="patch-phase">
-        {([1,2] as const).map(phase => <button key={phase} disabled={patch.year === active.year && phase > active.phase} aria-pressed={patch.phase === phase} className="button secondary" onClick={() => setPreview({ year: patch.year, phase })}>{phase === 1 ? "1 · After shuffle" : "2 · Road to TI"}</button>)}
+        {([1,2] as const).map(phase => <button key={phase} disabled={patch.year === active.year && phase > active.phase} aria-pressed={patch.phase === phase} className="button secondary" onClick={() => setPreview({ year: patch.year, phase })}>{patchLabel(patchForSeason(patch.year, phase))} · {phase === 1 ? "After shuffle" : "Road to TI"}</button>)}
       </div>
-      {!current && <button className="text-link" onClick={() => setPreview(undefined)}>Back to current patch {active.id}</button>}
+      {!current && <button className="text-link" onClick={() => setPreview(undefined)}>Back to current patch {patchLabel(active)}</button>}
     </div>
     <PatchNotes key={patch.id} patch={patch} campaign={campaign} onPlayer={onPlayer} />
     <details className="patch-research-details"><summary>Detailed staff research & historical sources</summary>
     <div className="patch-header panel">
-      <div className="patch-version">{patch.id}</div>
+      <div className="patch-version">{patchLabel(patch)}</div>
       <div><div className="eyebrow">{current ? "CURRENT PATCH" : "EARLIER PATCH"} · YOUR TEAM’S READ</div>
         <h2>{patch.name}</h2><p>{campaign.settings.team}’s research into this balance cycle. The ranges and shortlist below are your current scouting assessment.</p>
         <p className="patch-lineage">{patch.generated ? patch.versions : `Real versions: ${patch.versions}`}</p>
@@ -47,12 +48,13 @@ export default function PatchMeta({ campaign, onStaff, onPlayer, initialPatchId 
       <p><strong>Your information is incomplete.</strong> These ranges contain the patch’s fixed strengths. Your staff narrow specific fields and uncover favored heroes; your auto-draft uses this report. Every team has its own research.</p>
       <button className="text-link" onClick={onStaff}>Improve research with support staff →</button>
       <p><strong>Two patches per TI season.</strong> The opening patch follows the previous TI’s roster shuffle; the second changes the race toward TI. A tournament keeps the patch from its opening date for every team and series.</p>
-      <p>{campaign.calendar ? `Proxy drop: ${patch.startsOn}. Next: ${next.id} · ${next.startsOn}.` : "Weekly calendar: opening patch at week 1, second at week 9; next season’s opening follows the week 17 shuffle."} Composite dates compress several real updates and can differ from their historical release dates.</p>
+      <p>{campaign.calendar ? `Proxy drop: ${patch.startsOn}. Next: ${patchLabel(next)} · ${next.startsOn}.` : "Weekly calendar: opening patch at week 1, second at week 9; next season’s opening follows the week 17 shuffle."} Composite dates compress several real updates and can differ from their historical release dates.</p>
       {current && campaign.calendar?.runs.some(r => r.state === "playing" && r.patchId && r.patchId !== active.id) && <p>An active event is still playing its pinned earlier patch. Its matches use that event’s patch.</p>}
     </div>
     <div className="two-col patch-layout">
       <section className="panel"><div className="section-title"><div><h2>What this patch rewards</h2><p>Scouted ranges · 0–100 scale · no exact ratings revealed.</p></div></div>
-        <div className="patch-attributes">{patchAxes.map(axis => {
+        {!patchAxes.some(a=>report.axes[a.key].staffNames.length>0)&&<p className="patch-undiscovered">No specialist interpretation available. Public rules are listed above.</p>}
+        <div className="patch-attributes">{patchAxes.filter(a=>report.axes[a.key].staffNames.length>0).map(axis => {
           const read = report.axes[axis.key];
           return <div className="patch-attribute" key={axis.key}>
           <div><strong>{axis.name}</strong><span>{read.low}–{read.high}<small> / 100</small></span></div>

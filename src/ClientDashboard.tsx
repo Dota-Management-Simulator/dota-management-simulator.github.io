@@ -1,6 +1,7 @@
+import { patchLabel, patchMessageText } from "./patch-label";
 import { formatOfficeDate } from "./office-date";
 import { useEffect, useState } from "react";
-import { ArrowLeft, ChevronLeft, ChevronRight, Gem, List, Power, RotateCcw, Undo2, X } from "lucide-react";
+import { ArrowLeft, ChevronLeft, ChevronRight, Gem, List, RotateCcw, Undo2, X } from "lucide-react";
 import type { Campaign, Page, Player } from "./game";
 import { average, money, teamPlayers } from "./game";
 import { campaignMenu } from "./menu-eras";
@@ -11,7 +12,7 @@ import { unreadMessages } from "./office";
 import type { OfficeMessage } from "./office";
 import { formatDate, historicalTournaments, utcTime } from "./tournaments";
 import TeamBadge from "./TeamBadge";
-import { ClientStatus, ClientSystemMenu, ClientTabButton } from "./ClientShell";
+import { ClientPowerButton, ClientStatus, ClientSystemMenu, ClientTabButton } from "./ClientShell";
 import type { ClientTab } from "./ClientShell";
 import Avatar from "./PlayerAvatar";
 import BetaToday from "./BetaToday";
@@ -87,12 +88,12 @@ export default function ClientDashboard(props: Props) {
     const profileCard = <><TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="medium" /><span><strong>{campaign.settings.team}</strong><small>Manager’s Desk</small></span></>;
     // Every management page sits under a client tab; the profile, chat and friends panels open Squad and the inbox.
     const tabs: ClientTab[] = [{ label: "Today", open: () => setView("today"), active: view === "today" }, { label: "Updates", open: () => setView("updates"), active: view === "updates" }, { label: "Play", open: () => setView("play"), active: view === "play" },
-      { label: "Watch", pages: ["standings", "calendar", "history"] }, { label: "Learn", pages: ["heroes", "patch", "training", "scrims", "next-series"] }, { label: "Socialize", pages: ["world", "roster", "scouting", "staff", "finances", "arcade"] }];
+      { label: "Watch", pages: ["standings", "calendar", "history"] }, { label: "Learn", pages: ["heroes", "patch", "training", "scrims", "next-series"] }, { label: "Socialize", pages: ["world", "profile", "roster", "scouting", "staff", "finances", "arcade"] }];
     return <section className={`beta-client${refinedBeta ? " beta-2011" : ""}${refinedBeta && patch.id !== "2011.1" ? " beta-ti-patch" : ""}`} aria-label="Manager’s Desk · The original dashboard">
       <header className="beta-top">
         <ClientSystemMenu motion={motion} onMotion={() => setMotion(!motion)} className="beta-corner" />
         <nav aria-label="Desk client tabs">{tabs.map(tab => <ClientTabButton key={tab.label} tab={tab} onPage={onPage} />)}</nav>
-        <span className="beta-corner" aria-hidden="true"><Power size={24} /></span>
+        <ClientPowerButton className="beta-corner" size={24} />
       </header>
       <ClientStatus campaign={campaign} className="beta-status" />
       <div className="beta-frame">
@@ -102,7 +103,7 @@ export default function ClientDashboard(props: Props) {
       </div>
       <div className="beta-bottom">
         <section className="beta-panel beta-profile"><h3>Profile</h3>
-          {refinedBeta ? <button className="beta-profile-card" onClick={() => onPage("roster")} aria-label="Open squad profile">{profileCard}</button> : <div className="beta-profile-card">{profileCard}</div>}
+          {refinedBeta ? <button className="beta-profile-card" onClick={() => onPage("profile")} aria-label="Open my profile">{profileCard}</button> : <div className="beta-profile-card">{profileCard}</div>}
           <div className="beta-level"><span>SEASON: {campaign.year}</span><span>READINESS: {energy} / 100</span></div>
           <div className="beta-record"><span><strong>{wins}</strong>EVENTS WON</span><span><strong>{results.length - wins}</strong>NOT WON</span><span><strong>{campaign.results.length - results.length}</strong>SKIPPED</span></div>
           <table><thead><tr><th>RECENT EVENTS</th><th>RESULT</th></tr></thead><tbody>{campaign.results.slice(-3).reverse().map((result, index) => <tr key={`${result.eventId}-${index}`}><td>{result.event}</td><td>{result.skipped ? "Skipped" : result.won ? "Won" : "—"}</td></tr>)}</tbody></table>
@@ -121,21 +122,21 @@ export default function ClientDashboard(props: Props) {
     { label: "Play", open: () => setView("play"), active: view === "play" },
     { label: "Watch", pages: ["standings", "calendar", "history"], badge: live ? "Live tournament" : undefined },
     { label: tabLabels.library, pages: ["heroes", "patch", "training", "next-series"] },
-    { label: tabLabels.community, pages: ["world", "roster", "scrims", "arcade"] },
+    { label: tabLabels.community, pages: ["world", "profile", "roster", "scrims", "arcade"] },
   ];
   return <section className={`s1-client s1-refined s1-theme-${theme}${day.startsWith("2012-") ? " s1-2012" : ""} ${motion ? "has-motion" : ""}`} aria-label={`Manager’s Desk · ${ti ? `The International ${ti.year}` : event?.name ?? "The Dota 2 client"}`}>
     <div className="s1-backdrop" aria-hidden="true"><span className="s1-layer-a" /><span className="s1-layer-b" />{!ti && event && ["diretide2012", "greeviling", "wraithnight"].includes(event.id) && <Source1Scenery winter={event.id !== "diretide2012"} />}{!ti && event?.id === "newbloom2015" && <Source1Lanterns />}</div>
     <header className="s1-top">
       <ClientSystemMenu motion={motion} onMotion={() => setMotion(!motion)} className="s1-corner" />
       <nav aria-label="Desk client tabs">{tabs.map(tab => <ClientTabButton key={tab.label} tab={tab} onPage={onPage} />)}</nav>
-      <span className="s1-corner" aria-hidden="true"><Power size={14} /></span>
+      <ClientPowerButton className="s1-corner" size={14} />
     </header>
     <div className="s1-logo"><img src={art("dota-symbol.png")} alt="" /><span>DOTA <b>2</b></span>{(archived || event || ti) && <small>{archived ? "From the event archive · " : ""}{ti ? `The International ${ti.year} · ${formatDate(ti.event.start)} – ${formatDate(ti.event.end)}` : event ? `${event.name} · original release ${formatDate(event.historicalRelease)}` : ""}</small>}<ClientStatus campaign={campaign} className="s1-status" /></div>
     <div className="s1-body">
       <div className="s1-main">{panels[view]}</div>
       <aside className="s1-side" aria-label="Club profile">
         <section className="s1-profile">
-          <TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="large" />
+          <button className="s1-profile-link" onClick={() => onPage("profile")} aria-label="Open my profile"><TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="large" /></button>
           <div><strong>{campaign.settings.team}</strong><span>Manager’s Desk</span><div className="s1-points"><span style={{ width: `${energy}%` }} /><em>Squad readiness <b>{energy} / 100</b></em></div></div>
           <span className="s1-games">EVENT WINS: <b>{wins}</b></span><span className="s1-level">SEASON <b>{campaign.year}</b></span>
           {ti && ti.style !== "international-tab" && <button className="s1-compendium-icon" onClick={() => setBook(true)} aria-label="Open the Compendium"><img className={ti.year === 2015 ? "is-book" : undefined} src={art(ti.year === 2015 ? "ti2015-book-closed.png" : "dota-symbol.png")} alt="" /></button>}
@@ -155,7 +156,7 @@ function InboxPanel({ campaign, messages, unread, roster, onPage, className }: {
     <h3>Inbox <span>{unread} unread</span></h3>
     <div className="client-chat-tabs"><span>{channel}</span><span>Office</span></div>
     <div className="client-chat-body">
-      <div className="client-chat-log">{messages.length ? messages.map(message => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatOfficeDate(message.at)}</time><b>{message.sender}:</b> {message.subject}</button>) : <p>Your desk is clear.</p>}</div>
+      <div className="client-chat-log">{messages.length ? messages.map(message => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatOfficeDate(message.at)}</time><b>{message.sender}:</b> {patchMessageText(message, message.subject)}</button>) : <p>Your desk is clear.</p>}</div>
       <ul className="client-chat-members" aria-label="Squad">{roster.map(player => <li key={player.id}>{player.name}</li>)}</ul>
     </div>
     <button className="client-chat-input" onClick={() => onPage("inbox")}>Open inbox<ChevronRight size={12} /></button>
@@ -184,7 +185,7 @@ function TodayPanel({ event, ti, variant, day, patchId, patchName, patchVersions
   return <div className={`client-panel client-today ${variant === "beta" ? "is-beta" : ""}`}>
     <div className="client-subtabs" role="tablist">{tabs.map(label => <button key={label} role="tab" aria-selected={tab === label} className={tab === label ? "is-active" : ""} onClick={() => setTab(label)}>{label}</button>)}<span className="client-subtab-icons" aria-hidden="true"><ArrowLeft size={12} /><RotateCcw size={12} /></span></div>
     {tab === "International" && ti ? <International2012 ti={ti} onPage={onPage} />
-      : tab === "News" ? <div className="client-news">{messages.length ? messages.map(message => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatOfficeDate(message.at)}</time><strong>{message.subject}</strong></button>) : <p>No club news yet.</p>}</div>
+      : tab === "News" ? <div className="client-news">{messages.length ? messages.map(message => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatOfficeDate(message.at)}</time><strong>{patchMessageText(message, message.subject)}</strong></button>) : <p>No club news yet.</p>}</div>
       : tab === "Updates" ? <UpdatesPanel patchId={patchId} patchName={patchName} versions={patchVersions} description={description} arrivals={arrivals} onPage={onPage} />
       : <div className="client-blog">
         {ti?.style === "compendium-2013" && <button className="ti2013-feature" onClick={onBook}><img src={art("ti2013-compendium.jpg")} alt="The International Interactive Compendium" /><span>Open your Compendium <ChevronRight size={15} /></span></button>}
@@ -203,7 +204,7 @@ function TodayPanel({ event, ti, variant, day, patchId, patchName, patchVersions
           <button className="client-ti-banner" onClick={() => onPage("standings")}><span>The International</span><small>DOTA 2 CHAMPIONSHIPS · TI RACE</small></button>
           <button className="client-promo" onClick={onCompetition}><span>NEXT SERIES</span><small>Match centre & calendar</small></button>
           <button className="client-promo is-blue" onClick={() => onPage("next-series")}><span>SCOUTING</span><small>Prepare for your opponent</small></button>
-          <ul>{messages.slice(0, 4).map(message => <li key={message.id}><button onClick={() => onPage("inbox")}>{message.subject}<time>{formatOfficeDate(message.at)}</time></button></li>)}</ul>
+          <ul>{messages.slice(0, 4).map(message => <li key={message.id}><button onClick={() => onPage("inbox")}>{patchMessageText(message, message.subject)}<time>{formatOfficeDate(message.at)}</time></button></li>)}</ul>
         </aside>
         {notice && ti && <section className="client-compendium-notice" aria-label="The International Compendium">
           <button className="client-close" onClick={() => setNotice(false)}>Close<X size={11} /></button>
@@ -216,7 +217,7 @@ function TodayPanel({ event, ti, variant, day, patchId, patchName, patchVersions
 
 function UpdatesPanel({ patchId, patchName, versions, description, arrivals, onPage }: { patchId: string; patchName: string; versions: string; description: string; arrivals: { id: string; name: string }[]; onPage: (page: Page) => void }) {
   return <div className="client-updates">
-    <h2>{patchName}</h2><small>Patch {patchId} · {versions}</small><p>{description}</p>
+    <h2>{patchName}</h2><small>Patch {patchLabel(patchId)} · {versions}</small><p>{description}</p>
     {arrivals.length > 0 && <div className="client-arrivals"><strong>New heroes</strong>{arrivals.map(hero => <span key={hero.id}><img src={`${import.meta.env.BASE_URL}hero-icons/${hero.id}.png`} alt="" />{hero.name}</span>)}</div>}
     <button onClick={() => onPage("patch")}>Read patch notes<ChevronRight size={12} /></button>
   </div>;
@@ -276,7 +277,7 @@ function PlayPanel({ campaign, event, day, energy, wins, unread, roster, competi
   return <div className="client-panel client-play">
     <nav className="client-modes" aria-label="Play options">{groups.map(([heading, items]) => <div key={heading}><h4>{heading}</h4>{items.map(([label, open, highlight]) => <button key={label} className={highlight ? "is-event" : ""} onClick={open} aria-current={highlight ? "true" : undefined}>{label}</button>)}</div>)}</nav>
     <div className="client-find"><h3>FIND A MATCH</h3>{card}
-      <div className="client-regions"><span><small>REGION</small>{campaign.settings.region}</span><span><small>PATCH</small>{campaignMenu(campaign).patch.id}</span><span><small>DIFFICULTY</small>{campaign.settings.difficulty}</span></div>
+      <div className="client-regions"><span><small>REGION</small>{campaign.settings.region}</span><span><small>PATCH</small>{patchLabel(campaignMenu(campaign).patch)}</span><span><small>DIFFICULTY</small>{campaign.settings.difficulty}</span></div>
     </div>
   </div>;
 }

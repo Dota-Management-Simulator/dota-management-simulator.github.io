@@ -1,0 +1,37 @@
+.planning-panel { margin-bottom: 20px; min-width: 0; padding: 20px; }
+.planning-panel h2 { margin: 4px 0 8px; }
+.planning-panel p { line-height: 1.6; font-size: 13px; }
+.planning-heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap; }
+.planning-heading > strong { font-size: 13px; }
+.planning-controls, .planning-actions { display: flex; align-items: end; gap: 14px; flex-wrap: wrap; }
+.planning-controls label, .planning-actions label { display: grid; gap: 7px; font-size: 12px; min-width: 0; }
+.planning-controls input, .planning-controls select, .planning-actions select { width: 100%; max-width: 210px; min-height: 38px; }
+.planning-actions p { flex: 1 1 200px; }
+.planning-attendance { list-style: none; padding: 0; margin: 14px 0; }
+.planning-attendance li { display: flex; justify-content: space-between; gap: 16px; padding: 9px 0; border-bottom: 1px solid var(--line); font-size: 12px; }
+.planning-attendance span { text-align: right; }
+.planning-warning { color: var(--clay, #d07e60); }
+.planning-summary { display: flex; flex-wrap: wrap; gap: 20px; margin: 20px 0; font-size: 13px; }
+.planning-summary strong { display: block; font-size: 20px; margin-top: 6px; }
+.planning-scroll { overflow: auto; max-width: 100%; }
+.planning-table { border-collapse: collapse; width: 100%; font-size: 12px; white-space: nowrap; }
+.planning-table caption { text-align: left; padding: 10px 0; white-space: normal; }
+.planning-table th, .planning-table td { text-align: right; padding: 12px 10px; border-bottom: 1px solid var(--line); }
+.planning-table th:first-child { text-align: left; }
+.planning-report { margin-top: 12px; font-size: 13px; }
+.planning-report summary { cursor: pointer; line-height: 1.6; }
+@media (max-width: 540px) {
+  .planning-panel { padding: 16px; }
+  .planning-controls { align-items: stretch; }
+  .planning-controls label { flex: 1 1 100%; }
+  .planning-controls input, .planning-controls select { max-width: none; }
+  .planning-attendance li { flex-direction: column; gap: 5px; }
+  .planning-attendance span { text-align: left; }
+  .planning-actions .button { width: 100%; white-space: normal; }
+  .planning-table { white-space: normal; }
+  .planning-table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .planning-table tbody, .planning-table tr, .planning-table th, .planning-table td { display: block; }
+  .planning-table tr { padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .planning-table td { display: flex; justify-content: space-between; gap: 12px; border: 0; padding: 5px 10px; }
+  .planning-table td::before { content: attr(data-label); text-align: left; }
+}

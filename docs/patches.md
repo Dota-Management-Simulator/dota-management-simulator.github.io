@@ -1,5 +1,14 @@
 # Two patches per TI season
 
+**Patch labels, October 25 (local):** menus, notes, research, tournament/match screens and inbox notices now show the final Dota version in each composite range (for example, `7.31d` for internal `2022.1`). Full historical ranges remain in the notes; the campaign date remains visible in each main-menu status bar. These are representative composite labels, not a switch to exact historical release timing. Saved IDs, tournament pins, balance inputs and outcomes are unchanged. Saved match version metadata takes precedence; old inbox text is relabelled for display without changing read/archive state. Generated cycles use `Future 1`, `Future 2`, etc. TypeScript, an isolated production build, 45 relevant existing checks and a direct all-32-label/legacy/future/saved-text check pass. Local browser QA verifies the Reborn menu date and number and patch-note navigation.
+
+**October 25 overhaul (local):** public logs now list all recovered eligible hero,
+ability, talent, upgrade and item changes separately from staff interpretation.
+Named spell cooldowns/mana, historical shop/hero stats, selected source economy
+rules and a live/replay spell panel are wired into combat. Earlier descriptions
+of the single generic spell, free favorites and item-only axis scaling below are
+superseded. See [coverage, source gaps and remaining mechanics](patch-overhaul.md).
+
 Implemented locally, October 23, 2026. Not published.
 
 **Milestone follow-up:** readable single-page notes now include hero arrivals and simplified hero changes. The 7.00 composite introduces player talent choices; New Frontiers introduces a genuinely larger battlefield and finite neutral farm camps. Both have official embedded introductions. See [milestone rules, compressed dates, calibration compatibility and validation](patch-milestones.md).

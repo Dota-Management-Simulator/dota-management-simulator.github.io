@@ -2,6 +2,7 @@ import type { Campaign, Player, Training } from "./game";
 import { roundTraining, trainingIntensities, trainingPlan, trainingSchedule } from "./training";
 import { sponsorBenefits } from "./sponsors";
 import { playerTournamentLock } from "./tournament-locks";
+import { campPractice } from "./bootcamp";
 
 export interface ContractOffer {
   wage: number;
@@ -90,5 +91,5 @@ export function weeklyPractice(c: Campaign, p: Player, plan: Training) {
   const expired = contract && weeksRemaining(c, contract) === 0 && !playerTournamentLock(c, p.id);
   const payMorale = contract ? Math.max(-3, Math.min(2, Math.round((p.wage / contract.marketWage - 1) * 5))) : 0;
   const morale = plan === "Happiness" ? focus.happiness * volume * intensity : focus.happiness;
-  return { growth, maintenance, playstyleGrowth, energy, happiness: roundTraining(morale + payMorale - (expired ? 2 : 0) + sponsor.happiness) };
+  return campPractice(c, p, plan, { growth, maintenance, playstyleGrowth, energy, happiness: roundTraining(morale + payMorale - (expired ? 2 : 0) + sponsor.happiness) });
 }

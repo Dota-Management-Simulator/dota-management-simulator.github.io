@@ -6,7 +6,8 @@ import type { TacticalOrder, TacticalSnapshot } from "./tactics";
 
 export type LiveRequest = {type:"start-live";config:BattleConfig} | {type:"advance";seconds:number} |
   {type:"order";order:TacticalOrder;at:number} | {type:"cancel-order"} |
-  {type:"cancel-item";playerId:string} | {type:"inspect";playerId:string} | {type:"finish-live"};
+  {type:"glyph";at:number} | {type:"auto-glyph";enabled:boolean} | {type:"buyback";playerId:string;at:number} |
+  {type:"cancel-item";playerId:string} | {type:"purchase-item";playerId:string;itemId:string} | {type:"inspect";playerId:string} | {type:"finish-live"};
 export interface LiveUpdate { type:"live"; frame:ReplayFrame; tactics:TacticalSnapshot; message?:string; simulation?:SimulatedSeries }
 
 /** One authoritative, resumable in-memory map. Both stepping and skipping call
@@ -27,13 +28,29 @@ export class LiveBattleSession {
   }
   command(request:Exclude<LiveRequest,{type:"start-live"}>):LiveUpdate {
     if(request.type==="advance")return this.advance(request.seconds);
-    if(request.type==="finish-live"){if(this.battle.winner===null)this.battle.run();return this.update();}
+    if(request.type==="finish-live"){
+      if(this.battle.winner===null)try { this.battle.run(); }
+      catch(error) {
+        if(error instanceof Error && error.message==="The lane simulation did not finish. No campaign changes were applied.")
+          return this.update("Automatic simulation reached its three-hour limit. This map is still live: resume or step forward to finish it. Your accepted calls and purchases are retained.");
+        throw error;
+      }
+      return this.update();
+    }
     let message:string|undefined;
-    if(request.type==="order") {
+    if(request.type==='glyph' || request.type==='buyback') {
+      if(request.at!==this.battle.clock) message='The match advanced. Review the current situation and call again.';
+      else if(request.type==='glyph') message=this.battle.useGlyph(0)??'Glyph of Fortification activated.';
+      else message=this.battle.buyback(0,request.playerId)??'Player bought back with match gold.';
+    } else if(request.type==='auto-glyph') {
+      if(typeof request.enabled!=='boolean') message='Invalid Auto Glyph setting.';
+      else {this.battle.setAutoGlyph(0,request.enabled);message=`Auto Glyph ${request.enabled?'enabled':'disabled'}.`;}
+    } else if(request.type==="order") {
       if(request.at!==this.battle.clock)message="The match advanced. Review the current situation and call again.";
       else {const result=this.battle.issueOrder(0,request.order);message=result.accepted?"Order accepted.":result.reason??undefined;}
     } else if(request.type==="cancel-order")this.battle.cancelOrder(0);
     else if(request.type==="cancel-item")this.battle.cancelItemPriority(0,request.playerId);
+    else if(request.type==="purchase-item")message=this.battle.prioritizeItem(0,request.playerId,request.itemId)??(request.playerId==='all'?'Item priorities saved for eligible players; each spends their own match gold.':'Item priority saved; the player must earn the gold.');
     else if(request.type==="inspect")this.targetPlayerId=request.playerId;
     return this.update(message);
   }

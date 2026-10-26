@@ -4,4 +4,5 @@ export const combatInputs = [
   'src/talents.ts', 'src/patch-milestones.ts', 'src/patches.ts', 'src/heroes.ts', 'src/hero-roles.ts',
   'src/data/heroes-2011.json', 'src/data/hero-releases.json', 'src/data/hero-role-evidence.json',
   'src/draft.ts', 'src/captains-mode.ts', 'src/hero-balance.ts', 'src/patch-knowledge.ts', 'src/data/patches.json',
+  'src/match-rules.ts', 'src/map-geometry.ts', 'src/map-paths.ts', 'src/combat-model.ts', 'src/data/combat-history.json',
 ];

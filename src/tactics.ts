@@ -21,16 +21,17 @@ export const strategies: Strategy[] = [
   { id: "roshan", name: "Attempt Roshan", phases: ["mid", "late"], kind: "roshan", roles: [0, 1, 2, 3, 4], staff: "c4", skill: "intuition", threshold: 50, description: "Gather at the pit. Fight Roshan for gold and one expiring Aegis; enemies can contest." },
   { id: "high-ground", name: "Group for high ground", phases: ["late"], kind: "push", roles: [0, 1, 2, 3, 4], description: "Commit all five to an exposed lane and then the Ancient. Retreat rules still apply." },
   { id: "split-push", name: "Offlaner split pushes", phases: ["mid", "late"], kind: "push", roles: [2], staff: "c5", skill: "pushing", threshold: 50, description: "Offlaner pressures the least defended visible lane. Avoids a detected numerical disadvantage." },
-  { id: "buy-bkb", name: "Prioritize Black King Bar", phases: ["mid", "late"], kind: "item", roles: [0], item: "bkb", description: "Selected player saves match gold for BKB next, delaying the normal build." },
-  { id: "buy-rapier", name: "Save for Divine Rapier", phases: ["late"], kind: "item", roles: [0], item: "rapier", staff: "c6", skill: "creativity", threshold: 55, description: "Selected player saves for Rapier. It drops on death and opponents can pick it up." },
+  { id: "buy-bkb", name: "Prioritize Black King Bar", phases: ["mid", "late"], kind: "item", roles: [0], item: "bkb", description: "Selected player or all eligible teammates save match gold for BKB next, delaying the normal build." },
+  { id: "buy-rapier", name: "Save for Divine Rapier", phases: ["late"], kind: "item", roles: [0], item: "rapier", staff: "c6", skill: "creativity", threshold: 55, description: "Selected player or all eligible teammates save for Rapier. It drops on death and opponents can pick it up." },
 ];
 export const strategyById = (id: string) => strategies.find(s => s.id === id);
-export interface TacticalPreparation { slots: Record<GamePhase, string[]>; builds: BuildStyle[] }
+export interface TacticalPreparation { slots: Record<GamePhase, string[]>; builds: BuildStyle[]; autoGlyph?: boolean }
 export const defaultTactics = (): TacticalPreparation => ({ slots: { early: ["mid-bottom", "supports-mid", "mid-top"], mid: ["push-2", "protect-carry", "buy-bkb"], late: ["high-ground", "push-1", "buy-bkb"] }, builds: Array(5).fill("automatic") });
 export function normalizeTactics(input: unknown): TacticalPreparation {
   const result = defaultTactics();
   if (!input || typeof input !== "object" || Array.isArray(input)) return result;
   const raw = input as Partial<TacticalPreparation>;
+  if (typeof raw.autoGlyph === 'boolean') result.autoGlyph = raw.autoGlyph;
   for (const phase of gamePhases) if (Array.isArray(raw.slots?.[phase])) {
     const valid = [...new Set(raw.slots[phase].filter(id => typeof id === "string" && strategyById(id)?.phases.includes(phase)))].slice(0, 3);
     result.slots[phase] = [...valid, ...result.slots[phase].filter(id => !valid.includes(id))].slice(0, 3);
@@ -48,6 +49,7 @@ export function automaticTactics(players: BattlePlayer[], staffIds: string[] = [
   if (strategyUnlocked(strategyById("roshan")!, players, staffIds)) { prep.slots.mid[1] = "roshan"; prep.slots.late[1] = "roshan"; }
   return prep;
 }
+/** targetPlayerId="all" applies purchase calls to eligible teammates; movement calls keep their roles. */
 export interface TacticalOrder { strategyId: string; targetPlayerId?: string }
 export interface ActivePlay {
   id: number; strategyId: string; side: Side; source: "manager" | "bot";

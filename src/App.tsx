@@ -45,9 +45,7 @@ import {
   money,
   nextEvent,
   rating,
-  readSave,
   ROLES,
-  SAVE_KEY,
   shortMoney,
   buildBattleConfig,
   prepareEvent,
@@ -96,6 +94,8 @@ import { weeklyPractice } from "./contracts";
 import { teamIdForName } from "./team-logos";
 import { trainingEffect, trainingOptions } from "./training";
 import TrainingWorkload from "./TrainingWorkload";
+import BootcampPlanner from "./BootcampPlanner";
+import FinanceForecast from "./FinanceForecast";
 import TrainingPresets from "./TrainingPresets";
 import TrainingQuickSlots from "./TrainingQuickSlots";
 import { PlayerProfileTabs } from "./PlayerPerformance";
@@ -108,15 +108,27 @@ import ClientPageBar from "./ClientPageBar";
 import { DeskShellContext } from "./ClientShell";
 import ManagerDesk from "./ManagerDesk";
 import SquadWorkspace from "./SquadWorkspace";
+import { ClubProfile } from "./MatchHistory";
+import PlayerWelfarePanel from "./PlayerWelfare";
+import { fullRosterBlocker } from "./player-welfare";
 import { managerContinue, managerCompetition } from "./manager-view";
 import CompetitionStandings from "./CompetitionStandings";
 import GameNavigation, { navigation } from "./GameNavigation";
 import { campaignMenu } from "./menu-eras";
+import CampaignLauncher from "./CampaignLauncher";
+import CampaignExitDialog from "./CampaignExitDialog";
+import { saveCampaignSlot } from "./campaign-library";
+import type { CampaignSlot } from "./campaign-library";
 
 const pageText: Record<
   Page,
   { eyebrow: string; title: string; description: string }
 > = {
+  profile: {
+    eyebrow: "MY PROFILE",
+    title: "Every match, one history.",
+    description: "Your tournament games, practice scrims and exhibitions, with their recorded breakdowns.",
+  },
   arcade: {
     eyebrow: "EXHIBITIONS",
     title: "Play for the story.",
@@ -301,8 +313,11 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
   const [theme, setTheme] = useState<"light" | "dark">(() =>
     document.documentElement.dataset.theme === "dark" ? "dark" : "light",
   );
-  const [campaign, setCampaign] = useState<Campaign | null>(() => preview ? preview.campaign : readSave());
-  const [setup, setSetup] = useState(() => !preview && !readSave());
+  const [campaign, setCampaign] = useState<Campaign | null>(preview?.campaign ?? null);
+  const [launcher, setLauncher] = useState(!preview);
+  const [openLibrary, setOpenLibrary] = useState(false);
+  const [activeSlot, setActiveSlot] = useState<string | null>(null);
+  const [setup, setSetup] = useState(false);
   const [page, setPage] = useState<Page>(preview?.page ?? "overview");
   const [calendarTarget, setCalendarTarget] = useState<string | undefined>();
   const [calendarRequest, setCalendarRequest] = useState(0);
@@ -315,7 +330,8 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
   const [viewResult, setViewResult] = useState<Result | null>(null);
   const [help, setHelp] = useState(false);
   const [preferences, setPreferences] = useState(false);
-  const [confirmNew, setConfirmNew] = useState(false);
+  const [exitMenu, setExitMenu] = useState(false);
+  const [exitSaved, setExitSaved] = useState(false);
   const [toast, setToast] = useState("");
   const [saveError, setSaveError] = useState(false);
   const [calendarBusy, setCalendarBusy] = useState(false);
@@ -332,8 +348,8 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
   }, [campaign]);
   // Inside a campaign every page is the era's Dota client, which is dark only;
   // the light/dark choice and club colors apply to campaign setup.
-  const inGame = !!campaign && !setup;
-  const shownTheme = inGame ? "dark" : theme;
+  const inGame = !!campaign && !setup && !launcher;
+  const shownTheme = inGame || launcher ? "dark" : theme;
   useEffect(() => {
     document.documentElement.dataset.theme = shownTheme;
     document
@@ -353,17 +369,17 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
   const identityTeamId = setup ? (settings.clubMode === "custom" ? "managed-custom" : selectedClub.id) : campaign?.world?.managedTeamId;
   const clubBranding = useClubAppearance({ branding: identitySettings?.branding, teamId: identityTeamId,
     year: setup ? settings.year : campaign?.year ?? 2011, custom: identitySettings?.clubMode === "custom" || identityTeamId === "managed-custom",
-    theme: shownTheme, enabled: !!identitySettings && !inGame });
+    theme: shownTheme, enabled: !!identitySettings && !inGame && !launcher });
   useEffect(() => {
-    if (campaign && !preview) {
+    if (campaign && activeSlot && !preview && !launcher && !setup) {
       try {
-        localStorage.setItem(SAVE_KEY, JSON.stringify(campaign));
+        saveCampaignSlot(activeSlot, campaign);
         setSaveError(false);
       } catch {
         setSaveError(true);
       }
     }
-  }, [campaign, preview]);
+  }, [campaign, activeSlot, preview, launcher, setup]);
   useEffect(() => {
     preview?.onPageChange(page);
   }, [page, preview?.onPageChange]);
@@ -382,7 +398,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
     event ||
     help ||
     preferences ||
-    confirmNew ||
+    exitMenu ||
     viewResult
   );
   useEffect(() => {
@@ -403,7 +419,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
         setEvent(null);
         setHelp(false);
         setPreferences(false);
-        setConfirmNew(false);
+        setExitMenu(false);
       }
       if (e.key === "Tab") {
         const list = focusables();
@@ -450,18 +466,53 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
     } else go(action.page);
   };
   const start = () => {
+    setActiveSlot(crypto.randomUUID());
     setCampaign(enableHistoricalCalendar(createCampaign(settings)));
     setSetup(false);
     setPage("overview");
-    setConfirmNew(false);
     notify("Your campaign has begun. Welcome to the organization.");
   };
   const newCampaign = () => {
     if (calendarBusy || simulating) return;
     setPreferences(false);
+    setLauncher(false);
     setSetup(true);
   };
+  const loadCampaign = (slot: CampaignSlot) => {
+    setActiveSlot(slot.id);
+    setCampaign(slot.campaign);
+    setPage("overview");
+    setSetup(false);
+    setLauncher(false);
+    setSaveError(false);
+  };
+  const saveCurrentCampaign = () => {
+    if (calendarBusy || simulating || preview || !campaign || !activeSlot || setup) return false;
+    try {
+      saveCampaignSlot(activeSlot, campaign);
+      setSaveError(false);
+      setExitSaved(true);
+      return true;
+    } catch {
+      setSaveError(true);
+      setExitSaved(false);
+      notify("Your latest changes could not be saved. Free browser storage before leaving this campaign.");
+      return false;
+    }
+  };
+  const returnToLibrary = (destination: "steam" | "campaigns" = "campaigns") => {
+    if (calendarBusy || simulating || preview) return;
+    if (campaign && activeSlot && !setup) {
+      if (!saveCurrentCampaign()) return;
+    }
+    setExitMenu(false);
+    setPreferences(false);
+    setSetup(false);
+    setOpenLibrary(destination === "campaigns");
+    setLauncher(true);
+  };
   const openEvent = (e: GameEvent) => {
+    if (campaign && fullRosterBlocker(campaign)) { notify(fullRosterBlocker(campaign)!); go("roster"); return; }
     setEvent(e);
     setSimDone(false);
     setDraftConfig(null);
@@ -476,8 +527,12 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
   };
   const runSimulation = () => {
     if (!event || !campaign || simulating) return;
+    const prepared = prepareEvent(campaign, event);
+    const blocker = fullRosterBlocker(prepared);
+    if (blocker) { setCampaign(prepared); setEvent(null); notify(blocker); go("roster"); return; }
     settled.current=false; setSimulating(true);
-    setDraftConfig(buildBattleConfig(prepareEvent(campaign,event),event));
+    setCampaign(prepared);
+    setDraftConfig(buildBattleConfig(prepared,event));
   };
   const advance = () => {
     if (campaign?.calendar) {
@@ -529,7 +584,10 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
   const deskClient = !!campaign && !setup && page === "overview" && campaignMenu(campaign).era.layout !== "showcase";
   const saveStatus = preview ? "Preview · not saved" : saveError ? "Save unavailable" : campaign ? "Saved on this browser" : "A fresh start";
   const deskShell = { action: continueAction, busy: calendarBusy || simulating, onContinue: continueCampaign,
-    onHelp: () => setHelp(true), onSettings: () => setPreferences(true), saveStatus };
+    onHelp: () => setHelp(true), onSettings: () => setPreferences(true),
+    onExit: preview ? undefined : () => { if (!calendarBusy && !simulating) { setExitSaved(false); setExitMenu(true); } }, saveStatus };
+
+  if (launcher) return <CampaignLauncher onLoad={loadCampaign} onNew={newCampaign} initiallyOpen={openLibrary} />;
 
   return (
     <ClubIdentityContext.Provider value={{ teamId: identityTeamId, name: identitySettings?.team ?? "", branding: clubBranding }}>
@@ -581,6 +639,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
         {campaign && !setup && continueAction && !deskClient && <CampaignBar campaign={campaign} action={continueAction} busy={calendarBusy || simulating} onContinue={continueCampaign} onPatch={() => go("patch")} />}
         </div>
         <main>
+          {saveError && <div className="alert warning" role="alert">Your latest changes could not be saved. Browser storage may be full or unavailable. Keep this campaign open until storage is available.</div>}
           {setup ? (
             <>
               <div className="page-heading">
@@ -589,12 +648,12 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                   <h1>A new era awaits.</h1>
                   <p>Build a team. Shape the meta. Chase the Aegis.</p>
                 </div>
-                {campaign && (
+                {!preview && (
                   <button
                     className="button secondary"
-                    onClick={() => setSetup(false)}
+                    onClick={() => returnToLibrary()}
                   >
-                    <ChevronLeft size={15} /> Back to campaign
+                    <ChevronLeft size={15} /> Back to campaigns
                   </button>
                 )}
               </div>
@@ -799,7 +858,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                     <button
                       className="button primary"
                       disabled={!setupName || nameConflict}
-                      onClick={() => (campaign ? setConfirmNew(true) : start())}
+                      onClick={start}
                     >
                       Begin your story <ArrowRight size={17} />
                     </button>
@@ -875,7 +934,8 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                   </div>
                 )}
                 {page === "overview" && <ManagerDesk campaign={campaign} onPage={go} onAction={inboxAction} onPlayer={setPlayer} onCompetition={openCompetition} />}
-                {page === "roster" && <SquadWorkspace campaign={campaign} onProfile={setPlayer} onTraining={() => go("training")} onScout={() => go("scouting")} />}
+                {page === "profile" && <ClubProfile campaign={campaign} />}
+                {page === "roster" && <SquadWorkspace campaign={campaign} onProfile={setPlayer} onTraining={() => go("training")} onScout={() => go("scouting")} onChange={next => update(() => next)} />}
                 {page === "standings" && <CompetitionStandings campaign={campaign} onTournament={id => id ? inboxAction({ kind: "tournament", eventId: id }) : go("calendar")} onResults={winner => {
                   const result = campaign.results.find(r => winner.archived ? `legacy:${r.year}:${r.eventId}` === winner.eventId : r.tournamentId === winner.eventId);
                   if (result) setViewResult(result);
@@ -883,6 +943,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                 }} />}
                 {page === "training" && (
                   <>
+                    <BootcampPlanner campaign={campaign} onChange={update} />
                     <div className="info-strip">
                       <span>
                         <Zap size={17} /> Training resolves when you{" "}
@@ -1275,6 +1336,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                         </div>
                       ))}
                     </div>
+                    <FinanceForecast campaign={campaign} onTraining={() => go("training")} />
                     <SponsorMarket campaign={campaign} onChange={(c) => update(() => c)} onStaff={() => go("staff")} />
                     <section className="panel transaction-panel">
                       <SectionTitle
@@ -1436,8 +1498,8 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                     {campaign.world ? "2011–2026 rosters · Estimated gameplay ratings" : "Legacy fictional world"} ·{" "}
                     {campaign.settings.difficulty} difficulty
                   </span>
-                  <button onClick={newCampaign} disabled={calendarBusy || simulating}>
-                    New campaign <Plus size={13} />
+                  <button onClick={() => returnToLibrary()} disabled={calendarBusy || simulating || !!preview}>
+                    Campaign library <Plus size={13} />
                   </button>
                 </footer>
               </>
@@ -1469,7 +1531,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
               setEvent(null);
               setHelp(false);
               setPreferences(false);
-              setConfirmNew(false);
+              setExitMenu(false);
             }
           }}
         >
@@ -1491,14 +1553,14 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                   setEvent(null);
                   setHelp(false);
                   setPreferences(false);
-                  setConfirmNew(false);
+                  setExitMenu(false);
                 }}
               >
                 <X size={20} />
               </button>
             )}
-            {!simulating && !calendarBusy && campaign && !setup && <button className="back-to-desk modal-hub-back" onClick={() => {
-              setPlayer(null); setViewResult(null); setEvent(null); setHelp(false); setPreferences(false); setConfirmNew(false); go("overview");
+            {!exitMenu && !simulating && !calendarBusy && campaign && !setup && <button className="back-to-desk modal-hub-back" onClick={() => {
+              setPlayer(null); setViewResult(null); setEvent(null); setHelp(false); setPreferences(false); setExitMenu(false); go("overview");
             }}><ChevronLeft size={16} />Back to Desk</button>}
             {currentPlayer && campaign && (
               <>
@@ -1535,6 +1597,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                     </span>
                   </div>
                   <PlayerProfileTabs key={currentPlayer.id} campaign={campaign} playerId={currentPlayer.id}>
+                  <PlayerWelfarePanel key={`welfare:${currentPlayer.id}`} campaign={campaign} player={currentPlayer} onChange={next => update(() => next)} />
                   <ContractNegotiation key={currentPlayer.id} campaign={campaign} player={currentPlayer} onChange={(next) => update(() => next)} />
                   <PlayerTalents campaign={campaign} playerId={currentPlayer.id} onChange={next => update(() => next)} />
                   <SectionTitle
@@ -1769,36 +1832,19 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                   <strong>18 weeks · prototype</strong>
                 </div>
                 <p className="field-note">
-                  Starting a replacement campaign will ask before overwriting
-                  your current save. No account or server is required.
+                  Each campaign has its own local save. Starting a new one keeps
+                  your other campaigns. No account or server is required.
                 </p>
                 <button className="button primary full" onClick={newCampaign} disabled={calendarBusy || simulating}>
                   Set up a new campaign <Plus size={16} />
                 </button>
+                {!preview && <button className="button secondary full" style={{ marginTop: 12 }} onClick={() => returnToLibrary()} disabled={calendarBusy || simulating}>
+                  Return to campaign library <ChevronLeft size={16} />
+                </button>}
               </div>
             )}
-            {confirmNew && (
-              <div className="text-modal">
-                <div className="eyebrow">A NEW BEGINNING</div>
-                <h2 id="modal-title">Replace your current campaign?</h2>
-                <p>
-                  Starting {setupName} in {settings.year} will replace the
-                  saved campaign for {campaign?.settings.team}. This prototype
-                  has one local save slot.
-                </p>
-                <div className="dialog-actions">
-                  <button
-                    className="button secondary"
-                    onClick={() => setConfirmNew(false)}
-                  >
-                    Keep current save
-                  </button>
-                  <button className="button primary" onClick={start}>
-                    Start new campaign <ArrowRight size={15} />
-                  </button>
-                </div>
-              </div>
-            )}
+            {exitMenu && campaign && <CampaignExitDialog team={campaign.settings.team} saveError={saveError} saved={exitSaved}
+              onSave={saveCurrentCampaign} onExit={returnToLibrary} onCancel={() => setExitMenu(false)} />}
           </div>
         </div>
       )}

@@ -13,17 +13,14 @@
 .rb-icon:hover { color: #e1e8eb; }
 .rb-icon > i { position: absolute; left: 4px; bottom: 9px; min-width: 16px; padding: 1px 3px; border-radius: 8px; background: #1f63c9; color: #fff; font-size: 9px; font-style: normal; }
 .rb-arrows { display: flex; align-items: center; gap: 2px; padding: 0 12px; color: #6c757b; border-left: 1px solid #000; }
-.rb-logo-tab { flex: 0 0 auto; width: 96px; margin: 0 4px -6px; border: 1px solid #000; border-top: 0; background: radial-gradient(ellipse at 50% 70%, #d1582a, #7a2410 70%); clip-path: polygon(0 0, 100% 0, 92% 100%, 8% 100%); box-shadow: 0 0 18px #e0662f88; }
-.rb-logo-tab img { width: 40px; height: 40px; object-fit: contain; filter: drop-shadow(0 0 6px #ffb06a); }
-.rb-logo-tab:not(.is-active) { background: radial-gradient(ellipse at 50% 70%, #8d3a1e, #3d150a 70%); box-shadow: none; }
-.rb-logo-tab.is-green { background: radial-gradient(ellipse at 50% 70%, #6fd43c, #1f5c12 70%); box-shadow: 0 0 22px #6fdc4188; }
-.rb-logo-tab.is-green img { filter: hue-rotate(80deg) brightness(1.3) drop-shadow(0 0 6px #b6ff7a); }
+.rb-logo-tab { position: relative; flex: 0 0 auto; width: 100px; margin: 0 4px -18px; padding: 0; border: 0; background: transparent; overflow: visible; }
+.rb-logo-tab:focus-visible { outline: 1px solid #f5b06b; outline-offset: -3px; }
 .rb-top > nav { display: flex; min-width: 0; overflow-x: auto; scrollbar-width: none; }
 .rb-top > nav > .client-tab > button { position: relative; flex: 0 0 auto; padding: 0 32px; border: 0; background: transparent; color: #9ba5aa; font-family: var(--rb-serif); font-size: 15px; letter-spacing: 2.4px; text-transform: uppercase; }
 .rb-top > nav > .client-tab > button::after { content: ""; position: absolute; right: 0; top: 0; bottom: 0; width: 1px; background: #00000099; transform: skewX(-20deg); box-shadow: 1px 0 0 #ffffff12; }
 .rb-top > nav > .client-tab > button:hover { color: #f0f3f4; text-shadow: 0 0 10px #ffffff55; }
 .rb-top > nav > .client-tab > button > small { position: absolute; left: 50%; bottom: 3px; transform: translateX(-50%); padding: 0 6px; border-radius: 2px; background: #2c9a6d; color: #fff; font-family: "DM Sans", sans-serif; font-size: 8px; letter-spacing: .6px; white-space: nowrap; }
-.rb-top-right { display: flex; align-items: stretch; margin-left: auto; }
+.rb-top-right { display: flex; flex-shrink: 0; align-items: stretch; margin-left: auto; }
 .rb-shards { display: grid; grid-template-columns: auto auto; align-items: center; column-gap: 6px; padding: 0 14px; color: #e3a33b; }
 .rb-shards > svg { grid-row: span 2; }
 .rb-shards > b { color: #f1d27d; font-size: 12px; letter-spacing: 1px; }
@@ -599,3 +596,6 @@
   .rb-stats { justify-content: flex-start; flex-wrap: wrap; gap: 6px 14px; padding: 6px 12px 0; }
   .rb-play-wrap > small { display: none; }
 }
+
+/* Reserve the exit control on the narrowest client headers. */
+@media (max-width: 380px) { .rb-client .rb-shards { display: none; } }

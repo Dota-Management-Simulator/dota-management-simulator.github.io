@@ -1,5 +1,21 @@
 # Product vision and future plans
 
+**October 26 sports-manager concepts, local:** finite paid bootcamps now layer on existing individual training, with development/energy tradeoffs, protected Rest/contracts, fatigue checks, refunds and retained participant reports. Finances adds sponsor-expiry-aware baseline/scenario cash projections to assess preparation without assumed prizes. Five follow-up improvements address exact player previews, completion feedback, payroll affordability, forecast explanations and mobile controls. All 410 shared tests, TypeScript/isolated build and full-client/narrow browser checks pass. These are adapted game systems, not historical assessments; strategy secrecy, full coordination and dynamic financial forecasting remain future work. See [research, five-point review, rules and limits](management-planning.md). Not published.
+
+**October 25 patch-mechanics balance, local:** actual siege/resource/TP rules now have public per-composite deltas; historical percent/flat mana regen and 7.07/7.20 formula transitions are corrected. Fresh six-worker full-engine tuning is running across all 32 phases with stronger completion/hero/side/duration gates and an independent final holdout before activation. Two 512-map pilots complete with zero stalls; **balance remains pending**, not certified. Tests/build pass. See [current command, progress and acceptance rules](mechanics-balance.md); preserve process 69740 and its `.local/mechanics-hero-balance/` output.
+
+**October 25 identity and resources, local:** basic hero identity, HP/mana regeneration, recovery consumables and paid TP channels now run in the shared match engine, with short spell/item guides. All 385 tests, TypeScript/production build and CRLF-aware diff checks pass. See [combat identity and resources](combat-identity.md) for supported behavior and remaining unique-mechanic/TP limitations. Not published; balance remains uncertified.
+
+**October 25 siege/high ground, local:** patched matches now require real creep-enabled siege windows, with backdoor healing/reduction, manual and optional automatic Glyph, catapult waves, approximate elevation/shared sight, real denies and historical buyback costs/penalties. Glyph preference persists; live/replay defenses and saved DN/BB expose behavior. Source attack ranges, Take Aim, Nether Blast, Liquid Fire, Dragon Form, representative Serpent Wards and directional wave clear distinguish hero siege/defense strengths. Push AI converts building windows; no patched timed Ancient damage. All 385 shared tests, TypeScript/build/diff checks pass, all 32 composites complete a seeded sample, and real-worker desktop/390px/320px checks pass. Balance remains uncertified; jobs and existing results/saves are preserved. [Sources, adaptations and limits](match-rules.md). Not published.
+
+**October 25 modern breakdown follow-up, local:** modern player analysis now has ten hero portraits, Combat/Economy controls and paired comparisons, with persistent selections and direct links to each player's visual item progression. Pause-model preference survives navigation. Archive limits remain explicit. TypeScript/isolated build/diff checks pass; 22/24 focused tests pass, with two concurrent engine match-completion failures before settlement assertions. Desktop/390px/320px UI checks and historical practice-map reopening pass. [Details](post-game.md#modern-breakdown-follow-up--october-25-2026). Not published.
+
+**October 25 current-client results correction, local:** modern post-game screens now follow an inspected 2026 capture with ten animated hero columns in one row, top horizontal tabs, compact winning-side/score header and dense item/stat scoreboards. Recorded Performance and existing click-through breakdowns remain. Earlier eras and profile histories are preserved; no rank/Plus/cosmetic data is invented. The implementation snapshot passes 340 tests and TypeScript/build; desktop/390px/320px visual checks pass. A stable 5353 recorded-result preview is isolated from concurrent combat edits. [Sources and limits](post-game.md#current-client-correction--october-25-2026). Not published.
+
+**October 25 player welfare, local:** managed players now have individual expectations for competitive win rate, free time and scrim/training mix, demanding personalities and simulated teammate friction. Weekly concern/notice/recovery/quit transitions and inbox messages give the manager time to intervene; meetings ease tension without erasing unmet demands. Historical roster observations have a modest, source-linked effect on patience, excluding future knowledge, ambiguous years and whole-core moves. Kicks show exact existing severance and leave recruitable vacancies; zero-to-five-player saves remain valid and competition requires a rebuilt five. Tournament/prepared-scrim locks remain. All 340 shared tests, TypeScript/isolated build and CRLF-aware diff checks pass, including the earlier qualifier regression; desktop/390px/320px browser QA passes. See [sources, behavior and limits](player-welfare.md). Not published; AI clubs retain their existing shuffle system.
+
+**October 25 post-game/profile history, local:** era-specific Dota-style results now provide clickable player lineups/breakdowns, sortable scoreboards, recorded graphs, item progression and draft/call tabs. My profile and player profiles index saved tournament/practice/exhibition maps, preserve event identity and reopen the selected map in its historical presentation. Practice remains outside competitive career statistics; no save/combat/settlement changes. Forty-two focused tests and TypeScript/build pass; shared full suite is 337/338 with an unrelated concurrent welfare/qualifier fixture failure. Desktop and actual 390px/320px QA pass. See [sources, limits and validation](post-game.md). Not published.
+
 **October 24 Battle Pass publication:** the requested reward experience is live: source `bd23b9b`, Pages `8e2acca`. The committed snapshot passes 291 tests/build and GitHub Actions; Pages is built, all 2,194 deployed files match, and public assets/workers plus the live reward/search/animation/tournament screens are verified. The existing hosted campaign is preserved. The authorized Discord summary was delivered. Earlier development labels are snapshots; see [release details](github-pages.md#october-24-2026-battle-pass-release).
 
 **October 24 Battle Pass reward experience:** the user expanded the request to the actual sets, Arcanas, Personas and scrolling reward menus. All eleven passes now open a cosmetic highlight stage and provide a reward track, searchable/filterable collection, treasure gallery, alternate artwork and on-demand original animation previews: 237 entries, 422 sourced local illustrations and 192 verified clips. Tournament chapters remain available. Original unlock levels are historical information; purchasing, random openings, ownership and earned cosmetic progression are not added. All 291 tests/build pass, with desktop/390px/320px browser QA. See [sources, coverage and limits](tournament-battle-passes.md).
@@ -152,6 +168,18 @@ Weekly practice can now improve any playstyle shown on a player's profile, cappe
 
 ## 5. Patches, hero tags and the evolving meta
 
+**Latest direction, October 25:** keep two representative composites per season,
+but make their public logs cover every recovered changed hero, named ability,
+rework, talent, Scepter, Shard and item in concise terms. Public changes should
+let the manager infer consequences; analyst/staff interpretation is a research
+bonus. The local implementation adds full public logs, named ability cooldowns
+and mana, historical hero/shop attributes, specific economy rules and a separate
+live/replay spell panel for the allied five plus fading enemy casts. Exact unique
+mechanics remain incomplete and early reference values remain provisional. See
+[the overhaul coverage and limits](patch-overhaul.md). This supersedes the earlier
+free-favorites and single-generic-spell descriptions below; it is not a claim
+that every recorded historical change has full engine parity.
+
 Local milestone follow-up (October 23): the patch screen now opens a single scrolling summary with hero arrivals, uncertain gameplay comparisons and simplified hero notes. The composite containing 7.00 unlocks per-player talent plans that activate at match levels 10/15/20/25. New Frontiers expands actual playable area by 40% and adds twelve finite neutral farm camps with travel/clearing costs. Both milestones introduce official embedded videos. These remain simplified systems on the compressed season calendar; see [rules and limits](patch-milestones.md).
 
 The user does not want exhaustive patch notes. The idea is **one or two representative major patches per year/era**, attached to specific tournaments, with concise attributes and meta hero lists.
@@ -190,6 +218,8 @@ Draft quality should influence real match situations. A pushing composition need
 ### Implemented and explicitly approved
 
 The old lane engine now determines best-of-three results. A map viewer shows the computed series, and the manager can pause, speed up or skip playback without changing the outcome. Per-game hero K/D/A, levels, resource graphs and results history exist. Keep these useful even if the simulation becomes more sophisticated.
+
+**October 25 match announcements, local:** both viewers now show actual kill/objective events and kill-streak banners above the map, a ten-hero life strip and engine-derived respawn countdowns in the strip/side panels/rosters. Explicit sound activation plays original default Dota announcer clips. Replay event timestamps handle deaths and Aegis revivals between snapshots; telemetry remains outside saved scoreboards and changes no combat decisions or rewards. See [behavior, sources and verification](match-announcer.md). Not published.
 
 ### Original long-term tactical idea
 

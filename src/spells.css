@@ -1,0 +1,104 @@
+.spell-panel { border:1px solid var(--line); border-radius:8px; padding:20px; margin:20px 0; background:#101719; color:#d9ddd9; }
+.spell-panel-heading { display:flex; align-items:center; justify-content:space-between; gap:12px; }
+.spell-panel h3 { margin:6px 0 0; font-size:18px; }
+.spell-panel p { color:#a6b0ad; font-size:12px; line-height:1.6; }
+.allied-spell-roster { display:grid; gap:0; }
+.hero-spells { display:grid; grid-template-columns:180px minmax(0,1fr); gap:18px; padding:15px 0; border-top:1px solid #ffffff12; }
+.spell-player { display:flex; align-items:center; gap:9px; min-width:0; }
+.spell-player strong,.spell-player small { display:block; }
+.spell-player strong { font-size:13px; }.spell-player small { font-size:11px; color:#a4aba7; margin-top:4px; }
+.spell-player .spell-mana { color:#7ca9df; }
+.spell-guide { grid-column:1/-1; font-size:11px; min-width:0; }
+.spell-guide summary,.hero-kit-guide summary { cursor:pointer; padding:6px 0; }
+.spell-guide p,.hero-kit-guide p { overflow-wrap:anywhere; line-height:1.6; margin:8px 0; }
+.item-inventory button.item-slot { padding:0; min-height:0; flex-shrink:0; }
+.item-description { font-size:11px; line-height:1.6; overflow-wrap:anywhere; margin:6px 0; }
+.item-inventory .item-tp { display:inline-flex; align-items:center; gap:4px; padding:3px; height:auto; min-height:0; max-width:100%; white-space:normal; text-align:left; }
+.item-tp img { width:24px; height:18px; object-fit:contain; }
+.spell-slots { display:flex; flex-wrap:wrap; align-items:start; gap:9px; min-width:0; }
+.spell-slot { flex:0 1 70px; min-width:52px; text-align:center; font-size:10px; }
+.spell-art { position:relative; width:46px; height:46px; margin:auto auto 5px; border:1px solid #7b817a; border-radius:3px; overflow:hidden; background:#263032; }
+.spell-art img,.spell-fallback { width:100%; height:100%; object-fit:cover; display:grid; place-items:center; color:#e2c288; font-weight:700; }
+.spell-art b { position:absolute; inset:0; background:#000a; display:grid; place-items:center; font-size:22px; color:white; text-shadow:0 1px 4px black; }
+.spell-slot strong { display:block; font-size:10px; line-height:1.3; overflow-wrap:anywhere; }
+.spell-slot small { display:block; font-size:9px; line-height:1.3; color:#acb6ad; margin-top:3px; }
+.spell-slot.locked .spell-art { filter:grayscale(1); opacity:.35; }
+.spell-slot.casting .spell-art { border-color:#e4c66c; box-shadow:0 0 11px #e4c66c55; }
+.spell-cast-flash { position:absolute; bottom:1px; left:0; right:0; font-size:9px; font-weight:800; color:#ffe8a1; background:#5e4d20bd; }
+.enemy-spell-feed { border-top:1px solid #ffffff12; margin-top:8px; padding-top:10px; }
+.enemy-spell-feed h4 { font-size:12px; margin:0 0 10px; }.enemy-spell-feed>small { color:#aaa; }
+.enemy-spell-icons { display:flex; flex-wrap:wrap; gap:10px; }
+.enemy-cast { display:grid; grid-template-columns:32px minmax(0,1fr); column-gap:7px; font-size:10px; align-content:start; max-width:180px; }
+.enemy-cast img,.enemy-cast>.spell-fallback { width:32px; height:32px; object-fit:cover; grid-row:span 2; border:1px solid #b8776b; }
+.enemy-cast small { color:#d29587; }.enemy-cast strong { font-size:10px; }
+.spell-precision { display:block; margin-top:16px; font-size:10px; line-height:1.5; color:#a4aba7; }
+@media(max-width:650px){.hero-spells{grid-template-columns:minmax(0,1fr);gap:12px}.spell-panel{padding:14px}.spell-slot{flex-basis:57px}.spell-slots{gap:6px}.spell-panel-heading h3{font-size:16px}}
+/* Keep spell activity beside the square map instead of in a full-width section. */
+.match-viewer .watch-with-spells { grid-template-columns:minmax(0,1fr); container-type:inline-size; }
+.spell-map-layout { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px; min-width:0; }
+.spell-map-stage { grid-column:1/-1; grid-row:1; min-width:0; display:flex; justify-content:center; background:#18251e; border:1px solid #3a4932; border-radius:8px; overflow:hidden; }
+.spell-map-stage .map-wrap { width:100%; max-width:min(56vh,680px); aspect-ratio:1; max-height:none; border:0; border-radius:0; }
+.spell-map-layout .spell-panel { min-width:0; margin:0; padding:12px; border-radius:6px; }
+.spell-map-layout .spell-panel h3 { font-size:15px; margin-top:5px; }
+.spell-map-layout .spell-panel p { margin:7px 0 10px; font-size:10px; line-height:1.4; }
+.spell-map-layout .hero-spells { grid-template-columns:minmax(0,1fr); gap:8px; padding:10px 0; }
+.spell-map-layout .hero-spells:last-child { padding-bottom:0; }
+.spell-map-layout .spell-player strong { font-size:12px; }
+.spell-map-layout .spell-player small { margin-top:2px; font-size:10px; }
+.spell-map-layout .spell-slots { gap:5px; }
+.spell-map-layout .spell-slot { flex:0 1 45px; min-width:35px; }
+.spell-map-layout .spell-art { width:35px; height:35px; margin-bottom:4px; }
+.spell-map-layout .spell-art b { font-size:18px; }
+.spell-map-layout .spell-slot strong { font-size:9px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.spell-map-layout .spell-slot small { font-size:9px; }
+.spell-map-layout .enemy-spell-feed { border-top:1px solid var(--line); }
+.spell-map-layout .enemy-spell-icons { display:grid; gap:12px; }
+.spell-map-layout .enemy-cast { max-width:none; min-width:0; }
+.spell-map-layout .spell-precision { grid-column:1/-1; margin-top:0; }
+.watch-with-spells > .live-rosters { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:24px; }
+.live-match .watch-with-spells > .tactics-console { grid-row:auto; }
+.live-match .watch-with-spells .tactic-quick-slots { grid-template-columns:repeat(3,minmax(0,1fr)); }
+@container (min-width:960px) {
+  .spell-map-layout { grid-template-columns:minmax(240px,1fr) minmax(0,min(56vh,680px)) minmax(180px,.8fr); gap:0; background:#18251e; border:1px solid #3a4932; border-radius:8px; overflow:hidden; align-items:start; }
+  .spell-map-stage { grid-column:2; grid-row:1; border:0; border-radius:0; }
+  .spell-map-layout .spell-panel { border:0; border-radius:0; background:transparent; padding:14px; }
+  .spell-map-layout .allied-spell-panel { grid-column:1; grid-row:1; }
+  .spell-map-layout .enemy-spell-feed { grid-column:3; grid-row:1; }
+  .spell-map-layout .spell-precision { padding:0 14px 10px; }
+}
+@media(max-width:600px) {
+  .spell-map-layout { grid-template-columns:minmax(0,1fr); gap:10px; }
+  .spell-map-stage .map-wrap { max-width:min(53vh,100%); }
+  .spell-map-layout .spell-slots { gap:8px; }
+  .spell-map-layout .spell-slot { flex-basis:44px; }
+  .spell-map-layout .enemy-spell-icons { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .watch-with-spells > .live-rosters,.live-match .watch-with-spells .tactic-quick-slots { grid-template-columns:minmax(0,1fr); }
+}
+/* Override the older live map / tactics split; calls now sit beneath the map. */
+.match-viewer .watch-layout.watch-with-spells { grid-template-columns:minmax(0,1fr); }
+.spell-map-layout .spell-slot strong { margin:0; }
+@container (min-width:960px) {
+  .spell-map-layout { grid-template-columns:minmax(270px,1fr) minmax(0,min(56vh,680px)) minmax(180px,.8fr); }
+  .spell-map-layout .spell-slot strong { display:none; }
+  .spell-map-layout .spell-slot small { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .spell-map-layout .hero-spells { padding:9px 0; gap:6px; }
+}
+@container (min-width:960px) {
+  .spell-map-layout .spell-player > div { display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:8px; min-width:0; flex:1; }
+  .spell-map-layout .spell-player strong { grid-column:1/-1; }
+  .spell-map-layout .spell-player small { font-size:9px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .spell-map-layout .spell-player .match-hero-token { width:28px; height:28px; flex:0 0 28px; }
+  .spell-map-layout .hero-spells { padding:7px 0; gap:5px; }
+}
+.spell-map-layout .compact-inventory { min-width:0; }
+.spell-map-layout .compact-inventory .item-inventory { gap:3px; }
+.spell-map-layout .compact-inventory .item-slot { width:29px; height:22px; padding:0; overflow:hidden; font-size:8px; }
+.spell-map-layout .compact-inventory .item-slot img { display:block; width:100%; height:100%; object-fit:cover; }
+.spell-map-layout .compact-inventory > small { margin:4px 0 0; font-size:9px; line-height:1.3; color:#a9b8a8; }
+.enemy-item-player { display:grid; gap:7px; padding:9px 0; border-top:1px solid #ffffff12; min-width:0; }
+.enemy-cast-section { border-top:1px solid #ffffff18; margin-top:12px; padding-top:12px; }
+.enemy-cast-section h4 { margin:0; font-size:12px; }
+@container (min-width:960px) {
+  .spell-map-layout .spell-art { margin-bottom:0; }
+  .spell-map-layout .enemy-spell-icons { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+}

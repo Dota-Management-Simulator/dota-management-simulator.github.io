@@ -1,3 +1,5 @@
+import { startSimulationWorker } from "./simulation-worker";
+import { patchLabel } from "./patch-label";
 import { useEffect, useRef, useState } from "react";
 import { Bot, Star, Tv } from "lucide-react";
 import type { Campaign, Result } from "./game";
@@ -19,12 +21,11 @@ export default function EventModes({ campaign, onChange, onBusy }: { campaign: C
   const [error, setError] = useState("");
   const worker = useRef<Worker | null>(null);
   useEffect(() => { onBusy(!!playing); return () => onBusy(false); }, [!!playing, onBusy]);
-  useEffect(() => () => worker.current?.terminate(), []);
+  useEffect(() => () => { worker.current?.terminate(); worker.current = null; }, []);
 
   const settle = (fn: () => Campaign, result: Result, spectator = false) => {
-    try { onChange(fn()); setError(""); setReview({ result, spectator }); }
-    catch (e) { setError(e instanceof Error ? e.message : "Could not record the result."); }
-    setPlaying(null);
+    try { onChange(fn()); setError(""); setReview({ result, spectator }); setPlaying(null); return true; }
+    catch (e) { setError(e instanceof Error ? e.message : "Could not record the result."); return false; }
   };
   const start = (fn: () => Playing) => { try { setPlaying(fn()); setError(""); } catch (e) { setError(e instanceof Error ? e.message : "Could not start the match."); } };
   const result = (event: string, config: BattleConfig, simulation: SimulatedSeries, perspective = true): Result => {
@@ -33,15 +34,12 @@ export default function EventModes({ campaign, onChange, onBusy }: { campaign: C
   };
   /** Spectators get the full simulated BO1 in the replay viewer. */
   const watch = (match: AllStarMatch, config: BattleConfig) => {
-    const w = new Worker(new URL("./battle.worker.ts", import.meta.url), { type: "module" });
-    worker.current = w;
     setPlaying({ kind: "all-star", config, match });
-    w.onmessage = ({ data }) => {
+    worker.current = startSimulationWorker(() => new Worker(new URL("./battle.worker.ts", import.meta.url), { type: "module" }), { ...config, captureReplay: true }, ({ data }, w) => {
       if (worker.current !== w) return;
       if (data.type === "complete") { w.terminate(); worker.current = null; setPlaying({ kind: "all-star", config, match, watch: data.simulation }); }
       else if (data.type === "error") { w.terminate(); worker.current = null; setPlaying(null); setError(data.message); }
-    };
-    w.postMessage({ ...config, captureReplay: true });
+    }, () => { worker.current = null; setPlaying(null); setError("The All-Star worker could not finish. No result was recorded; you can try again."); });
   };
 
   if (review) return <section className="event-modes"><SeriesResults result={review.result} perspective={review.spectator ? null : 0} managedTeamId={campaign.world?.managedTeamId} closeLabel="Back to Arcade" onClose={() => setReview(null)} /></section>;
@@ -83,7 +81,7 @@ export default function EventModes({ campaign, onChange, onBusy }: { campaign: C
         <button className="button primary" disabled={!!botBlocker} onClick={() => start(() => ({ kind: "bots", config: prepareBotChallenge(campaign, 1) }))}>Challenge · BO1</button>
         <button className="button secondary" disabled={!!botBlocker} onClick={() => start(() => ({ kind: "bots", config: prepareBotChallenge(campaign, 3) }))}>Challenge · BO3</button>
       </div>{botBlocker && <p className="field-note">{botBlocker}</p>}
-      {attempts.length > 0 && <ol className="event-mode-history">{attempts.slice(-5).reverse().map(a => <li key={a.id}><strong>{a.won ? "Won" : "Lost"} {a.score.join("–")}</strong> BO{a.bestOf} · patch {a.patchId} · {formatDate(a.at.slice(0, 10))}</li>)}</ol>}
+      {attempts.length > 0 && <ol className="event-mode-history">{attempts.slice(-5).reverse().map(a => <li key={a.id}><strong>{a.won ? "Won" : "Lost"} {a.score.join("–")}</strong> BO{a.bestOf} · patch {patchLabel(a.patchId)} · {formatDate(a.at.slice(0, 10))}</li>)}</ol>}
       <details><summary>The real OpenAI Five timeline</summary><ul className="event-mode-timeline">{openAiShowmatches.map(m => <li key={m.date + m.title}><strong>{formatDate(m.date)}{m.checked ? "" : " (day unchecked)"}</strong> {m.title}. {m.detail} <a href={m.source} target="_blank" rel="noreferrer">Source</a></li>)}</ul></details>
     </section>
 
@@ -93,11 +91,14 @@ export default function EventModes({ campaign, onChange, onBusy }: { campaign: C
       {match ? <div className="all-star-teams">{match.teams.map((team, i) => <div key={team.name} className={i === 0 && match.managedSide === 0 ? "is-coached" : ""}><h3>{team.name}{i === 0 && match.managedSide === 0 && <small> · you coach</small>}</h3>
         <ol>{team.players.map(id => <li key={id} className={campaign.roster.includes(id) ? "is-yours" : ""}>{name(id)}</li>)}</ol></div>)}</div>
         : <p className="muted">{starBlocker}</p>}
-      {match && <div className="event-mode-actions"><button className="button primary" disabled={!!starBlocker} onClick={() => start(() => {
-        const { match, config } = prepareAllStar(campaign);
-        if (match.managedSide !== 0) { watch(match, config); return { kind: "all-star", config, match }; }
-        return { kind: "all-star", config, match };
-      })}>{match.managedSide === 0 ? `Coach ${match.teams[0].name}` : "Watch the All-Star match"}</button></div>}
+      {match && <div className="event-mode-actions"><button className="button primary" disabled={!!starBlocker} onClick={() => {
+        try {
+          setError("");
+          const { match, config } = prepareAllStar(campaign);
+          if (match.managedSide !== 0) watch(match, config);
+          else setPlaying({ kind: "all-star", config, match });
+        } catch (e) { setError(e instanceof Error ? e.message : "Could not start the match."); }
+      }}>{match.managedSide === 0 ? `Coach ${match.teams[0].name}` : "Watch the All-Star match"}</button></div>}
       {match && starBlocker && <p className="field-note">{starBlocker}</p>}
       {played.length > 0 && <ol className="event-mode-history">{played.map(([id, r]) => <li key={id}><strong>{r.teams[0]} {r.score.join("–")} {r.teams[1]}</strong> {formatDate(r.at.slice(0, 10))}{r.coached ? " · coached" : " · watched"}</li>)}</ol>}
       <p className="field-note">Years: 2012–2019, 2021 and 2022. <a href={ALL_STAR_SOURCE} target="_blank" rel="noreferrer">AFK Gaming</a> reported TI 2023 as the first without an All-Star match. Exact match days and later years are unchecked.</p>

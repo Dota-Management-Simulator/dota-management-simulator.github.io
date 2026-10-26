@@ -111,6 +111,9 @@ test("TI is locked until qualification, and losing all circuit events does not q
 
 test("winning the qualifier unlocks TI and later event entry records skipped events", () => {
   const c = createCampaign(DEFAULT_SETTINGS);
+  // This qualification fixture skips twelve weeks of management; use recovery
+  // rather than neglecting new player expectations during that interval.
+  for (const id of c.roster) c.training[id] = "Rest";
   const qualified = settleEvent(c, events[3], fixture(c, 0));
   assert.equal(qualified.qualified, true);
   assert.equal(qualified.week, 13);

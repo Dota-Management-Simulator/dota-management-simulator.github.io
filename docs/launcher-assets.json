@@ -1,0 +1,26 @@
+{
+  "retrievedOn": "2026-10-26",
+  "owner": "Valve Corporation",
+  "reference": "https://store.steampowered.com/app/570/Dota_2/",
+  "use": "Fan-made Steam-style Dota campaign launcher; unmodified local artwork. Provenance does not establish reuse rights.",
+  "assets": [
+    {
+      "path": "public/launcher/dota-library-hero.jpg",
+      "source": "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/570/library_hero.jpg",
+      "bytes": 413710,
+      "sha256": "54f3fc6e2954983d2cd450cef4276c68699a664526acc0d2d230c376496e730a"
+    },
+    {
+      "path": "public/launcher/steam-logo.svg",
+      "source": "https://store.akamai.steamstatic.com/public/shared/images/header/logo_steam.svg",
+      "bytes": 3647,
+      "sha256": "19d0f67899a61b13d43ad1c810ba2d8d619b48ec00caba3b888fe6a285ce6cde"
+    },
+    {
+      "path": "public/launcher/dota-symbol.png",
+      "source": "https://cdn.akamai.steamstatic.com/apps/dota2/images/dota_react/global/dota2_logo_symbol.png",
+      "bytes": 22049,
+      "sha256": "249201f03e6045e5959996a2a76e9f07b040d5e3ccf24c6ebe726e86754636ad"
+    }
+  ]
+}

@@ -84,7 +84,8 @@ test("strong heroes gain draft priority without removing off-meta options, creat
   assert.ok(getHeroPool(2011).every(h=>draftWeight(h,patch,0)>0));
   let featured=0,baseline=0;
   for(let seed=1;seed<=250;seed++) {
-    const cfg={...config(),seed,patchId:"2011.2"};
+    const observer={teamKey:'research',staffIds:[],researchPatchId:'2011.2',heroSamples:{chen:24}};
+    const cfg={...config(),seed,patchId:"2011.2",patchObservers:[observer,observer] as [typeof observer,typeof observer]};
     featured+=new LaneBattle(cfg).units.filter(u=>u.hero?.id==="chen").length;
     baseline+=new LaneBattle({...cfg,patchId:undefined}).units.filter(u=>u.hero?.id==="chen").length;
   }
@@ -110,7 +111,7 @@ test("all seven axes change real combat mechanics and featured power changes bot
   try {
     const metric=(axis:PatchAxis,value:number)=>{
       const base=build(axis,value);
-      const a=base.units.find(u=>u.player)!, e=base.units.find(u=>u.player&&u.team!==a.team)!, t=base.units.find(u=>u.kind==="tower"&&u.team!==a.team)!;
+      const a=base.units.find(u=>u.player)!, e=base.units.find(u=>u.player&&u.team!==a.team)!, t=base.units.find(u=>u.kind==="tower"&&u.team!==a.team&&u.tier===1)!;
       const x=base as unknown as { attack:(source:typeof a,target:typeof a)=>void; cast:(source:typeof a,target:typeof a)=>void; damage:(source:typeof a,target:typeof a,n:number)=>void };
       if(axis==="tempo") return a.speed;
       if(axis==="economy"){base.step();return a.gold;}

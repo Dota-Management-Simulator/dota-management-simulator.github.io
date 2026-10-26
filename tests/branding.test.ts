@@ -16,6 +16,8 @@ test("club identity survives weekly progression, annual imports and the existing
     const loaded = readSave()!;
     assert.deepEqual(loaded.settings.branding, branding);
     assert.deepEqual(loaded.roster, roster); assert.equal(loaded.cash, cash);
+    // Keep this identity fixture content; departures are covered independently.
+    for (const id of campaign.roster) campaign.training[id] = "Rest";
     for (let i = 0; i < 18; i++) campaign = advanceWeek(campaign);
     assert.deepEqual(campaign.settings.branding, branding);
     assert.equal(campaign.world?.managedTeamId, "managed-custom");

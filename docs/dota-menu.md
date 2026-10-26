@@ -4,6 +4,30 @@ October 23, 2026. Local, not published. This supersedes the illustrated headquar
 
 The user requested a menu that feels like being in Dota. The design follows the composition of [Valve’s Reborn dashboard](https://www.dota2.com/reborn/part1/): top navigation, a prominent hero showcase, a party-style starting-five panel and a persistent lower-right primary action. It retains Aegis’s management actions rather than presenting unavailable matchmaking, chat, cosmetics or online-player counts.
 
+## Reborn home emblem refinement — October 25, 2026
+
+Local, not published. The user's reference shows the textured orange Dota emblem
+on a raised stone home tab. `DotaHomeMark.tsx` now uses Valve's original
+`home_logo_hover` plate in both the Reborn Desk and its management-page home
+button. The unchanged local WebP, pinned extracted-client source and SHA-256 are
+recorded in [the asset ledger](dota-menu-assets.json). Earlier beta and Source 1
+logos retain their own presentation.
+
+The selected home tab has moving heat within the emblem and eight drifting
+embers; hover and keyboard focus brighten it. The inactive tab settles to a
+dimmer still image. These small CSS effects adapt the client's `home_button`
+particle scene, rather than reproducing the Source 2 simulation. They animate
+transforms and opacity without management renders on each frame. The Desk's
+existing Pause menu effects control stops them, hidden documents pause them,
+and reduced motion retains the still artwork. The existing green event variant,
+accessible button names, focus treatment and navigation are retained.
+
+Validation: all 13 focused menu/preview tests, TypeScript and the production
+build pass (existing bundle warning). Localhost 5173 checks cover the actual
+Reborn Desk, Heroes navigation/home return, effects pause/resume and a clean
+console; independent 390px/320px fixtures retain the compact tab. The supplied
+reference and animation are a visual target, not a claim of exact particle parity.
+
 ## Menu evolution
 
 The user then supplied classic-client and 7.00 screenshots and requested that the menu evolve with campaign updates. `src/menu-eras.ts` derives its presentation from `campaignPatch`, not the host date, the campaign’s year alone, an opened historical note or a saved theme setting. Reload derives the same result without adding save fields. Era styling also applies to the shell while browsing management screens, without keying/remounting the tournament worker.

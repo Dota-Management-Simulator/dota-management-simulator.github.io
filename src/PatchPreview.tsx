@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import { useMemo, useState } from "react";
 import { ChevronLeft, ChevronRight, FileText, LayoutDashboard } from "lucide-react";
 import App from "./App";
@@ -36,7 +37,7 @@ export default function PatchPreview() {
           <button className="button secondary" disabled={busy || index <= 0} onClick={() => jump(previewPatches[index - 1].id)}><ChevronLeft size={16} />Back</button>
           <label className="preview-patch-picker"><span>Jump to patch · {index + 1} / {previewPatches.length}</span>
             <select aria-label="Jump to patch" disabled={busy} value={active.id} onChange={event => jump(event.target.value)}>
-              {previewPatches.map(patch => <option key={patch.id} value={patch.id}>{patch.id} · {patch.generated ? "Fictional future" : patch.versions}</option>)}
+              {previewPatches.map(patch => <option key={patch.id} value={patch.id}>{patchLabel(patch)} · {patch.year} · {patch.generated ? "Fictional future" : patch.versions}</option>)}
             </select>
           </label>
           <label className="preview-patch-picker"><span>Jump to event or TI</span>

@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import { ArrowRight, Check, Plus, UserRound, Users } from "lucide-react";
 import type { Campaign } from "./game";
 import { money } from "./game";
@@ -17,7 +18,7 @@ export default function StaffOffice({ campaign, onHire, onDismiss, onPatch, onSp
     <div className="info-strip"><span><Users size={17} /><strong>{hiredStaff.length} / {staffCatalog.length}</strong> support roles filled</span>
       <span>{money(hiredStaff.reduce((n, s) => n + s.weekly, 0))} / week · paid with payroll</span></div>
     <section className="panel staff-research">
-      <div className="section-title"><div><h2>Your patch research · {report.patchId}</h2>
+      <div className="section-title"><div><h2>Your patch research · {patchLabel(report.patchId)}</h2>
         <p>Start with 35-point ranges and 2 favored heroes. The true value can fall anywhere in a range, including either end. Specialists narrow only their fields to 4–5 points or uncover more heroes.</p></div>
         <button className="text-link" onClick={onPatch}>View patch report <ArrowRight size={15} /></button></div>
       <div className="staff-coverage">{patchAxes.map(axis => <div key={axis.key}>

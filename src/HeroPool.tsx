@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import { useState } from "react";
 import { Search } from "lucide-react";
 import { getHeroPool, heroEra, heroRoles, heroUnlockYear, heroReleases, heroesArrivingIn } from "./heroes";
@@ -73,7 +74,7 @@ export default function HeroPool({ year, week, throughYear, report }: { year: nu
             </span>
             <span>
               <strong>{h.name}</strong>
-              {report?.heroes.some(entry => entry.id === h.id) && <small className="patch-pool-bonus">Scouted favorite · patch {report.patchId}</small>}
+              {report?.heroes.some(entry => entry.id === h.id) && <small className="patch-pool-bonus">Scouted favorite · patch {patchLabel(report.patchId)}</small>}
               <small>
                 {h.attribute} · {h.ranged ? "Ranged" : "Melee"} · {h.releasedYear ? `Patch ${h.releasedYear + 1}.1` : "TI1 opening"}
               </small>

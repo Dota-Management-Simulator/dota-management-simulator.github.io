@@ -1,0 +1,9 @@
+.campaign-exit-dialog h2 { display: flex; align-items: center; gap: 12px; }
+.campaign-exit-dialog h2 > svg { flex-shrink: 0; color: #d97a56; }
+.campaign-exit-dialog .campaign-exit-note { font-size: 12px; color: var(--muted); margin-top: -3px; }
+.campaign-exit-actions { display: grid; gap: 12px; margin-top: 25px; }
+.campaign-exit-actions .button { justify-content: center; white-space: normal; text-align: center; }
+.campaign-exit-dialog .campaign-exit-saved { display: flex; align-items: center; gap: 8px; color: #a4ca8f; font-size: 13px; }
+.campaign-exit-cancel { display: block; margin: 24px auto 0; }
+.client-power-button { flex-shrink: 0; cursor: pointer; }
+.client-power-button:disabled { opacity: .4; cursor: not-allowed; }

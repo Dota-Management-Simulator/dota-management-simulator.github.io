@@ -8,12 +8,12 @@ export type PatchAxis = "tempo" | "economy" | "laning" | "teamfight" | "objectiv
 export type SeasonPatch = Omit<(typeof archive.patches)[number], "heroBalance"> & { generated?: boolean; heroBalance?: HeroBalance[] };
 export const historicalPatches: SeasonPatch[] = archive.patches;
 export const patchAxes: { key: PatchAxis; name: string; low: string; high: string; effect: string }[] = [
-  { key: "tempo", name: "Game tempo", low: "Patient", high: "Fast", effect: "Hero movement and spell cycle speed." },
+  { key: "tempo", name: "Game tempo", low: "Patient", high: "Fast", effect: "Hero movement speed; named spells use their own historical cooldowns." },
   { key: "economy", name: "Farming economy", low: "Scarce", high: "Abundant", effect: "Passive gold, last-hit gold, experience and the value of accumulated farm." },
   { key: "laning", name: "Lane importance", low: "Forgiving", high: "Decisive", effect: "Laning skill changes early hero and creep attack damage." },
   { key: "teamfight", name: "Teamfight impact", low: "Pickoffs", high: "Group up", effect: "Nearby teammates amplify spell damage, control and healing." },
   { key: "objectives", name: "Objective pressure", low: "Durable", high: "Vulnerable", effect: "Hero damage to towers and Ancients, with extra value from pushing skill." },
-  { key: "vision", name: "Vision advantage", low: "Close combat", high: "Find targets", effect: "Vision and intuition skills improve target acquisition range. Wards and fog are not simulated." },
+  { key: "vision", name: "Vision advantage", low: "Close combat", high: "Find targets", effect: "Vision and intuition improve sight range. Shared sightings and approximate elevation gate targets; wards are not simulated." },
   { key: "splitpush", name: "Split-push viability", low: "Group up", high: "Spread out", effect: "Isolated heroes gain building damage, especially heroes tagged for pushing." },
 ];
 const clamp = (value: number, low: number, high: number) => Math.min(high, Math.max(low, value));

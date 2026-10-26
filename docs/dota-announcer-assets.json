@@ -1,0 +1,122 @@
+{
+  "source": "https://github.com/matteo-pacini/DotA2-Soundboard/blob/master/DotA2Soundboard/Announcer.sb",
+  "credit": "Original Dota 2 default announcer recordings, Valve. Archived by Matteo Pacini. Game audio remains Valve material; repository code was not copied.",
+  "retrieved": "2026-10-25",
+  "containerSha256": "1b977988bdac530587003cc688dd34f9632611600091d070cdbdf793565b4067",
+  "assets": [
+    {
+      "path": "public/dota-audio/first-blood.mp3",
+      "title": "First blood!",
+      "bytes": 7735,
+      "sha256": "c358aa6726181b2e954cf5098f59822a7fa1bf081e5bd5a7104b166151f789cf"
+    },
+    {
+      "path": "public/dota-audio/double-kill.mp3",
+      "title": "Double kill!",
+      "bytes": 8046,
+      "sha256": "851d4c17474c13413bf177821a071d246a814f2e6f39b6b3fd29604d5f732106"
+    },
+    {
+      "path": "public/dota-audio/triple-kill.mp3",
+      "title": "Triple kill!",
+      "bytes": 7628,
+      "sha256": "8bf18be8ac66b6f675e753a6561a4b02f53b2c2229d0ebb2ca7d64ca83583227"
+    },
+    {
+      "path": "public/dota-audio/ultra-kill.mp3",
+      "title": "Ultra kill!",
+      "bytes": 19255,
+      "sha256": "dd95bcfa4b3b018f463296f69d5a14a383b35433cc68d3edc9ca4d4079c8c980"
+    },
+    {
+      "path": "public/dota-audio/rampage.mp3",
+      "title": "Rampage!",
+      "bytes": 14866,
+      "sha256": "a9aa96dd5bf87c1db0735920e56dbcbef69dbaa8f53f603e0140045d5cfc6286"
+    },
+    {
+      "path": "public/dota-audio/killing-spree.mp3",
+      "title": "Killing spree!",
+      "bytes": 9509,
+      "sha256": "4cb4aae94c1644357a7db64cbf3ec64970f455f13f01eceb546d96814ba649f4"
+    },
+    {
+      "path": "public/dota-audio/dominating.mp3",
+      "title": "Dominating!",
+      "bytes": 7210,
+      "sha256": "7bf6ef49c0ff04ec130a8345f3c72f1694549e40cd239f1d67fa5a1be9f9c933"
+    },
+    {
+      "path": "public/dota-audio/mega-kill.mp3",
+      "title": "Mega kill!",
+      "bytes": 10449,
+      "sha256": "40560cb6e49e1333ba0d06e5ae109c0b47e5f0b77d557dcca8138574cead18f6"
+    },
+    {
+      "path": "public/dota-audio/unstoppable.mp3",
+      "title": "Unstoppable!",
+      "bytes": 8150,
+      "sha256": "8928bcca660aa570d272fe0f4a54c0d8861555c7df4114043d39869845be05f4"
+    },
+    {
+      "path": "public/dota-audio/wicked-sick.mp3",
+      "title": "Wicked sick!",
+      "bytes": 10449,
+      "sha256": "d5458721af901752186ce528484712d7b3fb47edf787702945078430fd5de577"
+    },
+    {
+      "path": "public/dota-audio/monster-kill.mp3",
+      "title": "Monster kill!",
+      "bytes": 13375,
+      "sha256": "7b1a38041b41e278ba0e051702d13132b43440849eb7351dac833909dbdaca23"
+    },
+    {
+      "path": "public/dota-audio/godlike.mp3",
+      "title": "Godlike!",
+      "bytes": 7314,
+      "sha256": "09c79ab1ab4b9f5fbe5067c9c453c676b2bc5484966662fa3e82c9fd804b3678"
+    },
+    {
+      "path": "public/dota-audio/beyond-godlike.mp3",
+      "title": "Holy shit!",
+      "bytes": 9300,
+      "sha256": "138274db7a4abfc25bea429f1f9f516248edbb90bbc8c561df35f7a4702dd502"
+    },
+    {
+      "path": "public/dota-audio/radiant-roshan.mp3",
+      "title": "Roshan has fallen to the Radiant!",
+      "bytes": 26856,
+      "sha256": "12687423f0cd420801fc23b230a95c476f43ce5f894faffc18c57aea9921a93b"
+    },
+    {
+      "path": "public/dota-audio/dire-roshan.mp3",
+      "title": "Roshan has fallen to the Dire!",
+      "bytes": 23512,
+      "sha256": "abeffb978b3def7acf5af4d0279dbcfaa33f5bb2ca033a5440dc0704279fbe7a"
+    },
+    {
+      "path": "public/dota-audio/radiant-tower.mp3",
+      "title": "A Radiant tower has fallen.",
+      "bytes": 20796,
+      "sha256": "ff5b68338bf2893d2b86b836909b860f6aadaf52d6289a348e5f76be2302b983"
+    },
+    {
+      "path": "public/dota-audio/dire-tower.mp3",
+      "title": "A Dire tower has fallen.",
+      "bytes": 20587,
+      "sha256": "3f9a6a9f39855acc5400e33cd3ed7c915540dc910234887e64f032b736bc33c8"
+    },
+    {
+      "path": "public/dota-audio/radiant-victory.mp3",
+      "title": "Radiant victory!",
+      "bytes": 18288,
+      "sha256": "4d80beaf39322c36d031713afb584711a06acd57cb9513a1ceeec50fc4bd4257"
+    },
+    {
+      "path": "public/dota-audio/dire-victory.mp3",
+      "title": "Dire victory!",
+      "bytes": 17452,
+      "sha256": "26d9e04de9191e318d6d8310d4f68b2961568415e5bf1264cb9035a19f24f915"
+    }
+  ]
+}

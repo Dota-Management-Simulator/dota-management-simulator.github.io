@@ -110,7 +110,7 @@ test("fixed drafts use real lane combat, enforce era/role/uniqueness and headles
 });
 
 test("research exposes uncertain benchmark win rates while unknown heroes' true profiles stay out of draft estimates", () => {
-  const patch = patchForSeason(2015, 2), observer = { teamKey: "navi", staffIds: [] };
+  const patch = patchForSeason(2015, 2), observer = { teamKey: "navi", staffIds: ["c6"] };
   const report = patchReport(patch, observer), perceived = perceivedPatch(patch, observer);
   assert.equal(report.heroes.length, 2); assert.equal(perceived.heroBalance!.length, 2);
   for (const h of report.heroes) {

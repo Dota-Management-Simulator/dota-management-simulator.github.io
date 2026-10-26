@@ -176,15 +176,17 @@ export function recruitHistoricalPlayer(state: HistoricalWorld, players: Player[
   const managed = state.clubs.find((t) => t.id === state.managedTeamId)!;
   if (!player || managed.roster.includes(id)) return "Player is already in your lineup.";
   const slot = managed.roster.findIndex((pid) => players.find((p) => p.id === pid)?.role === player.role);
-  if (slot < 0) return "No matching position in your lineup.";
+  if (slot < 0 && managed.roster.length >= 5) return "No matching position in your lineup.";
   const previous = managed.roster[slot];
   const owner = clubForPlayer(state, id);
   const wasStarter = owner?.roster.includes(id);
   detach(state, id);
-  managed.roster[slot] = id;
+  if (slot < 0) managed.roster.push(id);
+  else managed.roster[slot] = id;
+  managed.roster.sort((a, b) => roles.indexOf(players.find(p => p.id === a)!.role as Role) - roles.indexOf(players.find(p => p.id === b)!.role as Role));
   if (owner && wasStarter && !fillRegionalVacancies(state, players, owner))
     return `${owner.name} has no available replacement from ${owner.region}.`;
-  state.protectedPlayerIds = [...new Set([...state.protectedPlayerIds, id, previous])];
+  state.protectedPlayerIds = [...new Set([...state.protectedPlayerIds, id, ...(previous ? [previous] : [])])];
   return null;
 }
 

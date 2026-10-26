@@ -1,0 +1,85 @@
+/* Valve's textured plate supplies the actual silhouette, bevels and carved cuts.
+   Only the heat and drifting motes are browser adaptations of the client effect. */
+.dota-home-mark {
+  position: absolute;
+  inset: 0 0 auto;
+  display: block;
+  width: 100%;
+  aspect-ratio: 216 / 172;
+  pointer-events: none;
+  isolation: isolate;
+}
+.dota-home-mark__plate {
+  position: absolute;
+  inset: 0;
+  background: url("/dota-menu/dota-home-plate.webp") center / 100% 100% no-repeat;
+  filter: brightness(.8) saturate(.85);
+  transition: filter .25s ease;
+}
+.dota-home-mark__halo {
+  position: absolute;
+  inset: 1% 8% 15%;
+  background: radial-gradient(ellipse, #ff8b283b, #ff3c1217 42%, transparent 70%);
+  opacity: .35;
+  mix-blend-mode: screen;
+  transition: opacity .25s ease;
+}
+.dota-home-mark__heat {
+  position: absolute;
+  left: 25.5%;
+  top: 13%;
+  width: 48.5%;
+  height: 61%;
+  overflow: hidden;
+  mask: url("/dota-menu/dota-symbol.png") center / 100% 100% no-repeat;
+  opacity: .18;
+  mix-blend-mode: color-dodge;
+  transition: opacity .25s ease;
+}
+.dota-home-mark__heat > span {
+  position: absolute;
+  inset: -65% -25%;
+  background:
+    radial-gradient(ellipse at 26% 63%, #fff5a4 0, #ffbc42 12%, transparent 34%),
+    radial-gradient(ellipse at 73% 38%, #ffe68b 0, #ff7a23 14%, transparent 37%),
+    radial-gradient(ellipse at 38% 12%, #ffc86a 0, transparent 29%);
+  animation: dota-home-heat 3.7s linear infinite;
+}
+.dota-home-mark__embers { position: absolute; inset: 0; opacity: 0; transition: opacity .3s ease; }
+.dota-home-mark__embers > i {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #ffeaa0;
+  box-shadow: 0 0 3px 1px #ff931eaa, 0 0 7px #fa481b80;
+  opacity: 0;
+  animation: dota-home-ember 3s linear infinite;
+}
+.dota-home-mark__embers > i:nth-child(3n) { width: 1px; height: 3px; }
+:is(.rb-logo-tab.is-active, .rb-logo-tab:hover, .rb-logo-tab:focus-visible) .dota-home-mark__plate { filter: brightness(1.22) saturate(1.2); }
+:is(.rb-logo-tab.is-active, .rb-logo-tab:hover, .rb-logo-tab:focus-visible) .dota-home-mark__halo { opacity: 1; }
+:is(.rb-logo-tab.is-active, .rb-logo-tab:hover, .rb-logo-tab:focus-visible) .dota-home-mark__heat { opacity: .55; }
+:is(.rb-logo-tab.is-active, .rb-logo-tab:hover, .rb-logo-tab:focus-visible) .dota-home-mark[data-motion="on"] .dota-home-mark__embers { opacity: 1; }
+.rb-logo-tab:hover .dota-home-mark__plate, .rb-logo-tab:focus-visible .dota-home-mark__plate { filter: brightness(1.45) saturate(1.25); }
+.rb-logo-tab.is-green .dota-home-mark { filter: hue-rotate(75deg); }
+.dota-home-mark :is(.dota-home-mark__heat > span, .dota-home-mark__embers > i) { animation-play-state: paused; }
+:is(.rb-logo-tab.is-active, .rb-logo-tab:hover, .rb-logo-tab:focus-visible) .dota-home-mark[data-motion="on"] :is(.dota-home-mark__heat > span, .dota-home-mark__embers > i) { animation-play-state: running; }
+.dota-home-mark[data-motion="off"] .dota-home-mark__heat { opacity: .2; }
+@keyframes dota-home-heat {
+  0%, 100% { transform: translate(0, 12%) scale(1); opacity: .65; }
+  23% { transform: translate(-7%, -2%) scale(1.08, .94); opacity: .9; }
+  51% { transform: translate(6%, -18%) scale(.94, 1.06); opacity: .55; }
+  78% { transform: translate(-3%, -7%) scale(1.06, 1); opacity: 1; }
+}
+@keyframes dota-home-ember {
+  0% { transform: translate(0, 6px) scale(.4); opacity: 0; }
+  15% { opacity: .85; }
+  54% { opacity: .6; }
+  100% { transform: translate(var(--ember-drift), -31px) scale(.15); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dota-home-mark *, .rb-logo-tab .dota-home-mark * { animation: none !important; transition: none !important; }
+  .rb-logo-tab .dota-home-mark .dota-home-mark__embers { display: none; }
+  .rb-logo-tab .dota-home-mark .dota-home-mark__heat { opacity: .2; }
+}

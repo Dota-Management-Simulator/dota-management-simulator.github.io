@@ -1,0 +1,89 @@
+{
+  "retrievedOn": "2026-10-25",
+  "owner": "Valve Corporation (minimap/HUD artwork); collected by OpenDota (odota/web) and linsisss/dota2-grid-toolkit",
+  "placementSources": [
+    "https://github.com/odota/web/blob/master/src/components/Match/BuildingMap/buildingData.ts",
+    "https://github.com/odota/web/blob/master/src/components/Match/BuildingMap/buildingData733.ts"
+  ],
+  "notes": "Artwork copied unchanged from the credited mirrors. Building anchors follow the shared era geometry. Roshan uses Valve's white HUD/minimap skull; Tormentor uses Valve's blue Radiant and red Dire minimap-side timer icons. These are original game assets, not locally redrawn glyphs. Current HUD artwork is reused across historical map eras; separate historical icon revisions are not modeled. Local SVG silhouettes are retained only as image-load fallbacks.",
+  "assets": [
+    {
+      "path": "public/dota-maps/badguys_fort.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/badguys_fort.png",
+      "bytes": 4227,
+      "sha256": "38a2122f8b36f92ad0048ad54ed3f309ce9730683966e17676dd38d3fd42b230"
+    },
+    {
+      "path": "public/dota-maps/badguys_rax.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/badguys_rax.png",
+      "bytes": 2016,
+      "sha256": "3a8223dea8ecbae97413f20ea7e75f35d0d53d44f5f5e29d539c772c541b4e67"
+    },
+    {
+      "path": "public/dota-maps/badguys_rax_angle.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/badguys_rax_angle.png",
+      "bytes": 3994,
+      "sha256": "2d656a77208c7d106a079961f6e507e76fc56e2b7f0322fac195d8a658bec7d2"
+    },
+    {
+      "path": "public/dota-maps/badguys_tower.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/badguys_tower.png",
+      "bytes": 1213,
+      "sha256": "0fd7836f0a69ed4bd4a50f42bb878fd6e5fc9fc3d6bc714db10ac17d50b3985b"
+    },
+    {
+      "path": "public/dota-maps/badguys_tower_angle.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/badguys_tower_angle.png",
+      "bytes": 3052,
+      "sha256": "ba7e286d040475e05569e8f17fae8f4db7cb05fc5b933a794f45562aa6029a1c"
+    },
+    {
+      "path": "public/dota-maps/goodguys_fort.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/goodguys_fort.png",
+      "bytes": 4464,
+      "sha256": "5192bf6062f5f14a36eb72f1f7e222681cee9b4afa80718e94ac95a768718b65"
+    },
+    {
+      "path": "public/dota-maps/goodguys_rax.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/goodguys_rax.png",
+      "bytes": 2092,
+      "sha256": "e75d138004321f06c68159e3e6df845f3c63e56385eb2ab9d29bf022b0e55277"
+    },
+    {
+      "path": "public/dota-maps/goodguys_rax_angle.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/goodguys_rax_angle.png",
+      "bytes": 4134,
+      "sha256": "d2dc1ab1319793a8e1ce7fb15dd5690333cb7dec595299f3580335c0ad7fb8e7"
+    },
+    {
+      "path": "public/dota-maps/goodguys_tower.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/goodguys_tower.png",
+      "bytes": 1208,
+      "sha256": "b469a4493d7a8715c4f2b8a7562e433d5cb183216f703281fbcf32f9a614fca8"
+    },
+    {
+      "path": "public/dota-maps/goodguys_tower_angle.png",
+      "source": "https://raw.githubusercontent.com/odota/web/master/public/assets/images/dota2/map/goodguys_tower_angle.png",
+      "bytes": 3098,
+      "sha256": "d25ad63335d3bb3761439622f3bd51eb88a00b75ce769a7dc6b9dbaebbcad9cf"
+    },
+    {
+      "path": "public/dota-maps/roshan.webp",
+      "source": "https://raw.githubusercontent.com/linsisss/dota2-grid-toolkit/7a4013192c627f5b022f94749101c3a181b98c41/assets/dota-hud/panorama/images/hud/icon_roshan_psd.webp",
+      "bytes": 770,
+      "sha256": "48ef680904a0fb82b7c082963d0b0e7ba8334468ee1d769de47d2885a717ae76"
+    },
+    {
+      "path": "public/dota-maps/tormentor-radiant.webp",
+      "source": "https://raw.githubusercontent.com/linsisss/dota2-grid-toolkit/7a4013192c627f5b022f94749101c3a181b98c41/assets/dota-hud/panorama/images/hud/tormentor_timer_icon_radiant_png.webp",
+      "bytes": 4462,
+      "sha256": "a714e9760a6a5a404c72b117983110f9d9d7f1d1a790a43f8e5487704730ee39"
+    },
+    {
+      "path": "public/dota-maps/tormentor-dire.webp",
+      "source": "https://raw.githubusercontent.com/linsisss/dota2-grid-toolkit/7a4013192c627f5b022f94749101c3a181b98c41/assets/dota-hud/panorama/images/hud/tormentor_timer_icon_dire_png.webp",
+      "bytes": 4034,
+      "sha256": "a65fa9f3325a16aa47b812d98e9af493dda70a061fac0f3059bb51f373b3f547"
+    }
+  ]
+}

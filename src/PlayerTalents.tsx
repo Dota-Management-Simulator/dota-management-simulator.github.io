@@ -14,9 +14,10 @@ export default function PlayerTalents({ campaign, playerId, onChange }: { campai
   const lock = playerTournamentLock(campaign, playerId);
   return <section className="player-talents" aria-label="Player talent tree">
     <h3>Player talent tree {enabled ? "· unlocked" : "· locked until 7.00"}</h3>
-    <p>{enabled ? "Choose a branch for each tier. The bonus unlocks when this player's hero reaches that level in each match; levels reset next map. Choices stay with the player across heroes and transfers." : "The New Journey composite (2017.1, including 7.00) introduces talents for every player."}</p>
+    <p>{enabled ? "Choose a branch for each tier. The bonus unlocks when this player's hero reaches that level in each match; levels reset next map. Choices stay with the player across heroes and transfers." : "The New Journey update (7.00) introduces talents for every player."}</p>
     {enabled && <>
       <p>These are simplified player talents. You can change choices between tournaments; ongoing tournaments lock them. Unselected tiers grant no bonus. AI clubs choose by role.</p>
+      <p>The first or second choice also selects the corresponding branch in the drafted hero’s historical tree. Supported spell cooldown, damage, healing and duration changes apply when that tier unlocks.</p>
       {lock && <p className="patch-lock">Talent choices locked: {lock}</p>}
       <div className="talent-tree">{talentTiers.map(tier => <fieldset key={tier.level} disabled={!managed || !!lock}>
         <legend>Level {tier.level}</legend>

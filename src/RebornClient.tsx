@@ -1,8 +1,9 @@
+import { patchLabel, patchMessageText } from "./patch-label";
 import { formatOfficeDate } from "./office-date";
 import { useEffect, useState } from "react";
 import { botChallengeOpen } from "./bot-challenge";
 import { allStarEvent } from "./all-star";
-import { ArrowUpRight, ChevronLeft, ChevronRight, ChevronsLeft, Gem, Info, Mail, Plus, Power, Shield, Star, Users, X } from "lucide-react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, ChevronsLeft, Gem, Info, Mail, Plus, Shield, Star, Users, X } from "lucide-react";
 import type { Campaign, Page, Player } from "./game";
 import { average, money, teamPlayers } from "./game";
 import { campaignMenu } from "./menu-eras";
@@ -12,7 +13,7 @@ import { managerCompetition } from "./manager-view";
 import { unreadMessages } from "./office";
 import type { OfficeMessage } from "./office";
 import { formatDate, historicalTournaments, utcTime } from "./tournaments";
-import { ClientSystemMenu, ClientTabButton, ContinueButton, useDeskShell } from "./ClientShell";
+import { ClientPowerButton, ClientSystemMenu, ClientTabButton, ContinueButton, useDeskShell } from "./ClientShell";
 import type { ClientTab } from "./ClientShell";
 import { weeklyIncome, weeklyWages } from "./game";
 import TeamBadge from "./TeamBadge";
@@ -25,6 +26,7 @@ import type { MenuPromotion } from "./menu-promotions";
 import TournamentBattlePass from "./TournamentBattlePass";
 import { tournamentPasses, tournamentPassForMenu } from "./tournament-pass";
 import type { TournamentPass } from "./tournament-pass";
+import DotaHomeMark from "./DotaHomeMark";
 
 type Props = {
   campaign: Campaign; event?: MenuEvent; ti?: TiMenu; archived?: boolean;
@@ -142,7 +144,7 @@ export default function RebornClient(props: Props) {
     <header className="rb-top">
       <ClientSystemMenu motion={motion} onMotion={() => setMotion(!motion)} className="rb-icon" />
       <span className="rb-arrows" aria-hidden="true"><ChevronLeft size={18} /><ChevronRight size={18} /></span>
-      <button className={`rb-logo-tab ${green ? "is-green" : ""} ${view === "home" ? "is-active" : ""}`} onClick={() => setView("home")} aria-label="Dashboard home" aria-pressed={view === "home"}><img src={art("dota-symbol.png")} alt="" /></button>
+      <button className={`rb-logo-tab ${green ? "is-green" : ""} ${view === "home" ? "is-active" : ""}`} onClick={() => setView("home")} aria-label="Dashboard home" aria-pressed={view === "home"}><DotaHomeMark motion={motion} /></button>
       <nav aria-label="Desk client tabs">{tabs.map(tab => <ClientTabButton key={tab.label} tab={tab} onPage={onPage} />)}</nav>
       <div className="rb-top-right">
         {d.day >= SHARDS && <button className="rb-shards" onClick={() => onPage("finances")} title={`${net > 0 ? "+" : ""}${money(net)} net per week`}><Gem size={16} /><b>{money(campaign.cash)}</b><small>CLUB FUNDS</small></button>}
@@ -150,11 +152,11 @@ export default function RebornClient(props: Props) {
         <span className="rb-icon" aria-hidden="true"><Shield size={18} /></span>
         {d.day >= PLUS && <span className="rb-icon rb-plus" aria-hidden="true"><Plus size={16} /></span>}
         {(ti || menuPass) && <button className="rb-icon rb-ti-icon" onClick={() => compendium ? setView("ti") : setPass(menuPass)} aria-label={ti?.year === 2025 ? "Open The International" : compendium ? "Open the Compendium" : "Open the Battle Pass"}><img src={art("dota-symbol.png")} alt="" /></button>}
-        <span className="rb-icon rb-power" aria-hidden="true"><Power size={17} /></span>
+        <ClientPowerButton />
       </div>
     </header>
     {/* The 2015–2020 client printed its live counters under the top bar; the date and funds sit there. */}
-    <div className="rb-stats"><span>{campaign.calendar ? formatDate(campaign.calendar.now) : `Week ${campaign.week} · ${campaign.year}`}</span>{d.day < SHARDS && <span>{money(campaign.cash)} CLUB FUNDS</span>}<span>{net > 0 ? "+" : ""}{money(net)} PER WEEK</span><button disabled={shell?.busy} onClick={() => onPage("patch")}>PATCH {d.patch.id}</button></div>
+    <div className="rb-stats"><span>{campaign.calendar ? formatDate(campaign.calendar.now) : `Week ${campaign.week} · ${campaign.year}`}</span>{d.day < SHARDS && <span>{money(campaign.cash)} CLUB FUNDS</span>}<span>{net > 0 ? "+" : ""}{money(net)} PER WEEK</span><button disabled={shell?.busy} onClick={() => onPage("patch")}>PATCH {patchLabel(d.patch)}</button></div>
     <div className="rb-body">{main}</div>
     <footer className="rb-bottom">
       <div className="rb-party"><button className="rb-party-icon" onClick={() => onPage("roster")} aria-label="Open squad"><Users size={18} /></button><div>{d.roster.map(player => <button key={player.id} onClick={() => props.onPlayer(player)} aria-label={`Open ${player.name} profile`}><Avatar player={player} small /></button>)}</div></div>
@@ -181,7 +183,7 @@ function GridHome({ campaign, ti, event, d, onPage, onPlayer, onCompetition, ope
   const ladder = [...d.roster].sort((a, b) => b.energy - a.energy);
   return <div className="rb-grid">
     <div className="rb-col rb-col-left">
-      <section className="rb-card rb-profile"><h3>My profile<button onClick={() => onPage("roster")} aria-label="Open squad"><ArrowUpRight size={14} /></button></h3>
+      <section className="rb-card rb-profile"><h3>My profile<button onClick={() => onPage("profile")} aria-label="Open my profile"><ArrowUpRight size={14} /></button></h3>
         <div className="rb-profile-row"><TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="medium" /><span><strong>{campaign.settings.team}</strong><small>Main Menu</small></span><b className="rb-badge-level">{d.wins}</b></div>
         <div className="rb-profile-stats"><span><small>SEASON</small>{campaign.year}</span><span><small>READINESS</small>{d.energy}%</span><span><small>DIFFICULTY</small>{campaign.settings.difficulty}</span></div>
       </section>
@@ -193,7 +195,7 @@ function GridHome({ campaign, ti, event, d, onPage, onPlayer, onCompetition, ope
     </div>
     <div className="rb-col rb-col-mid">
       <div className="rb-tiles">
-        <button className="rb-tile rb-news" onClick={promotionPass ? openPromotion : () => onPage("patch")} style={{ backgroundImage: `url("${art(d.update.file)}")` }}><span className="rb-tag">{promotionPass ? "Open tournament Battle Pass" : "New in Dota 2"}</span><strong>{promotionPass || d.day.startsWith("2015-") ? d.update.title : d.patch.name}<small>Patch {d.patch.id} · {d.patch.versions}</small></strong></button>
+        <button className="rb-tile rb-news" onClick={promotionPass ? openPromotion : () => onPage("patch")} style={{ backgroundImage: `url("${art(d.update.file)}")` }}><span className="rb-tag">{promotionPass ? "Open tournament Battle Pass" : "New in Dota 2"}</span><strong>{promotionPass || d.day.startsWith("2015-") ? d.update.title : d.patch.name}<small>Patch {patchLabel(d.patch)} · {d.patch.versions}</small></strong></button>
         <section className="rb-tile rb-last"><span className="rb-tag">Your last match</span>{d.last ? <div><strong>{d.last.event}</strong><dl><dt>OPPONENT</dt><dd>{d.last.opponent || "—"}</dd><dt>SCORE</dt><dd>{d.last.score || "—"}</dd><dt>PRIZE</dt><dd>{money(d.last.prize)}</dd><dt>RESULT</dt><dd className={d.last.won ? "is-win" : "is-loss"}>{d.last.won ? "WON" : "NOT WON"}</dd></dl></div> : <p>No matches played yet.</p>}<button onClick={() => onPage("history")}>All recent games »</button></section>
         <section className="rb-tile rb-ladder"><span className="rb-tag">Friends</span><span className="rb-tag is-right">Readiness</span><ol>{ladder.map(player => <li key={player.id}><button onClick={() => onPlayer(player)}><Avatar player={player} small /><span>{player.name}</span><b>{Math.round(player.energy)}</b></button></li>)}</ol></section>
         <button className="rb-tile rb-treasure" onClick={onCompetition} style={{ backgroundImage: `url("${art(ti && ti.year <= 2019 ? `ti${ti.year}.jpg` : "reborn-header.png")}")` }}><span className="rb-tag">{d.competition?.opponent ? "Next series" : "Season calendar"}</span><strong>{d.competition?.name ?? "Choose your next tournament"}<small>{d.competition?.opponent ? `vs ${d.competition.opponent}` : "Invitations & qualification"}</small></strong></button>
@@ -205,14 +207,14 @@ function GridHome({ campaign, ti, event, d, onPage, onPlayer, onCompetition, ope
         : event ? <button className={`rb-feature rb-feature-${event.id}`} onClick={() => onPage("calendar")} style={event.background ? { backgroundImage: `url("${art(event.background)}")` } : undefined}><span className="rb-tag">Special event</span><strong>{event.name}</strong><small>Ends {formatDate(event.window.to)}</small><em>Play it now</em></button>
         : <button className="rb-feature rb-feature-ti" onClick={() => onPage("standings")} style={d.day.startsWith("2015-") ? { backgroundImage: `url("${art("reborn-header.png")}")` } : d.nextTi && tiPassReleased[d.nextTi.year] <= d.day ? { backgroundImage: `url("${art(`ti${d.nextTi.year}.jpg`)}")` } : undefined}><span className="rb-tag">The International</span><strong>{d.tiDays ?? "—"}</strong><small>{d.tiDays === null ? "No International scheduled" : `days until ${d.nextTi?.name}`}</small><em>TI race & standings</em></button>}
       <section className="rb-card rb-feed"><button className="rb-feed-input" onClick={() => onPage("inbox")}>Say something on your feed…</button>
-        {d.messages.length ? d.messages.slice(0, 3).map(message => <button key={message.id} onClick={() => onPage("inbox")}><b>{message.sender}</b> posted: {message.subject}<time>{formatOfficeDate(message.at)}</time></button>) : <p>No club news yet.</p>}</section>
+        {d.messages.length ? d.messages.slice(0, 3).map(message => <button key={message.id} onClick={() => onPage("inbox")}><b>{message.sender}</b> posted: {patchMessageText(message, message.subject)}<time>{formatOfficeDate(message.at)}</time></button>) : <p>No club news yet.</p>}</section>
     </div>
   </div>;
 }
 
 function ChatPanel({ campaign, d, onPage }: { campaign: Campaign; d: Data; onPage: (page: Page) => void }) {
   return <section className="rb-card rb-chat-panel"><div className="rb-chat-tabs"><span>Party</span><span className="is-active">{campaign.settings.region}</span><span className="is-right">Channels +</span></div>
-    <div className="rb-chat-log">{d.messages.length ? d.messages.map((message: OfficeMessage) => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatOfficeDate(message.at)}</time><b>{message.sender}:</b> {message.subject}</button>) : <p>Your desk is clear.</p>}</div>
+    <div className="rb-chat-log">{d.messages.length ? d.messages.map((message: OfficeMessage) => <button key={message.id} onClick={() => onPage("inbox")}><time>{formatOfficeDate(message.at)}</time><b>{message.sender}:</b> {patchMessageText(message, message.subject)}</button>) : <p>Your desk is clear.</p>}</div>
     <button className="rb-chat-input" onClick={() => onPage("inbox")}><b>To ({campaign.settings.region}):</b> Open the club inbox</button>
   </section>;
 }
@@ -237,7 +239,7 @@ function FeaturedHome(props: Shared) {
   const stageArt = background ? { backgroundImage: `url("${art(background)}")`, ["--rb-art" as string]: `url("${art(background)}")` } : undefined;
   return <div className="rb-featured">
     <aside className="rb-left">
-      <section className="rb-card rb-profile is-flat"><div className="rb-profile-row"><TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="medium" /><span><strong>{campaign.settings.team}</strong><small>Main Menu</small></span></div>
+      <section className="rb-card rb-profile is-flat"><button className="rb-profile-row" onClick={() => onPage("profile")} aria-label="Open my profile"><TeamBadge teamId={campaign.world?.managedTeamId} name={campaign.settings.team} year={campaign.year} size="medium" /><span><strong>{campaign.settings.team}</strong><small>Main Menu</small></span></button>
         {event && <div className="rb-points-row"><span>{event.name} wins <Info size={11} /></span><b>{d.wins}</b></div>}
         <div className="rb-challenge"><small>WEEKLY CHALLENGE</small><strong>{d.competition?.opponent ? `Beat ${d.competition.opponent}` : "Choose your next event"}</strong><span>{[0, 1, 2].map(index => <i key={index} className={index < Math.min(3, d.wins) ? "is-done" : ""} />)}</span><small>READINESS {d.energy}%</small></div>
       </section>
@@ -259,7 +261,7 @@ function FeaturedHome(props: Shared) {
           {crownfall && d.day >= CROWNFALL_FINAL_BOW && <small className="rb-final-bow">Crownfall’s final bow · ends {formatDate(event!.window.to)}</small>}
           <button className="rb-show" onClick={() => onPage("calendar")}>{event.id === "darkcarnival" ? "View event" : "Show event details"}</button></div>
         : d.last ? <LastMatch {...props} />
-        : <div className="rb-stage-copy is-update"><small>NEW IN DOTA 2</small><h2 className="sr-only">{d.update.title}</h2><p>Patch {d.patch.id} · {d.patch.name}</p><button className="rb-show" onClick={props.promotionPass ? props.openPromotion : () => onPage("patch")}>{props.promotionPass ? "Open tournament Battle Pass" : "Read patch notes"}</button></div>}
+        : <div className="rb-stage-copy is-update"><small>NEW IN DOTA 2</small><h2 className="sr-only">{d.update.title}</h2><p>Patch {patchLabel(d.patch)} · {d.patch.name}</p><button className="rb-show" onClick={props.promotionPass ? props.openPromotion : () => onPage("patch")}>{props.promotionPass ? "Open tournament Battle Pass" : "Read patch notes"}</button></div>}
     </div>
     <Promos {...props} onCompetition={onCompetition} />
   </div>;
@@ -346,7 +348,7 @@ function PlayPanel({ campaign, event, d, onPage, onCompetition, setView }: Share
       <button onClick={() => onPage("next-series")}><ChevronsLeft size={16} />Create lobby</button>
       {column && <div className="rb-mode-event"><strong>{column.name}</strong><p><span aria-hidden="true" className="rb-radio" />Join forces and take on your next series during this special event.</p><em>SPECIAL EVENT</em></div>}
       {modes.map(([label, open]) => <button key={label} className="rb-mode" onClick={open}>{label}</button>)}
-      <div className="rb-modes-foot"><span>REGION: {campaign.settings.region}</span><span>PATCH {d.patch.id}</span></div>
+      <div className="rb-modes-foot"><span>REGION: {campaign.settings.region}</span><span>PATCH {patchLabel(d.patch)}</span></div>
       <p className="rb-modes-note">{d.competition?.opponent ? `${d.competition.name}: ${campaign.settings.team} vs ${d.competition.opponent}` : "No series scheduled. Find match opens the season calendar."}</p>
     </section>
   </div>;

@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
-import { ArrowRight, BookOpen, Pause, Play, Settings, Settings2 } from "lucide-react";
+import { ArrowRight, BookOpen, Pause, Play, Power, Settings, Settings2 } from "lucide-react";
 import type { Campaign, Page } from "./game";
 import { money, weeklyIncome, weeklyWages } from "./game";
 import type { ContinueAction } from "./manager-view";
@@ -15,6 +15,7 @@ export interface DeskShell {
   onContinue: () => void;
   onHelp: () => void;
   onSettings: () => void;
+  onExit?: () => void;
   saveStatus: string;
 }
 export const DeskShellContext = createContext<DeskShell | null>(null);
@@ -72,10 +73,18 @@ export function ClientSystemMenu({ motion, onMotion, className = "" }: { motion?
     {open && <div className="client-tab-menu client-system-menu" role="menu" style={style}>
       {shell && <button role="menuitem" onClick={() => run(shell.onHelp)}><strong><BookOpen size={13} />Manager’s handbook</strong></button>}
       {shell && <button role="menuitem" onClick={() => run(shell.onSettings)}><strong><Settings2 size={13} />Organization settings</strong></button>}
+      {shell?.onExit && <button role="menuitem" disabled={shell.busy} onClick={() => run(shell.onExit)}><strong><Power size={13} />Save / exit game</strong></button>}
       {onMotion && <button role="menuitem" onClick={() => run(onMotion)}><strong>{motion ? <Pause size={13} /> : <Play size={13} />}{motion ? "Pause" : "Play"} menu effects</strong></button>}
       {shell && <small className="client-system-status">{shell.saveStatus}</small>}
     </div>}
   </div>;
+}
+
+/** One exit action, with each client's original corner-button styling. */
+export function ClientPowerButton({ className = "rb-icon rb-power", size = 17 }: { className?: string; size?: number }) {
+  const shell = useDeskShell();
+  return <button className={`client-power-button ${className}`} aria-label="Save and exit game" title="Save and exit game"
+    disabled={!shell?.onExit || shell.busy} onClick={shell?.onExit}><Power size={size} /></button>;
 }
 
 /** Date, club funds and the campaign's next step, which used to sit in the footer. */

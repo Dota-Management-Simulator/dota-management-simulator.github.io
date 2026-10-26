@@ -1,5 +1,16 @@
 # Historical hero strength and engine calibration
 
+**October 25 mechanics calibration, local and running:** fresh six-worker
+calibration in `.local/mechanics-hero-balance/` includes named identities,
+regeneration, item/TP behavior, backdoor/Glyph, siege, denies, buyback and high
+ground across all 32 composites. Corrected early percentage mana regeneration
+before fitting. Activation now requires lower/upper hero bounds, sampling,
+side/completion/duration checks and an independent final holdout, plus unchanged
+inputs and application verification. Two 512-map pilots completed without stalls;
+these are smoke checks, not balance certification. Current-source balance remains
+pending. See [mechanics, acceptance gates, command and actual progress](mechanics-balance.md).
+This supersedes older "queued" descriptions below; prior batches remain preserved.
+
 **October 23 live tactics/items, local:** the new live worker, reusable phase calls, inventories and Roshan change new-map combat. Older replay-only/abstract-item descriptions below are historical. Existing CPU work uses frozen prior mechanics; a separate fresh calibration is queued. The current pilot has balance flags, so no balanced-engine claim is made. See [current rules, balance status and validation](tactics-items.md).
 
 Local implementation, October 23, 2026. Not published.

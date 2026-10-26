@@ -43,8 +43,8 @@ test("milestone introductions handle crossings, later starts and saved dismissal
   assert.deepEqual(arrivingMilestones("2023.2","2022.2").map(m=>m.id),["frontiers"]);
   assert.deepEqual(arrivingMilestones("2026.1",undefined),[]);
   assert.deepEqual(arrivingMilestones("2023.1","2022.2",["frontiers"]),[]);
-  assert.equal(simplifiedHeroNote("Cooldown increased from 5s to 10s"),"An ability takes longer to become available again.");
-  assert.equal(simplifiedHeroNote("Damage decreased from 100 to 80"),"A damage value was lowered.");
+  assert.equal(simplifiedHeroNote("Cooldown increased from 5s to 10s"),"Cooldown increased");
+  assert.equal(simplifiedHeroNote("Damage decreased from 100 to 80"),"Damage decreased");
 });
 
 test("talent selection respects era, ownership, event locks and normalizes optional saved fields", () => {
@@ -80,7 +80,7 @@ test("talents change actual combat only at their unlocked levels and stay inacti
   const internals=(battle:LaneBattle)=>battle as unknown as {gainXp:(u:typeof a,n:number)=>void;damage:(a:typeof a,b:typeof a,n:number)=>void;cast:(a:typeof a,b:typeof a)=>void};
   internals(normal).gainXp(a,50000);internals(noTalents).gainXp(b,50000);
   assert.equal(a.level,25); assert.ok(Math.abs(a.max/b.max-1.08*1.12)<1e-8);
-  const t1=normal.units.find(u=>u.kind==="tower"&&u.team!==a.team)!,t2=noTalents.units.find(u=>u.kind==="tower"&&u.team!==b.team)!;
+  const t1=normal.units.find(u=>u.kind==="tower"&&u.tier===1&&u.team!==a.team)!,t2=noTalents.units.find(u=>u.kind==="tower"&&u.tier===1&&u.team!==b.team)!;
   internals(normal).damage(a,t1,100);internals(noTalents).damage(b,t2,100);
   assert.ok(1800-t1.hp>1800-t2.hp);
   a.hero=heroById("sven")!;b.hero=heroById("sven")!;

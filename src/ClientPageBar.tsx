@@ -1,14 +1,14 @@
-import { ChevronLeft, ChevronRight, Gem, Mail, Power, Users } from "lucide-react";
+import { ChevronLeft, ChevronRight, Gem, Mail, Users } from "lucide-react";
 import type { Campaign, Page } from "./game";
 import { money } from "./game";
 import { campaignMenu } from "./menu-eras";
 import { unreadMessages } from "./office";
 import { navigation } from "./GameNavigation";
-import { ClientSystemMenu, ClientTabButton, useDeskShell } from "./ClientShell";
+import { ClientPowerButton, ClientSystemMenu, ClientTabButton, useDeskShell } from "./ClientShell";
 import type { ClientTab } from "./ClientShell";
 import { rebornGamesLabel, source1TabLabels } from "./source1-navigation";
+import DotaHomeMark from "./DotaHomeMark";
 
-const art = (name: string) => `${import.meta.env.BASE_URL}dota-menu/${name}`;
 /** Same switch dates as the Desk clients (RebornClient.tsx, ClientDashboard.tsx). */
 const SHARDS = "2020-10-29";
 const ARMORY = "2023-09-12";
@@ -20,17 +20,17 @@ type Group = { label: string; pages: Page[] };
 function groups(layout: string, day: string): Group[] {
   if (layout === "beta") return [{ label: "Watch", pages: ["standings", "calendar", "history"] },
     { label: "Learn", pages: ["heroes", "patch", "training", "scrims", "next-series"] },
-    { label: "Socialize", pages: ["world", "roster", "scouting", "staff", "finances", "inbox", "arcade"] }];
+    { label: "Socialize", pages: ["world", "profile", "roster", "scouting", "staff", "finances", "inbox", "arcade"] }];
   if (layout === "source1") {
     const labels = source1TabLabels(day);
     return [{ label: labels.store, pages: ["finances", "scouting", "staff"] },
       { label: "Watch", pages: ["standings", "calendar", "history"] },
       { label: labels.library, pages: ["heroes", "patch", "training", "next-series"] },
-      { label: labels.community, pages: ["world", "roster", "scrims", "inbox", "arcade"] }];
+      { label: labels.community, pages: ["world", "profile", "roster", "scrims", "inbox", "arcade"] }];
   }
   return [{ label: "Heroes", pages: ["heroes", "patch"] }, { label: day >= ARMORY ? "Armory" : "Store", pages: ["finances", "scouting", "staff"] },
     { label: "Watch", pages: ["standings", "calendar", "history"] }, { label: "Learn", pages: ["training", "scrims", "next-series"] },
-    { label: rebornGamesLabel(day), pages: ["arcade", "world"] }, { label: "Party", pages: ["roster", "inbox"] }];
+    { label: rebornGamesLabel(day), pages: ["arcade", "world"] }, { label: "Party", pages: ["profile", "roster", "inbox"] }];
 }
 
 /** Every page away from the Desk sits inside the era's Dota client: its top bar,
@@ -59,7 +59,7 @@ export default function ClientPageBar({ campaign, page, onPage }: { campaign: Ca
     <header className="beta-top">
       <ClientSystemMenu className="beta-corner" />
       <nav aria-label="Client tabs">{[desk, ...tabs].map(tab => <ClientTabButton key={tab.label} tab={tab} onPage={onPage} />)}</nav>
-      {mail("beta-corner client-page-mail")}
+      <div className="client-corner-actions">{mail("beta-corner client-page-mail")}<ClientPowerButton className="beta-corner" size={24} /></div>
     </header>
     {sub}
   </div>;
@@ -68,7 +68,7 @@ export default function ClientPageBar({ campaign, page, onPage }: { campaign: Ca
     <header className="s1-top">
       <ClientSystemMenu className="s1-corner" />
       <nav aria-label="Client tabs">{[desk, ...tabs].map(tab => <ClientTabButton key={tab.label} tab={tab} onPage={onPage} />)}</nav>
-      {mail("s1-corner client-page-mail")}
+      <div className="client-corner-actions">{mail("s1-corner client-page-mail")}<ClientPowerButton className="s1-corner" size={14} /></div>
     </header>
     {sub}
   </div>;
@@ -77,13 +77,13 @@ export default function ClientPageBar({ campaign, page, onPage }: { campaign: Ca
     <header className="rb-top">
       <ClientSystemMenu className="rb-icon" />
       <span className="rb-arrows" aria-hidden="true"><ChevronLeft size={18} /><ChevronRight size={18} /></span>
-      <button className="rb-logo-tab" disabled={shell?.busy} onClick={() => onPage("overview")} aria-label="Back to the Manager’s Desk" title="Manager’s Desk"><img src={art("dota-symbol.png")} alt="" /></button>
+      <button className="rb-logo-tab" disabled={shell?.busy} onClick={() => onPage("overview")} aria-label="Back to the Manager’s Desk" title="Manager’s Desk"><DotaHomeMark /></button>
       <nav aria-label="Client tabs">{tabs.map(tab => <ClientTabButton key={tab.label} tab={tab} onPage={onPage} />)}</nav>
       <div className="rb-top-right">
         {day >= SHARDS && <button className="rb-shards" disabled={shell?.busy} onClick={() => onPage("finances")}><Gem size={16} /><b>{money(campaign.cash)}</b><small>CLUB FUNDS</small></button>}
         <button className={`rb-icon ${page === "roster" ? "is-active" : ""}`} disabled={shell?.busy} onClick={() => onPage("roster")} aria-label="Open squad"><Users size={18} /></button>
         {mail(`rb-icon ${page === "inbox" ? "is-active" : ""}`)}
-        <span className="rb-icon rb-power" aria-hidden="true"><Power size={17} /></span>
+        <ClientPowerButton />
       </div>
     </header>
     {sub}

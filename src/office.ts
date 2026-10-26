@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import type { Campaign, Page } from "./game";
 import { advanceCalendarTo, advanceWeek, money, weeklyIncome, weeklyWages } from "./game";
 import { campaignWeek } from "./contracts";
@@ -10,6 +11,7 @@ import { announcedPatches, patchAnnouncement, syncPatchIntroductions } from "./p
 import { campaignPatch } from "./patches";
 import { syncScrims } from "./scrims";
 import { nextScrim } from "./scrim-state";
+import { welfareRecord } from "./player-welfare";
 
 export type OfficeAction = { kind: "tournament"; eventId: string } | { kind: "player"; playerId: string } | { kind: "page"; page: Page } | { kind: "patch"; patchId: string };
 export interface OfficeMessage {
@@ -79,6 +81,13 @@ function messageWeek(c: Campaign, message: OfficeMessage): number {
 
 /** Evaluate real club state, including notices saved before expiry metadata existed. */
 export function messageExpiryReason(c: Campaign, message: OfficeMessage): string | null {
+  if (message.id.startsWith("welfare:")) {
+    if (message.action?.kind !== "player" || !c.roster.includes(message.action.playerId)) return "This player has left the lineup.";
+    const record = welfareRecord(c, message.action.playerId);
+    if (record.noticeAt !== undefined) return message.id.endsWith(`:notice:${record.noticeAt}`) ? null : "A departure notice replaces this concern.";
+    const key = `welfare:${message.action.playerId}:${record.joinedAt}:concern:${record.concernAt ?? record.joinedAt}`;
+    return message.id === key && record.unhappyWeeks >= 2 ? null : "The player's concerns have eased or this notice was withdrawn.";
+  }
   if (message.category === "scrims") {
     const s = c.scrims?.sessions.find(s => message.id === `scrim-request:${s.id}` || message.id === `scrim-due:${s.id}`);
     if (!s || !["requested", "scheduled"].includes(s.status)) return "This scrim has been handled or its request has expired.";
@@ -197,6 +206,18 @@ export function syncOffice(current: Campaign): Campaign {
     }
     seen.add(message.id); office.seen.push(message.id); office.messages.unshift({ ...message, at, createdWeek: week });
   };
+  for (const id of current.roster) {
+    const record = welfareRecord(current, id);
+    if (record.unhappyWeeks < 2 && record.noticeAt === undefined) continue;
+    const player = current.players.find(p => p.id === id)!;
+    const notice = record.noticeAt !== undefined;
+    const left = notice ? Math.max(0, record.noticeAt! + 2 - week) : 0;
+    add({ id: `welfare:${id}:${record.joinedAt}:${notice ? `notice:${record.noticeAt}` : `concern:${record.concernAt ?? record.joinedAt}`}`, category: "contracts", sender: player.name,
+      subject: `${player.name}: ${notice ? "has given notice" : "unhappy with team life"}`,
+      body: `${record.satisfaction}% satisfaction. ${record.concerns.join(" ")}${notice ? ` Improve the underlying concerns within ${left} more weekly reviews. Registered tournaments will be honored before departure.` : " Address these issues before they escalate to departure notice."} Meet and mediate in the player profile; meetings alone do not fix unmet expectations.`, action: { kind: "player", playerId: id }, actionLabel: "Review expectations" });
+  }
+  for (const departure of current.welfare?.departures ?? []) add({ id: `departure:${departure.id}`, category: "contracts", sender: "Roster office",
+    subject: `${departure.name} ${departure.kind === "quit" ? "quit the team" : "was kicked"}`, body: `${departure.reason} ${departure.severance ? `${money(departure.severance)} early-release payment. ` : ""}Recruit a replacement before playing competitive matches or scrims.`, action: { kind: "page", page: "scouting" }, actionLabel: "Recruit replacement" });
   for (const s of current.scrims?.sessions ?? []) {
     if (s.status === "requested") add({ id: `scrim-request:${s.id}`, category: "scrims", sender: `${s.opponent} · Practice coordinator`, subject: `Scrim request · BO${s.bestOf} vs ${s.opponent}`,
       body: `Can we practice on ${s.at.slice(0, 16).replace("T", " ")} UTC? BO${s.bestOf}, with a ${s.bestOf === 2 ? "two-map block (a draw is possible)" : "best-of series"}. Choose a focus and accept or decline in Scrims. This fictional campaign request expires at its scheduled start.`, action: { kind: "page", page: "scrims" }, actionLabel: "Review scrim request" });
@@ -206,8 +227,8 @@ export function syncOffice(current: Campaign): Campaign {
   add({ id: "office-welcome", sender: "Club secretary", subject: "Your manager's inbox is ready", category: "club",
     body: "Tournament invitations, registration reminders, player terms and sponsor updates arrive here. Opening a message marks it read. Every action links back to your club's actual agreements and event entry rules." });
   for (const patch of announcedPatches(current, office.lastPatchId)) add({
-    id: `patch:${patch.id}`, sender: "Patch desk", category: "patches", subject: `Patch ${patch.id}: ${patch.name}`,
-    body: patchAnnouncement(patch), action: { kind: "patch", patchId: patch.id }, actionLabel: `Read patch ${patch.id} notes`,
+    id: `patch:${patch.id}`, sender: "Patch desk", category: "patches", subject: `Patch ${patchLabel(patch)}: ${patch.name}`,
+    body: patchAnnouncement(patch), action: { kind: "patch", patchId: patch.id }, actionLabel: `Read patch ${patchLabel(patch)} notes`,
   });
   office.lastPatchId = campaignPatch(current).id;
   for (const id of current.roster) {

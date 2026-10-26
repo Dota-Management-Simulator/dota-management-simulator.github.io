@@ -4,8 +4,8 @@ import type { HistoricalTournament, TournamentMatchResult, TournamentRun } from 
 
 /** Older AI archives have player rows but no resource timelines or map objectives. */
 export type ScoreboardGame = Pick<GameSummary, "winner" | "duration" | "kills" | "players"> & Partial<GameSummary>;
-export type ScoreboardSeries = Pick<SeriesSummary, "teams" | "winner" | "score" | "bestOf" | "advantage" | "patch"> & { games: ScoreboardGame[] };
-export type ScoreboardResult = Omit<Result, "series"> & { series?: ScoreboardSeries };
+export type ScoreboardSeries = Pick<SeriesSummary, "teams" | "winner" | "score" | "bestOf" | "advantage" | "patch"> & { seed?: number; games: ScoreboardGame[] };
+export type ScoreboardResult = Omit<Result, "series"> & { series?: ScoreboardSeries; playedAt?: string };
 
 export function tournamentScoreboard(event: HistoricalTournament, run: TournamentRun, match: TournamentMatchResult) {
   const fixture = run.fixtures.find(f => f.id === match.id);
@@ -23,7 +23,7 @@ export function tournamentScoreboard(event: HistoricalTournament, run: Tournamen
     advantage: fixture?.advantage && (reversed ? [fixture.advantage[1], fixture.advantage[0]] : fixture.advantage),
   };
   const result: ScoreboardResult = {
-    eventId: match.id, event: `${event.name} · ${fixture?.label ?? fixture?.stage ?? "Series"}`,
+    eventId: match.id, event: `${event.name} · ${fixture?.label ?? fixture?.stage ?? "Series"}`, playedAt: match.at,
     year: event.year, week: 0, won: perspective !== null && series.winner === perspective,
     prize: 0, points: 0, opponent: series.teams[perspective === 1 ? 0 : 1], score: series.score.join(" – "), series,
   };

@@ -22,7 +22,11 @@ function assertWorld(c: Campaign) {
   assert.deepEqual(c.roster, c.world.clubs.find((t) => t.id === c.world!.managedTeamId)!.roster);
 }
 function afterTi(current: Campaign) {
-  let c = current;
+  // This fixture checks imports with a retained roster. Meet expectations and
+  // fund wages; unmanaged discontent/debt now intentionally causes resignations.
+  let c = structuredClone(current);
+  c.cash = Math.max(c.cash, 1000000);
+  for (const id of c.roster) { c.training[id] = "Rest"; c.players.find(p => p.id === id)!.happiness = 100; }
   while (c.week < 17) c = advanceWeek(c);
   return c;
 }

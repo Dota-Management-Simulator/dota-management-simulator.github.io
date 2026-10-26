@@ -95,4 +95,25 @@
 .patch-map-body { display:grid; grid-template-columns:160px minmax(0,1fr); gap:18px; align-items:start; }
 .patch-map-body img { width:160px; height:160px; border-radius:6px; border:1px solid var(--line); object-fit:cover; }
 .patch-map-body ul { margin:8px 0; padding-left:18px; font-size:13px; line-height:1.7; }
+.patch-log-tabs { display:flex; flex-wrap:wrap; gap:8px; margin:18px 0; }
+.patch-log-tabs [aria-pressed="true"] { border-color:#d2ac61; box-shadow:inset 0 -2px #d2ac61; }
+.patch-log-tabs small { margin-left:7px; opacity:.65; }
+.patch-log-filters { display:flex; flex-wrap:wrap; gap:12px; margin:20px 0; }
+.patch-log-filters label { display:grid; gap:7px; font-size:12px; flex:1 1 180px; min-width:0; }
+.patch-log-filters input,.patch-log-filters select { width:100%; min-width:0; box-sizing:border-box; background:var(--bg); color:inherit; border:1px solid var(--line); padding:10px; border-radius:4px; }
+.patch-public-rules { padding:14px 18px; border:1px solid var(--line); background:#c8a76808; }
+.patch-public-rules h4 { margin:0 0 10px; }
+.patch-public-rules li,.patch-log-entries li { font-size:13px; line-height:1.7; margin:8px 0; overflow-wrap:anywhere; }
+.patch-public-rules ul { padding-left:18px; }
+.patch-log-entries details { border-block-start:1px solid var(--line); padding:12px 0; }
+.patch-log-entries summary { display:flex; align-items:center; gap:10px; cursor:pointer; min-height:30px; }
+.patch-log-entries summary::before { content:'›'; color:#d2ac61; }
+.patch-log-entries details[open] > summary::before { content:'⌄'; }
+.patch-log-entries summary img { width:28px; height:28px; object-fit:contain; }
+.patch-log-entries summary small { color:var(--muted); margin-left:auto; font-size:11px; }
+.patch-log-entries ul { padding-left:20px; }
+.patch-log-entries li a { font-size:11px; color:#d2ac61; }
+.patch-log-kind { display:inline-block; padding:1px 5px; margin-right:7px; border:1px solid var(--line); color:var(--muted); font-size:10px; border-radius:3px; }
+.patch-log-coverage { padding-top:16px; border-top:1px solid var(--line); margin-top:16px; }
+.patch-log-coverage summary { font-size:12px; cursor:pointer; }
 @media (max-width:560px) { .patch-map-body { grid-template-columns:minmax(0,1fr); } .patch-map-body img { width:100%; height:auto; aspect-ratio:1; } }

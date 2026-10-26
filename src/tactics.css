@@ -11,3 +11,11 @@
 @media(max-width:600px){.live-match>.live-rosters,.live-match .tactic-quick-slots{grid-template-columns:minmax(0,1fr)}.live-match .watch-layout>.tactics-console{grid-row:1}.live-match .tactics-console-head label{max-width:none}}
 
 .live-match .tactic-quick-slots button:disabled{opacity:.82}
+.glyph-controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px;border:1px solid var(--border,#526057);border-radius:6px;margin-bottom:12px;min-width:0}
+.glyph-controls .button{display:flex;flex-direction:column;align-items:flex-start;white-space:normal;min-width:0}
+.glyph-controls label,.glyph-preference{display:flex;align-items:center;gap:8px;cursor:pointer}
+.glyph-controls input,.glyph-preference input{width:auto;flex:none}
+.glyph-controls>span{flex:1 1 200px;font-size:.78rem;line-height:1.5;color:var(--muted,#a9b4a8)}
+.glyph-controls small{font-size:.72rem;opacity:.8}
+.live-inventory-row>.button{max-width:100%;white-space:normal;display:flex;flex-direction:column;align-items:flex-start;margin-top:6px}
+@media(max-width:440px){.glyph-controls{gap:10px}.glyph-controls>.button{width:100%}}

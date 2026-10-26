@@ -1,4 +1,5 @@
-import { advanceCalendarTo, clamp, data, money, rating, teamPlayers } from "./game";
+import { advanceCalendarTo, clamp, data, money, rating, teamPlayers, settlePlayerDepartures } from "./game";
+import { fullRosterBlocker } from "./player-welfare";
 import type { Campaign, Result } from "./game";
 import { startingAttributes } from "./development";
 import type { BattleConfig, SeriesSummary } from "./battle";
@@ -133,6 +134,7 @@ export function earnedInvitations(c: Campaign, event: HistoricalTournament): str
 }
 
 export function tournamentEntryBlocker(c: Campaign, event: HistoricalTournament): string | null {
+  if (fullRosterBlocker(c)) return fullRosterBlocker(c);
   if (!c.calendar) return "Start a historical-calendar campaign to enter this event. Your existing save is retained.";
   if (event.status !== "ready") return event.status === "scheduled" ? "This event is scheduled; its final format and prize distribution are not yet historical results." : `Historical verification pending: ${event.limitations.join(" ")}`;
   if (c.calendar.runs.some(r => r.eventId === event.id)) return "Your team has already entered this tournament.";
@@ -170,6 +172,7 @@ export function enterHistoricalTournament(current: Campaign, eventId: string, se
   if (blocker) throw new Error(blocker);
   let c = advanceCalendarTo(current, isoTime(Math.max(utcTime(current.calendar!.now), utcTime(event.start))));
   c = structuredClone(c);
+  if (fullRosterBlocker(c)) throw new Error("Players would leave during this preparation interval. Use Continue to advance in shorter steps and resolve their concerns before starting the tournament.");
   const club = referenceClub(c);
   const slots = [...event.teams];
   const invites = earnedInvitations(c, event);
@@ -302,6 +305,7 @@ export function commitTournamentRun(current: Campaign, run: TournamentRun): Camp
     c.results.push(result);
     c.log = [`${event.name}: ${result.score}. ${money(place.prize)} gross prize earned; registered player shares paid.`, ...c.log].slice(0, 30);
     stored.settled = true;
+    c = settlePlayerDepartures(c);
     updateHistoricalShuffle(c);
   }
   return c;
@@ -315,6 +319,9 @@ export function settleTournamentMatch(current: Campaign, eventId: string, fixtur
   const updated = recordTournamentSeries(withTournamentStrength(run), fixtureId, series);
   const end = Math.max(utcTime(current.calendar!.now), utcTime(fixture.at)) + series.games.reduce((sum, game) => sum + game.duration * 1000, 0);
   let c = advanceCalendarTo(current, isoTime(end), true);
+  // A due scrim can refuse the clock advance. Never mutate the original save
+  // or record a played series while its elapsed time remains unaccounted for.
+  if (c === current) throw new Error("Play or cancel the earlier scrim commitment before recording this series. Completed maps can be retried.");
   c.calendar!.nowHasTime = fixture.timeVerified || current.calendar!.nowHasTime;
   for (const player of teamPlayers(c)) {
     player.energy = clamp(player.energy - series.games.length * Math.max(1, 4 - player.stats.stamina / 40));

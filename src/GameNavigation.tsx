@@ -28,6 +28,7 @@ export const departments: Department[] = [
     { page: "world", label: "Teams", icon: Globe2, description: "Clubs, lineups & public results" },
   ] },
   { id: "club", label: "Club", icon: Shield, description: "Keep your dynasty running.", destinations: [
+    { page: "profile", label: "My profile", icon: UserRound, description: "Match history, practice & tournament results" },
     { page: "inbox", label: "Inbox", icon: Mail, description: "Your messages & decisions" },
     { page: "finances", label: "Finances & sponsors", icon: Wallet, description: "Budget, partners & agreements" },
     { page: "history", label: "Season history", icon: Trophy, description: "Results from your journey" },

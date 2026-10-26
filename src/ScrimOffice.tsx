@@ -1,3 +1,4 @@
+import { patchLabel } from "./patch-label";
 import { useEffect, useState } from "react";
 import { CalendarDays, FlaskConical } from "lucide-react";
 import type { Campaign, Result } from "./game";
@@ -44,12 +45,13 @@ export default function ScrimOffice({ campaign, onChange, onBusy, onCalendar }: 
       onCancel={() => setPlaying(null)} onComplete={simulation => {
         // Pre-match configuration is held in memory, never written to the save.
         const pinned = { ...campaign, scrims: { ...campaign.scrims!, sessions: campaign.scrims!.sessions.map(s => s.id === playing.id ? { ...s, config: playing.config } : s) } };
-        if (action(() => settleScrim(pinned, playing.id, simulation.summary))) { setResultId(playing.id); setPlaying(null); }
+        if (action(() => settleScrim(pinned, playing.id, simulation.summary))) { setResultId(playing.id); setPlaying(null); return true; }
+        return false;
       }} />{error && <p role="alert">{error}</p>}</section>;
   const result = campaign.scrims?.sessions.find(s => s.id === resultId);
   if (result?.series) {
     const view: Result = { eventId: result.id, event: `Private scrim · ${scrimFocuses[result.focus].name}`, year: new Date(result.at).getUTCFullYear(), week: campaign.week, won: result.series.winner === 0, prize: 0, points: 0, opponent: result.opponent, score: result.series.score.join("–"), series: result.series };
-    return <section className="scrim-office"><ScrimReview campaign={campaign} id={result.id} /><SeriesResults result={view} managedTeamId={campaign.world?.managedTeamId} closeLabel="Back to scrims" onClose={() => setResultId(null)} /></section>;
+    return <section className="scrim-office"><ScrimReview campaign={campaign} id={result.id} /><SeriesResults result={view} playedAt={result.at} managedTeamId={campaign.world?.managedTeamId} closeLabel="Back to scrims" onClose={() => setResultId(null)} /></section>;
   }
   const sessions = campaign.scrims?.sessions ?? [];
   const requests = sessions.filter(s => s.status === "requested");
@@ -91,8 +93,8 @@ function ScrimReview({ campaign, id }: { campaign: Campaign; id: string }) {
   const patch = campaignPatch(campaign);
   const pool = (s.review?.heroes ?? []).flatMap(id => { const hero = heroById(id); return hero ? [hero] : []; });
   const report = heroScoutReport(patch, managedPatchObserver(campaign), pool);
-  return <section className="panel scrim-review"><div className="eyebrow">PRIVATE PRACTICE DEBRIEF</div><h2>What the squad learned</h2><p>{s.series!.games.length} maps · {scrimFocuses[s.focus].name} · match patch {s.series!.patch?.id}. Both wins and losses provide practice.</p>
+  return <section className="panel scrim-review"><div className="eyebrow">PRIVATE PRACTICE DEBRIEF</div><h2>What the squad learned</h2><p>{s.series!.games.length} maps · {scrimFocuses[s.focus].name} · match patch {patchLabel(s.series!.patch)}. Both wins and losses provide practice.</p>
     <div className="scrim-gains">{s.review?.players.map(p => <div key={p.id}><strong>{p.name}</strong><span>+{p.training.toFixed(2)} focus skills · +{p.confidence.toFixed(2)} Confidence</span><small>{p.energy} energy</small></div>)}</div>
-    {patch.id === s.series!.patch?.id ? <><h3>Hero observations · patch {patch.id}</h3><p className="field-note">Confidence reflects accumulated debriefs. These are gradual scouting reads; this series’ win rate alone cannot establish equal-team strength.</p><div className="scrim-hero-reads">{report.map(row => <div key={row.hero.id}><strong>{row.hero.name}</strong><small>{row.samples} practice {row.samples === 1 ? "map" : "maps"} · {row.samples < 4 ? "Early" : row.samples < 12 ? "Developing" : "Established"} read</small><RangeBars label={row.hero.name} current={row.winRate} unit="%" /></div>)}</div></> : <p>These observations belong to patch {s.series!.patch?.id}; the current patch has its own research.</p>}
+    {patch.id === s.series!.patch?.id ? <><h3>Hero observations · patch {patchLabel(patch)}</h3><p className="field-note">Confidence reflects accumulated debriefs. These are gradual scouting reads; this series’ win rate alone cannot establish equal-team strength.</p><div className="scrim-hero-reads">{report.map(row => <div key={row.hero.id}><strong>{row.hero.name}</strong><small>{row.samples} practice {row.samples === 1 ? "map" : "maps"} · {row.samples < 4 ? "Early" : row.samples < 12 ? "Developing" : "Established"} read</small><RangeBars label={row.hero.name} current={row.winRate} unit="%" /></div>)}</div></> : <p>These observations belong to patch {patchLabel(s.series!.patch)}; the current patch has its own research.</p>}
   </section>;
 }

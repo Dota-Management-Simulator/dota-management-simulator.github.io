@@ -13,6 +13,8 @@ export default function TacticalPreparation({config,preparation,onChange,onSave}
   return <section className="tactical-preparation" aria-label="Tactical playbook preparation">
     <div className="eyebrow">YOUR MATCH PLAYBOOK</div><h3>Prepare three calls for each phase.</h3>
     <p>Players make their own decisions throughout the map. Your calls change their movement or item priorities. Calls can be reused after recovery when their conditions are met.</p>
+    <label className="glyph-preference"><input type="checkbox" checked={preparation.autoGlyph!==false} onChange={e=>onChange({...preparation,autoGlyph:e.target.checked})}/> Auto Glyph · protect low-health buildings under attack</label>
+    <p className="field-note">You can always activate Glyph manually when ready. Turn Auto Glyph off to control every use. This preference is saved with your playbook.</p>
     <div className="tactic-phase-grid">{gamePhases.map(phase=><section key={phase}><h4>{phaseLabels[phase]}</h4>{preparation.slots[phase].map((id,index)=>{
       const selected=strategyById(id)!;
       return <label key={index}>Quick slot {index+1}<select aria-label={`${phase} strategy ${index+1}`} value={id} onChange={e=>{
@@ -35,6 +37,6 @@ export default function TacticalPreparation({config,preparation,onChange,onSave}
       </select>{hero&&<small>{automaticBuild(hero,role,preparation.builds[role]).map(id=>itemForPatch(id,patch).name).join(" → ")}</small>}</label>;
     })}</div>
     <button className="button secondary small-button" onClick={onSave}>Save playbook & builds</button>
-    <p className="field-note">Item costs and effects are simplified, bounded estimates for this composite patch. The first catalog contains 13 classic items. Staff or a qualifying player unlock advanced calls; every club has basic plays.</p>
+    <p className="field-note">Historical shop prices and scaled attributes follow the match patch. Live item priorities offer the era’s catalogue, including eligible Scepters and Shards. Active effects are simplified. Staff or a qualifying player unlock advanced calls; every club has basic plays.</p>
   </section>;
 }

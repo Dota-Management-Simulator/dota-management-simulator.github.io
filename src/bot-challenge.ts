@@ -6,6 +6,7 @@ import { automaticTalents, normalizeTalentPlan } from "./talents";
 import { managedPatchObserver } from "./patch-knowledge";
 import { withDraftKnowledge } from "./draft";
 import type { TacticalPreparation } from "./tactics";
+import { fullRosterBlocker } from "./player-welfare";
 
 /** OpenAI Five's public matches. Dates checked against OpenAI's posts and press
  * coverage on 2026-10-24; `checked: false` marks a day that is inferred. */
@@ -37,6 +38,7 @@ export function botChallengeOpen(c: Campaign): boolean {
   return !!today && BOT_WINDOW.from <= today && today <= BOT_WINDOW.to;
 }
 export function botChallengeBlocker(c: Campaign): string | null {
+  if (fullRosterBlocker(c)) return fullRosterBlocker(c);
   const today = day(c);
   if (!today) return "The bots follow the dated calendar. Switch this campaign to dated scheduling first.";
   if (today < BOT_WINDOW.from) return `OpenAI Five opens to challengers on ${BOT_WINDOW.from}, the day the real Arena opened.`;

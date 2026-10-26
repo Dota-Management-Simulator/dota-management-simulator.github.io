@@ -1,13 +1,8 @@
+import { geometryForEra } from "./map-geometry";
 import { mapEras } from "./map-eras";
 import type { MapEra } from "./map-eras";
 
 type Point = [number, number];
-const LANES: Point[][] = [
-  [[90, 710], [90, 90], [710, 90]],
-  [[90, 710], [400, 400], [710, 90]],
-  [[90, 710], [710, 710], [710, 90]],
-];
-const BASES: Point[] = [[90, 710], [710, 90]];
 const CELL = 10, ORIGIN = -90, SIZE = 98; // covers -90..890, the frontier bounds plus a margin
 const LANE_WIDTH = 30, TRAIL_WIDTH = 17, SPACING = 70;
 
@@ -23,7 +18,8 @@ export class MapPaths {
   private entries?: Int16Array;
 
   constructor(readonly era: MapEra) {
-    const lines = [...LANES, era.river, ...era.trails];
+    const geometry = geometryForEra(era);
+    const lines = [...geometry.lanes, geometry.river, ...geometry.trails];
     const edges: [number, number][] = [], laneEdges = new Set<string>();
     const nodeAt = ([x, y]: Point) => {
       const found = this.nodes.findIndex(n => Math.hypot(n[0] - x, n[1] - y) < 14);
@@ -37,7 +33,7 @@ export class MapPaths {
         const points = i ? densify(line[i - 1], line[i]) : [line[0]];
         for (const p of points) {
           const id = nodeAt(p);
-          if (previous >= 0 && previous !== id) { edges.push([previous, id]); if (LANES.includes(line) || line === era.river) laneEdges.add(`${previous}:${id}`); }
+          if (previous >= 0 && previous !== id) { edges.push([previous, id]); if (geometry.lanes.includes(line) || line === geometry.river) laneEdges.add(`${previous}:${id}`); }
           previous = id;
         }
       }
@@ -54,8 +50,14 @@ export class MapPaths {
       if (best >= 0) edges.push([id, best]);
     }
     for (const [a, b] of edges) this.paint(this.nodes[a], this.nodes[b], laneEdges.has(`${a}:${b}`) ? LANE_WIDTH : TRAIL_WIDTH);
-    for (const base of BASES) this.paint(base, base, 95);
+    for (const base of geometry.bases) this.paint(base, base, 95);
     for (const pit of [era.roshan.day, era.roshan.night]) if (pit) this.paint(pit, pit, 45);
+    // Join nearby visible nodes, including crossings within corridor segments.
+    // Without this, a geometrically connected ramp can be disconnected in the graph.
+    for (let a = 0; a < this.nodes.length; a++) for (let b = a + 1; b < this.nodes.length; b++) {
+      const pa=this.nodes[a], pb=this.nodes[b];
+      if (Math.hypot(pa[0]-pb[0],pa[1]-pb[1]) < 85 && this.clear(pa[0],pa[1],pb[0],pb[1])) edges.push([a,b]);
+    }
     // All-pairs next hop; maps have roughly two hundred nodes.
     const n = this.nodes.length;
     this.dist = new Float32Array(n * n).fill(Infinity);
@@ -189,4 +191,4 @@ export function pathsForEra(era: MapEra) {
   if (!paths) { paths = new MapPaths(era); cache.set(era.id, paths); }
   return paths;
 }
-export const MAP_PATHS_VERSION = `map-paths-v1:${mapEras.map(e => e.id).join(",")}`;
+export const MAP_PATHS_VERSION = `map-paths-v2-art-coordinates:${mapEras.map(e => e.id).join(",")}`;
