@@ -2,6 +2,11 @@
 
 October 26, 2026 — local, not published.
 
+**Publication follow-up:** now published as source `6e929e9` / Pages `db9485e`.
+The initial local notes below describe implementation snapshots. All 417 tests,
+TypeScript/build, Pages, public file hashes and isolated production
+launch/save/load/exit checks pass. See [release verification](github-pages.md#october-26-2026-current-version-release).
+
 Normal startup opens a Steam-style Dota 2 library page, using Valve's library
 artwork, Steam wordmark, blue-gray shell and green Play button. Play shows a
 brief Dota launch screen and then the campaign picker. Reduced motion skips the
