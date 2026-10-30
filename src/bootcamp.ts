@@ -1,11 +1,17 @@
 import type { Campaign, Player, Training } from "./game";
+import { CAMP_FEE_BASE, scaledCost } from './economy-scale';
 import { weeklyPractice } from "./contracts";
 import { roundTraining, skillDeltas, trainingPlan, trainingSchedule } from "./training";
+import type { InnatePracticeBonus } from './player-innate-skills';
 
-export const CAMP_FEE = 500;
+/** Per booked player per week, scaled by era. */
+export const campFee = (c: Pick<Campaign, "year">) => scaledCost(c.year, CAMP_FEE_BASE);
+const paidFee = (camp: Bootcamp) => camp.fee ?? 500;
 export interface Bootcamp {
   remaining: number;
   playerIds: string[];
+  /** Prepaid per player per week. Older saves prepaid the original $500. */
+  fee?: number;
 }
 export interface CampReport {
   year: number; week: number; attended: number; refunded: number;
@@ -16,7 +22,7 @@ export function normalizeCampReport(value: unknown): CampReport | undefined {
   if (!value || typeof value !== "object") return;
   const r = value as CampReport;
   if (![r.year, r.week, r.attended, r.refunded].every(Number.isFinite) || !Array.isArray(r.players)) return;
-  return { year: r.year, week: r.week, attended: Math.max(0, Math.min(5, r.attended)), refunded: Math.max(0, Math.min(2500, r.refunded)),
+  return { year: r.year, week: r.week, attended: Math.max(0, Math.min(5, r.attended)), refunded: Math.max(0, Math.min(100000, r.refunded)),
     players: r.players.filter(p => p && typeof p.id === "string" && typeof p.name === "string" && typeof p.outcome === "string")
       .slice(0, 5).map(p => ({ id: p.id, name: p.name.slice(0, 80), outcome: p.outcome.slice(0, 300) })) };
 }
@@ -26,7 +32,8 @@ export function normalizeBootcamp(value: unknown): Bootcamp | undefined {
   const row = value as Bootcamp;
   if (!Number.isInteger(row.remaining) || row.remaining < 1 || row.remaining > 3 || !Array.isArray(row.playerIds)) return;
   const playerIds = [...new Set(row.playerIds.filter((id): id is string => typeof id === "string" && !!id))].slice(0, 5);
-  if (playerIds.length) return { remaining: row.remaining, playerIds };
+  const fee = Number.isSafeInteger(row.fee) && row.fee! > 0 && row.fee! <= 20000 ? row.fee : undefined;
+  if (playerIds.length) return { remaining: row.remaining, playerIds, ...(fee ? { fee } : {}) };
 }
 
 export function campReason(c: Campaign, p: Player, plan: Training, energyDelta: number): string | null {
@@ -42,9 +49,11 @@ export function campReason(c: Campaign, p: Player, plan: Training, energyDelta: 
 
 export function campPractice(c: Campaign, p: Player, plan: Training, practice: {
   growth: number; maintenance: number; playstyleGrowth: number; energy: number; happiness: number;
+  attributeBonus?: InnatePracticeBonus['attributeBonus']; innateHappiness?:number; innateEnergy?:number; innateSources?:string[];
 }) {
   if (!c.bootcamp?.playerIds.includes(p.id) || campReason(c, p, plan, practice.energy)) return practice;
   return { ...practice, growth: roundTraining(practice.growth * 1.35),
+    ...(practice.attributeBonus?{attributeBonus:Object.fromEntries(Object.entries(practice.attributeBonus).map(([key,n])=>[key,roundTraining(n*1.35)]))}:{}),
     playstyleGrowth: roundTraining(practice.playstyleGrowth * 1.35), energy: roundTraining(practice.energy - 6) };
 }
 
@@ -57,7 +66,7 @@ export function campAttendance(c: Campaign) {
     const practice = weeklyPractice(base, player, plan);
     const reason = campReason(c, player, plan, practice.energy);
     const boosted = campPractice({ ...c, bootcamp: { remaining: 1, playerIds: [id] } }, player, plan, practice);
-    const normalDeltas = skillDeltas(plan, practice), campDeltas = skillDeltas(plan, boosted);
+    const normalDeltas = skillDeltas(plan, practice, player), campDeltas = skillDeltas(plan, boosted, player);
     const bonus = roundTraining(Object.keys(player.stats).reduce((sum, key) => {
       const k = key as keyof Player["stats"];
       const bound = (n: number) => Math.max(0, Math.min(99, n));
@@ -75,7 +84,7 @@ export function campBlocker(c: Campaign, weeks: number): string | null {
   if (!Number.isInteger(weeks) || weeks < 1 || weeks > 3) return "Choose one to three weeks.";
   if (!c.roster.length) return "Recruit players before booking a camp.";
   if (!campAttendance(c).some(row => !row.reason)) return "No players can attend with the current training and energy.";
-  if (c.cash < c.roster.length * CAMP_FEE * weeks) return "Insufficient cash for the prepaid camp.";
+  if (c.cash < c.roster.length * campFee(c) * weeks) return "Insufficient cash for the prepaid camp.";
   return null;
 }
 
@@ -85,22 +94,22 @@ function payment(c: Campaign, label: string, amount: number): Campaign {
 
 export function bookCamp(c: Campaign, weeks: number): Campaign {
   if (campBlocker(c, weeks)) return c;
-  return { ...payment(c, "Bootcamp reservation", -c.roster.length * CAMP_FEE * weeks),
-    bootcamp: { remaining: weeks, playerIds: [...c.roster] } };
+  return { ...payment(c, "Bootcamp reservation", -c.roster.length * campFee(c) * weeks),
+    bootcamp: { remaining: weeks, playerIds: [...c.roster], fee: campFee(c) } };
 }
 
 export function cancelCamp(c: Campaign): Campaign {
   if (!c.bootcamp) return c;
-  return { ...payment(c, "Unused bootcamp weeks refunded", c.bootcamp.remaining * c.bootcamp.playerIds.length * CAMP_FEE), bootcamp: undefined };
+  return { ...payment(c, "Unused bootcamp weeks refunded", c.bootcamp.remaining * c.bootcamp.playerIds.length * paidFee(c.bootcamp)), bootcamp: undefined };
 }
 
 /** Called once after each paid management week, using attendance from before practice. */
 export function finishCampWeek(c: Campaign, attendance: ReturnType<typeof campAttendance>): void {
   if (!c.bootcamp) return;
   const skipped = attendance.filter(row => row.reason);
-  if (skipped.length) Object.assign(c, payment(c, "Skipped bootcamp places refunded", skipped.length * CAMP_FEE));
+  if (skipped.length) Object.assign(c, payment(c, "Skipped bootcamp places refunded", skipped.length * paidFee(c.bootcamp)));
   const attended = attendance.length - skipped.length;
-  c.lastCampReport = { year: c.year, week: c.week, attended, refunded: skipped.length * CAMP_FEE,
+  c.lastCampReport = { year: c.year, week: c.week, attended, refunded: skipped.length * paidFee(c.bootcamp),
     players: attendance.map(row => ({ id: row.id, name: row.name, outcome: row.reason ? `Skipped: ${row.reason}` : row.preview ?? "Attended" })) };
   c.log = [`Bootcamp: ${attended} attended; ${skipped.length} skipped. ${c.bootcamp.remaining === 1 ? "Camp complete." : `${c.bootcamp.remaining - 1} weeks remain.`}`, ...c.log].slice(0, 30);
   c.bootcamp = c.bootcamp.remaining > 1 ? { ...c.bootcamp, remaining: c.bootcamp.remaining - 1 } : undefined;

@@ -12,6 +12,7 @@ import ItemInventory from "./ItemInventory";
 import { patchById } from "./patches";
 import { heroRoles } from "./heroes";
 import { talentTiers } from "./talents";
+import { RecordedPlayerIdentity } from './PlayerIdentity';
 import "./post-game-current.css";
 
 const sides = [0, 1] as const;
@@ -86,7 +87,8 @@ export function CurrentBreakdowns({ game, series, playerId, setPlayerId, group, 
           return <div key={id} className="current-analysis-row"><div><b>{amount(own)}{id === "participation" && own != null ? "%" : ""}</b><span>{label}<small>{share == null ? "" : `${Math.round(share)}% of team total`}</small></span><b>{amount(other)}{id === "participation" && other != null ? "%" : ""}</b></div><div className="current-comparison-bars"><span className={`post-side-${player.team}`}><i style={{ width: `${(own ?? 0) / max * 100}%` }}/></span><span className={`post-side-${rival?.team ?? 1}`}><i style={{ width: `${(other ?? 0) / max * 100}%` }}/></span></div></div>;
         })}
         {group === 1 && <p className="post-note">Lane at 10:00: {player.player} · {player.laneOutcome ?? "—"} / {rival?.player ?? "No comparison"} · {rival?.laneOutcome ?? "—"}</p>}
-        {player.talents && <p className="post-note">Talents: {talentTiers.filter(t => player.talents?.[t.level] != null).map(t => `Level ${t.level}: ${t.choices[player.talents![t.level]!].name}`).join(" · ") || "None learned"}</p>}
+        <RecordedPlayerIdentity player={player}/>
+        {!player.playerIdentity&&player.talents && <p className="post-note">Talents: {talentTiers.filter(t => player.talents?.[t.level] != null).map(t => `Level ${t.level}: ${t.choices[player.talents![t.level]!].name}`).join(" · ") || "None learned"}</p>}
         <p className="post-note">Recorded totals · — means not recorded. Damage by spell, damage type and target is not retained in these match archives.</p>
       </section>
     </div>

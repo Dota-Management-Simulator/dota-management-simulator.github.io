@@ -21,7 +21,7 @@ const bases = [[90, 710], [710, 90]];
 // OpenDota BuildingMap's art-relative anchors (classic and 7.33+).
 // Tracked entities retain their simulation coordinates so attacks stay legible.
 // https://github.com/odota/web/tree/master/src/components/Match/BuildingMap
-const layout = [
+export const baseStructureLayout = [
   { kind: "tower", tier: 3, lane: 0, points: [[7, 68], [70, 11]], modern: [[8, 68], [70, 12.5]] },
   { kind: "tower", tier: 3, lane: 1, points: [[18, 71], [73, 24]], modern: [[18.5, 71.5], [73, 24]] },
   { kind: "tower", tier: 3, lane: 2, points: [[23, 83.5], [86, 28]], modern: [[23, 83.5], [85.5, 28]] },
@@ -53,10 +53,14 @@ export function mapStructures(frame: ReplayFrame, era?: MapEra): MapStructure[] 
     for (let lane = 0; lane < 3; lane++) {
       const towers = frame.units.filter(u => u.team === team && u.kind === "tower" && (u.lane ?? towerLane(u)) === lane)
         .sort((a, b) => Math.hypot(b.x - bases[team][0], b.y - bases[team][1]) - Math.hypot(a.x - bases[team][0], a.y - bases[team][1]));
-      towers.forEach((unit, i) => result.push({ id: `tower-${unit.id}`, kind: "tower", team, lane, tier: unit.tier ?? i + 1,
-        x: unit.x, y: unit.y, name: `${sideNames[team]} ${laneNames[lane]} Tier ${unit.tier ?? i + 1} tower`, unit }));
+      towers.forEach((unit, i) => result.push({ id: `tower-${unit.id}`, kind: "tower", team, lane:unit.tier===4?undefined:lane, tier: unit.tier ?? i + 1,
+        x: unit.x, y: unit.y, name: `${sideNames[team]} ${unit.tier===4?"Base":laneNames[lane]} Tier ${unit.tier ?? i + 1} tower`, unit }));
     }
-    layout.forEach((entry, i) => {
+    baseStructureLayout.forEach((entry, i) => {
+      // Real towers were added above; layout towers remain only for old recordings.
+      if(frame.structureLoop&&entry.kind==='tower')return;
+      const actual=entry.kind==='tower'?undefined:frame.units.find(u=>u.team===team&&u.kind==='barracks'&&u.lane===entry.lane&&u.barracksType===(entry.kind==='melee-barracks'?'melee':'ranged'));
+      if(frame.structureLoop&&!actual)return;
       const [px, py] = (era?.frontier && entry.modern ? entry.modern : entry.points)[team];
       const point = era && entry.kind === "tower" && entry.tier === 3
         ? geometryForEra(era).towers[team][entry.lane!][2]
@@ -64,7 +68,7 @@ export function mapStructures(frame: ReplayFrame, era?: MapEra): MapStructure[] 
       const label = entry.kind === "tower" ? `Tier ${entry.tier} tower`
         : entry.kind === "melee-barracks" ? "Melee barracks" : "Ranged barracks";
       result.push({ id: `layout-${team}-${i}`, kind: entry.kind, team, lane: entry.lane, tier: entry.tier,
-        x: point[0], y: point[1],
+        x: actual?.x??point[0], y: actual?.y??point[1], ...(actual?{unit:actual}:{}),
         name: `${sideNames[team]} ${entry.lane == null ? "" : `${laneNames[entry.lane]} `}${label}` });
     });
   }

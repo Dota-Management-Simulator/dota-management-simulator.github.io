@@ -10,7 +10,7 @@ import type { PatchObserver } from "./patch-knowledge";
 
 export interface TournamentWorkerInput {
   run: TournamentRun;
-  templates: Record<string, { name: string; players: BattleConfig["players"][0]; bonus: number; form?: FormResult[]; patchObserver?: PatchObserver }>;
+  templates: Record<string, { name: string; playerControl?: 1; players: BattleConfig["players"][0]; bonus: number; form?: FormResult[]; patchObserver?: PatchObserver }>;
   year: number;
   heroPoolThroughYear: number;
   /** Another registered tournament's earlier commitment stops this batch. */
@@ -32,6 +32,7 @@ export function simulateOtherTournamentMatches(input: TournamentWorkerInput, pro
       const bonus = (side: 0 | 1) => templates[teams[side]].bonus + tournamentCombatBonus(run, run.teams.find(t => t.id === teams[side])!, fixture.at, templates[teams[side]].form);
       const prepared = (side: 0 | 1) => templates[teams[side]].players.map(p => ({ ...p, ...tournamentOpponentCondition(run, teams[side], { energy: p.energy, happiness: p.happiness, stamina: p.skills.stamina }, fixture.at) }));
       const result = simulateSeries({ seed: run.seed ^ hashSeed(fixture.id), year, heroPoolThroughYear, patchId,
+        ...(a.playerControl === 1 && b.playerControl === 1 ? {playerControl:1 as const} : {}),
         teams: [a.name, b.name], players: [prepared(0), prepared(1)], bonuses: [bonus(0), bonus(1)],
         ...(a.patchObserver && b.patchObserver ? { patchObservers: [a.patchObserver, b.patchObserver] as [PatchObserver, PatchObserver] } : {}),
         seriesFormat: { bestOf: fixture.bestOf, advantage: fixture.advantage }, captureReplay: false });

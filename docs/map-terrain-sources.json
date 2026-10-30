@@ -1,0 +1,71 @@
+{
+  "retrievedOn": "2026-10-26",
+  "source": "Valve terrain exported by leamare/dota-map-coordinates; factual grid values, no exporter/simulator source copied",
+  "alignment": "World x /20 +400, world y /-20 +400; same cropped central map frame as the source overviews. Early 6.x grids are separately traced.",
+  "sources": [
+    {
+      "era": "700",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/518692e3dcc25efcbdcbe94163b77658bd94a88c/img/map_data.png",
+      "sha256": "51f957687a3c6b28af44d9890e7b2c4145111fd63563c5c5f9fc414dc4172ce8",
+      "grid": 260,
+      "tileWorldUnits": 64,
+      "hasNoWardPanel": true
+    },
+    {
+      "era": "707",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/f793787ecf402f52c9e698da260b02f041256898/img/map_data_707.png",
+      "sha256": "5924c73f6c5743ddbc5f7758c1180f2b1388e92641a538cd6acad342b1b74c36",
+      "grid": 327,
+      "tileWorldUnits": 64,
+      "hasNoWardPanel": true
+    },
+    {
+      "era": "720",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/f793787ecf402f52c9e698da260b02f041256898/img/map_data_720.png",
+      "sha256": "e66b6ee5c64d30cf82c2e2c00d06fedfe2426e4e4965b694cf1fda41c2ef2cee",
+      "grid": 327,
+      "tileWorldUnits": 64,
+      "hasNoWardPanel": true
+    },
+    {
+      "era": "723",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/f793787ecf402f52c9e698da260b02f041256898/img/map_data_723.png",
+      "sha256": "68cb82f93bbcd3858c968ae2973406d0ece9697a6acbc04351d62ff737492bdd",
+      "grid": 327,
+      "tileWorldUnits": 64,
+      "hasNoWardPanel": true
+    },
+    {
+      "era": "732",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/f793787ecf402f52c9e698da260b02f041256898/img/map_data_732.png",
+      "sha256": "e5d0f9aa45223ad6ed9db451da559ea417c5128e6e699b4a3a86ceb8252b8fa8",
+      "grid": 327,
+      "tileWorldUnits": 64,
+      "hasNoWardPanel": true
+    },
+    {
+      "era": "733",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/f793787ecf402f52c9e698da260b02f041256898/img/map_data_733.png",
+      "sha256": "a5a328c065cc6d0edb3feeb00c8806e2aafa96e9ece7860b9b1ef2bc8be749cd",
+      "grid": 327,
+      "tileWorldUnits": 64,
+      "hasNoWardPanel": true
+    },
+    {
+      "era": "738",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/f793787ecf402f52c9e698da260b02f041256898/img/map_data_738.png",
+      "sha256": "63c0307c2c095d18ae501b5957b2f57f365890a76069fe793f8b4fd10be87e77",
+      "grid": 327,
+      "tileWorldUnits": 64,
+      "hasNoWardPanel": true
+    },
+    {
+      "era": "740",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/f793787ecf402f52c9e698da260b02f041256898/img/map_data_740.png",
+      "sha256": "03821c5d82240198e12e90dd558f2d027aae66e16c8abb01b33c93eb3deb0efb",
+      "grid": 327,
+      "tileWorldUnits": 64,
+      "hasNoWardPanel": true
+    }
+  ]
+}

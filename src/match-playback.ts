@@ -16,6 +16,9 @@ export function replayWindow(frames: ReplayFrame[], clock: number) {
 
 /** Both viewers use the same rate. Every advance is an integral engine tick. */
 export function liveCadence(speed: number) {
+  // Watch speeds below ½× use one engine tick at a time. At 1/30× the
+  // displayed clock runs in real time, with no fractional ticks discarded.
+  if(speed < .5) return {intervalMs:1200/(30*speed),seconds:1.2};
   return { intervalMs: Math.max(100, 200 / speed), seconds: 6 * Math.max(1, speed / 2) };
 }
 

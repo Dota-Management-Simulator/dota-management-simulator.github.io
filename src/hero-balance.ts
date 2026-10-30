@@ -3,9 +3,12 @@ import type { SeasonPatch } from "./patches";
 import { getHeroPool } from "./heroes";
 import { TACTICAL_ENGINE_VERSION, strategies } from "./tactics";
 import { MAP_PATHS_VERSION } from "./map-paths";
+import { MAP_VISION_VERSION, MAP_TERRAIN_SIGNATURE } from './map-vision';
 import { itemCatalog } from "./items";
 import { COMBAT_MODEL_VERSION, combatCatalogue } from "./combat-model";
 import { MATCH_RULES_VERSION, matchRules } from './match-rules';
+import { PLAYER_IDENTITY_VERSION, playerInnates, sharedPlayerTalents } from './player-identity-data';
+import { PLAYER_CONTROL_VERSION } from './player-control';
 
 export interface HeroBalance {
   id: string;
@@ -30,12 +33,15 @@ const table = calibration as { version: number; patches: Record<string, HeroCali
 export function heroBalanceSignature(patch: SeasonPatch): string {
   const inputs: unknown[] = [patch.id, patch.axes, patch.heroBalance?.map(h => [h.id, h.targetWinRate, h.priority])];
   inputs.push(TACTICAL_ENGINE_VERSION,itemCatalog,strategies,MAP_PATHS_VERSION);
+  inputs.push(MAP_VISION_VERSION,MAP_TERRAIN_SIGNATURE);
   inputs.push(COMBAT_MODEL_VERSION,combatCatalogue(patch)?.signature);
-  inputs.push(MATCH_RULES_VERSION, matchRules(patch));
+  inputs.push(MATCH_RULES_VERSION, matchRules(patch), PLAYER_CONTROL_VERSION);
   inputs.push("historical-roles-v1", getHeroPool(patch.year,Math.min(2026,patch.year-1),patch).map(h=>[h.id,h.roles]));
   // Modern-era combat now has different rules. A frozen earlier CPU batch can
   // finish, but its records must not certify the new engine on activation.
   if (patch.year >= 2017) inputs.push(patch.year >= 2023 ? "player-talents-v1/frontier-camps-v1" : "player-talents-v1");
+  if (patch.year >= 2017) inputs.push(PLAYER_IDENTITY_VERSION,sharedPlayerTalents);
+  if (patch.year*10+patch.phase>=20242) inputs.push(playerInnates);
   const text = JSON.stringify(inputs);
   let hash = 2166136261;
   for (const char of text) hash = Math.imul(hash ^ char.charCodeAt(0), 16777619);

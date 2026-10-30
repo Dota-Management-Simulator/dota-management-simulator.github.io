@@ -1,0 +1,25 @@
+.player-scouting-summary { margin: 16px 0; padding: 16px; border: 1px solid #71828a66; background: #71828a0d; min-width: 0; line-height: 1.5; }
+.player-scouting-summary h3 { margin: 3px 0 8px; font-size: 18px; }
+.player-scouting-summary p { font-size: 12px; margin: 5px 0; }
+.player-scouting-summary small { font-size: 11px; line-height: 1.5; }
+.player-scouting-summary .scouting-rule { margin-bottom: 14px; }
+.scouting-strengths { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.scouting-strengths > div { padding: 10px 12px; border-left: 3px solid #788f9d; background: #71828a12; min-width: 0; }
+.scouting-strengths > div > span { display: block; font-size: 10px; text-transform: uppercase; letter-spacing: .6px; }
+.scouting-strengths strong { display: block; font-size: 15px; margin-top: 3px; }
+.scouting-strengths b { font-size: 12px; white-space: nowrap; font-weight: 500; }
+.player-scouting-summary .scouting-development { margin: 12px 0; }
+.scouting-preferences { border-top: 1px solid #71828a44; padding-top: 12px; font-size: 12px; }
+.scouting-trait { border-top: 1px solid #71828a44; padding-top: 12px; margin-top: 12px; font-size: 12px; }
+.scouting-heroes { border-top: 1px solid #71828a44; margin-top: 12px; padding-top: 12px; font-size: 12px; }
+.scouting-heroes > div { display: flex; flex-wrap: wrap; gap: 12px 20px; margin: 9px 0; }
+.scouting-heroes > div > span { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.scouting-heroes img { width: 32px; height: 32px; object-fit: contain; flex-shrink: 0; }
+.scouting-heroes small { display: block; }
+.player-scouting-summary .scouting-footnote { border-top: 1px solid #71828a44; padding-top: 10px; margin-top: 12px; font-size: 11px; }
+.player-signature-line { display: block; white-space: normal; line-height: 1.5; max-width: 250px; }
+.scouting-comparison { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 16px; }
+.scouting-compact .scouting-strengths { grid-template-columns: minmax(0,1fr); }
+.player-scouting-summary * { overflow-wrap: anywhere; }
+@media(max-width:700px) { .scouting-comparison { grid-template-columns: minmax(0,1fr); gap: 0; } }
+@media(max-width:500px) { .player-scouting-summary { padding: 12px; }.scouting-strengths { grid-template-columns: minmax(0,1fr); } }

@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { Campaign } from "../src/game";
+import { askingWage, signingFee } from "../src/player-market";
 import type { SeriesSummary, Side } from "../src/battle";
 // Settlement fixtures isolate qualification/economy from the lane engine, tested separately.
 function fixture(c: Campaign, winner: Side): SeriesSummary {
@@ -92,7 +93,8 @@ test("recruitment replaces only the same position and charges once", () => {
   assert.equal(signed.roster[1], recruit.id);
   assert.equal(signed.roster[0], c.roster[0]);
   assert.ok(!signed.roster.includes(c.roster[1]));
-  assert.equal(signed.cash, c.cash - recruit.fee);
+  assert.equal(signed.cash, c.cash - signingFee(c, recruit), "fee follows market value, including the buyout from M5");
+  assert.equal(signed.players.find((p) => p.id === recruit.id)!.wage, askingWage(c, recruit));
   assert.equal(signPlayer(signed, recruit.id), signed);
   const poor = { ...c, cash: 0 };
   assert.equal(signPlayer(poor, recruit.id), poor);

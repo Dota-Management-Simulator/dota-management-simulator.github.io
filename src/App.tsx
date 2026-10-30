@@ -14,12 +14,12 @@ import {
   Crosshair,
   Flame,
   Globe2,
+  HardDrive,
   Heart,
   Mail,
   Leaf,
   Moon,
   Plus,
-  Search,
   Settings2,
   Shield,
   Sparkles,
@@ -45,7 +45,6 @@ import {
   money,
   nextEvent,
   rating,
-  ROLES,
   shortMoney,
   buildBattleConfig,
   prepareEvent,
@@ -74,6 +73,10 @@ import PatchMeta from "./PatchMeta";
 import PatchArrival from "./PatchArrival";
 import { dismissPatchIntroduction } from "./patch-announcements";
 import PlayerTalents from "./PlayerTalents";
+import PlayerIdentityPanel from './PlayerIdentity';
+import PlayerCareerPanel from './PlayerCareerPanel';
+import PlayerScoutingSummary from './PlayerScoutingSummary';
+import RecruitmentMarket from './RecruitmentMarket';
 import StaffOffice from "./StaffOffice";
 import WorldTeams from "./WorldTeams";
 import NextSeriesScouting from "./TeamScouting";
@@ -91,6 +94,8 @@ import ScrimOffice from "./ScrimOffice";
 import EventModes from "./EventModes";
 import { formatDate } from "./tournaments";
 import { weeklyPractice } from "./contracts";
+import { scaledCost } from "./economy-scale";
+import { askingWage } from "./player-market";
 import { teamIdForName } from "./team-logos";
 import { trainingEffect, trainingOptions } from "./training";
 import TrainingWorkload from "./TrainingWorkload";
@@ -108,6 +113,7 @@ import ClientPageBar from "./ClientPageBar";
 import { DeskShellContext } from "./ClientShell";
 import ManagerDesk from "./ManagerDesk";
 import SquadWorkspace from "./SquadWorkspace";
+import CampaignCallCatalogue from './CampaignCallCatalogue';
 import { ClubProfile } from "./MatchHistory";
 import PlayerWelfarePanel from "./PlayerWelfare";
 import { fullRosterBlocker } from "./player-welfare";
@@ -336,8 +342,6 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
   const [saveError, setSaveError] = useState(false);
   const [calendarBusy, setCalendarBusy] = useState(false);
   const [patchTarget, setPatchTarget] = useState<string>();
-  const [filter, setFilter] = useState("");
-  const [roleFilter, setRoleFilter] = useState("All roles");
   const settled = useRef(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const pageHeading = useRef<HTMLHeadingElement>(null);
@@ -347,9 +351,9 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
     if (campaign) setCampaign(current => current ? syncOffice(current) : current);
   }, [campaign]);
   // Inside a campaign every page is the era's Dota client, which is dark only;
-  // the light/dark choice and club colors apply to campaign setup.
+  // campaign setup belongs to the Steam launcher, so it is dark and ignores club colors too.
   const inGame = !!campaign && !setup && !launcher;
-  const shownTheme = inGame || launcher ? "dark" : theme;
+  const shownTheme = inGame || launcher || setup ? "dark" : theme;
   useEffect(() => {
     document.documentElement.dataset.theme = shownTheme;
     document
@@ -369,7 +373,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
   const identityTeamId = setup ? (settings.clubMode === "custom" ? "managed-custom" : selectedClub.id) : campaign?.world?.managedTeamId;
   const clubBranding = useClubAppearance({ branding: identitySettings?.branding, teamId: identityTeamId,
     year: setup ? settings.year : campaign?.year ?? 2011, custom: identitySettings?.clubMode === "custom" || identityTeamId === "managed-custom",
-    theme: shownTheme, enabled: !!identitySettings && !inGame && !launcher });
+    theme: shownTheme, enabled: !!identitySettings && !inGame && !launcher && !setup });
   useEffect(() => {
     if (campaign && activeSlot && !preview && !launcher && !setup) {
       try {
@@ -451,8 +455,6 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
     if (p === "calendar") setCalendarTarget(undefined);
     if (p === "patch") setPatchTarget(undefined);
     setPage(p);
-    setFilter("");
-    setRoleFilter("All roles");
     window.scrollTo(0, 0);
   };
   const update = (f: (c: Campaign) => Campaign) =>
@@ -576,9 +578,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
     campaign && event ? eventResult(campaign, event.id) : null;
   const setupName = settings.clubMode === "custom" ? settings.team.trim() : selectedClub.name;
   const nameConflict = settings.clubMode === "custom" && !!setupName && !customClubNameAvailable(setupName, selectedClub.id);
-  const matchesScout = (p: Player) => campaign && !campaign.roster.includes(p.id) &&
-    (roleFilter === "All roles" || p.role === roleFilter) &&
-    `${p.name} ${p.firstName} ${p.lastName} ${p.region} ${playerTeam(campaign, p.id)} ${p.historical?.aliases.join(" ") ?? ""}`.toLowerCase().includes(filter.toLowerCase());
+
 
   // On the Desk the copied Dota client replaces the app's top bar and Continue footer.
   const deskClient = !!campaign && !setup && page === "overview" && campaignMenu(campaign).era.layout !== "showcase";
@@ -592,7 +592,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
   return (
     <ClubIdentityContext.Provider value={{ teamId: identityTeamId, name: identitySettings?.team ?? "", branding: clubBranding }}>
     <DeskShellContext.Provider value={deskShell}>
-    <div className={`app-shell hub-shell ${campaign && !setup ? `game-shell menu-era-${campaignMenu(campaign).era.id} ${page === "overview" ? "hub-home" : ""} ${deskClient ? "desk-client-mode" : ""}` : ""}`}>
+    <div className={`app-shell hub-shell ${setup ? "steam-setup" : ""} ${campaign && !setup ?`game-shell menu-era-${campaignMenu(campaign).era.id} ${page === "overview" ? "hub-home" : ""} ${deskClient ? "desk-client-mode" : ""}` : ""}`}>
       {campaign && !setup && <PatchArrival campaign={campaign} busy={modalOpen || calendarBusy || simulating}
         onDismiss={id => update(c => dismissPatchIntroduction(c, id))}
         onRead={id => { go("patch"); setPatchTarget(id); }} />}
@@ -600,7 +600,12 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
         <div className="shell-header">
         {preview && campaign && preview.controls(campaign, go, modalOpen || calendarBusy || simulating)}
         {inGame && !deskClient && <ClientPageBar campaign={campaign} page={page} onPage={go} />}
-        {!inGame && <header className="topbar">
+        {setup && <header className="launcher-topbar">
+          <button className="launcher-brand" onClick={() => returnToLibrary("steam")} aria-label="Return to library"><img src={`${import.meta.env.BASE_URL}launcher/steam-logo.svg`} alt="Steam" /><span className="launcher-edition">AEGIS EDITION</span></button>
+          <nav aria-label="Launcher"><button onClick={() => returnToLibrary("steam")}>LIBRARY</button><button className="active" onClick={() => returnToLibrary()}>CAMPAIGNS</button></nav>
+          <span className="launcher-local"><button className="launcher-help" aria-label="Manager’s handbook" title="Manager’s handbook" onClick={() => setHelp(true)}><CircleHelp size={16} /></button><HardDrive size={14} /> {saveStatus}</span>
+        </header>}
+        {!inGame && !setup && <header className="topbar">
           <div className="breadcrumbs">
             <button className="hub-brand" aria-label={setup ? "Aegis Team Manager" : "Back to Manager’s Desk"} disabled={calendarBusy || simulating} onClick={() => go("overview")}><Aegis /><span>AEGIS<small>TEAM MANAGER</small></span></button>
             {campaign && !setup && page !== "overview" && <button className="back-to-desk" onClick={() => go("overview")} disabled={calendarBusy || simulating}><ChevronLeft size={16} /><span>Back to Desk</span></button>}
@@ -811,19 +816,19 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                             name: "Club",
                             icon: Leaf,
                             tag: "Room to grow",
-                            desc: "$150k budget · more forgiving opponents",
+                            desc: `${money(scaledCost(settings.year, 150000, 1000))} budget · more forgiving opponents`,
                           },
                           {
                             name: "Contender",
                             icon: Swords,
                             tag: "The intended challenge",
-                            desc: "$100k budget · balanced competition",
+                            desc: `${money(scaledCost(settings.year, 100000, 1000))} budget · balanced competition`,
                           },
                           {
                             name: "Legend",
                             icon: Flame,
                             tag: "Earn every advantage",
-                            desc: "$65k budget · tougher opponents",
+                            desc: `${money(scaledCost(settings.year, 65000, 1000))} budget · tougher opponents`,
                           },
                         ] as {
                           name: Difficulty;
@@ -935,7 +940,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                 )}
                 {page === "overview" && <ManagerDesk campaign={campaign} onPage={go} onAction={inboxAction} onPlayer={setPlayer} onCompetition={openCompetition} />}
                 {page === "profile" && <ClubProfile campaign={campaign} />}
-                {page === "roster" && <SquadWorkspace campaign={campaign} onProfile={setPlayer} onTraining={() => go("training")} onScout={() => go("scouting")} onChange={next => update(() => next)} />}
+                {page === "roster" && <><SquadWorkspace campaign={campaign} onProfile={setPlayer} onTraining={() => go("training")} onScout={() => go("scouting")} onChange={next => update(() => next)} /><CampaignCallCatalogue campaign={campaign} onChange={next=>update(()=>next)}/></>}
                 {page === "standings" && <CompetitionStandings campaign={campaign} onTournament={id => id ? inboxAction({ kind: "tournament", eventId: id }) : go("calendar")} onResults={winner => {
                   const result = campaign.results.find(r => winner.archived ? `legacy:${r.year}:${r.eventId}` === winner.eventId : r.tournamentId === winner.eventId);
                   if (result) setViewResult(result);
@@ -1029,7 +1034,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                             <small className="training-effect">
                               {(() => {
                                 const effect = weeklyPractice(campaign, p, campaign.training[p.id] || "Balanced");
-                                return trainingEffect(campaign.training[p.id] || "Balanced", effect, campaign.cash + weeklyIncome(campaign) - weeklyWages(campaign) < 0);
+                                return trainingEffect(campaign.training[p.id] || "Balanced", effect, campaign.cash + weeklyIncome(campaign) - weeklyWages(campaign) < 0, p);
                               })()}
                             </small>
                             <TrainingWorkload campaign={campaign} player={p} onChange={update} />
@@ -1202,96 +1207,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                 {page === "next-series" && <NextSeriesScouting campaign={campaign} onPlayer={setPlayer}
                   onStaff={() => go("staff")} onTeams={() => go("world")} onCalendar={() => go("calendar")}
                   onPreparation={draftPreparation => update(c => ({...c, draftPreparation}))} />}
-                {page === "scouting" && (
-                  <>
-                    <div className="filter-bar">
-                      <div className="search-field">
-                        <Search size={17} />
-                        <input
-                          aria-label="Search players"
-                          placeholder="Search players, aliases, teams…"
-                          value={filter}
-                          onChange={(e) => setFilter(e.target.value)}
-                        />
-                      </div>
-                      <select
-                        aria-label="Filter by role"
-                        value={roleFilter}
-                        onChange={(e) => setRoleFilter(e.target.value)}
-                      >
-                        {["All roles", ...ROLES].map((r) => (
-                          <option key={r}>{r}</option>
-                        ))}
-                      </select>
-                      <span>
-                        {campaign.players.filter(matchesScout).length} of{" "}
-                        {
-                          campaign.players.filter(
-                            (p) => !campaign.roster.includes(p.id),
-                          ).length
-                        }{" "}
-                        players
-                      </span>
-                    </div>
-                    <section className="panel">
-                      <SectionTitle
-                        title="The transfer market"
-                        sub="Recruit a player in your starter's position. Other clubs seek available regional replacements."
-                      />
-                      <div className="scouting-list">
-                        {campaign.players
-                          .filter(matchesScout)
-                          .map((p) => (
-                            <div className="scout-row" key={p.id}>
-                              <button
-                                className="player-cell plain-button"
-                                onClick={() => setPlayer(p)}
-                              >
-                                <Avatar player={p} small />
-                                <span>
-                                  <strong>{p.name}</strong>
-                                  <small>
-                                    {playerTeam(campaign, p.id)} · {p.region}
-                                  </small>
-                                </span>
-                              </button>
-                              <Badge>{p.role}</Badge>
-                              <span className="scout-rating">
-                                <strong>{rating(p)}</strong>
-                                <small>OVERALL</small>
-                              </span>
-                              <span className="scout-price">
-                                <strong>{money(p.fee)}</strong>
-                                <small>{money(p.wage)} / week</small>
-                              </span>
-                              <button
-                                className="button secondary small-button"
-                                onClick={() => setPlayer(p)}
-                              >
-                                View player <ArrowUpRight size={14} />
-                              </button>
-                            </div>
-                          ))}
-                        {!campaign.players.some(matchesScout) && (
-                          <div className="empty-state">
-                            <Search size={28} />
-                            <h3>No players found.</h3>
-                            <p>Try another role or search term.</p>
-                            <button
-                              className="text-link"
-                              onClick={() => {
-                                setFilter("");
-                                setRoleFilter("All roles");
-                              }}
-                            >
-                              Clear filters
-                            </button>
-                          </div>
-                        )}
-                      </div>
-                    </section>
-                  </>
-                )}
+                {page === "scouting" && <RecruitmentMarket campaign={campaign} onPlayer={setPlayer} onChange={next => update(() => next)} />}
                 {page === "staff" && <StaffOffice campaign={campaign} onPatch={() => go("patch")} onSponsors={() => go("finances")}
                   onHire={id => { update(c => hireStaff(c, id)); notify("Staff hired. Staff benefits and future payroll updated."); }}
                   onDismiss={id => { update(c => dismissStaff(c, id)); notify("Staff released. Staff benefits and future payroll updated."); }} />}
@@ -1593,16 +1509,19 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                       <Heart size={15} /> {currentPlayer.happiness}% happiness
                     </span>
                     <span>
-                      <Wallet size={15} /> {money(currentPlayer.wage)} / wk
+                      <Wallet size={15} /> {campaign.roster.includes(currentPlayer.id) ? money(currentPlayer.wage) : `asks ${money(askingWage(campaign, currentPlayer))}`} / wk
                     </span>
                   </div>
                   <PlayerProfileTabs key={currentPlayer.id} campaign={campaign} playerId={currentPlayer.id}>
+                  <PlayerScoutingSummary campaign={campaign} player={currentPlayer} />
+                  <PlayerCareerPanel campaign={campaign} player={currentPlayer} />
+                  <PlayerIdentityPanel campaign={campaign} player={currentPlayer} onChange={next=>update(()=>next)} />
                   <PlayerWelfarePanel key={`welfare:${currentPlayer.id}`} campaign={campaign} player={currentPlayer} onChange={next => update(() => next)} />
                   <ContractNegotiation key={currentPlayer.id} campaign={campaign} player={currentPlayer} onChange={(next) => update(() => next)} />
                   <PlayerTalents campaign={campaign} playerId={currentPlayer.id} onChange={next => update(() => next)} />
                   <SectionTitle
                     title="Player attributes"
-                    sub="Execution and potential · 0–100"
+                    sub="AI decision skills and development · 0–99"
                   />
                   <div className="profile-stats">
                     {Object.entries(currentPlayer.stats).map(([key, v]) => (

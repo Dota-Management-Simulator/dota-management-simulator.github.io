@@ -87,7 +87,7 @@ test("advice handles bonus tradeoffs and invalid offers without weakening signin
   }
   for (const bonus of [NaN, -1, 1.5, 1000001]) {
     assert.equal(recommendedSponsorOffer(c, s, 18, 1, bonus), null);
-    assert.equal(negotiateSponsor(c, s.id, { ...initialSponsorOffer(s), bonus }).campaign, c);
+    assert.equal(negotiateSponsor(c, s.id, { ...initialSponsorOffer(c, s), bonus }).campaign, c);
   }
   assert.equal(recommendedSponsorOffer(c, s, 18, 3), null);
 });

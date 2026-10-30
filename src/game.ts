@@ -1,4 +1,6 @@
 import world from "./data/world.json";
+import { pressurePoints } from "./pay-structure";
+import { metaFitPoints } from "./meta-style";
 import { simulateBestOfThree, seededRandom } from "./battle";
 import type { BattleConfig, SeriesSummary } from "./battle";
 import { createHistoricalWorld, clubForPlayer, recruitHistoricalPlayer, postTiShuffle, getStartingTeams, customClubNameAvailable, activeClubs } from "./history";
@@ -14,8 +16,10 @@ import type { TrainingPreset } from "./training-presets";
 export type { Training } from "./training";
 import type { Training } from "./training";
 import { assessOffer, campaignWeek, releaseCost, weeklyPractice } from "./contracts";
+import { askingWage, marketValue, signingFee, synergyBonus } from "./player-market";
+import { scaledCost } from "./economy-scale";
 import type { ContractOffer, PlayerContract } from "./contracts";
-import { advanceSponsorMarket, initialSponsorships, sponsorBenefits, sponsorSlotsUsed, sponsorshipIncome } from "./sponsors";
+import { advanceSponsorMarket, initialSponsorships, sponsorBenefits, sponsorSlotsUsed, sponsorshipIncome, sponsorResultBonuses } from "./sponsors";
 import type { Sponsorships } from "./sponsors";
 import type { HistoricalCalendar } from "./tournament-types";
 import type { OfficeState } from "./office";
@@ -28,12 +32,16 @@ import { staffCatalog, oppositionStaff } from "./staff";
 import { managedPatchObserver } from "./patch-knowledge";
 import { automaticTalents, normalizeTalentPlan } from "./talents";
 import type { TalentPlan } from "./talents";
+import { battlePlayerIdentity, ensurePlayerIdentities, fallbackPlayerIdentity } from './player-identity';
+import type { PlayerIdentity } from './player-identity';
 import { normalizePatchIntroductions } from "./patch-announcements";
 import type { PatchIntroductions } from "./patch-announcements";
 import { normalizeDraftPreparation, withDraftKnowledge } from "./draft";
 import type { DraftPreparation } from "./draft";
-import { normalizeTactics } from "./tactics";
+import { normalizeTactics, strategyById } from "./tactics";
 import type { TacticalPreparation } from "./tactics";
+import { refreshTacticalProgress } from './tactical-progress';
+import type { TacticalProgress } from './tactical-progress';
 import { nextScrim, normalizeScrims } from "./scrim-state";
 import { normalizeBotChallenges } from "./bot-challenge";
 import type { BotChallengeState } from "./bot-challenge";
@@ -43,6 +51,10 @@ import type { ScrimState } from "./scrim-state";
 import { freshWelfare, fullRosterBlocker, normalizeWelfare, reviewPlayerWelfare, welfareRecord } from "./player-welfare";
 import type { PlayerWelfare } from "./player-welfare";
 import { normalizeOffice, normalizeSponsorships } from "./save-optional";
+import { normalizeCareer } from './player-career';
+import type { PlayerCareer } from './player-career';
+import { advanceAiEconomy, creditAiClub, normalizeAiEconomy } from './ai-club-economy';
+import type { AiEconomy } from './ai-club-economy';
 
 export const ROLES = [
   "Carry",
@@ -55,6 +67,8 @@ export type Role = (typeof ROLES)[number];
 export type Difficulty = "Club" | "Contender" | "Legend";
 export type Player = Omit<(typeof world.players)[number], "age"> & {
   age: number | null;
+  identity?: PlayerIdentity;
+  career?: PlayerCareer;
   historical?: { aliases: string[]; source: string; date: string; team: string; role: string; roleEvidence: "adapted" };
 };
 export type Page =
@@ -101,6 +115,7 @@ export interface Result {
   tournamentId?: string;
 }
 export interface Campaign {
+  tacticalProgress?: TacticalProgress;
   welfare?: PlayerWelfare;
   scrims?: ScrimState;
   /** Exhibitions: they never move the clock or touch ratings (docs/event-modes.md). */
@@ -127,6 +142,8 @@ export interface Campaign {
   lastCampReport?: CampReport;
   trainingPresets?: TrainingPreset[];
   trainingQuickSlots?: (string | null)[];
+  shortlist?: string[];
+  aiEconomy?: AiEconomy;
   sponsorIds: string[];
   sponsorships?: Sponsorships;
   staffIds: string[];
@@ -227,7 +244,7 @@ export const weeklyWages = (c: Campaign) =>
   teamPlayers(c).reduce((s, p) => s + p.wage, 0) +
   data.staff
     .filter((s) => c.staffIds.includes(s.id))
-    .reduce((s, p) => s + p.weekly, 0);
+    .reduce((s, p) => s + scaledCost(c.year, p.weekly), 0);
 export const weeklyIncome = sponsorshipIncome;
 export const eventResult = (c: Campaign, id: string) =>
   c.results.find((r) => r.year === c.year && r.eventId === id);
@@ -249,12 +266,12 @@ export function createCampaign(settings: Settings): Campaign {
       ...(settings.branding ? { branding: normalizeBranding(settings.branding) } : {}) },
     year: settings.year,
     week: 1,
-    cash:
+    cash: scaledCost(settings.year,
       settings.difficulty === "Club"
         ? 150000
         : settings.difficulty === "Legend"
           ? 65000
-          : 100000,
+          : 100000, 1000),
     reputation: 10,
     points: 0,
     qualified: false,
@@ -269,6 +286,9 @@ export function createCampaign(settings: Settings): Campaign {
     transactions: [],
   };
   campaign.sponsorships = initialSponsorships(campaign);
+  // Starters begin on rolling pay at their market value, not a role template.
+  const wages = campaign.roster.map(id => marketValue(campaign, players.find(p => p.id === id)!).wage);
+  campaign.roster.forEach((id, i) => { players.find(p => p.id === id)!.wage = wages[i]; });
   campaign.welfare = { players: Object.fromEntries(campaign.roster.map(id => [id, freshWelfare(campaign)])), departures: [] };
   return campaign;
 }
@@ -349,6 +369,7 @@ function applyWeeklyManagement(c: Campaign, reviewWeek = campaignWeek(c) + 1, en
   }
   finishCampWeek(c, campRows);
   developWorldPlayers(c);
+  advanceAiEconomy(c, reviewWeek);
   for (const id of reviewPlayerWelfare(c, reviewWeek, end)) departPlayer(c, id, "quit", reviewWeek, end);
 }
 
@@ -459,22 +480,26 @@ export function buildBattleConfig(
 ): BattleConfig {
   const rosterBlock = fullRosterBlocker(c);
   if (rosterBlock) throw new Error(rosterBlock);
-  const random = seededRandom(seed);
+  const random = seededRandom(seed), patch = campaignPatch(c);
   const players = teamPlayers(c).map((p, role) => ({
     id: p.id,
     name: p.name,
     role,
     skills: { ...p.stats },
     talents: normalizeTalentPlan(c.talentPlans?.[p.id]),
+    identity: battlePlayerIdentity(p, role),
     energy: p.energy,
     happiness: p.happiness,
+    ...(pressurePoints(c, p) ? { pressure: pressurePoints(c, p) } : {}),
+    ...(metaFitPoints(p, patch) ? { metaFit: metaFitPoints(p, patch) } : {}),
   }));
   const club = opponentClub(c);
   const opposition = club ? club.roster.map((id, role) => {
     const p = c.players.find((p) => p.id === id)!;
-    return { id: p.id, name: p.name, role, skills: { ...p.stats }, talents: c.talentPlans?.[p.id] ?? automaticTalents(role), energy: p.energy, happiness: p.happiness };
+    return { id: p.id, name: p.name, role, skills: { ...p.stats }, identity: battlePlayerIdentity(p, role), talents: c.talentPlans?.[p.id] ?? automaticTalents(role,p.identity), energy: p.energy, happiness: p.happiness, ...(metaFitPoints(p, patch) ? { metaFit: metaFitPoints(p, patch) } : {}) };
   }) : ROLES.map((_, role) => ({
     id: `opponent-${role}`,
+    identity: fallbackPlayerIdentity(`opponent-${role}`),
     name: ["Cinder", "Echo", "Flare", "Rune", "Tern"][role],
     role,
     skills: Object.fromEntries(
@@ -484,7 +509,7 @@ export function buildBattleConfig(
       ]),
     ),
     energy: 90,
-    talents: automaticTalents(role),
+    talents: automaticTalents(role,fallbackPlayerIdentity(`opponent-${role}`)),
     happiness: 85,
   }));
   return withDraftKnowledge(c, {
@@ -500,8 +525,8 @@ export function buildBattleConfig(
         ? 0.14
         : c.settings.difficulty === "Legend"
           ? -0.12
-          : 0),
-      0,
+          : 0) + synergyBonus(c, c.roster),
+      club ? synergyBonus(c, club.roster) : 0,
     ],
   });
 }
@@ -547,11 +572,13 @@ export function settleEvent(
     score: `${series.score[0]} – ${series.score[1]}`,
     series,
   });
+  const learnedCalls = refreshTacticalProgress(c);
   transaction(c, `${e.name} earnings`, prize);
   for (const p of teamPlayers(c)) {
     const share = Math.floor(prize * (c.contracts?.[p.id]?.prizeShare ?? 0) / 100);
     if (share) transaction(c, `${p.name} prize share · ${e.name}`, -share);
   }
+  for (const bonus of sponsorResultBonuses(c, won ? 1 : 99)) transaction(c, `${bonus.name} results bonus · ${e.name}`, bonus.amount);
   for (const p of teamPlayers(c)) {
     p.energy = clamp(p.energy - (e.kind === "ti" ? 25 : 15));
     p.happiness = clamp(p.happiness + (won ? 6 : -4));
@@ -559,24 +586,28 @@ export function settleEvent(
   }
   note(
     c,
-    `${won ? "Victory" : "Defeat"} at ${e.name}. ${money(prize)} earned. ${points} circuit points.`,
+    `${won ? "Victory" : "Defeat"} at ${e.name}. ${money(prize)} earned. ${points} circuit points.${learnedCalls.length ? ` New club calls: ${learnedCalls.map(id=>strategyById(id)!.name).join(', ')}. Open the Squad call catalogue to equip them.` : ''}`,
   );
   c = advanceWeek(c);
   return c;
 }
 export function signPlayer(current: Campaign, id: string): Campaign {
   if (recruitmentBlocker(current, id)) return current;
+  const listed = current.players.find((p) => p.id === id);
+  if (!listed) return current;
+  const fee = signingFee(current, listed), wage = askingWage(current, listed);
   const c = structuredClone(current);
   const p = c.players.find((p) => p.id === id);
-  if (!p || c.roster.includes(id) || c.cash < p.fee) return current;
+  if (!p || c.roster.includes(id) || c.cash < fee) return current;
   const slot = c.roster.findIndex(
     (pid) => c.players.find((player) => player.id === pid)?.role === p.role,
   );
   if (slot < 0 && c.roster.length >= 5) return current;
   const previousId = c.roster[slot];
   const severance = previousId ? releaseCost(c, previousId) : 0;
-  if (c.cash < p.fee + severance) return current;
+  if (c.cash < fee + severance) return current;
   const owner = playerTeam(c, id);
+  const ownerId = c.world?.clubs.find(t => t.active !== false && t.id !== c.world!.managedTeamId && [...t.roster, ...t.bench].includes(id))?.id;
   if (c.world) {
     const reason = recruitHistoricalPlayer(c.world, c.players, id);
     if (reason) return current;
@@ -584,7 +615,10 @@ export function signPlayer(current: Campaign, id: string): Campaign {
   } else if (slot < 0) c.roster.push(id);
   else c.roster[slot] = id;
   c.roster.sort((a, b) => ROLES.indexOf(c.players.find(p => p.id === a)!.role as Role) - ROLES.indexOf(c.players.find(p => p.id === b)!.role as Role));
-  transaction(c, `${p.name} signing fee`, -p.fee);
+  transaction(c, `${p.name} signing fee`, -fee);
+  creditAiClub(c, ownerId, fee);
+  p.fee = fee;
+  p.wage = wage;
   if (severance) transaction(c, `${c.players.find((v) => v.id === previousId)!.name} early release`, -severance);
   if (previousId && c.contracts?.[previousId]) {
     c.players.find((v) => v.id === previousId)!.wage = c.contracts[previousId].marketWage;
@@ -655,7 +689,7 @@ export function negotiateContract(current: Campaign, id: string, offer: Contract
   if (assessment.status !== "accepted") return { campaign: current, ...assessment };
   const ownPlayer = current.roster.includes(id);
   const outgoing = ownPlayer ? undefined : teamPlayers(current).find((v) => v.role === p.role);
-  const upfront = offer.bonus + (ownPlayer ? 0 : p.fee + (outgoing ? releaseCost(current, outgoing.id) : 0));
+  const upfront = offer.bonus + (ownPlayer ? 0 : signingFee(current, p) + (outgoing ? releaseCost(current, outgoing.id) : 0));
   if (upfront > 0 && current.cash < upfront) return { campaign: current, status: "blocked", message: `This deal needs ${money(upfront)} up front, including fees, bonus and any early release.` };
   const previous = current.contracts?.[id];
   if (previous?.signedAt === campaignWeek(current) && Object.keys(offer).every((key) => previous[key as keyof ContractOffer] === offer[key as keyof ContractOffer]))
@@ -664,7 +698,7 @@ export function negotiateContract(current: Campaign, id: string, offer: Contract
   if (c === current) return { campaign: current, status: "blocked", message: recruitmentBlocker(current, id) ?? "No matching position is available." };
   const player = c.players.find((v) => v.id === id)!;
   c.contracts ??= {};
-  c.contracts[id] = { ...offer, signedAt: campaignWeek(c), expiresAt: campaignWeek(c) + offer.weeks, marketWage: previous?.marketWage ?? p.wage };
+  c.contracts[id] = { ...offer, signedAt: campaignWeek(c), expiresAt: campaignWeek(c) + offer.weeks, marketWage: marketValue(current, p).wage };
   player.wage = offer.wage;
   if (offer.bonus) transaction(c, `${player.name} contract bonus`, -offer.bonus);
   note(c, `${player.name} agreed to ${offer.weeks} weeks at ${money(offer.wage)}/week, ${offer.practiceHours} practice hours, ${offer.restDays} protected rest days/week and ${offer.prizeShare}% of team prize earnings.`);
@@ -686,7 +720,7 @@ export function signSponsor(current: Campaign, id: string): Campaign {
 export function hireStaff(current: Campaign, id: string): Campaign {
   const c = structuredClone(current);
   const s = data.staff.find((s) => s.id === id);
-  if (!s || c.staffIds.includes(id) || c.cash < s.weekly * 4) return current;
+  if (!s || c.staffIds.includes(id) || c.cash < scaledCost(c.year, s.weekly) * 4) return current;
   c.staffIds.push(id);
   note(c, `${s.name} joins as ${s.role.toLowerCase()}.`);
   return c;
@@ -733,6 +767,9 @@ export function decodeSave(value: string | null): Campaign | null {
     if (c.office !== undefined) c.office = normalizeOffice(c.office);
     if (c.sponsorships !== undefined) c.sponsorships = normalizeSponsorships(c.sponsorships);
     if (c.trainingPresets !== undefined) c.trainingPresets = normalizeTrainingPresets(c.trainingPresets);
+    if (c.shortlist !== undefined) c.shortlist = Array.isArray(c.shortlist) ? [...new Set(c.shortlist.filter((id: unknown) => typeof id === 'string' && c.players.some((p: Player) => p.id === id)))].slice(0, 100) : [];
+    for (const p of c.players) p.career = normalizeCareer(p.career);
+    if (c.aiEconomy !== undefined) c.aiEconomy = normalizeAiEconomy(c.aiEconomy);
     if (c.bootcamp !== undefined) c.bootcamp = normalizeBootcamp(c.bootcamp);
     if (c.lastCampReport !== undefined) c.lastCampReport = normalizeCampReport(c.lastCampReport);
     c.welfare = normalizeWelfare(c.welfare) ?? { players: {}, departures: [] };
@@ -742,9 +779,13 @@ export function decodeSave(value: string | null): Campaign | null {
     if (c.allStars !== undefined) { c.allStars = normalizeAllStars(c.allStars); if (!c.allStars) delete c.allStars; }
     if (c.draftPreparation !== undefined) c.draftPreparation = normalizeDraftPreparation(c.draftPreparation);
     if (c.tacticalPreparation !== undefined) c.tacticalPreparation = normalizeTactics(c.tacticalPreparation);
+    refreshTacticalProgress(c);
     if (c.talentPlans && typeof c.talentPlans === "object" && !Array.isArray(c.talentPlans)) {
       c.talentPlans = Object.fromEntries(Object.entries(c.talentPlans).map(([id, plan]) => [id, normalizeTalentPlan(plan)]));
     } else delete c.talentPlans;
+    // Keep selected old tiers exactly as they were; new/unselected tiers use
+    // the shared player catalogue. Archived/prepared maps are never rewritten.
+    ensurePlayerIdentities(c.players, new Set(c.world?.clubs.filter((t: { active?: boolean }) => t.active !== false).flatMap((t: { roster: string[]; bench: string[] }) => [...t.roster, ...t.bench]) ?? c.roster), c.talentPlans);
     if (Array.isArray(c.seenPatchMilestones)) c.seenPatchMilestones = c.seenPatchMilestones.filter((id: unknown) => id === "journey" || id === "frontiers");
     else delete c.seenPatchMilestones;
     if (c.patchIntroductions !== undefined) {

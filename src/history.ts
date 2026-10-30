@@ -5,6 +5,9 @@ import world from "./data/world.json";
 import { LAST_ROSTER_YEAR, rosterBatchFor, rosterBatches, rosterSources } from "./roster-data";
 import type { Player, Role } from "./game";
 import { startingAttributes } from "./development";
+import { ensurePlayerIdentities } from './player-identity';
+import { individualPlaystyles, normalizeCareer } from './player-career';
+import { driftPlaystyles } from './meta-style';
 
 export const historicalArchive = archive;
 const roles: Role[] = ["Carry", "Mid", "Offlane", "Soft support", "Hard support"];
@@ -70,6 +73,8 @@ function makePlayer(name: string, role: number, region: string, source: string, 
     ...structuredClone(world.players[role]),
     id, name, firstName: "", lastName: "", age: null, region, role: roles[role],
     stats: startingAttributes(id),
+    playstyles: individualPlaystyles(id, world.players[role].playstyles),
+    career: normalizeCareer(undefined),
     historical: {
       aliases: [...new Set([...(identity?.names ?? []), ...(aliases[aliasLookup.get(name.toLowerCase()) ?? name] ?? [])])].filter((s) => s !== name),
       source, date, team, role: roles[role], roleEvidence: "adapted",
@@ -168,6 +173,7 @@ export function createHistoricalWorld(teamId: string, customName?: string, year 
     club.active = false; club.archivedRoster = club.roster; club.roster = []; club.bench = [];
   }
   const managed = state.clubs.find((t) => t.id === state.managedTeamId)!;
+  ensurePlayerIdentities(players, new Set(activeClubs(state).flatMap(t=>[...t.roster,...t.bench])));
   return { players, state, managed };
 }
 
@@ -248,7 +254,10 @@ export function postTiShuffle(current: HistoricalWorld, currentPlayers: Player[]
       club.archivedRoster = [...club.roster]; club.active = false; club.roster = []; club.bench = [];
     }
   }
+  // The season's meta has worked on everyone's style before the market reopens.
+  for (const p of players) driftPlaystyles(p, year);
   state.appliedShuffles.push(year);
   state.dataThroughYear = Math.max(state.dataThroughYear ?? 2010, year);
+  ensurePlayerIdentities(players, new Set(activeClubs(state).flatMap(t=>[...t.roster,...t.bench])));
   return { state, players, unformedClubs };
 }

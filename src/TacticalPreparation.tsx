@@ -4,6 +4,7 @@ import { automaticBuild, buildStyles, itemForPatch } from "./items";
 import { patchById } from "./patches";
 import { gamePhases, phaseLabels, strategies, strategyById, strategyUnlocked, unlockDescription } from "./tactics";
 import type { TacticalPreparation as Preparation } from "./tactics";
+import StrategyCatalogue from './StrategyCatalogue';
 import "./tactics.css";
 
 export default function TacticalPreparation({config,preparation,onChange,onSave}: {
@@ -22,13 +23,15 @@ export default function TacticalPreparation({config,preparation,onChange,onSave}
         if(other>=0)slots[other]=slots[index];slots[index]=e.target.value;
         onChange({...preparation,slots:{...preparation.slots,[phase]:slots}});
       }}>{strategies.filter(s=>s.phases.includes(phase)).map(s=>{
-        const unlocked=strategyUnlocked(s,config.players[0],staff);
+        const unlocked=strategyUnlocked(s,config.players[0],staff,config.tacticalUnlocks?.[0]);
         return <option key={s.id} value={s.id} disabled={!unlocked}>{s.name}{unlocked?"":" · locked"}</option>;
-      })}</select><small>{selected.description}</small>{!strategyUnlocked(selected,config.players[0],staff)&&<small className="tactic-warning">{unlockDescription(selected)}</small>}</label>;
+      })}</select><small>{selected.description}</small>{!strategyUnlocked(selected,config.players[0],staff,config.tacticalUnlocks?.[0])&&<small className="tactic-warning">{unlockDescription(selected)}</small>}</label>;
     })}</section>)}</div>
-    <details className="tactic-library"><summary>Strategy library & staff unlocks · {strategies.length} plays</summary>
-      {strategies.map(s=><p key={s.id}><strong>{s.name}</strong> · {unlockDescription(s)}<br/>{s.description}</p>)}
-    </details>
+    <StrategyCatalogue config={config} onEquip={(phase,id,index)=>{
+      const slots=[...preparation.slots[phase]],other=slots.indexOf(id);
+      if(other>=0)slots[other]=slots[index];slots[index]=id;
+      onChange({...preparation,slots:{...preparation.slots,[phase]:slots}});
+    }}/>
     <h4>Item builds</h4><p>Automatic builds follow hero type and role. A live purchase call takes priority until bought or cancelled. Purchases spend match gold.</p>
     <div className="tactic-builds">{config.players[0].map((p,role)=>{
       const hero=heroById(config.draft?.[0][role]??"");
@@ -37,6 +40,6 @@ export default function TacticalPreparation({config,preparation,onChange,onSave}
       </select>{hero&&<small>{automaticBuild(hero,role,preparation.builds[role]).map(id=>itemForPatch(id,patch).name).join(" → ")}</small>}</label>;
     })}</div>
     <button className="button secondary small-button" onClick={onSave}>Save playbook & builds</button>
-    <p className="field-note">Historical shop prices and scaled attributes follow the match patch. Live item priorities offer the era’s catalogue, including eligible Scepters and Shards. Active effects are simplified. Staff or a qualifying player unlock advanced calls; every club has basic plays.</p>
+    <p className="field-note">Historical shop prices and scaled attributes follow the match patch. Live item priorities offer the era’s catalogue, including eligible Scepters and Shards. Active effects are simplified. Coaches, qualifying player skills and competitive victories unlock calls; see the catalogue for each route.</p>
   </section>;
 }

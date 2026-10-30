@@ -2,6 +2,7 @@ import type { Campaign, Player } from "./game";
 import { weeklyPractice } from "./contracts";
 import { roundTraining, setTrainingSchedule, trainingIntensities, trainingLimits, trainingSchedule } from "./training";
 import type { TrainingSchedule } from "./training";
+import { HeroPracticeFocus } from './PlayerCareerPanel';
 
 export default function TrainingWorkload({ campaign, player, onChange }: {
   campaign: Campaign;
@@ -55,6 +56,7 @@ export default function TrainingWorkload({ campaign, player, onChange }: {
         {` · Next energy: ${projected}%`}{projected < 40 ? " · Low energy hurts match performance" : ""}
       </p>
       {contract && <p className="training-workload-summary">Contract limit: {contract.practiceHours}h / week · at least {contract.restDays} protected rest days. Open the player profile to negotiate.</p>}
+      <HeroPracticeFocus campaign={campaign} player={player} onChange={onChange} />
     </div>
   );
 }

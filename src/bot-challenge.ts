@@ -3,10 +3,12 @@ import { teamPlayers } from "./game";
 import type { BattleConfig, BattlePlayer, SeriesSummary } from "./battle";
 import { campaignHeroPoolThrough, campaignPatch } from "./patches";
 import { automaticTalents, normalizeTalentPlan } from "./talents";
+import { battlePlayerIdentity, fallbackPlayerIdentity } from './player-identity';
 import { managedPatchObserver } from "./patch-knowledge";
 import { withDraftKnowledge } from "./draft";
 import type { TacticalPreparation } from "./tactics";
 import { fullRosterBlocker } from "./player-welfare";
+import { synergyBonus } from "./player-market";
 
 /** OpenAI Five's public matches. Dates checked against OpenAI's posts and press
  * coverage on 2026-10-24; `checked: false` marks a day that is inferred. */
@@ -58,7 +60,7 @@ export function botPlayers(challengers: Pick<Player, "stats">[]): BattlePlayer[]
   return BOT_ROLES.map((role, r) => ({ id: `${BOT_TEAM_KEY}-${r + 1}`, name: `${BOT_TEAM} · ${role}`, role: r,
     skills: { ...Object.fromEntries(MECHANICS.map(k => [k, level(k)])), vision: level("vision", 0), intuition: level("intuition", 0), creativity: 0,
       confidence: level("confidence"), stamina: level("stamina"), heroPool: level("heroPool") },
-    energy: 100, happiness: 100, talents: automaticTalents(r) }));
+    energy: 100, happiness: 100, talents: automaticTalents(r,fallbackPlayerIdentity(`${BOT_TEAM_KEY}-${r + 1}`)), identity: fallbackPlayerIdentity(`${BOT_TEAM_KEY}-${r + 1}`) }));
 }
 /** The record shows early aggression and deathball pushes; TI8's losses came after leading for 20–35 minutes. */
 export const botTactics = (): TacticalPreparation => ({ slots: { early: ["mid-top", "mid-bottom", "supports-mid"], mid: ["push-1", "push-2", "push-0"], late: ["high-ground", "push-1", "push-2"] }, builds: Array(5).fill("automatic") });
@@ -68,11 +70,11 @@ export function prepareBotChallenge(c: Campaign, bestOf: 1 | 3): BattleConfig {
   if (reason) throw Error(reason);
   if (bestOf !== 1 && bestOf !== 3) throw Error("Choose BO1 or BO3.");
   const attempt = c.botChallenges?.attempts.length ?? 0;
-  const row = (p: Player, role: number): BattlePlayer => ({ id: p.id, name: p.name, role, skills: { ...p.stats }, energy: p.energy, happiness: p.happiness, talents: normalizeTalentPlan(c.talentPlans?.[p.id]) });
+  const row = (p: Player, role: number): BattlePlayer => ({ id: p.id, name: p.name, role, identity: battlePlayerIdentity(p, role), skills: { ...p.stats }, energy: p.energy, happiness: p.happiness, talents: normalizeTalentPlan(c.talentPlans?.[p.id]) });
   const config = withDraftKnowledge(c, {
     seed: hash(`${BOT_TEAM_KEY}:${c.calendar!.now}:${attempt}`), year: c.year, heroPoolThroughYear: campaignHeroPoolThrough(c), patchId: campaignPatch(c).id,
     teams: [c.settings.team, BOT_TEAM], players: [teamPlayers(c).map(row), botPlayers(teamPlayers(c))],
-    bonuses: [c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0, 0],
+    bonuses: [(c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) + synergyBonus(c, c.roster), 0],
     patchObservers: [managedPatchObserver(c), { teamKey: BOT_TEAM_KEY, staffIds: [], omniscient: true }], seriesFormat: { bestOf },
   });
   return { ...config, tacticalPreparations: [config.tacticalPreparations?.[0], botTactics()] };

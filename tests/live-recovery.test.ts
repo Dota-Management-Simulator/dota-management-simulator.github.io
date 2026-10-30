@@ -9,7 +9,7 @@ test("the automatic time limit retains the live map and lets stepping finish ins
   session.command({ type: "inspect", playerId: "all" });
   session.command({ type: "auto-glyph", enabled: false });
   battle.time = 1800; // The real automatic-run cap, in engine seconds.
-  const before = battle.snapshot();
+  const before = battle.snapshotForTeam(0);
   const limited = session.command({ type: "finish-live" });
   assert.match(limited.message!, /still live.*resume or step/i);
   assert.equal(limited.simulation, undefined);

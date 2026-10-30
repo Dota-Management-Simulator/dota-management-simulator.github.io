@@ -13,7 +13,7 @@ import { pairedWilson, correctPairedIntervals } from "../scripts/calibration-sta
 const source = JSON.parse(readFileSync(new URL("../scripts/data/hero-history-sources.json", import.meta.url), "utf8"));
 const config = () => ({ ...buildBattleConfig(createCampaign(DEFAULT_SETTINGS), events[0], 447), captureReplay: false });
 
-test("large hero corrections preserve player development rather than flattening it at power limits", () => {
+test("hero corrections apply equally to every player controlling the same hero", () => {
   const cfg = config(), patch = patchById(cfg.patchId)!;
   const auto = new LaneBattle(cfg);
   const draft = [0, 1].map(team => auto.units.filter(u => u.player && u.team === team).map(u => u.hero!.id)) as [string[], string[]];
@@ -32,10 +32,10 @@ test("large hero corrections preserve player development rather than flattening 
       };
       const low = units(15), high = units(40), veteran = units(75), elite = units(99);
       for (let i = 0; i < low.length; i++) {
-        assert.ok(low[i].power < high[i].power);
-        assert.ok(high[i].power < veteran[i].power);
-        assert.ok(veteran[i].power < elite[i].power);
-        assert.ok(low[i].damage < high[i].damage && low[i].max < high[i].max);
+        assert.equal(low[i].power, high[i].power);
+        assert.equal(high[i].power, veteran[i].power);
+        assert.equal(veteran[i].power, elite[i].power);
+        assert.equal(low[i].damage, high[i].damage); assert.equal(low[i].max, high[i].max);
       }
     }
   } finally {

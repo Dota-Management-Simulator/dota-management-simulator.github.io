@@ -11,7 +11,7 @@ const patch=patchById(job.patchId)!,pool=getHeroPool(patch.year,patch.year-1,pat
 const skills=Object.fromEntries("creativity stability confidence stamina heroPool laning teamfights farming skirmish vision intuition pushing".split(" ").map(k=>[k,50]));
 const players=[0,1].map(side=>Array.from({length:5},(_,role)=>({id:`${side}:${role}`,name:`Position ${role+1}`,role,skills:{...skills},energy:100,happiness:100}))) as BattleConfig["players"];
 const observer={teamKey:"benchmark",staffIds:["c1","c2","c4","c5","c6"]};
-const base:BattleConfig={seed:1,year:patch.year,heroPoolThroughYear:patch.year-1,patchId:patch.id,teams:["Benchmark A","Benchmark B"],players,bonuses:[0,0],patchObservers:[observer,observer],captureReplay:false,captureTimeline:false};
+const base:BattleConfig={playerControl:1,seed:1,year:patch.year,heroPoolThroughYear:patch.year-1,patchId:patch.id,teams:["Benchmark A","Benchmark B"],players,bonuses:[0,0],patchObservers:[observer,observer],captureReplay:false,captureTimeline:false};
 const counts=Object.fromEntries(pool.map(h=>[h.id,{played:0,wins:0}]));
 let sideZeroWins=0,purchases=0,roshan=0,calls=0,converted=0,overtime=0,duration=0,skillWins=0,skillMaps=0;
 function draftFor(pair:number):[string[],string[]] {

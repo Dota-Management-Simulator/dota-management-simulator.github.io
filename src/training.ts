@@ -1,4 +1,5 @@
 import type { Campaign, Player } from "./game";
+import { careerDeltas } from './player-career';
 
 export const trainingIntensities = { Light: 0.75, Normal: 1, Intense: 1.5 } as const;
 export interface TrainingSchedule {
@@ -98,18 +99,24 @@ export function trainingOptions(player: Player): { label: string; options: Train
   ];
 }
 
-export function skillDeltas(focus: Training, practice: { growth: number; maintenance: number }) {
+export function skillDeltas(focus: Training, practice: { growth: number; maintenance: number; attributeBonus?:Partial<Player['stats']> }, player?: Player) {
   const plan = trainingPlan(focus);
-  return Object.fromEntries((Object.keys(attributeNames) as (keyof Player["stats"])[]).map(key => [key,
-    roundTraining(practice.maintenance + (plan.stats.includes(key) ? practice.growth / (focus === "Balanced" ? 6 : 1) : 0)),
+  const deltas = Object.fromEntries((Object.keys(attributeNames) as (keyof Player["stats"])[]).map(key => [key,
+    roundTraining(practice.maintenance + (plan.stats.includes(key) ? practice.growth / (focus === "Balanced" ? 6 : 1) + (practice.attributeBonus?.[key]??0) : 0)),
   ])) as Player["stats"];
+  return player ? careerDeltas(player, deltas) : deltas;
 }
 
-export function trainingEffect(focus: Training, practice: { growth: number; maintenance: number; playstyleGrowth: number; energy: number; happiness: number }, debt: boolean) {
+export function trainingEffect(focus: Training, practice: { growth: number; maintenance: number; playstyleGrowth: number; energy: number; happiness: number; attributeBonus?:Partial<Player['stats']> }, debt: boolean, player?: Player) {
   const plan = trainingPlan(focus);
   const effects: string[] = [];
   const signed = (value: number) => `${value < 0 ? "−" : "+"}${Math.abs(value)}`;
-  if (plan.stats.length) effects.push(`${signed(skillDeltas(focus, practice)[plan.stats[0]])} ${focus === "Balanced" ? "all attributes" : plan.stats.map((key) => attributeNames[key].toLowerCase()).join(" & ")}`);
+  if (plan.stats.length) {
+    const deltas = skillDeltas(focus, practice, player);
+    effects.push(plan.stats.map(key => `${signed(deltas[key])} ${attributeNames[key].toLowerCase()}`).join(' · '));
+  }
+  const innateGains=Object.entries(practice.attributeBonus??{}).filter(([,n])=>n>0).map(([key,n])=>`+${n} ${attributeNames[key as keyof Player['stats']].toLowerCase()}`).join(', ');
+  if(innateGains)effects.push(`Innates: ${innateGains}`);
   if (practice.maintenance < 0 && plan.stats.length < 12) effects.push(`−${Math.abs(practice.maintenance)} ${plan.stats.length ? "other attributes" : "all attributes"} (decay)`);
   if (plan.playstyle) effects.push(`+${practice.playstyleGrowth} ${plan.playstyle.toLowerCase()} (max 10)`);
   effects.push(`${practice.energy < 0 ? "−" : "+"}${Math.abs(practice.energy)} energy`);

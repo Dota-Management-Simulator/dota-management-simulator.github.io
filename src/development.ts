@@ -1,6 +1,7 @@
 import type { Campaign, Player, Training } from "./game";
 import { campaignWeek, weeklyPractice } from "./contracts";
 import { attributeNames, roundTraining, skillDeltas, trainingPlan } from "./training";
+import { heroMasteries, normalizeCareer, practiceHero } from './player-career';
 
 const bounded = (value: number, max: number) => Math.max(0, Math.min(max, roundTraining(value)));
 const hash = (value: string) => [...value].reduce((n, ch) => Math.imul(n ^ ch.charCodeAt(0), 16777619) >>> 0, 2166136261);
@@ -14,12 +15,13 @@ export function startingAttributes(id: string): Player["stats"] {
 }
 
 export function applyPlayerPractice(p: Player, focus: Training, practice: ReturnType<typeof weeklyPractice>, debt = false) {
-  const deltas = skillDeltas(focus, practice);
+  const deltas = skillDeltas(focus, practice, p);
   for (const key of Object.keys(attributeNames) as (keyof Player["stats"])[])
     p.stats[key] = bounded(p.stats[key] + deltas[key], 99);
   const style = trainingPlan(focus).playstyle;
   if (style && p.playstyles[style] != null)
     p.playstyles[style] = Math.max(1, bounded(p.playstyles[style]! + practice.playstyleGrowth, 10));
+  practiceHero(p, practice.heroPracticeHours, focus === 'Rest', p.energy / 40);
   p.energy = bounded(p.energy + practice.energy, 100);
   p.happiness = bounded(p.happiness + (debt ? -10 : practice.happiness), 100);
 }
@@ -33,10 +35,13 @@ export function developWorldPlayers(c: Campaign) {
   const tick = campaignWeek(c);
   const context: Campaign = { ...c, staffIds: [], sponsorIds: [],
     sponsorships: { deals: [], releasedAt: {} }, contracts: undefined, trainingSchedules: {} };
+  const plans: {player:Player;focus:Training}[]=[];
   for (const p of c.players) {
     if (managed.has(p.id)) continue;
     const offset = hash(p.id);
     const inClub = attached.has(p.id);
+    p.career = normalizeCareer(p.career);
+    if (inClub && !p.career.focusHeroId) p.career.focusHeroId = Object.entries(heroMasteries(c, p)).sort((a,b) => b[1]-a[1] || a[0].localeCompare(b[0]))[0]?.[0];
     // Reserves practice with their club; unattached players do lighter upkeep.
     const hours = inClub ? 20 + offset % 3 * 5 : 10;
     let focus: Training = "Balanced";
@@ -47,6 +52,11 @@ export function developWorldPlayers(c: Campaign) {
       focus = attributeNames[keys[0]];
     }
     context.trainingSchedules![p.id] = { intensity: "Normal", hoursPerDay: hours / 5, daysPerWeek: 5 };
-    applyPlayerPractice(p, focus, weeklyPractice(context, p, focus));
+    plans.push({player:p,focus});
   }
+  // Resolve every AI plan before mentoring eligibility is inspected. Otherwise
+  // a later Rest plan could still look like Balanced to an earlier teammate.
+  context.training={...c.training,...Object.fromEntries(plans.map(({player,focus})=>[player.id,focus]))};
+  const practices=plans.map(({player,focus})=>({player,focus,practice:weeklyPractice(context,player,focus)}));
+  for(const {player,focus,practice} of practices)applyPlayerPractice(player,focus,practice);
 }

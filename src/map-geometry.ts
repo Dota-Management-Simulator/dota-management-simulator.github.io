@@ -1,9 +1,10 @@
 import type { MapEra } from "./map-eras";
+import sourceStructures from './data/map-structures.json';
 
 export type MapPoint = [number, number];
-/** Coordinates are percentages of the actual image, never of a guessed lane square.
- * Building anchors: odota/web BuildingMap/buildingData{,733}.ts. Routes, river
- * centres and camps are traced against each bundled Valve overview. */
+/** Artwork helpers for traced routes and the three pre-7.00 building layouts.
+ * Eight later eras use source world building coordinates in geometryForEra.
+ * River centres and representative camps remain traced overview adaptations. */
 export function artPoint(era: Pick<MapEra, "box">, [x, y]: MapPoint): MapPoint {
   return [era.box[0] + x * era.box[2] / 100, era.box[1] + y * era.box[3] / 100];
 }
@@ -19,6 +20,10 @@ export interface MapGeometry {
   lanes: MapPoint[][];
   /** side -> lane -> tier 1, 2, 3 */
   towers: MapPoint[][][];
+  /** side -> two actual Tier 4 points, or legacy art-reference anchors. */
+  tier4: MapPoint[][];
+  /** side -> lane -> melee, ranged. */
+  barracks: MapPoint[][][];
   camps: MapPoint[];
   river: MapPoint[];
   trails: MapPoint[][];
@@ -81,14 +86,19 @@ export function geometryForEra(era: MapEra): MapGeometry {
   const cached = cache.get(era.id);
   if (cached) return cached;
   const convert = (p: MapPoint) => artPoint(era, p);
-  const towers = (era.frontier ? modernTowers : classicTowers).map(side => side.map(lane => lane.map(p=>buildingPoint(era,p))));
+  const sourced=(sourceStructures as unknown as Record<string,{bases:MapPoint[];towers:MapPoint[][][];tier4:MapPoint[][];barracks:MapPoint[][][]}>)[era.id];
+  const worldPoint=([x,y]:MapPoint):MapPoint=>[400+x/20,400-y/20];
+  const towers = sourced?sourced.towers.map(side=>side.map(lane=>lane.map(worldPoint))):(era.frontier ? modernTowers : classicTowers).map(side => side.map(lane => lane.map(p=>buildingPoint(era,p))));
   // New Frontiers pulls the outer safe-lane bends away from the jungles.
-  if (era.frontier) {
+  if (era.frontier&&!sourced) {
     towers[0][2][0]=convert([77.5,89]);
     towers[1][2][0]=convert([91,63.5]);
     towers[1][2][1]=convert([91,48.5]);
   }
-  const bases = ([[7,85],[86,10.5]] as MapPoint[]).map(convert);
+  const bases = sourced?sourced.bases.map(worldPoint):([[7,85],[86,10.5]] as MapPoint[]).map(convert);
+  const tier4=sourced?sourced.tier4.map(side=>side.map(worldPoint)):[[[8,79],[12,82]],[[81,13],[84,16]]].map(side=>side.map(p=>buildingPoint(era,p as MapPoint)));
+  const legacyBarracks:MapPoint[][][]=[[[[9.5,70.5],[5.5,70.5]],[[18,73],[15,70.5]],[[20,84.5],[20,80.5]]],[[[74,12],[74,8]],[[77.5,22],[74.5,19.5]],[[88.5,24],[84.5,24]]]];
+  const barracks=sourced?sourced.barracks.map(side=>side.map(lane=>lane.map(worldPoint))):legacyBarracks.map(side=>side.map(lane=>lane.map(p=>buildingPoint(era,p))));
   const t = towers[0], d = towers[1];
   const lanes = [
     [bases[0],t[0][2],t[0][1],t[0][0],convert([12,25]),convert([14,16]),d[0][0],d[0][1],d[0][2],bases[1]],
@@ -118,7 +128,7 @@ export function geometryForEra(era: MapEra): MapGeometry {
     const nearest = trails.flat().reduce((a,b) => Math.hypot(a[0]-camp[0],a[1]-camp[1]) < Math.hypot(b[0]-camp[0],b[1]-camp[1]) ? a : b);
     trails.push([nearest,camp]);
   }
-  const result = { bases, towers, lanes, camps, river, trails };
+  const result = { bases, towers, tier4, barracks, lanes, camps, river, trails };
   cache.set(era.id,result);
   return result;
 }

@@ -1,4 +1,5 @@
 import { patchLabel } from "./patch-label";
+import { scaledCost } from "./economy-scale";
 import { ArrowRight, Check, Plus, UserRound, Users } from "lucide-react";
 import type { Campaign } from "./game";
 import { money } from "./game";
@@ -16,7 +17,7 @@ export default function StaffOffice({ campaign, onHire, onDismiss, onPatch, onSp
   const hiredStaff = staffCatalog.filter(s => campaign.staffIds.includes(s.id));
   return <>
     <div className="info-strip"><span><Users size={17} /><strong>{hiredStaff.length} / {staffCatalog.length}</strong> support roles filled</span>
-      <span>{money(hiredStaff.reduce((n, s) => n + s.weekly, 0))} / week · paid with payroll</span></div>
+      <span>{money(hiredStaff.reduce((n, s) => n + scaledCost(campaign.year, s.weekly), 0))} / week · paid with payroll</span></div>
     <section className="panel staff-research">
       <div className="section-title"><div><h2>Your patch research · {patchLabel(report.patchId)}</h2>
         <p>Start with 35-point ranges and 2 favored heroes. The true value can fall anywhere in a range, including either end. Specialists narrow only their fields to 4–5 points or uncover more heroes.</p></div>
@@ -29,7 +30,7 @@ export default function StaffOffice({ campaign, onHire, onDismiss, onPatch, onSp
     </section>
     <div className="staff-grid research-staff-grid">{staffCatalog.map(s => {
       const hired = campaign.staffIds.includes(s.id);
-      const affordable = campaign.cash >= s.weekly * 4;
+      const weekly = scaledCost(campaign.year, s.weekly), affordable = campaign.cash >= weekly * 4;
       return <article className="panel staff-card" key={s.id}>
         <div className={`staff-portrait ${s.color}`}><UserRound size={42} strokeWidth={1} /><span className="badge">{s.role}</span></div>
         <div className="staff-content"><h3>{s.name}</h3><p>{s.specialty}</p>
@@ -41,12 +42,12 @@ export default function StaffOffice({ campaign, onHire, onDismiss, onPatch, onSp
             const target = s.coverage[axis.key]!;
             return <li key={axis.key}><strong>{axis.name}</strong><span>{hired ? `${current}-point spread with your staff` : current > target ? `${current} → ${target}-point spread` : `Already covered at ${current} points`}</span></li>;
           })}<li>{s.benefit}{s.extraHeroes > 0 && <span>{hired ? "Included in your hero shortlist" : `${report.heroes.length} → ${Math.min(report.totalHeroes, report.heroes.length + s.extraHeroes)} known heroes`}</span>}</li></ul>
-          <div className="staff-price"><strong>{money(s.weekly)}</strong><span> / week</span></div>
+          <div className="staff-price"><strong>{money(weekly)}</strong><span> / week</span></div>
           <button disabled={hired || !affordable} className={`button ${hired ? "secondary" : "primary"} full`} onClick={() => onHire(s.id)}>
             {hired ? <><Check size={15} /> On your staff</> : !affordable ? "Need four weeks of wages" : <><Plus size={15} /> Hire {s.role.toLowerCase()}</>}
           </button>
           {hired ? <button className="text-link staff-dismiss" onClick={() => onDismiss(s.id)}>Release {s.name}</button>
-            : <p className="staff-reserve">Requires {money(s.weekly * 4)} cash reserve. No signing fee.</p>}
+            : <p className="staff-reserve">Requires {money(weekly * 4)} cash reserve. No signing fee.</p>}
         </div>
       </article>;
     })}</div>

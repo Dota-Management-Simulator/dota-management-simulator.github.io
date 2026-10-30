@@ -8,6 +8,7 @@ import { historicalPower, lineupFormResults, tournamentCombatBonus, tournamentFo
 import { historicalTournaments } from "../src/tournaments";
 import { simulateSeries } from "../src/battle";
 import { simulateOtherTournamentMatches } from "../src/tournament.worker";
+import { synergyBonus } from "../src/player-market";
 import type { Campaign } from "../src/game";
 import type { TournamentFixture } from "../src/tournament-types";
 
@@ -108,7 +109,7 @@ test("real campaign form carries into later events and invitation ranking respon
   const template = tournamentTeamTemplate(c, run, "navi");
   assert.ok(template.form[0].change < 0);
   const config = tournamentBattleConfig(c, run, future);
-  assert.ok(config.bonuses[0] < historicalPower(lineup(c, "navi").strength));
+  assert.ok(config.bonuses[0] - synergyBonus(c, run.teams.find(t => t.id === "navi")!.roster) < historicalPower(lineup(c, "navi").strength));
   const event = { ...ti1, id: "future-invites", year: 2012, invited: ["navi", "ehome"] };
   const before = invitationRanking(c, event).find(t => t.id === "navi")!.baseline;
   const club = c.world!.clubs.find(t => t.id === "navi")!;
@@ -132,7 +133,7 @@ test("AI worker and watched/skip configs use identical history, form, conditioni
   assert.deepEqual(resumed, uninterrupted);
   const next = tournamentBattleConfig(c, worker, run.fixtures[1], false);
   const team = worker.teams.find(t => t.id === "ehome")!;
-  assert.equal(next.bonuses[0], tournamentCombatBonus(worker, team, run.fixtures[1].at));
+  assert.equal(next.bonuses[0], synergyBonus(c, team.roster) + tournamentCombatBonus(worker, team, run.fixtures[1].at));
 });
 
 test("historical favorites win more often, while stronger management can reverse the very same seeded matchup", () => {

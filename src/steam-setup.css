@@ -1,0 +1,103 @@
+/* New-campaign setup is a page of the Steam launcher: launcher top bar, Steam blues, no club colors. */
+:root[data-theme] .steam-setup {
+  --bg: #1b2028;
+  --ink: #e4e8ee;
+  --muted: #95a3b4;
+  --line: #36404c;
+  --green: #66c0f4;
+  --gold: #8dd4ff;
+  --sidebar: #171b21;
+  --surface: #1d252ee8;
+  --surface-raised: #2a3644;
+  --surface-soft: #222b36;
+  min-height: 100dvh;
+  color: var(--ink);
+  font-family: Arial, sans-serif;
+  background: linear-gradient(90deg, #141a21f5, #141a21de), url('/launcher/dota-library-hero.jpg') center top / cover fixed;
+}
+.steam-setup .launcher-topbar button { font: inherit; color: inherit; cursor: pointer; border: 0; border-radius: 2px; }
+.steam-setup .launcher-topbar button:focus-visible { outline: 2px solid #8dd4ff; outline-offset: 4px; }
+.steam-setup .launcher-local { gap: 10px; }
+.steam-setup .launcher-help { display: flex; background: transparent; color: #8c99a8 !important; padding: 0; margin-right: 6px; }
+.steam-setup .launcher-help:hover { color: #d6e0ea !important; }
+.steam-setup > .workspace { background: transparent; }
+.steam-setup main { max-width: 1220px; margin: 0 auto; }
+
+:root[data-theme] .steam-setup :is(h1, h2, h3, strong) { color: var(--ink); }
+:root[data-theme] .steam-setup p { color: var(--muted); }
+:root[data-theme] .steam-setup .page-heading h1 { font-family: Georgia, serif; font-weight: 400; color: #f0e7dc; letter-spacing: 0; }
+/* theme.css colors these through long :is() lists, so the shell classes are repeated to outrank them. */
+:root[data-theme] .app-shell.hub-shell.steam-setup .eyebrow { color: #8997aa; letter-spacing: 1.5px; }
+:root[data-theme] .app-shell.hub-shell.steam-setup label { color: #c3cdda; }
+:root[data-theme] .app-shell.hub-shell.steam-setup .preview-row strong { color: #e4e8ee; }
+
+:root[data-theme] .steam-setup :is(.panel, .setup-preview) {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  box-shadow: 0 15px 50px #0003;
+}
+:root[data-theme] .steam-setup .numbered-title > span { background: #2a3644; border-color: #3d4a59; color: #8dd4ff; }
+:root[data-theme] .steam-setup .numbered-title > svg { color: #6f8094; }
+:root[data-theme] .steam-setup :is(input, select, .year-stepper) {
+  background: #111820;
+  border-color: #2f3a46;
+  border-radius: 2px;
+  color: #d6e0ea;
+}
+:root[data-theme] .steam-setup :is(input, select):focus-visible { outline: 2px solid #8dd4ff; outline-offset: 2px; }
+:root[data-theme] .steam-setup .year-stepper button { color: #8dd4ff; }
+:root[data-theme] .steam-setup .field-note { color: #8e9bad; }
+
+:root[data-theme] .steam-setup :is(.era-card, .difficulty) {
+  background: #1a222b;
+  border-color: #313b47;
+  border-radius: 2px;
+  color: #a6b2c2;
+}
+:root[data-theme] .steam-setup .difficulty:hover { background: #222c38; border-color: #45607a; }
+:root[data-theme] .steam-setup :is(.era-card.selected, .difficulty.selected) {
+  background: linear-gradient(120deg, #2c3d50, #243140);
+  border-color: #66c0f4;
+  box-shadow: none;
+}
+:root[data-theme] .steam-setup :is(.era-symbol, .difficulty > div) { color: #66c0f4; }
+:root[data-theme] .app-shell.hub-shell.steam-setup .era-heading .badge { background: #66c0f41f; border-color: #66c0f455; color: #8dd4ff; }
+:root[data-theme] .steam-setup .selected .radio-dot { border-color: #66c0f4; background: #66c0f4; box-shadow: inset 0 0 0 3px #1b2028; }
+
+:root[data-theme] .steam-setup .button.secondary {
+  background: linear-gradient(120deg, #49657d, #344a60);
+  border-color: transparent;
+  border-radius: 2px;
+  color: #dfedfa;
+}
+:root[data-theme] .steam-setup .button.secondary:hover:not(:disabled) { background: #54748e; }
+:root[data-theme] .steam-setup .button.primary {
+  background: linear-gradient(105deg, #80ad13, #5b8d13);
+  border-color: transparent;
+  border-radius: 2px;
+  color: #f2ffdf;
+  letter-spacing: .5px;
+}
+:root[data-theme] .steam-setup .button.primary:hover:not(:disabled) { background: linear-gradient(105deg, #95c626, #71a521); box-shadow: 0 0 16px #8bb93030; }
+:root[data-theme] .steam-setup .setup-bottom span { color: #8c99a8; }
+
+:root[data-theme] .steam-setup .campaign-art {
+  background: radial-gradient(ellipse at 50% 40%, #3a4b5e, #1b2430 75%);
+  color: #8dd4ff;
+}
+:root[data-theme] .steam-setup .campaign-art :is(.hero-aegis, .art-top) { color: #8dd4ff; }
+:root[data-theme] .app-shell.hub-shell.steam-setup .campaign-art .art-caption :is(span, small) { color: #a9b8c8; }
+:root[data-theme] .app-shell.hub-shell.steam-setup .little-note strong { color: #a8c8db; }
+:root[data-theme] .steam-setup :is(.preview-row, .preview-rule) { border-color: #313b47; }
+:root[data-theme] .steam-setup .preview-row span { color: #8e9bad; }
+:root[data-theme] .steam-setup .little-note svg { color: #66c0f4; }
+:root[data-theme] .steam-setup .prototype-note { color: #788596; }
+:root[data-theme] .steam-setup .tiny-square { background: #66c0f4; }
+
+@media (max-width: 700px) {
+  .steam-setup .launcher-topbar { padding: 16px 20px 0; gap: 12px; }
+  .steam-setup .launcher-brand { width: 100%; font-size: 18px !important; }
+  .steam-setup .launcher-topbar nav { gap: 26px; }
+  .steam-setup .launcher-topbar nav button { font-size: 13px; padding: 12px 0 15px; }
+}

@@ -106,6 +106,6 @@ export function MapObjectiveLegend({ frame, patchId }: { frame: ReplayFrame; pat
         <ObjectiveIcon kind="tormentor" side={site.side} /></svg>)}
         Tormentor · {frame.time < sites[0].spawnAt ? `first spawn ${matchClock(sites[0].spawnAt)}` : sites.length === 2 ? "both offlanes" : `${sites[0].side ? "Dire" : "Radiant"} site`} <small>(layout)</small></span>}
     </div>
-    <p>HP bars track match damage. Blue rings: backdoor protection. Gold rings: Glyph. Rectangular creeps: catapults. Dotted markers show the {sites.length ? "structure and Tormentor" : "structure"} layout; their combat is not simulated.</p>
+    <p>HP bars track match damage. Blue rings: backdoor protection. Gold rings: Glyph. Rectangular creeps: catapults. {frame.structureLoop?"All towers and barracks are destructible. Barracks losses empower enemy lane creeps.":"Dotted structures are historical layout references."} {sites.length?"Tormentor markers are layout references.":""}</p>
   </div>;
 }

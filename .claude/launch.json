@@ -26,6 +26,33 @@
         "--strictPort"
       ],
       "port": 5323
+    },
+    {
+      "name": "aegis-mobile",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "vite",
+        "../Aegis Manager Mobile",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5390",
+        "--strictPort"
+      ],
+      "port": 5390
+    },
+    {
+      "name": "aegis-market",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "vite",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5371",
+        "--strictPort"
+      ],
+      "port": 5371
     }
   ]
 }

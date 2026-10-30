@@ -1,5 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { askingWage } from "../src/player-market";
 import { advanceCalendarTo, advanceWeek, buildBattleConfig, createCampaign, DEFAULT_SETTINGS, events, negotiateContract, readSave, recruitmentBlocker, releasePlayer, releasePlayerBlocker, ROLES, SAVE_KEY, settlePlayerDepartures, signPlayer, weeklyWages } from "../src/game";
 import type { Campaign } from "../src/game";
 import type { SeriesSummary } from "../src/battle";
@@ -177,7 +178,7 @@ test("kicking pays severance once, removes wages and ownership, persists a vacan
   assert.deepEqual(load(kicked), JSON.parse(JSON.stringify(kicked)));
   const candidate = kicked.players.find(p => p.name === "God")!;
   assert.equal(recruitmentBlocker(kicked, candidate.id), null);
-  const result = negotiateContract(kicked, candidate.id, { ...initialOffer(kicked, candidate), wage: candidate.wage * 2 });
+  const result = negotiateContract(kicked, candidate.id, { ...initialOffer(kicked, candidate), wage: askingWage(kicked, candidate) * 2 });
   assert.equal(result.status, "accepted");
   const next = result.campaign;
   assert.equal(fullRosterBlocker(next), null);

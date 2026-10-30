@@ -3,8 +3,10 @@ import { ROLES } from "./game";
 import type { BattleConfig, BattlePlayer, SeriesSummary, Side } from "./battle";
 import { campaignHeroPoolThrough, campaignPatch } from "./patches";
 import { automaticTalents, normalizeTalentPlan } from "./talents";
+import { battlePlayerIdentity } from './player-identity';
 import { managedPatchObserver } from "./patch-knowledge";
 import { withDraftKnowledge } from "./draft";
+import { synergyBonus } from "./player-market";
 import { historicalTournaments } from "./tournaments";
 import type { HistoricalTournament } from "./tournament-types";
 
@@ -78,13 +80,13 @@ export function prepareAllStar(c: Campaign): { match: AllStarMatch; config: Batt
   const coached = match.managedSide === 0;
   const row = (id: string, role: number): BattlePlayer => {
     const p = c.players.find(p => p.id === id)!;
-    return { id: p.id, name: p.name, role, skills: { ...p.stats }, energy: p.energy, happiness: p.happiness,
-      talents: coached && c.roster.includes(id) ? normalizeTalentPlan(c.talentPlans?.[id]) : automaticTalents(role) };
+    return { id: p.id, name: p.name, role, identity: battlePlayerIdentity(p, role), skills: { ...p.stats }, energy: p.energy, happiness: p.happiness,
+      talents: coached && c.roster.includes(id) ? normalizeTalentPlan(c.talentPlans?.[id]) : automaticTalents(role,p.identity) };
   };
   const config = withDraftKnowledge(c, {
     seed: hash(`all-star:${match.eventId}`), year: c.year, heroPoolThroughYear: campaignHeroPoolThrough(c), patchId: campaignPatch(c).id,
     teams: [match.teams[0].name, match.teams[1].name], players: [match.teams[0].players.map(row), match.teams[1].players.map(row)],
-    bonuses: [0, 0], seriesFormat: { bestOf: 1 },
+    bonuses: [synergyBonus(c, match.teams[0].players), synergyBonus(c, match.teams[1].players)], seriesFormat: { bestOf: 1 },
     patchObservers: [coached ? managedPatchObserver(c) : { teamKey: `${match.eventId}:all-star-0`, staffIds: [] }, { teamKey: `${match.eventId}:all-star-1`, staffIds: [] }],
   }, coached ? 0 : null);
   return { match, config };

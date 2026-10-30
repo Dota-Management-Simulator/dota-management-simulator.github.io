@@ -1,0 +1,10 @@
+.career-panel { margin: 16px 0; padding: 16px; border: 1px solid #71828a66; background: #10222b12; min-width: 0; }
+.career-panel h3 { margin: 0 0 8px; }
+.career-panel p,.career-panel small { font-size: 12px; line-height: 1.5; opacity: .85; }
+.career-metrics { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
+.career-metrics span,.career-metrics strong,.career-metrics small { display: block; }
+.career-metrics span { font-size: 12px; }.career-metrics strong { font-size: 20px; margin: 5px 0; }
+.career-heroes { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; margin: 12px 0; }
+.career-heroes>div { display:flex; gap: 8px; align-items:center; min-width:0; }.career-heroes img { width:32px;height:32px;object-fit:contain; }.career-heroes small { display:block; }
+.hero-practice-focus { display:block; margin:10px 0; }.hero-practice-focus select { display:block; width:100%; max-width:280px; }.hero-practice-focus small { display:block;font-size:11px;max-width:300px; }
+@media(max-width:600px) { .career-metrics { grid-template-columns:repeat(2,minmax(0,1fr)); }.career-heroes { grid-template-columns:1fr; }.career-panel { padding:12px; } }

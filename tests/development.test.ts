@@ -54,7 +54,7 @@ test("Balanced improves all skills, focused practice develops faster, fatigue sl
   const balanced = advanceWeek(c).players[0];
   for (const key of Object.keys(p.stats) as (keyof typeof p.stats)[])
     assert.equal(balanced.stats[key], p.stats[key] + 0.17);
-  assert.match(trainingEffect("Balanced", weeklyPractice(c, p, "Balanced"), false), /\+0.17 all attributes/);
+  assert.match(trainingEffect("Balanced", weeklyPractice(c, p, "Balanced"), false, p), /\+0.17 creativity/);
   c.training[p.id] = "Farming";
   const fresh = weeklyPractice(c, p, "Farming").growth;
   p.energy = 10;

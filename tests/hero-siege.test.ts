@@ -5,6 +5,8 @@ import {heroById} from '../src/heroes';
 import {heroAbilities,combatCatalogue} from '../src/combat-model';
 import {patchById} from '../src/patches';
 import {defaultTactics} from '../src/tactics';
+import {nearestWalkablePoint} from '../src/map-vision';
+import {mapEraForPatch} from '../src/map-eras';
 const config=(id='2023.1'):BattleConfig=>({seed:941,year:+id.slice(0,4),patchId:id,teams:['A','B'],bonuses:[0,0],captureReplay:false,captureTimeline:false,
  players:[0,1].map(side=>Array.from({length:5},(_,role)=>({id:`${side}:${role}`,name:`P${side}:${role}`,role,energy:100,happiness:100,skills:{laning:50,teamfights:50,farming:50,stability:50,intuition:50}}))) as BattleConfig['players'],
  tacticalPreparations:[{...defaultTactics(),autoGlyph:false},{...defaultTactics(),autoGlyph:false}]});
@@ -36,7 +38,8 @@ test('Nether Blast can damage a legal building, spends mana and respects Glyph',
 });
 test('Liquid Fire burns buildings over time and slows their attacks without inventing instant burst',()=>{
  const {b,u,e}=prepare('jakiro','jakiro_liquid_fire',18),tower=b.units.find(v=>v.kind==='tower'&&v.team===1&&v.tier===1&&v.lane===1)!;
- u.x=tower.x-60;u.y=tower.y;const hp=tower.hp;e.castNamed(u);assert.equal(tower.hp,hp);assert.ok(tower.attackSlow>0);
+ // Place on reachable ground beside the tower rather than across a cliff.
+ Object.assign(u,nearestWalkablePoint(mapEraForPatch({id:'2023.1'}),tower.x,tower.y)!);const hp=tower.hp;e.castNamed(u);assert.equal(tower.hp,hp);assert.ok(tower.attackSlow>0);
  b.time+=.2;e.updateDots();assert.ok(tower.hp<hp);assert.ok(u.buildingDamage>0);
  const before=tower.hp; b.time+=30/6;e.updateDots();assert.ok(tower.hp<before);const ended=tower.hp;b.time+=5;e.updateDots();assert.equal(tower.hp,ended);
 });

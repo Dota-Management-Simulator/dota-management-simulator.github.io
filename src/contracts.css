@@ -17,6 +17,12 @@
 .contract-response p { margin: 6px 0; font-size: 12px; }
 .contract-response button { margin-top: 8px; }
 .roster-contract-status { display: block; margin-top: 12px; color: var(--green); font-size: 11px; }
+.contract-read { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-top: 14px; }
+.contract-read > div { display: flex; flex-direction: column; gap: 3px; padding: 10px; border: 1px solid var(--line); border-radius: 6px; background: var(--surface, #fff); min-width: 0; }
+.contract-read span { font-size: 10px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted, #8a917f); }
+.contract-read strong { font-size: 14px; color: var(--ink); }
+.contract-read small { font-size: 11px; color: var(--green); }
+.contract-read > p { grid-column: 1 / -1; font-size: 11px; margin: 0; }
 @media (max-width: 520px) {
   .contract-panel { padding: 14px; }
   .contract-heading { align-items: flex-start; flex-direction: column; }

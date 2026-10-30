@@ -1,5 +1,6 @@
 import { ArrowRight, Mail, Shield, Trophy, Zap } from "lucide-react";
 import type { Campaign, Page, Player } from "./game";
+import ManagerPriorities from './ManagerPriorities';
 import { average, money, teamPlayers } from "./game";
 import type { OfficeAction } from "./office";
 import { unreadMessages } from "./office";
@@ -22,6 +23,7 @@ export default function ManagerDesk({ campaign, onPage, onAction, onPlayer, onCo
   const tired = roster.filter(p => p.energy < 60);
   const latest = campaign.results.at(-1);
   return <div className="manager-desk">
+    <ManagerPriorities campaign={campaign} onAction={onAction} />
     <Headquarters campaign={campaign} onPage={onPage} onPlayer={onPlayer} onCompetition={onCompetition} onTournament={eventId => onAction({ kind: "tournament", eventId })} />
     {/* The copied clients already carry this data in their own panels and tabs. */}
     {campaignMenu(campaign).era.layout === "showcase" && <details className="desk-briefings"><summary>Club briefings <span>Decisions, standings & squad details</span><ArrowRight size={15} /></summary><div className="desk-briefing-content">

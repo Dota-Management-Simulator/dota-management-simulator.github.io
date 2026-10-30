@@ -38,7 +38,7 @@ test("negotiation counters are deterministic and trade bonus, term, media and re
   const c = market();
   c.reputation = 10;
   const s = sponsors.find((s) => s.id === "razer")!;
-  const ask = { ...initialSponsorOffer(s), weekly: 10000, bonus: 20000 };
+  const ask = { ...initialSponsorOffer(c, s), weekly: 10000, bonus: 20000 };
   const counter = assessSponsorOffer(c, s, ask);
   assert.equal(counter.status, "counter");
   assert.deepEqual(counter, assessSponsorOffer(c, s, ask));
@@ -61,7 +61,7 @@ test("exclusive ownership blocks poaching, duplicate bonuses and early renewal a
   const signed = sign(c, "razer", { bonus: 500 });
   assert.equal(signed.cash, c.cash + 500);
   assert.equal(c.sponsorships?.deals.length, 0);
-  const repeated = negotiateSponsor(signed, "razer", initialSponsorOffer(sponsors.find((s) => s.id === "razer")!));
+  const repeated = negotiateSponsor(signed, "razer", initialSponsorOffer(signed, sponsors.find((s) => s.id === "razer")!));
   assert.equal(repeated.campaign, signed);
   const rival = structuredClone(signed);
   rival.sponsorships!.deals[0].teamId = "ehome";
@@ -72,7 +72,8 @@ test("exclusive ownership blocks poaching, duplicate bonuses and early renewal a
 
 test("the five-sponsor cap counts legacy rolling deals and permits independent categories", () => {
   let c = market();
-  for (const s of sponsors.filter((s) => s.from === 2011)) c = sign(c, s.id);
+  // Asks stay under every 2011 brand's budget; this test is about slots, not money.
+  for (const s of sponsors.filter((s) => s.from === 2011)) c = sign(c, s.id, { weekly: 500 });
   assert.equal(sponsorSlotsUsed(c), 5);
   const future = { ...c, year: 2012, sponsorships: structuredClone(c.sponsorships) };
   // Preserve the active time window when moving this fixture into a later era.
@@ -80,7 +81,7 @@ test("the five-sponsor cap counts legacy rolling deals and permits independent c
   assert.equal(negotiateSponsor(future, "amd", { weekly: 100, bonus: 0, weeks: 6, mediaHours: 0 }).campaign, future);
   assert.equal(signSponsor(c, "s1"), c);
   let old = signSponsor(market(), "s1");
-  for (const id of ["razer", "eizo", "msi", "steelseries"]) old = sign(old, id);
+  for (const id of ["razer", "eizo", "msi", "steelseries"]) old = sign(old, id, { weekly: 500 });
   assert.equal(sponsorSlotsUsed(old), 5);
   assert.equal(negotiateSponsor(old, "alienware", { weekly: 100, bonus: 0, weeks: 6, mediaHours: 0 }).campaign, old);
 });

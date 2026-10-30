@@ -72,7 +72,9 @@ test("talent selection respects era, ownership, event locks and normalizes optio
 test("talents change actual combat only at their unlocked levels and stay inactive before 7.00", () => {
   const cfg=base();
   const plan={10:1,15:1,20:1,25:1} as const;
-  const players=cfg.players.map(side=>side.map(p=>({...p,talents:plan}))) as BattleConfig["players"];
+  // Legacy preparations keep the original shared tree. New player-specific
+  // trees are exercised separately in player-identity.test.ts.
+  const players=cfg.players.map(side=>side.map(p=>({...p,identity:undefined,talents:plan}))) as BattleConfig["players"];
   const normal=new LaneBattle({...cfg,players,patchId:"2017.1"});
   const noTalents=new LaneBattle({...cfg,players:players.map(side=>side.map(p=>({...p,talents:{}}))) as BattleConfig["players"],patchId:"2017.1"});
   const a=normal.units.find(u=>u.player)!,b=noTalents.units.find(u=>u.player)!;

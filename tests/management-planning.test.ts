@@ -1,7 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { advanceCalendarTo, advanceWeek, createCampaign, DEFAULT_SETTINGS, readSave, SAVE_KEY, weeklyWages } from "../src/game";
-import { bookCamp, cancelCamp, campAttendance, campBlocker, CAMP_FEE } from "../src/bootcamp";
+import { bookCamp, cancelCamp, campAttendance, campBlocker, campFee } from "../src/bootcamp";
 import { financeForecast } from "../src/finance-forecast";
 import { campaignWeek, weeklyPractice } from "../src/contracts";
 import { enableHistoricalCalendar } from "../src/historical-game";
@@ -18,7 +18,7 @@ function fixture() {
 test("camp booking is immutable, prepaid once, bounded and cannot be stacked", () => {
   const c = fixture(), before = structuredClone(c), next = bookCamp(c, 2);
   assert.deepEqual(c, before);
-  assert.equal(next.cash, c.cash - c.roster.length * CAMP_FEE * 2);
+  assert.equal(next.cash, c.cash - c.roster.length * campFee(c) * 2);
   assert.equal(bookCamp(next, 1), next);
   for (const weeks of [0, -1, 4, 1.5, NaN, Infinity]) assert.equal(bookCamp(c, weeks), c);
   assert.match(campBlocker({ ...c, cash: 1 }, 1)!, /cash/);
@@ -48,8 +48,8 @@ test("Rest, fatigue, contract-limited hours and missing focuses skip camp and re
   const rows = campAttendance(c);
   assert.equal(rows.filter(row => !row.reason).length, 1);
   const next = advanceWeek(c);
-  assert.equal(next.lastCampReport?.refunded, 4 * CAMP_FEE);
-  assert.equal(next.cash, c.cash - weeklyWages(c) + 4 * CAMP_FEE);
+  assert.equal(next.lastCampReport?.refunded, 4 * campFee(c));
+  assert.equal(next.cash, c.cash - weeklyWages(c) + 4 * campFee(c));
   assert.equal(next.players.find(p => p.id === c.roster[0])!.energy, 100);
 });
 
@@ -63,7 +63,7 @@ test("fatigue safeguard includes projected workload rather than current energy a
 
 test("cancellation refunds only unelapsed places and is idempotent", () => {
   const c = fixture(), booked = bookCamp(c, 3), one = advanceWeek(booked), cancelled = cancelCamp(one);
-  assert.equal(cancelled.cash, one.cash + 2 * c.roster.length * CAMP_FEE);
+  assert.equal(cancelled.cash, one.cash + 2 * c.roster.length * campFee(c));
   assert.equal(cancelCamp(cancelled), cancelled);
   assert.equal(cancelCamp(booked).cash, c.cash);
 });
@@ -75,7 +75,7 @@ test("departed players cannot transfer prepaid development to replacements", () 
   const plain = { ...c, bootcamp: undefined };
   assert.deepEqual(weeklyPractice(c, replacement, "Balanced"), weeklyPractice(plain, replacement, "Balanced"));
   assert.match(campAttendance(c).find(row => row.id === old)!.reason!, /No longer/);
-  assert.equal(advanceWeek(c).lastCampReport?.refunded, CAMP_FEE);
+  assert.equal(advanceWeek(c).lastCampReport?.refunded, campFee(c));
 });
 
 test("camp saves round trip; malformed optional blocks do not discard campaign", () => {

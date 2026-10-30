@@ -13,6 +13,7 @@ import "./event-menus.css";
 import "./reborn-client.css";
 import "./client-menus.css";
 import "./client-pages.css";
+import "./steam-setup.css";
 
 // This disposable interactive preview is available only on the local dev server.
 const Root = import.meta.env.DEV && new URLSearchParams(location.search).has("patch-preview")

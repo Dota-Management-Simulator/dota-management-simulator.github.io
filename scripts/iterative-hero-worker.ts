@@ -14,7 +14,7 @@ const rows = patch.heroBalance!;
 for (const row of rows) row.power = job.initial.rows.find(h => h.id === row.id)?.power ?? (row.targetWinRate-50)*1.2;
 const skills = Object.fromEntries("creativity stability confidence stamina heroPool laning teamfights farming skirmish vision intuition pushing".split(" ").map(k => [k, 50]));
 const players = [0, 1].map(t => Array.from({ length: 5 }, (_, role) => ({ id: `${t}:${role}`, name: `Role ${role + 1}`, role, skills, energy: 100, happiness: 100 }))) as BattleConfig["players"];
-const base: BattleConfig = { seed: 1, year: patch.year, heroPoolThroughYear: patch.year - 1, patchId: patch.id,
+const base: BattleConfig = { playerControl:1, seed: 1, year: patch.year, heroPoolThroughYear: patch.year - 1, patchId: patch.id,
   patchObservers: [{teamKey:"benchmark",staffIds:["c1","c2","c4","c5","c6"]},{teamKey:"benchmark",staffIds:["c1","c2","c4","c5","c6"]}],
   teams: ["Benchmark A", "Benchmark B"], players, bonuses: [0, 0], captureReplay: false, captureTimeline: false };
 const clamp = (n: number, min: number, max: number) => Math.min(max, Math.max(min, n));

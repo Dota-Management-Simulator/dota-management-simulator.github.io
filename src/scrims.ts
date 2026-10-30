@@ -4,6 +4,7 @@ import type { BattleConfig, SeriesSummary } from "./battle";
 import { activeClubs } from "./history";
 import { campaignHeroPoolThrough, campaignPatch } from "./patches";
 import { automaticTalents, normalizeTalentPlan } from "./talents";
+import { battlePlayerIdentity } from './player-identity';
 import { managedPatchObserver } from "./patch-knowledge";
 import { oppositionStaff } from "./staff";
 import { withDraftKnowledge } from "./draft";
@@ -12,6 +13,7 @@ import { roundTraining } from "./training";
 import { nextScrim, scrimFocuses, scrimHours } from "./scrim-state";
 import type { Scrim, ScrimFocus } from "./scrim-state";
 import { fullRosterBlocker } from "./player-welfare";
+import { synergyBonus } from "./player-market";
 
 const DAY = 86400000;
 const hash = (text: string) => [...text].reduce((n, ch) => Math.imul(n ^ ch.charCodeAt(0), 16777619) >>> 0, 2166136261);
@@ -106,11 +108,11 @@ export function prepareScrim(c: Campaign, id: string): Campaign {
   if (reason) throw Error(reason);
   if (s.config) return c;
   const club = scrimOpponents(c).find(t => t.id === s.opponentId)!;
-  const row = (p: Player, role: number, managed: boolean) => ({ id: p.id, name: p.name, role, skills: { ...p.stats }, energy: p.energy, happiness: p.happiness, talents: managed ? normalizeTalentPlan(c.talentPlans?.[p.id]) : automaticTalents(role) });
+  const row = (p: Player, role: number, managed: boolean) => ({ id: p.id, name: p.name, role, identity: battlePlayerIdentity(p, role), skills: { ...p.stats }, energy: p.energy, happiness: p.happiness, talents: managed ? normalizeTalentPlan(c.talentPlans?.[p.id]) : automaticTalents(role,p.identity) });
   const config: BattleConfig = withDraftKnowledge(c, {
     seed: s.seed, year: c.year, heroPoolThroughYear: campaignHeroPoolThrough(c), patchId: campaignPatch(c).id,
     teams: [c.settings.team, club.name], players: [teamPlayers(c).map((p, r) => row(p, r, true)), club.roster.map((id, r) => row(c.players.find(p => p.id === id)!, r, false))],
-    bonuses: [c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0, 0],
+    bonuses: [(c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) + synergyBonus(c, c.roster), synergyBonus(c, club.roster)],
     patchObservers: [managedPatchObserver(c), { teamKey: club.id, staffIds: oppositionStaff(club.id) }], seriesFormat: { bestOf: s.bestOf },
   });
   return { ...c, scrims: { ...c.scrims!, sessions: c.scrims!.sessions.map(s => s.id === id ? { ...s, config } : s) } };

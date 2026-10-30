@@ -1,0 +1,45 @@
+.player-identity { margin:22px 0; padding:20px 0; border-block:1px solid var(--line); min-width:0; overflow-wrap:anywhere; }
+.identity-heading { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; margin-bottom:14px; }
+.identity-era { font-size:11px; color:var(--muted); }
+.innate-card { display:flex; gap:14px; align-items:flex-start; padding:16px; border:1px solid #a9864a66; background:linear-gradient(115deg,#b78a3b16,transparent); }
+.innate-emblem { display:grid; place-items:center; flex:0 0 38px; height:44px; color:var(--gold,#ceb574); border:1px solid #bd995366; font-size:25px; font-family:serif; }
+.innate-card h3 { margin:5px 0 8px; font-size:20px; }
+.innate-card small { color:var(--gold,#ceb574); font-size:10px; letter-spacing:.06em; }
+.player-identity p { margin:9px 0; font-size:13px; line-height:1.65; }
+.player-identity .identity-note { color:var(--muted); font-size:12px; }
+.player-identity h4 { margin:22px 0 8px; font-size:15px; }
+.player-facet-choices { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:12px; }
+.player-facet-choices button { min-width:0; padding:13px; text-align:left; color:inherit; background:var(--panel,var(--bg)); border:1px solid var(--line); border-radius:4px; cursor:pointer; font:inherit; overflow-wrap:anywhere; }
+.player-facet-choices button[aria-pressed=true] { border-color:var(--gold,#ceb574); background:#bd995315; box-shadow:inset 0 -2px #bd9953; }
+.player-facet-choices button:disabled { cursor:default; opacity:.75; }
+.player-facet-choices strong,.player-facet-choices span,.player-facet-choices small,.player-facet-choices b { display:block; }
+.player-facet-choices span { font-size:12px; line-height:1.6; margin:8px 0; }
+.player-facet-choices small { color:var(--muted); font-size:11px; line-height:1.6; }
+.player-facet-choices b { color:var(--gold,#ceb574); font-size:10px; margin-top:10px; }
+.innate-library { margin-top:20px; }
+.innate-library summary { cursor:pointer; font-size:13px; padding:12px 0; }
+.innate-filters { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,.65fr); gap:10px; margin:12px 0; }
+.innate-filters label { display:grid; gap:6px; min-width:0; font-size:12px; }
+.innate-filters input,.innate-filters select { box-sizing:border-box; width:100%; min-width:0; color:inherit; background:var(--bg); border:1px solid var(--line); padding:9px; border-radius:3px; }
+.innate-library-list { max-height:400px; overflow:auto; overscroll-behavior:contain; border:1px solid var(--line); }
+.innate-library-list article { padding:12px 14px; border-bottom:1px solid var(--line); }
+.innate-library-list article>div { display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px; font-size:13px; }
+.innate-library-list small { color:var(--muted); font-size:10px; }
+.innate-library-list p { color:var(--muted); font-size:12px; }
+.innate-library-list .assigned-innate { background:#bd995315; }
+.identity-compact .innate-card { padding:12px; gap:10px; }
+.identity-compact .innate-card h3 { font-size:17px; }
+.identity-compact .player-facet-choices { grid-template-columns:minmax(0,1fr); }
+.innate-outlook { padding:12px; margin:12px 0; border:1px solid var(--line); background:#bd995308; }
+.innate-outlook>strong { font-size:12px; }
+.innate-outlook p { margin:5px 0; }
+.innate-outlook small { color:var(--muted); font-size:11px; line-height:1.65; }
+.match-player-facets fieldset { min-width:0; margin:16px 0; padding:10px; border:1px solid var(--line); }
+.match-player-facets legend { font-size:13px; padding:0 6px; }
+.recorded-player-identity { min-width:0; overflow-wrap:anywhere; }
+.recorded-player-identity strong,.recorded-player-identity span { display:block; }
+.recorded-player-identity span { margin-top:5px; }
+.talent-tree button { overflow-wrap:anywhere; min-width:0; }
+.player-talents .talent-tree fieldset { min-width:0; }
+.talent-rank { color:var(--gold,#ceb574); font-size:10px; }
+@media(max-width:480px) { .player-facet-choices,.innate-filters,.player-talents .talent-tree fieldset { grid-template-columns:minmax(0,1fr); } .innate-card { padding:12px; gap:10px; } .innate-card h3 { font-size:18px; } }

@@ -20,9 +20,7 @@ const config = buildBattleConfig(
 );
 const simulated = simulateBestOfThree(config);
 
-test("low starting skills affect combat power and zero skills never fall back to veteran ratings", () => {
-  // Creativity also changes draft selection. Compare the same heroes so this
-  // measures player development rather than two different patch coefficients.
+test("player skills change the controller without changing hero power or movement speed", () => {
   const drafted = new LaneBattle(config).units.filter(u => u.kind === "hero");
   const heroesAt = (skill: number) => {
     const c = structuredClone(config);
@@ -36,10 +34,12 @@ test("low starting skills affect combat power and zero skills never fall back to
   };
   const zero = heroesAt(0), low = heroesAt(15), high = heroesAt(40), veteran = heroesAt(75);
   for (let i = 0; i < low.length; i++) {
-    assert.ok(low[i].power < high[i].power);
-    assert.ok(high[i].power < veteran[i].power);
-    assert.ok(zero[i].power <= low[i].power);
-    assert.ok(zero[i].speed < low[i].speed);
+    for (const peers of [zero, high, veteran]) {
+      assert.equal(low[i].power, peers[i].power);
+      assert.equal(low[i].speed, peers[i].speed);
+      assert.equal(low[i].damage, peers[i].damage);
+      assert.equal(low[i].max, peers[i].max);
+    }
   }
 });
 

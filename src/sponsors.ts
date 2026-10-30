@@ -3,6 +3,7 @@ import world from "./data/world.json";
 import type { Campaign, Training } from "./game";
 import { campaignWeek } from "./contracts";
 import { SPONSOR_NEGOTIATOR_ID, SPONSOR_NEGOTIATION_BONUS, staffCatalog } from "./staff";
+import { scaledCost, SPONSOR_WEEKLY_SHARE, sponsorResultWeeks } from "./economy-scale";
 
 export type SponsorBenefit = "training" | "recovery" | "morale" | "analytics" | "audience";
 export interface Sponsor {
@@ -13,6 +14,10 @@ export interface Sponsor {
 }
 export const sponsors = records as Sponsor[];
 export const SPONSOR_LIMIT = 5;
+/** The brand's opening package in this era: part of its value as weekly
+ * support; the rest arrives as results bonuses (`sponsorResultBonuses`). */
+export const sponsorTerms = (year: number, s: Sponsor) => ({
+  weekly: scaledCost(year, s.weekly * SPONSOR_WEEKLY_SHARE), bonus: scaledCost(year, s.bonus * SPONSOR_WEEKLY_SHARE, 100) });
 export interface SponsorOffer { weekly: number; bonus: number; weeks: number; mediaHours: number }
 export interface SponsorDeal extends SponsorOffer {
   sponsorId: string; teamId: string; teamName: string; signedAt: number; expiresAt: number;
@@ -40,7 +45,7 @@ export function initialSponsorships(c: Campaign): Sponsorships {
     const club = c.world?.clubs.find((t) => t.id === s.preferredClub && t.active !== false);
     if (!club || club.id === managedSponsorTeam(c) || deals.filter((d) => d.teamId === club.id).length >= SPONSOR_LIMIT) continue;
     deals.push({ sponsorId: s.id, teamId: club.id, teamName: club.name,
-      weekly: s.weekly, bonus: 0, weeks: 6 + hash(s.id) % 13, mediaHours: 1,
+      weekly: sponsorTerms(c.year, s).weekly, bonus: 0, weeks: 6 + hash(s.id) % 13, mediaHours: 1,
       signedAt: now, expiresAt: now + 6 + hash(s.id) % 13 });
   }
   return { deals, releasedAt: {} };
@@ -71,15 +76,21 @@ export function sponsorBlocker(c: Campaign, s: Sponsor): string | null {
   if (c.reputation < s.requirement) return `${s.requirement} reputation required; you have ${Number(c.reputation.toFixed(2))}.`;
   return null;
 }
-export function initialSponsorOffer(s: Sponsor): SponsorOffer {
-  return { weekly: s.weekly, bonus: s.bonus, weeks: 18, mediaHours: 1 };
+export function initialSponsorOffer(c: Campaign, s: Sponsor): SponsorOffer {
+  return { ...sponsorTerms(c.year, s), weeks: 18, mediaHours: 1 };
+}
+/** Each active managed deal pays weeks of its weekly support for a placement. */
+export function sponsorResultBonuses(c: Campaign, place: number) {
+  const weeks = sponsorResultWeeks(place);
+  return weeks ? teamSponsorDeals(c).map(d => ({ name: sponsors.find(s => s.id === d.sponsorId)?.name ?? d.sponsorId, amount: Math.round(d.weekly * weeks / 10) * 10 })) : [];
 }
 export const sponsorNegotiator = (c: Campaign) => c.staffIds.includes(SPONSOR_NEGOTIATOR_ID)
   ? staffCatalog.find(s => s.id === SPONSOR_NEGOTIATOR_ID) : undefined;
 
 /** Total package budget per week, including the amortized signing bonus. */
 function sponsorBudget(c: Campaign, s: Sponsor, weeks: number, mediaHours: number, assisted = !!sponsorNegotiator(c)) {
-  return Math.floor((s.weekly + s.bonus / 18) * (0.8 + Math.min(100, Math.max(0, c.reputation)) * 0.004 + mediaHours * 0.1 + (weeks === 36 ? 0.1 : weeks === 6 ? -0.1 : 0))
+  const terms = sponsorTerms(c.year, s);
+  return Math.floor((terms.weekly + terms.bonus / 18) * (0.8 + Math.min(100, Math.max(0, c.reputation)) * 0.004 + mediaHours * 0.1 + (weeks === 36 ? 0.1 : weeks === 6 ? -0.1 : 0))
     * (assisted ? 1 + SPONSOR_NEGOTIATION_BONUS : 1));
 }
 
@@ -151,6 +162,6 @@ export function advanceSponsorMarket(c: Campaign) {
     const eligible = clubs.filter((t) => market.deals.filter((d) => d.teamId === t.id).length < SPONSOR_LIMIT);
     if (!eligible.length) continue;
     const club = eligible[(hash(s.id) + now) % eligible.length];
-    market.deals.push({ sponsorId: s.id, teamId: club.id, teamName: club.name, weekly: s.weekly, bonus: 0, weeks: 18, mediaHours: 1, signedAt: now, expiresAt: now + 18 });
+    market.deals.push({ sponsorId: s.id, teamId: club.id, teamName: club.name, weekly: sponsorTerms(c.year, s).weekly, bonus: 0, weeks: 18, mediaHours: 1, signedAt: now, expiresAt: now + 18 });
   }
 }

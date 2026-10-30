@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Campaign } from "./game";
 import { money } from "./game";
-import { bookCamp, cancelCamp, campAttendance, campBlocker, CAMP_FEE } from "./bootcamp";
+import { bookCamp, cancelCamp, campAttendance, campBlocker, campFee } from "./bootcamp";
 import { financeForecast } from "./finance-forecast";
 import "./management-planning.css";
 
@@ -13,8 +13,8 @@ export default function BootcampPlanner({ campaign: c, onChange }: {
   useEffect(() => setMessage(""), [c.week, c.year]);
   const rows = campAttendance(c);
   const blocker = campBlocker(c, weeks);
-  const reserved = c.bootcamp ? c.bootcamp.remaining * c.bootcamp.playerIds.length * CAMP_FEE : 0;
-  const nextCash = financeForecast(c, 1, c.bootcamp ? 0 : c.roster.length * CAMP_FEE * weeks)[0].balance;
+  const reserved = c.bootcamp ? c.bootcamp.remaining * c.bootcamp.playerIds.length * (c.bootcamp.fee ?? 500) : 0;
+  const nextCash = financeForecast(c, 1, c.bootcamp ? 0 : c.roster.length * campFee(c) * weeks)[0].balance;
   return <section className="panel planning-panel" aria-labelledby="bootcamp-title">
     <div className="planning-heading"><div><span className="eyebrow">PREPARATION</span><h2 id="bootcamp-title">Squad bootcamp</h2>
       <p>Develop your chosen training focus faster. Arrive fresh enough to use it.</p></div>
@@ -26,8 +26,8 @@ export default function BootcampPlanner({ campaign: c, onChange }: {
       <button className="button secondary" onClick={() => { onChange(cancelCamp); setMessage(`Camp cancelled. ${money(reserved)} refunded.`); }}>Cancel & refund {money(reserved)}</button></div>
       : <div className="planning-actions"><label>Duration<select aria-label="Bootcamp duration" value={weeks} onChange={e => setWeeks(Number(e.target.value))}>
         {[1, 2, 3].map(n => <option key={n} value={n}>{n} {n === 1 ? "week" : "weeks"}</option>)}</select></label>
-        <p>{money(CAMP_FEE)} per booked player per week · {money(c.roster.length * CAMP_FEE * weeks)} prepaid.</p>
-        <button className="button primary" disabled={!!blocker} onClick={() => { onChange(current => bookCamp(current, weeks)); setMessage("Camp booked. Training begins at the next weekly settlement."); }}>Book bootcamp · {money(c.roster.length * CAMP_FEE * weeks)}</button>
+        <p>{money(campFee(c))} per booked player per week · {money(c.roster.length * campFee(c) * weeks)} prepaid.</p>
+        <button className="button primary" disabled={!!blocker} onClick={() => { onChange(current => bookCamp(current, weeks)); setMessage("Camp booked. Training begins at the next weekly settlement."); }}>Book bootcamp · {money(c.roster.length * campFee(c) * weeks)}</button>
         {blocker && <p className="planning-warning">{blocker}</p>}</div>}
     <p role="status" aria-live="polite">{message}</p>
     {c.lastCampReport && <details className="planning-report"><summary>Last camp week · {c.lastCampReport.year}, week {c.lastCampReport.week} · {c.lastCampReport.attended} attended · {money(c.lastCampReport.refunded)} refunded</summary>

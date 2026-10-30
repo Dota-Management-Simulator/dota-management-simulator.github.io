@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, CalendarDays, Check, ChevronRight, FolderOpen, HardDrive, Play, Plus, Search, Shield, Trophy } from "lucide-react";
 import { money } from "./game";
-import { readCampaignLibrary } from "./campaign-library";
+import { exportCampaign, importCampaign, readCampaignLibrary, saveCampaignSlot } from "./campaign-library";
 import type { CampaignSlot } from "./campaign-library";
 import { formatDate } from "./tournaments";
 import TeamBadge from "./TeamBadge";
 import "./campaign-launcher.css";
+import AndroidAppBanner from "./AndroidAppBanner";
+import type { Campaign } from './game';
 
 function DotaMark() {
   return <span className="launcher-dota-mark" aria-hidden="true" />;
@@ -20,7 +22,10 @@ function savedDate(slot: CampaignSlot) {
 export default function CampaignLauncher({ onLoad, onNew, initiallyOpen = false }: {
   onLoad: (slot: CampaignSlot) => void; onNew: () => void; initiallyOpen?: boolean;
 }) {
-  const [library] = useState(readCampaignLibrary);
+  const [library, setLibrary] = useState(readCampaignLibrary);
+  const [fileStatus, setFileStatus] = useState('');
+  const [fileBusy, setFileBusy] = useState(false);
+  const importInput = useRef<HTMLInputElement>(null);
   const [screen, setScreen] = useState<"library" | "launching" | "campaigns">(initiallyOpen ? "campaigns" : "library");
   const [selectedId, setSelectedId] = useState(library.slots[0]?.id);
   const [query, setQuery] = useState("");
@@ -33,6 +38,20 @@ export default function CampaignLauncher({ onLoad, onNew, initiallyOpen = false 
     return () => window.clearTimeout(timer);
   }, [screen]);
   const latest = library.slots[0];
+  const saveCopy = (campaign: Campaign, reason: string) => {
+    const id = `import-${crypto.randomUUID()}`;
+    saveCampaignSlot(id, campaign);
+    setLibrary(readCampaignLibrary()); setSelectedId(id); setScreen('campaigns'); setQuery('');
+    setFileStatus(`${reason} saved as a separate campaign. Select Load campaign to continue.`);
+    return id;
+  };
+  const download = () => {
+    if (!selected) return;
+    const url = URL.createObjectURL(new Blob([exportCampaign(selected.campaign)], { type: 'application/json' }));
+    const anchor = document.createElement('a'); anchor.href = url; anchor.download = `aegis-${selected.campaign.settings.team.replace(/[^a-z0-9]+/gi, '-').slice(0, 50)}-${selected.campaign.year}.json`;
+    anchor.click(); setTimeout(() => URL.revokeObjectURL(url), 1000);
+    setFileStatus('Campaign exported. Keep this file somewhere safe.');
+  };
   const badge = (slot: CampaignSlot) => <TeamBadge teamId={slot.campaign.world?.managedTeamId} name={slot.campaign.settings.team}
     year={slot.campaign.year} branding={slot.campaign.settings.branding} />;
 
@@ -47,6 +66,14 @@ export default function CampaignLauncher({ onLoad, onNew, initiallyOpen = false 
       <nav aria-label="Launcher"><button className={screen === "library" ? "active" : ""} onClick={() => setScreen("library")}>LIBRARY</button><button className={screen === "campaigns" ? "active" : ""} onClick={() => setScreen("campaigns")}>CAMPAIGNS</button></nav>
       <span className="launcher-local"><HardDrive size={14} /> Local library</span>
     </header>
+    <AndroidAppBanner />
+    <div className="launcher-file-controls"><button disabled={fileBusy} onClick={() => importInput.current?.click()}>{fileBusy ? 'Reading campaign…' : 'Import campaign'}</button><input ref={importInput} type="file" accept=".json,application/json" aria-label="Import campaign file" hidden onChange={async e => {
+      const file = e.target.files?.[0]; e.target.value = ''; if (!file) return;
+      setFileBusy(true);
+      try { if (file.size > 32_000_000) throw new Error('Campaign file is too large (32 MB maximum).'); saveCopy(importCampaign(await file.text()), 'Imported campaign'); }
+      catch (error) { setFileStatus(error instanceof Error ? error.message : 'Could not import campaign. Existing campaigns are preserved.'); }
+      finally { setFileBusy(false); }
+    }} />{fileStatus && <p role="status">{fileStatus}</p>}</div>
     {screen === "library" ? <div className="launcher-library">
       <aside className="launcher-sidebar">
         <span className="launcher-sidebar-label">YOUR LIBRARY <span>1</span></span>
@@ -89,7 +116,15 @@ export default function CampaignLauncher({ onLoad, onNew, initiallyOpen = false 
       <section className="launcher-save-detail" aria-label="Selected campaign">{selected ? <>
         <span className="launcher-section-label">READY TO CONTINUE</span><div className="launcher-detail-team">{badge(selected)}<h2>{selected.campaign.settings.team}</h2></div>
         <dl><div><dt>Campaign date</dt><dd>{campaignDate(selected)}</dd></div><div><dt>Started in</dt><dd>{selected.campaign.settings.year}</dd></div><div><dt>Region</dt><dd>{selected.campaign.settings.region}</dd></div><div><dt>Club balance</dt><dd>{money(selected.campaign.cash)}</dd></div><div><dt>Difficulty</dt><dd>{selected.campaign.settings.difficulty}</dd></div></dl>
-        <button className="launcher-load" onClick={() => onLoad(selected)}><Play size={19} fill="currentColor" /> Load campaign</button><p className="launcher-save-note">Autosaves after every decision. Starting a new campaign keeps this save.</p>
+        <button className="launcher-load" onClick={() => {
+          if (!selected.recovered) { onLoad(selected); return; }
+          try { const id = saveCopy(selected.campaign, 'Recovered backup'); const copy = readCampaignLibrary().slots.find(slot => slot.id === id); if (copy) onLoad(copy); }
+          catch { setFileStatus('Could not save a recovered copy. Export the backup to keep it safe.'); }
+        }}><Play size={19} fill="currentColor" /> {selected.recovered ? 'Load backup as copy' : 'Load campaign'}</button>
+        {selected.recovered && <p className="launcher-error">The latest save is damaged. This is its last readable backup; the original stored data is retained.</p>}
+        <div className="launcher-save-tools"><button onClick={download}>Export campaign</button>{selected.backup && <button onClick={() => { try { saveCopy(selected.backup!.campaign, 'Backup'); } catch { setFileStatus('Could not save a backup copy. Export the campaign to keep a portable copy.'); } }}>Restore backup as copy</button>}</div>
+        {selected.backup && <p className="launcher-save-note">Backup: {selected.backup.savedAt ? new Date(selected.backup.savedAt).toLocaleString() : 'Previous save'}. Restoring creates a separate campaign.</p>}
+        <p className="launcher-save-note">Autosaves after every decision. Large saves and previous-date backups are compressed. Export a file to transfer between devices or browsers.</p>
       </> : <div className="launcher-detail-empty"><DotaMark /><h2>One team.<br />Infinite possibilities.</h2><p>Every career has its own save. Choose your era and make it yours.</p></div>}</section></div>
     </main>}
     <footer className="launcher-footer"><span><HardDrive size={13} /> Saves on this browser</span><span>Aegis Manager · Fan-made Dota management simulator</span></footer>

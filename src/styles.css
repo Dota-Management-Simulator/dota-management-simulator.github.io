@@ -5121,3 +5121,6 @@ select {
   .training-workload-controls { gap: 8px; }
   .training-workload-controls select { font-size: 10px; padding-left: 6px; }
 }
+/* Beats the dark theme's shared rating colour. */
+:root:root .scout-row .scout-rating.scout-fit strong.up { color: #6fa85a; }
+:root:root .scout-row .scout-rating.scout-fit strong.down { color: #d0705a; }

@@ -119,13 +119,16 @@ test("all seven axes change real combat mechanics and featured power changes bot
       if(axis==="objectives"||axis==="splitpush"){if(axis==="splitpush"){a.x=400;a.y=400;}x.damage(a,t,100);return t.hp;}
       if(axis==="teamfight"){a.hero=heroById("storm_spirit")!;base.units.filter(u=>u.player&&u.team===a.team).forEach(u=>{u.x=a.x;u.y=a.y;});x.cast(a,e);return e.hp;}
       // Top lane: open ground, so terrain routing cannot hide the target choice.
-      base.units=base.units.filter(u=>u===a||u===e);a.x=300;a.y=90;e.x=a.x+a.range+80;e.y=90;e.stun=100;a.abilityCd=100;base.step();return a.x;
+      (base as unknown as {nextShop:number}).nextShop=Infinity;base.units=base.units.filter(u=>u===a||u===e);(base as unknown as {move:(u:typeof a,x:number,y:number)=>void}).move=(u,x,y)=>{u.x=x;u.y=y;};a.x=400;a.y=400;a.range=12;e.x=480;e.y=360;e.stun=100;a.abilityCd=100;a.spells=[];a.tpCharges=0;a.lane=1;base.step();return `${a.x}:${a.y}`;
     };
     for(const {key} of patchAxes.filter(a=>a.key!=="tempo")) assert.notEqual(metric(key,50),metric(key,100),key);
     const slow=build(),fast=build("tempo");assert.ok(fast.units.find(u=>u.player)!.speed>slow.units.find(u=>u.player)!.speed);
     const base=build(); const all=getHeroPool(2011).map(h=>({id:h.id,bonus:12,evidence:null}));
     historicalPatches[historicalPatches.length-1]={...structuredClone(neutral),heroes:all};
-    const strong=new LaneBattle({...config(),patchId:neutral.id});
+    // Hero mastery is hero-specific: hold the actual draft fixed to isolate
+    // the patch multiplier, as this test does for players, seed and geometry.
+    const fixedDraft = ([0,1] as const).map(side => base.units.filter(u=>u.player&&u.team===side).map(u=>u.hero!.id)) as [string[],string[]];
+    const strong=new LaneBattle({...config(),patchId:neutral.id,draft:fixedDraft});
     const a=base.units.filter(u=>u.player),b=strong.units.filter(u=>u.player);
     for(let i=0;i<10;i++) assert.ok(Math.abs(b[i].power/a[i].power-1.12)<1e-10);
   } finally {historicalPatches.pop();}

@@ -1,5 +1,5 @@
 import { patchLabel } from "./patch-label";
-import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { memo, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import {
   ArrowRight,
   Pause,
@@ -9,7 +9,7 @@ import {
   Trophy,
   X,
 } from "lucide-react";
-import { BASES, LANES, matchClock } from "./battle";
+import { BASES, LANES, matchClock,filterReplayFrameForTeam } from "./battle";
 import type {
   ReplayFrame,
   SimulatedSeries,
@@ -24,12 +24,15 @@ import SpellPanel from "./SpellPanel";
 import { RespawnStatus } from "./MatchAnnouncer";
 import { replayPosition, replayWindow } from "./match-playback";
 import { MapObjectives } from "./MapObjectives";
+import {teamVisionCells} from './map-vision';
+import {visionCellPath} from './map-vision-render';
 import "./tactics.css";
+import './combat-mobile.css';
 
 const COLORS = ["#c8b16f", "#9da6e2"];
 /** Shared by replays and live maps: 1× is thirty game seconds per real second. */
-export const PLAYBACK_SPEEDS = [0.5, 1, 2, 4, 8, 16, 32];
-export const speedLabel = (s: number) => s === 0.5 ? "½×" : `${s}×`;
+export const PLAYBACK_SPEEDS = [1/30, .1, .25, 0.5, 1, 2, 4, 8, 16, 32];
+export const speedLabel = (s: number) => s === 1/30 ? "Real time" : s === .1 ? "Watch · 3s/s" : s === .25 ? "¼×" : s === 0.5 ? "½×" : `${s}×`;
 export { HeroToken } from "./HeroToken";
 import { HeroToken } from "./HeroToken";
 
@@ -93,6 +96,8 @@ export const MapReplay = memo(function MapReplay({
   patchId,
   selectedUnitIds = [],
   transitionMs = 0,
+  onMapPoint,
+  overlay,
 }: {
   before: ReplayFrame;
   after: ReplayFrame;
@@ -102,7 +107,10 @@ export const MapReplay = memo(function MapReplay({
   selectedUnitIds?: number[];
   /** Animate only unit transforms between snapshots, without React renders. */
   transitionMs?: number;
+  onMapPoint?:(x:number,y:number)=>void;
+  overlay?:ReactNode;
 }) {
+  const fogId=useId().replaceAll(':','');
   const elements = useRef(new Map<number, SVGGElement>());
   const positions = useRef(new Map<number, { x: number; y: number; dead: boolean }>());
   const targets = useMemo(() => {
@@ -141,6 +149,11 @@ export const MapReplay = memo(function MapReplay({
   }, [targets, transitionMs]);
   // Patched maps show that era's Valve map art; legacy maps keep the sketch.
   const era = patchId ? mapEraForPatch({ id: patchId }) : undefined;
+  const visionPath=useMemo(()=>{
+    if(!before.vision||!era)return undefined;
+    const field=teamVisionCells(era,before.vision.sources);
+    return visionCellPath(field.cells,field.cellSize);
+  },[before.vision,era]);
   const terrain = useMemo(() => (<>
     <defs>
       <pattern
@@ -208,6 +221,7 @@ export const MapReplay = memo(function MapReplay({
       className="battle-map"
       viewBox={expanded ? frontierBounds : "0 0 800 800"}
       role="img"
+      onClick={onMapPoint?event=>{const svg=event.currentTarget,point=svg.createSVGPoint();point.x=event.clientX;point.y=event.clientY;const matrix=svg.getScreenCTM();if(matrix){const map=point.matrixTransform(matrix.inverse());onMapPoint(map.x,map.y);}}:undefined}
       aria-label={`Match playback${era ? ` on the ${era.version} map` : ""}: heroes, creep waves, towers, barracks and Ancients across three lanes, Roshan${era?.frontier ? " and era-specific Tormentor sites" : ""}${expanded ? "; New Frontiers expanded map and twelve neutral farm camps" : ""}`}
     >
       {terrain}
@@ -238,7 +252,7 @@ export const MapReplay = memo(function MapReplay({
       >
         DIRE
       </text>
-      {targets.filter(({ unit }) => unit.kind !== "tower" && unit.kind !== "base").map(({ unit, x, y }) => {
+      {targets.filter(({ unit }) => unit.kind !== "tower" && unit.kind !== "base" && unit.kind !== 'barracks').map(({ unit, x, y }) => {
         const dead = unit.hp <= 0;
         return (
           <g
@@ -263,6 +277,10 @@ export const MapReplay = memo(function MapReplay({
           opacity=".2"
         />
       ))}
+      {before.vision&&<><defs><mask id={fogId}><rect x="-200" y="-200" width="1200" height="1200" fill="white"/>{visionPath?<path d={visionPath} fill="black"/>:before.vision.sources.map((source,i)=><circle key={i} cx={source.x} cy={source.y} r={source.radius} fill="black"/>)}</mask></defs><rect className="combat-fog" x="-200" y="-200" width="1200" height="1200" fill="#030907" opacity=".76" mask={`url(#${fogId})`} pointerEvents="none"/></>}
+      {before.wards?.map(ward=><g key={ward.id} transform={`translate(${ward.x},${ward.y})`}><title>{ward.kind==='observer'?'Observer Ward':'Sentry Ward'}</title><circle r="9" fill={ward.team===0?'#f3d16a':'#ce7c7c'} stroke="#191f18" strokeWidth="2"/><text y="4" fontSize="11" textAnchor="middle" fill="#101c11">{ward.kind==='observer'?'O':'S'}</text></g>)}
+      {before.wardOrders?.map(order=><g key={order.playerId} transform={`translate(${order.x},${order.y})`}><title>{order.kind} ward placement ordered · player travelling</title><circle r="15" fill="none" stroke="#f3d16a" strokeWidth="2" strokeDasharray="4 3"/><path d="M-8 0h16M0-8v16" stroke="#f3d16a" strokeWidth="2"/></g>)}
+      {overlay}
     </svg>
   );
 });
@@ -282,6 +300,7 @@ export function MatchViewer({
   const [clock, setClock] = useState(0);
   const [playing, setPlaying] = useState(true);
   const [speed, setSpeed] = useState(2);
+  const [mobileView,setMobileView]=useState('map');
   const completed = useRef(false);
   const finishRef = useRef(onFinish);
   finishRef.current = onFinish;
@@ -311,10 +330,13 @@ export function MatchViewer({
     }, 800);
     return () => clearTimeout(timer);
   }, [clock, game.duration, gameIndex, simulation.summary.games.length]);
-  const { before, after, ratio } = replayWindow(frames, clock);
+  const window = replayWindow(frames, clock);
+  const before=useMemo(()=>filterReplayFrameForTeam(window.before,0,simulation.summary.patch?.id),[window.before,simulation.summary.patch?.id]);
+  const after=useMemo(()=>filterReplayFrameForTeam(window.after,0,simulation.summary.patch?.id),[window.after,simulation.summary.patch?.id]);
+  const ratio=window.ratio;
   const kills = clock >= game.duration ? game.kills : before.kills;
   return (
-    <div className="match-viewer">
+    <div className="match-viewer live-match recorded-match" data-mobile-view={mobileView}>
       <div className="watch-heading">
         <div>
           <div className="eyebrow">LANE SIEGE · TOURNAMENT SERIES</div>
@@ -346,12 +368,17 @@ export function MatchViewer({
           {simulation.summary.teams[1]}
         </strong>
       </div>
+      <div className="combat-command-bar"><div className="watch-controls">
+        <button className="button secondary combat-play" aria-label={playing?'Pause playback':'Resume playback'} onClick={()=>setPlaying(!playing)}>{playing?<Pause size={18}/>:<Play size={18}/>} {playing?'Pause':'Resume'}</button>
+        <label>Speed<select aria-label="Playback speed" value={speed} onChange={e=>setSpeed(Number(e.target.value))}>{PLAYBACK_SPEEDS.map(s=><option key={s} value={s}>{speedLabel(s)}</option>)}</select></label>
+        <button className="text-link" onClick={()=>setClock(game.duration)}>Next result <ArrowRight size={14}/></button>
+      </div><nav className="combat-mobile-tabs" aria-label="Replay panels">{[['map','Map'],['team','Team'],['events','Events']].map(([id,label])=><button key={id} aria-pressed={mobileView===id} onClick={()=>setMobileView(id)}>{label}</button>)}</nav></div>
       <div className="watch-layout watch-with-spells">
         <SpellPanel key={gameIndex} frame={before} nextFrame={after} time={clock} patchId={simulation.summary.patch?.id} playing={playing}>
         <div className="map-wrap">
           <MapReplay key={gameIndex} before={before} after={after} ratio={ratio} transitionMs={playing && clock < game.duration ? 100 : 0} expanded={simulation.summary.mapLayout === "frontiers"} patchId={simulation.summary.patch?.id} />
           <span className="map-live-label">
-            <i /> GAME {gameIndex + 1} · SIMULATION PLAYBACK
+            <i /> GAME {gameIndex + 1} · TEAM VISION
           </span>
           {clock >= game.duration && (
             <div className="map-victory">
@@ -386,37 +413,8 @@ export function MatchViewer({
           ))}
         </div>
       </div>
-      <div className="watch-controls">
-        <button
-          className="icon-button"
-          aria-label={playing ? "Pause playback" : "Resume playback"}
-          onClick={() => setPlaying(!playing)}
-        >
-          {playing ? <Pause size={18} /> : <Play size={18} />}
-        </button>
-        <div role="group" aria-label="Playback speed">
-          {PLAYBACK_SPEEDS.map((s) => (
-            <button
-              key={s}
-              aria-pressed={speed === s}
-              className={speed === s ? "selected" : ""}
-              onClick={() => setSpeed(s)}
-            >
-              {speedLabel(s)}
-            </button>
-          ))}
-        </div>
-        <span>
-          Game {gameIndex + 1} of {simulation.summary.games.length} · {simulation.summary.bestOf === 2 ? "Two-map series" : `Best of ${simulation.summary.bestOf ?? 3}`}{simulation.summary.patch && ` · Patch ${patchLabel(simulation.summary.patch)}`}
-        </span>
-        <button className="text-link" onClick={() => setClock(game.duration)}>
-          Next result <ArrowRight size={14} />
-        </button>
-      </div>
       <p className="match-footnote">
-        Accelerated playback of the lane engine. Speed, pause, and skip do not
-        alter the outcome. Gold, XP, and K/D/A are recorded throughout each
-        game.
+        Game {gameIndex+1} of {simulation.summary.games.length} · {simulation.summary.patch&&`Patch ${patchLabel(simulation.summary.patch)} · `}Team vision replay. Older recordings use conservative terrain-based visibility. Speed, pause and skip preserve the recorded outcome. Complete statistics remain available after the game.
       </p>
     </div>
   );

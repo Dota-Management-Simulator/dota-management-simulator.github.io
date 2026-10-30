@@ -6,15 +6,24 @@ import { perceivedPatch } from "./patch-knowledge";
 import type { PatchObserver } from "./patch-knowledge";
 import { oppositionStaff } from "./staff";
 import { frontiersEnabled, talentsEnabled } from "./patch-milestones";
-import { createFarmCamps } from "./battle-map";
+import { createFarmCamps, frontierMargin } from "./battle-map";
 import type { FarmCamp } from "./battle-map";
 import { mapEraForPatch, roshanPit } from "./map-eras";
 import type { MapEra } from "./map-eras";
+import { baseStructureLayout } from "./map-objectives";
+import { hasMapLineOfSight, wardPlacementReason, OBSERVER_VISION_RADIUS, nearestWalkablePoint, nextWalkableWaypoint } from "./map-vision";
 import { geometryForEra } from "./map-geometry";
 import { pathsForEra } from "./map-paths";
 import type { MapPaths } from "./map-paths";
 import { talentBonuses } from "./talents";
 import type { TalentPlan } from "./talents";
+import { emptyIdentityEffects, identityEffects, playerIdentityEra, playerIdentitySnapshot, playerTreeBonuses } from './player-identity';
+import type { IdentityBonuses, PlayerIdentity, PlayerIdentitySnapshot } from './player-identity';
+import { innateById } from './player-identity-data';
+import { legacyInnateById } from './legacy-player-innates';
+import { innateAttributeStats, matchSkillContributions } from './player-innate-skills';
+import type { SkillContribution, SkillParticipant } from './player-innate-skills';
+import type { IdentityCondition } from './player-identity-data';
 import { autoDraftMap } from "./draft";
 import type { CompletedDraft, DraftPreparation } from "./draft";
 import { automaticBuild, bkbProtection, historicalItemKey, itemCatalog, itemForPatch } from "./items";
@@ -24,10 +33,12 @@ import type { EconomyRules } from "./combat-model";
 import type { AbilityDefinition, SpellCast, SpellState } from "./combat-model";
 import { MatchEventLog } from './match-events';
 import type { MatchEvent } from './match-events';
-import { automaticTactics, normalizeTactics, phaseAt, strategyById, strategyUnlocked } from "./tactics";
+import { automaticTactics, normalizeTactics, phaseAt, strategyById, strategyUnlocked, unlockDescription } from "./tactics";
 import type { ActivePlay, DroppedItem, RoshanState, Strategy, TacticalEvent, TacticalOrder, TacticalPreparation, TacticalSnapshot } from "./tactics";
-import { buybackCost, matchRules, terrainHeight, terrainSight } from './match-rules';
+import { buybackCost, matchRules, terrainHeight } from './match-rules';
 import type { CreepType, GlyphState, SiegeEvent } from './match-rules';
+import { masterySkillBonus, masterySkills } from './player-career';
+import { controllerRoll, decisionProbability, reactionSeconds } from './player-control';
 
 export type Side = 0 | 1;
 export interface BattlePlayer {
@@ -36,11 +47,18 @@ export interface BattlePlayer {
   role: number;
   skills: Record<string, number>;
   heroExperience?: Record<string, number>;
+  heroMastery?: Record<string, number>;
   energy: number;
   happiness: number;
   talents?: TalentPlan;
+  identity?: PlayerIdentity;
+  /** Decision-skill points from pay pressure (`pay-structure.ts`). */
+  pressure?: number;
+  /** Decision-skill points from playstyle fit with the patch (`meta-style.ts`). */
+  metaFit?: number;
 }
 export interface BattleConfig {
+  playerControl?: 1;
   seed: number;
   year: number;
   heroPoolThroughYear?: number;
@@ -58,8 +76,12 @@ export interface BattleConfig {
   draftPreparations?: [DraftPreparation|undefined,DraftPreparation|undefined];
   tacticalPreparations?: [TacticalPreparation | undefined, TacticalPreparation | undefined];
   captureTimeline?: boolean;
+  tacticalUnlocks?: [string[] | undefined,string[] | undefined];
 }
 export interface PlayerScore extends ItemSnapshot {
+  heroMastery?: { rating: number; skillBonus: number; decisionOnly?: boolean };
+  playerSkillModifiers?: SkillContribution[];
+  playerIdentity?: PlayerIdentitySnapshot;
   attackRange?: number;
   hpRegen?: number; manaRegen?: number;
   teleport?: { charges: number; readyAt: number; endsAt?: number; destination?: string };
@@ -132,7 +154,9 @@ export interface ReplayUnit {
   /** Absolute match-clock time from the engine's remaining respawn. */
   respawnAt?: number;
   id: number;
-  kind: "hero" | "creep" | "tower" | "base";
+  kind: "hero" | "creep" | "tower" | "base" | "barracks";
+  barracksType?: "melee" | "ranged";
+  creepStrength?: "normal" | "super" | "mega";
   heroId?: string;
   lane?: number;
   tier?: number;
@@ -143,7 +167,16 @@ export interface ReplayUnit {
   max: number;
   name: string;
 }
+export interface WardOrder { kind: "observer" | "sentry"; x: number; y: number; playerId?: string }
+export interface WardState extends WardOrder { id:number;team:Side;placedAt:number;expiresAt:number;playerId:string;hp:number }
+export interface WardStock {observer:number;sentry:number;observerRestockAt:number;sentryRestockAt:number}
 export interface ReplayFrame {
+  structureLoop?: boolean;
+  teamVisionSources?: [{x:number;y:number;radius:number}[],{x:number;y:number;radius:number}[]];
+  wards?: WardState[];
+  wardStocks?: [WardStock,WardStock];
+  wardOrders?: (WardOrder & {playerId:string})[];
+  vision?: {team:Side;sources:{x:number;y:number;radius:number}[];visibleUnitIds:number[]};
   glyphs?: [GlyphState, GlyphState];
   siegeEvents?: SiegeEvent[];
   matchEvents?: MatchEvent[];
@@ -156,6 +189,41 @@ export interface ReplayFrame {
   players: PlayerScore[];
   camps?: FarmCamp[];
 }
+/** Frozen replay visibility: never consults a later frame or the current battle.
+ * Old recordings lack exact vision/cast observations; derive conservative sight
+ * from that frame and hide their enemy cast history rather than invent it. */
+export function filterReplayFrameForTeam(source:ReplayFrame,side:Side,patchId?:string):ReplayFrame{
+  if(source.vision?.team===side)return source;
+  const era=patchId?mapEraForPatch({id:patchId}):undefined;
+  const night=Math.floor(source.time/300)%2===1;
+  const sources=source.teamVisionSources?.[side]??[
+    ...source.units.filter(u=>u.team===side&&u.hp>0).map(u=>({x:u.x,y:u.y,radius:u.kind==='hero'?(night?40:90):u.kind==='base'?130:u.kind==='creep'?(night?40:85):(night?(u.tier===1?40:55):95)})),
+    ...(source.wards??[]).filter(w=>w.team===side&&w.kind==='observer'&&w.expiresAt>source.time).map(w=>({x:w.x,y:w.y,radius:OBSERVER_VISION_RADIUS}))];
+  const sees=(p:{x:number;y:number})=>sources.some(a=>distance(a,p)<=a.radius&&(!era||hasMapLineOfSight(era,a,p,a.radius)));
+  const visible=source.units.filter(u=>u.team===side||u.hp>0&&sees(u)),ids=new Set(visible.map(u=>u.id));
+  const playerIds=new Set(visible.filter(u=>u.playerId).map(u=>u.playerId));
+  const ownIds=new Set(source.players.filter(p=>p.team===side).map(p=>p.id));
+  const frame:ReplayFrame={...source,vision:{team:side,sources:sources.map(s=>({...s})),visibleUnitIds:[...ids]},units:visible.map(u=>({...u})),
+    players:source.players.filter(p=>p.team===side||playerIds.has(p.id)).map(p=>{
+      if(p.team===side)return {...p};
+      const {spells,teleport,buyback,playerSkillModifiers,heroMastery,gold,xp,nextItem,spendableGold,netWorth,...publicScore}=p;
+      void spells;void teleport;void buyback;void playerSkillModifiers;void heroMastery;void gold;void xp;void nextItem;void spendableGold;void netWorth;
+      return {...publicScore,gold:0,xp:0};
+    })};
+  delete frame.teamVisionSources;
+  frame.wardOrders=source.wardOrders?.filter(o=>ownIds.has(o.playerId)).map(o=>({...o}));
+  frame.spellCasts=source.spellCasts?.filter(c=>c.team===side||c.seenBy?.includes(side)).map(c=>({...c,targetId:c.targetId!==undefined&&ids.has(c.targetId)?c.targetId:undefined,seenBy:undefined}));
+  frame.wards=source.wards?.filter(w=>w.team===side||(source.wards??[]).some(s=>s.team===side&&s.kind==='sentry'&&s.expiresAt>source.time&&distance(s,w)<70)&&sees(w)).map(w=>({...w}));
+  if(source.wardStocks)frame.wardStocks=source.wardStocks.map((s,i)=>i===side?{...s}:{observer:0,sentry:0,observerRestockAt:0,sentryRestockAt:0}) as [WardStock,WardStock];
+  frame.droppedItems=source.droppedItems?.filter(sees).map(d=>({...d}));
+  frame.camps=source.camps?.filter(sees).map(c=>({...c}));
+  if(frame.roshan){if(!sees(frame.roshan))delete frame.roshan;else frame.roshan={...frame.roshan,kills:[...frame.roshan.kills]};}
+  frame.siegeEvents=source.siegeEvents?.filter(e=>e.team===side||e.kind==='buyback').map(e=>({...e}));
+  if(source.glyphs)frame.glyphs=source.glyphs.map((g,i)=>i===side?{...g}:{auto:false,activeUntil:0,creepsUntil:0,readyAt:0,uses:0}) as [GlyphState,GlyphState];
+  frame.matchEvents=source.matchEvents?.map(e=>e.victimId&&!ownIds.has(e.victimId)?{...e,respawnAt:undefined}:{...e});
+  return frame;
+}
+
 export interface SimulatedSeries {
   summary: SeriesSummary;
   frames: ReplayFrame[][];
@@ -204,6 +272,9 @@ export function matchClock(seconds: number) {
 }
 
 interface Unit {
+  nextSpellDecisionAt: number;
+  nextTargetDecisionAt: number;
+  controllerTarget?: number;
   attackBoostUntil:number; attackBoostSpeed:number; attackBoostDamage:number; attackBoostHits:number;
   reductionUntil:number; reduction:number; attackStacks:Record<number,{count:number;until:number}>;
   silenceUntil: number; rootUntil: number; armorReduction: number; armorUntil: number;
@@ -223,6 +294,11 @@ interface Unit {
   attackSlow: number;
   tier?: number;
   creepType?: CreepType;
+  barracksType?: "melee" | "ranged";
+  creepStrength?: "normal" | "super" | "mega";
+  saveUntil?:number;
+  invulnerableUntil?:number;
+  wardOrder?:WardOrder;
   backdoorUntil: number;
   protectedDamage: number;
   denies: number;
@@ -302,6 +378,10 @@ const distance = (a: { x: number; y: number }, b: { x: number; y: number }) =>
 // Adapted from the user's Lane Siege: entity-level lane movement and combat,
 // with gold, assist attribution, era siege rules, and separate replay capture.
 export class LaneBattle {
+  wards:WardState[]=[];
+  private wardSerial=0;
+  private wardStocks:[WardStock,WardStock]=[0,1].map(()=>({observer:2,sentry:3,observerRestockAt:135,sentryRestockAt:70})) as [WardStock,WardStock];
+  private nextWardDecision:[number,number]=[90,90];
   private damageOverTime: {source:number;target:number;ability:string;dps:number;until:number;at:number}[] = [];
   private rules: ReturnType<typeof matchRules>;
   private glyphs: [GlyphState, GlyphState];
@@ -324,6 +404,9 @@ export class LaneBattle {
   private playSerial = 0;
   private roshanAttackAt = 0;
   private roshanDamagedAt = -1000;
+  private unitSightTime=-1;
+  private unitSight:[Map<number,boolean>,Map<number,boolean>]=[new Map(),new Map()];
+  private cachedSources:[{x:number;y:number;radius:number}[],{x:number;y:number;radius:number}[]]=[[],[]];
   private sightCache: [Unit[] | undefined, Unit[] | undefined] = [undefined, undefined];
   private itemTable: Map<ItemId,MatchItem>;
   units: Unit[] = [];
@@ -338,6 +421,10 @@ export class LaneBattle {
   private nextFrame = 0;
   private serial = 0;
   private lanesMeasured = false;
+  private identityCache = new Map<number,{time:number;effects:IdentityBonuses}>();
+  private skillCache = new Map<number,{time:number;contributions:SkillContribution[]}>();
+  private hasPlayerSkillInnates = false;
+  private neutralIdentity = emptyIdentityEffects();
   private random: () => number;
   private patch: SeasonPatch | undefined;
   private drafted?: CompletedDraft;
@@ -351,11 +438,12 @@ export class LaneBattle {
   ) {
     this.random = seededRandom(config.seed + gameIndex * 7919);
     this.patch = patchById(config.patchId);
+    this.hasPlayerSkillInnates=config.players.some(side=>side.some(p=>p.identity?.innateRules===2));
     this.rules = matchRules(this.patch);
     this.economyRules=combatCatalogue(this.patch)?.rules??defaultEconomyRules;
     this.itemTable = new Map(itemCatalog.map(item=>[item.id,itemForPatch(item.id,this.patch)]));
     this.preparations = ([0, 1] as Side[]).map(side => config.tacticalPreparations?.[side] ? normalizeTactics(config.tacticalPreparations[side])
-      : automaticTactics(config.players[side], config.patchObservers?.[side]?.staffIds ?? oppositionStaff(config.teams[side]))) as [TacticalPreparation,TacticalPreparation];
+      : automaticTactics(config.players[side], config.patchObservers?.[side]?.staffIds ?? oppositionStaff(config.teams[side]),config.tacticalUnlocks?.[side])) as [TacticalPreparation,TacticalPreparation];
     this.glyphs = this.preparations.map(p => ({ auto: p.autoGlyph !== false, activeUntil: 0, creepsUntil: 0, readyAt: this.rules.glyphStartsAt, uses: 0 })) as [GlyphState, GlyphState];
 
     // Patched maps use that era's terrain and Roshan pit; legacy maps keep open ground.
@@ -395,6 +483,15 @@ export class LaneBattle {
             rate: 1,
           });
         }
+      if(this.rules.enabled&&this.mapEra)for(const entry of baseStructureLayout){
+        const geometry=geometryForEra(this.mapEra);
+        const [x,y]=entry.kind==='tower'?(entry.tier===3?geometry.towers[team][entry.lane!][2]:geometry.tier4[team][baseStructureLayout.filter(e=>e.kind==='tower'&&e.tier===4).indexOf(entry)])
+          :geometry.barracks[team][entry.lane!][entry.kind==='melee-barracks'?0:1];
+        this.add({team,kind:entry.kind==='tower'?'tower':'barracks',lane:entry.lane??1,tier:entry.tier,
+          barracksType:entry.kind==='melee-barracks'?'melee':entry.kind==='ranged-barracks'?'ranged':undefined,
+          x,y,hp:entry.kind==='tower'?entry.tier===4?2400:2200:entry.kind==='melee-barracks'?1800:1200,
+          damage:entry.kind==='tower'?115:0,range:135,rate:1});
+      }
       config.players[team].forEach((player, role) => {
         const candidates = pool.filter((h) => h.roles.includes(role));
         const choices = candidates.length ? candidates : pool;
@@ -402,7 +499,9 @@ export class LaneBattle {
         let roll = this.random() * weights.reduce((sum, value) => sum + value, 0);
         const hero = fixedDraft ? pool.find(h => h.id === fixedDraft[team][role])! : choices[weights.findIndex((weight, index) => (roll -= weight) < 0 || index === weights.length - 1)];
         pool.splice(pool.indexOf(hero), 1); // No duplicates across either draft.
-        const s = player.skills;
+        const comfort = masterySkillBonus(player.heroMastery?.[hero.id]);
+        const expertiseSkills = comfort ? Object.fromEntries(Object.entries(player.skills).map(([key, n]) => [key, masterySkills.has(key) ? limit(n + comfort, 0, 99) : n])) : player.skills;
+        const s = innateAttributeStats(player.identity,this.patch,expertiseSkills);
         const skill =
           ((s.laning ?? 70) +
             (s.teamfights ?? 70) +
@@ -411,7 +510,7 @@ export class LaneBattle {
           4;
         const form =
           1 + (this.random() - 0.5) * (1 - (s.stability ?? 70) / 130) * 0.35;
-        const power = limit(
+        const power = (this.config.playerControl === 1 ? 1 : limit(
           // Keep the new 15–40 starting range above the safety floor so
           // development changes combat power throughout the early game.
           (0.4 + skill * 0.008 + config.bonuses[team]) *
@@ -420,7 +519,7 @@ export class LaneBattle {
             form,
           0.35,
           2.2,
-        ) * (1 + heroPatchBonus(this.patch, hero.id) / 100);
+        )) * (1 + heroPatchBonus(this.patch, hero.id) / 100);
         const lane = [2, 1, 0, 0, 2][role];
         const unit = this.add({
           team,
@@ -433,7 +532,7 @@ export class LaneBattle {
           y: base[1] - role * 5,
           range: hero.ranged ? 150 : 42,
           rate: hero.attribute === "Agility" ? 0.9 : 1.15,
-          speed: (102 + (s.intuition ?? 70) / 8) * axisFactor(this.patch, "tempo", 0.12),
+          speed: (102 + (this.config.playerControl === 1 ? 50 : s.intuition ?? 70) / 8) * axisFactor(this.patch, "tempo", 0.12),
           strength: hero.attribute === "Strength" ? 25 : 19,
           agility: hero.attribute === "Agility" ? 24 : 15,
           intelligence: hero.attribute === "Intelligence" ? 25 : 16,
@@ -459,6 +558,7 @@ export class LaneBattle {
   }
   private add(values: Partial<Unit> & Pick<Unit, "team" | "kind" | "x" | "y">) {
     const u: Unit = {
+      nextSpellDecisionAt: 0, nextTargetDecisionAt: 0,
       id: this.serial++,
       lane: 1,
       hp: 220,
@@ -502,6 +602,9 @@ export class LaneBattle {
       inventory: [], purchasedItems: [], spent: 0, itemCooldowns: {}, bkbUntil: 0, aegisUntil: 0, lastDamagedAt: -1000, homeLane: 1, neutralDeaths: 0, regroupUntil:0,
       ...values,
     };
+    if(this.mapEra&&(u.kind==='hero'||u.kind==='creep')){
+      const open=nearestWalkablePoint(this.mapEra,u.x,u.y);if(open){u.x=open.x;u.y=open.y;}
+    }
     this.units.push(u);
     return u;
   }
@@ -567,7 +670,68 @@ export class LaneBattle {
       e.at=end;return e.until>now&&!target.dead;
     });
   }
-  private talents(u: Unit) { return talentBonuses(talentsEnabled(this.patch) ? u.player?.talents : undefined, u.level); }
+  private talents(u: Unit) {
+    const plan=talentsEnabled(this.patch)?u.player?.talents:undefined;
+    return u.player?.identity ? playerTreeBonuses(u.player.identity,plan,u.level) : talentBonuses(plan,u.level);
+  }
+  /** Conditions are sampled once per simulation tick, never from hidden enemy
+   * orders or inventories. Spatial tests use allies and allied structures. */
+  private personal(u:Unit):IdentityBonuses {
+    if(!u.player?.identity||!playerIdentityEra(this.patch).innates)return this.neutralIdentity;
+    const cached=this.identityCache.get(u.id);if(cached?.time===this.time)return cached.effects;
+    const condition=u.player.identity.innateRules===2?undefined:legacyInnateById.get(u.player.identity.innateId)?.condition;
+    const allies=condition==='alone'||condition==='paired'||condition==='grouped'?this.heroes(u.team).filter(a=>a!==u&&!a.dead&&distance(a,u)<240).length:0;
+    const effects=identityEffects(u.player.identity,u.player.role,this.patch,{
+      clock:this.clock,health:u.hp/u.max,mana:u.maxMana?u.mana/u.maxMana:1,allies,sinceDamage:this.clock-u.lastDamagedAt,
+      deaths:u.deaths,kills:u.kills,energy:u.player.energy,moving:!!this.plays[u.team]?.participants.includes(u.id),
+      defending:condition==='defending'&&this.units.some(a=>a.team===u.team&&!a.dead&&(a.kind==='tower'||a.kind==='base')&&distance(a,u)<200),
+      siege:condition==='siege'&&this.units.some(a=>a.team===u.team&&!a.dead&&a.creepType==='siege'&&distance(a,u)<240),
+    });
+    this.identityCache.set(u.id,{time:this.time,effects});return effects;
+  }
+  private skillContext(u:Unit,condition?:IdentityCondition) {
+    return {clock:this.clock,health:u.hp/u.max,mana:u.maxMana?u.mana/u.maxMana:1,
+      allies:condition==='alone'||condition==='paired'||condition==='grouped'?this.heroes(u.team).filter(a=>a!==u&&!a.dead&&distance(a,u)<=240).length:0,
+      sinceDamage:this.clock-u.lastDamagedAt,deaths:u.deaths,kills:u.kills,energy:u.player!.energy,moving:!!this.plays[u.team]?.participants.includes(u.id),
+      defending:condition==='defending'&&this.units.some(a=>a.team===u.team&&!a.dead&&(a.kind==='tower'||a.kind==='base')&&distance(a,u)<=200),
+      siege:condition==='siege'&&this.units.some(a=>a.team===u.team&&!a.dead&&a.creepType==='siege'&&distance(a,u)<=240)};
+  }
+  private skillContributions(u:Unit):SkillContribution[] {
+    if(!this.hasPlayerSkillInnates||!u.player||u.dead||!playerIdentityEra(this.patch).innates)return [];
+    const cached=this.skillCache.get(u.id);if(cached?.time===this.time)return cached.contributions;
+    const players:SkillParticipant[]=this.heroes(u.team).map(a=>({id:a.player!.id,name:a.player!.name,team:a.team,lane:a.homeLane,x:a.x,y:a.y,alive:!a.dead,
+      identity:a.player!.identity,stats:a.player!.skills,context:this.skillContext(a,innateById.get(a.player!.identity?.innateId??'')?.match?.condition)}));
+    const self=players.find(p=>p.id===u.player!.id)!;
+    const contributions=matchSkillContributions(self,players,this.patch);this.skillCache.set(u.id,{time:this.time,contributions});return contributions;
+  }
+  private skill(u:Unit,key:string,fallback=50) {
+    const raw=u.player?.skills[key]??fallback;
+    const comfort=masterySkills.has(key)?masterySkillBonus(u.player?.heroMastery?.[u.hero?.id??'']):0;
+    // Preserve the former bonus-to-skill scale (0.008 per point) as inferred
+    // controller competence, including historical lineup evidence and form.
+    const context=this.config.playerControl===1?this.config.bonuses[u.team]/.008+(u.player?.pressure??0)+(u.player?.metaFit??0):0;
+    const base=limit(raw+comfort+context,0,99);
+    const bonus=this.skillContributions(u).filter(c=>c.skill===key).reduce((n,c)=>n+c.points,0);
+    return bonus?Math.min(99,base+bonus):base;
+  }
+  /** Player ability changes decisions only. The same action on the same kit
+   * has identical mechanical output, regardless of who is controlling it. */
+  private goodDecision(u: Unit, key: string, purpose: string) {
+    if (this.config.playerControl !== 1) return true;
+    const skill = this.skill(u, key);
+    return controllerRoll(this.config.seed, u.player!.id, Math.floor(this.clock / 6), purpose) < decisionProbability(skill);
+  }
+  private reaction(u: Unit, key: string, purpose: string) {
+    const skill = this.skill(u,key);
+    return reactionSeconds(skill,this.skill(u,'stability'),u.player!.energy,u.player!.happiness,
+      controllerRoll(this.config.seed,u.player!.id,Math.floor(this.clock/6),purpose));
+  }
+  private readySpellDecision(u: Unit) {
+    if (this.config.playerControl !== 1) return true;
+    if (this.clock < u.nextSpellDecisionAt) return false;
+    u.nextSpellDecisionAt = this.clock + this.reaction(u,'teamfights','spell-reaction');
+    return true;
+  }
   private addRecovery(target:Unit,source:Unit,key:string,duration:number,heal:number,mana:number) {
     target.recovery=target.recovery.filter(e=>e.key!==key||e.source!==source.id);
     target.recovery.push({source:source.id,key,until:this.time*GAME_CLOCK+duration,at:this.time*GAME_CLOCK,heal,mana});
@@ -621,7 +785,8 @@ export class LaneBattle {
     }
     const base={x:this.bases[u.team][0],y:this.bases[u.team][1]};
     if(distance(u,base)<100){hp+=u.max*.02;mana+=u.maxMana*.03;}
-    return {hp:Math.max(0,hp),mana:Math.max(0,mana)};
+    const identity=this.personal(u);
+    return {hp:Math.max(0,hp)*identity.hpRegen,mana:Math.max(0,mana)*identity.manaRegen};
   }
   private recover(u:Unit) {
     const now=this.time*GAME_CLOCK,r=this.regeneration(u);
@@ -640,14 +805,14 @@ export class LaneBattle {
     if(u.teleport){
       const target=this.units.find(v=>v.id===u.teleport!.target);
       if(u.stun>0||u.silenceUntil>now||u.rootUntil>now||!target||target.dead){u.teleport=undefined;return false;}
-      if(now>=u.teleport.endsAt){u.x=u.teleport.x;u.y=u.teleport.y;u.teleport=undefined;u.farmCamp=undefined;this.sightCache=[undefined,undefined];}
+      if(now>=u.teleport.endsAt){const open=this.mapEra?nearestWalkablePoint(this.mapEra,u.teleport.x,u.teleport.y):undefined;u.x=open?.x??u.teleport.x;u.y=open?.y??u.teleport.y;u.teleport=undefined;u.farmCamp=undefined;this.sightCache=[undefined,undefined];this.unitSightTime=-1;}
       return true;
     }
     if(!u.tpCharges||u.tpReadyAt>now||u.stun>0||u.silenceUntil>now||u.rootUntil>now||u.drain)return false;
     if(!u.retreat&&this.plays[u.team]?.participants.includes(u.id))return false;
     const a=combatCatalogue(this.patch)?.items.item_tpscroll;if(!a)return false;
     const cost=rankValue(a.mana,1);if(u.mana<cost)return false;
-    const home=this.units.find(v=>v.team===u.team&&v.kind==='base'&&!v.dead)!;
+    const home=this.units.find(v=>v.team===u.team&&v.kind==='base'&&!v.dead);if(!home)return false;
     let target:Unit|undefined;
     if(u.retreat&&distance(u,home)>250)target=home;
     else if(distance(u,home)<100&&u.hp>u.max*.85&&u.mana>u.maxMana*.6){
@@ -692,16 +857,16 @@ export class LaneBattle {
     return null;
   }
   private fortified(u: Unit) {
-    return this.rules.enabled && (u.kind === 'creep' && u.summonOwner==null ? this.glyphs[u.team].creepsUntil : u.kind === 'tower' || u.kind === 'base' ? this.glyphs[u.team].activeUntil : 0) > this.clock;
+    return this.rules.enabled && (u.kind === 'creep' && u.summonOwner==null ? this.glyphs[u.team].creepsUntil : u.kind === 'tower' || u.kind === 'base' || u.kind === 'barracks' ? this.glyphs[u.team].activeUntil : 0) > this.clock;
   }
   private protectedBuilding(u: Unit) {
-    return this.rules.enabled && (u.kind === 'base' || u.kind === 'tower' && u.tier === 2) && this.clock >= u.backdoorUntil;
+    return this.rules.enabled && (u.kind === 'base' || u.kind === 'barracks' || u.kind === 'tower' && (u.tier??1) >= 2) && this.clock >= u.backdoorUntil;
   }
   private updateBackdoor() {
     if (!this.rules.enabled) return;
     for (const building of this.units) {
-      if (building.dead || !(building.kind === 'base' || building.kind === 'tower' && building.tier === 2)) continue;
-      const wave = this.units.some(c => c.kind === 'creep' && c.summonOwner==null && !c.dead && c.wait <= 0 && c.team !== building.team && distance(c, building) <= (building.kind === 'base' ? 240 : 150));
+      if (building.dead || !(building.kind === 'base' || building.kind === 'barracks' || building.kind === 'tower' && (building.tier??1) >= 2)) continue;
+      const wave = this.units.some(c => c.kind === 'creep' && c.summonOwner==null && !c.dead && c.wait <= 0 && c.team !== building.team && distance(c, building) <= (building.kind === 'base'||building.kind==='barracks'||(building.tier??1)>=3 ? 240 : 150));
       if (wave) {
         building.backdoorUntil = this.time * GAME_CLOCK + this.rules.backdoorGrace;
         building.protectedDamage = 0;
@@ -735,13 +900,14 @@ export class LaneBattle {
     u.dead = false; u.respawn = 0; u.hp = u.max; u.mana = u.maxMana;
     [u.x, u.y] = this.bases[side];
     u.retreat = false; u.stun = 0; u.slowUntil = 0; u.shield = 0; u.revealedUntil = 0;
-    u.contributions.clear(); this.sightCache = [undefined, undefined];
+    u.contributions.clear(); this.sightCache = [undefined, undefined];this.unitSightTime=-1;
     this.siegeEvents.push({ time: this.clock, team: side, kind: 'buyback', playerId, automatic,
       message: `${u.player!.name} bought back for ${cost} gold${automatic ? ' to defend the base' : ''}.` });
     this.recordDecisionFrame();
     return null;
   }
-  private addGold(u: Unit, value: number, farm = false) {
+  private addGold(u: Unit, value: number, farm = false, passive = false) {
+    if(farm&&!passive)value*=this.personal(u).farmGold;
     if (this.rules.enabled && this.clock < u.buybackGoldUntil) {
       if (this.rules.buybackGoldPenalty === 'all') value *= .4;
       else if (farm && this.rules.buybackGoldPenalty === 'farm') value = 0;
@@ -752,7 +918,7 @@ export class LaneBattle {
     if (!this.rules.enabled || this.clock < this.nextDefense) return;
     this.nextDefense = this.clock + 1;
     for (const side of [0, 1] as Side[]) {
-      const buildings = this.units.filter(u => u.team === side && !u.dead && (u.kind === 'tower' || u.kind === 'base'));
+      const buildings = this.units.filter(u => u.team === side && !u.dead && (u.kind === 'tower' || u.kind === 'base' || u.kind === 'barracks'));
       if (this.glyphs[side].auto && !this.glyphReason(side)) {
         const threat = buildings.find(b => this.clock - b.lastDamagedAt <= 3 && b.hp < b.max * (b.kind === 'base' ? .85 : .4));
         if (threat) this.useGlyph(side, true);
@@ -774,11 +940,17 @@ export class LaneBattle {
         const route = this.lanes[lane].map(p => [...p] as Point); if (team) route.reverse();
         const extraMid = this.patch!.year === 2017 && this.patch!.phase === 2 && lane === 1 && clock < 900 ? 1 : 0;
         const types: CreepType[] = [...Array<CreepType>(melee + extraMid).fill('melee'), ...Array<CreepType>(clock >= this.rules.extraRangedAt ? 2 : 1).fill('ranged'), ...Array<CreepType>(siege ? clock >= this.rules.extraSiegeAt ? 2 : 1 : 0).fill('siege')];
-        types.forEach((creepType, i) => this.add({ kind: 'creep', creepType, team, lane, x: route[0][0], y: route[0][1],
-          hp: creepType === 'siege' ? this.rules.siegeHealth : creepType === 'melee' ? 220 + growth * 12 : 140 + growth * 8,
-          damage: creepType === 'siege' ? 18 + growth * 2 : (creepType === 'melee' ? 14 : 18) + growth * 2,
+        const enemyRax=this.units.filter(u=>u.team!==team&&u.kind==='barracks');
+        const mega=enemyRax.length===6&&enemyRax.every(u=>u.dead);
+        types.forEach((creepType, i) => {
+          const upgraded=mega||creepType!=='siege'&&enemyRax.some(u=>u.lane===lane&&u.barracksType===creepType&&u.dead);
+          const boost=mega?2.8:upgraded?1.65:1;
+          this.add({ kind: 'creep', creepType, team, lane, x: route[0][0], y: route[0][1],
+          creepStrength:mega?'mega':upgraded?'super':'normal',
+          hp: (creepType === 'siege' ? this.rules.siegeHealth : creepType === 'melee' ? 220 + growth * 12 : 140 + growth * 8)*boost,
+          damage: (creepType === 'siege' ? 18 + growth * 2 : (creepType === 'melee' ? 14 : 18) + growth * 2)*boost,
           range: creepType === 'siege' ? 115 : creepType === 'ranged' ? 90 : 22,
-          rate: creepType === 'siege' ? 2.7 : .9, speed: 45, route, wait: i * .15 }));
+          rate: creepType === 'siege' ? 2.7 : .9, speed: 45, route, wait: i * .15 });});
       }
       this.nextSpawnClock += 30;
       return;
@@ -806,23 +978,14 @@ export class LaneBattle {
       }
   }
   private canTarget(u: Unit, e: Unit) {
-    if (e.dead || e.team === u.team || e.wait > 0) return false;
-    if (this.rules.enabled && e.kind === 'hero' && !this.visibleEnemies(u.team).includes(e)) return false;
-    if (this.rules.enabled && e.kind === 'tower' && e.tier === 2 && this.units.some(t => t.kind === 'tower' && t.team === e.team && t.lane === e.lane && t.tier === 1 && !t.dead)) return false;
-    // An Ancient is exposed once either lane has lost both towers.
-    if (
-      e.kind === "base" &&
-      [0, 1, 2].every((lane) =>
-        this.units.some(
-          (t) =>
-            t.kind === "tower" &&
-            !t.dead &&
-            t.team === e.team &&
-            t.lane === lane,
-        ),
-      )
-    )
-      return false;
+    if (e.dead || e.team === u.team || e.wait > 0||(e.invulnerableUntil??0)>this.clock) return false;
+    if(this.rules.enabled&&e.kind==='hero'&&!this.canSeeUnit(u.team,e))return false;
+    if(this.rules.enabled){
+      if(e.kind==='tower'&&(e.tier??1)<=3&&this.units.some(t=>t.team===e.team&&t.kind==='tower'&&t.lane===e.lane&&t.tier===(e.tier??1)-1&&!t.dead))return false;
+      if(e.kind==='barracks'&&this.units.some(t=>t.team===e.team&&t.kind==='tower'&&t.lane===e.lane&&t.tier===3&&!t.dead))return false;
+      if(e.kind==='tower'&&e.tier===4&&this.units.filter(t=>t.team===e.team&&t.kind==='tower'&&t.tier===3).every(t=>!t.dead))return false;
+      if(e.kind==='base'&&this.units.some(t=>t.team===e.team&&t.kind==='tower'&&t.tier===4&&!t.dead))return false;
+    }else if(e.kind==='base'&&[0,1,2].every(lane=>this.units.some(t=>t.kind==='tower'&&!t.dead&&t.team===e.team&&t.lane===lane)))return false;
     return true;
   }
   private nearest(u: Unit, radius: number) {
@@ -833,7 +996,7 @@ export class LaneBattle {
       // the current edge-to-edge distance. Preserve tie order and combat RNG.
       const extent = e.kind === "base" ? 26 : e.kind === "hero" ? 10 : 6;
       if (Math.abs(e.x - u.x) > d + extent || Math.abs(e.y - u.y) > d + extent) continue;
-      if (!this.canTarget(u, e)) continue;
+      if (!this.canTarget(u, e)||this.rules.enabled&&!this.canSeeUnit(u.team,e)) continue;
       const gap =
         distance(u, e) - (e.kind === "base" ? 26 : e.kind === "hero" ? 10 : 6);
       if (gap < d) {
@@ -846,16 +1009,24 @@ export class LaneBattle {
   private move(u: Unit, x: number, y: number) {
     if(u.rootUntil>this.clock||u.teleport||u.drain)return;
     if (u.kind === "hero" && this.paths) [x, y] = this.paths.waypoint(u.x, u.y, x, y);
+    if(this.mapEra){
+      const start=nearestWalkablePoint(this.mapEra,u.x,u.y);
+      if(!start)return;
+      if(start.x!==u.x||start.y!==u.y){u.x=start.x;u.y=start.y;}
+      const waypoint=nextWalkableWaypoint(this.mapEra,u,{x,y});
+      if(!waypoint)return;
+      x=waypoint.x;y=waypoint.y;
+    }
     const d = Math.hypot(x - u.x, y - u.y);
     if (d < 1) return;
     const gearSpeed = u.inventory.reduce((sum, id) => sum + (this.item(id).speed ?? 0), 0);
-    const step = Math.min(d, u.speed * (1 + gearSpeed) * this.talents(u).speed * (u.slowUntil>this.clock?1-u.slow:1) * DT);
+    const step = Math.min(d, u.speed * (1 + gearSpeed) * this.talents(u).speed * this.personal(u).speed * (u.slowUntil>this.clock?1-u.slow:1) * DT);
     u.x += ((x - u.x) / d) * step;
     u.y += ((y - u.y) / d) * step;
   }
   private gainXp(u: Unit, value: number) {
     if (!u.player) return;
-    const gain = value * 2.2 * (0.8 + (u.player.skills.farming ?? 70) / 350) * axisFactor(this.patch, "economy", 0.18) * this.talents(u).resources;
+    const gain = value * 2.2 * (this.config.playerControl === 1 ? 1 : 0.8 + this.skill(u,'farming',70) / 350) * axisFactor(this.patch, "economy", 0.18) * this.talents(u).resources * this.personal(u).xp;
     u.experience += gain;
     u.totalXp += gain;
     while (u.level < 25 && u.experience >= 80 * u.level) {
@@ -875,15 +1046,16 @@ export class LaneBattle {
     return u.creepType === 'siege' ? 88 : u.creepType === 'ranged' ? this.patch!.year >= 2018 ? 69 : 90 : this.patch!.year >= 2018 ? 57 : this.patch!.year === 2017 && this.patch!.phase === 2 ? 40 : 45;
   }
   private tryDeny(u: Unit, target?: Unit) {
-    if (!this.rules.enabled || u.cd > 0 || (u.player!.skills.laning ?? 50) < 20) return false;
+    if (!this.rules.enabled || u.cd > 0 || this.config.playerControl !== 1 && this.skill(u,'laning',50) < 20) return false;
+    if (!this.goodDecision(u,'laning','deny')) return false;
     if (target?.kind === 'hero' && target.hp < target.max * .35) return false;
     if (target?.kind === 'creep' && target.hp <= u.damage) return false; // Prefer securing a last hit.
     const creep = this.units.find(c => c.kind === 'creep' && c.team === u.team && !c.dead && c.wait <= 0 && !this.fortified(c)
-      && c.hp <= c.max * .5 && c.hp <= u.damage * (.7 + (u.player!.skills.laning ?? 50) / 150) && distance(c, u) <= u.range + 6
+      && c.hp <= c.max * .5 && c.hp <= u.damage * (this.config.playerControl === 1 ? 1 : (.7 + this.skill(u,'laning',50) / 150) * this.personal(u).deny) && distance(c, u) <= u.range + 6
       && this.visibleEnemies(u.team).some(e => distance(e, c) < 350));
     if (!creep) return false;
     u.cd = u.rate * 100 / (100 + u.agility); u.denies++;
-    creep.dead = true; creep.hp = 0; this.sightCache = [undefined, undefined];
+    creep.dead = true; creep.hp = 0; this.sightCache = [undefined, undefined];this.unitSightTime=-1;
     const xp = this.creepXp(creep);
     const enemies = this.heroes((1 - u.team) as Side).filter(h => !h.dead && distance(h, creep) < 350);
     for (const h of enemies) this.gainXp(h, (this.rules.flatDenyXp ? h.hero!.ranged && this.patch!.year < 2014 ? 18 : 36 : xp * this.rules.denyEnemyXp) / enemies.length);
@@ -894,8 +1066,14 @@ export class LaneBattle {
   }
   private damage(source: Unit, target: Unit, value: number, spell = false, execution = false) {
     if (target.dead || this.winner !== null) return;
+    if(!execution&&(target.invulnerableUntil??0)>this.clock)return;
     if (this.fortified(target)) return;
-    if (this.rules.enabled && (target.kind==='tower'||target.kind==='base') && !this.canTarget(source,target)) return;
+    if (this.rules.enabled && (target.kind==='tower'||target.kind==='base'||target.kind==='barracks') && !this.canTarget(source,target)) return;
+    if(!execution){
+      const personal=this.personal(source);
+      value*=target.kind==='hero'?personal.heroes:target.kind==='creep'?personal.creeps:personal.buildings;
+      if(target.kind==='hero')value*=this.personal(target).incoming;
+    }
     if (this.rules.enabled && spell && target.creepType === 'siege') {
       if (this.patch!.year < 2016) return; // Pre-6.85 catapults were spell immune.
       value *= .2;
@@ -912,14 +1090,15 @@ export class LaneBattle {
       if(!execution&&target.shieldUntil>this.clock && target.shield>0){const absorbed=Math.min(target.shield,value);target.shield-=absorbed;value-=absorbed;}
       if(value>0&&source.team!==target.team&&source.kind==='hero')target.recovery=target.recovery.filter(e=>!['item_flask','item_clarity'].includes(e.key));
     }
-    if (target.kind === "tower" || target.kind === "base") value *= this.talents(source).buildings;
-    if (this.patch && source.player && source.hero && (target.kind === "tower" || target.kind === "base")) {
-      const pushing = source.player.skills.pushing ?? 50;
-      value *= axisFactor(this.patch, "objectives", 0.3) * (0.9 + pushing / 500);
+    if (target.kind === "tower" || target.kind === "base" || target.kind === "barracks") value *= this.talents(source).buildings;
+    if (this.patch && source.player && source.hero && (target.kind === "tower" || target.kind === "base" || target.kind === "barracks")) {
+      const pushing = this.skill(source,'pushing',50);
+      value *= axisFactor(this.patch, "objectives", 0.3) * (this.config.playerControl === 1 ? 1 : 0.9 + pushing / 500);
       const partners = this.units.filter(u => u.kind === "hero" && !u.dead && u.team === source.team && u !== source && distance(u, source) < 200).length;
       if (partners === 0) value *= axisFactor(this.patch, "splitpush", heroTags(source.hero).includes("Pushing") ? 0.35 : 0.18);
     }
     if (this.protectedBuilding(target)) value *= 1 - this.rules.backdoorReduction;
+    if(!execution&&(target.saveUntil??0)>this.clock)value=Math.min(value,Math.max(0,target.hp-1));
     // Count effective damage, excluding overkill. Telemetry never consumes RNG.
     const effective = Math.max(0, Math.min(target.hp, value));
     if (this.protectedBuilding(target)) target.protectedDamage += effective;
@@ -927,7 +1106,7 @@ export class LaneBattle {
     const credited=source.summonOwner!=null?this.units.find(u=>u.id===source.summonOwner):source;
     if (credited?.kind === "hero") {
       if (target.kind === "hero") credited.heroDamage += effective;
-      if (target.kind === "tower" || target.kind === "base") credited.buildingDamage += effective;
+      if (target.kind === "tower" || target.kind === "base" || target.kind === "barracks") credited.buildingDamage += effective;
     }
     target.hp -= value;
     if (credited?.kind === "hero" && target.kind === "hero")
@@ -937,8 +1116,9 @@ export class LaneBattle {
   private die(target: Unit, source: Unit, neutral = false) {
     if (target.dead) return;
     target.dead = true;
+    this.skillCache.clear();
     target.hp = 0;
-    this.sightCache = [undefined, undefined];
+    this.sightCache = [undefined, undefined];this.unitSightTime=-1;
     if (target.kind === "base") {
       this.winner = (1 - target.team) as Side;
       this.matchEvents.add({time:this.clock,kind:'victory',team:this.winner});
@@ -993,39 +1173,39 @@ export class LaneBattle {
           this.addGold(hero, assist * this.economyRules.bountyMultiplier * this.talents(hero).resources);
         }
       target.contributions.clear();
-    } else if (target.kind === "tower") {
+    } else if (target.kind === "tower" || target.kind === "barracks") {
       if (this.rules.enabled) {
         const tier = target.tier ?? 1;
-        const refresh = this.rules.glyphRefresh === 'tier1' ? tier === 1
+        const refresh = target.kind==='barracks'?this.rules.glyphRefresh==='barracks'&&target.barracksType==='melee'&&!this.glyphRefreshes[target.team].has(5):this.rules.glyphRefresh === 'tier1' ? tier === 1
           : this.rules.glyphRefresh === 'tiers' ? tier <= 3 && !this.glyphRefreshes[target.team].has(tier)
           : this.rules.glyphRefresh === 'barracks' ? tier <= 2 && !this.glyphRefreshes[target.team].has(tier) : false;
         if (refresh) {
-          this.glyphRefreshes[target.team].add(tier);
+          this.glyphRefreshes[target.team].add(target.kind==='barracks'?5:tier);
           this.glyphs[target.team].readyAt = Math.min(this.glyphs[target.team].readyAt, this.clock + 1);
-          this.siegeEvents.push({ time: this.clock, team: target.team, kind: 'glyph-refresh', message: `Glyph refreshes after losing a Tier ${tier} tower.` });
+          this.siegeEvents.push({ time: this.clock, team: target.team, kind: 'glyph-refresh', message: target.kind==='barracks'?'Glyph refreshes after losing the first melee barracks.':`Glyph refreshes after losing a Tier ${tier} tower.` });
         }
       }
-      this.matchEvents.add({time:this.clock,kind:'tower',team:source.team,target:`${target.team===0?'Radiant':'Dire'} ${['top','middle','bottom'][target.lane]} tower`});
+      if(target.kind==='tower')this.matchEvents.add({time:this.clock,kind:'tower',team:source.team,target:`${target.team===0?'Radiant':'Dire'} ${['top','middle','bottom'][target.lane]} tower`});
       for (const hero of allies) this.addGold(hero, 150 * this.economyRules.bountyMultiplier * this.talents(hero).resources);
       if (rewardSource.kind === "hero") this.addGold(rewardSource, 75 * this.economyRules.bountyMultiplier * this.talents(rewardSource).resources);
     } else {
       const farmer =
         rewardSource.kind === "hero"
           ? rewardSource
-          : this.rules.enabled ? undefined : allies
+          : this.rules.enabled || this.config.playerControl === 1 ? undefined : allies
               .filter((u) => !u.dead && distance(u, target) < 210)
               .sort(
                 (a, b) =>
-                  (b.player?.skills.farming ?? 50) /
+                  this.skill(b,'farming',50) /
                     Math.max(30, distance(b, target)) -
-                  (a.player?.skills.farming ?? 50) /
+                  this.skill(a,'farming',50) /
                     Math.max(30, distance(a, target)),
               )[0];
       if (farmer) {
         farmer.lastHits++;
         const upgrades=Math.floor(this.clock/450),rules=this.economyRules;
         const bounty=this.patch?rules.creepBase+upgrades*(rules.meleeGrowth*.75+rules.rangedGrowth*.25):35;
-        this.addGold(farmer, (target.creepType === 'siege' ? bounty * 1.5 : bounty) * rules.bountyMultiplier * (0.8 + (farmer.player?.skills.farming ?? 70) / 250) * axisFactor(this.patch, "economy", 0.25) * this.talents(farmer).resources, true);
+        this.addGold(farmer, (target.creepType === 'siege' ? bounty * 1.5 : bounty) * rules.bountyMultiplier * (this.config.playerControl === 1 ? 1 : 0.8 + this.skill(farmer,'farming',70) / 250) * axisFactor(this.patch, "economy", 0.25) * this.talents(farmer).resources, true);
       }
     }
     const xp =
@@ -1039,6 +1219,12 @@ export class LaneBattle {
   }
   private attack(u: Unit, target: Unit) {
     if (u.cd > 0) return;
+    // Good last-hit timing means waiting for a real kill window, not getting
+    // more damage or extra gold from the same hit. Push calls take precedence.
+    if (this.config.playerControl === 1 && u.player && target.kind === 'creep' && target.summonOwner == null
+      && !this.plays[u.team]?.participants.includes(u.id) && target.hp > u.damage && target.hp < u.damage * 2.5
+      && this.units.some(a => a.team === u.team && a.kind === 'creep' && !a.dead && distance(a,target) <= a.range + 10)
+      && this.goodDecision(u,'laning','last-hit-patience')) return;
     const boosted=u.attackBoostUntil>this.clock&&u.attackBoostHits!==0;
     const blood=u.spells.find(s=>s.definition.id==='huskar_berserkers_blood');
     const frenzy=blood?special(blood.definition,abilityRank(blood.definition,u.level,blood.slot),'maximum_attack_speed')*(1-u.hp/u.max)*.5:0;
@@ -1051,22 +1237,22 @@ export class LaneBattle {
     const armor = target.agility / 6+target.inventory.reduce((n,id)=>n+(this.item(id).armor??0),0) - (target.armorUntil>this.clock?target.armorReduction:0);
     let value = u.damage * (1 - (0.06 * armor) / (1 + 0.06 * Math.abs(armor)));
     if (this.rules.enabled && u.creepType === 'siege' && (target.kind === 'tower' || target.kind === 'base')) value *= this.rules.siegeMultiplier;
-    if (u.player && target.kind === "creep")
-      value *= 0.7 + (u.player.skills.laning ?? 70) / 150;
+    if (u.player && target.kind === "creep" && this.config.playerControl !== 1)
+      value *= 0.7 + this.skill(u,'laning',70) / 150;
     if (this.patch && u.player && this.time < 100 && (target.kind === "hero" || target.kind === "creep"))
-      value *= 1 + (this.patch.axes.laning - 50) / 50 * (u.player.skills.laning ?? 50) / 100 * 0.3;
+      value *= 1 + (this.patch.axes.laning - 50) / 50 * (this.config.playerControl === 1 ? .5 : this.skill(u,'laning',50) / 100) * 0.3;
     if(u.summonUntil>this.clock)value*=1.18;
     if(u.buffUntil>this.clock)value*=1.12;
     if(boosted){value*=1+u.attackBoostDamage;if(u.attackBoostHits>0)u.attackBoostHits--;}
     let lifesteal=0;
     // Learned attack passives and purchased items keep distinct effects.
-    for(const state of u.spells)if(state.definition.passive && !(state.definition.siege&& (target.kind==='tower'||target.kind==='base'))){
+    for(const state of u.spells)if(state.definition.passive && !(state.definition.siege&& (target.kind==='tower'||target.kind==='base'||target.kind==='barracks'))){
       const rank=abilityRank(state.definition,u.level,state.slot); if(!rank)continue;
       const effects=spellEffects(state.definition,rank);
       if(this.spellState(u,state).locked||state.definition.id==='axe_counter_helix')continue;
       if(effects.critChance&&this.random()<effects.critChance)value*=Math.max(1,effects.critMultiplier);
       lifesteal=Math.max(lifesteal,effects.lifesteal);
-      if(effects.stackingDamage&&target.kind!=='tower'&&target.kind!=='base'){
+      if(effects.stackingDamage&&target.kind!=='tower'&&target.kind!=='base'&&target.kind!=='barracks'){
         const previous=target.attackStacks[u.id],count=previous&&previous.until>this.clock?Math.min(20,previous.count+1):1;
         target.attackStacks[u.id]={count,until:this.clock+(special(state.definition,rank,'bonus_reset_time')||10)};value+=effects.stackingDamage*.42*count;
       }
@@ -1082,19 +1268,19 @@ export class LaneBattle {
       if(e.manaBurn&&target.kind==='hero'&&target.bkbUntil<=this.clock){const burned=Math.min(target.mana,e.manaBurn);target.mana-=burned;value+=burned*.25;}
     }
     const orb=u.spells.find(s=>s.definition.id==='obsidian_destroyer_arcane_orb');
-    if(orb&&target.kind!=='tower'&&target.kind!=='base'&&u.silenceUntil<=this.clock){
+    if(orb&&target.kind!=='tower'&&target.kind!=='base'&&target.kind!=='barracks'&&u.silenceUntil<=this.clock){
       const rank=abilityRank(orb.definition,u.level,orb.slot),manaCost=u.mana*special(orb.definition,rank,'mana_cost_percentage')/100;
       if(rank&&u.mana>=manaCost&&u.mana>10){value+=u.mana*special(orb.definition,rank,'mana_pool_damage_pct')/100*.42;u.mana-=manaCost;}
     }
     const before=target.hp;
     this.damage(u, target, value);
-    if(lifesteal&&target.kind!=='tower'&&target.kind!=='base')u.hp=Math.min(u.max,u.hp+Math.min(before,Math.max(0,before-target.hp))*lifesteal);
+    if(lifesteal&&target.kind!=='tower'&&target.kind!=='base'&&target.kind!=='barracks')u.hp=Math.min(u.max,u.hp+Math.min(before,Math.max(0,before-target.hp))*lifesteal);
     const helix=target.spells.find(s=>s.definition.id==='axe_counter_helix');
     if(helix&&!target.dead&&helix.readyAt<=this.clock){
       const rank=abilityRank(helix.definition,target.level,helix.slot);
       if(rank&&this.random()<Math.min(.5,(special(helix.definition,rank,'trigger_chance')||20)/100)){
         helix.readyAt=this.clock+.6;
-        for(const enemy of this.units.filter(v=>v.team!==target.team&&!v.dead&&v.kind!=='tower'&&v.kind!=='base'&&distance(v,target)<90))this.damage(target,enemy,spellEffects(helix.definition,rank).damage,true);
+        for(const enemy of this.units.filter(v=>v.team!==target.team&&!v.dead&&v.kind!=='tower'&&v.kind!=='base'&&v.kind!=='barracks'&&distance(v,target)<90))this.damage(target,enemy,spellEffects(helix.definition,rank).damage,true);
       }
     }
     if(u.formUntil>this.clock&&!target.dead)this.dot(u,target,'dragon_corrosion',u.corrosionDps,u.corrosionDuration);
@@ -1103,19 +1289,19 @@ export class LaneBattle {
     const upgrades=u.purchasedItems.includes('shard')?[...u.inventory,'shard']:u.inventory;
     const a=adjustedAbility(state.definition,u.hero!.id,u.level,u.player?.talents,upgrades,this.patch),rank=abilityRank(a,u.level,state.slot);
     const locked=!rank ? 'Not learned' : a.granted && !upgrades.includes(a.granted) ? `Requires Aghanim’s ${a.granted}` : undefined;
-    return {id:a.id,rank,readyAt:state.readyAt,cooldown:rankValue(a.cooldown,rank),manaCost:rankValue(a.mana,rank),lastCastAt:state.lastCastAt,casts:state.casts,passive:a.passive,...(locked?{locked}:{})};
+    return {id:a.id,rank,readyAt:state.readyAt,cooldown:rankValue(a.cooldown,rank),manaCost:rankValue(a.mana,rank)*this.personal(u).manaCost,lastCastAt:state.lastCastAt,casts:state.casts,passive:a.passive,...(locked?{locked}:{})};
   }
   private recordSiegeSpell(u:Unit,state:Unit['spells'][number],a:AbilityDefinition,s:SpellState,target:Unit) {
     const now=this.time*GAME_CLOCK;
     u.mana-=s.manaCost;state.readyAt=now+Math.max(1.2,s.cooldown);state.lastCastAt=now;state.casts++;
-    this.spellCasts.push({time:now,playerId:u.player!.id,heroId:u.hero!.id,team:u.team,abilityId:a.id,targetId:target.id});
+    this.spellCasts.push({time:now,playerId:u.player!.id,heroId:u.hero!.id,team:u.team,abilityId:a.id,targetId:target.id,seenBy:this.pointVisible((1-u.team) as Side,u)?[0,1]:[u.team]});
     this.spellCasts=this.spellCasts.filter(c=>c.time>now-30);
   }
   private castSiege(u:Unit,state:Unit['spells'][number],a:AbilityDefinition,s:SpellState,enemy?:Unit) {
     const effect=a.siege;if(!effect||!this.rules.enabled)return false;
     const now=this.time*GAME_CLOCK;
     const castRange=Math.max(u.range,rankValue(a.range,s.rank)*.22)+(effect.kind==='blast'?rankValue(effect.radius??[],s.rank)*.22:0);
-    const building=this.units.filter(v=>(v.kind==='tower'||v.kind==='base')&&this.canTarget(u,v)&&!this.protectedBuilding(v)&&!this.fortified(v)&&distance(u,v)<=castRange)
+    const building=this.units.filter(v=>(v.kind==='tower'||v.kind==='base'||v.kind==='barracks')&&this.canTarget(u,v)&&this.canSeeUnit(u.team,v)&&!this.protectedBuilding(v)&&!this.fortified(v)&&distance(u,v)<=castRange)
       .sort((a,b)=>distance(a,u)-distance(b,u))[0];
     const target=building??enemy;
     if(!target||target.dead)return false;
@@ -1141,7 +1327,7 @@ export class LaneBattle {
       this.recordSiegeSpell(u,state,a,s,target);return true;
     }
     if(!building)return false;
-    const power=(.7+(u.player?.skills.teamfights??50)/200)*this.talents(u).spells*(1+u.inventory.reduce((n,id)=>n+(this.item(id).spells??0),0));
+    const power=(this.config.playerControl === 1 ? 1 : .7+this.skill(u,'teamfights',50)/200)*this.talents(u).spells * this.personal(u).spells*(1+u.inventory.reduce((n,id)=>n+(this.item(id).spells??0),0));
     if(effect.kind==='blast')this.damage(u,building,spellEffects(a,s.rank).damage*power*(effect.buildingMultiplier??.5),true);
     if(effect.kind==='fire') {
       this.dot(u,building,a.id,spellEffects(a,s.rank).damage*power*(effect.buildingMultiplier??1),rankValue(a.duration,s.rank));
@@ -1161,16 +1347,26 @@ export class LaneBattle {
       if(a.passive||a.siege?.kind==='form'||a.siege?.kind==='range')continue;
       const effects=spellEffects(a,s.rank);
       const allies=this.heroes(u.team).filter(v=>!v.dead && (a.id==='chen_hand_of_god'||distance(v,u)<effects.range));
-      const hurt=allies.filter(v=>v.hp<v.max*.8).sort((a,b)=>a.hp/a.max-b.hp/b.max);
-      const restorative=!a.summon&&(effects.heal>0||effects.shield>0||(effects.healthRegen>0&&!a.toggle)||a.ally);
-      const target=restorative?hurt[0]:enemy;
-      if(!target || !restorative && (target.kind==='tower'||target.kind==='base'||target.dead||distance(u,target)>effects.range))continue;
+      const strongDispel=['abaddon_aphotic_shield','omniknight_repel','omniknight_heavenly_grace','legion_commander_press_the_attack'].includes(a.id);
+      const basicDispel=strongDispel||['oracle_fortunes_end','oracle_false_promise'].includes(a.id);
+      const grave=a.id==='dazzle_shallow_grave';
+      const smart = this.goodDecision(u,'teamfights','spell-target');
+      const hurt=allies.filter(v=>grave?v.hp<v.max*.35&&(v.saveUntil??0)<=now:v.hp<v.max*.8||basicDispel&&(v.stun>0||v.silenceUntil>now||v.rootUntil>now)).sort((a,b)=>smart ? (b.stun>0?1:0)-(a.stun>0?1:0)||a.hp/a.max-b.hp/b.max : distance(a,u)-distance(b,u));
+      const restorative=(grave||strongDispel)||!a.summon&&(effects.heal>0||effects.shield>0||(effects.healthRegen>0&&!a.toggle)||a.ally);
+      const candidates=this.visibleEnemies(u.team).filter(v=>distance(u,v)<=effects.range&&(v.invulnerableUntil??0)<=now);
+      // Interrupt an active channel before spreading more control onto a disabled target.
+      const interrupt=candidates.filter(v=>v.teleport||v.drain).sort((a,b)=>distance(a,u)-distance(b,u))[0];
+      const controlled=!!enemy&&(enemy.stun*GAME_CLOCK>1.4||enemy.rootUntil-now>1.4);
+      const target=restorative?hurt[0]:smart&&effects.control>0&&interrupt?interrupt:smart&&controlled&&effects.control>0?candidates.find(v=>v.stun*GAME_CLOCK<.6&&v.bkbUntil<=now)??enemy:enemy;
+      if(!target || !restorative && (target.kind==='tower'||target.kind==='base'||target.kind==='barracks'||target.dead||distance(u,target)>effects.range))continue;
+      if(!restorative&&target.bkbUntil>now&&effects.control>0&&effects.damage<=0)continue;
+      if(smart&&!restorative&&effects.control>0&&!interrupt&&target.stun*GAME_CLOCK>1.4&&candidates.length>1)continue;
       if(a.ultimate && !restorative && target.kind!=='hero')continue;
       if(a.id==='axe_culling_blade'&&target.hp>effects.damage)continue;
       if(a.id==='antimage_mana_void'&&target.maxMana-target.mana<target.maxMana*.25)continue;
       const partners=this.heroes(u.team).filter(v=>v!==u&&!v.dead&&distance(v,u)<240).length;
       const teamfight=this.patch?1+(this.patch.axes.teamfight-50)/50*Math.min(1,partners/2)*.3:1;
-      const execution=(.7+(u.player?.skills.teamfights??50)/200)*this.talents(u).spells*teamfight;
+      const execution=(this.config.playerControl === 1 ? 1 : .7+this.skill(u,'teamfights',50)/200)*this.talents(u).spells * this.personal(u).spells*teamfight;
       const gear=1+u.inventory.reduce((n,id)=>n+(this.item(id).spells??0),0);
       // Only sourced supported modifiers apply; buying an upgrade does not
       // give every associated spell an unrelated damage/healing multiplier.
@@ -1182,6 +1378,8 @@ export class LaneBattle {
         applied=true;
       }else if(restorative){
         for(const ally of (a.area||a.id==='chen_hand_of_god'?hurt:[target])){
+          if(basicDispel){ally.silenceUntil=0;ally.rootUntil=0;ally.slowUntil=0;ally.armorUntil=0;if(strongDispel)ally.stun=0;this.damageOverTime=this.damageOverTime.filter(e=>e.target!==ally.id);}
+          if(grave)ally.saveUntil=now+effects.duration;
           const heal=Math.min(ally.max-ally.hp,effects.heal*power);ally.hp+=heal;u.healing+=heal;
           if(effects.shield>0){ally.shield=effects.shield*power;ally.shieldUntil=now+effects.duration;}
           if(effects.healthRegen>0)this.addRecovery(ally,u,a.id,effects.duration,effects.healthRegen*.4*power,0);
@@ -1190,7 +1388,7 @@ export class LaneBattle {
         applied=true;
       }else{
         const targets=a.area?this.units.filter(v=>{
-          if(!this.canTarget(u,v)||v.kind==='base'||v.kind==='tower')return false;
+          if(!this.canTarget(u,v)||v.kind==='base'||v.kind==='tower'||v.kind==='barracks')return false;
           if(!a.line)return distance(v,target)<100;
           const dx=target.x-u.x,dy=target.y-u.y,length=Math.hypot(dx,dy)||1;
           const along=((v.x-u.x)*dx+(v.y-u.y)*dy)/length,across=Math.abs((v.x-u.x)*dy-(v.y-u.y)*dx)/length;
@@ -1220,21 +1418,21 @@ export class LaneBattle {
       if(applied){
         u.mana-=s.manaCost;state.readyAt=now+Math.max(1.2,s.cooldown);state.lastCastAt=now;state.casts++;
         if(a.id==='axe_culling_blade'&&target.dead)state.readyAt=now;
-        this.spellCasts.push({time:now,playerId:u.player!.id,heroId:u.hero!.id,team:u.team,abilityId:a.id,targetId:target.id});
+        this.spellCasts.push({time:now,playerId:u.player!.id,heroId:u.hero!.id,team:u.team,abilityId:a.id,targetId:target.id,seenBy:this.pointVisible((1-u.team) as Side,u)?[0,1]:[u.team]});
         // Bounded recent event window is enough for both live and replay HUDs.
-        this.spellCasts=this.spellCasts.filter(c=>c.time>now-30);
+            this.spellCasts=this.spellCasts.filter(c=>c.time>now-30);
         break;
       }
     }
   }
   private cast(u: Unit, target: Unit) {
     if (!u.hero) return;
-    let execution = 0.7 + (u.player?.skills.teamfights ?? 70) / 200;
+    let execution = this.config.playerControl === 1 ? 1 : 0.7 + this.skill(u,'teamfights',70) / 200;
     if (this.patch) {
       const partners = this.units.filter(a => a.kind === "hero" && !a.dead && a.team === u.team && a !== u && distance(a,u) < 240).length;
       execution *= 1 + (this.patch.axes.teamfight - 50) / 50 * Math.min(1, partners / 2) * 0.3;
     }
-    const spellPower = execution * this.talents(u).spells * (1 + u.inventory.reduce((sum, id) => sum + (this.item(id).spells ?? 0), 0));
+    const spellPower = execution * this.talents(u).spells * this.personal(u).spells * (1 + u.inventory.reduce((sum, id) => sum + (this.item(id).spells ?? 0), 0));
     if (u.hero.ability === "nuke")
       this.damage(u, target, (u.damage * 2 + u.level * 8) * spellPower, true);
     else if (u.hero.ability === "stun") {
@@ -1263,22 +1461,24 @@ export class LaneBattle {
   /** Shared, finite camps: clearing costs travel and attack time. No passive farm bonus. */
   private farm(u: Unit): boolean {
     const role = u.player!.role;
-    const inWindow = this.time >= 100 && this.time < 480 && (this.time + role * 7) % 60 < 18;
+    const personal=this.personal(u);
+    const inWindow = this.time >= 100 && this.time < 480 && (this.time + role * 7) % 60 < 18 + personal.farmWindow / GAME_CLOCK;
     if (!inWindow || u.hp < u.max * 0.6 || this.nearest(u, 220)) { u.farmCamp = undefined; return false; }
     let camp = this.camps.find(c => c.id === u.farmCamp && c.readyAt <= this.time);
     if (!camp) {
       const available = this.camps.filter(c => c.readyAt <= this.time && !this.units.some(a => a !== u && !a.dead && a.farmCamp === c.id));
-      camp = available.sort((a,b) => distance(u,a) - distance(u,b))[0];
+      const smart = this.goodDecision(u,'farming','camp-choice');
+      camp = available.sort((a,b) => smart ? distance(u,a) - distance(u,b) : b.hp-a.hp || distance(u,a)-distance(u,b))[0];
       if (!camp || distance(u,camp) > 380) return false;
       u.farmCamp = camp.id;
     }
     if (distance(u,camp) > 40) this.move(u,camp.x,camp.y);
     else if (u.cd <= 0) {
       u.cd = u.rate;
-      camp.hp -= u.damage * (0.8 + (u.player!.skills.farming ?? 50) / 100);
+      camp.hp -= u.damage * (this.config.playerControl === 1 ? 1 : 0.8 + this.skill(u,'farming',50) / 100) * personal.farmSpeed;
       u.hp = Math.max(1, u.hp - 12);
       if (camp.hp <= 0) {
-        this.addGold(u, (95+Math.floor(this.clock/450)*this.economyRules.neutralGrowth*3) * this.economyRules.bountyMultiplier * (0.8 + (u.player!.skills.farming ?? 50) / 250) * axisFactor(this.patch, "economy", 0.25) * this.talents(u).resources, true);
+        this.addGold(u, (95+Math.floor(this.clock/450)*this.economyRules.neutralGrowth*3) * this.economyRules.bountyMultiplier * (this.config.playerControl === 1 ? 1 : 0.8 + this.skill(u,'farming',50) / 250) * axisFactor(this.patch, "economy", 0.25) * this.talents(u).resources, true);
         u.lastHits += 3;
         u.neutralLastHits += 3;
         this.gainXp(u,90);
@@ -1293,12 +1493,94 @@ export class LaneBattle {
   private item(id:ItemId) { return this.itemTable.get(id)!; }
   private heroes(side?: Side) { return this.units.filter(u => u.kind === "hero" && (side === undefined || u.team === side)); }
   private staff(side: Side) { return this.config.patchObservers?.[side]?.staffIds ?? oppositionStaff(this.config.teams[side]); }
-  /** Shared local sight. Orders never inspect enemy inventory, builds or plans. */
+  /** Vision is shared by bots and the managed viewer; hidden orders are never consulted. */
+  private visionSources(side:Side){
+    const night=Math.floor(this.clock/300)%2===1;
+    return [...this.units.filter(u=>u.team===side&&!u.dead&&u.wait<=0).map(u=>{const open=this.mapEra&&(u.kind==='tower'||u.kind==='base'||u.kind==='barracks')?nearestWalkablePoint(this.mapEra,u.x,u.y,24):undefined;return {x:open?.x??u.x,y:open?.y??u.y,
+      radius:u.kind==='hero'?(night?40:90)*this.personal(u).sight:u.kind==='base'?130:u.kind==='creep'?night?40:85:night?u.tier===1?40:55:95};}),
+      ...this.wards.filter(w=>w.team===side&&w.kind==='observer'&&w.expiresAt>this.clock).map(w=>({x:w.x,y:w.y,radius:OBSERVER_VISION_RADIUS}))];
+  }
+  private pointVisible(side:Side,point:{x:number;y:number}){
+    return this.visionSources(side).some(a=>distance(a,point)<=a.radius&&(!this.rules.enabled||hasMapLineOfSight(this.mapEra!,a,point,a.radius)));
+  }
+  private canSeeUnit(side:Side,u:Unit){
+    if(this.unitSightTime!==this.time){this.unitSightTime=this.time;this.unitSight=[new Map(),new Map()];this.cachedSources=[this.visionSources(0),this.visionSources(1)];}
+    const cached=this.unitSight[side].get(u.id);if(cached!==undefined)return cached;
+    const point=this.mapEra&&(u.kind==='tower'||u.kind==='base'||u.kind==='barracks')?nearestWalkablePoint(this.mapEra,u.x,u.y,24)??u:u;
+    const visible=this.cachedSources[side].some(a=>distance(a,point)<=a.radius&&(!this.rules.enabled||hasMapLineOfSight(this.mapEra!,a,point,a.radius)));
+    this.unitSight[side].set(u.id,visible);return visible;
+  }
   private visibleEnemies(side: Side) {
     if(this.sightCache[side])return this.sightCache[side]!;
-    const observers = this.units.filter(u => u.team === side && !u.dead && u.wait <= 0 && (this.rules.enabled || u.kind !== "base"));
-    return this.sightCache[side] = this.heroes((1 - side) as Side).filter(e => !e.dead && observers.some(a => distance(a, e) <= (a.kind === "hero" ? 205 + (a.player!.skills.vision ?? 50) * .65 : a.kind === 'base' ? 240 : 160)
-      && (!this.rules.enabled || e.revealedUntil > this.clock || terrainSight(this.mapEra, a, e))));
+    return this.sightCache[side]=this.heroes((1-side) as Side).filter(e=>!e.dead&&this.canSeeUnit(side,e));
+  }
+  wardReason(side:Side,order:WardOrder):string|null{
+    if(!this.rules.enabled)return 'Wards are unavailable in this legacy match';
+    if(this.winner!==null)return 'The match has ended';
+    if(!order||!['observer','sentry'].includes(order.kind)||!Number.isFinite(order.x)||!Number.isFinite(order.y))return 'Choose a valid ward and map position';
+    const era=this.mapEra!;
+    const margin=era.frontier?frontierMargin:0;
+    if(order.x<-margin||order.y<-margin||order.x>800+margin||order.y>800+margin)return 'Choose a position inside the playable map';
+    const terrainReason=wardPlacementReason(era,order.x,order.y);if(terrainReason)return terrainReason;
+    if(this.wardStocks[side][order.kind]<=0)return 'Team ward stock is empty; wait for restock';
+    const heroes=this.heroes(side).filter(u=>!u.dead&&(!order.playerId||u.player!.id===order.playerId));
+    if(!heroes.length)return 'Choose a living player on your team';
+    const cost=this.wardCost(order.kind);
+    if(!heroes.some(u=>u.gold-u.spent>=cost))return `The ward placer needs ${cost} gold`;
+    return null;
+  }
+  private wardCost(kind:WardOrder['kind']){
+    const item=combatCatalogue(this.patch)?.items[kind==='observer'?'item_ward_observer':'item_ward_sentry'];
+    return Math.max(0,item?.cost??(kind==='observer'?this.patch!.year>=2020?0:50:50));
+  }
+  issueWard(side:Side,order:WardOrder):string|null{
+    const reason=this.wardReason(side,order);if(reason)return reason;
+    const cost=this.wardCost(order.kind);
+    const u=this.heroes(side).filter(u=>!u.dead&&u.gold-u.spent>=cost&&(!order.playerId||u.player!.id===order.playerId))
+      .sort((a,b)=>(a.player!.role<3?500:0)+distance(a,order)-(b.player!.role<3?500:0)-distance(b,order))[0];
+    u.wardOrder={kind:order.kind,x:order.x,y:order.y,playerId:u.player!.id};u.farmCamp=undefined;
+    this.recordDecisionFrame();return null;
+  }
+  private wardAction(u:Unit){
+    const order=u.wardOrder;if(!order)return false;
+    if(u.retreat||u.hp<u.max*.35){u.wardOrder=undefined;return false;}
+    if(distance(u,order)>45){
+      // Supports do not walk through an observed enemy group to finish a ward.
+      if(this.visibleEnemies(u.team).filter(e=>distance(e,order)<130).length>this.heroes(u.team).filter(a=>!a.dead&&distance(a,order)<150).length){u.wardOrder=undefined;return false;}
+      this.move(u,order.x,order.y);return true;
+    }
+    if(this.wardReason(u.team,order)){u.wardOrder=undefined;return false;}
+    const duration=order.kind==='observer'?360:this.patch!.year>=2019?420:240;
+    u.spent+=this.wardCost(order.kind);this.wardStocks[u.team][order.kind]--;
+    this.wards.push({...order,id:++this.wardSerial,team:u.team,placedAt:this.clock,expiresAt:this.clock+duration,playerId:u.player!.id,hp:3});
+    u.wardOrder=undefined;this.sightCache=[undefined,undefined];this.unitSightTime=-1;return true;
+  }
+  private updateWards(){
+    if(!this.rules.enabled)return;
+    this.wards=this.wards.filter(w=>w.expiresAt>this.clock&&w.hp>0);
+    for(const side of [0,1] as Side[]){
+      const stock=this.wardStocks[side];
+      while(this.clock>=stock.observerRestockAt){stock.observer=Math.min(4,stock.observer+1);stock.observerRestockAt+=135;}
+      while(this.clock>=stock.sentryRestockAt){stock.sentry=Math.min(10,stock.sentry+1);stock.sentryRestockAt+=70;}
+      for(const ward of this.wards.filter(w=>w.team!==side)){
+        const detector=this.wards.some(w=>w.team===side&&w.kind==='sentry'&&distance(w,ward)<70);
+        if(!detector||!this.pointVisible(side,ward))continue;
+        const attacker=this.heroes(side).filter(u=>!u.dead&&u.cd<=0&&distance(u,ward)<=Math.max(45,u.range)).sort((a,b)=>b.player!.role-a.player!.role)[0];
+        if(attacker){ward.hp--;attacker.cd=1;if(ward.hp<=0){this.addGold(attacker,ward.kind==='observer'?100:50);this.gainXp(attacker,50);this.sightCache=[undefined,undefined];this.unitSightTime=-1;}}
+      }
+      if(this.clock<this.nextWardDecision[side])continue;
+      this.nextWardDecision[side]=this.clock+65;
+      const support=this.heroes(side).filter(u=>u.player!.role>=3&&!u.dead&&!u.retreat&&!u.wardOrder&&!this.plays[side]?.participants.includes(u.id)).sort((a,b)=>b.player!.role-a.player!.role)[0];
+      if(!support)continue;
+      const lane=this.lanePoint(support.homeLane,side?.58:.42),river=geometryForEra(this.mapEra!).river;
+      const spots=this.clock>900?[{x:this.roshan.x,y:this.roshan.y},...river.map(p=>({x:p[0],y:p[1]}))]:[{x:lane[0],y:lane[1]},...river.map(p=>({x:p[0],y:p[1]}))];
+      const target=spots.filter(p=>!this.wards.some(w=>w.team===side&&w.kind==='observer'&&distance(w,p)<130)&&!this.visibleEnemies(side).some(e=>distance(e,p)<140)).sort((a,b)=>distance(a,support)-distance(b,support))[0];
+      if(target)this.issueWard(side,{...target,kind:'observer',playerId:support.player!.id});
+      else if(stock.sentry>0){const own=this.wards.find(w=>w.team===side&&w.kind==='observer'&&!this.wards.some(s=>s.team===side&&s.kind==='sentry'&&distance(s,w)<70));if(own)this.issueWard(side,{x:own.x,y:own.y,kind:'sentry',playerId:support.player!.id});}
+    }
+  }
+  snapshotForTeam(side:Side):ReplayFrame{
+    return filterReplayFrameForTeam(this.snapshot(),side,this.patch?.id);
   }
   private buildFor(u: Unit) {
     const build=automaticBuild(u.hero!,u.player!.role,this.preparations[u.team].builds[u.player!.role]);
@@ -1377,9 +1659,15 @@ export class LaneBattle {
         u.itemCooldowns.mek = this.clock + 70;
       }
     }
-    if (ready("bkb") && u.hp < u.max * .9 && this.visibleEnemies(u.team).some(e => distance(e,u) < 190)) {
+    const closeEnemies=this.visibleEnemies(u.team).filter(e=>distance(e,u)<160);
+    const disableThreat=closeEnemies.some(e=>e.spells.some(s=>{const r=abilityRank(s.definition,e.level,s.slot);return r>0&&(spellEffects(s.definition,r).control>0||spellEffects(s.definition,r).silence>0);}));
+    if (ready("bkb") && closeEnemies.length && (u.hp < u.max * .9||disableThreat&&this.plays[u.team]?.stage==='engaging')) {
       u.silenceUntil=0;u.rootUntil=0;u.slowUntil=0;
       u.bkbUntil = this.clock + (this.patch && this.patch.year >= 2023 ? 8 : 9); u.itemCooldowns.bkb = this.clock + 90;
+    }
+    if(ready('force')){
+      const endangered=this.heroes(u.team).filter(a=>a!==u&&!a.dead&&a.hp<a.max*.35&&this.clock-a.lastDamagedAt<4&&distance(u,a)<130&&this.visibleEnemies(u.team).some(e=>distance(e,a)<120)).sort((a,b)=>a.hp/a.max-b.hp/b.max)[0];
+      if(endangered){this.displace(endangered,{x:this.bases[u.team][0],y:this.bases[u.team][1]},65);u.itemCooldowns.force=this.clock+45;}
     }
     if (u.retreat && ready("force") && this.clock - u.lastDamagedAt < 8) {
       this.displace(u, {x:this.bases[u.team][0],y:this.bases[u.team][1]}, 65); u.itemCooldowns.force = this.clock + 45;
@@ -1417,20 +1705,22 @@ export class LaneBattle {
   }
   private displace(u: Unit, point: {x:number;y:number}, max: number) {
     const d = distance(u,point); if (!d) return;
-    const f = Math.min(max,d) / d; u.x += (point.x-u.x)*f; u.y += (point.y-u.y)*f;
+    const f = Math.min(max,d) / d,target={x:u.x+(point.x-u.x)*f,y:u.y+(point.y-u.y)*f};
+    const legal=this.mapEra?nextWalkableWaypoint(this.mapEra,u,target):target;
+    if(legal){u.x=legal.x;u.y=legal.y;}
   }
   private logPlay(side: Side, strategyId: string, status: TacticalEvent["status"], message: string, source: "manager" | "bot" = this.plays[side]?.source ?? "bot") {
     this.tacticalEvents.push({time:this.clock,side,strategyId,source,status,message});
   }
   private participants(side: Side, strategy: Strategy) {
-    return this.heroes(side).filter(u => strategy.roles.includes(u.player!.role) && !u.dead && !u.retreat && u.hp >= u.max * .5);
+    return this.heroes(side).filter(u => strategy.roles.includes(u.player!.role) && !u.dead && (strategy.kind==="disengage" || !u.retreat && u.hp >= u.max * .5));
   }
   strategyReason(side: Side, order: TacticalOrder, source: 'manager' | 'bot' = 'manager'): string | null {
     if (this.winner !== null) return "Map complete";
     const strategy = strategyById(order.strategyId);
     if (!strategy || !strategy.phases.includes(phaseAt(this.clock))) return "Unavailable in this phase";
     if (!this.preparations[side].slots[phaseAt(this.clock)].includes(strategy.id)) return "Not equipped in this phase’s quick slots";
-    if (!strategyUnlocked(strategy,this.config.players[side],this.staff(side))) return "Requires specialist staff or a qualifying player trait";
+    if (!strategyUnlocked(strategy,this.config.players[side],this.staff(side),this.config.tacticalUnlocks?.[side])) return `Locked: ${unlockDescription(strategy)}`;
     const cooldown = this.playCooldowns[side][strategy.id] ?? 0;
     if (cooldown > this.clock) return `Ready in ${Math.ceil(cooldown-this.clock)}s`;
     if (strategy.kind === "item") {
@@ -1439,12 +1729,11 @@ export class LaneBattle {
       if(order.targetPlayerId==='all')return targets.some(u=>!this.itemPriorityReason(u,strategy.item!))?null:"No eligible players: everyone owns this item, is already saving for it, or cannot buy it.";
       return this.itemPriorityReason(targets[0],strategy.item!);
     }
-    if (this.plays[side]) return "Finish or cancel the current team movement";
-    if (strategy.kind === "roshan" && this.roshan.respawnAt > this.clock) return `Roshan returns in ${this.roshan.respawnAt-this.clock}s`;
+    if (this.plays[side]&&strategy.kind!=="disengage") return "Finish or cancel the current team movement";
+    if (strategy.kind === "roshan" && this.pointVisible(side,this.roshan) && this.roshan.respawnAt > this.clock) return `Roshan returns in ${this.roshan.respawnAt-this.clock}s`;
     const members = this.participants(side,strategy);
     const flexiblePush = this.rules.enabled && source === 'bot' && strategy.kind === 'push' && strategy.roles.length >= 4;
-    if (members.length < (flexiblePush ? Math.ceil(strategy.roles.length * .6) : strategy.roles.length)) return "Required players must be alive, recovered and not retreating";
-    if (strategy.id.startsWith("push-") && !this.units.some(u => u.kind === "tower" && u.team !== side && u.lane === strategy.lane && !u.dead)) return "Both towers in this lane are already destroyed";
+    if (strategy.kind!=="disengage"&&members.length < (flexiblePush ? Math.ceil(strategy.roles.length * .6) : strategy.roles.length)) return "Required players must be alive, recovered and not retreating";
     if (strategy.kind === "protect" && !this.heroes(side).some(u => u.player!.role === 0 && !u.dead)) return "Carry is dead";
     return null;
   }
@@ -1461,20 +1750,22 @@ export class LaneBattle {
       return {accepted:true,reason:null};
     }
     const members = this.participants(side,strategy);
+    if(strategy.kind==="disengage"&&this.plays[side])this.cancelOrder(side);
     let lane = strategy.lane ?? 1;
     if (strategy.id === "help-losing") lane = [0,2].sort((a,b) => this.lanePressure(side,b) - this.lanePressure(side,a))[0];
     if (strategy.id === "split-push") {
       const seen = this.visibleEnemies(side);
       lane = [0,1,2].sort((a,b) => seen.filter(e=>e.homeLane===a).length - seen.filter(e=>e.homeLane===b).length)[0];
     }
+    if(strategy.id==="defend-together")lane=[0,1,2].sort((a,b)=>this.lanePressure(side,b)-this.lanePressure(side,a))[0];
     if (strategy.id === "high-ground") lane = [0,1,2].sort((a,b) => this.units.filter(u=>u.team!==side&&u.kind==="tower"&&!u.dead&&u.lane===a).length-this.units.filter(u=>u.team!==side&&u.kind==="tower"&&!u.dead&&u.lane===b).length)[0];
-    const target = strategy.kind === "push" ? this.units.filter(u => u.team !== side && u.kind === "tower" && u.lane === lane && !u.dead).sort((a,b)=>distance(a,{x:this.bases[side][0],y:this.bases[side][1]})-distance(b,{x:this.bases[side][0],y:this.bases[side][1]}))[0]
-      ?? this.units.find(u => u.team !== side && u.kind === "base") : undefined;
+    const target = strategy.kind==='push'?this.nextPushTarget(side,lane)
+      :strategy.kind==='defend'||strategy.kind==='disengage'?this.units.filter(u=>u.team===side&&u.kind==='tower'&&u.lane===lane&&!u.dead).sort((a,b)=>distance(b,{x:this.bases[side][0],y:this.bases[side][1]})-distance(a,{x:this.bases[side][0],y:this.bases[side][1]}))[0]??this.units.find(u=>u.team===side&&u.kind==='base'):undefined;
     const lead = members.find(u=>u.player!.role===2) ?? members[0];
     this.plays[side] = {id:++this.playSerial,strategyId:strategy.id,side,source,participants:members.map(u=>u.id),targetLane:lane,targetUnit:target?.id,
-      stage:"assembling",startedAt:this.clock,expiresAt:this.clock+(strategy.kind==="gank"?150:strategy.kind==="protect"?90:300),
+      stage:strategy.kind==="disengage"?"moving":"assembling",startedAt:this.clock,expiresAt:this.clock+(strategy.kind==="gank"?150:strategy.kind==="protect"?90:strategy.kind==="disengage"?60:300),
       baselineInvolvement:members.reduce((n,u)=>n+u.kills+u.assists,0),rally:{x:lead.x,y:lead.y}};
-    for(const u of members)u.farmCamp=undefined;
+    for(const u of members){u.farmCamp=undefined;u.wardOrder=undefined;if(strategy.kind==="disengage")u.retreat=false;}
     this.logPlay(side,strategy.id,"called",`${strategy.name}: ${members.map(u=>u.player!.name).join(", ")} assembling.`,source);
     return {accepted:true,reason:null};
   }
@@ -1487,6 +1778,13 @@ export class LaneBattle {
     const u = this.heroes(side).find(h=>h.player!.id===playerId); if (!u?.itemPriority) return;
     this.logPlay(side,u.itemPriority==="bkb"?"buy-bkb":"buy-rapier","cancelled",`${u.player!.name} resumes the normal item build.`,"manager"); u.itemPriority=undefined;
   }
+  private nextPushTarget(side:Side,lane:number){
+    const enemy=this.units.filter(u=>u.team!==side&&!u.dead);
+    return enemy.filter(u=>u.kind==='tower'&&u.lane===lane&&(u.tier??1)<=3).sort((a,b)=>(a.tier??1)-(b.tier??1))[0]
+      ??enemy.find(u=>u.kind==='barracks'&&u.lane===lane)
+      ??enemy.find(u=>u.kind==='tower'&&u.tier===4)
+      ??enemy.find(u=>u.kind==='base');
+  }
   private lanePressure(side: Side, lane: number) {
     return this.heroes(side).filter(u=>u.homeLane===lane).reduce((n,u)=>n+u.deaths*3-u.kills,0)
       + this.units.filter(u=>u.kind==="tower"&&u.team===side&&u.lane===lane&&u.dead).length*4;
@@ -1494,6 +1792,7 @@ export class LaneBattle {
   private endPlay(side: Side, success: boolean, message: string) {
     const play=this.plays[side]!;
     this.logPlay(side,play.strategyId,success?"completed":"abandoned",message);
+    if(strategyById(play.strategyId)?.kind==="farm")for(const u of this.heroes(side))u.lane=u.homeLane;
     this.playCooldowns[side][play.strategyId]=this.clock+90; this.plays[side]=undefined;
   }
   private updatePlans() {
@@ -1502,7 +1801,7 @@ export class LaneBattle {
       if (play) {
         const strategy = strategyById(play.strategyId)!;
         const members = this.heroes(side).filter(u=>play.participants.includes(u.id));
-        const available=members.filter(u=>!u.dead&&!u.retreat);
+        const available=members.filter(u=>!u.dead&&(strategy.kind==="disengage"||!u.retreat));
         const target=this.units.find(u=>u.id===play.targetUnit);
         if (strategy.kind==="push"&&target?.dead) this.endPlay(side,true,"Target building destroyed. Players resume their lanes.");
         else if (strategy.kind==="gank"&&members.reduce((n,u)=>n+u.kills+u.assists,0)>play.baselineInvolvement) this.endPlay(side,true,"The rotation contributed to a hero kill. Players return to normal duties.");
@@ -1510,13 +1809,13 @@ export class LaneBattle {
         else if (available.length < Math.ceil(members.length*.6)) this.endPlay(side,false,"Too many participants died or needed to retreat. Regrouping.");
         else if (this.clock>=play.expiresAt) this.endPlay(side,strategy.kind==="protect",strategy.kind==="protect"?"Escort completed. Supports resume normal duties.":"No safe conversion before the play expired. Farm and travel time were spent.");
         else if (play.stage==="assembling") {
-          const avg = members.reduce((n,u)=>n+(u.player!.skills.teamfights??50),0)/members.length;
+          const avg = members.reduce((n,u)=>n+this.skill(u,'teamfights',50),0)/members.length;
           const ready = this.clock-play.startedAt>=8+(100-avg)*.12 && (available.every(u=>distance(u,play.rally)<135)||this.clock-play.startedAt>=40);
           if(ready){play.stage="moving";this.logPlay(side,play.strategyId,"moving","Players are rotating toward the objective.");}
         }
       }
       if (this.clock<this.nextDecision[side]) continue;
-      const avg=this.config.players[side].reduce((n,p)=>n+(p.skills.intuition??50),0)/5;
+      const avg=this.heroes(side).reduce((n,u)=>n+this.skill(u,'intuition',50),0)/5;
       this.nextDecision[side]=this.clock+55+(100-avg)*.25;
       // Autonomous teams can only choose their own equipped, unlocked calls.
       const choices=this.preparations[side].slots[phaseAt(this.clock)].map(strategyById).filter((s):s is Strategy=>!!s);
@@ -1539,19 +1838,31 @@ export class LaneBattle {
   private tacticalAction(u: Unit): boolean {
     const play=this.plays[u.team]; if(!play?.participants.includes(u.id))return false;
     const strategy=strategyById(play.strategyId)!;
+    if(strategy.kind==='disengage'){
+      const target=this.units.find(v=>v.id===play.targetUnit&&!v.dead)??this.units.find(v=>v.team===u.team&&v.kind==='base')!;
+      this.move(u,target.x,target.y);return true;
+    }
     const seen=this.visibleEnemies(u.team).filter(e=>distance(e,u)<230);
     const friends=this.heroes(u.team).filter(a=>!a.dead&&distance(a,u)<230);
-    if(seen.length>friends.length+1&&(u.player!.skills.intuition??50)>=25){u.retreat=true;u.regroupUntil=this.clock+12;return false;}
+    if(seen.length>friends.length+1&&this.skill(u,'intuition',50)>=25){u.retreat=true;u.regroupUntil=this.clock+12;return false;}
     // Local threats interrupt movement; generic combat below resolves the fight.
     if(this.nearest(u,u.range+55)?.kind==="hero" || this.rules.enabled && seen.some(e=>distance(e,u)<=u.range+55))return false;
     let point=play.rally;
     if(play.stage!=="assembling") {
       const target=this.units.find(a=>a.id===play.targetUnit);
-      if(strategy.kind==="roshan")point=this.roshan;
+      if(strategy.kind==='farm'){
+        const carry=this.heroes(u.team).find(a=>a.player!.role===0&&!a.dead);
+        const p=this.lanePoint(play.targetLane,u.team?.6:.4);
+        if(u.player!.role!==0&&carry){if(distance(u,carry)>100){this.move(u,carry.x,carry.y);return true;}return false;}
+        u.lane=play.targetLane;
+        if(distance(u,{x:p[0],y:p[1]})>100){this.move(u,p[0],p[1]);return true;}return false;
+      }
+      if(strategy.kind==="defend"&&target)point=target;
+      else if(strategy.kind==="roshan")point=this.roshan;
       else if(strategy.kind==="protect")point=this.heroes(u.team).find(a=>a.player!.role===0)!;
       else if(target) {
         const wave=this.units.filter(c=>c.kind==="creep"&&c.summonOwner==null&&c.team===u.team&&!c.dead&&c.lane===play.targetLane&&c.wait<=0).sort((a,b)=>distance(a,target)-distance(b,target))[0];
-        const openSiege=this.rules.enabled&&(target.kind==='base'||target.tier===2)&&!this.protectedBuilding(target)&&!this.fortified(target);
+        const openSiege=this.rules.enabled&&(target.kind==='base'||target.kind==='barracks'||(target.tier??1)>=2)&&!this.protectedBuilding(target)&&!this.fortified(target);
         point=openSiege?target:wave&&distance(wave,target)>190?wave:target;
       }else {
         const enemy=seen.filter(e=>e.homeLane===play.targetLane).sort((a,b)=>distance(a,u)-distance(b,u))[0];
@@ -1584,6 +1895,19 @@ export class LaneBattle {
     }
     this.move(u,point.x,point.y);return true;
   }
+  private facetAction(u:Unit):boolean {
+    if(!playerIdentityEra(this.patch).facets||u.player?.identity?.facet==null||u.player.role<3||this.plays[u.team]?.participants.includes(u.id))return false;
+    const enemies=this.visibleEnemies(u.team);
+    if(enemies.some(e=>distance(e,u)<=u.range+40))return false;
+    if(u.player.identity.facet===0){
+      const carry=this.heroes(u.team).find(a=>a.player!.role===0&&!a.dead);
+      if(carry&&distance(carry,u)>130){this.move(u,carry.x,carry.y);return true;}
+    }else{
+      const opening=enemies.filter(e=>distance(e,u)<360&&this.heroes(u.team).some(a=>a!==u&&!a.dead&&distance(a,e)<220)).sort((a,b)=>distance(a,u)-distance(b,u))[0];
+      if(opening&&distance(opening,u)>u.range+40){this.move(u,opening.x,opening.y);return true;}
+    }
+    return false;
+  }
   tacticalSnapshot(side: Side, targetPlayerId?: string): TacticalSnapshot {
     const phase=phaseAt(this.clock);
     return {phase,slots:this.preparations[side].slots[phase].map(strategyId=>({strategyId,reason:this.strategyReason(side,{strategyId,targetPlayerId})})),
@@ -1593,7 +1917,7 @@ export class LaneBattle {
   step() {
     if (this.winner !== null) return; // Team zero is a valid winner.
     this.time += DT;
-    this.sightCache = [undefined, undefined];
+    this.sightCache = [undefined, undefined];this.unitSightTime=-1;
     if(!this.roshan.respawnAt&&this.clock-this.roshanDamagedAt>20)this.roshan.hp=Math.min(this.roshan.max,this.roshan.hp+this.roshan.max*.02*DT);
     if(this.roshan.respawnAt&&this.roshan.respawnAt<=this.clock){this.roshan.max=4800+this.clock;this.roshan.hp=this.roshan.max;this.roshan.respawnAt=0;}
     // Two-pit eras: Roshan changes pit with day and night, never mid-fight.
@@ -1606,6 +1930,7 @@ export class LaneBattle {
       this.nextWave += 25;
       this.spawn();
     }
+    this.updateWards();
     this.updateBackdoor();
     this.updateDots();
     this.defendObjectives();
@@ -1613,7 +1938,7 @@ export class LaneBattle {
       if (this.winner !== null) break;
       if (u.kind === "hero") {
         this.addGold(u,
-          DT * GAME_CLOCK * (this.patch?this.economyRules.passiveGoldPerMinute/60:(0.8 + (u.player?.skills.farming ?? 70) / 100)) * axisFactor(this.patch, "economy", 0.25) * this.talents(u).resources, true);
+          DT * GAME_CLOCK * (this.patch?this.economyRules.passiveGoldPerMinute/60:(this.config.playerControl === 1 ? 1.3 : 0.8 + this.skill(u,'farming',70) / 100)) * axisFactor(this.patch, "economy", 0.25) * this.talents(u).resources, true, true);
       }
       if (u.dead) {
         if (u.kind === "hero") {
@@ -1624,6 +1949,7 @@ export class LaneBattle {
             u.mana=u.maxMana;
             u.x = u.reviveAt?.[0] ?? this.bases[u.team][0];
             u.y = u.reviveAt?.[1] ?? this.bases[u.team][1];
+            if(this.mapEra){const open=nearestWalkablePoint(this.mapEra,u.x,u.y);if(open){u.x=open.x;u.y=open.y;}}
             u.reviveAt = undefined;
             u.retreat = false;
             u.contributions.clear();
@@ -1647,7 +1973,10 @@ export class LaneBattle {
         u.stun -= DT;
         continue;
       }
-      if (u.kind === "base") continue;
+      if (u.kind === "base" || u.kind === "barracks") {
+        if(u.kind==="barracks"&&u.barracksType==="melee")u.hp=Math.min(u.max,u.hp+2*DT);
+        continue;
+      }
       if (u.kind === "tower") {
         const target = this.nearest(u, u.range);
         if (target) {
@@ -1665,7 +1994,7 @@ export class LaneBattle {
       }
       if (u.kind === "creep") {
         if(u.summonOwner!=null){
-          const building=this.units.filter(v=>(v.kind==='tower'||v.kind==='base')&&this.canTarget(u,v)&&distance(u,v)<=u.range).sort((a,b)=>distance(u,a)-distance(u,b))[0];
+          const building=this.units.filter(v=>(v.kind==='tower'||v.kind==='base'||v.kind==='barracks')&&this.canTarget(u,v)&&this.canSeeUnit(u.team,v)&&distance(u,v)<=u.range).sort((a,b)=>distance(u,a)-distance(u,b))[0];
           const target=building??this.nearest(u,u.range);if(target)this.attack(u,target);
           continue;
         }
@@ -1690,33 +2019,50 @@ export class LaneBattle {
       }
       const home = { x: this.bases[u.team][0], y: this.bases[u.team][1] };
       this.useItems(u);
+      if(this.wardAction(u))continue;
       if(u.spells.length){
-        this.castNamed(u,this.nearest(u,300));
+        if(this.readySpellDecision(u))this.castNamed(u,this.nearest(u,300));
       }
       if(!this.patch)u.hp = Math.min(
         u.max,
         u.hp +
           (distance(u, home) < 100 ? u.max * 0.12 : (2 + 0.1 * u.strength) * (u.inventory.includes("heart") && this.clock-u.lastDamagedAt>12?1.3:1)) * DT,
       );
-      if (u.hp < u.max * (0.24 + (u.player?.skills.intuition ?? 70) / 1000))
+      const personal=this.personal(u);
+      if (u.hp < u.max * limit(0.24 + this.skill(u,'intuition',70) / 1000 + personal.retreat,.15,.5))
         u.retreat = true;
       if (u.hp > u.max * 0.85 && this.clock >= u.regroupUntil) u.retreat = false;
       const enemies = this.visibleEnemies(u.team).filter(e=>distance(e,u)<220);
       const partners = this.heroes(u.team).filter(a=>!a.dead&&distance(a,u)<220);
-      if(enemies.length > partners.length + 1 && (u.player!.skills.intuition??50)>=25) {u.retreat=true;u.regroupUntil=this.clock+12;}
+      if(enemies.length > partners.length + 1 && this.skill(u,'intuition',50)>=25) {u.retreat=true;u.regroupUntil=this.clock+12;}
+      if(this.plays[u.team]&&strategyById(this.plays[u.team]!.strategyId)?.kind==="disengage"&&this.tacticalAction(u))continue;
       if (u.retreat) {
         u.farmCamp = undefined;
         this.move(u, home.x, home.y);
         continue;
       }
-      const awareness = this.patch ? (this.patch.axes.vision - 50) / 50 * ((u.player?.skills.vision ?? 50) + (u.player?.skills.intuition ?? 50)) / 200 * 65 : 0;
+      const awareness = this.patch ? (this.patch.axes.vision - 50) / 50 * (this.skill(u,'vision',50) + this.skill(u,'intuition',50)) / 200 * 65 : 0;
       if(this.tacticalAction(u))continue;
+      if(this.facetAction(u))continue;
       if (this.camps.length && this.farm(u)) continue;
       let target = this.nearest(u, u.range + 60 + awareness);
+      if(personal.engage){
+        const opening=this.visibleEnemies(u.team).filter(e=>distance(e,u)<=u.range+60+awareness+personal.engage).sort((a,b)=>distance(a,u)-distance(b,u))[0];
+        if(personal.engage>0&&opening)target=opening;
+        else if(personal.engage<0&&target?.kind==='hero'&&distance(target,u)>u.range+60+awareness+personal.engage)target=undefined;
+      }
       // Players recognize nearby opportunities; farming cores finish an easy
       // last hit, while skirmish skill helps identify a vulnerable visible hero.
-      const vulnerable=enemies.filter(e=>distance(e,u)<u.range+45&&e.hp<e.max*(.3+(u.player!.skills.skirmish??50)/500)).sort((a,b)=>a.hp/a.max-b.hp/b.max)[0];
+      const vulnerable=enemies.filter(e=>distance(e,u)<u.range+45&&e.hp<e.max*(.3+this.skill(u,'skirmish',50)/500)).sort((a,b)=>a.hp/a.max-b.hp/b.max)[0];
       if(vulnerable)target=vulnerable;
+      if (this.config.playerControl === 1 && !this.plays[u.team]?.participants.includes(u.id)
+        && !vulnerable && partners.length >= enemies.length && this.goodDecision(u,'pushing','siege-window')) {
+        const open = this.units.filter(b => (b.kind==='tower'||b.kind==='barracks'||b.kind==='base') && this.canTarget(u,b)
+          && this.canSeeUnit(u.team,b) && !this.protectedBuilding(b) && !this.fortified(b) && distance(u,b)<u.range+45
+          && this.units.some(c=>c.kind==='creep'&&c.team===u.team&&!c.dead&&distance(c,b)<150))
+          .sort((a,b)=>distance(u,a)-distance(u,b))[0];
+        if(open)target=open;
+      }
       // A committed push must contest its defenders rather than permanently
       // farming the nearest creep while both teams replace the wave forever.
       const commitment = this.plays[u.team];
@@ -1731,6 +2077,18 @@ export class LaneBattle {
         const finish=objective?.kind==='base'&&objective.hp<objective.max*.2;
         if(objective&&(finish||!vulnerable&&partners.length>=enemies.length)&&this.canTarget(u,objective)&&!this.protectedBuilding(objective)&&!this.fortified(objective)&&distance(u,objective)<=u.range+(objective.kind==='base'?26:10))target=objective;
       }
+      if (this.config.playerControl === 1 && !commitment?.participants.includes(u.id)) {
+        if (this.clock < u.nextTargetDecisionAt) {
+          target = this.units.find(e => e.id === u.controllerTarget && !e.dead && this.canTarget(u,e) && this.canSeeUnit(u.team,e) && distance(u,e) < 400);
+        } else {
+          if (target?.kind !== 'hero' && this.goodDecision(u,'farming','last-hit-target')) {
+            target = this.units.filter(e => e.team !== u.team && e.kind === 'creep' && !e.dead && e.hp <= u.damage
+              && distance(e,u) <= u.range + 10 && this.canTarget(u,e) && this.canSeeUnit(u.team,e)).sort((a,b)=>a.hp-b.hp)[0] ?? target;
+          }
+          u.controllerTarget = target?.id;
+          u.nextTargetDecisionAt = this.clock + this.reaction(u,target?.kind === 'hero' ? 'skirmish' : 'laning','target-reaction');
+        }
+      }
       if (this.tryDeny(u, target)) continue;
       if (target && this.rules.enabled && this.protectedBuilding(target) && !enemies.length) {
         const wave = this.units.filter(c => c.kind === 'creep' && c.summonOwner==null && c.team === u.team && c.lane === target!.lane && !c.dead && c.wait <= 0).sort((a,b) => distance(a,target!)-distance(b,target!))[0];
@@ -1740,7 +2098,7 @@ export class LaneBattle {
         this.move(u,home.x,home.y);continue;
       }
       if (target) {
-        if (!u.spells.length && u.abilityCd <= 0 && distance(u, target) < u.range + 30)
+        if (!u.spells.length && u.abilityCd <= 0 && distance(u, target) < u.range + 30 && this.readySpellDecision(u))
           this.cast(u, target);
         if (!target.dead) {
           if (
@@ -1782,7 +2140,7 @@ export class LaneBattle {
     }
     this.units = this.units.filter(
       (u) =>
-        !u.dead || u.kind === "hero" || u.kind === "base" || u.kind === "tower",
+        !u.dead || u.kind === "hero" || u.kind === "base" || u.kind === "tower" || u.kind === "barracks",
     );
     // Only unpatched legacy preparations retain the original overtime rule.
     if (!this.rules.enabled && this.time > 540 && this.winner === null) {
@@ -1842,6 +2200,7 @@ export class LaneBattle {
         player: u.player!.name,
         heroId: u.hero!.id,
         hero: u.hero!.name,
+        ...(u.player!.heroMastery?.[u.hero!.id] != null ? { heroMastery: { rating: u.player!.heroMastery[u.hero!.id], skillBonus: this.config.playerControl === 1 ? 0 : masterySkillBonus(u.player!.heroMastery[u.hero!.id]), ...(this.config.playerControl === 1 ? {decisionOnly:true} : {}) } } : {}),
         team: u.team,
         role: u.player!.role,
         level: u.level,
@@ -1866,6 +2225,8 @@ export class LaneBattle {
         healing: Math.round(u.healing),
         ...(this.camps.length ? { neutralLastHits: u.neutralLastHits } : {}),
         ...(talentsEnabled(this.patch) ? { talents: Object.fromEntries(Object.entries(u.player!.talents ?? {}).filter(([level]) => u.level >= Number(level))) as TalentPlan } : {}),
+        ...(u.player!.identity&&(talentsEnabled(this.patch)||playerIdentityEra(this.patch).innates)?{playerIdentity:playerIdentitySnapshot(u.player!.identity,u.player!.role,this.patch,u.player!.talents,u.level)}:{}),
+        ...(playerIdentityEra(this.patch).innates?{playerSkillModifiers:this.skillContributions(u)}:{}),
         ...(u.laneOutcome ? { laneOutcome: u.laneOutcome } : {}),
       }));
   }
@@ -1901,13 +2262,13 @@ export class LaneBattle {
   }
   /** Read-only live frame: observing a match never consumes RNG or advances it. */
   snapshot(): ReplayFrame {
-    return { time:this.clock,matchEvents:this.matchEvents.recent(this.clock),kills:[...this.kills],players:this.score(true),roshan:{...this.roshan,hp:Math.max(0,Math.round(this.roshan.hp)),kills:[...this.roshan.kills]},
+    return { time:this.clock,...(this.rules.enabled?{structureLoop:true,teamVisionSources:[this.visionSources(0),this.visionSources(1)] as [{x:number;y:number;radius:number}[],{x:number;y:number;radius:number}[]],wardOrders:this.heroes().filter(u=>u.wardOrder).map(u=>({...u.wardOrder!,playerId:u.player!.id})),wards:this.wards.map(w=>({...w})),wardStocks:this.wardStocks.map(w=>({...w})) as [WardStock,WardStock]}:{}),matchEvents:this.matchEvents.recent(this.clock),kills:[...this.kills],players:this.score(true),roshan:{...this.roshan,hp:Math.max(0,Math.round(this.roshan.hp)),kills:[...this.roshan.kills]},
       ...(this.rules.enabled ? { glyphs: this.glyphs.map(g => ({...g})) as [GlyphState, GlyphState], siegeEvents: this.siegeEvents.filter(e => e.time >= this.clock - 90).map(e => ({...e})) } : {}),
       ...(this.patch?{spellCasts:this.spellCasts.filter(c=>c.time>this.clock-30).map(c=>({...c}))}:{}),
       droppedItems:this.droppedItems.map(d=>({...d})),
       ...(this.camps.length?{camps:this.camps.map(c=>({...c,readyAt:Math.round(c.readyAt*GAME_CLOCK)}))}:{}),
-      units:this.units.filter(u=>u.wait<=0).map(u=>({id:u.id,kind:u.kind,team:u.team,x:Math.round(u.x),y:Math.round(u.y),hp:Math.round(u.hp),max:Math.round(u.max),...(u.kind==="tower"?{lane:u.lane,tier:this.mapEra?u.tier:undefined}:{}),
-        ...(this.rules.enabled ? { ...(u.creepType ? {creepType:u.creepType} : {}), ...(!u.dead && (u.kind==='tower'||u.kind==='base') ? { backdoor:this.protectedBuilding(u), fortified:this.fortified(u) } : {}) } : {}),
+      units:this.units.filter(u=>u.wait<=0).map(u=>({id:u.id,kind:u.kind,team:u.team,x:Math.round(u.x),y:Math.round(u.y),hp:Math.round(u.hp),max:Math.round(u.max),...((u.kind==="tower"||u.kind==="barracks")?{lane:u.lane,tier:this.mapEra?u.tier:undefined,barracksType:u.barracksType}:{}),...(u.creepStrength?{creepStrength:u.creepStrength}:{}),
+        ...(this.rules.enabled ? { ...(u.creepType ? {creepType:u.creepType} : {}), ...(!u.dead && (u.kind==='tower'||u.kind==='base'||u.kind==='barracks') ? { backdoor:this.protectedBuilding(u), fortified:this.fortified(u) } : {}) } : {}),
         name:u.hero?.name??u.summonName??(u.creepType?`${u.creepType} creep`:u.kind),...(u.hero?{heroId:u.hero.id,playerId:u.player!.id,...(u.dead?{respawnAt:this.time*GAME_CLOCK+Math.max(0,u.respawn)*GAME_CLOCK}:{})}:{})})) };
   }
   run() {

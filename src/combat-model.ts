@@ -2,7 +2,7 @@ import raw from './data/combat-history.json';
 import type { SeasonPatch } from './patches';
 import type { TalentPlan } from './talents';
 
-export const COMBAT_MODEL_VERSION = 'identity-resources-tp-v3-siege';
+export const COMBAT_MODEL_VERSION = 'identity-resources-tp-v4-saves-control';
 export interface AbilityDefinition {
   siege?: { kind: 'range' | 'blast' | 'fire' | 'form' | 'wards'; rangeBonus?: number[]; activeRangeBonus?: number[];
     buildingMultiplier?: number; radius?: number[]; attackSlow?: number[]; dot?: number[]; dotDuration?: number[];
@@ -96,7 +96,7 @@ export interface SpellState {
   id: string; rank: number; readyAt: number; cooldown: number; manaCost: number;
   lastCastAt?: number; casts: number; passive: boolean; locked?: string;
 }
-export interface SpellCast { time: number; playerId: string; heroId: string; team: 0 | 1; abilityId: string; targetId?: number }
+export interface SpellCast { seenBy?: (0|1)[]; time: number; playerId: string; heroId: string; team: 0 | 1; abilityId: string; targetId?: number }
 
 /** Source facts drive bounded effects in the small lane engine. Values are
  * scaled to its HP/map; cooldown and mana stay in Dota clock units. */
@@ -128,6 +128,11 @@ export function spellEffects(a: AbilityDefinition, rank: number) {
 export function abilitySummary(a: AbilityDefinition, rank = 1): string {
   const e=spellEffects(a,Math.max(1,rank));
   const unique: Record<string,string> = {
+    dazzle_shallow_grave:'Prevents an endangered ally from falling below 1 HP for its duration; execution bypasses the save.',
+    abaddon_aphotic_shield:'Strongly dispels an endangered ally and grants the sourced damage shield. Explosion damage is not simulated.',
+    omniknight_repel:'Dispels disables from an endangered ally; other protection follows the era�s recovered values.',
+    omniknight_heavenly_grace:'Strongly dispels an endangered ally and applies its recovered recovery values.',
+    legion_commander_press_the_attack:'Strongly dispels an endangered ally and applies its recovered recovery values.',
     antimage_mana_void:'Blasts enemies around a target for damage based on that target’s missing mana.',
     axe_culling_blade:'Finishes a hero below the scaled damage threshold; a successful execution resets its cooldown.',
     axe_counter_helix:'Chance to counterattack nearby enemies when struck.',

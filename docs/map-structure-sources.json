@@ -1,0 +1,46 @@
+{
+  "retrievedOn": "2026-10-26",
+  "coordinates": "Original world coordinates; transform x/20+400,400-y/20. 22 towers,12 barracks,2 Ancients per era.",
+  "sources": [
+    {
+      "era": "700",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/518692e3dcc25efcbdcbe94163b77658bd94a88c/data/mapdata.json",
+      "sha256": "db60fa6310d7a4b23aaa2290ab65e39ac62ed0752b743099d27349e4d834d3f6"
+    },
+    {
+      "era": "707",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/ced5c8805673901d919f70c57ed695cc87244b82/mapdata.json",
+      "sha256": "63b3d85cb94219d38eb36bd9032fcc4c22ba18135e6dd4bcf14251cce34f6c95"
+    },
+    {
+      "era": "720",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/eeadf2e83653d13134ccd90c58ae3522a742546c/mapdata.json",
+      "sha256": "9da2b0ae4cd45abe137b3153676ebb12fb181b7eb7eb1f89001547799c03e31a"
+    },
+    {
+      "era": "723",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/666c8ab64d232020c0e6b856681e1399ba9cdfd9/mapdata.json",
+      "sha256": "8717c22985c11fa7809973ab2f1fc8a6031b8dbce2d2be1001647e6e7d233e75"
+    },
+    {
+      "era": "732",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/70396739d34584eae82806469c310e60dddf2eed/data/mapdata.json",
+      "sha256": "3d9a49a031afe7c5394be651c6d38d5f4ffd35db35598401bdf8e4ebade39ced"
+    },
+    {
+      "era": "733",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/707103df338c04854c2a3c466df8afa9eeaf7e27/mapdata.json",
+      "sha256": "7d81a4532985285b79fa7a4faf2cde6204f1995eaedc50cb8adde908b3770688"
+    },
+    {
+      "era": "738",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/706ab702eb131f395699ae85d427903c8f975375/mapdata.json",
+      "sha256": "4e6486cf8b88f3b661d711bf94051340d611aaac3c547368f9e63e38da97681a"
+    },
+    {
+      "era": "740",
+      "source": "https://raw.githubusercontent.com/leamare/dota-map-coordinates/840f0f2e7983e5135a3e29443431ce093981e17b/mapdata.json",
+      "sha256": "722cd4b9cf4a03e875e94e22ba7aab0db6bd7ad3aff0d70cbbb50cc3bccdf464"
+    }
+  ]
+}

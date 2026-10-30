@@ -54,9 +54,9 @@ test('Mana Break burns actual mana and Mana Void rewards targeting a depleted ma
   v.mana=0;const hp=v.hp;engine.castNamed(u,v);assert.ok(v.hp<hp);assert.equal(u.spells[0].casts,1);
 });
 test('Hook pulls enemies, Frostbite roots and ticks instead of delivering its full damage instantly',()=>{
-  const {b,u,v,engine}=setup();learn(u,'pudge_meat_hook','pudge');v.x=600;v.hp=v.max=100000;
+  const {b,u,v,engine}=setup();learn(u,'pudge_meat_hook','pudge');v.x=480;v.y=360;v.hp=v.max=100000;
   const gap=Math.abs(v.x-u.x);engine.castNamed(u,v);assert.ok(Math.abs(v.x-u.x)<gap);
-  learn(u,'crystal_maiden_frostbite','crystal_maiden');v.x=410;const before=v.hp;engine.castNamed(u,v);
+  learn(u,'crystal_maiden_frostbite','crystal_maiden');v.x=410;v.y=400;const before=v.hp;engine.castNamed(u,v);
   assert.equal(v.hp,before);assert.ok(v.rootUntil>0);b.time+=.2;engine.updateDots();assert.ok(v.hp<before);
 });
 test('Culling Blade waits for a kill threshold and resets only after a successful execution',()=>{

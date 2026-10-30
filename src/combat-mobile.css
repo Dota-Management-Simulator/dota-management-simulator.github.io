@@ -1,0 +1,69 @@
+.combat-command-bar{background:var(--panel,#142019);z-index:8;border-bottom:1px solid var(--line);padding:8px 0}
+.combat-command-bar .watch-controls{margin:0;gap:12px;flex-wrap:wrap}
+.combat-command-bar .watch-controls label{display:flex;align-items:center;gap:8px;font-size:13px}
+.combat-command-bar select{min-height:44px;max-width:165px;background:#18231e;color:#e0e4dd;border:1px solid #64705e;border-radius:4px;padding:0 8px}
+.combat-mobile-tabs{display:none}
+.combat-pause-settings{margin:10px 0;border:1px solid var(--line);padding:8px 12px}
+.combat-pause-settings summary{cursor:pointer;min-height:32px;align-content:center;font-size:13px}
+.combat-pause-settings p{font-size:12px;line-height:1.5;color:var(--muted,#b4bdb1)}
+.combat-pause-settings label{display:inline-flex;align-items:center;gap:8px;min-height:44px;margin-right:20px;font-size:13px}
+.combat-pause-settings input{width:20px;height:20px}
+.combat-buybacks{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin:12px 0;padding:12px;background:#442b1d;border:1px solid #997447}
+.combat-buybacks .button{min-height:48px;display:grid;gap:3px;text-align:left}
+.combat-buybacks small{font-size:12px;font-weight:400}
+.spell-tap-description{display:block;margin-top:8px;line-height:1.5;text-align:left;color:#e2dec2;white-space:normal;overflow-wrap:anywhere;font-size:12px}
+.spell-slot[aria-pressed=true]{outline:2px solid #d4b86a;outline-offset:3px;flex-basis:100%!important}
+.spell-map-layout button.spell-slot{padding:0;border:0;background:transparent;color:inherit;cursor:pointer;min-height:44px}
+.spell-map-layout .spell-map-stage{display:flex;flex-direction:column;align-items:center}
+.ward-planner{width:100%;min-width:0;display:flex;flex-direction:column;align-items:center}
+.ward-controls{padding:10px;display:flex;flex-wrap:wrap;gap:10px;width:100%;box-sizing:border-box;background:#15201a;align-items:center}
+.ward-controls p,.ward-controls small{width:100%;margin:0;line-height:1.5;font-size:12px;color:#c1c8bc;overflow-wrap:anywhere}
+.ward-controls label{display:grid;gap:5px;font-size:12px;max-width:100%;flex:1;min-width:120px}
+.ward-controls select,.ward-controls input{min-height:44px;box-sizing:border-box;width:100%;background:#18231e;color:#e4e9df;border:1px solid #64705e;border-radius:4px;padding:0 8px;min-width:0}
+.ward-coordinates{display:flex;gap:10px;width:100%}
+.ward-coordinates label{min-width:0}
+.is-planning .battle-map{cursor:crosshair;touch-action:manipulation}
+@media(max-width:700px){
+ .live-match .combat-command-bar{position:sticky;top:0;margin:0 -4px;padding:8px 4px;box-shadow:0 4px 12px #0008}
+ .live-match .combat-mobile-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;margin-top:8px}
+ .recorded-match .combat-mobile-tabs{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .combat-mobile-tabs button{min-height:44px;background:#18251e;border:1px solid #59604e;border-radius:4px;color:#d5dbcf;font-size:13px;padding:0 4px}
+ .combat-mobile-tabs button[aria-pressed=true]{background:#bda864;color:#152018;border-color:#e0c67c;font-weight:700}
+ .live-match .watch-controls{display:flex;gap:8px;flex-wrap:nowrap;padding:0;border:0}
+ .live-match .watch-controls>label{font-size:0;min-width:0;flex:1;gap:0}
+ .live-match .watch-controls select{font-size:13px;max-width:100%;width:100%;min-width:0}
+ .live-match .watch-controls .button{padding:8px;min-width:84px;min-height:44px;font-size:13px;gap:4px}
+ .live-match .watch-controls .text-link{min-height:44px;font-size:12px;white-space:nowrap;flex:0 0 auto;width:auto;padding:0 4px;min-width:0}
+ .live-match .watch-layout{margin-top:10px;gap:10px}
+ .live-match .spell-map-layout{gap:10px}
+ .live-match .spell-map-stage .map-wrap{max-width:100%;width:100%;max-height:none}
+ .live-match .spell-map-layout .spell-panel p,.live-match .spell-map-layout .spell-player small,.live-match .spell-map-layout .spell-precision,.live-match .match-footnote,.live-match .live-inventory-row small{font-size:12px;line-height:1.5}
+ .live-match .spell-map-layout .spell-player strong,.live-match .live-player strong{font-size:14px}
+ .live-match .spell-map-layout .spell-slot{flex-basis:50px;min-width:44px}
+ .live-match .spell-map-layout .spell-art{width:44px;height:44px}
+ .live-match .spell-map-layout .spell-slot strong,.live-match .spell-map-layout .spell-slot small{font-size:11px;line-height:1.4}
+ .live-match .item-inventory{gap:4px;flex-wrap:wrap}
+ .live-match .item-inventory button.item-slot,.live-match .spell-map-layout .compact-inventory .item-slot{width:44px;height:44px;min-height:44px;flex-shrink:0}
+ .live-match .item-inventory .item-tp{min-height:44px;font-size:12px}
+ .live-match .item-description,.live-match .compact-inventory>small{font-size:12px!important;line-height:1.5}
+ .live-match button,.live-match select,.live-match summary{touch-action:manipulation}
+ .live-match .tactics-console button,.live-match .tactics-console select,.live-match .glyph-controls button,.live-match .spell-guide summary,.live-match .announcer-controls button{min-height:44px;font-size:12px}
+ .live-match .tactics-console small{font-size:12px!important;line-height:1.5}
+ .live-match .combat-pause-settings label{display:flex;margin-right:0}
+ .live-match .combat-pause-settings summary{min-height:44px}
+ .live-match .match-life-hero small{font-size:10px}
+ .live-match .match-kill-feed{font-size:12px}
+ .live-match .live-rosters{grid-template-columns:minmax(0,1fr)}
+ .live-match:not([data-mobile-view=team]) .allied-spell-panel,.live-match:not([data-mobile-view=team]) .enemy-spell-feed,.live-match:not([data-mobile-view=team]) .live-rosters{display:none}
+ .live-match:not([data-mobile-view=calls]) .tactics-console,.live-match:not([data-mobile-view=calls]) .glyph-controls,.live-match:not([data-mobile-view=calls]) .combat-pause-settings{display:none}
+ .live-match[data-mobile-view=team] .spell-map-stage,.live-match[data-mobile-view=calls] .spell-map-stage{display:none}
+ .live-match:not([data-mobile-view=team]) .spell-precision{display:none}
+ .live-match[data-mobile-view=map] .match-kill-feed,.live-match[data-mobile-view=map] .announcer-banner,.live-match[data-mobile-view=map] .announcer-controls{display:none}
+ .live-match[data-mobile-view=events] .ward-planner,.live-match[data-mobile-view=events] .map-objective-key{display:none}
+ .recorded-match[data-mobile-view=events] .map-wrap{display:none}
+ .live-match[data-mobile-view=events] .spell-map-stage{width:100%;display:block}
+ .live-match .watch-heading h2{font-size:22px;line-height:1.2}
+ .live-match .watch-heading{gap:10px;flex-wrap:wrap}
+ .live-match .live-score{font-size:12px;gap:8px}
+ .live-match .live-score>strong{min-width:0;overflow-wrap:anywhere}
+}

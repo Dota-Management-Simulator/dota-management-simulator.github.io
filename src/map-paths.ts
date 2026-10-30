@@ -15,7 +15,6 @@ export class MapPaths {
   private next: Int16Array;
   private dist: Float32Array;
   private cellNode = new Int16Array(SIZE * SIZE).fill(-2);
-  private entries?: Int16Array;
 
   constructor(readonly era: MapEra) {
     const geometry = geometryForEra(era);
@@ -146,16 +145,10 @@ export class MapPaths {
   /** The visible node with the shortest walk-plus-route to the goal. Taking it
    * always lowers the remaining distance, so heroes never turn back and forth. */
   private entry(ax: number, ay: number, goal: number) {
-    const n = this.nodes.length, c = this.cell(ax, ay);
-    if (c >= 0) {
-      this.entries ??= new Int16Array(SIZE * SIZE * n).fill(-2);
-      let cached = this.entries[c * n + goal];
-      if (cached === -2) {
-        cached = this.bestEntry(ORIGIN + ((c % SIZE) + .5) * CELL, ORIGIN + (Math.floor(c / SIZE) + .5) * CELL, goal);
-        this.entries[c * n + goal] = cached;
-      }
-      if (cached >= 0 && this.clear(ax, ay, this.nodes[cached][0], this.nodes[cached][1])) return cached;
-    }
+    // A cell-centre choice can point backward once a walker enters another
+    // part of that same cell, producing an endless two-point oscillation.
+    // The authoritative tree-grid router caches path hops instead; retain
+    // exact-position entry costs for this older strategic corridor graph.
     return this.bestEntry(ax, ay, goal);
   }
   private bestEntry(ax: number, ay: number, goal: number) {
@@ -191,4 +184,4 @@ export function pathsForEra(era: MapEra) {
   if (!paths) { paths = new MapPaths(era); cache.set(era.id, paths); }
   return paths;
 }
-export const MAP_PATHS_VERSION = `map-paths-v2-art-coordinates:${mapEras.map(e => e.id).join(",")}`;
+export const MAP_PATHS_VERSION = `map-paths-v3-sourced-structures:${mapEras.map(e => e.id).join(",")}`;

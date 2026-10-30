@@ -3,7 +3,7 @@ import type { Campaign, Page } from "./game";
 import { advanceCalendarTo, advanceWeek, money, weeklyIncome, weeklyWages } from "./game";
 import { campaignWeek } from "./contracts";
 import { earnedInvitations, qualifiedForTournament, tournamentEntryBlocker } from "./historical-game";
-import { managedSponsorTeam, sponsorBlocker, sponsorMarket, sponsors } from "./sponsors";
+import { managedSponsorTeam, sponsorBlocker, sponsorMarket, sponsors, sponsorTerms } from "./sponsors";
 import { historicalTournaments, nextTournamentFixture, tournamentById, utcTime } from "./tournaments";
 import type { HistoricalTournament } from "./tournament-types";
 import { CALENDAR_DAY, calendarDay } from "./calendar-layout";
@@ -257,7 +257,7 @@ export function syncOffice(current: Campaign): Campaign {
   office.sponsorTerms = terms;
   const opportunity = sponsors.filter(s => !sponsorBlocker(current, s)).sort((a, b) => b.weekly - a.weekly).slice(0, 2);
   for (const s of opportunity) add({ id: `sponsor-opportunity:${s.id}:${current.year}`, sender: `${s.name} · Partnerships`, category: "sponsors", subject: `${s.name}: open to a partnership`,
-    body: `Your club meets our current reputation requirement and the brand is available. Our starting package is ${money(s.weekly)}/week; terms, bonuses and media time are negotiable. Availability may change before you sign.`, action: { kind: "page", page: "finances" }, actionLabel: "Discuss sponsor terms" });
+    body: `Your club meets our current reputation requirement and the brand is available. Our starting package is ${money(sponsorTerms(current.year, s).weekly)}/week plus bonuses for top-eight finishes; terms and media time are negotiable. Availability may change before you sign.`, action: { kind: "page", page: "finances" }, actionLabel: "Discuss sponsor terms" });
   const net = weeklyWages(current) - weeklyIncome(current);
   if (net > 0 && current.cash < net * 3) add({ id: `cash-warning:${Math.floor(week / 4)}`, sender: "Finance director", category: "club", subject: current.cash < 0 ? "Action needed: the club is in debt" : "Cash covers less than three weeks of net costs",
     body: `${money(current.cash)} in cash against ${money(net)} in net weekly costs. Review wages and sponsor income; unpaid payroll lowers player happiness.`, action: { kind: "page", page: "finances" }, actionLabel: "Review club finances" });

@@ -109,6 +109,17 @@ test('observing and capturing telemetry does not change the simulated result', (
   assert.ok(!sim.snapshot().matchEvents!.some(e => e.id === 999), 'snapshots cannot mutate the event log');
 });
 
+test('identical battles stay identical however many battles the process has already run', () => {
+  // Regression: a shared route cache once let one simulation's searches change
+  // another's routes; with this seed two interleaved battles split at step 162.
+  const cfg = { ...buildBattleConfig(prepareEvent(createCampaign(DEFAULT_SETTINGS), events[0]), events[0], 3), bonuses: [0, 0] as [number, number], captureReplay: false };
+  const state = (b: LaneBattle) => JSON.stringify([b.time, (b as unknown as { units: { id: string; x: number; y: number; hp: number }[] }).units.map(u => [u.id, u.x, u.y, u.hp])]);
+  for (let pair = 0; pair < 3; pair++) {
+    const a = new LaneBattle(cfg), b = new LaneBattle(cfg);
+    for (let i = 0; i < 420; i++) { a.step(); b.step(); assert.equal(state(a), state(b), `pair ${pair}, step ${i}`); }
+  }
+});
+
 test('bundled original announcer recordings match their source ledger', () => {
   const ledger = JSON.parse(readFileSync('docs/dota-announcer-assets.json', 'utf8'));
   assert.equal(ledger.assets.length, 19);

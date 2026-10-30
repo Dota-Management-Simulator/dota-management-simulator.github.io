@@ -1,4 +1,5 @@
 import { test } from "node:test";
+import { scaledCost } from "../src/economy-scale";
 import assert from "node:assert/strict";
 import { campaignHeroPoolThrough, campaignPatch } from "../src/patches";
 import { createPatchPreviewCampaign, previewPatch, previewPatches } from "../src/patch-preview";
@@ -14,7 +15,7 @@ test("preview worlds resolve every requested composite at its exact date with th
     const pool = getHeroPool(campaign.year, campaignHeroPoolThrough(campaign));
     assert.equal(pool.some(hero => hero.id === "monkey_king"), patch.year >= 2017);
     assert.equal(campaign.roster.length, 5);
-    assert.equal(campaign.cash, 100000);
+    assert.equal(campaign.cash, scaledCost(campaign.settings.year, 100000, 1000));
     assert.equal(campaign.results.length, 0);
     assert.equal(campaign.calendar?.paidWeeks, 0);
     assert.deepEqual(campaign.patchIntroductions?.pending, []);
@@ -29,7 +30,7 @@ test("preview creation never accesses saved campaign storage and fresh jumps dis
     edited.cash = 1;
     edited.training[edited.roster[0]] = "Rest";
     const fresh = createPatchPreviewCampaign("2017.1");
-    assert.equal(fresh.cash, 100000);
+    assert.equal(fresh.cash, scaledCost(fresh.settings.year, 100000, 1000));
     assert.equal(fresh.training[fresh.roster[0]], "Balanced");
     assert.equal(previewPatch("9999.2").id, "2011.1");
     assert.equal(previewPatch(null).id, "2011.1");

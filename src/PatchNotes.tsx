@@ -10,6 +10,7 @@ import { PatchMedia } from "./PatchArrival";
 import { simplifiedHeroNote } from "./patch-notes";
 import { captainsRulesFor } from "./captains-mode";
 import RangeBars from "./RangeBars";
+import { playerIdentityEra } from './player-identity';
 import { mapChangeForPatch, mapEraForPatch } from "./map-eras";
 import { lazy, Suspense } from "react";
 const PublicPatchLog = lazy(() => import('./PublicPatchLog'));
@@ -55,6 +56,8 @@ export default function PatchNotes({ patch, campaign, onPlayer }: { patch: Seaso
     })}
       <li><strong>{frontiersEnabled(patch) ? "Expanded battlefield" : "Classic battlefield"}</strong><span>{frontiersEnabled(patch) ? "40% more playable area; twelve shared neutral camps. Farming earns gold and XP but costs travel and lane pressure. Lanes and bases retain their positions." : "Three lanes and the original map boundary. Neutral farm camps arrive with New Frontiers (7.33)."}</span></li>
       <li><strong>{talentsEnabled(patch) ? "Player talents enabled" : "Player talents not yet introduced"}</strong><span>{talentsEnabled(patch) ? "One choice at levels 10/15/20/25. Configure each player's tree in their profile; bonuses activate independently in each map." : "Talent trees unlock with The New Journey (7.00)."}</span></li>
+      <li><strong>{playerIdentityEra(patch).innates?'Player innates active':'Player innates not yet introduced'}</strong><span>{playerIdentityEra(patch).innates?'100 shared player identities cover conditional skills, lane-partner support, training, mentoring, morale and campaign recovery. Profiles show the conditions and weekly previews.':'Player innates arrive with the 2024.2 composite (7.36).'}</span></li>
+      <li><strong>{playerIdentityEra(patch).facets?'Player facets active':playerIdentityEra(patch).innates?'Player facets retired':'Player facets not yet introduced'}</strong><span>{playerIdentityEra(patch).facets?'Two role-based approaches per player. Set a default in the profile or choose per map before starting. Each has a tradeoff.':playerIdentityEra(patch).innates?'Facet effects end at the 2026.1 composite, whose final representative version is 7.41c. Innates and talents continue.':'Player facets are available only during the 2024.2–2025.2 composites.'}</span></li>
     </ul>
       {talentsEnabled(patch) && <div className="patch-player-links">{campaign.roster.map(id => <button key={id} className="button secondary" onClick={() => onPlayer(id)}>{campaign.players.find(p => p.id === id)?.name} · talents</button>)}</div>}
     </section>

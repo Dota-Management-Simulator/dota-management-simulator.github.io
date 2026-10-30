@@ -28,24 +28,32 @@ export interface PlayerWelfare {
   players: Record<string, WelfareRecord>;
   departures: Departure[];
 }
+/** Simulated pairwise compatibility, symmetric and stable for each pair. */
+export const compatibilityClash = (a: string, b: string) => hash(`compatibility:${[a, b].sort().join(":")}`) % 5 === 0;
 export const freshWelfare = (c: Campaign): WelfareRecord => ({ joinedAt: campaignWeek(c), satisfaction: 75, unhappyWeeks: 0, conflicts: {}, concerns: [] });
 
 // Annual source observations describe organizations, never personal conduct.
 // Exclude future batches; ignore simultaneous/ambiguous observations and moves
 // where at least three of the same teammates changed organization together.
-const observations = new Map<string, { year: number; club: string; roster: string[]; source: string }[]>();
-for (const ref of allRosterReferences) {
-  const year = Number(ref.date.slice(0, 4));
-  const roster = ref.roster.map((name, i) => ref.playerIds?.[i] ?? historicalPlayerId(name));
-  for (const id of roster) {
-    const rows = observations.get(id) ?? [];
-    if (!rows.some(r => r.year === year && r.club === ref.id)) rows.push({ year, club: ref.id, roster, source: ref.source });
-    observations.set(id, rows);
+// Built on first use: history.ts can still be initializing when this module loads.
+let observations: Map<string, { year: number; club: string; roster: string[]; source: string }[]> | undefined;
+function rosterObservations() {
+  if (observations) return observations;
+  observations = new Map();
+  for (const ref of allRosterReferences) {
+    const year = Number(ref.date.slice(0, 4));
+    const roster = ref.roster.map((name, i) => ref.playerIds?.[i] ?? historicalPlayerId(name));
+    for (const id of roster) {
+      const rows = observations.get(id) ?? [];
+      if (!rows.some(r => r.year === year && r.club === ref.id)) rows.push({ year, club: ref.id, roster, source: ref.source });
+      observations.set(id, rows);
+    }
   }
+  return observations;
 }
 export function rosterMovement(c: Campaign, p: Player) {
   const through = Math.min(c.year - 1, c.world?.dataThroughYear ?? c.year - 1);
-  const rows = (observations.get(p.id) ?? []).filter(r => r.year <= through);
+  const rows = (rosterObservations().get(p.id) ?? []).filter(r => r.year <= through);
   const years = [...new Set(rows.map(r => r.year))].sort((a, b) => a - b);
   const clear = years.flatMap(year => { const matches = rows.filter(r => r.year === year); return matches.length === 1 ? matches : []; });
   let changes = 0;
@@ -141,9 +149,7 @@ export function welfareAssessment(c: Campaign, p: Player, end?: number) {
   if (p.happiness < 40) concerns.push({ text: `Low happiness (${p.happiness.toFixed(0)}%): improve recovery, pay or morale.`, weight: 2 });
   if (p.energy < 30) concerns.push({ text: `Exhausted (${p.energy.toFixed(0)}% energy): needs recovery.`, weight: 1.5 });
   const relations = c.roster.filter(id => id !== p.id).map(id => {
-    const names = [p.id, id].sort();
-    const clash = hash(`compatibility:${names.join(":")}`) % 5 === 0;
-    return { id, name: c.players.find(p => p.id === id)?.name ?? id, clash, tension: record.conflicts[id] ?? 0 };
+    return { id, name: c.players.find(p => p.id === id)?.name ?? id, clash: compatibilityClash(p.id, id), tension: record.conflicts[id] ?? 0 };
   });
   for (const other of relations) if (other.tension >= 45) concerns.push({ text: `Friction with ${other.name} (${Math.round(other.tension)}/100): arrange mediation and reduce shared workload.`, weight: other.tension >= 70 ? 2.5 : 1.5 });
   return { preferences, record, workload, form, concerns, relations };

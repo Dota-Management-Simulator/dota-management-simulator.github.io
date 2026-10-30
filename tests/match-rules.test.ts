@@ -201,7 +201,7 @@ test('committed pushes contest visible defenders instead of farming replacement 
 test('pushers commit when another lane has opened backdoor protection instead of waiting forever for their selected wave',()=>{
   const b=new LaneBattle(config('2023.1'));b.time=400;
   const base=b.units.find(u=>u.kind==='base'&&u.team===1)!;
-  for(const t of b.units.filter(u=>u.kind==='tower'&&u.team===1)){t.dead=true;t.hp=0;}
+  for(const t of b.units.filter(u=>(u.kind==='tower'||u.kind==='barracks')&&u.team===1)){t.dead=true;t.hp=0;}
   for(const u of heroes(b)){if(u.team===1){u.dead=true;u.respawn=9999;}else{u.x=580;u.y=128;u.hp=u.max;}}
   const selected=creep(b,0,300,120);selected.lane=0;
   const opening=creep(b,0,base.x-20,base.y+20);opening.lane=2;
@@ -214,7 +214,7 @@ test('pushers commit when another lane has opened backdoor protection instead of
 test('a committed siege uses an open building window instead of repeatedly farming replacement creeps',()=>{
   const b=new LaneBattle(config('2017.1'));b.time=400;
   const base=b.units.find(u=>u.kind==='base'&&u.team===1)!;
-  for(const t of b.units.filter(u=>u.kind==='tower'&&u.team===1)){t.dead=true;t.hp=0;}
+  for(const t of b.units.filter(u=>(u.kind==='tower'||u.kind==='barracks')&&u.team===1)){t.dead=true;t.hp=0;}
   for(const u of heroes(b)){u.spells=[];u.cd=u.abilityCd=99999;if(u.team===1){u.dead=true;u.respawn=9999;}else{u.x=base.x-20;u.y=base.y+10;u.hp=u.max;}}
   creep(b,0,base.x-20,base.y).cd=99999;
   const blocker=creep(b,1,base.x-15,base.y+10);blocker.hp=blocker.max=10000;blocker.cd=99999;

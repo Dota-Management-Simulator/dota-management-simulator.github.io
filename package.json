@@ -12,10 +12,12 @@
     "balance:heroes": "node scripts/iterate-hero-balance.mjs",
     "rank:heroes": "node scripts/export-hero-rankings.mjs",
     "audit:tactics": "node scripts/audit-tactics.mjs",
+    "audit:campaign": "tsx scripts/audit-campaign.ts",
     "deploy": "npm run build && node scripts/deploy-pages.mjs"
   },
   "dependencies": {
     "lucide-react": "^0.468.0",
+    "lz-string": "1.5.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },

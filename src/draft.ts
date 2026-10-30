@@ -7,6 +7,8 @@ import { oppositionStaff } from "./staff";
 import { heroRoleProfile } from "./hero-roles";
 import { captainsRulesFor, draftSequence } from "./captains-mode";
 import type { Campaign } from "./game";
+import { earnedTacticalCalls } from './tactical-progress';
+import { careerExperience, heroMasteries } from './player-career';
 
 export interface DraftPreparation {
   approach: "balanced"|"teamfight"|"push"|"pickoff"|"scaling";
@@ -79,7 +81,8 @@ function roleScore(config:BattleConfig,side:Side,hero:Hero,role:number,usePrefer
   const experience=player.heroExperience?.[hero.id]??0;
   const preferences=usePreferences?config.draftPreparations?.[side]?.preferred[role]??[]:[];
   const preferred=preferences.indexOf(hero.id);
-  return Math.log(.04+fit)*2+Math.min(3,Math.log1p(experience))+(preferred<0?0:4-preferred);
+  const mastery = usePreferences ? player.heroMastery?.[hero.id] : undefined;
+  return Math.log(.04+fit)*2+Math.min(3,Math.log1p(experience))+(mastery == null ? 0 : (mastery - 50) / 25)+(preferred<0?0:4-preferred);
 }
 /** Sybil's key structural idea: enumerate all legal assignments (at most 120),
  * rather than greedily giving a flex hero to the first empty player. */
@@ -166,19 +169,17 @@ export function autoDraftMap(config:BattleConfig,map=0):CompletedDraft{
   return completeMapDraft(config,state);
 }
 
-/** Only actual campaign maps provide familiarity. No invented pro signature
- * pools, no external live data and no bonus to combat or perfect meta access. */
+/** Recorded familiarity is separate from simulated, trainable hero mastery. */
 export function campaignDraftExperience(c:Campaign){
-  const experience=new Map<string,Record<string,number>>();
-  const games=[...c.results.filter(r=>!r.tournamentId).flatMap(r=>r.series?.games??[]),
-    ...(c.scrims?.sessions??[]).filter(s=>s.status==="complete").flatMap(s=>s.series?.games??[]),
-    ...(c.calendar?.runs??[]).flatMap(r=>r.matches.flatMap(m=>m.series?.games??m.performance?.games??[]))];
-  for(const game of games)for(const row of game.players){const known=experience.get(row.id)??{};known[row.heroId]=(known[row.heroId]??0)+1;experience.set(row.id,known);}
-  return experience;
+  return careerExperience(c);
 }
 export function withDraftKnowledge(c:Campaign,config:BattleConfig,managedSide:Side|null=0):BattleConfig{
   const experience=campaignDraftExperience(c);
-  return {...config,players:config.players.map(side=>side.map(p=>({...p,heroExperience:experience.get(p.id)??{}}))) as BattleConfig["players"],
+  return {...config,playerControl:1,players:config.players.map(side=>side.map(p=>{
+    const player=c.players.find(row=>row.id===p.id);
+    return {...p,heroExperience:experience.get(p.id)??{},...(player?{heroMastery:heroMasteries(c,player)}:{})};
+  })) as BattleConfig["players"],
     tacticalPreparations:[managedSide===0?c.tacticalPreparation:undefined,managedSide===1?c.tacticalPreparation:undefined],
+    tacticalUnlocks:[managedSide===0?earnedTacticalCalls(c):undefined,managedSide===1?earnedTacticalCalls(c):undefined],
     draftPreparations:[managedSide===0?normalizeDraftPreparation(c.draftPreparation):undefined,managedSide===1?normalizeDraftPreparation(c.draftPreparation):undefined]};
 }

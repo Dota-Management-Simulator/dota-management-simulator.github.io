@@ -1,3 +1,4 @@
+import {isTerrainWalkable} from '../src/map-vision';
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { existsSync } from "node:fs";
@@ -70,15 +71,15 @@ test("match heroes stay on the era's open ground", () => {
   const config = buildBattleConfig(prepareEvent(createCampaign(DEFAULT_SETTINGS), events[0]), events[0], 9);
   for (const patchId of ["2012.1", "2019.1", "2025.1"]) {
     const battle = new LaneBattle({ ...config, patchId, captureReplay: false });
-    const paths = pathsForEra(mapEraForPatch({ id: patchId }));
+    const terrainEra = mapEraForPatch({ id: patchId });
     let samples = 0, open = 0;
     for (let i = 0; i < 3000 && battle.winner === null; i++) {
       battle.step();
       if (i % 10) continue;
-      for (const u of battle.units) if (u.kind === "hero" && !u.dead) { samples++; if (paths.isWalkable(u.x, u.y)) open++; }
+      for (const u of battle.units) if (u.kind === "hero" && !u.dead) { samples++; if (isTerrainWalkable(terrainEra,u.x, u.y)) open++; }
     }
-    // Chasing and knockback can briefly leave a corridor; walking never should.
-    assert.ok(open / samples > .97, `${patchId}: ${(open / samples * 100).toFixed(1)}% on open ground`);
+    // Real terrain, rather than the old hand-drawn corridor approximation, governs movement.
+    assert.ok(open === samples, `${patchId}: ${(open / samples * 100).toFixed(1)}% on open ground`);
   }
 });
 
@@ -95,7 +96,7 @@ test("every patch uses the same terrain anchors for combat towers, bases and dis
         const marker = structures.find(s => s.team === team && s.lane === lane && s.tier === tier)!;
         const anchor = geometry.towers[team][lane][tier-1];
         assert.ok(Math.hypot(marker.x-anchor[0],marker.y-anchor[1]) < 1, `${patch.id} ${team}/${lane}/${tier}`);
-        assert.equal(!!marker.unit,tier<=2,"existing combat scope stays two towers per lane");
+        assert.equal(!!marker.unit,true,"all three lane towers have real combat state");
       }
     }
     assert.deepEqual([frame.roshan!.x,frame.roshan!.y],era.roshan.day);

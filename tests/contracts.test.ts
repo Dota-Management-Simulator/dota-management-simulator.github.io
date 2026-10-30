@@ -4,6 +4,7 @@ import { advanceWeek, createCampaign, DEFAULT_SETTINGS, events, negotiateContrac
 import type { Campaign } from "../src/game";
 import type { SeriesSummary } from "../src/battle";
 import { assessOffer, campaignWeek, contractPreferences, initialOffer, releaseCost, weeklyPractice, weeksRemaining } from "../src/contracts";
+import { askingWage, marketValue, signingFee } from "../src/player-market";
 
 function agreed(c: Campaign, id = c.roster[0], overrides = {}) {
   const p = c.players.find((v) => v.id === id)!;
@@ -28,7 +29,7 @@ test("low offers counter deterministically; rest, practice, security and prize s
   assert.ok(security.counter!.wage < counter.counter!.wage);
   assert.equal(negotiateContract(c, p.id, { ...low, wage: NaN }).status, "invalid");
   assert.equal(negotiateContract(c, p.id, { ...low, bonus: -1 }).status, "invalid");
-  assert.equal(negotiateContract(c, p.id, { ...low, prizeShare: 11 }).status, "invalid");
+  assert.equal(negotiateContract(c, p.id, { ...low, prizeShare: 21 }).status, "invalid");
   assert.equal(negotiateContract(c, p.id, { ...low, weeks: 0 }).status, "invalid");
   const debt = { ...c, cash: -100 };
   assert.equal(negotiateContract(debt, p.id, counter.counter!).status, "accepted", "a no-cost renewal remains possible in debt");
@@ -79,7 +80,7 @@ test("expiration crosses seasons, keeps all five and weekly terms, and renewal c
   const expiredMood = weeklyPractice(c, p, "Balanced").happiness;
   const renewed = agreed(c, id, { wage: contract.wage });
   assert.equal(weeklyPractice(renewed, teamPlayers(renewed)[0], "Balanced").happiness, expiredMood + 2);
-  assert.equal(renewed.contracts![id].marketWage, contract.marketWage);
+  assert.equal(renewed.contracts![id].marketWage, marketValue(c, p).wage, "renewal reprices the player at current market value");
 });
 
 test("recruitment charges fee, bonus and outgoing severance atomically and preserves club ownership", () => {
@@ -89,14 +90,15 @@ test("recruitment charges fee, bonus and outgoing severance atomically and prese
   c = agreed(c, outgoing.id);
   const severance = releaseCost(c, outgoing.id);
   const bonus = 400;
-  const offer = { ...initialOffer(c, recruit), wage: recruit.wage * 2, bonus };
-  const poor = { ...c, cash: recruit.fee + severance + bonus - 1 };
+  const fee = signingFee(c, recruit);
+  const offer = { ...initialOffer(c, recruit), wage: askingWage(c, recruit) * 2, bonus };
+  const poor = { ...c, cash: fee + severance + bonus - 1 };
   assert.equal(negotiateContract(poor, recruit.id, offer).campaign, poor);
-  assert.equal(signPlayer({ ...c, cash: recruit.fee + severance - 1 }, recruit.id).roster, c.roster);
+  assert.equal(signPlayer({ ...c, cash: fee + severance - 1 }, recruit.id).roster, c.roster);
   const result = negotiateContract(c, recruit.id, offer);
   assert.equal(result.status, "accepted");
   const signed = result.campaign;
-  assert.equal(signed.cash, c.cash - recruit.fee - severance - bonus);
+  assert.equal(signed.cash, c.cash - fee - severance - bonus);
   assert.equal(signed.contracts?.[outgoing.id], undefined);
   assert.ok(signed.contracts?.[recruit.id]);
   assert.equal(signed.roster[1], recruit.id);

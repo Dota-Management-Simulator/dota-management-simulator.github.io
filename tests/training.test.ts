@@ -9,22 +9,22 @@ test("every profile attribute has a selectable focus that develops it without ch
   for (const [key, focus] of Object.entries(attributeNames)) {
     const c = createCampaign(DEFAULT_SETTINGS);
     const p = c.players.find((p) => p.id === c.roster[0])!;
-    for (const key of Object.keys(p.stats) as (keyof Player["stats"])[]) p.stats[key] = 50;
+    for (const key of Object.keys(p.stats) as (keyof Player["stats"])[]) p.stats[key] = 40;
     p.energy = 60;
     c.training[p.id] = focus;
     assert.ok(trainingOptions(p).flatMap((g) => g.options).includes(focus));
     const next = advanceWeek(c);
     const trained = next.players.find((other) => other.id === p.id)!;
-    assert.equal(trained.stats[key as keyof Player["stats"]], 51, focus);
+    assert.equal(trained.stats[key as keyof Player["stats"]], 41, focus);
     const legacyExtras: Partial<Record<Training, string[]>> = {
       Laning: ["skirmish"], Teamfights: ["stability"], "Hero pool": ["creativity"],
     };
     for (const [other, value] of Object.entries(trained.stats)) {
-      assert.equal(value, other === key || legacyExtras[focus]?.includes(other) ? 51 : 50, `${focus}: ${other}`);
+      assert.equal(value, other === key || legacyExtras[focus]?.includes(other) ? 41 : 40, `${focus}: ${other}`);
     }
     assert.deepEqual(trained.playstyles, p.playstyles);
     assert.equal(trained.energy, 55);
-    assert.equal(p.stats[key as keyof Player["stats"]], 50, "input remains immutable");
+    assert.equal(p.stats[key as keyof Player["stats"]], 40, "input remains immutable");
     assert.notDeepEqual(next.players.find((other) => !c.roster.includes(other.id))!.stats, c.players.find((other) => !c.roster.includes(other.id))!.stats, "other rosters train as well");
   }
 });
@@ -78,15 +78,15 @@ test("new attribute focuses use contract workload and coach growth with the exis
   const p = c.players.find((p) => p.id === c.roster[0])!;
   c.contracts = { [p.id]: { wage: p.wage, bonus: 0, weeks: 18, prizeShare: 0, practiceHours: 40, restDays: 2, signedAt: 0, expiresAt: 999999, marketWage: p.wage } };
   c.training[p.id] = "Farming";
-  p.stats.farming = 50;
+  p.stats.farming = 40;
   p.energy = 60;
   const practice = weeklyPractice(c, p, "Farming");
   const trained = advanceWeek(c).players.find((other) => other.id === p.id)!;
-  assert.equal(trained.stats.farming, 54);
+  assert.equal(trained.stats.farming, 44);
   assert.equal(trained.energy, 43);
   assert.equal(trainingEffect("Farming", practice, false), "+4 farming · −17 energy · +1 happiness");
   p.stats.farming = 98;
-  assert.equal(advanceWeek(c).players.find((other) => other.id === p.id)!.stats.farming, 99);
+  assert.equal(advanceWeek(c).players.find((other) => other.id === p.id)!.stats.farming, 98);
 });
 
 test("focused plans retain their paired targets; Balanced spreads growth and Rest allows decay", () => {
@@ -200,7 +200,7 @@ test("full rest ignores the saved workload and fractional gains stay capped and 
   assert.deepEqual(rest.playstyles, p.playstyles);
   c.training[id] = "Farming";
   p.stats.farming = 98;
-  assert.equal(advanceWeek(c).players.find((p) => p.id === id)!.stats.farming, 99);
+  assert.equal(advanceWeek(c).players.find((p) => p.id === id)!.stats.farming, 98, 'saved ratings above personal ceilings are preserved without additional growth');
   assert.equal(advanceWeek(c).players.find((p) => p.id === id)!.energy, 0);
   c = setTrainingSchedule(c, id, { intensity: "Light", hoursPerDay: 1, daysPerWeek: 1 });
   const practice = weeklyPractice(c, p, "Farming");
@@ -217,5 +217,8 @@ test("malformed saved workloads normalize to finite bounded schedules", () => {
   assert.deepEqual(trainingSchedule(c, p), { intensity: "Normal", hoursPerDay: 4, daysPerWeek: 5 });
   c.trainingSchedules[p.id] = { intensity: "Light", hoursPerDay: -5, daysPerWeek: 99 };
   assert.deepEqual(trainingSchedule(c, p), { intensity: "Light", hoursPerDay: 1, daysPerWeek: 7 });
-  assert.ok(Object.values(weeklyPractice(c, p, "Farming")).every(Number.isFinite));
+  const {attributeBonus,innateSources,...scalars}=weeklyPractice(c,p,"Farming");
+  assert.ok(Object.values(scalars).every(Number.isFinite));
+  assert.ok(Object.values(attributeBonus??{}).every(Number.isFinite));
+  assert.ok((innateSources??[]).every(source=>typeof source==='string'));
 });

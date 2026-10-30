@@ -38,6 +38,13 @@ test("staff and actual player attributes unlock advanced plays; basic calls rema
   assert.equal(strategyUnlocked(strategyById("supports-mid")!,players,[]),true);
 });
 
+test('JSON-pinned preparations tolerate null opponent unlock slots',()=>{
+  const cfg=JSON.parse(JSON.stringify({...config(),tacticalUnlocks:[[],undefined]}));
+  const battle=new LaneBattle(cfg);
+  assert.equal(battle.snapshot().players.length,10);
+  battle.step();assert.ok(battle.clock>0);
+});
+
 test("gank calls move real participants, cost time and can be cancelled and reused only after recovery",()=>{
   const c=config(),battle=new LaneBattle(c),control=new LaneBattle(c);
   // Isolate travel/cancellation from changing hero kits and combat lethality.
@@ -140,10 +147,15 @@ test("Roshan requires travel and attacks, grants a single expiring Aegis and can
   const battle=new LaneBattle(c);battle.time=150;battle.roshan.hp=10;
   for(const u of heroes(battle).filter(u=>u.team===0)){u.x=battle.roshan.x;u.y=battle.roshan.y;}
   assert.equal(battle.issueOrder(0,{strategyId:"roshan"}).accepted,true);
-  assert.equal(battle.roshan.kills[0],0);ticks(battle,25);
+  // Assembly and terrain-safe travel now precede the first pit attack.
+  assert.equal(battle.roshan.kills[0],0);
+  for(let i=0;i<150&&!battle.roshan.kills[0];i++)battle.step();
   assert.equal(battle.roshan.kills[0],1);assert.ok(battle.roshan.respawnAt>battle.clock);
   assert.equal(heroes(battle).filter(u=>u.aegisUntil>battle.clock).length,1);
-  battle.time+=20;assert.match(battle.strategyReason(0,{strategyId:"roshan"})!,/Roshan returns/);
+  battle.time+=20;
+  // A scout must see the pit before a hidden respawn can block the manager's call.
+  const scout=heroes(battle).find(u=>u.team===0)!;scout.x=battle.roshan.x;scout.y=battle.roshan.y;
+  assert.match(battle.strategyReason(0,{strategyId:"roshan"})!,/Roshan returns/);
 });
 
 test("Aegis revival consumes the reward without awarding a hero kill or dropping Rapier",()=>{

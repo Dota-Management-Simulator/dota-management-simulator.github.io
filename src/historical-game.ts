@@ -1,21 +1,32 @@
 import { advanceCalendarTo, clamp, data, money, rating, teamPlayers, settlePlayerDepartures } from "./game";
+import { pressurePoints } from "./pay-structure";
+import { metaFitPoints } from "./meta-style";
+import { sponsorResultBonuses } from "./sponsors";
+import { scaledCost, TRAVEL_PER_PLAYER } from "./economy-scale";
 import { fullRosterBlocker } from "./player-welfare";
 import type { Campaign, Result } from "./game";
 import { startingAttributes } from "./development";
 import type { BattleConfig, SeriesSummary } from "./battle";
-import { patchAtDate } from "./patches";
+import { patchAtDate, patchById } from "./patches";
 import { managedPatchObserver } from "./patch-knowledge";
 import { oppositionStaff } from "./staff";
 import { withDraftKnowledge, campaignDraftExperience } from "./draft";
+import { heroMasteries } from './player-career';
+import { creditAiClub } from './ai-club-economy';
+import { synergyBonus } from "./player-market";
 import { activeClubs } from "./history";
 import { campaignWeek } from "./contracts";
 import { fixtureTeams, historicalTournaments, hashSeed, isoTime, nextTournamentFixture, recordTournamentSeries, seededTournamentFixtures, tournamentById, tournamentForRun, tournamentOpponentCondition, utcTime } from "./tournaments";
 import type { HistoricalTournament, TournamentFixture, TournamentRun } from "./tournament-types";
+import { refreshTacticalProgress } from './tactical-progress';
+import { strategyById } from './tactics';
 import { historicalLineupStrength } from "./historical-strength";
 import { historicalPower, lineupFormResults, tournamentCombatBonus, tournamentForm } from "./tournament-form";
 
 const DAY = 86400000;
 /** New starts get one calendar month of preparation; existing dated saves keep their clock. */
+/** LAN travel for the registered five, paid on entry. Online events cost nothing. */
+export const travelCost = (event: { online?: boolean; year: number }) => event.online ? 0 : 5 * scaledCost(event.year, TRAVEL_PER_PLAYER);
 export function historicalCampaignStart(year: number): string {
   const ti = historicalTournaments.find(event => event.kind === "ti" && event.year === year);
   if (!ti) return `${year}-01-01T00:00:00Z`;
@@ -218,7 +229,9 @@ export function enterHistoricalTournament(current: Campaign, eventId: string, se
   run.definition = structuredClone(definition);
   c.calendar!.runs.push(run);
   c.calendar!.invitations[eventId] = invites;
-  c.log = [`Entered ${event.name}. The five-player lineup and prize-share terms are registered until your run ends.`, ...c.log].slice(0, 30);
+  const travel = travelCost(event);
+  if (travel) { c.cash -= travel; c.transactions = [{ year: c.year, week: c.week, label: `${event.name} travel`, amount: -travel }, ...c.transactions].slice(0, 80); }
+  c.log = [`Entered ${event.name}. The five-player lineup and prize-share terms are registered until your run ends.${travel ? ` LAN travel: ${money(travel)}.` : ""}`, ...c.log].slice(0, 30);
   return c;
 }
 
@@ -235,11 +248,14 @@ export function tournamentTeamTemplate(c: Campaign, original: TournamentRun, key
   const experience=campaignDraftExperience(c);
   const run = withTournamentStrength(original);
   const team = run.teams.find(t => t.id === key)!;
-  return { name: team.name, players: team.roster.map((id, role) => {
+  const patch = patchById(run.patchId) ?? patchAtDate(tournamentForRun(run)!.start);
+  return { name: team.name, playerControl: 1 as const, players: team.roster.map((id, role) => {
     const p = c.players.find(p => p.id === id);
-    return { id, heroExperience:experience.get(id)??{}, name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
-      role, skills: { ...(p?.stats ?? startingAttributes(id)) }, talents: c.talentPlans?.[id] ? normalizeTalentPlan(c.talentPlans[id]) : key === run.managed ? {} : automaticTalents(role), energy: p?.energy ?? 90, happiness: p?.happiness ?? 85 };
-  }), bonus: key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) : 0,
+    return { id, heroExperience:experience.get(id)??{}, ...(p?{heroMastery:heroMasteries(c,p)}:{}), name: p?.name ?? `Unscouted ${data.players[role].role.toLowerCase()}`,
+      role, identity: p ? battlePlayerIdentity(p, role) : fallbackPlayerIdentity(id), skills: { ...(p?.stats ?? startingAttributes(id)) }, talents: c.talentPlans?.[id] ? normalizeTalentPlan(c.talentPlans[id]) : key === run.managed ? {} : automaticTalents(role,p?.identity??fallbackPlayerIdentity(id)), energy: p?.energy ?? 90, happiness: p?.happiness ?? 85,
+      ...(key === run.managed && p && pressurePoints(c, p) ? { pressure: pressurePoints(c, p) } : {}),
+      ...(p && metaFitPoints(p, patch) ? { metaFit: metaFitPoints(p, patch) } : {}) };
+  }), bonus: (key === run.managed ? (c.settings.difficulty === "Club" ? 0.14 : c.settings.difficulty === "Legend" ? -0.12 : 0) : 0) + synergyBonus(c, team.roster),
   patchObserver: key === run.managed ? managedPatchObserver(c, run.patchId ?? patchAtDate(tournamentForRun(run)!.start).id) : { teamKey: key, staffIds: oppositionStaff(key) },
   form: lineupFormResults(c.calendar?.runs.filter(other => other.eventId !== run.eventId) ?? [], team.roster) };
 }
@@ -272,6 +288,8 @@ export function commitTournamentRun(current: Campaign, run: TournamentRun): Camp
   let c = structuredClone(current);
   const index = c.calendar!.runs.findIndex(r => r.eventId === run.eventId);
   c.calendar!.runs[index] = structuredClone(run);
+  const learnedCalls = refreshTacticalProgress(c);
+  if (learnedCalls.length) c.log = [`New club calls: ${learnedCalls.map(id=>strategyById(id)!.name).join(', ')}. Open the Squad call catalogue to equip them.`, ...c.log].slice(0, 100);
   // AI results advance the same real clock as managed games. Apply the saved
   // batch first so elapsed-time guards see the remaining fixtures, not rounds
   // that have just been played. Other registered commitments can still stop us.
@@ -294,10 +312,12 @@ export function commitTournamentRun(current: Campaign, run: TournamentRun): Camp
       const share = Math.floor(place.prize * (stored.prizeShares[id] ?? 0) / 100);
       if (share) { c.cash -= share; ledger(`${c.players.find(p => p.id === id)?.name} prize share · ${event.name}`, -share); }
     }
+    for (const bonus of sponsorResultBonuses(c, place.from)) { c.cash += bonus.amount; ledger(`${bonus.name} results bonus · ${event.name}`, bonus.amount); }
     c.transactions = c.transactions.slice(0, 80);
     c.reputation = clamp(c.reputation + Math.max(1, 14 - place.from));
     for (const placement of stored.placements) {
       const id = stored.teams.find(t => t.id === placement.team)?.clubId;
+      creditAiClub(c, id, placement.prize);
       if (id) c.calendar!.rankings[id] = (c.calendar!.rankings[id] ?? 0) + placement.points + (stored.teams.length - placement.from + 1) / stored.teams.length;
     }
     const result: Result = { eventId: event.id, event: event.name, year: event.year, week: c.week, won: place.from === 1, prize: place.prize, points: place.points,
@@ -331,3 +351,4 @@ export function settleTournamentMatch(current: Campaign, eventId: string, fixtur
   return c;
 }
 import { automaticTalents, normalizeTalentPlan } from "./talents";
+import { battlePlayerIdentity, fallbackPlayerIdentity } from './player-identity';
