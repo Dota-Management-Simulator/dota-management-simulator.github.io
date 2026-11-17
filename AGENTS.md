@@ -16,6 +16,12 @@ After `npm install` (lockfile unchanged), **all 504 tests**, TypeScript and an i
 
 **Follow-up fixes, November 16, 2026 (local, not published):** the plan screen and live summary ranked only a style's top calls, so a new club could see an empty phase (e.g. 2011 Teamfight/late, mid game) or locked calls listed as "lean on". Both now rank every call and show the first three the team has learned (`TacticalPreparation`, `tacticalSnapshot`). Historical upgrade levels get their own names (Dagon 2–5, Necronomicon 2–3) instead of repeating the base name in shop lists (`items.ts`). Scrims copy no longer mentions live calls. 529 tests pass; checked in the browser.
 
+## Spell burst against heroes, November 16, 2026
+
+Kills were 16-17 per map because a caught hero took about 30 game seconds to kill: hero HP is full Dota scale, but `spellEffects` scales spell damage x0.42 and hero attacks land every 4-5 game seconds. `LaneBattle.damage` now multiplies spell damage by `HERO_SPELL_DAMAGE` (1/.42) when a hero or summon hits an enemy hero. Creeps, buildings, allies and attacks are unchanged (`tests/spell-burst.test.ts`).
+Probe, 12 maps per era, same seeds: kills per map 16/16/17 -> 27/25/31 (2011/2016/2024). Game length did not move reliably (12-map medians swing by about 9 minutes from tiny changes).
+Open, not fixed: (1) some maps run past 120 minutes because the winning side cannot finish the Ancient after every enemy tower and barracks is gone; (2) heroes hit level 25 by about 50 minutes; (3) `revealedUntil` is set on attack but never read.
+
 ## Era scale fix and playstyle meta pull — October 30, 2026
 
 **Local, not published:** two changes.

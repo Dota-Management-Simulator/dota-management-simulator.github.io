@@ -255,6 +255,8 @@ export const BASES: Point[] = [
 ];
 const GAME_CLOCK = 6;
 const DT = 0.2;
+/** Undoes spellEffects' ×.42 small-map scale for spells hitting enemy heroes. */
+const HERO_SPELL_DAMAGE = 1 / .42;
 const limit = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
 export function seededRandom(seed: number) {
@@ -1096,6 +1098,10 @@ export class LaneBattle {
       if (this.patch!.year < 2016) return; // Pre-6.85 catapults were spell immune.
       value *= .2;
     }
+    // spellEffects scales spell damage ×.42 for the small map, but hero health is
+    // full Dota scale. Restore full value against enemy heroes so caught heroes die
+    // in seconds rather than half a minute; creeps and buildings keep the scale.
+    if (spell && !execution && target.kind === "hero" && source.team !== target.team && (source.kind === "hero" || source.summonOwner != null)) value *= HERO_SPELL_DAMAGE;
     if (target.kind === "hero") {
       if(!execution&&target.reductionUntil>this.clock)value*=1-target.reduction;
       for(const state of target.spells){
