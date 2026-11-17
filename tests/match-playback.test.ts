@@ -34,14 +34,11 @@ test("all live playback speeds preserve thirty game seconds per second at 1× an
   }
 });
 
-test("changing live cadence preserves the complete match and accepted tactical orders", () => {
+test("changing live cadence preserves the complete match", () => {
   const config = { ...buildBattleConfig(createCampaign(DEFAULT_SETTINGS), events[0], 42), captureReplay: false };
   const a = new LiveBattleSession(config), b = new LiveBattleSession(config);
-  const request = { type: "order", at: 0, order: { strategyId: "supports-mid" } } as const;
-  const accepted = a.command(request);
-  assert.equal(accepted.message, "Order accepted.");
-  assert.deepEqual(accepted, b.command(request));
-  // Different-sized automatic playback advances retain the accepted order.
+  assert.deepEqual(a.update(), b.update());
+  // Different-sized automatic playback advances reach the same state.
   for (let i = 0; i < 16; i++) a.advance(liveCadence(1).seconds);
   b.advance(liveCadence(32).seconds);
   assert.deepEqual(a.update(), b.update());

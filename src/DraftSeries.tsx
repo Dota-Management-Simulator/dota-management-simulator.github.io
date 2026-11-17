@@ -28,7 +28,7 @@ export default function DraftSeries({campaign,config,preparation,skipPlayback=fa
   onCancel:()=>void; managedTeamId?:string;
 }){
   const [prep,setPrep]=useState(()=>normalizeDraftPreparation(preparation));
-  const [tactics,setTactics]=useState(()=>campaign.tacticalPreparation?normalizeTactics(campaign.tacticalPreparation):automaticTactics(config.players[0],config.patchObservers?.[0]?.staffIds,config.tacticalUnlocks?.[0]));
+  const [tactics,setTactics]=useState(()=>campaign.tacticalPreparation?normalizeTactics(campaign.tacticalPreparation):automaticTactics(config.players[0]));
   const [preparing,setPreparing]=useState(false),[liveConfig,setLiveConfig]=useState<BattleConfig|null>(null);
   const opponent = useMemo(() => scoutingTeamForConfig(campaign, config), [campaign, config]);
   const [maps,setMaps]=useState<SimulatedSeries[]>([]);
@@ -122,7 +122,7 @@ export default function DraftSeries({campaign,config,preparation,skipPlayback=fa
         <div className="draft-choices">{filtered.map(({hero})=><button className="button secondary" key={hero.id} onClick={()=>{try{setState(takeDraftAction(cfg,state,hero.id));}catch(e){setError(String(e));}}}><HeroName id={hero.id}/><small>{step.kind==="ban"?"Ban":hero.roles.map(r=>heroRoles[r]).join(" / ")}</small></button>)}</div>
       </>}
       {mode==="manual"&&!step&&!busy&&!preparing&&<button className="button primary" onClick={()=>setPreparing(true)}>Confirm lineup & prepare tactics</button>}
-      {preparing&&!busy&&<><MatchPlayerFacets config={cfg} onChange={(id,choice)=>setMapFacets(previous=>({...previous,[id]:choice}))}/><TacticalPreparation config={{...cfg,draft:completeMapDraft(cfg,state).heroes}} preparation={tactics} onChange={setTactics} onSave={()=>onTactics(tactics)}/><div className="draft-mode-buttons"><button className="button primary" onClick={()=>launch(!skipPlayback)}>{skipPlayback?"Simulate map":"Start watching & call plays"}</button><button className="button secondary" onClick={()=>launch(skipPlayback)}>{skipPlayback?"Watch & call plays":"Simulate map & skip"}</button></div></>}
+      {preparing&&!busy&&<><MatchPlayerFacets config={cfg} onChange={(id,choice)=>setMapFacets(previous=>({...previous,[id]:choice}))}/><TacticalPreparation config={{...cfg,draft:completeMapDraft(cfg,state).heroes}} preparation={tactics} onChange={setTactics} onSave={()=>onTactics(tactics)}/><div className="draft-mode-buttons"><button className="button primary" onClick={()=>launch(!skipPlayback)}>{skipPlayback?"Simulate map":"Start watching"}</button><button className="button secondary" onClick={()=>launch(skipPlayback)}>{skipPlayback?"Watch & call plays":"Simulate map & skip"}</button></div></>}
       {!!state.actions.length&&<details className="draft-record"><summary>Pick/ban sequence · {state.actions.length} actions</summary><ol>{state.actions.map((a,i)=><li key={i}>{config.teams[a.side]} · {a.kind} · {heroById(a.heroId)?.name}</li>)}</ol></details>}
     </>}
     {error&&<div role="alert"><p>{error}</p><button className="button secondary" onClick={()=>{setError("");if(!step)launch();}}>Retry</button></div>}

@@ -940,7 +940,7 @@ export default function App({ preview }: { preview?: LocalPreview } = {}) {
                 )}
                 {page === "overview" && <ManagerDesk campaign={campaign} onPage={go} onAction={inboxAction} onPlayer={setPlayer} onCompetition={openCompetition} />}
                 {page === "profile" && <ClubProfile campaign={campaign} />}
-                {page === "roster" && <><SquadWorkspace campaign={campaign} onProfile={setPlayer} onTraining={() => go("training")} onScout={() => go("scouting")} onChange={next => update(() => next)} /><CampaignCallCatalogue campaign={campaign} onChange={next=>update(()=>next)}/></>}
+                {page === "roster" && <><SquadWorkspace campaign={campaign} onProfile={setPlayer} onTraining={() => go("training")} onScout={() => go("scouting")} onChange={next => update(() => next)} /><CampaignCallCatalogue campaign={campaign}/></>}
                 {page === "standings" && <CompetitionStandings campaign={campaign} onTournament={id => id ? inboxAction({ kind: "tournament", eventId: id }) : go("calendar")} onResults={winner => {
                   const result = campaign.results.find(r => winner.archived ? `legacy:${r.year}:${r.eventId}` === winner.eventId : r.tournamentId === winner.eventId);
                   if (result) setViewResult(result);

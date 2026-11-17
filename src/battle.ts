@@ -33,12 +33,12 @@ import type { EconomyRules } from "./combat-model";
 import type { AbilityDefinition, SpellCast, SpellState } from "./combat-model";
 import { MatchEventLog } from './match-events';
 import type { MatchEvent } from './match-events';
-import { automaticTactics, normalizeTactics, phaseAt, strategyById, strategyUnlocked, unlockDescription } from "./tactics";
+import { automaticTactics, normalizeTactics, phaseAt, strategies, strategyById, strategyUnlocked, styleHighlights, styleWeight, unlockDescription } from "./tactics";
 import type { ActivePlay, DroppedItem, RoshanState, Strategy, TacticalEvent, TacticalOrder, TacticalPreparation, TacticalSnapshot } from "./tactics";
 import { buybackCost, matchRules, terrainHeight } from './match-rules';
 import type { CreepType, GlyphState, SiegeEvent } from './match-rules';
 import { masterySkillBonus, masterySkills } from './player-career';
-import { controllerRoll, decisionProbability, reactionSeconds } from './player-control';
+import { controllerRoll, decisionProbability, perceivedFightRatio, reactionSeconds } from './player-control';
 
 export type Side = 0 | 1;
 export interface BattlePlayer {
@@ -443,7 +443,7 @@ export class LaneBattle {
     this.economyRules=combatCatalogue(this.patch)?.rules??defaultEconomyRules;
     this.itemTable = new Map(itemCatalog.map(item=>[item.id,itemForPatch(item.id,this.patch)]));
     this.preparations = ([0, 1] as Side[]).map(side => config.tacticalPreparations?.[side] ? normalizeTactics(config.tacticalPreparations[side])
-      : automaticTactics(config.players[side], config.patchObservers?.[side]?.staffIds ?? oppositionStaff(config.teams[side]),config.tacticalUnlocks?.[side])) as [TacticalPreparation,TacticalPreparation];
+      : automaticTactics(config.players[side])) as [TacticalPreparation,TacticalPreparation];
     this.glyphs = this.preparations.map(p => ({ auto: p.autoGlyph !== false, activeUntil: 0, creepsUntil: 0, readyAt: this.rules.glyphStartsAt, uses: 0 })) as [GlyphState, GlyphState];
 
     // Patched maps use that era's terrain and Roshan pit; legacy maps keep open ground.
@@ -725,6 +725,24 @@ export class LaneBattle {
     const skill = this.skill(u,key);
     return reactionSeconds(skill,this.skill(u,'stability'),u.player!.energy,u.player!.happiness,
       controllerRoll(this.config.seed,u.player!.id,Math.floor(this.clock/6),purpose));
+  }
+  /** Players read nearby fights from what they can see; judgement sets how far
+   * off the read is. A losing read retreats, a winning read commits to a hero. */
+  private readFight(u: Unit, enemies: Unit[], partners: Unit[], reach: number) {
+    const foes = enemies.filter(e => e.kind === 'hero' && !e.dead);
+    if (!foes.length) return undefined;
+    // Lanchester square law: total health times total damage output.
+    const power = (side: Unit[]) => side.reduce((n, a) => n + a.hp, 0) * side.reduce((n, a) => n + a.damage * (100 + a.agility) / (100 * a.rate), 0);
+    const judgement = (this.skill(u, 'intuition') + this.skill(u, 'skirmish')) / 2;
+    const read = perceivedFightRatio(power(partners) / Math.max(1, power(foes)), judgement,
+      controllerRoll(this.config.seed, u.player!.id, Math.floor(this.clock / 6), 'fight-read'));
+    if (read < .7) { u.retreat = true; u.regroupUntil = this.clock + 12; return undefined; }
+    const inReach = foes.filter(e => distance(e, u) <= reach);
+    if (read <= 1.3 || !inReach.length) return undefined;
+    // Good players focus the hero they can kill soonest; others hit the nearest.
+    return this.goodDecision(u, 'skirmish', 'focus-target')
+      ? inReach.sort((a, b) => a.hp - b.hp)[0]
+      : inReach.sort((a, b) => distance(a, u) - distance(b, u))[0];
   }
   private readySpellDecision(u: Unit) {
     if (this.config.playerControl !== 1) return true;
@@ -1719,7 +1737,6 @@ export class LaneBattle {
     if (this.winner !== null) return "Map complete";
     const strategy = strategyById(order.strategyId);
     if (!strategy || !strategy.phases.includes(phaseAt(this.clock))) return "Unavailable in this phase";
-    if (!this.preparations[side].slots[phaseAt(this.clock)].includes(strategy.id)) return "Not equipped in this phase’s quick slots";
     if (!strategyUnlocked(strategy,this.config.players[side],this.staff(side),this.config.tacticalUnlocks?.[side])) return `Locked: ${unlockDescription(strategy)}`;
     const cooldown = this.playCooldowns[side][strategy.id] ?? 0;
     if (cooldown > this.clock) return `Ready in ${Math.ceil(cooldown-this.clock)}s`;
@@ -1732,6 +1749,7 @@ export class LaneBattle {
     if (this.plays[side]&&strategy.kind!=="disengage") return "Finish or cancel the current team movement";
     if (strategy.kind === "roshan" && this.pointVisible(side,this.roshan) && this.roshan.respawnAt > this.clock) return `Roshan returns in ${this.roshan.respawnAt-this.clock}s`;
     const members = this.participants(side,strategy);
+    if (!members.length) return "No players are available";
     const flexiblePush = this.rules.enabled && source === 'bot' && strategy.kind === 'push' && strategy.roles.length >= 4;
     if (strategy.kind!=="disengage"&&members.length < (flexiblePush ? Math.ceil(strategy.roles.length * .6) : strategy.roles.length)) return "Required players must be alive, recovered and not retreating";
     if (strategy.kind === "protect" && !this.heroes(side).some(u => u.player!.role === 0 && !u.dead)) return "Carry is dead";
@@ -1817,12 +1835,18 @@ export class LaneBattle {
       if (this.clock<this.nextDecision[side]) continue;
       const avg=this.heroes(side).reduce((n,u)=>n+this.skill(u,'intuition',50),0)/5;
       this.nextDecision[side]=this.clock+55+(100-avg)*.25;
-      // Autonomous teams can only choose their own equipped, unlocked calls.
-      const choices=this.preparations[side].slots[phaseAt(this.clock)].map(strategyById).filter((s):s is Strategy=>!!s);
+      // Players choose any unlocked call; the team's style and timing set which they lean on.
+      const phase=phaseAt(this.clock),prep=this.preparations[side];
+      const choices=strategies.filter(s=>s.phases.includes(phase)&&strategyUnlocked(s,this.config.players[side],this.staff(side),this.config.tacticalUnlocks?.[side]));
       const healthy=this.heroes(side).filter(u=>!u.dead&&!u.retreat&&u.hp>u.max*.65);
       const seen=this.visibleEnemies(side);
       const exposed = this.rules.enabled && !this.units.some(u=>u.team!==side&&u.kind==='tower'&&!u.dead);
-      const ranked=choices.map(s=>({s,weight:s.id==='high-ground'&&exposed&&healthy.length>=3?10:s.kind==="item"?1:s.kind==="roshan"?healthy.length===5&&!seen.some(e=>distance(e,this.roshan)<220)?7:0:s.kind==="gank"?seen.some(e=>e.homeLane===(s.lane??1))?5:1:s.kind==="protect"?seen.some(e=>this.heroes(side).some(u=>u.player!.role===0&&distance(e,u)<250))?7:1:healthy.length>=3?4:0})).sort((a,b)=>b.weight-a.weight);
+      const ranked=choices.map(s=>({s,weight:s.id==='high-ground'&&exposed&&healthy.length>=3?10:s.kind==="item"?1:s.kind==="roshan"?healthy.length===5&&!seen.some(e=>distance(e,this.roshan)<220)?7:0:s.kind==="gank"?seen.some(e=>e.homeLane===(s.lane??1))?5:1:s.kind==="protect"?seen.some(e=>this.heroes(side).some(u=>u.player!.role===0&&distance(e,u)<250))?7:1
+        :s.kind==="defend"?seen.some(e=>this.units.some(t=>t.team===side&&t.kind==="tower"&&!t.dead&&(s.lane==null||t.lane===s.lane)&&distance(e,t)<260))?6:0
+        :s.kind==="disengage"?seen.length>healthy.length+1?6:0
+        :s.kind==="farm"?healthy.length>=3&&!seen.some(e=>e.homeLane===s.lane)?3:0
+        :healthy.length>=3?4:0}))
+        .map(({s,weight})=>({s,weight:weight*styleWeight(prep.style,prep.timing,s,phase)})).sort((a,b)=>b.weight-a.weight);
       for(const {s,weight} of ranked) {
         if(!weight)continue;
         const base=this.units.find(u=>u.kind==="base"&&u.team===side)!;
@@ -1910,7 +1934,8 @@ export class LaneBattle {
   }
   tacticalSnapshot(side: Side, targetPlayerId?: string): TacticalSnapshot {
     const phase=phaseAt(this.clock);
-    return {phase,slots:this.preparations[side].slots[phase].map(strategyId=>({strategyId,reason:this.strategyReason(side,{strategyId,targetPlayerId})})),
+    return {phase,style:this.preparations[side].style,timing:this.preparations[side].timing,
+      slots:styleHighlights(this.preparations[side],phase).map(({id:strategyId})=>({strategyId,reason:this.strategyReason(side,{strategyId,targetPlayerId},'bot')})),
       ...(this.plays[side]?{active:structuredClone(this.plays[side])}:{}),events:this.tacticalEvents.filter(e=>e.side===side).slice(-8),
       itemTargets:this.heroes(side).filter(u=>u.itemPriority).map(u=>({playerId:u.player!.id,item:u.itemPriority!}))};
   }
@@ -2034,14 +2059,16 @@ export class LaneBattle {
       if (u.hp > u.max * 0.85 && this.clock >= u.regroupUntil) u.retreat = false;
       const enemies = this.visibleEnemies(u.team).filter(e=>distance(e,u)<220);
       const partners = this.heroes(u.team).filter(a=>!a.dead&&distance(a,u)<220);
-      if(enemies.length > partners.length + 1 && this.skill(u,'intuition',50)>=25) {u.retreat=true;u.regroupUntil=this.clock+12;}
+      const awareness = this.patch ? (this.patch.axes.vision - 50) / 50 * (this.skill(u,'vision',50) + this.skill(u,'intuition',50)) / 200 * 65 : 0;
+      let committed: Unit | undefined;
+      if (this.config.playerControl === 1) committed = this.readFight(u, enemies, partners, u.range + 60 + awareness);
+      else if(enemies.length > partners.length + 1 && this.skill(u,'intuition',50)>=25) {u.retreat=true;u.regroupUntil=this.clock+12;}
       if(this.plays[u.team]&&strategyById(this.plays[u.team]!.strategyId)?.kind==="disengage"&&this.tacticalAction(u))continue;
       if (u.retreat) {
         u.farmCamp = undefined;
         this.move(u, home.x, home.y);
         continue;
       }
-      const awareness = this.patch ? (this.patch.axes.vision - 50) / 50 * (this.skill(u,'vision',50) + this.skill(u,'intuition',50)) / 200 * 65 : 0;
       if(this.tacticalAction(u))continue;
       if(this.facetAction(u))continue;
       if (this.camps.length && this.farm(u)) continue;
@@ -2053,7 +2080,7 @@ export class LaneBattle {
       }
       // Players recognize nearby opportunities; farming cores finish an easy
       // last hit, while skirmish skill helps identify a vulnerable visible hero.
-      const vulnerable=enemies.filter(e=>distance(e,u)<u.range+45&&e.hp<e.max*(.3+this.skill(u,'skirmish',50)/500)).sort((a,b)=>a.hp/a.max-b.hp/b.max)[0];
+      const vulnerable=committed ?? enemies.filter(e=>distance(e,u)<u.range+45&&e.hp<e.max*(.3+this.skill(u,'skirmish',50)/500)).sort((a,b)=>a.hp/a.max-b.hp/b.max)[0];
       if(vulnerable)target=vulnerable;
       if (this.config.playerControl === 1 && !this.plays[u.team]?.participants.includes(u.id)
         && !vulnerable && partners.length >= enemies.length && this.goodDecision(u,'pushing','siege-window')) {

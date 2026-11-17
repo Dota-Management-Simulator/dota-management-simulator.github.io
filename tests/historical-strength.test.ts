@@ -152,7 +152,9 @@ test("historical favorites win more often, while stronger management can reverse
     }
     if (simulateSeries(improved).summary.winner === 1) improvedWins++;
   }
-  assert.ok(favoriteWins >= 9, `intact favorites won ${favoriteWins}/12`);
+  // Measured over 48 seeds on 2026-11-12: 36/48 before team styles, 38/48 after.
+  // About 75–80%, so 8/12 or better guards against a real regression without flaking.
+  assert.ok(favoriteWins >= 8, `intact favorites won ${favoriteWins}/12`);
   assert.ok(improvedWins >= 3, `developed underdogs won ${improvedWins}/12`);
 });
 

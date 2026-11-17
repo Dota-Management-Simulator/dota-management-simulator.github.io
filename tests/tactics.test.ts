@@ -3,7 +3,7 @@ import assert from "node:assert/strict";
 import { LaneBattle, simulateSeries } from "../src/battle";
 import type { BattleConfig } from "../src/battle";
 import { LiveBattleSession } from "../src/live-battle";
-import { defaultTactics, normalizeTactics, phaseAt, strategyById, strategyUnlocked } from "../src/tactics";
+import { automaticTactics, defaultTactics, normalizeTactics, phaseAt, strategyById, strategyUnlocked, styleHighlights, styleWeight } from "../src/tactics";
 import { automaticBuild, bkbProtection, itemForPatch } from "../src/items";
 import { patchById } from "../src/patches";
 import { heroById } from "../src/heroes";
@@ -20,13 +20,43 @@ function config(year=2011):BattleConfig {
 const heroes=(battle:LaneBattle)=>battle.units.filter(u=>u.kind==="hero");
 function ticks(battle:LaneBattle,count:number){for(let i=0;i<count&&battle.winner===null;i++)battle.step();}
 
-test("phase quick slots validate malformed saves, deduplicate and switch exactly at 15:00 and 40:00",()=>{
+test("team plans validate malformed saves, migrate old call slots and switch phase exactly at 15:00 and 40:00",()=>{
   assert.deepEqual([phaseAt(899),phaseAt(900),phaseAt(2399),phaseAt(2400)],["early","mid","mid","late"]);
-  const prep=normalizeTactics({slots:{early:["supports-mid","supports-mid","buy-rapier","unknown"],mid:"bad",late:null},builds:["survival","unknown"]});
-  assert.equal(prep.slots.early[0],"supports-mid");
-  for(const slots of Object.values(prep.slots)){assert.equal(slots.length,3);assert.equal(new Set(slots).size,3);}
-  assert.deepEqual(prep.builds,["survival","automatic","automatic","automatic","automatic"]);
+  const bad=normalizeTactics({style:"turtle",timing:"never",builds:["survival","unknown"]});
+  assert.deepEqual({style:bad.style,timing:bad.timing},{style:"teamfight",timing:"mid"});
+  assert.deepEqual(bad.builds,["survival","automatic","automatic","automatic","automatic"]);
   assert.deepEqual(normalizeTactics(null),defaultTactics());
+  const legacy=normalizeTactics({slots:{early:["mid-top","mid-bottom","supports-mid"],mid:["split-push","split-support","push-0"],late:["split-push","push-1","buy-bkb"]},autoGlyph:false});
+  assert.deepEqual({style:legacy.style,timing:legacy.timing,autoGlyph:legacy.autoGlyph},{style:"split-push",timing:"early",autoGlyph:false});
+  assert.equal(normalizeTactics({slots:{mid:["farm-0","farm-1","defend-0"],late:["farm-2","defend-1","buy-rapier"]}}).timing,"late");
+  assert.equal(normalizeTactics({style:"protect-one",timing:"late"}).style,"protect-one");
+});
+
+test("styles and timings change which calls players favour",()=>{
+  const call=(id:string)=>strategyById(id)!;
+  assert.ok(styleWeight("split-push","mid",call("split-push"),"mid")>styleWeight("teamfight","mid",call("split-push"),"mid"));
+  assert.ok(styleWeight("protect-one","mid",call("protect-carry"),"mid")>styleWeight("three-cores","mid",call("protect-carry"),"mid"));
+  assert.ok(styleWeight("teamfight","early",call("high-ground"),"late")>styleWeight("teamfight","late",call("high-ground"),"late"));
+  assert.ok(styleWeight("three-cores","late",call("farm-0"),"mid")>styleWeight("three-cores","early",call("farm-0"),"mid"));
+  assert.equal(styleHighlights({style:"split-push",timing:"mid"},"mid")[0].id.startsWith("split-"),true);
+  assert.equal(styleHighlights({style:"protect-one",timing:"mid"},"mid")[0].kind,"protect");
+  const players=config().players[0];
+  assert.deepEqual(automaticTactics(players),automaticTactics(players.map(p=>({...p,skills:{...p.skills}}))));
+  for(const p of players)p.skills.teamfights=20;players[2].skills.pushing=95;for(const p of players)p.skills.pushing=Math.max(p.skills.pushing,80);
+  assert.equal(automaticTactics(players).style,"split-push");
+});
+
+test("autonomous teams make calls from their style without equipped slots",()=>{
+  const count=(style:"split-push"|"teamfight")=>{
+    const c=config();c.tacticalPreparations=[{...defaultTactics(),style},{...defaultTactics(),style}];
+    const b=new LaneBattle(c);ticks(b,1500);
+    return b.tacticalEvents.filter(e=>e.status==="called"&&e.source==="bot");
+  };
+  const split=count("split-push"),fight=count("teamfight");
+  assert.ok(split.length>0&&fight.length>0,"both teams make their own calls");
+  const share=(events:ReturnType<typeof count>,ids:string[])=>events.filter(e=>ids.includes(e.strategyId)).length/events.length;
+  const splitIds=["split-push","split-support"];
+  assert.ok(share(split,splitIds)>share(fight,splitIds),`split-push style calls split plays more (${share(split,splitIds)} vs ${share(fight,splitIds)})`);
 });
 
 test("staff and actual player attributes unlock advanced plays; basic calls remain available",()=>{
@@ -65,14 +95,13 @@ test("gank calls move real participants, cost time and can be cancelled and reus
   assert.equal(battle.tacticalEvents.filter(e=>e.status==="called"&&e.source==="manager").length,2);
 });
 
-test("orders reject wrong phases, unequipped calls, dead participants and opponent purchase targets",()=>{
+test("orders reject wrong phases, dead participants and opponent purchase targets",()=>{
   const battle=new LaneBattle(config());
   assert.equal(battle.issueOrder(0,{strategyId:"roshan"}).accepted,false);
   const support=heroes(battle).find(u=>u.team===0&&u.player!.role===3)!;support.dead=true;
   assert.match(battle.strategyReason(0,{strategyId:"supports-mid"})!,/alive/);
   battle.time=150;
   assert.match(battle.strategyReason(0,{strategyId:"buy-bkb",targetPlayerId:"1:0"})!,/your team/);
-  assert.match(battle.strategyReason(0,{strategyId:"push-0"})!,/Not equipped/);
   assert.equal(battle.issueOrder(0,{strategyId:"buy-bkb",targetPlayerId:"0:1"}).accepted,true);
   assert.equal(battle.tacticalSnapshot(0).itemTargets[0].playerId,"0:1");
   battle.cancelItemPriority(0,"0:1");assert.equal(battle.tacticalSnapshot(0).itemTargets.length,0);
@@ -143,8 +172,7 @@ test("Rapier drops at the death position and can become an opponent's real inven
 });
 
 test("Roshan requires travel and attacks, grants a single expiring Aegis and cannot be repeated while absent",()=>{
-  const c=config();c.tacticalPreparations![0]!.slots.mid=["roshan","protect-carry","buy-bkb"];
-  const battle=new LaneBattle(c);battle.time=150;battle.roshan.hp=10;
+  const battle=new LaneBattle(config());battle.time=150;battle.roshan.hp=10;
   for(const u of heroes(battle).filter(u=>u.team===0)){u.x=battle.roshan.x;u.y=battle.roshan.y;}
   assert.equal(battle.issueOrder(0,{strategyId:"roshan"}).accepted,true);
   // Assembly and terrain-safe travel now precede the first pit attack.
@@ -170,12 +198,9 @@ test("Aegis revival consumes the reward without awarding a hero kill or dropping
 test("live stepping, speed chunks, inspection and skip continue the identical seeded simulation",()=>{
   const c={...config(),captureTimeline:true,captureReplay:true};
   const a=new LiveBattleSession(c),b=new LiveBattleSession(c);
-  const first=a.update();assert.equal(a.battle.time,0);a.update();assert.equal(a.battle.time,0);
-  assert.equal(a.command({type:"order",at:first.frame.time,order:{strategyId:"supports-mid"}}).message,"Order accepted.");
-  b.command({type:"order",at:0,order:{strategyId:"supports-mid"}});
+  a.update();assert.equal(a.battle.time,0);a.update();assert.equal(a.battle.time,0);
   for(let i=0;i<20;i++){a.advance(6);a.command({type:"inspect",playerId:"0:1"});}b.advance(120);
   assert.deepEqual(a.battle.snapshot(),b.battle.snapshot());
-  assert.match(a.command({type:"order",at:0,order:{strategyId:"mid-bottom"}}).message!,/advanced/);
   const skipped=a.command({type:"finish-live"}).simulation!;
   while(b.battle.winner===null)b.advance(24);
   assert.deepEqual(skipped,b.result());
@@ -184,7 +209,7 @@ test("live stepping, speed chunks, inspection and skip continue the identical se
 });
 
 test("tactical preparation survives reload without changing dates, finances, ratings or old results",()=>{
-  const c=createCampaign(DEFAULT_SETTINGS),prep=defaultTactics();prep.builds[2]="survival";prep.slots.mid[0]="push-0";prep.autoGlyph=false;c.tacticalPreparation=prep;
+  const c=createCampaign(DEFAULT_SETTINGS),prep=defaultTactics();prep.builds[2]="survival";prep.style="split-push";prep.timing="late";prep.autoGlyph=false;c.tacticalPreparation=prep;
   const previous=globalThis.localStorage;
   Object.defineProperty(globalThis,"localStorage",{configurable:true,value:{getItem:(key:string)=>key===SAVE_KEY?JSON.stringify(c):null}});
   try{const loaded=readSave()!;assert.deepEqual(loaded.tacticalPreparation,prep);assert.equal(loaded.cash,c.cash);assert.equal(loaded.week,c.week);assert.deepEqual(loaded.results,c.results);assert.deepEqual(loaded.players.map(p=>p.stats),c.players.map(p=>p.stats));
@@ -225,6 +250,6 @@ test("live all-player item priorities use the same eligible own-team targets",()
   assert.ok(heroes(session.battle).filter(u=>u.team===1).every(u=>!u.itemPriority));
   assert.match(session.command({type:'purchase-item',playerId:'all',itemId:'blink'}).message!,/No eligible/);
   session.battle.time=150;
-  assert.equal(session.command({type:'order',at:session.battle.clock,order:{strategyId:'buy-bkb',targetPlayerId:'all'}}).message,'Order accepted.');
+  assert.equal(session.battle.issueOrder(0,{strategyId:'buy-bkb',targetPlayerId:'all'},'bot').accepted,true);
   assert.equal(session.update().tactics.itemTargets.length,5);
 });

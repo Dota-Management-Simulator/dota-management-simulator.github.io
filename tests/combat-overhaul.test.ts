@@ -70,7 +70,7 @@ test('Shallow Grave prevents ordinary lethal damage but permits execution; stron
 });
 
 test('disengage interrupts a prior movement and includes hurt retreating heroes',()=>{
- const c=config();c.tacticalPreparations![0]!.slots.early=['mid-top','disengage','defend-0'];const b=new LaneBattle(c),u=heroes(b)[0];
+ const c=config();const b=new LaneBattle(c),u=heroes(b)[0];
  assert.equal(b.issueOrder(0,{strategyId:'mid-top'}).accepted,true);u.hp=u.max*.1;u.retreat=true;
  assert.equal(b.issueOrder(0,{strategyId:'disengage'}).accepted,true);assert.equal(b.tacticalSnapshot(0).active?.strategyId,'disengage');
  assert.ok(b.tacticalSnapshot(0).active?.participants.includes(u.id));
@@ -91,7 +91,7 @@ test('support bots establish actual wards for both teams on all eleven map eras'
 });
 
 test('lane push calls continue to barracks after all three lane towers have fallen',()=>{
- const c=config();c.tacticalPreparations![0]!.slots.mid=['push-0','protect-carry','buy-bkb'];
+ const c=config();
  const b=new LaneBattle(c);b.time=150;
  for(const tower of b.units.filter(u=>u.team===1&&u.kind==='tower'&&u.lane===0)){tower.dead=true;tower.hp=0;}
  assert.equal(b.issueOrder(0,{strategyId:'push-0'}).accepted,true);

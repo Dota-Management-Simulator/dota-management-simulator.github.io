@@ -9,7 +9,7 @@ import { HeroToken, MapReplay, PLAYBACK_SPEEDS, speedLabel } from "./MatchExperi
 import ItemInventory from "./ItemInventory";
 import { itemById, itemsAvailableForPatch } from "./items";
 import { patchById } from "./patches";
-import { phaseLabels, strategyById } from "./tactics";
+import { phaseLabels, strategyById, teamStyleInfo, timingInfo } from "./tactics";
 import TeamBadge from "./TeamBadge";
 import { teamIdForName } from "./team-logos";
 import { liveCadence } from "./match-playback";
@@ -18,7 +18,6 @@ import { RespawnStatus } from "./MatchAnnouncer";
 import {noCombatPauses} from './combat-pauses';
 import type {CombatPauseSettings} from './combat-pauses';
 import WardPlacement from './WardPlacement';
-import StrategyCatalogue from './StrategyCatalogue';
 import "./tactics.css";
 import './combat-mobile.css';
 
@@ -72,7 +71,7 @@ export default function LiveMatchViewer({config,onComplete,managedTeamId,onAutoG
   const glyphReason=!glyph?'Unavailable in this legacy match':glyphActive?'Glyph is active':glyph.readyAt>frame.time?`Ready in ${matchClock(glyph.readyAt-frame.time)}`:null;
   const deadAllies=frame.players.filter(p=>p.team===0&&frame.units.some(u=>u.playerId===p.id&&u.hp<=0));
   return <div className="match-viewer live-match" data-mobile-view={mobileView}>
-    <div className="watch-heading"><div><div className="eyebrow">LIVE MATCH · PATCH {patchLabel(config.patchId)}</div><h2 id="modal-title">Read the map. Call the play.</h2><p className="patch-match-label">{phaseLabels[tactics.phase]} · {playing?"Playing":"Paused"}</p></div>
+    <div className="watch-heading"><div><div className="eyebrow">LIVE MATCH · PATCH {patchLabel(config.patchId)}</div><h2 id="modal-title">Watch your plan play out.</h2><p className="patch-match-label">{phaseLabels[tactics.phase]} · {playing?"Playing":"Paused"}</p></div>
       <button className="button secondary small-button" disabled={busy||finishing} onClick={()=>{setPlaying(false);setFinishing(true);send({type:"finish-live"});}}><SkipForward size={15}/>{finishing?"Finishing map…":"Simulate remainder"}</button></div>
     <div className="live-score"><strong><TeamBadge teamId={managedTeamId} name={config.teams[0]} year={config.year} size="small"/>{config.teams[0]}</strong><span><b>{frame.kills[0]}</b><small>{matchClock(frame.time)}</small><b>{frame.kills[1]}</b></span><strong><TeamBadge teamId={teamIdForName(config.teams[1],config.year)} name={config.teams[1]} year={config.year} size="small"/>{config.teams[1]}</strong></div>
     <div className="combat-command-bar"><div className="watch-controls"><button className="button secondary combat-play" disabled={finishing} aria-label={playing?"Pause match":"Resume match"} onClick={()=>setPlaying(p=>!p)}>{playing?<Pause size={18}/>:<Play size={18}/>} {playing?'Pause':'Resume'}</button><label>Speed<select aria-label="Match speed" value={speed} onChange={e=>setSpeed(Number(e.target.value))}>{PLAYBACK_SPEEDS.map(s=><option key={s} value={s}>{speedLabel(s)}</option>)}</select></label><button className="text-link" disabled={playing||busy||finishing} onClick={()=>send({type:"advance",seconds:60})}>+1 minute</button></div>
@@ -90,19 +89,18 @@ export default function LiveMatchViewer({config,onComplete,managedTeamId,onAutoG
     </section>}
     <div className="watch-layout watch-with-spells"><SpellPanel key={config.seed} frame={frame} patchId={config.patchId} playing={playing&&!finishing}><WardPlacement frame={frame} patchId={config.patchId} disabled={busy||finishing} onPlace={order=>send({type:'ward',order,at:frame.time})} onPlanning={()=>setPlaying(false)}>{(onPoint,overlay)=><div className="map-wrap"><MapReplay before={frame} after={frame} ratio={0} transitionMs={playing&&!finishing?liveCadence(speed).intervalMs:0} expanded={(patch?.year??0)>=2023} patchId={config.patchId} selectedUnitIds={active?.participants} onMapPoint={onPoint} overlay={overlay}/><span className="map-live-label"><i/>TEAM VISION · {matchClock(frame.time)}</span></div>}</WardPlacement></SpellPanel>
     <section className="tactics-console" aria-label="Live tactical calls">
-      <StrategyCatalogue config={config}/>
-      <div className="tactics-console-head"><div className="eyebrow">{phaseLabels[tactics.phase]} · THREE QUICK SLOTS</div><label>Purchase order target<select aria-label="Purchase order target" disabled={busy||finishing} value={target} onChange={e=>{setTarget(e.target.value);send({type:"inspect",playerId:e.target.value});}}><option value="all">All players</option>{config.players[0].map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label></div>
-      <div className="tactic-quick-slots">{tactics.slots.map((slot,i)=>{const s=strategyById(slot.strategyId)!;return <button key={s.id} className="button secondary" disabled={busy||finishing||!!slot.reason} title={slot.reason??s.description} onClick={()=>send({type:"order",at:frame.time,order:{strategyId:s.id,...(s.kind==="item"?{targetPlayerId:target}:{})}})}><strong>{i+1}. {s.name}</strong><small>{slot.reason??s.description}</small></button>;})}</div>
-      {active&&<div className="active-play"><strong>{strategyById(active.strategyId)?.name} · {active.stage} · {active.source==="manager"?"Your call":"Team decision"}</strong><p>Ends by {matchClock(active.expiresAt)}. Players can disengage if the situation becomes unsafe.</p><button className="text-link" disabled={busy||finishing} onClick={()=>send({type:"cancel-order"})}>Cancel movement</button></div>}
+      <div className="tactics-console-head"><div className="eyebrow">{phaseLabels[tactics.phase]} · {teamStyleInfo[tactics.style].name.toUpperCase()}</div><label>Item priority for<select aria-label="Item priority target" disabled={busy||finishing} value={target} onChange={e=>{setTarget(e.target.value);send({type:"inspect",playerId:e.target.value});}}><option value="all">All players</option>{config.players[0].map(p=><option key={p.id} value={p.id}>{p.name}</option>)}</select></label></div>
+      <p className="tactic-style-summary">{timingInfo[tactics.timing].name}. Your players call their own plays; this phase they lean on {tactics.slots.map(slot=>strategyById(slot.strategyId)!.name).join(", ")}.</p>
+      {active&&<div className="active-play"><strong>{strategyById(active.strategyId)?.name} · {active.stage} · Team decision</strong><p>Ends by {matchClock(active.expiresAt)}. Players can disengage if the situation becomes unsafe.</p></div>}
       <div className="tactic-purchase-targets">{tactics.itemTargets.map(t=><button key={t.playerId} className="text-link" disabled={busy||finishing} onClick={()=>send({type:"cancel-item",playerId:t.playerId})}>{config.players[0].find(p=>p.id===t.playerId)?.name} saving for {itemById(t.item)?.name} · Cancel</button>)}</div>
-      <div className="live-match-status" role="status">{finishing?"Continuing this same map with all accepted calls…":notice}</div>
+      <div className="live-match-status" role="status">{finishing?"Continuing this same map…":notice}</div>
       {!!frame.siegeEvents?.length&&<details><summary>Fortification & buybacks</summary><ol className="tactic-log">{frame.siegeEvents.slice(-8).map((e,i)=><li key={`${e.time}-${i}`}><time>{matchClock(e.time)}</time>{config.teams[e.team]} · {e.message}</li>)}</ol></details>}
       <div className="patch-log-filters"><label>Item build priority<select aria-label="Item build priority" value={purchase} disabled={busy||finishing} onChange={e=>setPurchase(e.target.value)}>{itemsAvailableForPatch(patch).sort((a,b)=>a.name.localeCompare(b.name)).map(item=><option key={item.id} value={item.id}>{item.name} · {item.cost} gold</option>)}</select></label><button className="button secondary" disabled={busy||finishing} onClick={()=>send({type:'purchase-item',playerId:target,itemId:purchase})}>Save for item</button></div>
       {!!tactics.events.length&&<details><summary>Recent tactical decisions</summary><ol className="tactic-log">{tactics.events.map((e,i)=><li key={`${e.time}-${i}`}><time>{matchClock(e.time)}</time>{e.message}</li>)}</ol></details>}
     </section>
     </div>
     <LiveRosters config={config} frame={frame} disabled={busy||finishing} onBuyback={id=>send({type:'buyback',playerId:id,at:frame.time})} />
-    <p className="match-footnote">Only your team's current vision is shown. Hidden enemy inventories and cooldowns stay hidden. Orders use the current match clock. Simulating the remainder preserves accepted orders.</p>
+    <p className="match-footnote">Only your team's current vision is shown. Hidden enemy inventories and cooldowns stay hidden. Wards, Glyph, buybacks and item priorities use the current match clock. Simulating the remainder keeps them.</p>
   </div>;
 }
 

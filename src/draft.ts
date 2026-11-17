@@ -37,7 +37,12 @@ const contexts=new WeakMap<BattleConfig,ReturnType<typeof makeContext>>();
 function makeContext(config:BattleConfig){
   const patch=patchById(config.patchId);
   const pool=getHeroPool(config.year,patch?Math.min(config.heroPoolThroughYear??patch.year-1,patch.year-1):config.heroPoolThroughYear,patch);
-  const views=([0,1] as Side[]).map(side=>patch?perceivedPatch(patch,config.patchObservers?.[side]??{teamKey:config.teams[side],staffIds:oppositionStaff(config.teams[side])}):undefined);
+  const views=([0,1] as Side[]).map(side=>{
+    const observer=config.patchObservers?.[side]??{teamKey:config.teams[side],staffIds:oppositionStaff(config.teams[side])};
+    if(!patch)return undefined;
+    // Hero targets are uncalibrated on the current engine; full weight crowds out composition.
+    return observer.omniscient?{...patch,heroBalance:patch.heroBalance?.map(h=>({...h,priority:h.priority*BOT_HERO_WEIGHT}))}:perceivedPatch(patch,observer);
+  });
   const roles=new Map(pool.map(h=>[h.id,heroRoleProfile(h.id,patch??{year:config.year,phase:1},h.roles)]));
   return {patch,pool,views,roles};
 }
@@ -145,6 +150,8 @@ export function draftSuggestions(config:BattleConfig,state:MapDraft):{hero:Hero;
   }).sort((a,b)=>b.score-a.score||a.hero.id.localeCompare(b.hero.id));
 }
 export const BOT_DRAFT_TEMPERATURE=.1;
+/** Share of each hero's true priority omniscient bots draft on. Measured in docs/event-modes.md. */
+export const BOT_HERO_WEIGHT=0;
 export function automaticDraftAction(config:BattleConfig,state:MapDraft):MapDraft{
   const step=nextDraftStep(config,state);if(!step)return state;
   const choices=draftSuggestions(config,state);if(!choices.length)throw Error("No legal draft completion remains.");

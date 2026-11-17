@@ -1,6 +1,18 @@
 # Aegis Manager — project handoff
 
-Last updated: **2026-10-30**. Read this file before changing the project, then read [the roadmap](docs/roadmap.md) for the original product vision and future plans. These notes describe context and current decisions; the current user's request determines what to work on next. The roadmap is not an instruction to implement everything at once.
+Last updated: **2026-11-12**. Read this file before changing the project, then read [the roadmap](docs/roadmap.md) for the original product vision and future plans. These notes describe context and current decisions; the current user's request determines what to work on next. The roadmap is not an instruction to implement everything at once.
+
+## Team styles replace in-game calls — November 12, 2026
+
+**Local, not published:** a playtester said coaches can't call plays in real Dota and the call system felt overcomplicated. The user chose to replace the call slots with a pre-game plan.
+
+- **Plan.** `TacticalPreparation` is now `{ style, timing, builds, autoGlyph }`. Styles: Teamfight, Split push, 4 protect 1, 3 semi cores. Timings: early, mid, late (`src/tactics.ts`).
+- **Engine.** Both teams use the autonomous call loop (`updatePlans` in `battle.ts`). Any unlocked call in the phase competes, and `styleWeight` multiplies each call's situational weight. Defend, disengage and farm calls now need a situation (enemies near a tower, being outnumbered, an empty lane) because they are no longer pre-filtered by slots.
+- **AI clubs.** `automaticTactics(players)` picks a style and timing from roster skills. The OpenAI bots play Teamfight / early.
+- **UI.** The pre-match screen picks style and timing and shows the three calls players lean on per phase, plus a note when a style's top call is not learned yet. The live viewer has no call buttons; wards, Glyph, buybacks and item priorities remain. The call catalogue is read-only; unlocks now widen what players can call.
+- **Saves.** Old saves with `slots` are mapped to the closest style and timing.
+
+After `npm install` (lockfile unchanged), **all 504 tests**, TypeScript and an isolated production build pass (existing chunk warning; both workers bundled). Disposable 5395 browser QA mounted the real plan screen (style/timing selection, locked-call notes, 375px single column) and live viewer (no call buttons; a real worker map finished with both teams calling to style, no console errors). Ten AI-plan maps run a median 51 min (35–57) against 57 (34–100) before. Na'Vi vs SGC favourites win 38/48 seeds (75% before), and that test's bar is now 8/12. `TACTICAL_ENGINE_VERSION` is `team-styles-v1`, so combat fingerprints change. Not balance-calibrated. No commit, push or deployment.
 
 ## Era scale fix and playstyle meta pull — October 30, 2026
 
@@ -233,7 +245,7 @@ The authorized Aegis Updates Discord summary was delivered (HTTP 200, receipt `1
 
 ## OpenAI Five challenge and All-Star match — October 24, 2026
 
-**Local, not published:** a new **Arcade** page (`EventModes.tsx`) holds two exhibitions that never move the clock or change ratings, energy, research, money or career stats. **OpenAI Five** (`bot-challenge.ts`) can be challenged as often as you like, BO1 or BO3, from **2019-04-18 to 2020-04-17** (one year from the real Arena). The bots' `PatchObserver.omniscient` hands them the true patch for drafting and in-game reads, and they draft near-greedily (`BOT_DRAFT_TEMPERATURE`). Their mechanics are the challenger's average +1, creativity 0, with a fixed aggressive script. One-team sample: 86% bot wins vs 77% for the same bots without true knowledge. The **All-Star match** (`all-star.ts`) runs at TIs 2012–2019, 2021 and 2022, from the first day until 14 days after the final: two fan-voted fives from the TI field. You coach if your player is in, otherwise you watch. Saves gain optional `botChallenges` and `allStars` with normalizers. Other event ideas are parked in `CLAUDE.md`. Dates and sources, with unchecked items labelled, are in [event modes](docs/event-modes.md). Tests, build and sandbox QA on **5323** are recorded there. Nothing committed, pushed or deployed.
+**Local, not published:** a new **Arcade** page (`EventModes.tsx`) holds two exhibitions that never move the clock or change ratings, energy, research, money or career stats. **OpenAI Five** (`bot-challenge.ts`) can be challenged as often as you like, BO1 or BO3, from **2019-04-18 to 2020-04-17** (one year from the real Arena). The bots' `PatchObserver.omniscient` hands them the true patch for drafting and in-game reads, and they draft near-greedily (`BOT_DRAFT_TEMPERATURE`). Their mechanics are the challenger's average +1, creativity 0, with a fixed aggressive script. Fixed 2026-10-30: hero targets are uncalibrated on the current engine (0/32 patches), and drafting for them cost the bots wins, so `BOT_HERO_WEIGHT` = 0 and the bots draft on the exact axes and composition. Measured 91% bot wins vs 69% at full hero weight (80 BO1 maps each, one team, see the doc). Re-measure after a hero recalibration. The **All-Star match** (`all-star.ts`) runs at TIs 2012–2019, 2021 and 2022, from the first day until 14 days after the final: two fan-voted fives from the TI field. You coach if your player is in, otherwise you watch. Saves gain optional `botChallenges` and `allStars` with normalizers. Other event ideas are parked in `CLAUDE.md`. Dates and sources, with unchecked items labelled, are in [event modes](docs/event-modes.md). Tests, build and sandbox QA on **5323** are recorded there. Nothing committed, pushed or deployed.
 
 ## Reborn client menus, events and TI — October 24, 2026
 

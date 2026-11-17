@@ -2,13 +2,12 @@ import { LaneBattle } from "./battle";
 import type { BattleConfig, ReplayFrame, SimulatedSeries } from "./battle";
 import { patchById } from "./patches";
 import { frontiersEnabled } from "./patch-milestones";
-import type { TacticalOrder, TacticalSnapshot } from "./tactics";
+import type { TacticalSnapshot } from "./tactics";
 import {combatPauseReason,noCombatPauses} from './combat-pauses';
 import type {CombatPauseSettings} from './combat-pauses';
 import type {WardOrder} from './battle';
 
 export type LiveRequest = {type:"start-live";config:BattleConfig} | {type:"advance";seconds:number} |
-  {type:"order";order:TacticalOrder;at:number} | {type:"cancel-order"} |
   {type:"glyph";at:number} | {type:"auto-glyph";enabled:boolean} | {type:"buyback";playerId:string;at:number} |
   {type:'ward';order:WardOrder;at:number} | {type:'pause-settings';settings:CombatPauseSettings} |
   {type:"cancel-item";playerId:string} | {type:"purchase-item";playerId:string;itemId:string} | {type:"inspect";playerId:string} | {type:"finish-live"};
@@ -70,11 +69,7 @@ export class LiveBattleSession {
     } else if(request.type==='auto-glyph') {
       if(typeof request.enabled!=='boolean') message='Invalid Auto Glyph setting.';
       else {this.battle.setAutoGlyph(0,request.enabled);message=`Auto Glyph ${request.enabled?'enabled':'disabled'}.`;}
-    } else if(request.type==="order") {
-      if(request.at!==this.battle.clock)message="The match advanced. Review the current situation and call again.";
-      else {const result=this.battle.issueOrder(0,request.order);message=result.accepted?"Order accepted.":result.reason??undefined;}
-    } else if(request.type==="cancel-order")this.battle.cancelOrder(0);
-    else if(request.type==="cancel-item")this.battle.cancelItemPriority(0,request.playerId);
+    } else if(request.type==="cancel-item")this.battle.cancelItemPriority(0,request.playerId);
     else if(request.type==="purchase-item")message=this.battle.prioritizeItem(0,request.playerId,request.itemId)??(request.playerId==='all'?'Item priorities saved for eligible players; each spends their own match gold.':'Item priority saved; the player must earn the gold.');
     else if(request.type==="inspect")this.targetPlayerId=request.playerId;
     return this.update(message);

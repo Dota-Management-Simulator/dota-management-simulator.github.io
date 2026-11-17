@@ -9,7 +9,7 @@ import type { BattleConfig } from "../src/battle";
 import { campaignPatch } from "../src/patches";
 import { managedPatchObserver, perceivedPatch } from "../src/patch-knowledge";
 import { heroTargetWinRate } from "../src/hero-balance";
-import { autoDraftMap, createMapDraft, draftSuggestions, automaticDraftAction, nextDraftStep } from "../src/draft";
+import { BOT_HERO_WEIGHT, autoDraftMap, createMapDraft, draftSuggestions, automaticDraftAction, nextDraftStep } from "../src/draft";
 import { BOT_TEAM, BOT_WINDOW, botChallengeBlocker, normalizeBotChallenges, prepareBotChallenge, settleBotChallenge } from "../src/bot-challenge";
 import { allStarBlocker, allStarEvent, allStarMatch, normalizeAllStars, prepareAllStar, settleAllStar } from "../src/all-star";
 import { historicalTournaments } from "../src/tournaments";
@@ -42,28 +42,31 @@ test("omniscient bots read the true patch; everyone else reads a range", () => {
   assert.equal(config.draftPreparations![1], undefined, "bots never read the challenger's preparation");
 });
 
-test("bot drafts take truly stronger heroes than a blind drafter, almost greedily", () => {
+test("bot drafts read the true axes, skip uncalibrated hero targets, and draft almost greedily", () => {
   const c = year2019();
   const patch = campaignPatch(c);
-  let bot = 0, blind = 0, greedy = 0, steps = 0;
+  const config = prepareBotChallenge(c, 1);
+  // Uncalibrated hero targets cost the bots ~20 points of wins on the current engine (docs/event-modes.md).
+  assert.equal(BOT_HERO_WEIGHT, 0);
+  const blindConfig: BattleConfig = { ...config, patchObservers: [config.patchObservers![0], { teamKey: "openai-five", staffIds: [] }] };
+  const first = (cfg: BattleConfig) => { const s = createMapDraft(cfg); return { ...s, firstPick: 1 as const }; };
+  const ranking = (cfg: BattleConfig) => draftSuggestions(cfg, first(cfg)).map(x => x.hero.id).join();
+  assert.notEqual(ranking(config), ranking(blindConfig), "true axes change the bots' read of the meta");
+  let greedy = 0, steps = 0;
   for (let i = 0; i < 12; i++) {
-    const config = prepareBotChallenge({ ...c, botChallenges: { attempts: Array(i).fill(null) as never } }, 1);
-    const blindConfig: BattleConfig = { ...config, patchObservers: [config.patchObservers![0], { teamKey: "openai-five", staffIds: [] }] };
-    const truth = (ids: string[]) => ids.reduce((n, id) => n + heroTargetWinRate(patch, id), 0) / ids.length;
-    bot += truth(autoDraftMap(config).picks[1]);
-    blind += truth(autoDraftMap(blindConfig).picks[1]);
-    let state = createMapDraft(config);
-    while (nextDraftStep(config, state)) {
-      const step = nextDraftStep(config, state)!;
-      const best = draftSuggestions(config, state)[0].hero.id;
-      const next = automaticDraftAction(config, state);
+    const cfg = prepareBotChallenge({ ...c, botChallenges: { attempts: Array(i).fill(null) as never } }, 1);
+    let state = createMapDraft(cfg);
+    while (nextDraftStep(cfg, state)) {
+      const step = nextDraftStep(cfg, state)!;
+      const best = draftSuggestions(cfg, state)[0].hero.id;
+      const next = automaticDraftAction(cfg, state);
       if (step.side === 1) { steps++; if (next.actions.at(-1)!.heroId === best) greedy++; }
       state = next;
     }
   }
-  assert.ok(bot > blind, `bot picks ${bot / 12} vs blind ${blind / 12}`);
-  // Near-ties keep some variety between attempts; the top choice still dominates.
-  assert.ok(greedy / steps > 0.75, `top suggestion taken ${greedy}/${steps}`);
+  assert.ok(patch.heroBalance!.some(h => h.priority > 0), "the patch has hero targets the bots choose to ignore");
+  // Without hero targets many heroes tie within 0.1, so variety stays; the top choice still leads.
+  assert.ok(greedy / steps > 0.55, `top suggestion taken ${greedy}/${steps}`);
 });
 
 test("a bot challenge records the result and changes nothing else", () => {

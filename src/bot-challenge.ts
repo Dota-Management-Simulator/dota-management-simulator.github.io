@@ -63,7 +63,7 @@ export function botPlayers(challengers: Pick<Player, "stats">[]): BattlePlayer[]
     energy: 100, happiness: 100, talents: automaticTalents(r,fallbackPlayerIdentity(`${BOT_TEAM_KEY}-${r + 1}`)), identity: fallbackPlayerIdentity(`${BOT_TEAM_KEY}-${r + 1}`) }));
 }
 /** The record shows early aggression and deathball pushes; TI8's losses came after leading for 20–35 minutes. */
-export const botTactics = (): TacticalPreparation => ({ slots: { early: ["mid-top", "mid-bottom", "supports-mid"], mid: ["push-1", "push-2", "push-0"], late: ["high-ground", "push-1", "push-2"] }, builds: Array(5).fill("automatic") });
+export const botTactics = (): TacticalPreparation => ({ style: "teamfight", timing: "early", builds: Array(5).fill("automatic") });
 
 export function prepareBotChallenge(c: Campaign, bestOf: 1 | 3): BattleConfig {
   const reason = botChallengeBlocker(c);
