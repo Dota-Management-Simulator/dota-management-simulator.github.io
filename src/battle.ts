@@ -1935,7 +1935,7 @@ export class LaneBattle {
   tacticalSnapshot(side: Side, targetPlayerId?: string): TacticalSnapshot {
     const phase=phaseAt(this.clock);
     return {phase,style:this.preparations[side].style,timing:this.preparations[side].timing,
-      slots:styleHighlights(this.preparations[side],phase).map(({id:strategyId})=>({strategyId,reason:this.strategyReason(side,{strategyId,targetPlayerId},'bot')})),
+      slots:styleHighlights(this.preparations[side],phase,Infinity).filter(s=>strategyUnlocked(s,this.config.players[side],this.staff(side),this.config.tacticalUnlocks?.[side])).slice(0,3).map(({id:strategyId})=>({strategyId,reason:this.strategyReason(side,{strategyId,targetPlayerId},'bot')})),
       ...(this.plays[side]?{active:structuredClone(this.plays[side])}:{}),events:this.tacticalEvents.filter(e=>e.side===side).slice(-8),
       itemTargets:this.heroes(side).filter(u=>u.itemPriority).map(u=>({playerId:u.player!.id,item:u.itemPriority!}))};
   }

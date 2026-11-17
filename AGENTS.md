@@ -14,6 +14,8 @@ Last updated: **2026-11-12**. Read this file before changing the project, then r
 
 After `npm install` (lockfile unchanged), **all 504 tests**, TypeScript and an isolated production build pass (existing chunk warning; both workers bundled). Disposable 5395 browser QA mounted the real plan screen (style/timing selection, locked-call notes, 375px single column) and live viewer (no call buttons; a real worker map finished with both teams calling to style, no console errors). Ten AI-plan maps run a median 51 min (35–57) against 57 (34–100) before. Na'Vi vs SGC favourites win 38/48 seeds (75% before), and that test's bar is now 8/12. `TACTICAL_ENGINE_VERSION` is `team-styles-v1`, so combat fingerprints change. Not balance-calibrated. No commit, push or deployment.
 
+**Follow-up fixes, November 16, 2026 (local, not published):** the plan screen and live summary ranked only a style's top calls, so a new club could see an empty phase (e.g. 2011 Teamfight/late, mid game) or locked calls listed as "lean on". Both now rank every call and show the first three the team has learned (`TacticalPreparation`, `tacticalSnapshot`). Historical upgrade levels get their own names (Dagon 2–5, Necronomicon 2–3) instead of repeating the base name in shop lists (`items.ts`). Scrims copy no longer mentions live calls. 529 tests pass; checked in the browser.
+
 ## Era scale fix and playstyle meta pull — October 30, 2026
 
 **Local, not published:** two changes.

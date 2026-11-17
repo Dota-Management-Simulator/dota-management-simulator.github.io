@@ -30,9 +30,12 @@ export const itemCatalog: MatchItem[] = [
   { id: "scepter", name: "Aghanim’s Scepter", short: "AS", cost: 4200, attack: 4, health: 80, description: "Unlocks this hero’s Scepter abilities and upgrades in this era." },
   { id: "shard", name: "Aghanim’s Shard", short: "SH", cost: 1400, attack: 0, health: 0, description: "Unlocks this hero’s Shard abilities and upgrades from the 7.28 era." },
 ];
+// Upgrade levels (item_dagon_2 …) share the base item's name in the source data.
+const levelledName=(id:string,name:string)=>{const level=/_(\d)$/.exec(id)?.[1];return level&&!name.endsWith(level)?`${name} ${level}`:name;};
 for(const item of allHistoricalItems()){
   if(itemCatalog.some(i=>historicalItemKey(i.id)===item.id))continue;
-  itemCatalog.push({id:item.id.slice(5),name:item.name,short:item.name.split(' ').map(w=>w[0]).join('').slice(0,3),cost:item.cost,attack:item.attack*.45,health:item.health*.45,speed:item.speed,spells:item.spells,evasion:Math.min(.35,item.evasion),description:'Historical shop item; scaled attributes and simplified active effects.'});
+  const name=levelledName(item.id,item.name);
+  itemCatalog.push({id:item.id.slice(5),name,short:name.split(' ').map(w=>w[0]).join('').slice(0,3),cost:item.cost,attack:item.attack*.45,health:item.health*.45,speed:item.speed,spells:item.spells,evasion:Math.min(.35,item.evasion),description:'Historical shop item; scaled attributes and simplified active effects.'});
 }
 export const itemById = (id: string) => itemCatalog.find(item => item.id === id);
 export function itemsAvailableForPatch(patch?: SeasonPatch) {

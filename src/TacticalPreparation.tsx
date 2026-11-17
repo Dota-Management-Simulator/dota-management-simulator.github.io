@@ -22,9 +22,9 @@ export default function TacticalPreparation({config,preparation,onChange,onSave}
       <strong>{timingInfo[timing].name}</strong><small>{timingInfo[timing].description}</small></label>)}</fieldset>
     <div className="tactic-phase-grid">{gamePhases.map(phase=>{
       const unlocked=(s:Strategy)=>strategyUnlocked(s,config.players[0],staff,config.tacticalUnlocks?.[0]);
-      const ranked=styleHighlights(preparation,phase,6),leans=ranked.filter(unlocked).slice(0,3);
+      const ranked=styleHighlights(preparation,phase,Infinity),leans=ranked.filter(unlocked).slice(0,3);
       const locked=ranked.slice(0,3).filter(s=>!unlocked(s));
-      return <section key={phase}><h4>{phaseLabels[phase]}</h4><small>Players lean on</small><ul>{leans.map(s=><li key={s.id}>{s.name}</li>)}</ul>
+      return <section key={phase}><h4>{phaseLabels[phase]}</h4><small>Players lean on</small>{leans.length?<ul>{leans.map(s=><li key={s.id}>{s.name}</li>)}</ul>:<small>No learned calls for this phase yet.</small>}
         {locked.map(s=><small key={s.id} className="tactic-warning">Not learned yet: {s.name}. {unlockDescription(s)}.</small>)}</section>;
     })}</div>
     <label className="glyph-preference"><input type="checkbox" checked={preparation.autoGlyph!==false} onChange={e=>onChange({...preparation,autoGlyph:e.target.checked})}/> Auto Glyph · protect low-health buildings under attack</label>

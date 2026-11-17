@@ -253,3 +253,17 @@ test("live all-player item priorities use the same eligible own-team targets",()
   assert.equal(session.battle.issueOrder(0,{strategyId:'buy-bkb',targetPlayerId:'all'},'bot').accepted,true);
   assert.equal(session.update().tactics.itemTargets.length,5);
 });
+
+test("live call summary lists only calls the team has learned, even when a style's favourites are locked", () => {
+  const base=config();
+  const players=base.players.map(team=>team.map(p=>({...p,skills:Object.fromEntries(Object.keys(p.skills).map(k=>[k,30]))}))) as BattleConfig["players"];
+  const prep={...defaultTactics(),style:"teamfight" as const,timing:"late" as const};
+  const battle=new LaneBattle({...base,players,patchObservers:[{teamKey:"none",staffIds:[]},{teamKey:"none",staffIds:[]}],tacticalPreparations:[prep,prep]});
+  while(phaseAt(battle.clock)!=="mid")battle.step();
+  assert.equal(phaseAt(20*60),"mid");
+  const favourites=styleHighlights(prep,"mid");
+  assert.ok(favourites.some(s=>!strategyUnlocked(s,players[0],[],[])),"fixture needs a locked favourite");
+  const slots=battle.tacticalSnapshot(0).slots.map(s=>strategyById(s.strategyId)!);
+  assert.ok(slots.length>0);
+  for(const s of slots)assert.equal(strategyUnlocked(s,players[0],[],[]),true,s.id);
+});

@@ -61,7 +61,7 @@ export default function ScrimOffice({ campaign, onChange, onBusy, onCalendar }: 
   const blocker = scrimSlotBlocker(campaign, opponent, iso, bestOf);
   const focusSelect = <label>Practice focus<select value={focus} onChange={e => setFocus(e.target.value as ScrimFocus)}>{Object.entries(scrimFocuses).map(([id, f]) => <option key={id} value={id}>{f.name}</option>)}</select></label>;
   return <div className="scrim-office">
-    <section className="panel scrim-intro"><div className="section-title"><div><h2><FlaskConical size={22} /> Practice with a purpose</h2><p>Test drafts, live calls and item builds against another club.</p></div><button className="text-link" onClick={onCalendar}>Season calendar →</button></div>
+    <section className="panel scrim-intro"><div className="section-title"><div><h2><FlaskConical size={22} /> Practice with a purpose</h2><p>Test drafts, game plans and item builds against another club.</p></div><button className="text-link" onClick={onCalendar}>Season calendar →</button></div>
       <p>Each played map costs 5 energy and gives small focus and Confidence gains to the participants. Debriefs slowly narrow your current-patch estimates for heroes on both teams. Two observations let your coach consider a hero; 24 reach a four-point read. A scrim win is evidence from practice, never a guaranteed ranking.</p>
       <p className="field-note">One session per 24 hours. Book up to 28 days ahead; UTC times reserve {scrimHours(bestOf)} hours for BO{bestOf}. BO2 always plays two maps and can end 1–1. Private results stay outside career statistics, tournament form, standings and prize money. Weekly training and payroll continue normally.</p>
     </section>
