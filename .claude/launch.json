@@ -53,6 +53,19 @@
         "--strictPort"
       ],
       "port": 5371
+    },
+    {
+      "name": "aegis-styles-qa",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": [
+        "vite",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "5395",
+        "--strictPort"
+      ],
+      "port": 5395
     }
   ]
 }
