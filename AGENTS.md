@@ -20,7 +20,15 @@ After `npm install` (lockfile unchanged), **all 504 tests**, TypeScript and an i
 
 Kills were 16-17 per map because a caught hero took about 30 game seconds to kill: hero HP is full Dota scale, but `spellEffects` scales spell damage x0.42 and hero attacks land every 4-5 game seconds. `LaneBattle.damage` now multiplies spell damage by `HERO_SPELL_DAMAGE` (1/.42) when a hero or summon hits an enemy hero. Creeps, buildings, allies and attacks are unchanged (`tests/spell-burst.test.ts`).
 Probe, 12 maps per era, same seeds: kills per map 16/16/17 -> 27/25/31 (2011/2016/2024). Game length did not move reliably (12-map medians swing by about 9 minutes from tiny changes).
-Open, not fixed: (1) some maps run past 120 minutes because the winning side cannot finish the Ancient after every enemy tower and barracks is gone; (2) heroes hit level 25 by about 50 minutes; (3) `revealedUntil` is set on attack but never read.
+Follow-up, November 17, 2026 (local, not committed when written):
+- `scripts/audit-pacing.ts` measures kills, length, levels and how long the winner takes to finish after the loser's first and last barracks fall. Fixed seeds; use 30+ maps per era (`--src` compares another copy of src with the same seeds). 90 maps take about 1.5 minutes with 10 workers.
+- High-ground pushes carry on to the next barracks, Tier 4 or Ancient while the group holds the numbers instead of ending at the first building, and high ground counts as open once any lane's outer three towers fall (it required every tower).
+- Fight reads (`fightPower`) add ready spell damage, ready stuns and armed towers in reach to the Lanchester read.
+- `XP_RATE` .7: average level 9-10 at 10 minutes and 18-20 at 30 (was 11-12 and 22-23); all ten heroes reach 25 at 53-58 minutes (was 41-47).
+- `spellEffects` reads named disable durations (bolt_stun_duration, hero_stun_duration, sleep_duration, lift_duration ...): abilities with a disable went from 32/34/43 to 45/47/69 in 2011/2016/2024. Random or range-scaled stuns count at their midpoint. Impales and Nightmare use `duration`.
+- Heals and shields keep full value (were x.6 and x.5); attacking heroes stay visible to enemies until their next attack, because attack range (x.22) can exceed hero sight (/20).
+- 60 maps per era, committed engine vs this: median length 49.5-50 vs 49.6-52 minutes, maps over 90 minutes 6 vs 7, kills per map 22-25 vs 24-27. Game length and long-tail stalls are unchanged.
+Still open: (1) from the loser's first barracks to the end takes a median 15-20 minutes; the winner has no push call running about 60% of that time. Retreat tweaks, faster re-calls and ignoring fight reads during base pushes all measured as noise. (2) Respawn is `6 + level*2` sim seconds, which is 336 game seconds at level 25 (Dota is about 100). (3) Hero attacks land every 4-5 game seconds against Dota's ~1.5; creeps and towers use the same slow clock.
 
 ## Era scale fix and playstyle meta pull — October 30, 2026
 

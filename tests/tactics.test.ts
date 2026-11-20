@@ -163,7 +163,7 @@ test("active BKB reduces actual spell damage and stuns rather than adding a hidd
 test("Rapier drops at the death position and can become an opponent's real inventory item",()=>{
   const battle=new LaneBattle(config()),all=heroes(battle),victim=all[0],enemy=all[5];
   for(const u of all)if(u!==victim&&u!==enemy){u.dead=true;u.respawn=999;}
-  victim.inventory=["rapier"];victim.hp=1;victim.x=400;victim.y=400;victim.cd=999;victim.abilityCd=999;
+  victim.inventory=["rapier"];victim.hp=1;victim.x=400;victim.y=400;victim.cd=999;victim.abilityCd=999;victim.silenceUntil=999; // no last-second spells
   enemy.x=405;enemy.y=400;enemy.damage=10000;enemy.range=300;enemy.cd=0;enemy.abilityCd=999;
   ticks(battle,2);
   assert.ok(victim.dead);assert.ok(!victim.inventory.includes("rapier"));

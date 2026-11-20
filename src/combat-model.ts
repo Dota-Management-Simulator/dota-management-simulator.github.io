@@ -98,14 +98,31 @@ export interface SpellState {
 }
 export interface SpellCast { seenBy?: (0|1)[]; time: number; playerId: string; heroId: string; team: 0 | 1; abilityId: string; targetId?: number }
 
-/** Source facts drive bounded effects in the small lane engine. Values are
- * scaled to its HP/map; cooldown and mana stay in Dota clock units. */
+/** Most disables store their length under a named property (bolt_stun_duration,
+ * hero_stun_duration, sleep_duration, lift_duration, fear_duration ...) rather than
+ * the plain stun field. Radii, ranges, minimums and creep-only values are skipped. */
+const DISABLE_KEY=/(^|_)(stun|stunned|ministun|sleep|lift|fear|taunt)(_|$)/;
+const NOT_DISABLE=/radius|range|penalty|threshold|min|creep|vision|damage|chance|interval|speed|pct|percent/;
+function disableDuration(a: AbilityDefinition, rank: number) {
+  let longest=0;
+  for(const [key,values] of Object.entries(a.properties??{}))if(DISABLE_KEY.test(key)&&!NOT_DISABLE.test(key)){
+    // Random or distance-scaled stuns (Chaos Bolt, Sacred Arrow) count at their midpoint.
+    const low=a.properties?.[key.replace('max','min')];
+    const value=rankValue(values,rank);longest=Math.max(longest,key.includes('max')&&low?(value+rankValue(low,rank))/2:value);
+  }
+  return longest;
+}
+
+/** Source facts drive bounded effects in the small lane engine. Damage and range are
+ * scaled to its map; heals, shields, cooldown and mana stay in Dota units. */
 export function spellEffects(a: AbilityDefinition, rank: number) {
   return { damage: Math.max(0,rankValue(a.damage,rank))*.42,
-    heal: Math.max(0,rankValue(a.heal,rank))*.6,
-    control: Math.min(5,Math.max(0,rankValue(a.stun,rank),special(a,rank,'sheep_duration','hex_duration'),/^(lion_voodoo|shadow_shaman_voodoo)$/.test(a.id)?rankValue(a.duration,rank):0)),
+    // Heals and shields only land on heroes, whose health is full Dota scale, so
+    // they keep full value (spell damage to heroes is restored in battle.ts).
+    heal: Math.max(0,rankValue(a.heal,rank)),
+    control: Math.min(5,Math.max(0,rankValue(a.stun,rank),special(a,rank,'sheep_duration','hex_duration'),disableDuration(a,rank),/^(lion_voodoo|shadow_shaman_voodoo|bane_nightmare|lion_impale|nyx_assassin_impale)$/.test(a.id)?rankValue(a.duration,rank):0)),
     slow: Math.min(.65,Math.abs(rankValue(a.slow,rank))/100),
-    shield: Math.max(0,rankValue(a.shield,rank))*.5,
+    shield: Math.max(0,rankValue(a.shield,rank)),
     duration: Math.min(30,Math.max(1,rankValue(a.duration,rank)||5)),
     range: Math.min(600,Math.max(80,rankValue(a.range,rank)*.22)),
     manaBurn: special(a,rank,'mana_per_hit','mana_burn','mana_burned','mana_per_second','feedback_mana_burn'),

@@ -29,3 +29,55 @@ test("spells hit enemy heroes at full Dota damage; attacks, creeps and allies ar
   creep.hp=1e6;battle.damage(caster,creep,100,false);
   assert.ok(Math.abs(creepSpell/(1e6-creep.hp)-1)<1e-9,"spells against creeps keep the small-map scale");
 });
+
+test("fight reads count ready spells and nearby towers, not just attacks", () => {
+  const battle=new LaneBattle(config()) as any;
+  for(let i=0;i<300;i++)battle.step(); // levels so spells are learned
+  const side=battle.units.filter((u:any)=>u.kind==="hero"&&u.team===0);
+  for(const u of side){u.mana=u.maxMana=1e4;u.silenceUntil=0;u.stun=0;u.threat=undefined;for(const s of u.spells)s.readyAt=0;}
+  const ready=battle.fightPower(side);
+  for(const u of side){u.threat=undefined;for(const s of u.spells)s.readyAt=1e9;}
+  const cooling=battle.fightPower(side);
+  assert.ok(ready>cooling*1.05,`ready spells ${ready} should outweigh spells on cooldown ${cooling}`);
+  const tower=battle.units.find((u:any)=>u.kind==="tower"&&u.team===0&&!u.dead);
+  assert.ok(battle.fightPower(side,[tower])>cooling,"a tower in reach adds to the read");
+});
+
+test("a high-ground push carries on to the next building instead of going home", () => {
+  const battle=new LaneBattle(config()) as any;
+  for(let i=0;i<5;i++)battle.step();
+  const rax=battle.units.filter((u:any)=>u.kind==="barracks"&&u.team===1&&u.lane===1);
+  assert.equal(rax.length,2);
+  for(const t of battle.units.filter((u:any)=>u.kind==="tower"&&u.team===1&&u.lane===1&&(u.tier??1)<=3)){t.dead=true;t.hp=0;}
+  const heroes=battle.units.filter((u:any)=>u.kind==="hero"&&u.team===0);
+  battle.plays[0]={id:99,strategyId:"high-ground",side:0,source:"bot",participants:heroes.map((u:any)=>u.id),targetLane:1,targetUnit:rax[0].id,
+    stage:"engaging",startedAt:battle.clock,expiresAt:battle.clock+300,baselineInvolvement:0,rally:{x:heroes[0].x,y:heroes[0].y}};
+  rax[0].dead=true;rax[0].hp=0;
+  battle.updatePlans();
+  assert.equal(battle.plays[0]?.targetUnit,rax[1].id,"the push moves on to the second barracks");
+});
+
+test("named stun, sleep and lift durations count as disables", async () => {
+  const { combatCatalogue, spellEffects } = await import("../src/combat-model");
+  const { patchForSeason } = await import("../src/patches");
+  const abilities = combatCatalogue(patchForSeason(2016, 1))!.abilities;
+  const control = (id: string, rank: number) => spellEffects(abilities[id], rank).control;
+  assert.equal(control("sven_storm_bolt", 1), 2);
+  assert.equal(control("magnataur_reverse_polarity", 3), 3.75);
+  assert.equal(control("lion_impale", 4), 2.6);
+  assert.equal(control("chaos_knight_chaos_bolt", 4), 3, "random stuns count at their midpoint");
+  assert.ok(control("elder_titan_echo_stomp", 2) > 0 && control("invoker_tornado", 1) > 0);
+  assert.equal(control("rattletrap_hookshot", 1), 0, "a stun radius is not a duration");
+});
+
+test("a hero that attacks stays visible to its enemies until its next attack", () => {
+  const battle=new LaneBattle(config()) as any;
+  battle.step();
+  const attacker=battle.units.find((u:any)=>u.kind==="hero"&&u.team===0);
+  attacker.revealedUntil=0;
+  const far=battle.units.find((u:any)=>u.kind==="hero"&&u.team===1);
+  attacker.x=far.x+3000;attacker.y=far.y+3000;battle.unitSightTime=-1;battle.sightCache=[undefined,undefined];
+  assert.equal(battle.canSeeUnit(1,attacker),false,"out of sight before attacking");
+  attacker.revealedUntil=battle.clock+5;battle.unitSightTime=-1;
+  assert.equal(battle.canSeeUnit(1,attacker),true,"revealed while attacking");
+});

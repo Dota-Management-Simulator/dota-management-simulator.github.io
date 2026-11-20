@@ -257,6 +257,11 @@ const GAME_CLOCK = 6;
 const DT = 0.2;
 /** Undoes spellEffects' ×.42 small-map scale for spells hitting enemy heroes. */
 const HERO_SPELL_DAMAGE = 1 / .42;
+/** Game seconds a fight read looks ahead when weighing ready spells and stuns. */
+const FIGHT_READ_SECONDS = 24;
+/** Heroes levelled too fast (all ten at 25 by about 45 minutes). At .7 the 80-per-level
+ * curve needs about 34k XP for level 25 and 5k for level 10, near Dota's 6.7x table. */
+const XP_RATE = .7;
 const limit = (v: number, min: number, max: number) =>
   Math.min(max, Math.max(min, v));
 export function seededRandom(seed: number) {
@@ -343,6 +348,8 @@ interface Unit {
   range: number;
   rate: number;
   speed: number;
+  /** Ready spell damage and stun seconds, cached per sim second for fight reads. */
+  threat?: { at: number; damage: number; control: number };
   cd: number;
   stun: number;
   dead: boolean;
@@ -733,10 +740,10 @@ export class LaneBattle {
   private readFight(u: Unit, enemies: Unit[], partners: Unit[], reach: number) {
     const foes = enemies.filter(e => e.kind === 'hero' && !e.dead);
     if (!foes.length) return undefined;
-    // Lanchester square law: total health times total damage output.
-    const power = (side: Unit[]) => side.reduce((n, a) => n + a.hp, 0) * side.reduce((n, a) => n + a.damage * (100 + a.agility) / (100 * a.rate), 0);
     const judgement = (this.skill(u, 'intuition') + this.skill(u, 'skirmish')) / 2;
-    const read = perceivedFightRatio(power(partners) / Math.max(1, power(foes)), judgement,
+    if (this.armedStructures?.at !== this.time) this.armedStructures = { at: this.time, units: this.units.filter(t => !t.dead && (t.kind === 'tower' || t.kind === 'base') && t.damage > 0) };
+    const near = (team: Side) => this.armedStructures!.units.filter(t => t.team === team && !t.dead && distance(t, u) <= t.range + 20);
+    const read = perceivedFightRatio(this.fightPower(partners, near(u.team)) / Math.max(1, this.fightPower(foes, near((1 - u.team) as Side))), judgement,
       controllerRoll(this.config.seed, u.player!.id, Math.floor(this.clock / 6), 'fight-read'));
     if (read < .7) { u.retreat = true; u.regroupUntil = this.clock + 12; return undefined; }
     const inReach = foes.filter(e => distance(e, u) <= reach);
@@ -745,6 +752,34 @@ export class LaneBattle {
     return this.goodDecision(u, 'skirmish', 'focus-target')
       ? inReach.sort((a, b) => a.hp - b.hp)[0]
       : inReach.sort((a, b) => distance(a, u) - distance(b, u))[0];
+  }
+  /** Lanchester square law: total hero health times total damage output. Output
+   * counts attacks, ready spell damage and stuns spread over a short fight, and
+   * the towers that can reach the read. */
+  private armedStructures?: { at: number; units: Unit[] };
+  private fightPower(side: Unit[], towers: Unit[] = []) {
+    const horizon = FIGHT_READ_SECONDS / GAME_CLOCK;
+    const attack = side.reduce((n, a) => n + a.damage * (100 + a.agility) / (100 * a.rate), 0);
+    let spells = 0, control = 0;
+    for (const a of side) { const t = this.readyThreat(a); spells += t.damage * HERO_SPELL_DAMAGE; control += t.control / GAME_CLOCK; }
+    // A disabled enemy is free damage for the rest of the team for that long.
+    const lock = attack * Math.min(1, control / horizon) * .5;
+    const structures = towers.reduce((n, t) => n + t.damage / t.rate, 0);
+    return side.reduce((n, a) => n + a.hp, 0) * (attack + spells / horizon + lock + structures);
+  }
+  private readyThreat(u: Unit) {
+    const now = this.time * GAME_CLOCK, at = Math.floor(this.time); // refresh each sim second (6 game seconds)
+    if (u.threat?.at === at) return u.threat;
+    let damage = 0, control = 0, mana = u.mana;
+    if (u.hero && u.silenceUntil <= this.clock && u.stun <= 0) for (const state of u.spells) {
+      if (state.definition.passive || state.readyAt > now) continue;
+      const s = this.spellState(u, state); if (s.locked || s.passive || s.manaCost > mana) continue;
+      const upgrades = u.purchasedItems.includes('shard') ? [...u.inventory, 'shard'] : u.inventory;
+      const a = adjustedAbility(state.definition, u.hero.id, u.level, u.player?.talents, upgrades, this.patch), e = spellEffects(a, s.rank);
+      if (a.ally || e.heal > 0 || e.shield > 0) continue;
+      damage += a.damageOverTime ? e.damage * e.duration : e.damage; control += e.control; mana -= s.manaCost;
+    }
+    return u.threat = { at, damage, control };
   }
   private readySpellDecision(u: Unit) {
     if (this.config.playerControl !== 1) return true;
@@ -1046,7 +1081,7 @@ export class LaneBattle {
   }
   private gainXp(u: Unit, value: number) {
     if (!u.player) return;
-    const gain = value * 2.2 * (this.config.playerControl === 1 ? 1 : 0.8 + this.skill(u,'farming',70) / 350) * axisFactor(this.patch, "economy", 0.18) * this.talents(u).resources * this.personal(u).xp;
+    const gain = value * 2.2 * XP_RATE * (this.config.playerControl === 1 ? 1 : 0.8 + this.skill(u,'farming',70) / 350) * axisFactor(this.patch, "economy", 0.18) * this.talents(u).resources * this.personal(u).xp;
     u.experience += gain;
     u.totalXp += gain;
     while (u.level < 25 && u.experience >= 80 * u.level) {
@@ -1254,7 +1289,9 @@ export class LaneBattle {
     const frenzy=blood?special(blood.definition,abilityRank(blood.definition,u.level,blood.slot),'maximum_attack_speed')*(1-u.hp/u.max)*.5:0;
     u.cd = (u.rate * 100) / (100 + u.agility+frenzy+(boosted?u.attackBoostSpeed:0)+u.inventory.reduce((n,id)=>n+(this.item(id).attackSpeed??0),0)) / (u.attackSlowUntil>this.clock?1-u.attackSlow:1);
     if (this.rules.enabled) {
-      if (u.kind === 'hero') { u.revealedUntil = this.clock + 3; this.sightCache[(1 - u.team) as Side] = undefined; }
+      // Dota attack ranges sit inside hero vision; here range (x.22) can exceed sight (/20),
+      // so an attacking hero stays visible to its enemies until its next attack.
+      if (u.kind === 'hero') { u.revealedUntil = this.clock + u.cd * GAME_CLOCK + 1; this.sightCache[(1 - u.team) as Side] = undefined; this.unitSightTime = -1; }
       const ranged = u.hero?.ranged || u.formUntil>this.clock || u.creepType === 'ranged' || u.creepType === 'siege' || u.summonOwner!=null;
       if (ranged && terrainHeight(this.mapEra, u.x, u.y) < terrainHeight(this.mapEra, target.x, target.y) && this.random() < this.rules.uphillMiss) return;
     }
@@ -1530,6 +1567,7 @@ export class LaneBattle {
   private canSeeUnit(side:Side,u:Unit){
     if(this.unitSightTime!==this.time){this.unitSightTime=this.time;this.unitSight=[new Map(),new Map()];this.cachedSources=[this.visionSources(0),this.visionSources(1)];}
     const cached=this.unitSight[side].get(u.id);if(cached!==undefined)return cached;
+    if(u.team!==side&&u.kind==='hero'&&u.revealedUntil>this.clock){this.unitSight[side].set(u.id,true);return true;}
     const point=this.mapEra&&(u.kind==='tower'||u.kind==='base'||u.kind==='barracks')?nearestWalkablePoint(this.mapEra,u.x,u.y,24)??u:u;
     const visible=this.cachedSources[side].some(a=>distance(a,point)<=a.radius&&(!this.rules.enabled||hasMapLineOfSight(this.mapEra!,a,point,a.radius)));
     this.unitSight[side].set(u.id,visible);return visible;
@@ -1782,7 +1820,7 @@ export class LaneBattle {
       lane = [0,1,2].sort((a,b) => seen.filter(e=>e.homeLane===a).length - seen.filter(e=>e.homeLane===b).length)[0];
     }
     if(strategy.id==="defend-together")lane=[0,1,2].sort((a,b)=>this.lanePressure(side,b)-this.lanePressure(side,a))[0];
-    if (strategy.id === "high-ground") lane = [0,1,2].sort((a,b) => this.units.filter(u=>u.team!==side&&u.kind==="tower"&&!u.dead&&u.lane===a).length-this.units.filter(u=>u.team!==side&&u.kind==="tower"&&!u.dead&&u.lane===b).length)[0];
+    if (strategy.id === "high-ground") { const standing=(l:number)=>this.units.filter(u=>u.team!==side&&(u.kind==="tower"&&(u.tier??1)<=3||u.kind==="barracks")&&!u.dead&&u.lane===l).length; lane = [0,1,2].sort((a,b) => standing(a)-standing(b))[0]; }
     const target = strategy.kind==='push'?this.nextPushTarget(side,lane)
       :strategy.kind==='defend'||strategy.kind==='disengage'?this.units.filter(u=>u.team===side&&u.kind==='tower'&&u.lane===lane&&!u.dead).sort((a,b)=>distance(b,{x:this.bases[side][0],y:this.bases[side][1]})-distance(a,{x:this.bases[side][0],y:this.bases[side][1]}))[0]??this.units.find(u=>u.team===side&&u.kind==='base'):undefined;
     const lead = members.find(u=>u.player!.role===2) ?? members[0];
@@ -1827,7 +1865,14 @@ export class LaneBattle {
         const members = this.heroes(side).filter(u=>play.participants.includes(u.id));
         const available=members.filter(u=>!u.dead&&(strategy.kind==="disengage"||!u.retreat));
         const target=this.units.find(u=>u.id===play.targetUnit);
-        if (strategy.kind==="push"&&target?.dead) this.endPlay(side,true,"Target building destroyed. Players resume their lanes.");
+        const next=strategy.kind==="push"&&target?.dead?this.nextPushTarget(side,play.targetLane):undefined;
+        // High ground, or any push already inside the base, carries on to the next
+        // building while the group still holds the numbers, as the call promises.
+        if (next&&(strategy.id==="high-ground"||next.kind!=="tower"||next.tier===4)&&available.length>=3&&available.length>=this.heroes((1-side) as Side).filter(e=>!e.dead).length) {
+          play.targetUnit=next.id;play.expiresAt=Math.max(play.expiresAt,this.clock+120);
+          this.logPlay(side,play.strategyId,"moving",`Building destroyed. Pressing on to the ${next.kind==="base"?"Ancient":next.kind==="barracks"?"barracks":"next tower"}.`);
+        }
+        else if (strategy.kind==="push"&&target?.dead) this.endPlay(side,true,"Target building destroyed. Players resume their lanes.");
         else if (strategy.kind==="gank"&&members.reduce((n,u)=>n+u.kills+u.assists,0)>play.baselineInvolvement) this.endPlay(side,true,"The rotation contributed to a hero kill. Players return to normal duties.");
         else if (strategy.kind==="protect"&&this.heroes(side).some(u=>u.player!.role===0&&u.dead)) this.endPlay(side,false,"Carry died; the escort has ended.");
         else if (available.length < Math.ceil(members.length*.6)) this.endPlay(side,false,"Too many participants died or needed to retreat. Regrouping.");
@@ -1846,7 +1891,8 @@ export class LaneBattle {
       const choices=strategies.filter(s=>s.phases.includes(phase)&&strategyUnlocked(s,this.config.players[side],this.staff(side),this.config.tacticalUnlocks?.[side]));
       const healthy=this.heroes(side).filter(u=>!u.dead&&!u.retreat&&u.hp>u.max*.65);
       const seen=this.visibleEnemies(side);
-      const exposed = this.rules.enabled && !this.units.some(u=>u.team!==side&&u.kind==='tower'&&!u.dead);
+      // High ground is open once any lane's outer three towers are down.
+      const exposed = this.rules.enabled && [0,1,2].some(lane=>!this.units.some(u=>u.team!==side&&u.kind==='tower'&&!u.dead&&u.lane===lane&&(u.tier??1)<=3));
       const ranked=choices.map(s=>({s,weight:s.id==='high-ground'&&exposed&&healthy.length>=3?10:s.kind==="item"?1:s.kind==="roshan"?healthy.length===5&&!seen.some(e=>distance(e,this.roshan)<220)?7:0:s.kind==="gank"?seen.some(e=>e.homeLane===(s.lane??1))?5:1:s.kind==="protect"?seen.some(e=>this.heroes(side).some(u=>u.player!.role===0&&distance(e,u)<250))?7:1
         :s.kind==="defend"?seen.some(e=>this.units.some(t=>t.team===side&&t.kind==="tower"&&!t.dead&&(s.lane==null||t.lane===s.lane)&&distance(e,t)<260))?6:0
         :s.kind==="disengage"?seen.length>healthy.length+1?6:0
